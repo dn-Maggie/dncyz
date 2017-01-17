@@ -1,0 +1,319 @@
+package com.dongnao.workbench.common.controller;
+
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.dongnao.workbench.basic.model.UserInfo;
+import com.dongnao.workbench.basic.service.UserInfoService;
+import com.dongnao.workbench.common.Constant;
+import com.dongnao.workbench.common.bean.ResultMessage;
+import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.common.util.DateUtil;
+import com.dongnao.workbench.common.util.MD5Encryption;
+import com.dongnao.workbench.common.util.StringUtil;
+import com.dongnao.workbench.common.util.Utils;
+import com.dongnao.workbench.system.model.Module;
+import com.dongnao.workbench.system.service.ModuleService;
+
+
+/**
+ * 描述：首页模块controller类，负责页面分发与跳转
+ * 
+ * @author zhou.zheng
+ * @version 1.0 2016-03-06
+ */
+
+@Controller
+@RequestMapping("/")
+public class MainController {
+
+	private UserInfoService userInfoService;
+	/**
+	 * 设置service
+	 * 
+	 * @param userInfoService
+	 *            UserService
+	 */
+	@Autowired
+	public void setUserInfoService(UserInfoService userInfoService) {
+		this.userInfoService = userInfoService;
+	}
+
+	private ModuleService moduleService;
+
+	/**
+	 * 设置service
+	 * 
+	 * @param moduleService
+	 *            ModuleService
+	 */
+	@Autowired
+	public void setModuleService(ModuleService moduleService) {
+		this.moduleService = moduleService;
+	}
+
+	/**
+	 * 进入首页页面
+	 * 
+	 * @param request
+	 *            HttpServletRequest
+	 * @return ModelAndView 返回到首页页面
+	 */
+	@RequestMapping("/index")
+	public ModelAndView toMain(HttpServletRequest request) {
+		UserInfo user = Utils.getLoginUserInfo(request);
+		List<Module> menus = null;
+		//String userType = null;
+		// boolean isAdmin = false;
+		if (user.getUserAccount().equals("admin")) {// 超级管理员
+			menus = moduleService.getMenuListForAdmin();
+			// isAdmin = true;
+			//userType = "webAdmin";
+		} else {
+			// isAdmin = false;
+			//userType = user.getUserType();
+			menus = moduleService.getMenuListByPcode(Utils.getLoginUserInfo(
+					request).getId());
+		}
+		//UserInfo userInfo=new UserInfo();
+		//userInfo.setUserAccount("admin");
+		//userInfo.setUserId("1");
+		//userInfo.setFullName("admin");
+		//userInfo.setMbPhone("18008444102");
+		//request.getSession().setAttribute(Constant.LOGIN_USER_KEY, userInfo);
+		ModelAndView m = new ModelAndView("WEB-INF/jsp/common/adminMain");
+		Map<String, Object> map = m.getModel();
+		map.put("menus", menus);
+		//map.put("userType", userType);
+		return m;
+	}
+	
+	/**
+	 * 进入首页页面
+	 * 
+	 * @param request
+	 *            HttpServletRequest
+	 * @return ModelAndView 返回到首页页面
+	 */
+	@RequestMapping("/adminHomePage")
+	public ModelAndView adminHomePage(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/common/adminHomePage");
+		Map<String,Object> model = new HashMap<String,Object>();
+		Calendar calendar = Calendar.getInstance();
+		
+		
+		mv.addObject("model", model);
+		
+		
+		return mv;
+	}
+
+	/**
+	 * 登录处理
+	 * 
+	 * @param request
+	 *            HttpServletRequest
+	 * @return ModelAndView 登陆页面
+	 */
+	@RequestMapping("/login")
+	public ModelAndView login(HttpServletRequest request) {
+		String userName = StringUtils.defaultIfEmpty(
+				request.getParameter("userName"), StringUtils.EMPTY);
+		String password = StringUtils.defaultIfEmpty(
+				request.getParameter("password"), StringUtils.EMPTY);
+		// 根据用户SID获取用户实体
+		UserInfo userInfo = userInfoService.getByUserAccount(userName);
+		// 判断用户密码和加密后输入密码是否一致
+		if (userInfo == null || password == null || "".equals(password)) {
+			return new ModelAndView("jsp/common/login", "message",
+					Utils.getI18n("user.password.mistake", null));
+		}
+		boolean b = userInfo.getPassword().equals(MD5Encryption.MD5(password));
+		// 如果一致则跳转主页否则跳转至登陆页
+		if (!b) {
+			// 密码错误跳转登陆页面，并返回提示
+			return new ModelAndView("jsp/common/login", "message",
+					Utils.getI18n("user.password.mistake", null));
+		}
+		if ((userInfo.getEnableStateDate() != null && DateUtil.now().compareTo(
+				userInfo.getEnableStateDate()) == -1)
+				|| (userInfo.getEnableEndDate() != null && DateUtil.parseDate(
+						DateUtil.now(), Constant.DATETIME_FORMAT).compareTo(
+						DateUtil.parseDate(userInfo.getEnableEndDate(),
+								Constant.DATE_FORMAT) + " 23:59:59") == 1)) {
+			// 开通开始时间大于NOW获取结束时间小于NOW，则图示
+			return new ModelAndView("jsp/common/login", "message",
+					Utils.getI18n("user.overdue", null));
+		}
+		// 登陆成功将用户信息放入session中
+		request.getSession().setAttribute(Constant.LOGIN_USER_KEY, userInfo);
+		userInfo.setLastLoginIp(Utils.getRemortIP(request));
+		userInfo.setLastLoginTime(DateUtil.nowSqlTimestamp());
+		userInfoService.updateLastLoginInfo(userInfo);
+		return new ModelAndView("redirect:/index.do");
+
+	}
+
+	/**
+	 * 跳转到登录页面
+	 * 
+	 * @param request
+	 *            HttpServletRequest
+	 * @return ModelAndView 登陆页面
+	 */
+	@RequestMapping("/tologin")
+	public ModelAndView tologin(HttpServletRequest request) {
+		return new ModelAndView("WEB-INF/jsp/common/login");
+
+	}
+
+	/**
+	 * app登录处理
+	 * 
+	 * @param request
+	 *            HttpServletRequest
+	 * @return ModelAndView 登陆页面
+	 */
+	@RequestMapping("/appLogin")
+	public void applogin(HttpServletRequest request,
+			HttpServletResponse response) {
+		String userName = StringUtils.defaultIfEmpty(
+				request.getParameter("userName"), StringUtils.EMPTY);
+		String password = StringUtils.defaultIfEmpty(
+				request.getParameter("password"), StringUtils.EMPTY);
+		// 根据用户SID获取用户实体
+		UserInfo userInfo = userInfoService.getByUserAccount(userName);
+		ResultMessage rm = new ResultMessage();
+		// 判断用户密码和加密后输入密码是否一致
+		if (userInfo == null || password == null || "".equals(password)) {
+			rm.setStatus(0);
+			rm.setMessage(Utils.getI18n("user.password.mistake", null));
+			AjaxUtils.sendAjaxForObjectStr(response, rm);
+			return;
+		}
+		password = MD5Encryption.MD5(password);
+		boolean b = userInfo.getPassword().equals(password);
+		// 如果一致则跳转主页否则跳转至登陆页
+		if (!b) {
+			// 密码错误跳转登陆页面，并返回提示
+			rm.setStatus(0);
+			rm.setMessage(Utils.getI18n("user.password.mistake", null));
+			AjaxUtils.sendAjaxForObjectStr(response, rm);
+			return;
+		}
+		if ((userInfo.getEnableStateDate() != null && DateUtil.now().compareTo(
+				userInfo.getEnableStateDate()) == -1)
+				|| (userInfo.getEnableEndDate() != null && DateUtil.parseDate(
+						DateUtil.now(), Constant.DATETIME_FORMAT).compareTo(
+						DateUtil.parseDate(userInfo.getEnableEndDate(),
+								Constant.DATE_FORMAT) + " 23:59:59") == 1)) {
+			// 开通开始时间大于NOW获取结束时间小于NOW，则图示
+			rm.setStatus(0);
+			rm.setMessage(Utils.getI18n("user.overdue", null));
+			AjaxUtils.sendAjaxForObjectStr(response, rm);
+			return;
+		}
+
+		// 登陆成功将用户信息放入session中
+		request.getSession().setAttribute(Constant.LOGIN_USER_KEY, userInfo);
+		userInfo.setLastLoginIp(Utils.getRemortIP(request));
+		userInfo.setLastLoginTime(DateUtil.nowSqlTimestamp());
+	//	userInfoService.updateLastLoginInfo(userInfo);
+		rm.setData(userInfo);
+		rm.setJsessionid(request.getSession().getId());
+		AjaxUtils.sendAjaxForObjectStr(response, rm);
+	}
+
+	/**
+	 * 登出操作请求的页面
+	 * 
+	 * @param request
+	 *            HttpServletRequest
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/logout")
+	public ModelAndView logout(HttpServletRequest request) {
+		request.getSession().removeAttribute(Constant.LOGIN_USER_KEY);
+		return new ModelAndView("WEB-INF/jsp/common/login");
+	}
+
+	/**
+	 * 登出操作请求的页面
+	 * 
+	 * @param request
+	 *            HttpServletRequest
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/getLocationStr")
+	public void getLocationStr(HttpServletRequest request,
+			HttpServletResponse response) {
+		String urlStr = StringUtils.defaultIfEmpty(
+				request.getParameter("urlStr"), StringUtils.EMPTY);
+		ResultMessage rm = new ResultMessage();
+		rm.setMessage(moduleService.getModuleLocationStrByUrl(urlStr));
+		AjaxUtils.sendAjaxForObjectStr(response, rm);
+	}
+
+	/**
+	 * 进入没有权限信息提示页面
+	 * 
+	 * @return error
+	 */
+	@RequestMapping("/alertNoRight")
+	public ModelAndView alertNoRight() {
+		return showError("msg.noRight", null);
+	}
+
+	/**
+	 * 进入错误信息提示页面
+	 * 
+	 * @param mKey
+	 *            String
+	 * @param mValue
+	 *            mValue
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/showError")
+	public ModelAndView showError(String mKey, String mValue) {
+		Object[] variable = null;
+		if (StringUtil.isBlank(mValue)) {
+			variable = new Object[] {};
+		} else {
+			variable = mValue.split(",");
+		}
+		return new ModelAndView("jsp/common/error", "message", Utils.getI18n(
+				mKey, variable));
+	}
+
+
+	/**
+	 * 跳转到导入共通页面
+	 * 
+	 * @param request
+	 *            HttpServletRequest
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/import/toImportExcel")
+	public ModelAndView toImportExcel(HttpServletRequest request,
+			String parseUrl, String serviceName, String serviceId) {
+		ModelAndView m = new ModelAndView("jsp/common/importExcelPage");
+		m.addObject("parseUrl", parseUrl);
+		m.addObject("serviceName", serviceName);
+		m.addObject("serviceId", serviceId);
+		return m;
+	}
+	public static void main(String[] args) {
+		System.out.println(MD5Encryption.MD5("admin"));
+	}
+}

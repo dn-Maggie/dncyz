@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.nation.dao.NationMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.nation.model.Nation">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+															<result column="nation_name" property="nationName" jdbcType="VARCHAR" />
+									</resultMap>
+	<sql id="Base_Column_List">
+						 	id
+										,nation_name
+						</sql>
+	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from china_nation
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getAllNation" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select 
+		*
+		from china_nation
+	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.nation.model.Nation">
+		select
+		<include refid="Base_Column_List" />
+		from china_nation
+		where 1=1
+		<if test="id != null and '' != id">  
+			and id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="nationName != null and '' != nationName">  
+			and nation_name = #{nationName,jdbcType=VARCHAR}
+		</if>
+				<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+         	</if>
+	</select>
+	
+	<delete id="deleteByKey" parameterType="java.lang.String">
+		delete from china_nation
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.nation.model.Nation">
+		insert into china_nation (
+		<include refid="Base_Column_List" />
+		)values (
+										#{id,jdbcType=VARCHAR}
+														,#{nationName,jdbcType=VARCHAR}
+									)
+	</insert>
+	
+	<update id="update" parameterType="com.dongnao.workbench.nation.model.Nation">
+		update china_nation  set
+		ID= #{id,jdbcType=VARCHAR}
+													,nation_name = #{nationName,jdbcType=VARCHAR}
+							where id = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>
