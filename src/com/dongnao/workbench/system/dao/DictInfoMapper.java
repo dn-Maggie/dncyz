@@ -7,7 +7,7 @@ import com.dongnao.workbench.system.model.DictInfo;
 
 /**
  * 描述：dictInfo模块dao接口，提供数据库操作方法
- * @author zhou.zheng
+ * @author maggie
  *
  * @version 1.0 2013-11-04
  */

@@ -12,7 +12,7 @@ import com.dongnao.workbench.area.model.ChinaArea;
  * 描述：省市区地域模块service接口实现类，实现service接口方法
  *
  * @author fan.yang
- * @version 1.0 2016-05-10
+ * @version 1.0 2017-01-01
  */
 @Service("chinaAreaService")
 public class ChinaAreaServiceImpl implements ChinaAreaService{

@@ -177,7 +177,7 @@ public class Utils {
 	/**
 	 * 生成UUID
 	 * 
-	 * @author heyin
+	 * @author maggie
 	 * @return 生成的UUID
 	 */
 	public static String generateUniqueID() {
@@ -187,7 +187,7 @@ public class Utils {
 	/**
 	 * 生成UUID
 	 * 
-	 * @author heyin
+	 * @author maggie
 	 * @return 生成的UUID
 	 */
 	public static String generateVersion() {

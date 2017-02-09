@@ -8,7 +8,7 @@ import com.dongnao.workbench.common.bean.Model;
  * 描述：省市区地域模块实体类，负责页面与后台数据传输功能
  *
  * @author fan.yang
- * @version 1.0 2016-05-10
+ * @version 1.0 2017-01-01
  */
 public class ChinaArea extends Model{
 	

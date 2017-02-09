@@ -10,7 +10,7 @@ import com.dongnao.workbench.common.bean.Model;
 /**
  * 描述：数据字典类型模块实体类，负责页面与后台数据传输功能
  * 
- * @author zhou.zheng
+ * @author maggie
  * 
  * @version 1.0 2013-11-07
  */

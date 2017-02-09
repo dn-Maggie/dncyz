@@ -16,7 +16,7 @@ import com.dongnao.workbench.area.service.ChinaAreaService;
  * 描述：省市区地域模块controller类，负责页面分发与跳转
  * 
  * @author fan.yang
- * @version 1.0 2016-05-10
+ * @version 1.0 2017-01-01
  */
  
 @Controller

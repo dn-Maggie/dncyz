@@ -26,7 +26,7 @@ import com.dongnao.workbench.system.service.DictInfoService;
 
 /**
  * 描述：数据字典信息模块controller类，负责页面分发与跳转
- * @author zhou.zheng
+ * @author maggie
  *
  * @version 1.0 2013-11-04
  */

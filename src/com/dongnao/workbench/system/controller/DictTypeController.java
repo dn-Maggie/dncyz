@@ -21,7 +21,7 @@ import com.dongnao.workbench.system.model.DictType;
 import com.dongnao.workbench.system.service.DictTypeService;
 /**
  * 描述：数据字典类别模块controller类，负责页面分发与跳转
- * @author zhou.zheng
+ * @author maggie
  *
  * @version 1.0 2013-11-07
  */

@@ -50,7 +50,7 @@ select.search_choose{height:30px;width:127px;}
 	height: 28px;
 	line-height:28px;
 	border:none;
-	background-color: #2b82d2;
+	background-color: #f47115;
 	color: #FFF;
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
@@ -68,7 +68,7 @@ select.search_choose{height:30px;width:127px;}
 	height: 28px;
 	line-height:28px;
 	border:none;
-	background-color: #2b82d2;
+	background-color: #f47115;
 	color: #FFF;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -165,7 +165,7 @@ select.search_choose{height:30px;width:127px;}
 .list_btn_bg ul{ display:inline-block; float:left;margin-left:10px;}
 .list_btn_bg ul li{ float:left; margin-right:10px;}
 .list_btn_bg ul li a{ display:inline-block; padding:3px 10px;border: 1px solid #dddddd; color:#333; border-radius:2px; -webkit-border-radius:2px;-o-border-radius:2px; -moz-border-radius:2px; overflow:hidden;}
-.list_btn_bg ul li a:hover,.list_btn_bg ul li a.checked{background-color: #2B82D2;border: 1px solid #2B82D2;color: #FFF;border-radius:2px; -webkit-border-radius:2px;-o-border-radius:2px; -moz-border-radius:2px;}
+.list_btn_bg ul li a:hover,.list_btn_bg ul li a.checked{background-color: #f47115;border: 1px solid #f47115;color: #FFF;border-radius:2px; -webkit-border-radius:2px;-o-border-radius:2px; -moz-border-radius:2px;}
 .list_btn_bg ul li a i{ float:left; margin-right:5px;margin-top:2px;}
 .list_btn_bg ul li a span{ float:left;}
 .listtable_box{ position:relative; float:left;width:100%;border-left: 1px solid #dae1e5;border-bottom: 1px solid #dae1e5;}
@@ -191,7 +191,7 @@ select.search_choose{height:30px;width:127px;}
 	float: right;
 	height: 30px;
 	border:none;
-	background-color: #2b82d2;
+	background-color: #f47115;
 	color: #FFF;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -211,7 +211,7 @@ select.search_choose{height:30px;width:127px;}
 	float: right;
 	height: 30px;
 	border:none;
-	background-color: #2b82d2;
+	background-color: #f47115;
 	color: #FFF;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -231,7 +231,7 @@ select.search_choose{height:30px;width:127px;}
 	float: right;
 	height: 30px;
 	border:none;
-	background-color: #2b82d2;
+	background-color: #f47115;
 	color: #FFF;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -258,7 +258,7 @@ select.search_choose{height:30px;width:127px;}
 	border-right-style: none;
 	border-bottom-style: none;
 	border-left-style: none;
-	background-color: #2b82d2;
+	background-color: #f47115;
 	color: #FFF;
 	font-family: "Microsoft YaHe", "微软雅黑", verdana, sans-serif;
 	-moz-border-radius: 3px;
@@ -279,7 +279,7 @@ select.search_choose{height:30px;width:127px;}
 	float: right;
 	height: 30px;
 	border:none;
-	background-color: #2b82d2;
+	background-color: #f47115;
 	color: #FFF;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -299,7 +299,7 @@ select.search_choose{height:30px;width:127px;}
 	float: right;
 	height: 30px;
 	border:none;
-	background-color: #2b82d2;
+	background-color: #f47115;
 	color: #FFF;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -318,7 +318,7 @@ select.search_choose{height:30px;width:127px;}
 	width: 80px;
 	height: 30px;
 	border:none;
-	background-color: #2b82d2;
+	background-color: #f47115;
 	color: #FFF;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -337,7 +337,7 @@ select.search_choose{height:30px;width:127px;}
 	width: 80px;
 	height: 30px;
 	border:none;
-	background-color: #2b82d2;
+	background-color: #f47115;
 	color: #FFF;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;

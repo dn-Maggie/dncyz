@@ -6,7 +6,7 @@ import com.dongnao.workbench.system.model.DictType;
 
 /**
  * 描述：dictType模块dao接口，提供数据库操作方法
- * @author zhou.zheng
+ * @author maggie
  *
  * @version 1.0 2013-11-07
  */

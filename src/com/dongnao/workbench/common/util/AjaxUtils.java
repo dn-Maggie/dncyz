@@ -23,7 +23,7 @@ import com.dongnao.workbench.common.page.PageUtil;
 /**
  * 描述：ajax传送对象公共类，负责将数据传输到前台
  * 
- * @author zhou.zheng
+ * @author maggie
  * @version 1.0 2016-03-22
  */
 public class AjaxUtils {

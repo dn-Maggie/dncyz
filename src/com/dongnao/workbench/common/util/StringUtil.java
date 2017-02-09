@@ -28,7 +28,7 @@ import com.dongnao.workbench.common.SQLConsts;
 /**
  * 描述：String 工具类
  * 
- * @author heyin
+ * @author maggie
  * @version 1.0 2016-03-22
  */
 public class StringUtil {

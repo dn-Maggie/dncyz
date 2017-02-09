@@ -10,7 +10,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 /**
  * 描述：spring上下文环境对象设置，获取类
  * 
- * @author zhou.zheng
+ * @author maggie
  * @version 1.0 2013-10-22
  */
 public class SpringInit implements ServletContextListener {
@@ -35,7 +35,6 @@ public class SpringInit implements ServletContextListener {
 				.getWebApplicationContext(event.getServletContext());
 	}
 
-	@Override
 	public void contextDestroyed(ServletContextEvent event) {
 	}
 

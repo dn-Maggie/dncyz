@@ -10,7 +10,7 @@ import com.dongnao.workbench.system.model.DictType;
 
 /**
  * 描述：数据字典类别模块service接口，提供controller操作所需方法
- * @author zhou.zheng
+ * @author maggie
  *
  * @version 1.0 2013-11-07
  */

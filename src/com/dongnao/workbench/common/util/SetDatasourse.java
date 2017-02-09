@@ -6,7 +6,7 @@ import org.aspectj.lang.JoinPoint;
 /**
  * 描述：数据源动态设置
  * 
- * @author zhou.zheng
+ * @author maggie
  * @version 1.0 2016-03-11
  */
 public class SetDatasourse {

@@ -30,7 +30,7 @@ import com.dongnao.workbench.system.service.ModuleService;
 /**
  * 描述：首页模块controller类，负责页面分发与跳转
  * 
- * @author zhou.zheng
+ * @author maggie
  * @version 1.0 2016-03-06
  */
 

@@ -4,7 +4,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 
 /**
  * 描述：数据库连接，密码解密
- * @author zhou.zheng
+ * @author maggie
  * @version 1.0 2016-03-22
  */
 

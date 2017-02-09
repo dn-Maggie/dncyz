@@ -81,6 +81,3 @@
 	src="<%=request.getContextPath() %>/js/gameco/jquery.collapse.js"></script>
 <script src="<%=request.getContextPath() %>/modulejs/common.js"></script>
 
-
-<!-- 新添加的js -->
-<!--<script type="text/javascript" src="<%=request.getContextPath() %>/js/statistic/jquery-2.1.1.js"></script>-->

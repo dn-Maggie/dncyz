@@ -14,7 +14,7 @@ import com.dongnao.workbench.common.Constant;
 
 /**
  * 描述：实体对象转换类
- * @author  zhou.zheng 
+ * @author  maggie 
  * @version 1.0 2013-10-16
  */
 public class FormatEntity {

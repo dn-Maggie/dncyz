@@ -12,7 +12,7 @@ import com.dongnao.workbench.system.model.DictInfo;
 
 /**
  * 描述：数据字典信息模块service接口，提供controller操作所需方法
- * @author zhou.zheng
+ * @author maggie
  *
  * @version 1.0 2013-11-04
  */

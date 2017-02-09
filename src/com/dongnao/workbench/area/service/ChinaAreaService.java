@@ -8,7 +8,7 @@ import com.dongnao.workbench.area.model.ChinaArea;
  * 描述：省市区地域模块service接口，提供controller操作所需方法
  *
  * @author fan.yang
- * @version 1.0 2016-05-10
+ * @version 1.0 2017-01-01
  */
 public interface ChinaAreaService  {
 

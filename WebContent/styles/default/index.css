@@ -99,8 +99,8 @@ border-radius:3px;
 	text-align:center;
 	vertical-align:middle;
 	cursor:pointer;
-	background-color:#2b82d2;
-	*background-color:#2b82d2;
+	background-color:#f47115;
+	*background-color:#f47115;
 	*border:0;
 	-o-border-radius:3px;
 	-webkit-border-radius:3px;
@@ -114,8 +114,8 @@ border-radius:3px;
 .btnBox span{ font-size:14px;}
 .btn-primary {
   color: #fff;
-  background-color: #2b82d2;
-  *background-color: #2b82d2;/* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  background-color: #f47115;
+  *background-color: #f47115;/* Darken IE7 buttons by default so they stand out more given they won't have borders */
 }
 .btn-primary:hover,
 .btn-primary:focus,

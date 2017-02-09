@@ -2,7 +2,7 @@ package com.dongnao.workbench.common;
 
 /**
  * 描述：定义SQL相关常量
- * @author heyin
+ * @author maggie
  * @version 1.0 2013-10-22
  */
 public class SQLConsts {

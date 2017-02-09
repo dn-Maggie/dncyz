@@ -9,7 +9,7 @@ import com.dongnao.workbench.common.exceptions.UnexpectedException;
 
 /**
  * 描述：ajax方式传输json对象
- * @author zhou.zheng
+ * @author maggie
  * @version 1.0 2016-03-18
  */
 public class RenderJson extends Render {
