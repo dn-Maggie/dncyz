@@ -185,10 +185,10 @@ public class Utils {
 	}
 	
 	/**
-	 * 生成UUID
+	 * 生成Version
 	 * 
 	 * @author maggie
-	 * @return 生成的UUID
+	 * @return 生成的Version
 	 */
 	public static String generateVersion() {
 		return UUID.randomUUID().toString();
@@ -199,7 +199,7 @@ public class Utils {
 	/**
 	 * 处理页面显示的br标签
 	 * 
-	 * @author wff
+	 * @author maggie
 	 * @param oldValue
 	 *            String
 	 * @return String
@@ -357,17 +357,14 @@ public class Utils {
 	 * 
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public static Map<String, ModuleLocation> getModuleLocationMap(String type) {
 		WebApplicationContext applicationContext = (WebApplicationContext) SpringInit
 				.getApplicationContext();
 		if (type.equals("mid")) {
-			return (Map<String, ModuleLocation>) applicationContext
-					.getServletContext().getAttribute(
-							Constant.MODULE_LOCATION_MID_MAP);
+			return (Map<String, ModuleLocation>) applicationContext.getServletContext().getAttribute(Constant.MODULE_LOCATION_MID_MAP);
 		} else {
-			return (Map<String, ModuleLocation>) applicationContext
-					.getServletContext().getAttribute(
-							Constant.MODULE_LOCATION_URL_MAP);
+			return (Map<String, ModuleLocation>) applicationContext.getServletContext().getAttribute(Constant.MODULE_LOCATION_URL_MAP);
 		}
 	}
 
@@ -441,8 +438,7 @@ public class Utils {
 	public static void setConfigValue(String variableName, String variableValue) {
 		WebApplicationContext applicationContext = (WebApplicationContext) SpringInit
 				.getApplicationContext();
-		applicationContext.getServletContext().setAttribute(variableName,
-				variableValue);
+		applicationContext.getServletContext().setAttribute(variableName,variableValue);
 	}
 
 	/**
@@ -452,11 +448,11 @@ public class Utils {
 	 *            String
 	 * @return String
 	 */
+	@SuppressWarnings({ "unchecked" })
 	public static String getDictInfo(String dictTypeCode, boolean isForSelect) {
 		WebApplicationContext applicationContext = (WebApplicationContext) SpringInit
 				.getApplicationContext();
-		Map<String, String> dictMap = (Map<String, String>) applicationContext
-				.getServletContext().getAttribute(Constant.APP_DICT_KEY);
+		Map<String, String> dictMap = (Map<String, String>) applicationContext.getServletContext().getAttribute(Constant.APP_DICT_KEY);
 		if(dictMap==null){
 			return null;
 		}
@@ -468,7 +464,6 @@ public class Utils {
 			while (it.hasNext()) {
 				infoObj = it.next();
 				infoObj.put("label", infoObj.get("name"));
-				// infoObj.remove("name");
 				infoObj.put("name", dictTypeCode);
 			}
 			dictStr = infoArr.toString();

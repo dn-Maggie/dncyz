@@ -8,12 +8,7 @@
 		<result column="FULL_NAME" property="fullName" jdbcType="VARCHAR" />
 		<result column="USER_TYPE" property="userType" jdbcType="INTEGER" />
 		<result column="USER_TYPE_NAME" property="userTypeName" jdbcType="VARCHAR" />
-		<result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
-		<result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
-		<result column="ORG_CLASS" property="orgClass" jdbcType="INTEGER" />
 		<result column="MOBILE_PHONE" property="mobilePhone" jdbcType="VARCHAR" />
-		<result column="SEX" property="sex" jdbcType="VARCHAR" />
-		<result column="AGE" property="age" jdbcType="INTEGER" />
 		<result column="ID_CARD" property="idCard" jdbcType="VARCHAR" />
 		<result column="ID_CARD_IMG_PATH" property="idCardImgPath" jdbcType="BLOB" />
 		<result column="LAST_LOGIN_TIME" property="lastLoginTime" jdbcType="TIMESTAMP" />
@@ -27,45 +22,28 @@
 		<result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
 		<result column="CREATED" property="created" jdbcType="TIMESTAMP" />
 		<result column="IS_ACTIVE" property="isActive" jdbcType="INTEGER" />
-		<result column="DUTY_ID" property="dutyId" jdbcType="VARCHAR" />
-		<result column="DUTY_NAME" property="dutyName" jdbcType="VARCHAR" />
-		<result column="ENTRY_DATE" property="entryDate" jdbcType="TIMESTAMP" />
-		<result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
-		<result column="BIRTHDAY" property="birthday" jdbcType="TIMESTAMP" />
-		<result column="SCHOOLING" property="schooling" jdbcType="INTEGER" />
 	</resultMap>
 	<sql id="Base_Column_List">
-						 	ID
-										,USER_ACCOUNT
-										,PASSWORD
-										,FULL_NAME
-										,USER_TYPE
-										,USER_TYPE_NAME
-										,ORG_ID
-										,ORG_NAME
-										,ORG_CLASS
-										,MOBILE_PHONE
-										,SEX
-										,AGE
-										,ID_CARD
-										,ID_CARD_IMG_PATH
-										,LAST_LOGIN_TIME
-										,LAST_LOGIN_IP
-										,STATES
-										,MEMO
-										,ENABLE_STATE_DATE
-										,ENABLE_END_DATE
-										,UPDATED
-										,UPDATEDBY
-										,CREATEDBY
-										,CREATED
-										,IS_ACTIVE
-										,DUTY_ID
-										,DUTY_NAME
-										,ENTRY_DATE
-										,USER_EMAIL
-										,BIRTHDAY
-										,SCHOOLING
+		 	ID
+			,USER_ACCOUNT
+			,PASSWORD
+			,FULL_NAME
+			,USER_TYPE
+			,USER_TYPE_NAME
+			,MOBILE_PHONE
+			,ID_CARD
+			,ID_CARD_IMG_PATH
+			,LAST_LOGIN_TIME
+			,LAST_LOGIN_IP
+			,STATES
+			,MEMO
+			,ENABLE_STATE_DATE
+			,ENABLE_END_DATE
+			,UPDATED
+			,UPDATEDBY
+			,CREATEDBY
+			,CREATED
+			,IS_ACTIVE
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -74,13 +52,13 @@
 		from BASIC_USER_INFO
 		where ID = #{id,jdbcType=VARCHAR}
 	</select>
-	<select id="getByUserAccount" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
+	<select id="getByUserAccount" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select 
 		<include refid="Base_Column_List" />
 		from BASIC_USER_INFO u
 		where u.USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR}
-		and u.IS_ACTIVE=1 and u.STATES=1
+		and u.IS_ACTIVE=1 
+		and u.STATES=1
 	</select>
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.basic.model.UserInfo">
@@ -101,23 +79,8 @@
 		<if test="userTypeName != null and '' != userTypeName">  
 			and USER_TYPE_NAME LIKE CONCAT('%',#{userTypeName,jdbcType=VARCHAR},'%')
 		</if>
-		<if test="orgId != null and '' != orgId">  
-			and ORG_ID = #{orgId,jdbcType=VARCHAR}
-		</if>
-		<if test="orgName != null and '' != orgName">  
-			and ORG_NAME LIKE CONCAT('%',#{orgName,jdbcType=VARCHAR},'%')
-		</if>
-		<if test="orgClass != null and '' != orgClass">  
-			and ORG_CLASS = #{orgClass,jdbcType=INTEGER}
-		</if>
 		<if test="mobilePhone != null and '' != mobilePhone">  
 			and MOBILE_PHONE LIKE CONCAT('%',#{mobilePhone,jdbcType=VARCHAR},'%')
-		</if>
-		<if test="sex != null and '' != sex">  
-			and SEX = #{sex,jdbcType=VARCHAR}
-		</if>
-		<if test="age != null and '' != age">  
-			and AGE = #{age,jdbcType=INTEGER}
 		</if>
 		<if test="idCard != null and '' != idCard">  
 			and ID_CARD LIKE CONCAT('%',#{idCard,jdbcType=VARCHAR},'%')
@@ -155,24 +118,6 @@
 		<if test="isActive != null and '' != isActive">  
 			and IS_ACTIVE = #{isActive,jdbcType=INTEGER}
 		</if>
-		<if test="dutyId != null and '' != dutyId">  
-			and DUTY_ID = #{dutyId,jdbcType=VARCHAR}
-		</if>
-		<if test="dutyName != null and '' != dutyName">  
-			and DUTY_NAME = #{dutyName,jdbcType=VARCHAR}
-		</if>
-		<if test="entryDate != null and '' != entryDate">  
-			and ENTRY_DATE = #{entryDate,jdbcType=TIMESTAMP}
-		</if>
-		<if test="userEmail != null and '' != userEmail">  
-			and USER_EMAIL = #{userEmail,jdbcType=VARCHAR}
-		</if>
-		<if test="birthday != null and '' != birthday">  
-			and BIRTHDAY = #{birthday,jdbcType=TIMESTAMP}
-		</if>
-		<if test="schooling != null and '' != schooling">  
-			and SCHOOLING = #{schooling,jdbcType=INTEGER}
-		</if>
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
        	</if>
@@ -198,74 +143,51 @@
 		insert into BASIC_USER_INFO (
 		<include refid="Base_Column_List" />
 		)values (
-										                 #{id,jdbcType=VARCHAR}
-														,#{userAccount,jdbcType=VARCHAR}
-														,#{password,jdbcType=VARCHAR}
-														,#{fullName,jdbcType=VARCHAR}
-														,#{userType,jdbcType=INTEGER}
-														,#{userTypeName,jdbcType=VARCHAR}
-														,#{orgId,jdbcType=VARCHAR}
-														,#{orgName,jdbcType=VARCHAR}
-														,#{orgClass,jdbcType=INTEGER}
-														,#{mobilePhone,jdbcType=VARCHAR}
-														,#{sex,jdbcType=VARCHAR}
-														,#{age,jdbcType=INTEGER}
-														,#{idCard,jdbcType=VARCHAR}
-														,#{idCardImgPath,jdbcType=BLOB}
-														,#{lastLoginTime,jdbcType=TIMESTAMP}
-														,#{lastLoginIp,jdbcType=VARCHAR}
-														,#{states,jdbcType=INTEGER}
-														,#{memo,jdbcType=VARCHAR}
-														,#{enableStateDate,jdbcType=TIMESTAMP}
-														,#{enableEndDate,jdbcType=TIMESTAMP}
-														,#{updated,jdbcType=TIMESTAMP}
-														,#{updatedby,jdbcType=VARCHAR}
-														,#{createdby,jdbcType=VARCHAR}
-														,#{created,jdbcType=TIMESTAMP}
-														,#{isActive,jdbcType=INTEGER}
-														,#{dutyId,jdbcType=VARCHAR}
-														,#{dutyName,jdbcType=VARCHAR}
-														,#{entryDate,jdbcType=TIMESTAMP}
-														,#{userEmail,jdbcType=VARCHAR}
-														,#{birthday,jdbcType=TIMESTAMP}
-														,#{schooling,jdbcType=INTEGER}
-									)
+            #{id,jdbcType=VARCHAR}
+			,#{userAccount,jdbcType=VARCHAR}
+			,#{password,jdbcType=VARCHAR}
+			,#{fullName,jdbcType=VARCHAR}
+			,#{userType,jdbcType=INTEGER}
+			,#{userTypeName,jdbcType=VARCHAR}
+			,#{mobilePhone,jdbcType=VARCHAR}
+			,#{idCard,jdbcType=VARCHAR}
+			,#{idCardImgPath,jdbcType=BLOB}
+			,#{lastLoginTime,jdbcType=TIMESTAMP}
+			,#{lastLoginIp,jdbcType=VARCHAR}
+			,#{states,jdbcType=INTEGER}
+			,#{memo,jdbcType=VARCHAR}
+			,#{enableStateDate,jdbcType=TIMESTAMP}
+			,#{enableEndDate,jdbcType=TIMESTAMP}
+			,#{updated,jdbcType=TIMESTAMP}
+			,#{updatedby,jdbcType=VARCHAR}
+			,#{createdby,jdbcType=VARCHAR}
+			,#{created,jdbcType=TIMESTAMP}
+			,#{isActive,jdbcType=INTEGER}
+		)
 	</insert>
-	
-	
 	
 	<update id="updatePassWord" parameterType="com.dongnao.workbench.basic.model.UserInfo">
 			update BASIC_USER_INFO  set PASSWORD = #{password,jdbcType=VARCHAR} where ID = #{id,jdbcType=VARCHAR}
 	</update>
+	
 	<update id="update" parameterType="com.dongnao.workbench.basic.model.UserInfo">
 		update BASIC_USER_INFO  set
-	                                         USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR}
-											,FULL_NAME = #{fullName,jdbcType=VARCHAR}
-											,USER_TYPE = #{userType,jdbcType=INTEGER}
-											,USER_TYPE_NAME = #{userTypeName,jdbcType=VARCHAR}
-											,ORG_ID = #{orgId,jdbcType=VARCHAR}
-											,ORG_NAME = #{orgName,jdbcType=VARCHAR}
-											,ORG_CLASS = #{orgClass,jdbcType=CHAR}
-											,MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR}
-											,SEX = #{sex,jdbcType=VARCHAR}
-											,AGE = #{age,jdbcType=INTEGER}
-											,ID_CARD = #{idCard,jdbcType=VARCHAR}
-											,ID_CARD_IMG_PATH = #{idCardImgPath,jdbcType=BLOB}
-											,LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP}
-											,LAST_LOGIN_IP = #{lastLoginIp,jdbcType=VARCHAR}
-											,STATES = #{states,jdbcType=INTEGER}
-											,MEMO = #{memo,jdbcType=VARCHAR}
-											,ENABLE_STATE_DATE = #{enableStateDate,jdbcType=TIMESTAMP}
-											,ENABLE_END_DATE = #{enableEndDate,jdbcType=TIMESTAMP}
-											,UPDATED = #{updated,jdbcType=TIMESTAMP}
-											,UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
-											,DUTY_ID = #{dutyId,jdbcType=VARCHAR}
-											,DUTY_NAME = #{dutyName,jdbcType=VARCHAR}
-											,ENTRY_DATE = #{entryDate,jdbcType=TIMESTAMP}
-											,USER_EMAIL = #{userEmail,jdbcType=VARCHAR}
-											,BIRTHDAY = #{birthday,jdbcType=TIMESTAMP}
-											,SCHOOLING = #{schooling,jdbcType=INTEGER}
-							where ID = #{id,jdbcType=VARCHAR}
+                 USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR}
+				,FULL_NAME = #{fullName,jdbcType=VARCHAR}
+				,USER_TYPE = #{userType,jdbcType=INTEGER}
+				,USER_TYPE_NAME = #{userTypeName,jdbcType=VARCHAR}
+				,MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR}
+				,ID_CARD = #{idCard,jdbcType=VARCHAR}
+				,ID_CARD_IMG_PATH = #{idCardImgPath,jdbcType=BLOB}
+				,LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP}
+				,LAST_LOGIN_IP = #{lastLoginIp,jdbcType=VARCHAR}
+				,STATES = #{states,jdbcType=INTEGER}
+				,MEMO = #{memo,jdbcType=VARCHAR}
+				,ENABLE_STATE_DATE = #{enableStateDate,jdbcType=TIMESTAMP}
+				,ENABLE_END_DATE = #{enableEndDate,jdbcType=TIMESTAMP}
+				,UPDATED = #{updated,jdbcType=TIMESTAMP}
+				,UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+			where ID = #{id,jdbcType=VARCHAR}
 	</update>
 	
 	<select id="listUserByRid" parameterType="java.util.Map" resultType="java.util.Map">

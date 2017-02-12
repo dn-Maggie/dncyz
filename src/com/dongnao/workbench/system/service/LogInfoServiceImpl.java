@@ -11,7 +11,7 @@ import com.dongnao.workbench.system.service.LogInfoService;
 
 /**
  * 描述：logInfo模块service接口实现类，实现service接口方法
- * @author wff
+ * @author maggie
  * @version 1.0  2016-03-20
  */
 @Service("logInfoService")

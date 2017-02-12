@@ -5,7 +5,7 @@ import java.util.List;
 import com.dongnao.workbench.system.model.LogInfo;
 /**
  * 描述：logInfo模块dao接口，提供数据库操作方法
- * @author wff
+ * @author maggie
  * @version 1.0  2016-03-20
  */
 public interface LogInfoMapper  {

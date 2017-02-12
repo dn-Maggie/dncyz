@@ -125,14 +125,14 @@
 		<result column="murl" property="murl" jdbcType="VARCHAR" />
 	</resultMap>
 	<select id="listModuleLocationList" resultMap="ModuleLocationResultMap" >
-select 1 as mtype,m.id as mid,m.id as pid,m.module_name as mname, m.navurl as murl 
-from sys_ro_module m 
- UNION 
-select 2 as mtype,mr.id as mid,mr.muuid as pid ,mr.resource_name as mname, mr.resurl as murl 
-from sys_ro_moduleres mr where mr.resurl is not null
-UNION 
-select 3 as mtype,r.id as mid,r.resuu_id as pid,r.act_name as mname,r.act_url as murl 
-from sys_ro_resact r where r.act_url is not null 
+		select 1 as mtype,m.id as mid,m.id as pid,m.module_name as mname, m.navurl as murl 
+		from sys_ro_module m 
+		 UNION 
+		select 2 as mtype,mr.id as mid,mr.muuid as pid ,mr.resource_name as mname, mr.resurl as murl 
+		from sys_ro_moduleres mr where mr.resurl is not null
+		UNION 
+		select 3 as mtype,r.id as mid,r.resuu_id as pid,r.act_name as mname,r.act_url as murl 
+		from sys_ro_resact r where r.act_url is not null 
 	</select>
 	<delete id="deleteByKey" parameterType="java.lang.Integer">
 		delete from
@@ -177,33 +177,38 @@ from sys_ro_resact r where r.act_url is not null
 	</update>
 	
 	<select id="queryForMenuByAdmin" resultMap="BaseResultMap">
-		select <include refid="Base_Column_List" /> from SYS_RO_MODULE   
+		select 
+			<include refid="Base_Column_List" />
+		from SYS_RO_MODULE   
 		    where ENABLED=1
 		ORDER BY SERIAL_INDEX
 	</select>
 	
 	<select id="queryForMenuByPcode" parameterType="java.lang.String" resultMap="BaseResultMap" >
-		<!-- select * from (
-				select DISTINCT M.ID,M.MODULE_NAME,M.MODULE_CODE,M.NAVURL,M.SERIAL_INDEX from SYS_RO_PERSONROLE A 
-									left join SYS_RO_ROLERIGHT B on A.role_id=B.ROLEID
-									left join SYS_RO_MODULERES MR ON B.RESUUID = MR.ID
-									left join SYS_RO_MODULE M on  M.ID = MR.MUUID 
-									where (A.user_id= #{pcode,jdbcType=VARCHAR} and B.ID is not null) AND M.ENABLED=1
-				union
-					select M.ID,M.MODULE_NAME,M.MODULE_CODE,M.NAVURL,M.SERIAL_INDEX from SYS_RO_MODULE M where M.ENABLED=1 and M.NEED_RIGHT=0
-			) M
-			ORDER BY M.SERIAL_INDEX -->
 		select M.* from (
-		    select DISTINCT M.ID,M.MODULE_NAME,M.MODULE_CODE,
-		    M.NAVURL,M.SERIAL_INDEX,M.RESOURCE_ID from SYS_RO_PERSONROLE A 
-		                        left join SYS_RO_ROLERIGHT B on A.role_id=B.ROLEID
-		                        left join SYS_RO_MODULERES MR ON B.RESUUID = MR.ID
-		                        left join SYS_RO_MODULE M on  M.ID = MR.MUUID 
-		                        where (A.user_id= #{pcode,jdbcType=VARCHAR} and B.ID is not null) AND M.ENABLED=1
+		    select 
+			    DISTINCT M.ID,
+			    M.MODULE_NAME,
+			    M.MODULE_CODE,
+			    M.NAVURL,
+			    M.SERIAL_INDEX,
+			    M.RESOURCE_ID 
+		    from SYS_RO_PERSONROLE A 
+		    left join SYS_RO_ROLERIGHT B on A.role_id=B.ROLEID
+            left join SYS_RO_MODULERES MR ON B.RESUUID = MR.ID
+            left join SYS_RO_MODULE M on  M.ID = MR.MUUID 
+		    where (A.user_id= #{pcode,jdbcType=VARCHAR} and B.ID is not null) AND M.ENABLED=1
 		    union
-		        select M.ID,M.MODULE_NAME,M.MODULE_CODE,M.NAVURL,M.SERIAL_INDEX,M.RESOURCE_ID from SYS_RO_MODULE M where M.ENABLED=1 and M.NEED_RIGHT=0
+		    select 
+			    M.ID,
+			    M.MODULE_NAME,
+			    M.MODULE_CODE,
+			    M.NAVURL,
+			    M.SERIAL_INDEX,
+			    M.RESOURCE_ID 
+		    from SYS_RO_MODULE M 
+		    where M.ENABLED=1 and M.NEED_RIGHT=0
 		) M
-               
 		ORDER BY M.SERIAL_INDEX
 	</select>
 </mapper>

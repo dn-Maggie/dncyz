@@ -10,14 +10,15 @@
 <head>
 <base href="<%=basePath%>">
 <%@ include file="header.jsp"%>
+<script type="text/javascript">
+	if(window!=top){
+		top.location.reload();
+	}
+</script>
 <link rel="stylesheet" type="text/css" href="<%=path%>/styles/login.css" />
 </head>
 
 <body id="login-body">
-	<div class="bg_flag">
-		<img class="left" src="<%=path%>/styles/images/login_flag.png" /> <img
-			class="right" src="<%=path%>/styles/images/login_flag.png" />
-	</div>
 	<form id="loginForm" name="loginForm" method="post" action="">
 		<div id="loginWindow">
 			<table>
@@ -50,11 +51,11 @@
 								for="remb">记住密码</label> <label class="remb_label" for="remb"></label>
 							</span>
 						</div> <br>
-						<div class="group check_code" style="float: left">
-							<span class="addon">验</span> <input id="userpw" name="userpw"
-								onkeypress="xKeyEvent(event)" accesskey="p" maxlength="4"
-								type="text" autocomplete="off" />
-						</div>
+						<div class="group check_code" style="float:left">
+							<span class="addon">验</span> 
+							<input class="codeInput" id="codeInput" onkeypress="xKeyEvent(event)"/>
+							<img src="<%=basePath%>validateCode" id="codeImg" alt="点击刷新验证码">
+						</div> 
 						<div class="btn-box">
 							<button type="button" onclick="$('#loginForm').get(0).reset()"
 								class="btn_reset">重置</button>
@@ -71,7 +72,43 @@
 	</form>
 </body>
 <script>
+var codeChecked = false;
+$(function(){  
+    $("#codeInput").on("input", checkCode); 
+    $("#codeImg").on("click", refreshCaptcha);
+});  
+
+//验证验证码
+		function checkCode(){  
+		    var strcode =$(this).val();
+		    if(strcode.length <=3 ){ //验证码一般大于三位  
+		        return;  
+		    }  
+		    codeChecked = false;
+		    $.ajax({
+		   	 url : "<%=basePath%>varifyCode.do?strcode="+strcode,
+		  		 cache : false,
+		 		 dataType : 'json',
+					 success : function(data, textStatus, jqXHR) {
+						if(data.status == 1){
+		       		 codeChecked = true;
+		       	 }
+		    	 }
+		    });
+		    if(event.keyCode==13){  
+		   	 loginAction('#loginForm');
+		    }  
+		 }  
+		//重载验证码  
+		function refreshCaptcha() {  
+			url = "<%=basePath%>validateCode?code=" + Math.random(),
+		   $('#codeImg').attr('src',url);   
+		}   
 	function loginAction(formId) {
+		if(!codeChecked){showWarn("请输入正确的验证码！");refreshCaptcha();return;}  
+		showInfo("登陆中，请稍后...");
+		$("#popup_ok").css("visibility","hidden");
+		//表单验证
 		function formValidation() {
 			var u = f['loginName'];
 			var p = f['userpw'];
@@ -89,18 +126,18 @@
 		}
 		var uname = $('#loginName').val();
 		var pawd = $('#userpw').val();
-
+		var strcode =$("#codeInput").val();
 		$.ajax({
-			url : "<m:url value='/appLogin.do'/>?userName=" + uname
-					+ "&password=" + pawd,
+			url : "<%=basePath%>appLogin.do?userName=" + uname + "&password=" + pawd+ "&strcode=" + strcode,
 			cache : false,
 			dataType : 'json',
 			success : function(data, textStatus, jqXHR) {
-				if (data.status == 1) {
+				 if (data.status == 1) {
 					window.location.href = 'index.do';
 				} else {
-					alert(data.message);
-				}
+					showMessage(data.message);
+					refreshCaptcha(); 
+				} 
 			}
 		});
 	}

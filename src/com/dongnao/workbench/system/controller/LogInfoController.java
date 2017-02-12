@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * 描述：日志管理(logInfo)模块controller类，负责页面分发与跳转
  * 主要实现：日志的增删改查
- * @author wff
+ * @author maggie
  * @version 1.0  2016-03-20
  */
 @Controller

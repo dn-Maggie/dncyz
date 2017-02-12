@@ -1,7 +1,7 @@
 @charset "utf-8";
 *{ margin:0; padding:0;}
 html {height:100%; overflow:hidden;font-family:"Microsoft YaHei",SimSun,SimHei;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
-body{height:100%; overflow:hidden;font-family:"Microsoft YaHei",SimSun,SimHei;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale; background:#fff; overflow-x:hidden;overflow-y:auto; font-size:12px;}
+body{height:100%;overflow:hidden;font-family:"Microsoft YaHei",SimSun,SimHei;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background: #eee;overflow-x:hidden;overflow-y:auto;font-size:12px;}
 .tree_left { position:absolute; left:0px; top:0px; bottom:0px; width:220px; overflow:auto;}
 .right_main { position:absolute; left:221px;/*min-width:900px;*/ top:0px; bottom:0px; right:1px; overflow:auto;}
 input,textarea,select,option,textarea,em,h1,h2,h3,h4,h4,h6,strong,span,li,dl,dt,td{font-family:"Microsoft YaHei",SimSun,SimHei;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale; outline:none;}
@@ -31,7 +31,9 @@ a{text-decoration:none;outline:none;}
 
 
 
-
+form{height:100%;}
+form>.ui-table{height:100%;}
+form>.ui-table>.table{height:100%;}
 .form_select{width: 150px;height: 30px;line-height:30px; border: 1px solid #ddd;color: #666;padding-left: 5px;outline: none;}
 
 /*状态样式*/
@@ -131,20 +133,12 @@ a:hover .icon_ckxq{background-position:-181px -16px;}
 .sicon_jchzqktj{ background-position:-20px -120px;} /*机车换装情况统计*/
 
 .sicon_updatePwd{ background-position:-20px -140px;} /*修改密码*/
-.sicon_locomotiveMgr{ background-position:-20px -160px;} /*机车型号管理*/
-.sicon_locomotiveInfo{ background-position:-20px -180px;} /*机车信息管理*/
-.sicon_workshopMgr{ background-position:-40px 0;} /*车间信息管理*/
-.sicon_deptlocotypeMgr{ background-position:-40px -20px;} /*车间车型管理*/
 .sicon_sectionMgr{ background-position:-40px -40px;} /*区段信息管理*/
-.sicon_depotMgr{ background-position:-40px -60px;} /*站段信息管理*/
-.sicon_potMgr{ background-position:-40px -80px;} /*换装点管理*/
 .sicon_ShowTable{ background-position:-40px -100px;} /*显示表格管理*/
 .sicon_bureau{ background-position:-40px -120px;} /*局信息管理*/
-.sicon_station{ background-position:-40px -140px;} /*车站管理*/
 .sicon_userInfo{ background-position:-40px -160px;} /*用户管理*/
 .sicon_roleInfo{ background-position:-40px -180px;} /*角色授权*/
 .sicon_orgInfo{ background-position:-60px 0;} /*组织机构管理*/
-.sicon_trace{ background-position:-60px -20px;} /*车次基础信息管理*/
 .sicon_dictMgr{ background-position:-60px -40px;} /*数字字典管理*/
 .sicon_module{ background-position:-60px -60px;} /*菜单管理*/
 .sicon_moduleRes{ background-position:-60px -80px;} /*资源管理*/
@@ -174,7 +168,7 @@ right: 0;
 width: 50%;
 height: 30%;
 margin: auto;
-  color:#237ae4;
+  color:#f47115;
 }
 .mask-wrap-msg-img {
  width: 100px;

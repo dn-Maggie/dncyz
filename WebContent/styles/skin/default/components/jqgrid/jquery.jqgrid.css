@@ -1,4 +1,4 @@
-/************************Bizfoundation jqgirdƤ�� CSS V5.0 **********************/
+/************************Bizfoundation jqgird V5.0 **********************/
 .ui-jqgrid {
     font-size: 12px;
     position: relative;
@@ -74,7 +74,7 @@
 }
 .ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
    /*  border-left: 1px solid #CCD5DE; */
-   border-right: 1px solid #D3DCEF;
+   /* border-right: 1px solid #D3DCEF; */
 }
 /* .ui-th-column.ui-th-ltr:first-child{ */
 /* 	width:30px !important; */
@@ -164,7 +164,7 @@ tr.ui-search-toolbar select {
 }
 .ui-jqgrid tr.jqgrow td {
     border-bottom-color: inherit;
-	/* ȥ��border 
+	/* 去锟斤拷border 
     border-bottom-style: solid;
     border-bottom-width: 1px;
 	*/
@@ -200,13 +200,14 @@ tr.ui-search-toolbar select {
     white-space: pre;
 }
 .ui-jqgrid tr.ui-row-ltr td {
-    border-right-color: #dae1e5;
-    border-right-style: solid;
-    border-right-width: 1px;
+    /* border-right-color: #dae1e5; */
+    /* border-right-style: solid; */
+    /* border-right-width: 1px; */
     text-align: left;
-    border-bottom:1px solid #dae1e5;
-    padding:2px 3px;
-/*     text-indent: 10px; */
+    /* border-bottom:1px solid #dae1e5; */
+    padding: 10px 4px;
+    /* text-indent: 10px; */
+    font-size: 14px;
 }
 .ui-jqgrid tr.ui-row-rtl td {
     border-left-color: inherit;
@@ -218,7 +219,7 @@ tr.ui-search-toolbar select {
     border: 0 none;
     margin: 0;
     padding: 0 2px;
-    background:none;/*��������б�����ɫ*/
+    background:none;/*锟斤拷锟斤拷锟斤拷锟斤拷斜锟斤拷锟斤拷锟缴�*/
     color:#333;
 }
 .ui-jqgrid .ui-jqgrid-resize-mark {
@@ -302,7 +303,7 @@ tr.ui-search-toolbar select {
     font-weight: normal;
     padding: 1px;
     vertical-align: middle;
-	/*add by futh ��ҳ���е�������ɫ*/
+	/*add by futh 锟斤拷页锟斤拷锟叫碉拷锟斤拷锟斤拷锟斤拷色*/
 	color:black;
 }
 .ui-jqgrid .ui-pg-button {
@@ -321,16 +322,24 @@ margin-top:2px !important;
 .ui-jqgrid .ui-pg-button:hover { padding: 0px; }
 .ui-jqgrid .ui-state-disabled:hover {padding:1px;}*/
 .ui-jqgrid .ui-pg-input {
-    font-size: 0.8em;
+  /*   font-size: 0.8em;
     height: 13px;
-    margin-top: -2px;
+    margin-top: -2px; */
+    font-size: 0.8em;
+    height: 20px;
+    background-color: #f47115;
+    color: #fff;
+    text-align: center;
+    border: 0;
+}
 }
 .ui-jqgrid .ui-pg-selbox {
-    display: block;
+        display: block;
     font-size: 0.8em;
-    height: 18px;
-    line-height: 18px;
+    height: 20px;
+    line-height: 20px;
     margin: 0;
+    border: 1px #ccc solid;
 }
 .ui-jqgrid .ui-separator {
     border-left: 1px solid #CCCCCC;
@@ -378,7 +387,7 @@ margin-top:2px !important;
     position: relative;
     white-space: nowrap;
 }
-/*.ui-jqgrid td .ui-state-hover {border:none;}/*��������ť��ͣ�߿�*/
+/*.ui-jqgrid td .ui-state-hover {border:none;}/*锟斤拷锟斤拷锟斤拷锟斤拷钮锟斤拷停锟竭匡拷*/
 .ui-jqgrid .ui-jqgrid-toppager {
     border-left: 0 none !important;
     border-right: 0 none !important;
@@ -764,10 +773,10 @@ margin-top:2px !important;
 .ui-multiselect li a.action { position: absolute; right: 2px; top: 2px; }
 .ui-multiselect input.search { height: 14px; padding: 1px; opacity: 0.5; margin: 4px; width: 100px; }
 
-/*ż������ʽ*/
+/*偶锟斤拷锟斤拷锟斤拷式*/
  .even {
-	/*background: none repeat scroll 0 0 #F7F7F8;*/
-	background: none repeat scroll 0 0 #e9f3ff;
+	background: none repeat scroll 0 0 #fbf6f4;
+	background: #fbf6f4;
 }
 
 .showlink{
@@ -793,7 +802,7 @@ margin-top:2px !important;
 .ui-jqgrid .ui-widget-content{
     border-right:solid 1px #CCCCCC;
 }
-/*��Ӧ����Ժ������2013-7-1�ύ��Bug������min-height����*/
+/*锟斤拷应锟斤拷锟斤拷院锟斤拷锟斤拷锟斤拷2013-7-1锟结交锟斤拷Bug锟斤拷锟斤拷锟斤拷min-height锟斤拷锟斤拷*/
 .ui-jqgrid .ui-jqgrid-view-min{
     border-style:solid;
     border-color:#fff;
@@ -802,7 +811,7 @@ margin-top:2px !important;
     min-height:360px;
     border-bottom:1px solid #CCD5DE;background:#fff; border-top:1px solid #CCD5DE;
 }
-/*��Ӧ����Ժ������2013-7-1�ύ��Bug����*/
+/*锟斤拷应锟斤拷锟斤拷院锟斤拷锟斤拷锟斤拷2013-7-1锟结交锟斤拷Bug锟斤拷锟斤拷*/
 .ui-jqgrid .ui-jqgrid-view{
     /* border-style:solid;
     border-color:#CCCCCC;
@@ -811,12 +820,12 @@ margin-top:2px !important;
     border-right:1px solid #D3DCEF;
     border-collapse:collapse;
 }
-/*�����ҳ���ڱ߾�*/
+/*锟斤拷锟斤拷锟揭筹拷锟斤拷诒呔锟�*/
 .ui-jqgrid .ui-jqgrid-pager .ui-pg-table td {
     padding: 2px;
     *padding:2px 5px;
 }
-/*�޵�����ʱ��ҳ���ޱ߿�*/
+/*锟睫碉拷锟斤拷锟斤拷时锟斤拷页锟斤拷锟睫边匡拷*/
 .ui-jqgrid .ui-jqgrid-pager-nonav  {
     border: none ;*border-bottom:1px solid #D3DCEF;border-right:1px solid #D3DCEF;
     background-color:#fff;
@@ -829,8 +838,8 @@ margin-top:2px !important;
     padding:0;
 }
 .ui-jqgrid tr.ui-widget-content{
-	border-bottom: 1px solid #dae1e5;
-    border-right:solid 1px #dae1e5;
+	/* border-bottom: 1px solid #dae1e5; */
+	/* border-right:solid 1px #dae1e5; */
 }
 
 .form-view-label{
@@ -840,8 +849,8 @@ margin-top:2px !important;
 	text-align: right;
 	font-weight: blod;
 	background-color:#F9F9F9;
-	*background-color:#F9F9F9 !important; /*��IE7*/
-    *background-color:#efefef; /*��IE6��IE6����*/
+	*background-color:#F9F9F9 !important; /*锟斤拷IE7*/
+    *background-color:#efefef; 
 	width:12%;
 }
 
@@ -853,5 +862,5 @@ margin-top:2px !important;
 }
 
 .jqg-second-row-header .ui-th-column-header{
-    text-align:center;/*���ͷʱ���ж���*/
+    text-align:center;
 }

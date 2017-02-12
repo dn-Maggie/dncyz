@@ -1,29 +1,14 @@
-<%@ page language="java" pageEncoding="UTF-8"
-	contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
-<script type="text/javascript" charset="utf-8"
-	src="<%=request.getContextPath()%>/js/huploadify/jquery.Huploadify.js"></script>
-<link type="text/css" rel="stylesheet"
-	href="<%=request.getContextPath()%>/js/huploadify/Huploadify.css">
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/js/huploadify/jquery.Huploadify.js"></script>
+<link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/js/huploadify/Huploadify.css">
 <script type="text/javascript">
 	var menutree;
 	var areaProvinceBox, areaRegionBox, areaCityBox;
 	$(function() {
-		//取得添加节点的父节点ID
-
-		//岗位选择
-		dutyBox = $('#dutyName').TiledCombobox({
-			url : "<m:url value='/duty/list.do'/>",
-			fieldId : 'id',
-			fieldName : 'dutyName',
-			valueId : '#dutyId',
-			multiple : false
-		});	
-		
-		
 // 		//身份证图片上传控件
 // 			 var up=$("#upload").Huploadify(
 // 					{
@@ -79,7 +64,6 @@
 		//绑定提交按钮click事件
 		$("#submit").click(function() {
 			
-			$('#salStandardName').val($('#salStandardId').find("option:selected").text());
 			if (!biz.validate("valid", $('#userInfoFormAdd')[0])) {
 				showWarn("<m:message code='validation.object'/>", 3000);
 				return;
@@ -164,27 +148,10 @@
 					required : true,
 					maxlength : 18
 				},
-				"dutyName" : {
-					required : true,
-					maxlength : 18
-				},
 				"memo" : {
 					maxlength : 150
 				}
 			}
-		});
-
-		//入职日期
-		new biz.datepicker({
-			id : "#edit_entryDate",//容器Id   
-			event : "click",
-			dateFmt : 'yyyy-MM-dd'
-		});
-		//出生日期
-		new biz.datepicker({
-			id : "#edit_birthday",//容器Id   
-			event : "click",
-			dateFmt : 'yyyy-MM-dd'
 		});
 
 		new biz.select(
@@ -199,12 +166,6 @@
 			addEmptyItem : true
 		});
 		
-		$("#salStandardId").change(function(){
-			   var op=$(this).find("option:selected");
-			  $('#salValue').val(op.attr("totalValue"));
-			  $('#stockNum').val(op.attr("stockNum"));
-		});
-
 	});
 
 	function ajaxGetUserInfoByUserAccount(userAccount) {
@@ -251,68 +212,11 @@
 		setMenuTreeJson(obj.value);
 	}
 	
-	//打开员工资源管理界面
-	function employeeMgt() {
-		var url = baseUrl + '/userInfo/toSelectEmployee.do';
-		employeelist_iframe_dialog = new biz.dialog(
-				{
-					id : $('<div id="sublist_window_iframe"></div>')
-							.html(
-									'<iframe id="iframeSublist" name="iframeSublist" src="'
-											+ url
-											+ '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
-					modal : true,
-					width : $(window).width()*0.8,
-					height : $(window).height()*0.8,
-					title : "员工信息列表"
-				});
-		employeelist_iframe_dialog.open();
-	}
-
-	// 关闭员工资源管理界面
-	function closeEmployee() {
-		employeelist_iframe_dialog.close();
-	}
-	
-	//填充数据
-	function drawForm(rowData) {
-		console.log(rowData);
-		$("#edit_fullName").val(rowData.name);
-		$("#edit_sex").find("option:selected").val(rowData.sex);
-		$("#edit_sex").find("option:selected").text(rowData.sex);
-		$("#mobilePhone").val(rowData.mobile);
-		$("#age").val(rowData.age);
-		$("#dutyName").val(rowData.position);
-		$("#idCard").val(rowData.idCard);
-		$("#entryDate").val(rowData.entryDate);
-		$("#edit_schooling").val(rowData.educationBackground);
-		$("#mobilePhone").val(rowData.mobile);
-		$("#mobilePhone").val(rowData.mobile);
-	}
-	
 </script>
 </head>
 
 <body>
-	<div class="listplace" style="margin: 0px">
-		<!--功能按钮begin-->
-		<div class="list_btn_bg fl" style="position: absolute;">
-			<!--功能按钮 div-->
-			<ul>
-				<li><a title="从员工信息中选择" href="javascript:;"
-					onclick="employeeMgt();"> <i class="back_icon resources_icon"></i>
-						<span>从员工信息中选择</span>
-				</a></li>
-				<li><a title="重置" href="javascript:;"
-					onclick="resetForm('userInfoFormAdd')"> <i
-						class="icon_bg icon_del"></i><span>重置</span>
-				</a></li>
-			</ul>
-		</div>
-		<!--功能按钮end-->
-	</div>
-
-	<form id="userInfoFormAdd" style="margin-top: 35px;">
+	<form id="userInfoFormAdd">
 		<div class="ui-table ui-widget ui-corner-all ui-border">
 			<table class="table">
 				<tr>
@@ -326,35 +230,10 @@
 
 				</tr>
 				<tr>
-					<td class="inputLabelTd"><span class="required">*</span>组织机构：</td>
-					<td class="inputTd"><input id="edit_orgName" name="orgName"
-						type="text" class="text" value="${basicOrg.orgName}"
-						readonly="readonly" /> <input id="edit_orgId" name="orgId"
-						type="hidden" class="text" value="${basicOrg.id}" /> <input
-						id="orgClass" name="orgClass" type="hidden" class="text"
-						value="${basicOrg.orgClass}" /></td>
-					<td class="inputLabelTd">性别：</td>
-					<td class="inputTd"><select id="edit_sex" name="sex"
-						class="select">
-							<option value="1">男</option>
-							<option value="0">女</option>
-					</select></td>
-				</tr>
-				<tr>
 					<td class="inputLabelTd"><span class="required">*</span>手机号码：</td>
 					<td class="inputTd"><input id="mobilePhone" name="mobilePhone"
 						type="text" class="text" value="${userInfo.mobilePhone}" /></td>
-					<td class="inputLabelTd"><span class="required">*</span>年龄：</td>
-					<td class="inputTd"><input id="age" name="age" type="text"
-						class="text" value="${userInfo.age}" /></td>
-				</tr>
-				<tr>
-					<td class="inputLabelTd"><span class="required">*</span>所属岗位：</td>
-					<td class="inputTd"><input id="dutyName" name="dutyName"
-						type="text" class="text" value="${userInfo.dutyName}" /> <input
-						id="dutyId" name="dutyId" type="hidden" class="text"
-						value="${userInfo.dutyId}" /></td>
-					<td class="inputLabelTd"><span class="required">*</span>身份证号码：</td>
+						<td class="inputLabelTd"><span class="required">*</span>身份证号码：</td>
 					<td class="inputTd"><input id="idCard" name="idCard"
 						type="text" class="text" value="${userInfo.idCard}" /></td>
 				</tr>
@@ -370,10 +249,6 @@
 					</select></td>
 				</tr>
 				<tr>
-					<td class="inputLabelTd">入职日期：</td>
-					<td class="inputTd"><input id="edit_entryDate"
-						name="entryDate" type="text" class="text"
-						value="${userInfo.entryDate}" /></td>
 					<td class="inputLabelTd">角色</td>
 					<td class="inputTd"><select id="edit_roleId" name="roleId"
 						class="select">
@@ -381,65 +256,18 @@
 								<option value="${role.roleId}">${role.roleName}</option>
 							</c:forEach>
 					</select></td>
-				</tr>
-				<tr>
-					<td class="inputLabelTd">出生年月：</td>
-					<td class="inputTd"><input id="edit_birthday" name="birthday"
-						type="text" class="text" value="${userInfo.birthday}" /></td>
-					<td class="inputLabelTd">邮箱地址：</td>
-					<td class="inputTd"><input id="edit_userEmail"
-						name="userEmail" type="text" class="text"
-						value="${userInfo.userEmail}" /></td>
-				</tr>
-				<tr>
-					<td class="inputLabelTd">学历</td>
-					<td class="inputTd"><select id="edit_schooling"
-						name="schooling" class="select">
-							<option value="1">小学</option>
-							<option value="2">初中</option>
-							<option value="3">高中（职高、高）</option>
-							<option value="4">中专大专（高职）</option>
-							<option value="5">本科</option>
-							<option value="6">硕士研究生</option>
-							<option value="7">博士研究生</option>
-					</select></td>
-					<td class="inputLabelTd">薪酬标准：</td>
-					<td class="inputTd"><select id="salStandardId"
-						name="salStandardId" class="select">
-							<option value=""></option>
-							<c:forEach var="salStandard" items="${salStandardList}">
-								<option value="${salStandard.id}"
-									totalValue="${salStandard.totalValue}"
-									stockNum="${salStandard.stockNum}">${salStandard.standardName}</option>
-							</c:forEach>
-					</select> <input id="salStandardName" name="salStandardName" type="hidden"
-						value="${userInfo.salStandardName}" /></td>
-				</tr>
-				<tr>
-					<td class="inputLabelTd">核定工资：</td>
-					<td class="inputTd"><input id="salValue" name="salValue"
-						type="text" class="text" value="${userInfo.salValue}" /></td>
-					<td class="inputLabelTd">股份配额(股)：</td>
-					<td class="inputTd"><input id="stockNum" name="stockNum"
-						type="text" class="text" value="${userInfo.stockNum}" /></td>
-				</tr>
-				<tr>
 					<td class="inputLabelTd">身份证图片：</td>
 					<td class="inputTd" colspan="3">
-						<!--  <input
-							id="idCardImgPath" name="idCardImgPath" type="hidden" class="text"
-							value="${userInfo.idCardImgPath}" />
-						<div id="upload" style="text-align: center"></div>
-							<a href="javascript:void(0);" onClick="$('#file_upload_1-button').click();"
-									>选择图片</a>
-							<div id="idCardImgDiv" style="width:600px;"></div>		--> <input
-						id="fileData" name="idCardImgPath" type="hidden"> <input
-						id="file" type="file" class="text" />
+						<!--<input id="idCardImgPath" name="idCardImgPath" type="hidden" class="text" value="${userInfo.idCardImgPath}" />--> 
+						<input id="fileData" name="idCardImgPath" type="hidden">
+						<input id="file" type="file" class="text" />
 					</td>
 				</tr>
 				<tr>
-					<td class="inputTd" colspan="5" style="text-align: center;"><input
-						id="submit" type="button" class="ti_bottom" value="保存" /></td>
+					<td class="inputTd" colspan="5" style="text-align: center;">
+						<input id="submit" type="button" class="ti_bottom" value="保存" />
+						<input id="reset" type="reset" class="ti_bottom mr22" value="重置" />
+					</td>
 				</tr>
 			</table>
 		</div>

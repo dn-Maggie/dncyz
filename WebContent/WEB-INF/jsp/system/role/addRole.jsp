@@ -61,10 +61,7 @@ $(function() {
 </head>
 
 <body>
-
-	<div id="editDialog">
 		<form id="roleFormEdit">
-			<hi:icssToken />
 			<div class="ui-table ui-widget ui-corner-all ui-border">
 				<table class="table">
 					<tr>
@@ -112,6 +109,5 @@ $(function() {
 				</table>
 			</div>
 		</form>
-	</div>
 </body>
 </html>

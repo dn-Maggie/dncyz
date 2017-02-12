@@ -97,10 +97,7 @@ $(function() {
 });
 </script>
 </head>
-
-<body>
-
-	<div id="editDialog">
+	<body>
 		<form id="taskConfigFormEdit">
 			<div class="ui-table ui-widget ui-corner-all ui-border">
 				<input type="hidden" id="id" name="id" type="text"
@@ -175,9 +172,6 @@ $(function() {
 							value="${taskConfig.septSeconds}" />
 						</td>
 					</tr>
-
-
-
 					<tr>
 						<td class="inputTd" colspan="4" style="text-align: center;">
 							<input id="submit" type="button" class="ti_bottom" value="保存" />
@@ -186,6 +180,5 @@ $(function() {
 				</table>
 			</div>
 		</form>
-	</div>
 </body>
 </html>

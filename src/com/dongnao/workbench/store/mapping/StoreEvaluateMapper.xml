@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.store.dao.StoreEvaluateMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.store.model.StoreEvaluate">
+		<id column="EVALUATE_ID" property="evaluateId" jdbcType="CHAR" />
+															<result column="PRODUCT_ID" property="productId" jdbcType="CHAR" />
+													<result column="CHANNEL_ID" property="channelId" jdbcType="CHAR" />
+													<result column="STAR_LEVEL" property="starLevel" jdbcType="INTEGER" />
+													<result column="EVALUATE_CONTENT" property="evaluateContent" jdbcType="VARCHAR" />
+													<result column="REPLY_CONTENT" property="replyContent" jdbcType="VARCHAR" />
+									</resultMap>
+	<sql id="Base_Column_List">
+						 	EVALUATE_ID
+										,PRODUCT_ID
+										,CHANNEL_ID
+										,STAR_LEVEL
+										,EVALUATE_CONTENT
+										,REPLY_CONTENT
+						</sql>
+	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from dn_store_evaluate
+		where EVALUATE_ID = #{evaluateId,jdbcType=CHAR}
+	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.StoreEvaluate">
+		select
+		<include refid="Base_Column_List" />
+		from dn_store_evaluate
+		where 1=1
+		<if test="evaluateId != null and '' != evaluateId">  
+			and EVALUATE_ID = #{evaluateId,jdbcType=CHAR}
+		</if>
+		<if test="productId != null and '' != productId">  
+			and PRODUCT_ID = #{productId,jdbcType=CHAR}
+		</if>
+		<if test="channelId != null and '' != channelId">  
+			and CHANNEL_ID = #{channelId,jdbcType=CHAR}
+		</if>
+		<if test="starLevel != null and '' != starLevel">  
+			and STAR_LEVEL = #{starLevel,jdbcType=INTEGER}
+		</if>
+		<if test="evaluateContent != null and '' != evaluateContent">  
+			and EVALUATE_CONTENT = #{evaluateContent,jdbcType=VARCHAR}
+		</if>
+		<if test="replyContent != null and '' != replyContent">  
+			and REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR}
+		</if>
+				<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+         	</if>
+	</select>
+	
+	<delete id="deleteByKey" parameterType="java.lang.String">
+		delete from dn_store_evaluate
+		where EVALUATE_ID = #{evaluateId,jdbcType=CHAR}
+	</delete>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.store.model.StoreEvaluate">
+		insert into dn_store_evaluate (
+		<include refid="Base_Column_List" />
+		)values (
+										#{evaluateId,jdbcType=CHAR}
+														,#{productId,jdbcType=CHAR}
+														,#{channelId,jdbcType=CHAR}
+														,#{starLevel,jdbcType=INTEGER}
+														,#{evaluateContent,jdbcType=VARCHAR}
+														,#{replyContent,jdbcType=VARCHAR}
+									)
+	</insert>
+	
+	<update id="update" parameterType="com.dongnao.workbench.store.model.StoreEvaluate">
+		update dn_store_evaluate  set
+		ID= #{evaluateId,jdbcType=CHAR}
+													,PRODUCT_ID = #{productId,jdbcType=CHAR}
+											,CHANNEL_ID = #{channelId,jdbcType=CHAR}
+											,STAR_LEVEL = #{starLevel,jdbcType=INTEGER}
+											,EVALUATE_CONTENT = #{evaluateContent,jdbcType=VARCHAR}
+											,REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR}
+							where EVALUATE_ID = #{evaluateId,jdbcType=CHAR}
+	</update>
+</mapper>

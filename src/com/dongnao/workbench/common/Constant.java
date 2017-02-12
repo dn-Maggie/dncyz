@@ -365,23 +365,6 @@ public class Constant {
 	public static final String EIGHT = "8";
 
 	/**
-	 * 装置类型LKJ93
-	 */
-	public static final Integer DEVICET_TYPE_1 = 1;
-	/**
-	 * 装置类型LKJ2000
-	 */
-	public static final Integer DEVICET_TYPE_2 = 2;
-	/**
-	 * 装置类型LKJ15
-	 */
-	public static final Integer DEVICET_TYPE_3 = 3;
-	/**
-	 * 装置类型其他
-	 */
-	public static final Integer DEVICET_TYPE_4 = 4;
-
-	/**
 	 * 消息处理结果 未处理
 	 */
 	public static final String ALARMDEALFLAG_0 = "0";
@@ -492,38 +475,6 @@ public class Constant {
 	 */
 	public static final Integer GRANT_REPLACE_FLAG_1 = 1;
 
-	/**
-	 * 部门(单位)类型00:供应商
-	 */
-	public static final String DEPT_TYPE_00 = "00";
-	/**
-	 * 部门(单位)类型01:机务段
-	 */
-	public static final String DEPT_TYPE_01 = "01";
-	/**
-	 * 部门(单位)类型02:电务段
-	 */
-	public static final String DEPT_TYPE_02 = "02";
-	/**
-	 * 部门(单位)类型12为工务段
-	 */
-	public static final String DEPT_TYPE_12 = "12";
-	/**
-	 * 部门(单位)类型05为铁路局
-	 */
-	public static final String DEPT_TYPE_05 = "05";
-	/**
-	 * 部门(单位)类型06为车辆段
-	 */
-	public static final String DEPT_TYPE_06 = "06";
-	/**
-	 * 部门(单位)类型07为动车段
-	 */
-	public static final String DEPT_TYPE_07 = "07";
-	/**
-	 * 部门(单位)类型10为其他机构
-	 */
-	public static final String DEPT_TYPE_10 = "10";
 
 	/**
 	 * 状态标记--新增
@@ -569,99 +520,6 @@ public class Constant {
 	 * 警示状态 0：正常
 	 */
 
-	/**
-	 * 机车AB节A节
-	 */
-	public static final String LOCO_NO_AB_A = "A";
-	/**
-	 * 机车AB节B节
-	 */
-	public static final String LOCO_NO_AB_B = "B";
-
-	/**
-	 * 换装转态 未开始
-	 */
-	public static final Integer TRACE_RELOAD_FLAG_0 = 0;
-
-	/**
-	 * 换装转态 已完成
-	 */
-	public static final Integer TRACE_RELOAD_FLAG_1 = 1;
-
-	/**
-	 * 警示状态 0:正常
-	 */
-	public static final String TRAINWARNING_0 = "0";
-
-	/**
-	 * 警示状态 1：关注
-	 */
-	public static final String TRAINWARNING_1 = "1";
-
-	/**
-	 * 警示状态 2：预警
-	 */
-	public static final String TRAINWARNING_2 = "2";
-
-	/**
-	 * 警示状态 3：故障
-	 */
-	public static final String TRAINWARNING_3 = "3";
-
-	/**
-	 * 警示状态 4：报警
-	 */
-	public static final String TRAINWARNING_4 = "4";
-
-	/**
-	 * 警示状态 5：提前换
-	 */
-	public static final String TRAINWARNING_5 = "5";
-
-	/**
-	 * 警示状态 6：漏换
-	 */
-	public static final String TRAINWARNING_6 = "6";
-
-	/**
-	 * 警示状态 7：错换
-	 */
-	public static final String TRAINWARNING_7 = "7";
-
-	/**
-	 * 警示状态 8：未知
-	 */
-	public static final String TRAINWARNING_8 = "8";
-
-	/**
-	 * 换装状态 0:未换装
-	 */
-	public static final String RELOADRESULT_0 = "0";
-
-	/**
-	 * 换装状态 1:正在发送
-	 */
-	public static final String RELOADRESULT_1 = "1";
-
-	/**
-	 * 换装状态 2:已发送
-	 */
-	public static final String RELOADRESULT_2 = "2";
-
-	/**
-	 * 换装状态 3: 已更新
-	 */
-	public static final String RELOADRESULT_3 = "3";
-
-	/**
-	 * 换装状态 4: 已启用
-	 */
-	public static final String RELOADRESULT_4 = "4";
-
-	/**
-	 * 换装状态 5:传输失败
-	 */
-	public static final String RELOADRESULT_5 = "5";
 
 	/**
 	 * 机车导入模板列长度

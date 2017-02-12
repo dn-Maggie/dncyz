@@ -16,7 +16,7 @@ import com.dongnao.workbench.system.model.SettingInfo;
  
 /**
  * 描述：settingInfo模块service接口实现类，实现service接口方法
- * @author wff
+ * @author maggie
  * @version 1.0  2013-11-21
  */
 @Service("settingInfoService")

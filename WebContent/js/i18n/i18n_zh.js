@@ -134,9 +134,9 @@ I18N = {
 	**/
 	$.jgrid = {
 		defaults : {
-			recordtext: "{0} - {1}\u3000共 {2} 条",	// 共字前是全角空格
-			emptyrecords: "0 - 0　共 0 条",
-			loadtext: "读取中...",
+			recordtext: "{0} - {1}\u3000共计 {2} 条记录",	// 共字前是全角空格
+			emptyrecords: "0 - 0　共计 0 条记录",
+			loadtext: "正在载入...",
 			pgtext : " {0} 共 {1} 页"
 		},
 		search : {

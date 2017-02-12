@@ -82,6 +82,9 @@
 				<value>/logout.do</value>
 				<value>/tologin.do</value>
 				<value>/appLogin.do</value>
+				<value>/varifyCode.do</value>
+				<value>/staticAnalysis/toAllStatic.do</value>
+				<value>/store/toListStore.do</value>
 			</list>
 		</property>
 	</bean>

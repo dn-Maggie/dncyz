@@ -57,10 +57,7 @@ $(function() {
 </head>
 
 <body>
-
-	<div id="editDialog">
 		<form id="resActFormEdit">
-			<hi:icssToken />
 			<div class="ui-table ui-widget ui-corner-all ui-border">
 				<input type="hidden" id="edit_id" name="id" type="text"
 					value="${resAct.id}" /> <input type="hidden" id="edit_resuuId"
@@ -109,6 +106,5 @@ $(function() {
 				</table>
 			</div>
 		</form>
-	</div>
 </body>
 </html>

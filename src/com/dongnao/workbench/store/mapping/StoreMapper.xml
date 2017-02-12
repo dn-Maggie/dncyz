@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.store.dao.StoreMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.store.model.Store">
+		<id column="STORE_ID" property="storeId" jdbcType="CHAR" />
+															<result column="STORE_NAME" property="storeName" jdbcType="VARCHAR" />
+													<result column="BRAND_ID" property="brandId" jdbcType="CHAR" />
+													<result column="STORE_ADDRESS" property="storeAddress" jdbcType="VARCHAR" />
+													<result column="WORK_TIME_BEGIN" property="workTimeBegin" jdbcType="TIMESTAMP" />
+													<result column="WORK_TIME_END" property="workTimeEnd" jdbcType="TIMESTAMP" />
+													<result column="STORE_OWNER_NAME" property="storeOwnerName" jdbcType="VARCHAR" />
+													<result column="STORE_OWNER_TEL" property="storeOwnerTel" jdbcType="VARCHAR" />
+													<result column="PRO_INVOICE_FLAG" property="proInvoiceFlag" jdbcType="CHAR" />
+													<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+													<result column="OPERATE_DATE" property="operateDate" jdbcType="DATE" />
+													<result column="SETTLEMENT_METHOD" property="settlementMethod" jdbcType="CHAR" />
+													<result column="STORE_TEL" property="storeTel" jdbcType="VARCHAR" />
+													<result column="REAL_IMAGE_PATH_1" property="realImagePath1" jdbcType="VARCHAR" />
+													<result column="REAL_IMAGE_PATH_2" property="realImagePath2" jdbcType="VARCHAR" />
+													<result column="REAL_IMAGE_PATH_3" property="realImagePath3" jdbcType="VARCHAR" />
+									</resultMap>
+	<sql id="Base_Column_List">
+						 	STORE_ID
+										,STORE_NAME
+										,BRAND_ID
+										,STORE_ADDRESS
+										,WORK_TIME_BEGIN
+										,WORK_TIME_END
+										,STORE_OWNER_NAME
+										,STORE_OWNER_TEL
+										,PRO_INVOICE_FLAG
+										,REMARK
+										,OPERATE_DATE
+										,SETTLEMENT_METHOD
+										,STORE_TEL
+										,REAL_IMAGE_PATH_1
+										,REAL_IMAGE_PATH_2
+										,REAL_IMAGE_PATH_3
+						</sql>
+	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from dn_store
+		where STORE_ID = #{storeId,jdbcType=CHAR}
+	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.Store">
+		select
+		<include refid="Base_Column_List" />
+		from dn_store
+		where 1=1
+		<if test="storeId != null and '' != storeId">  
+			and STORE_ID = #{storeId,jdbcType=CHAR}
+		</if>
+		<if test="storeName != null and '' != storeName">  
+			and STORE_NAME = #{storeName,jdbcType=VARCHAR}
+		</if>
+		<if test="brandId != null and '' != brandId">  
+			and BRAND_ID = #{brandId,jdbcType=CHAR}
+		</if>
+		<if test="storeAddress != null and '' != storeAddress">  
+			and STORE_ADDRESS = #{storeAddress,jdbcType=VARCHAR}
+		</if>
+		<if test="workTimeBegin != null and '' != workTimeBegin">  
+			and WORK_TIME_BEGIN = #{workTimeBegin,jdbcType=TIMESTAMP}
+		</if>
+		<if test="workTimeEnd != null and '' != workTimeEnd">  
+			and WORK_TIME_END = #{workTimeEnd,jdbcType=TIMESTAMP}
+		</if>
+		<if test="storeOwnerName != null and '' != storeOwnerName">  
+			and STORE_OWNER_NAME = #{storeOwnerName,jdbcType=VARCHAR}
+		</if>
+		<if test="storeOwnerTel != null and '' != storeOwnerTel">  
+			and STORE_OWNER_TEL = #{storeOwnerTel,jdbcType=VARCHAR}
+		</if>
+		<if test="proInvoiceFlag != null and '' != proInvoiceFlag">  
+			and PRO_INVOICE_FLAG = #{proInvoiceFlag,jdbcType=CHAR}
+		</if>
+		<if test="remark != null and '' != remark">  
+			and REMARK = #{remark,jdbcType=VARCHAR}
+		</if>
+		<if test="operateDate != null and '' != operateDate">  
+			and OPERATE_DATE = #{operateDate,jdbcType=DATE}
+		</if>
+		<if test="settlementMethod != null and '' != settlementMethod">  
+			and SETTLEMENT_METHOD = #{settlementMethod,jdbcType=CHAR}
+		</if>
+		<if test="storeTel != null and '' != storeTel">  
+			and STORE_TEL = #{storeTel,jdbcType=VARCHAR}
+		</if>
+		<if test="realImagePath1 != null and '' != realImagePath1">  
+			and REAL_IMAGE_PATH_1 = #{realImagePath1,jdbcType=VARCHAR}
+		</if>
+		<if test="realImagePath2 != null and '' != realImagePath2">  
+			and REAL_IMAGE_PATH_2 = #{realImagePath2,jdbcType=VARCHAR}
+		</if>
+		<if test="realImagePath3 != null and '' != realImagePath3">  
+			and REAL_IMAGE_PATH_3 = #{realImagePath3,jdbcType=VARCHAR}
+		</if>
+				<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+         	</if>
+	</select>
+	
+	<delete id="deleteByKey" parameterType="java.lang.String">
+		delete from dn_store
+		where STORE_ID = #{storeId,jdbcType=CHAR}
+	</delete>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.store.model.Store">
+		insert into dn_store (
+		<include refid="Base_Column_List" />
+		)values (
+										#{storeId,jdbcType=CHAR}
+														,#{storeName,jdbcType=VARCHAR}
+														,#{brandId,jdbcType=CHAR}
+														,#{storeAddress,jdbcType=VARCHAR}
+														,#{workTimeBegin,jdbcType=TIMESTAMP}
+														,#{workTimeEnd,jdbcType=TIMESTAMP}
+														,#{storeOwnerName,jdbcType=VARCHAR}
+														,#{storeOwnerTel,jdbcType=VARCHAR}
+														,#{proInvoiceFlag,jdbcType=CHAR}
+														,#{remark,jdbcType=VARCHAR}
+														,#{operateDate,jdbcType=DATE}
+														,#{settlementMethod,jdbcType=CHAR}
+														,#{storeTel,jdbcType=VARCHAR}
+														,#{realImagePath1,jdbcType=VARCHAR}
+														,#{realImagePath2,jdbcType=VARCHAR}
+														,#{realImagePath3,jdbcType=VARCHAR}
+									)
+	</insert>
+	
+	<update id="update" parameterType="com.dongnao.workbench.store.model.Store">
+		update dn_store  set
+		ID= #{storeId,jdbcType=CHAR}
+													,STORE_NAME = #{storeName,jdbcType=VARCHAR}
+											,BRAND_ID = #{brandId,jdbcType=CHAR}
+											,STORE_ADDRESS = #{storeAddress,jdbcType=VARCHAR}
+											,WORK_TIME_BEGIN = #{workTimeBegin,jdbcType=TIMESTAMP}
+											,WORK_TIME_END = #{workTimeEnd,jdbcType=TIMESTAMP}
+											,STORE_OWNER_NAME = #{storeOwnerName,jdbcType=VARCHAR}
+											,STORE_OWNER_TEL = #{storeOwnerTel,jdbcType=VARCHAR}
+											,PRO_INVOICE_FLAG = #{proInvoiceFlag,jdbcType=CHAR}
+											,REMARK = #{remark,jdbcType=VARCHAR}
+											,OPERATE_DATE = #{operateDate,jdbcType=DATE}
+											,SETTLEMENT_METHOD = #{settlementMethod,jdbcType=CHAR}
+											,STORE_TEL = #{storeTel,jdbcType=VARCHAR}
+											,REAL_IMAGE_PATH_1 = #{realImagePath1,jdbcType=VARCHAR}
+											,REAL_IMAGE_PATH_2 = #{realImagePath2,jdbcType=VARCHAR}
+											,REAL_IMAGE_PATH_3 = #{realImagePath3,jdbcType=VARCHAR}
+							where STORE_ID = #{storeId,jdbcType=CHAR}
+	</update>
+</mapper>

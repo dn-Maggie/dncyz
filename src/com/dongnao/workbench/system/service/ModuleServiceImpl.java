@@ -175,8 +175,6 @@ public class ModuleServiceImpl implements ModuleService {
 	}
 
 	@Override
-	// @Cacheable(value =
-	// MemcacheService.BEAN_ID,key="'"+ModuleService.BEAN_ID+".getMenuJsonForAdmin'")
 	public List<Module> getMenuListForAdmin() {
 		// 获取所有菜单
 		List<Module> listModule = moduleMapper.queryForMenuByAdmin();
@@ -201,15 +199,11 @@ public class ModuleServiceImpl implements ModuleService {
 	}
 
 	@Override
-	// @Cacheable(value =
-	// MemcacheService.BEAN_ID,key="'"+ModuleService.BEAN_ID+".getMenuJsonByPcode.'+#pcode")
 	public List<Module> getMenuListByPcode(String pcode) {
 		List<Module> listModule = moduleMapper.queryForMenuByPcode(pcode);
-		List<ModuleRes> listModuleRes = moduleResMapper
-				.queryForMenuByPcode(pcode);
+		List<ModuleRes> listModuleRes = moduleResMapper.queryForMenuByPcode(pcode);
 		ModuleRes moduleRes = moduleResMapper.queryFoRoleStatesByPcode(pcode);
-		if (listModule != null && listModule.size() > 0
-				&& !moduleRes.getRoleStatus().equals("0")) {
+		if (listModule != null && listModule.size() > 0 && !moduleRes.getRoleStatus().equals("0")) {
 			for (Module menu : listModule) {
 				String muuid = menu.getId();
 				if (listModuleRes != null && listModuleRes.size() > 0) {

@@ -1,5 +1,5 @@
 @charset "utf-8";
-/************************Bizfoundation 蓝色皮肤 CSS V5.0 **********************/
+/************************Bizfoundation 橘色皮肤 CSS V5.0 **********************/
 body{width:100%;*width:auto;height:100%;*height:auto;font-size-adjust:none;font-style:normal;font-variant:normal;font-weight:400;font-family: "微软雅黑",sans-serif;margin:0;}
 .main{width:auto;height:auto;text-align:left;margin:0 auto; }
 .main-body{min-width: 800px;}
@@ -37,7 +37,7 @@ body{width:100%;*width:auto;height:100%;*height:auto;font-size-adjust:none;font-
 input, select, textarea,button { font-family:"微软雅黑",sans-serif;font-size: 12px;}
 .ui-widget-content {  /*border: 1px solid #cccccc;*/ background: #fff; color: #444444; }
 .ui-widget-content a { color: #222222; }
-.ui-widget-header { border-bottom: 1px solid #ccd2de;/* background: #cccccc url(images/tabelTitlebg.png) repeat-x; */background:#257ae4; color: #fff; font-weight: 500; font-size:14px; line-height:22px;}
+.ui-widget-header { /*border-bottom: 1px solid #ccd2de; background: #cccccc url(images/tabelTitlebg.png) repeat-x; */background:#f47115; color: #fff; font-weight: 500; font-size:14px; line-height:22px;}
 .ui-tabs-nav.ui-widget-header {/* border: 1px solid #8cb2e1;*/background: #ffffff; color: white; font-weight: bold;}
 .ui-jqgrid-view .ui-widget-header{background: #efefef; color:#333333;}
 .ui-widget-header a { color: #222222; }
@@ -46,21 +46,21 @@ input, select, textarea,button { font-family:"微软雅黑",sans-serif;font-size
 ----------------------------------*/
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { 
 border-bottom: 1px solid #dae1e5; 
-background:#757575;
+background:#989898;
 font-weight: 500; 
 color: #fff;
 }
 .ui-tabs-nav.ui-widget-header li.ui-state-default{background-image: none;}
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #555555; text-decoration: none; }
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {/*  border: 1px solid #999999; */ background: #cde2fb; font-weight: blod; color: #237ae4; }
-.ui-state-hover a, .ui-state-hover a:hover { color: #1e6ab0; text-decoration: none; }
-.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border-left: 1px solid #ccd2de;border-right: 1px solid #ccd2de;border-top: 3px solid #237ae4;background:#fff; /*background: #ffffff url(images/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x;*/ font-weight: 500; color: #237ae4; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {/*  border: 1px solid #999999; */ background: #FFF5D9; font-weight: blod; color: #f47115; }
+.ui-state-hover a, .ui-state-hover a:hover { color: #f47115; text-decoration: none; }
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { /*border-left: 1px solid #ccd2de;border-right: 1px solid #ccd2de;*/border-top: 3px solid #f47115;background:#fff; /*background: #ffffff url(images/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x;*/ font-weight: 500; color: #f47115; }
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #212121; text-decoration: none; }
 .ui-widget :active { outline: none; }
 
 /* Interaction Cues
 ----------------------------------*/
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #CCD5DE; background:#FFF5D9; color: #000; }
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {/* border: 1px solid #CCD5DE; */ background:#FFF5D9; color: #000; }
 .ui-state-highlight a, .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #363636; }
 .ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #cd0a0a; background: #fef1ec url(images/ui-bg_inset-soft_95_fef1ec_1x100.png) 50% bottom repeat-x; color: #cd0a0a; }
 .ui-state-error a, .ui-widget-content .ui-state-error a, .ui-widget-header .ui-state-error a { color: #cd0a0a; }
@@ -73,11 +73,11 @@ color: #fff;
 ----------------------------------*/
 
 /* states and images */
-.ui-icon { width: 16px; height: 16px; background-image: url(images/ui-icons_6da8d5_256x240.png); }
-.ui-widget-content .ui-icon {background-image: url(images/ui-icons_6da8d5_256x240.png); }
-.ui-widget-header .ui-icon {background-image: url(images/ui-icons_6da8d5_256x240.png); }
-.ui-state-default .ui-icon { background-image: url(images/ui-icons_6da8d5_256x240.png); }
-.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(images/ui-icons_2e83ff_256x240.png); }
+.ui-icon { width: 16px; height: 16px; background-image: url(images/ui-icons_cd0a0a_256x240.png); }
+.ui-widget-content .ui-icon {background-image: url(images/ui-icons_cd0a0a_256x240.png); }
+.ui-widget-header .ui-icon {background-image: url(images/ui-icons_cd0a0a_256x240.png); }
+.ui-state-default .ui-icon { background-image: url(images/ui-icons_cd0a0a_256x240.png); }
+.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(images/ui-icons_f9bd01_256x240.png); }
 .ui-state-active .ui-icon {background-image: url(images/ui-icons_2e83ff_256x240.png); }
 .ui-state-highlight .ui-icon {background-image: url(images/ui-icons_2e83ff_256x240.png); }
 .ui-state-error .ui-icon, .ui-state-error-text .ui-icon {background-image: url(images/ui-icons_cd0a0a_256x240.png); }
@@ -392,11 +392,11 @@ color: #fff;
    text-align: center; 
    overflow: visible; 
    height:22px;
-   border: 1px solid #a4bcc5;
+   border: 1px solid #f47115;
    font-size: 12px;
     width:auto; 
    background-color:#ffffff;
-   background-image: url(images/button_bg.jpg) !important; 
+   /* background-image: url(images/button_bg.jpg) !important; */ 
    color:#444444;
  } /* the overflow property removes extra width in IE */
  .cell .valuecell .ui-button{
@@ -411,7 +411,7 @@ color: #fff;
  .ui-pg-button .ui-button-text-only .ui-button-text{
     padding: .1em .1em; 
 	margin-left:-3px;
-	color:#2E6E9E;
+	color:#f47115;
  }
  .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary.ui-state-hover{
 	background: #eeeeee; 
@@ -433,9 +433,9 @@ button.ui-button-icon-only { width: 2.4em; } /* button elements seem to need a l
 .ui-button-icons-only { width: 3.4em; } 
 button.ui-button-icons-only { width: 3.7em; } 
 .selectOrg-btn{display: inline-block; background:url(images/selectOrg.png) no-repeat; width: 22px; height: 24px;margin-left: -24px;position: absolute;
-margin-top: 1px;border-left: 1px solid #e3e9ef;}
+margin-top: 1px;/*border-left: 1px solid #e3e9ef;*/}
 .selectOrg-textarea-btn{display: inline-block; background:url(images/selectOrg.png) no-repeat; width: 22px; height: 24px;margin-left: -28px;position: absolute;
-margin-top: 1px;border-left: 1px solid #95a9bf;}
+margin-top: 1px;/*border-left: 1px solid #95a9bf;*/}
 
 /*button text element */
 .ui-button .ui-button-text { display: block; line-height: 1;  }
@@ -544,7 +544,7 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
   background-color:#ffffff;
 }
 .ui-tabs .ui-tabs-nav .ui-state-default a{
-  color:#237ae4;
+  color:#f47115;
 }
 .ui-tabs.ui-widget-content{
   border:none;
@@ -650,7 +650,7 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
 .csiui-text-counter { 
 	margin-left: 5;
 	font-size:14px; 
-	color:#5E809E; 
+	color:#f47115; 
 }
 /*级联下拉框组件加载数据时*/
 .csiui-cascade-loading {																		
@@ -667,10 +667,10 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
 	/*overflow:hidden;*/
 	white-space:nowrap;
    cursor: pointer; 
-   border: 1px solid #a4bcc5;
+   /*border: 1px solid #a4bcc5;*/
    background-color:#ffffff;
    background-image: url(images/button_bg.jpg); 
-   color:#2E6E9E;
+   color:#f47115;
    line-height:26px;
 }
 .csiui-file-button-text {
@@ -685,7 +685,7 @@ padding:14px;
  * new file皮肤start
  */
 
-input{ vertical-align:middle; margin:0; padding:0}
+input{ vertical-align:middle; margin:0; padding:0;outline:0}
 .file-box{ 
 position:relative;width:340px
 
@@ -720,25 +720,25 @@ position:relative;width:340px
 	text-indent: 6pt;
 }
 .ui-jqgrid .ui-pg-table td {
-    color: #2E6E9E;
+    color: #f47115;
 }
 
 /*
  * contextmenutree组件皮肤
  */
 .rightmenu {
-	border:1px solid rgb(79,129,189);
+	border:1px solid rgb(244, 113, 21);
 	padding: 2px;
 }
 .rightmenu tr { 
-	background-color: rgb(219,229,241);
-	border:1px solid rgb(149,179,215);
+	background-color:#FFF5D9;
+	border:1px solid rgb(244, 113, 21);
 	border-collapse: collapse;
 	margin: 1px 0;
 	padding: 0 5px;
 }
 .rightmenu tr:hover{
-    background-color: #C3DAF9;
+    background-color: #FFF5D9;
 }
 .rightmenu td {
     border:1px solid rgb(149,179,215);
@@ -762,43 +762,46 @@ position:relative;width:340px
 /*********************************** 组件皮肤end ****************************/
 
 /*********************************** 表单样式start*************************/
-.ui-table { width: 'auto';
+.ui-table {
+	width: 'auto';
 	overflow: hidden;
-	margin-left: 10px;
-	margin-bottom: 10px;
-	margin-right: 10px;
-	margin-top: 10px;
+	/* margin-left: 10px; */
+	/* margin-bottom: 10px; */
+	/* margin-right: 10px; */
+	/* margin-top: 10px; */
 	background-color: white;
 } 
 .ui-leftDiv {
 	height:96%;
-	border: 1px solid #DEE3EF;
+	/* border: 1px solid #DEE3EF; */
 }
 .ui-rightDiv{
-	border-left: 1px solid #DEE3EF;
-	border-right: 1px solid #DEE3EF;
-	border-bottom: 1px solid #DEE3EF;
-	margin-top: 10px;
+	border:0;
+	/* border-left: 1px solid #DEE3EF; */
+	/* border-right: 1px solid #DEE3EF; */
+	/* border-bottom: 1px solid #DEE3EF; */
+	/* margin-top: 10px; */
 }
 .ui-margin{
    width: auto;
-	overflow: hidden;
-	/* margin-bottom: 10px;
+   overflow: hidden;
+   /* margin-bottom: 10px;
 	margin-left: 5px;
 	margin-right: 5px; */
-	/* margin-top: 10px; */
-	background-color: white;
-	/* border: 1px solid #ccd5de; */
+   /* margin-top: 10px; */
+   background-color: white;
+   /* border: 1px solid #ccd5de; */
 	*margin-top: 5px;
-	*display: inline-block;}
+	*display: inline-block;
+   }
 
 /*.ui-table[type="nomargin"] { width: auto; overflow: hidden; margin-left: 0px;margin-bottom: 0px;margin-right: 0px;margin-top: 0px;background-color:white}  */
 .ui-border{ 
 	width: auto; 
 	overflow: hidden;
 	background-color:white;
-	border-left:1px solid #e4e4e4;
-	border-top:1px solid #e4e4e4;
+	/*border-left:1px solid #e4e4e4;
+	border-top:1px solid #e4e4e4;*/
     *margin-top:10px;
     *display:inline-block;
   }  
@@ -897,7 +900,7 @@ position:relative;width:340px
 	padding:20px 0;
 }
 .table td.list-bt{
-	background: #dceefc;
+	background: #FFF5D9;
 	font-weight: 700;
 }
 
@@ -949,7 +952,7 @@ position:relative;width:340px
     text-align: center;
 	height:40px;
     background-color:#F6F6F6;
-    border-color: #C3DAF9;
+    border-color: #FFF5D9;
     font-style: normal;
 }
 /*表格页脚控件居中样式*/
@@ -1003,7 +1006,7 @@ position:relative;width:340px
    overflow: visible; 
    height:22px;
    line-height:22px;
-   border: 1px solid #a4bcc5;
+   /*border: 1px solid #FFF5D9;*/
    font-size: 12px;
    padding-left:1em;
    padding-right:1em;
@@ -1018,7 +1021,7 @@ position:relative;width:340px
    background-color: #D9F0FC;
    width: 40px;
    text-align: center;
-   border: 1px solid #B2D5F5;
+   /*border: 1px solid #B2D5F5;*/
    margin-top: 5px;
    color:#3175BE;
  }
@@ -1032,11 +1035,11 @@ position:relative;width:340px
 	border: 1px solid #ddd;
 }
 .text{
-   	height: 22px;
-   	line-height:22px;
+   	height: 25px;
+   	line-height:25px;
     width:  160px;
 	padding-left:5px;
-	border: 1px solid #ddd;
+	border: 1px solid #fefefe;
 }
 .cell .valuecell .textIpt{
 	float: left;
@@ -1410,8 +1413,8 @@ div.error{
 	   text-align: left;
 	   text-indent: 5px;
 	   line-height: 23px;
-	   color: #5E88C1;
-	   border: 1px solid #C3DAF9;
+	   color: #f47115;
+	   border: 1px solid #FFF5D9;
 	   border-top: none;
 }
  /*
@@ -1425,7 +1428,7 @@ div.error{
 	cursor:default;
 	padding:0px;
 	color:#000;
-	border:#DBDFE6 1px solid;
+	border:#FFF5D9 1px solid;
 	height:23px;
 	line-height:23px;
 	background:#fff url(images/downarrow.jpg) no-repeat right;
@@ -1438,7 +1441,7 @@ div.error{
 	cursor:default;
 	padding:0px;
 	color:#000;
-	border:solid 1px #C5DAED;
+	border:solid 1px #FFF5D9;
 	height:23px;
 	padding-right:20px;
 	background:#ffffff url(images/downarrow.jpg) no-repeat right; 
@@ -1447,7 +1450,7 @@ div.error{
 }
 /*鼠标经过下拉框的样式*/
 .dropdownlist .hover,.dropdownlist .ddl-select:hover{
-    border-color:#efeefe;
+    border-color:#FFF5D9;
 }
 /*下拉选项样式*/
 .dropdownlist table,.dropdownlist tbody tr,.dropdownlist tbody td{
@@ -1514,9 +1517,9 @@ div.error{
 	line-height: 2.25em;
 	color: white;
 /* 	background: url("images/ui-bg_flat_55_5c9ccc_40x100.png")  repeat-x scroll 50% 50% #CCCCCC; */
-    background:#257ae4;
-	border: solid 1px #257ae4;
-	/*border-bottom: solid 1px #3093d9;*/
+    background:#f47115;
+	border: solid 1px #f47115;
+	/*border-bottom: solid 1px #f47115;*/
 	cursor: default;
 	padding: 0em;
 	margin: 0em;
@@ -1565,9 +1568,9 @@ div.error{
 
 .biz_page input {
 /* 当前页和快速跳转输入框 */
-	border:#07f 1px solid;
+	border:#f47115 1px solid;
 	padding: 1px;
-	background-color: #eef;
+	background-color: #FFF5D9;
 	height: 14px;
 	overflow: hidden;
 	text-align: center;
@@ -1642,12 +1645,12 @@ input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {
-  border-color: rgba(82, 168, 236, 0.8);
+  border-color: #f47115;
   outline: 0;
   outline: thin dotted \9;
   /* IE6-9 */
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 8px rgba(243, 113, 21, 0.6);
+     -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 8px rgba(243, 113, 21, 0.6);
+          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 8px rgba(243, 113, 21, 0.6);
 
 }

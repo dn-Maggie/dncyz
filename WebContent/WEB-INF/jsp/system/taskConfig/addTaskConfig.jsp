@@ -99,8 +99,6 @@ $(function() {
 </head>
 
 <body>
-
-	<div id="editDialog">
 		<form id="taskConfigFormEdit">
 			<div class="ui-table ui-widget ui-corner-all ui-border">
 				<input type="hidden" id="id" name="id" type="text"
@@ -186,6 +184,5 @@ $(function() {
 				</table>
 			</div>
 		</form>
-	</div>
 </body>
 </html>

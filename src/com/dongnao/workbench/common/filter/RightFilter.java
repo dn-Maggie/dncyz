@@ -66,7 +66,6 @@ public class RightFilter implements Filter {
 		if(StringUtil.isEmptyOrNull(currUserIp)){
 			currUserIp = hreq.getRemoteAddr();
 		}else{
-			log.debug("------------------x-forwarded-for:"+currUserIp);
 			if(currUserIp.indexOf(",")>-1){
 				currUserIp = currUserIp.substring(0, currUserIp.indexOf(","));
 			}
@@ -77,9 +76,6 @@ public class RightFilter implements Filter {
 		if(user != null){
 			userName = user.getUserAccount();
 		}
-		//log.debug("------------------x-real-ip:"+hreq.getHeader("x-real-ip"));
-		log.debug("当前会话:"+hreq.getSession().getId()+"\t 当前访问IP："+currUserIp+"\t 登录账号："+userName+"\t 当前访问地址："+uri);
-		
 		uri = uri.replace(hreq.getContextPath(), "");
 		if ("/".equals(uri) || RightFilter.uriList.contains(uri)) {
 			chain.doFilter(request, response);

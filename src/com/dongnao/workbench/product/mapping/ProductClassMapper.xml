@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.product.dao.ProductClassMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.product.model.ProductClass">
+		<id column="PRODUCT_CLASS_ID" property="productClassId" jdbcType="CHAR" />
+															<result column="PRODUCT_CLASS_NAME" property="productClassName" jdbcType="VARCHAR" />
+									</resultMap>
+	<sql id="Base_Column_List">
+						 	PRODUCT_CLASS_ID
+										,PRODUCT_CLASS_NAME
+						</sql>
+	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from dn_product_class
+		where PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}
+	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.product.model.ProductClass">
+		select
+		<include refid="Base_Column_List" />
+		from dn_product_class
+		where 1=1
+		<if test="productClassId != null and '' != productClassId">  
+			and PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}
+		</if>
+		<if test="productClassName != null and '' != productClassName">  
+			and PRODUCT_CLASS_NAME = #{productClassName,jdbcType=VARCHAR}
+		</if>
+				<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+         	</if>
+	</select>
+	
+	<delete id="deleteByKey" parameterType="java.lang.String">
+		delete from dn_product_class
+		where PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}
+	</delete>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.product.model.ProductClass">
+		insert into dn_product_class (
+		<include refid="Base_Column_List" />
+		)values (
+										#{productClassId,jdbcType=CHAR}
+														,#{productClassName,jdbcType=VARCHAR}
+									)
+	</insert>
+	
+	<update id="update" parameterType="com.dongnao.workbench.product.model.ProductClass">
+		update dn_product_class  set
+		ID= #{productClassId,jdbcType=CHAR}
+													,PRODUCT_CLASS_NAME = #{productClassName,jdbcType=VARCHAR}
+							where PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}
+	</update>
+</mapper>

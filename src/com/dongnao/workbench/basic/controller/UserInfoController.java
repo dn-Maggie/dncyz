@@ -12,9 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dongnao.workbench.basic.dao.DutyMapper;
 import com.dongnao.workbench.basic.model.UserInfo;
-import com.dongnao.workbench.basic.service.OrgService;
 import com.dongnao.workbench.basic.service.UserInfoService;
 import com.dongnao.workbench.common.Constant;
 import com.dongnao.workbench.common.controller.BaseController;
@@ -50,30 +48,20 @@ public class UserInfoController extends BaseController{
 	@Resource
 	private PersonroleService personroleService;
 	@Resource
-	private DutyMapper dutyMapper;
-	@Resource
 	private RoleService roleService;
 	@Resource
 	private DictInfoService dictInfoService;
-	@Resource
-	private OrgService orgService;
-
 	/**
 	 * 进入新增页面
 	 * 
 	 * @return ModelAndView 返回到新增页面
 	 */
 	@RequestMapping("/toAddUserInfo")
-	public ModelAndView toAdd(String orgId) {
-		if(orgId.equals("002")){
-			return getWarningView("投资人只能在注册页面进行注册！");
-		}
-		ModelAndView mv = new ModelAndView(
-				"WEB-INF/jsp/basic/userInfo/addUserInfo");
+	public ModelAndView toAdd() {
+		ModelAndView mv = new ModelAndView( "WEB-INF/jsp/basic/userInfo/addUserInfo");
 		List<Role> roleList = roleService.listByCondition(new Role());
 		dictInfoService.getDictInfoByType("");
 		mv.addObject("roleList", roleList);
-		mv.addObject("basicOrg", orgService.getByPrimaryKey(orgId));
 		return mv;
 	}
 
@@ -409,14 +397,4 @@ public class UserInfoController extends BaseController{
 		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
 				"用户基础信息列表", "用户基础信息列表");
 	}
-
-	
-	/**
-	 * 进入员工资源管理选择界面
-	 */	
-	@RequestMapping("/toSelectEmployee")
-	public ModelAndView toSelectEmployee(){
-		return new ModelAndView("WEB-INF/jsp/basic/userInfo/selectEmployee");
-	}
-	
 }

@@ -42,10 +42,6 @@ $(function() {
 			name : "fullName",
 			label : "用户姓名",
 			index : "full_Name"
-		}, {width : 100,
-			name : "orgName",
-			label : "部门单位",
-			index : "ORG_ID"
 		}, {width : 50,
 			name : "sex",
 			label : "性别",

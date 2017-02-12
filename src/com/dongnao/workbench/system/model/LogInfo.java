@@ -10,7 +10,7 @@ import com.dongnao.workbench.common.bean.Model;
 /**
  * 描述：logInfo模块实体类，负责页面与后台数据传输功能
  * 
- * @author wff
+ * @author maggie
  * @version 1.0  2016-03-20
  */
 public class LogInfo extends Model{

@@ -6,7 +6,7 @@ import com.dongnao.workbench.system.model.LogInfo;
 
 /**
  * 描述：日志管理(logInfo)模块service接口，提供controller操作所需方法
- * @author wff
+ * @author maggie
  * @version 1.0  2016-03-20
  */
 public interface LogInfoService  {

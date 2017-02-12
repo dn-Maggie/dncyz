@@ -8,23 +8,15 @@
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/styles/default/index.css" />
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/styles/default/menu_animation.css" />
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/styles/skin/default/theme.css" />
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/styles/skin/default/components/jqgrid/jquery.jqgrid.css" />
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/styles/skin/default/components/tree/zTreeStyle.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/index.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/menu_animation.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/skin/default/theme.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/skin/default/components/jqgrid/jquery.jqgrid.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/skin/default/components/tree/zTreeStyle.css" />
 
 
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/styles/default/css/base.css"
-	media="screen" />
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/styles/default/css/master.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/css/base.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/css/master.css" />
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath() %>/styles/default/css/trans.css" />
 <link rel="stylesheet" type="text/css"
@@ -52,8 +44,8 @@
 	src="<%=request.getContextPath() %>/js/lib/biz-ie.js"></script>
 <script type="text/javascript"
 	src="<%=request.getContextPath() %>/js/jquery.cookie.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/lib/WdatePicker.js"></script>
+<%-- <script type="text/javascript"
+	src="<%=request.getContextPath() %>/js/lib/WdatePicker.js"></script> --%>
 <script type="text/javascript"
 	src="<%=request.getContextPath() %>/js/i18n/i18n_zh.js"></script>
 <script type="text/javascript"
@@ -73,8 +65,8 @@
 	src="<%=request.getContextPath() %>/js/bizLib/jquery.contextmenu.r2.js"></script>
 <script type="text/javascript"
 	src="<%=request.getContextPath() %>/js/tiledCombobox.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/bizLib/placeholder.js"></script>
+<%-- <script type="text/javascript"
+	src="<%=request.getContextPath() %>/js/bizLib/placeholder.js"></script> --%>
 
 
 <script

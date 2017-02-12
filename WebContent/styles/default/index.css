@@ -12,8 +12,8 @@ a:hover{text-decoration:none;}
 
 
 /*top*/
-.top_containter{ width:100%; height:66px; background:#2574e1;}
-.top{ width:100%; height:66px; background:#2574e1; border-bottom:1px solid #ffffff;}
+.top_containter{ width:100%; height:66px; background:#f47115;}
+.top{ width:100%; height:66px; background:#f47115; border-bottom:1px solid #ffffff;}
 .top_left{ float:left; width:510px; height:66px; background:url(../images/logo.png) left no-repeat;}
 .top_right{ float:right; width:auto; height:66px;}
 .top_right ul{ float:right; display:inline-block; height:66px; font-size:12px; color:#fff; font-family:宋体; }
@@ -49,9 +49,9 @@ a:hover{text-decoration:none;}
 .menu_two li.active cite{background:url(../images/dot_hover.png) no-repeat;}
 .menu_two li.active i{display:block; background:url(../images/sj.png) no-repeat; width:6px; height:11px; position:absolute; right:0;z-index:10000; top:9px; right:-1px;}
 .menu_two li a{ display:block; *display:inline; *padding-top:5px;}
-.menu_two li a:hover{color:#286ec2;}
-.menu_two li.active a{ color:#286ec2; }
-.title{cursor:pointer; background:#348ef6; border-bottom:1px solid #ddd; height:32px; color:#fff; position:relative;}
+.menu_two li a:hover{color:#f47115;}
+.menu_two li.active a{ color:#f47115; }
+.title{cursor:pointer; background:#f47115; border-bottom:1px solid #ddd; height:32px; color:#fff; position:relative;}
 .title a{ color:#fff;}
 .title a:hover{ color:#fff;}
 .title i{float:right;width:11px; height:10px; position:relative; top:12px; right:12px;}
@@ -65,21 +65,21 @@ a:hover{text-decoration:none;}
 .path_left{cursor: pointer;position: absolute;top: 45%;width: 8px;height: 54px;background: url(../images/path_left.jpg) no-repeat;z-index:100;}
 .path_right{cursor: pointer;position: absolute;top: 45%;width: 8px;height: 54px;background: url(../images/path_right.jpg) no-repeat;z-index:100;}
 /*底部*/
-.footer{ width:100%; height:30px; background:#2574e1; text-align:center;color:#fff; line-height:30px}
+.footer{ width:100%; height:30px; background:#f47115; text-align:center;color:#fff; line-height:30px}
 
 
 /*表格底部button*/
-.ti_bottom{width: 90px;height: 30px;color: #fff;font-weight: bold;line-height: 30px;background-color:#13AEF7;border: 0;cursor: pointer; margin-top:20px; 
+.ti_bottom{width: 90px;height: 30px;color: #fff;font-weight: bold;line-height: 30px;background-color:#f47115;border: 0;cursor: pointer; margin-top:20px; 
 margin-bottom:20px; font-size:14px;
 -o-border-radius:3px;
 -webkit-border-radius:3px;
 -moz-border-radius:3px;
 border-radius:3px;
 }
-.ti_bottom:hover{ background-color:#36A2EE;}
-.btn_bottom{width: 90px;height: 30px;color: #fff;font-weight: bold;line-height: 30px;background-color:#13AEF7;border: 0;cursor: pointer; margin-top:10px; margin-bottom:10px; font-size:14px;}
-.btn_bottom:hover{ background-color:#36A2EE;}
-.import_btn{ float:left;width:50px; height:28px;line-height: 28px; color:#fff; background-color:#3093d9;border: 0;cursor: pointer;font-size:14px;text-align: center;}
+.ti_bottom:hover{background-color: #fd6800;}
+.btn_bottom{width: 90px;height: 30px;color: #fff;font-weight: bold;line-height: 30px;background-color:#f47115;border: 0;cursor: pointer; margin-top:10px; margin-bottom:10px; font-size:14px;}
+.btn_bottom:hover{ background-color:#fd6800;}
+.import_btn{ float:left;width:50px; height:28px;line-height: 28px; color:#fff; background-color:#f47115;border: 0;cursor: pointer;font-size:14px;text-align: center;}
 
 /*button样式*/
 .btnArea {
@@ -124,14 +124,14 @@ border-radius:3px;
 .btn-primary.disabled,
 .btn-primary[disabled] {
   color: #fff;
-  background-color: #348ef6;
-  *background-color: #348ef6;
+  background-color: #ccc;
+  *background-color: #ccc;
   border:0;
   outline:none;
 }
 .btn-primary:active,
 .btn-primary.active {
-  background-color: #348ef6 \9;
+  background-color: #f47115;
 }
 
 [class^="icon-"],[class*=" icon-"] {

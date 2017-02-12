@@ -18,14 +18,12 @@
 						<li class="system-name" style="color:#fff;font-size:24px;margin-right:50px;">
 
 						</li>
-						<li class="light-blue">
+						<li>
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="<%=request.getContextPath() %>/styles/images/logo_face.png"  />
-								<span class="user-info">
-									<small>欢迎光临,</small>
+								<%-- <img class="nav-user-photo" src="<%=request.getContextPath() %>/styles/images/logo_face.png"  /> --%>
+							<!-- 	<span class="user-info"> -->
 									<%=Utils.getLoginUser(request)%>
-								</span>
-
+								<!-- </span> -->
 								<i class="icon-caret-down"></i>
 							</a>
 

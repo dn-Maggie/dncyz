@@ -76,13 +76,13 @@ $.extend($.jgrid,{
 	},
 	col : {
 		caption: "Select columns",
-		bSubmit: "Ok",
-		bCancel: "Cancel"
+		bSubmit: "确定",
+		bCancel: "取消"
 	},
 	errors : {
 		errcap : "Error",
-		nourl : "No url is set",
-		norecords: "No records to process",
+		nourl : "资源未找到",
+		norecords: "没有找到记录",
 		model : "Length of colNames <> colModel!"
 	},
 	formatter : {
@@ -91,11 +91,11 @@ $.extend($.jgrid,{
 		currency : {decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 2, prefix: "", suffix:"", defaultValue: '0.00'},
 		date : {
 			dayNames:   [
-				"Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat",
-				"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+			    "周日", "周一", "周二", "周三", "周四", "周五", "周六",
+				"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"
 			],
 			monthNames: [
-				"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+				"一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月",
 				"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
 			],
 			AmPm : ["am","pm","AM","PM"],

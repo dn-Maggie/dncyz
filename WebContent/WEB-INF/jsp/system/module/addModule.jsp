@@ -127,10 +127,7 @@ $(function() {
 </head>
 
 <body>
-
-	<div id="editDialog">
 		<form id="moduleFormEdit">
-			<hi:icssToken />
 			<div class="ui-table ui-widget ui-corner-all ui-border">
 				<input type="hidden" id="edit_id" name="id" type="text"
 					value="${module.id}" />
@@ -190,7 +187,5 @@ $(function() {
 				</table>
 			</div>
 		</form>
-	</div>
-
 </body>
 </html>

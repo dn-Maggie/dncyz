@@ -1,12 +1,12 @@
 package com.dongnao.workbench.common.controller;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,28 +74,14 @@ public class MainController {
 	public ModelAndView toMain(HttpServletRequest request) {
 		UserInfo user = Utils.getLoginUserInfo(request);
 		List<Module> menus = null;
-		//String userType = null;
-		// boolean isAdmin = false;
 		if (user.getUserAccount().equals("admin")) {// 超级管理员
 			menus = moduleService.getMenuListForAdmin();
-			// isAdmin = true;
-			//userType = "webAdmin";
 		} else {
-			// isAdmin = false;
-			//userType = user.getUserType();
-			menus = moduleService.getMenuListByPcode(Utils.getLoginUserInfo(
-					request).getId());
+			menus = moduleService.getMenuListByPcode(Utils.getLoginUserInfo(request).getId());
 		}
-		//UserInfo userInfo=new UserInfo();
-		//userInfo.setUserAccount("admin");
-		//userInfo.setUserId("1");
-		//userInfo.setFullName("admin");
-		//userInfo.setMbPhone("18008444102");
-		//request.getSession().setAttribute(Constant.LOGIN_USER_KEY, userInfo);
 		ModelAndView m = new ModelAndView("WEB-INF/jsp/common/adminMain");
 		Map<String, Object> map = m.getModel();
 		map.put("menus", menus);
-		//map.put("userType", userType);
 		return m;
 	}
 	
@@ -110,12 +96,7 @@ public class MainController {
 	public ModelAndView adminHomePage(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/common/adminHomePage");
 		Map<String,Object> model = new HashMap<String,Object>();
-		Calendar calendar = Calendar.getInstance();
-		
-		
 		mv.addObject("model", model);
-		
-		
 		return mv;
 	}
 
@@ -195,6 +176,7 @@ public class MainController {
 		// 根据用户SID获取用户实体
 		UserInfo userInfo = userInfoService.getByUserAccount(userName);
 		ResultMessage rm = new ResultMessage();
+		
 		// 判断用户密码和加密后输入密码是否一致
 		if (userInfo == null || password == null || "".equals(password)) {
 			rm.setStatus(0);
@@ -218,7 +200,7 @@ public class MainController {
 						DateUtil.now(), Constant.DATETIME_FORMAT).compareTo(
 						DateUtil.parseDate(userInfo.getEnableEndDate(),
 								Constant.DATE_FORMAT) + " 23:59:59") == 1)) {
-			// 开通开始时间大于NOW获取结束时间小于NOW，则图示
+			// 开通开始时间大于NOW获取结束时间小于NOW，则图示 账号过期
 			rm.setStatus(0);
 			rm.setMessage(Utils.getI18n("user.overdue", null));
 			AjaxUtils.sendAjaxForObjectStr(response, rm);
@@ -229,12 +211,32 @@ public class MainController {
 		request.getSession().setAttribute(Constant.LOGIN_USER_KEY, userInfo);
 		userInfo.setLastLoginIp(Utils.getRemortIP(request));
 		userInfo.setLastLoginTime(DateUtil.nowSqlTimestamp());
-	//	userInfoService.updateLastLoginInfo(userInfo);
+		userInfoService.updateLastLoginInfo(userInfo);
 		rm.setData(userInfo);
 		rm.setJsessionid(request.getSession().getId());
 		AjaxUtils.sendAjaxForObjectStr(response, rm);
 	}
 
+	/**
+	 * 验证图片验证码
+	 * @return 
+	 * */
+	@RequestMapping("/varifyCode")
+	public void varifyCode(HttpServletRequest request,HttpServletResponse response,String strcode){
+		HttpSession session = request.getSession();
+        String obj = session.getAttribute("validateCode").toString();
+        String code = StringUtils.defaultIfEmpty(
+				request.getParameter("strcode"), StringUtils.EMPTY);
+        
+        ResultMessage rm = new ResultMessage();
+     // 如果一致则返回true
+       if(code.toLowerCase().equals(obj.toLowerCase())){
+    	   	rm.setStatus(1);
+			AjaxUtils.sendAjaxForObjectStr(response, rm);
+			return;
+       }
+       return;
+	}
 	/**
 	 * 登出操作请求的页面
 	 * 
@@ -292,8 +294,7 @@ public class MainController {
 		} else {
 			variable = mValue.split(",");
 		}
-		return new ModelAndView("jsp/common/error", "message", Utils.getI18n(
-				mKey, variable));
+		return new ModelAndView("jsp/common/error", "message", Utils.getI18n(mKey, variable));
 	}
 
 

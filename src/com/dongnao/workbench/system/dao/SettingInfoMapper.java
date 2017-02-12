@@ -6,7 +6,7 @@ import java.util.Map;
 import com.dongnao.workbench.system.model.SettingInfo;
 /**
  * 描述：settingInfo模块dao接口，提供数据库操作方法
- * @author wff
+ * @author maggie
  * @version 1.0  2013-11-21
  */
 public interface SettingInfoMapper  {

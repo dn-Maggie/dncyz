@@ -111,12 +111,12 @@
     overflow: auto;
 }
 .treeBox-1{
-	border: 1px solid #CCD5DE;
+	/* border: 1px solid #CCD5DE; */
 	margin: 0 5px;
 	overflow: auto;
 }
 .group{
-	border: 1px solid #CCD5DE;
+	/* border: 1px solid #CCD5DE; */
 	margin: 0 5px;
 	padding:0 5px;
 }
@@ -125,7 +125,7 @@
 }
 .group ul li{
 	line-height: 28px;
-	border-bottom: 1px solid #CCD5DE;
+	/* border-bottom: 1px solid #CCD5DE; */
 }
 .group ul li a{
 	color:#6da8d5;
@@ -138,7 +138,7 @@
 	font-weight:bold; 
 }
 .topBox{
-	border-bottom: 1px solid #CCD5DE;
+	/* border-bottom: 1px solid #CCD5DE; */
 }
 .topTable{
 	margin:10px;

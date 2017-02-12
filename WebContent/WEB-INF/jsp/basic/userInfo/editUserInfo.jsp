@@ -1,30 +1,15 @@
-<%@ page language="java" pageEncoding="UTF-8"
-	contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
-<script type="text/javascript" charset="utf-8"
-	src="<%=request.getContextPath()%>/js/huploadify/jquery.Huploadify.js"></script>
-<link type="text/css" rel="stylesheet"
-	href="<%=request.getContextPath()%>/js/huploadify/Huploadify.css">
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/js/huploadify/jquery.Huploadify.js"></script>
+<link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/js/huploadify/Huploadify.css">
 <script type="text/javascript">
 	var menutree;
 	var areaProvinceBox, areaRegionBox, areaCityBox;
 	$(function() {
 		//取得添加节点的父节点ID
-
-		
-		//岗位选择
-		dutyBox = $('#dutyName').TiledCombobox({
-			url : "<m:url value='/duty/list.do'/>",
-			fieldId : 'id',
-			fieldName : 'dutyName',
-			valueId : '#dutyId',
-			multiple : false
-		});	
-		
-		
 		//身份证图片上传控件
 			 var up=$("#upload").Huploadify(
 					{
@@ -79,7 +64,6 @@
 		
 		//绑定提交按钮click事件
 		$("#submit").click(function() {
-			$('#salStandardName').val($('#salStandardId').find("option:selected").text());
 			if (!biz.validate("valid", $('#userInfoFormEdit')[0])) {
 				showWarn("<m:message code='validation.object'/>", 3000);
 				return;
@@ -130,19 +114,11 @@
 					required : true,
 					maxlength : 15
 				},
-				"age" : {
-					required : true,
-					maxlength : 2
-				},
 				"mobilePhone" : {
 					required : true,
 					maxlength : 11
 				},
 				"idCard" : {
-					required : true,
-					maxlength : 18
-				},
-				"dutyName" : {
 					required : true,
 					maxlength : 18
 				},
@@ -152,18 +128,6 @@
 			}
 		});
 
-		//入职日期
-		new biz.datepicker({
-			id : "#edit_entryDate",//容器Id   
-			event : "click",
-			dateFmt : 'yyyy-MM-dd'
-		});
-		//出生日期
-		new biz.datepicker({
-			id : "#edit_birthday",//容器Id   
-			event : "click",
-			dateFmt : 'yyyy-MM-dd'
-		});
 
 		new biz.select(
 				{//状态下拉
@@ -177,11 +141,6 @@
 			addEmptyItem : true
 		});
 		
-		$("#salStandardId").change(function(){
-			   var op=$(this).find("option:selected");
-			  $('#salValue').val(op.attr("totalValue"));
-			  $('#stockNum').val(op.attr("stockNum"));
-		});
 
 	});
 
@@ -216,7 +175,6 @@
 
 <body>
 	<form id="userInfoFormEdit">
-		<hi:icssToken />
 		<div class="ui-table ui-widget ui-corner-all ui-border">
 			<table class="table">
 				<tr>
@@ -231,36 +189,9 @@
 						type="text" class="text" value="${userInfo.fullName}" /></td>
 				</tr>
 				<tr>
-					<td class="inputLabelTd"><span class="required">*</span>组织机构：</td>
-					<td class="inputTd"><input id="edit_orgName" name="orgName"
-						type="text" class="text" value="${userInfo.orgName}"
-						readonly="readonly" /> <input id="edit_orgId" name="orgId"
-						type="hidden" class="text" value="${userInfo.orgId}" /> <input
-						id="orgClass" name="orgClass" type="hidden" class="text"
-						value="${userInfo.orgClass}" /></td>
-					<td class="inputLabelTd">性别：</td>
-					<td class="inputTd"><select id="edit_sex" name="sex"
-						class="select">
-							<option value="1"
-								<c:if test="${userInfo.sex eq 1}" >selected</c:if>>男</option>
-							<option value="0"
-								<c:if test="${userInfo.sex eq 0}" >selected</c:if>>女</option>
-					</select></td>
-				</tr>
-				<tr>
 					<td class="inputLabelTd"><span class="required">*</span>手机号码：</td>
 					<td class="inputTd"><input id="mobilePhone" name="mobilePhone"
 						type="text" class="text" value="${userInfo.mobilePhone}" /></td>
-					<td class="inputLabelTd"><span class="required">*</span>年龄：</td>
-					<td class="inputTd"><input id="age" name="age" type="text"
-						class="text" value="${userInfo.age}" /></td>
-				</tr>
-				<tr>
-					<td class="inputLabelTd"><span class="required">*</span>所属岗位：</td>
-					<td class="inputTd"><input id="dutyName" name="dutyName"
-						type="text" class="text" value="${userInfo.dutyName}" /> <input
-						id="dutyId" name="dutyId" type="hidden" class="text"
-						value="${userInfo.dutyId}" /></td>
 					<td class="inputLabelTd"><span class="required">*</span>身份证号码：</td>
 					<td class="inputTd"><input id="idCard" name="idCard"
 						type="text" class="text" value="${userInfo.idCard}" /></td>
@@ -279,10 +210,6 @@
 					</select></td>
 				</tr>
 				<tr>
-					<td class="inputLabelTd">入职日期：</td>
-					<td class="inputTd"><input id="edit_entryDate"
-						name="entryDate" type="text" class="text"
-						value="${userInfo.entryDate}" /></td>
 					<td class="inputLabelTd">角色</td>
 					<td class="inputTd"><select id="roleId" name="roleId"
 						class="select">
@@ -292,57 +219,6 @@
 									${role.roleName}</option>
 							</c:forEach>
 					</select></td>
-				</tr>
-				<tr>
-					<td class="inputLabelTd">出生年月：</td>
-					<td class="inputTd"><input id="edit_birthday" name="birthday"
-						type="text" class="text" value="${userInfo.birthday}" /></td>
-					<td class="inputLabelTd">邮箱地址：</td>
-					<td class="inputTd"><input id="edit_userEmail"
-						name="userEmail" type="text" class="text"
-						value="${userInfo.userEmail}" /></td>
-				</tr>
-				<tr>
-					<td class="inputLabelTd">学历</td>
-					<td class="inputTd"><select id="edit_schooling"
-						name="schooling" class="select">
-							<option value="1"
-								<c:if test="${userInfo.schooling eq 1}" >selected</c:if>>小学</option>
-							<option value="2"
-								<c:if test="${userInfo.schooling eq 2}" >selected</c:if>>初中</option>
-							<option value="3"
-								<c:if test="${userInfo.schooling eq 3}" >selected</c:if>>高中（职高、高</option>
-							<option value="4"
-								<c:if test="${userInfo.schooling eq 4}" >selected</c:if>>中专大专（高职）</option>
-							<option value="5"
-								<c:if test="${userInfo.schooling eq 5}" >selected</c:if>>本科</option>
-							<option value="6"
-								<c:if test="${userInfo.schooling eq 6}" >selected</c:if>>硕士研究生</option>
-							<option value="7"
-								<c:if test="${userInfo.schooling eq 7}" >selected</c:if>>博士研究生</option>
-					</select></td>
-					<td class="inputLabelTd">薪酬标准：</td>
-					<td class="inputTd"><select id="salStandardId"
-						name="salStandardId" class="select">
-							<option value=""></option>
-							<c:forEach var="salStandard" items="${salStandardList}">
-								<option value="${salStandard.id}"
-									totalValue="${salStandard.totalValue}"
-									stockNum="${salStandard.stockNum}"
-									<c:if test="${userInfo.salStandardId eq salStandard.id}" >selected</c:if>>${salStandard.standardName}</option>
-							</c:forEach>
-					</select> <input id="salStandardName" name="salStandardName" type="hidden"
-						value="${userInfo.salStandardName}" /></td>
-				</tr>
-				<tr>
-					<td class="inputLabelTd">核定工资：</td>
-					<td class="inputTd"><input id="salValue" name="salValue"
-						type="text" class="text" value="${userInfo.salValue}" /></td>
-					<td class="inputLabelTd">股份配额(股)：</td>
-					<td class="inputTd"><input id="stockNum" name="stockNum"
-						type="text" class="text" value="${userInfo.stockNum}" /></td>
-				</tr>
-				<tr>
 					<td class="inputLabelTd">身份证图片：</td>
 					<td class="inputTd" colspan="3"><input id="idCardImgPath"
 						name="idCardImgPath" type="hidden" class="text"

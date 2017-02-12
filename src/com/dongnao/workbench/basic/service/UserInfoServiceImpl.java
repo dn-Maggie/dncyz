@@ -8,9 +8,7 @@ import javax.annotation.Resource;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
-import com.dongnao.workbench.basic.dao.OrgMapper;
 import com.dongnao.workbench.basic.dao.UserInfoMapper;
-import com.dongnao.workbench.basic.model.Org;
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.common.Constant;
 import com.dongnao.workbench.common.bean.ResultMessage;
@@ -37,11 +35,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Resource
 	private UserInfoMapper userInfoMapper;
 	/**
-	 * 组织机构Mapper
-	 */
-	@Resource
-	private OrgMapper orgMapper;
-	/**
 	 * 用户角色关联关系Mapper
 	 */
 	@Resource
@@ -64,10 +57,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if (info != null) {
 			return AjaxUtils.getFailureMessage("此帐号已经存在,请重新选择");
 		} else {
-			Org org = orgMapper.getByPrimaryKey(userInfo.getOrgId());
-			userInfo.setOrgId(org.getId());
-			userInfo.setOrgName(org.getOrgName());
-			userInfo.setOrgClass(org.getOrgClass());
 			userInfo.setPassword(MD5Encryption.MD5(getInitialPassword()));
 			String userId = loginUserInfo.getId();
 			userInfo.setId(Utils.generateUniqueID());

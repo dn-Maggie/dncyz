@@ -14,26 +14,6 @@
 <%@ include file="../../common/header.jsp"%>
 </head>
 <body style="height: 100%;">
-	<div class="main  choice_box container"
-		style="height: 100%; float: left; width: 22%">
-		<div class="ui-table ui-widget ui-corner-all ui-margin ui-leftDiv">
-			<form id="queryForm1">
-				<div id="equal1" class="equal">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0"
-						class="top_table">
-						<tr>
-							<td class="rightSide">机构名称：</td>
-							<td><input type="text" name="orgName" id="orgName"
-								class="text " onkeyup="search_ztree('orgTree','name',this);" /></td>
-
-						</tr>
-					</table>
-				</div>
-			</form>
-			<ul id="orgTree" class="ztree"
-				style="height: 100%; border-top: 1px solid #ddd; position: relative; overflow: auto; width: 97%"></ul>
-		</div>
-	</div>
 	<div class="main  choice_box">
 		<div class="ui-table ui-widget ui-corner-all ui-margin ui-rightDiv"
 			style="display: block;">
@@ -43,29 +23,17 @@
 				<!-- 查询区 表单 -->
 				<div class="search border-bottom">
 					<ul>
-						<li style="width: 560px; float: left;"><span>关键字:</span> <input
-							id="userAccount" type="text" placeholder="帐号"
-							class="search_choose100" value="" name="userAccount"
-							autocomplete="off"> <input id="fullName" type="text"
-							placeholder="姓名" class="search_choose100" value=""
-							name="fullName" autocomplete="off"> <input
-							id="mobilePhone" type="text" placeholder="手机号码"
-							class="search_choose100" value="" name="mobilePhone"
-							autocomplete="off"> <input id="idCard" type="text"
-							placeholder="身份证" class="search_choose100" value="" name="idCard"
-							autocomplete="off"></li>
-						<!-- 			<li class="w200"><span>人员机构级别:</span>	<select name="orgClass" -->
-						<!-- 							id="orgClass" class="search_choose100"> -->
-						<!-- 							<option value="">--请选择--</option> -->
-						<!-- 							<option value="3">分公司级</option> -->
-						<!-- 							<option value="2">省级</option> -->
-						<!-- 							<option value="1">集团级</option>		 -->
-						<!-- 						</select></li>	 -->
-						<li class="w200"><input type="reset" value="重置"
-							onClick="resetForm('queryForm')" class="reset_btn">
-						<!-- 重置 --> <input type="button" value="查询" onclick="doSearch();"
-							class="search_btn mr22 " /></li>
-						<!-- 查询-->
+						<li style="width: 560px; float: left;">
+							<span>关键字:</span> 
+							<input id="userAccount" type="text" placeholder="帐号" class="search_choose100" value="" name="userAccount" autocomplete="off">
+							<input id="fullName" type="text" placeholder="姓名" class="search_choose100" value="" name="fullName" autocomplete="off"> 
+							<input id="mobilePhone" type="text" placeholder="手机号码" class="search_choose100" value="" name="mobilePhone" autocomplete="off"> 
+							<input id="idCard" type="text" placeholder="身份证" class="search_choose100" value="" name="idCard" autocomplete="off">
+						</li>
+						<li class="w200">
+							<input type="reset" value="重置" onClick="resetForm('queryForm')" class="reset_btn"><!-- 重置 --> 
+							<input type="button" value="查询" onclick="doSearch();" class="search_btn mr22 " /><!-- 查询-->
+						</li>
 					</ul>
 				</div>
 			</form>
@@ -76,7 +44,7 @@
 				<!--功能按钮 div-->
 				<ul>
 					<c:if test="${add}">
-						<li><a title="<m:message code="button.add"/>"
+						<li><a title='<m:message code="button.add"/>'
 							href="javascript:;" onclick="add();"> <i
 								class="icon_bg icon_add"> </i> <span><m:message
 										code="button.add" /></span>
@@ -122,7 +90,6 @@ var gridObj = {};
 var orgId, orgName;
 var areaProvinceBox, areaRegionBox, areaCityBox;
 $(function() {
-	initOrgTree();
 	gridObj = new biz.grid({
 		id : "#remote_rowed",/* html部分table id */
 		url : baseUrl + "/userInfo/listUserInfo.do",/* grid初始化请求数据的远程地址 */
@@ -149,10 +116,6 @@ $(function() {
 			name : "fullName",
 			label : "用户姓名",
 			index : "full_Name"
-		}, {width : 100,
-			name : "orgName",
-			label : "部门单位",
-			index : "ORG_ID"
 		}, {width : 100,
 			name : "dutyName",
 			label : "岗位",
@@ -223,11 +186,7 @@ var show_iframe_dialog;
 
 function add() {
 	// xin zeng iframe 弹出框
-	if (orgId == null || orgId == '') {
-		showMessage('请选择一个组织机构');
-		return;
-	}
-	var url = baseUrl + '/userInfo/toAddUserInfo.do?orgId='+orgId;
+	var url = baseUrl + '/userInfo/toAddUserInfo.do';
 	add_iframe_dialog = new biz.dialog(
 			{
 				id : $('<div id="addwindow_iframe"></div>')
@@ -237,11 +196,10 @@ function add() {
 										+ '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
 				modal : true,
 				width : 800,
-				height : 500,
+				height : 300,
 				title : "用户信息增加"
 			});
 	add_iframe_dialog.open();
-	//window.location.href=url; 
 }
 
 // 关闭新增页面，供子页面调用
@@ -316,7 +274,6 @@ function resetForm(formId) {
 	document.getElementById(formId).reset();
 	$("#"+formId+" input[type='hidden']").val(""); 
 	$(".selected").removeClass("selected");//清除选中
-	initOrgTree();
 	doSearch();
 }
 
@@ -334,8 +291,7 @@ function batchDelete() {
 			callback : function(result) {
 				if (result) {
 					$.ajax({
-						url : baseUrl + '/userInfo/deleteUserInfo.do?key='
-								+ ids,
+						url : baseUrl + '/userInfo/deleteUserInfo.do?key='+ ids,
 						cache : false,
 						dataType : 'json',
 						success : function(d, textStatus, jqXHR) {
@@ -349,53 +305,9 @@ function batchDelete() {
 	}
 }
 
-
-
-
-function initOrgTree() {
-	$.ajax({
-		url : baseUrl + "/org/initOrgTree.do",
-		data : {
-		// regionName : $('#regionName').val(),
-		// provinceName : $('#provinceName').val()
-		},
-		type : "POST",
-		dataType:"json",
-		success : function(data, textStatus, jqXHR) {
-			var setting_checkbox = {
-				data : {},
-				id : "#orgTree",
-				nodes :data, // 数据节点指定
-				data : {
-					simpleData : {
-						enable : true
-					}
-				},
-				callback : {
-					onClick : treeOnClick
-				}
-			};
-			provinceTree = new biz.tree(setting_checkbox);// 创建树
-		}
-	});
-}
-function treeOnClick(event, treeId, treeNode) {//
-// if(treeNode.isParent){
-// $("#apid").val(treeNode.id);
-	$("#orgId").val(treeNode.id);
-	orgId = treeNode.id;
-	orgName = treeNode.name;
-	doSearch();
-	// }else{
-	// $("#apid").val(treeNode.pId);
-	// $("#aarid").val(treeNode.id);
-	// doSearch();
-	// }
-}
-
 function expExcelWinShow(){
 	ExpExcel.showWin(gridObj,baseUrl+"/userInfo/exportExcel.do",'grid','queryForm');
-	}
+}
 
 
 </script>

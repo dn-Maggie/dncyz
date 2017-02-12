@@ -155,35 +155,6 @@ public interface DictInfoMapper  {
 	
 	
 	/**
-	 * 查询车间
-	 * @param plateId String 板块id
-	 * @return List<Map<Object,Object>>
-	 */
-	List<Map<Object,Object>> getWorkshop(String plateId);
-	
-	/**
-	 * 查询车间
-	 * @param serMap Map<String,List<String>> 条件MAP
-	 * @return List<Map<Object,Object>>
-	 */
-	List<Map<Object,Object>> getShopWorkshop(Map<String,List<String>> serMap);
-	
-	/**
-	 * 查询件号
-	 * @param plateId String 板块id
-	 * @return List<Map<Object,Object>>
-	 */
-	List<Map<Object,Object>> getPartNo(String plateId);
-	
-	/**
-	 * 查询工卡指令号
-	 * @param plateId String 板块id
-	 * @return List<Map<Object,Object>>
-	 */
-	List<Map<Object,Object>> getJobCardNo(String plateId);
-	
-	
-	/**
 	 * 根据字典类型编码查询字典数据
 	 * @param dictTypeCode String
 	 * @return List<DictInfo>

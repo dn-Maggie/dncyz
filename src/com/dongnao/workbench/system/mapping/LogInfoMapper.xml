@@ -12,12 +12,10 @@
 		<result column="ACT_ACTION" property="actAction" jdbcType="VARCHAR" />
 		<result column="ACTOR_NAME" property="actorName" jdbcType="VARCHAR" />
 		<result column="ACT_TYPE" property="actType" jdbcType="VARCHAR" />
-		<result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
-		<result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,ACT_MODULE,ACT_OBJ,ACT_RESULT,USER_ID,ACT_TIME,ACT_MESSAGE,ACT_ACTION,ACTOR_NAME,ACT_TYPE,ORG_ID,ORG_NAME
+		ID,ACT_MODULE,ACT_OBJ,ACT_RESULT,USER_ID,ACT_TIME,ACT_MESSAGE,ACT_ACTION,ACTOR_NAME,ACT_TYPE
 	</sql>
 
 	<select id="getByPrimaryKey" resultMap="BaseResultMap"

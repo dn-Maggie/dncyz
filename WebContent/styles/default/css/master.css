@@ -21,14 +21,14 @@
 .newsbox{ position:relative; width:100%; height:602px; overflow-x:hidden; overflow-y:hidden;color: #333;-moz-box-shadow:0px 0px 8px #999;-webkit-box-shadow:0px 0px 8px #999;box-shadow:0px 0px 8px #999;-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;background-color: #FFF;z-index:80;}
 .newscontainer{ margin:10px 10px; position:relative; float:left;overflow-x:hidden; overflow-y:hidden; height:578px;}
 .newlist{ position:relative; width:100%; float:left;}
-.locomotive_num{ float:left; color:#fff; font-size:14px;background:#237ae4; margin-top:12px;width: 104px;text-align: center;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;height: 30px;line-height: 30px;}
+.locomotive_num{ float:left; color:#fff; font-size:14px;background:#f47115; margin-top:12px;width: 104px;text-align: center;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;height: 30px;line-height: 30px;}
 .newlist_right{ float:left; position:relative; width:276px;border-left:1px solid #9fc1ef; margin-left:14px;}
 .bluedot{ position:absolute; top:18px; left:-9px; width:16px; height:16px; background:url(../images/bluedot.png) no-repeat;}
 .newslist_txt{ float:left; position:relative; border:1px solid #d9d9d9; width:230px; margin:8px 0 10px 20px; padding:10px;}
 .news_arrow{ position:absolute; top:10px; left:-9px; width:11px; height:16px; background:url(../images/news_arrow.png) no-repeat;}
 .newslist_txt p{ font-size:14px; color:#747373;}
 .changestate{ color:#000; margin-right:10px;}
-.newslist_txt p a.detail{ color:#237ae4; text-decoration:underline; padding-left:0; font-size:14px; margin-right:18px; float:left;}
+.newslist_txt p a.detail{ color:#f47115; text-decoration:underline; padding-left:0; font-size:14px; margin-right:18px; float:left;}
 
 
 /*搜索区域*/
@@ -149,9 +149,9 @@ select.search_choose{height:30px;width:127px;}
 .tabPanel ul.tabul li a{ color:#737373;}
 .tabPanel ul.tabul li:first-child{ margin-left:16px;}
 .tabPanel ul.tabul li.hit{
-	border-bottom:1px solid #fff;cursor:pointer;color:#237ae4;text-shadow:0 1px 0 #fff;
+	border-bottom:1px solid #fff;cursor:pointer;color:#f47115;text-shadow:0 1px 0 #fff;
 	background:#fff;
-	border-top:3px solid #237ae4;
+	border-top:3px solid #f47115;
 	margin-bottom:-3px;
 	height:31px;
 	line-height:31px;

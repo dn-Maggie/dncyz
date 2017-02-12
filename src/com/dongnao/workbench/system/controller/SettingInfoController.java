@@ -26,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * 描述：系统配置管理(settingInfo)模块controller类，负责页面分发与跳转
  * 主要实现：整个系统运行的全局系统参数配置，比如：上传文件根路径，上传文件大小，session失效时间等等。
- * @author wff
+ * @author maggie
  * @version 1.0  2013-11-21
  */
  

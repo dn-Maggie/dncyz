@@ -6,7 +6,7 @@ import com.dongnao.workbench.system.model.SettingInfo;
 
 /**
  * 描述：系统配置管理(settingInfo)模块service接口，提供controller操作所需方法
- * @author wff
+ * @author maggie
  * @version 1.0  2013-11-21
  */
 public interface SettingInfoService  {
