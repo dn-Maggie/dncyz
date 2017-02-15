@@ -19,7 +19,7 @@ var gridObj = {};
             colModel:[
 				{name : "storeId",hidden : true,key : true,label:"店铺ID",index : "STORE_ID"},				
 				{name : "storeName",label:"店铺名称",index : "STORE_NAME"},				
-				{name : "brandId",label:"所属品牌ID",index : "BRAND_ID"},				
+				{name : "brandName",label:"所属品牌",index : "BRAND_ID"},				
 				{name : "storeAddress",label:"店铺地址",index : "STORE_ADDRESS"},				
 				{name : "workTimeBegin",label:"营业时间起",index : "WORK_TIME_BEGIN"},				
 				{name : "workTimeEnd",label:"营业时间起",index : "WORK_TIME_END"},				
@@ -30,9 +30,9 @@ var gridObj = {};
 				{name : "operateDate",label:"运营开始时间",index : "OPERATE_DATE"},				
 				{name : "settlementMethod",label:"结算方式",index : "SETTLEMENT_METHOD"},				
 				{name : "storeTel",label:"店铺联系电话",index : "STORE_TEL"},				
-				{name : "realImagePath1",label:"实景图片1",index : "REAL_IMAGE_PATH_1"},				
+			/* 	{name : "realImagePath1",label:"实景图片1",index : "REAL_IMAGE_PATH_1"},				
 				{name : "realImagePath2",label:"实景图片2",index : "REAL_IMAGE_PATH_2"},				
-				{name : "realImagePath3",label:"实景图片3",index : "REAL_IMAGE_PATH_3"}				
+				{name : "realImagePath3",label:"实景图片3",index : "REAL_IMAGE_PATH_3"}		 */		
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -69,8 +69,8 @@ var gridObj = {};
 		add_iframe_dialog = new biz.dialog({
 			id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: 800,
-			height: 235,
+			width: $(window).width()*0.6,
+			height: $(window).height()*0.8,
 			title: "店铺增加"
 		});
 		add_iframe_dialog.open();
@@ -91,8 +91,8 @@ var gridObj = {};
 		edit_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: 800,
-			height: 235,
+			width: $(window).width()*0.6,
+			height: $(window).height()*0.8,
 			title: "店铺编辑"
 		});
   		edit_iframe_dialog.open();
@@ -113,8 +113,8 @@ var gridObj = {};
 		show_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: 800,
-			height: 235,
+			width: $(window).width()*0.6,
+			height: $(window).height()*0.8,
 				title: "店铺详情"
 		});
   		show_iframe_dialog.open();
@@ -173,9 +173,9 @@ var gridObj = {};
 
 	<div class="main  choice_box">
 		<form id="queryForm"><!-- 查询区 表单 -->
-			<div class="search border-bottom">
+			<!-- <div class="search border-bottom">
 				<ul>
-				<li><input type="text" name="actorName" id="actorName" class="search_choose"> <span>操作人:</span></li><!-- 输入框-->
+				<li><input type="text" name="actorName" id="actorName" class="search_choose"> <span>操作人:</span></li>输入框
 				<li class="date_area">
 					<span>日期:</span>
 					<div class="time_bg">
@@ -188,12 +188,12 @@ var gridObj = {};
 						<i class="search_time_ico2"  onclick="WdatePicker({el:'endDate'})"></i>
 					</div></li>	
 				 <li><select class="search_select" name="actType" id="actType" mainid="actType"><option value="">--请选择--</option><option value="add">add</option><option value="save">save</option><option value="update">update</option><option value="edit">edit</option><option value="insert">insert</option><option value="delete">delete</option><option value="remove">remove</option></select>
-				<span>操作类型:</span></li><!--下拉 -->
-				<li><input type="text" name="actResult" id="actResult" class="search_choose"> <span>操作结果:</span></li><!-- 输入框-->			
-				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
-						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
+				<span>操作类型:</span></li>下拉
+				<li><input type="text" name="actResult" id="actResult" class="search_choose"> <span>操作结果:</span></li>输入框			
+				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置">重置
+						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li>查询
 				</ul>
-		   </div>
+		   </div> -->
 	    </form>
 		<div class="listplace">
 				<!--功能按钮begin-->

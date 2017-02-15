@@ -22,8 +22,17 @@ public class StoreHealth extends Model{
 	                 * 店铺ID
 	                 **/
 				   			private String storeId;
+				   			private String storeName;
 		   		
-		            /**
+		            public String getStoreName() {
+								return storeName;
+							}
+
+							public void setStoreName(String storeName) {
+								this.storeName = storeName;
+							}
+
+					/**
 	                 * 评估时间
 	                 **/
 					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 

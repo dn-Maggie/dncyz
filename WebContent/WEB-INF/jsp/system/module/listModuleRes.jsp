@@ -81,7 +81,7 @@ var moduleResGrid = {};
 		mrselect_iframe_dialog = new biz.dialog({
 			id:$('<div id="mrselect_window_iframe"></div>').html('<iframe id="iframeMrSelect" name="iframeMrSelect" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: 800,
+			width: $(window).width()*0.6,
 			height:600,
 			title: "<m:message code='moduleRes.list.title' />"
 		});

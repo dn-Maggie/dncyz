@@ -60,8 +60,8 @@ var gridObj = {};
 		add_iframe_dialog = new biz.dialog({
 			id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: 800,
-			height: 235,
+			width: $(window).width()*0.6,
+			height: $(window).height()*0.8,
 			title: "订单产品详细增加"
 		});
 		add_iframe_dialog.open();
@@ -82,8 +82,8 @@ var gridObj = {};
 		edit_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: 800,
-			height: 235,
+			width: $(window).width()*0.6,
+			height: $(window).height()*0.8,
 			title: "订单产品详细编辑"
 		});
   		edit_iframe_dialog.open();
@@ -104,8 +104,8 @@ var gridObj = {};
 		show_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: 800,
-			height: 235,
+			width: $(window).width()*0.6,
+			height: $(window).height()*0.8,
 				title: "订单产品详细详情"
 		});
   		show_iframe_dialog.open();

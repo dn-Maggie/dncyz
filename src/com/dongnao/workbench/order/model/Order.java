@@ -27,12 +27,21 @@ public class Order extends Model{
 	                 * 店铺ID
 	                 **/
 				   			private String storeId;
+				   			private String storeName;
 		   		
-		            /**
+		            public String getStoreName() {
+								return storeName;
+							}
+
+							public void setStoreName(String storeName) {
+								this.storeName = storeName;
+							}
+
+					/**
 	                 * 订单时间
 	                 **/
 					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-			private Date orderTime;
+							private Date orderTime;
 		
 		            /**
 	                 * 订单人

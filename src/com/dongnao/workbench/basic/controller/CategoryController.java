@@ -30,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("category")
 public class CategoryController{
-         @Resource
+	@Resource
 	private CategoryService categoryService;
 	 
  	/**

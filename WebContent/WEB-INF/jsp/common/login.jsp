@@ -23,49 +23,52 @@
 		<div id="loginWindow">
 			<table>
 				<tr>
-					<td class="logo_box" align="center"><img alt="管理员登陆"
-						src="<%=path%>/styles/images/login_logo.png"></td>
+					<td class="logo_box" align="center">参与者运营中心管理系统</td>
 				</tr>
 				<tr>
 					<td>
 						<div class="group">
-							<span class="addon login_name fa fa-user fa-3x"></span> <input
-								id="loginName" name="loginName" onkeypress="xKeyEvent(event)"
-								tabindex="1" accesskey="n" type="text" autocomplete="off" />
+							<span class="addon login_name fa fa-user fa-3x"></span> 
+							<input id="loginName" name="loginName" onkeypress="xKeyEvent(event)" 
+							placeholder="用户名"
+							tabindex="1" accesskey="n" type="text" autocomplete="off" />
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<div class="group">
-							<span class="addon password fa fa-lock fa-3x"></span> <input
-								id="userpw" name="userpw" onkeypress="xKeyEvent(event)"
+							<span class="addon password fa fa-lock fa-3x"></span> 
+							<input id="userpw" name="userpw" onkeypress="xKeyEvent(event)"
+								placeholder="密码"
 								tabindex="2" accesskey="p" type="password" autocomplete="off" />
 						</div>
 					</td>
 				</tr>
-				<tr>
+				<tr style="height:20px">
 					<td>
 						<div class="remb">
 							<span> <input id="remb" type="checkbox" name="remb" /> <label
 								for="remb">记住密码</label> <label class="remb_label" for="remb"></label>
 							</span>
-						</div> <br>
-						<div class="group check_code" style="float:left">
-							<span class="addon">验</span> 
-							<input class="codeInput" id="codeInput" onkeypress="xKeyEvent(event)"/>
-							<img src="<%=basePath%>validateCode" id="codeImg" alt="点击刷新验证码">
 						</div> 
-						<div class="btn-box">
-							<button type="button" onclick="$('#loginForm').get(0).reset()"
-								class="btn_reset">重置</button>
-							<button type="button" onclick="loginAction('#loginForm');"
-								class="btn_login">登录</button>
-						</div>
 					</td>
 				</tr>
 				<tr>
-					<td></td>
+					<td>
+						<div class="group check_code">
+							<span class="addon">验</span> 
+							<input class="codeInput" id="codeInput" onkeypress="xKeyEvent(event)"/>
+							<img src="<%=basePath%>validateCode" id="codeImg" alt="点击刷新验证码">
+							<a href="javascript:0" onclick="refreshCaptcha()">看不清换一张</a>
+						</div> 
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<button type="button" onclick="loginAction('#loginForm');"
+							class="btn_login">登录</button>
+					</td>
 				</tr>
 			</table>
 		</div>

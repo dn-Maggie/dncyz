@@ -22,11 +22,13 @@ public class StoreEvaluate extends Model{
 	                 * 评价产品ID
 	                 **/
 				   			private String productId;
+				   			private String productName;
 		   		
 		            /**
 	                 * 渠道ID
 	                 **/
 				   			private String channelId;
+				   			private String channelName;
 		   		
 		            /**
 	                 * 星级
@@ -159,6 +161,22 @@ public class StoreEvaluate extends Model{
 			 */
 			public void setReplyContent(String replyContent){
 				this.replyContent = replyContent;
+			}
+
+			public String getProductName() {
+				return productName;
+			}
+
+			public void setProductName(String productName) {
+				this.productName = productName;
+			}
+
+			public String getChannelName() {
+				return channelName;
+			}
+
+			public void setChannelName(String channelName) {
+				this.channelName = channelName;
 			}
 		   		
 		

@@ -3,13 +3,19 @@ package com.dongnao.workbench.area.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dongnao.workbench.area.model.ChinaArea;
 import com.dongnao.workbench.area.service.ChinaAreaService;
+import com.dongnao.workbench.common.util.AjaxUtils;
+
+import net.sf.json.JSONArray;
 
 
 /**
@@ -22,20 +28,19 @@ import com.dongnao.workbench.area.service.ChinaAreaService;
 @Controller
 @RequestMapping("chinaArea")
 public class ChinaAreaController{
-         @Resource
+    @Resource
 	private ChinaAreaService chinaAreaService;
 	 
-	
 	/**
 	 * 
 	 * @param pid String：父级区域的id
 	 * @return List<ChinaArea>根据pid查询出来的结果，最终以json格式相应客户端
 	 */	
 	@RequestMapping("/loadAreaByParent")
-	public @ResponseBody List<ChinaArea> loadAreaByParent(Integer pid){
+	public void loadAreaByParent(Integer pid,HttpServletResponse response){
 		if(pid==null){
 			pid = 0;
 		}
-		return chinaAreaService.loadAreaByParent(pid);
+		AjaxUtils.sendAjaxForListStr(response, chinaAreaService.loadAreaByParent(pid));
 	}	
 }

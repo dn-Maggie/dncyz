@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td class="inputTd" colspan="4" style="text-align:center;">
-					<input class="ti_bottom"  type="button" id="close_button"  value="关闭"/>
+					<input class="ti_bottom"  type="button" id="close_button" value="关闭"/>
 				</td>
 			</tr>
 		</table>

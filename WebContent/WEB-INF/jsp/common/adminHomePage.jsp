@@ -1,11 +1,11 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="/WEB-INF/tld/c.tld"%>
 <%@ taglib prefix="fmt" uri="/WEB-INF/tld/fmt.tld"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <%@ include file="header.jsp"%>
+<%@ include file="ace.jsp"%>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
@@ -264,6 +264,28 @@
 			</div>
 		</li>
 	</ul>
+	<script type="text/javascript">
+	//修改密码弹出框
+	var edit_password_iframe_dialog;
+	$(document)
+	.ready(function(){
+		//获取父框架修改密码和用户资料按钮
+		var _iframe = window.parent;
+		var _setPwdBtn =_iframe.document.getElementById('setPwdBtn');
+		//修改密码点击事件
+		_setPwdBtn.addEventListener("click", function(){
+				var url="<m:url value='/userInfo/toEditPassWord.do'/>";
+				edit_password_iframe_dialog = new biz.dialog({
+					id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+					modal: true,
+					width: 400,
+					height: 240,
+					title: "修改密码"
+				});
+				edit_password_iframe_dialog.open();
+		})
+	})
+	</script>
 </body>
 </html>
 

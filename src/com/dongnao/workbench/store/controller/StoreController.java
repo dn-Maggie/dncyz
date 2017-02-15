@@ -7,12 +7,15 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dongnao.workbench.basic.service.BrandService;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.store.model.Store;
 import com.dongnao.workbench.store.service.StoreService;
+import com.dongnao.workbench.system.model.DictInfo;
+import com.dongnao.workbench.system.service.DictInfoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,9 +33,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("store")
 public class StoreController{
-         @Resource
-	private StoreService storeService;
-	 
+    @Resource
+    private StoreService storeService;
+    @Resource
+    private BrandService brandService;
+    @Resource
+    private DictInfoService dictInfoService;
  	/**
  	* 进入新增页面
  	* @return ModelAndView 返回到新增页面
@@ -40,9 +46,19 @@ public class StoreController{
  	@RequestMapping("/toAddStore")
 	public ModelAndView toAdd(){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/store/addStore");
+		mv.addObject("brand", brandService.listByCondition(null));
 		return mv;
 	}
 	
+ 	/**
+ 	* 进入新增页面
+ 	* @return ModelAndView 返回到新增页面
+ 	*/
+ 	@RequestMapping("/toSelectStore")
+	public ModelAndView toSelectStore(){
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/store/selectStore");
+		return mv;
+	}
 	/**
 	 * 进入查看页面方法
 	 * @param key String：实体id

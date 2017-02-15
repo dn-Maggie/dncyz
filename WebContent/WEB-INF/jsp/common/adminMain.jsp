@@ -11,26 +11,17 @@
 <!-- page specific plugin styles -->
 <link rel="stylesheet" type="text/css" href="${ctx}/styles/skin/default/theme.css" />
 <link rel="stylesheet" type="text/css" href="${ctx}/styles/default/css/master.css" />
-<link rel="stylesheet" href="${ctx}/static/css/chosen.css" />
-<link rel="stylesheet" href="${ctx}/static/css/datepicker.css" />
-<link rel="stylesheet" href="${ctx}/static/css/bootstrap-timepicker.css" />
-<link rel="stylesheet" href="${ctx}/static/css/daterangepicker.css" />
-<link rel="stylesheet" href="${ctx}/static/css/colorpicker.css" />
+<%-- <link rel="stylesheet" href="${ctx}/static/css/chosen.css" /> --%>
 
 
 <!-- page specific plugin scripts -->
 <!--[if lte IE 8]>
 		  <script src="${ctx}/static/js/excanvas.min.js"></script>
 <![endif]-->
-<script src="${ctx}/static/js/chosen.jquery.min.js"></script>
+<script src="${ctx}/static/js/chosen.jquery.min.js"></script> 
 <script src="${ctx}/static/js/fuelux/fuelux.spinner.min.js"></script>
-<script src="${ctx}/static/js/date-time/bootstrap-datepicker.min.js"></script>
-<script src="${ctx}/static/js/date-time/bootstrap-timepicker.min.js"></script>
 <script src="${ctx}/static/js/date-time/moment.min.js"></script>
-<script src="${ctx}/static/js/date-time/daterangepicker.min.js"></script>
-<script src="${ctx}/static/js/jquery.autosize.min.js"></script>
-<script src="${ctx}/static/js/jquery.inputlimiter.1.3.1.min.js"></script>
-<script src="${ctx}/static/js/jquery.maskedinput.min.js"></script>
+ <script src="${ctx}/static/js/jquery.autosize.min.js"></script> 
 
 <!-- inline styles related to this page -->
 <style type="text/css">

@@ -45,6 +45,15 @@ public class SettingInfoController{
 	}
  
  	/**
+ 	* 进入帮助页面
+ 	* @return ModelAndView 返回到新增页面
+ 	*/
+ 	@RequestMapping("/toHelp")
+	public ModelAndView toHelp(){
+		return new ModelAndView("WEB-INF/jsp/system/help");
+	}
+
+ 	/**
  	* 进入新增页面
  	* @return ModelAndView 返回到新增页面
  	*/
@@ -52,7 +61,7 @@ public class SettingInfoController{
 	public ModelAndView toAdd(){
 		return new ModelAndView("WEB-INF/jsp/system/settingInfo/addSettingInfo");
 	}
-	
+ 	
  	/**
  	 * 进入设置session失效时间页面
  	 * @param request HttpServletRequest

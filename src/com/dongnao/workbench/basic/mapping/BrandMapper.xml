@@ -20,83 +20,117 @@
 													<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
 									</resultMap>
 	<sql id="Base_Column_List">
-						 	BRAND_ID
-										,BRAND_NAME
-										,BRAND_MANAGER
-										,BRAND_MANAGER_TEL
-										,STORES_NUMBER
-										,PROVINCE_CODE
-										,REGION_CODE
-										,CITY_CODE
-										,INDUSTRY_ID
-										,CATEGORY_ID
-										,CONTACT_NAME
-										,CONTACT_TEL
-										,MERCHANT_NAME
-										,MERCHANT_TEL
-										,SIGN_CONTRACT_DATE
-										,CREATE_DATE
-						</sql>
+		 	BRAND_ID
+			,BRAND_NAME
+			,BRAND_MANAGER
+			,BRAND_MANAGER_TEL
+			,STORES_NUMBER
+			,PROVINCE_CODE
+			,REGION_CODE
+			,CITY_CODE
+			,INDUSTRY_ID
+			,CATEGORY_ID
+			,CONTACT_NAME
+			,CONTACT_TEL
+			,MERCHANT_NAME
+			,MERCHANT_TEL
+			,SIGN_CONTRACT_DATE
+			,CREATE_DATE
+		</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
-		<include refid="Base_Column_List" />
-		from dn_brand
+			 b.BRAND_ID
+			,b.BRAND_NAME
+			,b.BRAND_MANAGER
+			,b.BRAND_MANAGER_TEL
+			,b.STORES_NUMBER
+			,b.PROVINCE_CODE
+			,b.REGION_CODE
+			,b.CITY_CODE
+			,i.INDUSTRY_NAME AS industryName
+			,c.CATEGORY_NAME AS categoryName
+			,b.CONTACT_NAME
+			,b.CONTACT_TEL
+			,b.MERCHANT_NAME
+			,b.MERCHANT_TEL
+			,b.SIGN_CONTRACT_DATE
+			,b.CREATE_DATE
+		from dn_brand as b 
+		left join dn_industry i on i.INDUSTRY_ID=b.INDUSTRY_ID
+		left join dn_category c on c.CATEGORY_ID=b.CATEGORY_ID
 		where BRAND_ID = #{brandId,jdbcType=CHAR}
 	</select>
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.basic.model.Brand">
 		select
-		<include refid="Base_Column_List" />
-		from dn_brand
+			 b.BRAND_ID
+			,b.BRAND_NAME
+			,b.BRAND_MANAGER
+			,b.BRAND_MANAGER_TEL
+			,b.STORES_NUMBER
+			,b.PROVINCE_CODE
+			,b.REGION_CODE
+			,b.CITY_CODE
+			,i.INDUSTRY_NAME AS industryName
+			,c.CATEGORY_NAME AS categoryName
+			,b.CONTACT_NAME
+			,b.CONTACT_TEL
+			,b.MERCHANT_NAME
+			,b.MERCHANT_TEL
+			,b.SIGN_CONTRACT_DATE
+			,b.CREATE_DATE
+		from dn_brand as b 
+		left join dn_industry i on i.INDUSTRY_ID=b.INDUSTRY_ID
+		left join dn_category c on c.CATEGORY_ID=b.CATEGORY_ID
 		where 1=1
 		<if test="brandId != null and '' != brandId">  
-			and BRAND_ID = #{brandId,jdbcType=CHAR}
+			and b.BRAND_ID = #{brandId,jdbcType=CHAR}
 		</if>
 		<if test="brandName != null and '' != brandName">  
-			and BRAND_NAME = #{brandName,jdbcType=VARCHAR}
+			and b.BRAND_NAME = #{brandName,jdbcType=VARCHAR}
 		</if>
 		<if test="brandManager != null and '' != brandManager">  
-			and BRAND_MANAGER = #{brandManager,jdbcType=VARCHAR}
+			and b.BRAND_MANAGER = #{brandManager,jdbcType=VARCHAR}
 		</if>
 		<if test="brandManagerTel != null and '' != brandManagerTel">  
-			and BRAND_MANAGER_TEL = #{brandManagerTel,jdbcType=VARCHAR}
+			and b.BRAND_MANAGER_TEL = #{brandManagerTel,jdbcType=VARCHAR}
 		</if>
 		<if test="storesNumber != null and '' != storesNumber">  
-			and STORES_NUMBER = #{storesNumber,jdbcType=INTEGER}
+			and b.STORES_NUMBER = #{storesNumber,jdbcType=INTEGER}
 		</if>
 		<if test="provinceCode != null and '' != provinceCode">  
-			and PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR}
+			and b.PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR}
 		</if>
 		<if test="regionCode != null and '' != regionCode">  
-			and REGION_CODE = #{regionCode,jdbcType=VARCHAR}
+			and b.REGION_CODE = #{regionCode,jdbcType=VARCHAR}
 		</if>
 		<if test="cityCode != null and '' != cityCode">  
-			and CITY_CODE = #{cityCode,jdbcType=VARCHAR}
+			and b.CITY_CODE = #{cityCode,jdbcType=VARCHAR}
 		</if>
 		<if test="industryId != null and '' != industryId">  
-			and INDUSTRY_ID = #{industryId,jdbcType=CHAR}
+			and b.INDUSTRY_ID = #{industryId,jdbcType=CHAR}
 		</if>
 		<if test="categoryId != null and '' != categoryId">  
-			and CATEGORY_ID = #{categoryId,jdbcType=CHAR}
+			and b.CATEGORY_ID = #{categoryId,jdbcType=CHAR}
 		</if>
 		<if test="contactName != null and '' != contactName">  
-			and CONTACT_NAME = #{contactName,jdbcType=VARCHAR}
+			and b.CONTACT_NAME = #{contactName,jdbcType=VARCHAR}
 		</if>
 		<if test="contactTel != null and '' != contactTel">  
-			and CONTACT_TEL = #{contactTel,jdbcType=VARCHAR}
+			and b.CONTACT_TEL = #{contactTel,jdbcType=VARCHAR}
 		</if>
 		<if test="merchantName != null and '' != merchantName">  
-			and MERCHANT_NAME = #{merchantName,jdbcType=VARCHAR}
+			and b.MERCHANT_NAME = #{merchantName,jdbcType=VARCHAR}
 		</if>
 		<if test="merchantTel != null and '' != merchantTel">  
-			and MERCHANT_TEL = #{merchantTel,jdbcType=VARCHAR}
+			and b.MERCHANT_TEL = #{merchantTel,jdbcType=VARCHAR}
 		</if>
 		<if test="signContractDate != null and '' != signContractDate">  
-			and SIGN_CONTRACT_DATE = #{signContractDate,jdbcType=TIMESTAMP}
+			and b.SIGN_CONTRACT_DATE = #{signContractDate,jdbcType=TIMESTAMP}
 		</if>
 		<if test="createDate != null and '' != createDate">  
-			and CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+			and b.CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
 		</if>
 				<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}

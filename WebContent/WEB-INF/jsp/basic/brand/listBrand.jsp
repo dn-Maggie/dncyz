@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<!DOCTYPE HTML  >
+<!DOCTYPE HTML>
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
@@ -13,6 +13,7 @@ var gridObj = {};
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"BRAND_ID",
            	sortorder:"asc",
+           /* 	navtype:"top", */
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
     		rowNum:10,//默认显示15条
@@ -21,14 +22,10 @@ var gridObj = {};
 				{name : "brandName",label:"品牌名称",index : "BRAND_NAME"},				
 				{name : "brandManager",label:"品牌负责人",index : "BRAND_MANAGER"},				
 				{name : "brandManagerTel",label:"负责人电话",index : "BRAND_MANAGER_TEL"},				
-				{name : "storesNumber",label:"门店数量",index : "STORES_NUMBER"},				
-				{name : "provinceCode",label:"所在省份",index : "PROVINCE_CODE"},				
-				{name : "regionCode",label:"所在地市",index : "REGION_CODE"},				
-				{name : "cityCode",label:"所在区县",index : "CITY_CODE"},				
-				{name : "industryId",label:"行业ID",index : "INDUSTRY_ID"},				
-				{name : "categoryId",label:"品类ID",index : "CATEGORY_ID"},				
+				{name : "industryName",label:"所属行业",index : "INDUSTRY_ID"},				
+				{name : "categoryName",label:"所属品类",index : "CATEGORY_ID"},				
 				{name : "contactName",label:"对接人",index : "CONTACT_NAME"},				
-				{name : "contactTel",label:"负责人电话",index : "CONTACT_TEL"},				
+				{name : "contactTel",label:"对接人电话",index : "CONTACT_TEL"},				
 				{name : "merchantName",label:"招商人",index : "MERCHANT_NAME"},				
 				{name : "merchantTel",label:"招商人电话",index : "MERCHANT_TEL"},				
 				{name : "signContractDate",label:"合同签订时间",index : "SIGN_CONTRACT_DATE"},				
@@ -40,18 +37,6 @@ var gridObj = {};
     			return obj;
     		}
       });
-        
-	new biz.datepicker({
-  			id : "#startDate",
-  			maxDate:'#F{$dp.$D(\'endDate\',{d:0});}',
-  			dateFmt:'yyyy-MM-dd'
-  		});
-  	    
-  	    new biz.datepicker({
-  			id : "#endDate",
-  			minDate:'#F{$dp.$D(\'startDate\',{d:0});}',
-  			dateFmt:'yyyy-MM-dd'
-  		});
     });
 
  
@@ -69,8 +54,8 @@ var gridObj = {};
 		add_iframe_dialog = new biz.dialog({
 			id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: 800,
-			height: 235,
+			width: $(window).width()*0.6,
+			height: $(window).height()*0.8,
 			title: "餐饮品牌增加"
 		});
 		add_iframe_dialog.open();
@@ -91,8 +76,8 @@ var gridObj = {};
 		edit_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: 800,
-			height: 235,
+			width: $(window).width()*0.6,
+			height: $(window).height()*0.8,
 			title: "餐饮品牌编辑"
 		});
   		edit_iframe_dialog.open();
@@ -113,8 +98,8 @@ var gridObj = {};
 		show_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: 800,
-			height: 235,
+			width: $(window).width()*0.6,
+			height: $(window).height()*0.8,
 				title: "餐饮品牌详情"
 		});
   		show_iframe_dialog.open();
@@ -173,9 +158,9 @@ var gridObj = {};
 
 	<div class="main  choice_box">
 		<form id="queryForm"><!-- 查询区 表单 -->
-			<div class="search border-bottom">
+			<!-- <div class="search border-bottom">
 				<ul>
-				<li><input type="text" name="actorName" id="actorName" class="search_choose"> <span>操作人:</span></li><!-- 输入框-->
+				<li><input type="text" name="actorName" id="actorName" class="search_choose"> <span>操作人:</span></li>输入框
 				<li class="date_area">
 					<span>日期:</span>
 					<div class="time_bg">
@@ -188,12 +173,12 @@ var gridObj = {};
 						<i class="search_time_ico2"  onclick="WdatePicker({el:'endDate'})"></i>
 					</div></li>	
 				 <li><select class="search_select" name="actType" id="actType" mainid="actType"><option value="">--请选择--</option><option value="add">add</option><option value="save">save</option><option value="update">update</option><option value="edit">edit</option><option value="insert">insert</option><option value="delete">delete</option><option value="remove">remove</option></select>
-				<span>操作类型:</span></li><!--下拉 -->
-				<li><input type="text" name="actResult" id="actResult" class="search_choose"> <span>操作结果:</span></li><!-- 输入框-->			
-				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
-						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
+				<span>操作类型:</span></li>下拉
+				<li><input type="text" name="actResult" id="actResult" class="search_choose"> <span>操作结果:</span></li>输入框			
+				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置">重置
+						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li>查询
 				</ul>
-		   </div>
+		   </div> -->
 	    </form>
 		<div class="listplace">
 				<!--功能按钮begin-->

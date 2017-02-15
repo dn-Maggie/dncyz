@@ -22,11 +22,13 @@ public class StoreFlux extends Model{
 	                 * 平台ID
 	                 **/
 				   			private String platformId;
+				   			private String platformName;
 		   		
 		            /**
 	                 * 店铺ID
 	                 **/
 				   			private String storeId;
+				   			private String storeName;
 		   		
 		            /**
 	                 * 曝光量
@@ -309,6 +311,22 @@ public class StoreFlux extends Model{
 			 */
 			public void setFluxInSearch(Integer fluxInSearch){
 				this.fluxInSearch = fluxInSearch;
+			}
+
+			public String getPlatformName() {
+				return platformName;
+			}
+
+			public void setPlatformName(String platformName) {
+				this.platformName = platformName;
+			}
+
+			public String getStoreName() {
+				return storeName;
+			}
+
+			public void setStoreName(String storeName) {
+				this.storeName = storeName;
 			}
 		  		
 		

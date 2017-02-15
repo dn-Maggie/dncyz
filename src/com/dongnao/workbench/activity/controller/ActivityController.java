@@ -21,10 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 /**
- * 描述：活动模块controller类，负责页面分发与跳转
+ * 描述：近期活动模块controller类，负责页面分发与跳转
  * 
  * @author maggie
- * @version 1.0 2017-02-10
+ * @version 1.0 2017-02-14
  */
  
 @Controller

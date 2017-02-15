@@ -22,40 +22,54 @@
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
-		<include refid="Base_Column_List" />
-		from dn_product
-		where PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}
+			p.PRODUCT_ID
+			,pc.PRODUCT_CLASS_NAME as productClassName
+			,p.PRODUCT_NAME
+			,p.PRODUCT_IMAGE_PATH
+			,p.PRODUCT_UNIT_PRICE
+			,p.PRODUCT_STOCKS
+			,p.PRODUCT_STATUS
+		from dn_product as p
+		left join dn_product_class as pc on pc.PRODUCT_CLASS_ID = p.PRODUCT_CLASS_ID
+		where p.PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}
 	</select>
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.product.model.Product">
 		select
-		<include refid="Base_Column_List" />
-		from dn_product
+			p.PRODUCT_ID
+			,pc.PRODUCT_CLASS_NAME as productClassName
+			,p.PRODUCT_NAME
+			,p.PRODUCT_IMAGE_PATH
+			,p.PRODUCT_UNIT_PRICE
+			,p.PRODUCT_STOCKS
+			,p.PRODUCT_STATUS
+		from dn_product as p
+		left join dn_product_class as pc on pc.PRODUCT_CLASS_ID = p.PRODUCT_CLASS_ID
 		where 1=1
 		<if test="productId != null and '' != productId">  
-			and PRODUCT_ID = #{productId,jdbcType=CHAR}
+			and p.PRODUCT_ID = #{productId,jdbcType=CHAR}
 		</if>
 		<if test="productClassId != null and '' != productClassId">  
-			and PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}
+			and p.PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}
 		</if>
 		<if test="productName != null and '' != productName">  
-			and PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+			and p.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
 		</if>
 		<if test="productImagePath != null and '' != productImagePath">  
-			and PRODUCT_IMAGE_PATH = #{productImagePath,jdbcType=VARCHAR}
+			and p.PRODUCT_IMAGE_PATH = #{productImagePath,jdbcType=VARCHAR}
 		</if>
 		<if test="productUnitPrice != null and '' != productUnitPrice">  
-			and PRODUCT_UNIT_PRICE = #{productUnitPrice,jdbcType=DOUBLE}
+			and p.PRODUCT_UNIT_PRICE = #{productUnitPrice,jdbcType=DOUBLE}
 		</if>
 		<if test="productStocks != null and '' != productStocks">  
-			and PRODUCT_STOCKS = #{productStocks,jdbcType=INTEGER}
+			and p.PRODUCT_STOCKS = #{productStocks,jdbcType=INTEGER}
 		</if>
 		<if test="productStatus != null and '' != productStatus">  
-			and PRODUCT_STATUS = #{productStatus,jdbcType=CHAR}
+			and p.PRODUCT_STATUS = #{productStatus,jdbcType=CHAR}
 		</if>
-				<if test="orderFields != null and '' != orderFields">  
+		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
-         	</if>
+       	</if>
 	</select>
 	
 	<delete id="deleteByKey" parameterType="java.lang.String">

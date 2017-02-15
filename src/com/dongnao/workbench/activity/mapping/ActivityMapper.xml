@@ -67,11 +67,11 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.activity.model.Activity">
 		update dn_activity  set
-		ID= #{activityId,jdbcType=CHAR}
-													,ACTIVITY_NAME = #{activityName,jdbcType=VARCHAR}
-											,ACTIVITY_TYPE = #{activityType,jdbcType=CHAR}
-											,ACTIVITY_DESC = #{activityDesc,jdbcType=VARCHAR}
-											,ACTIVITY_EXPECTED_PROFIT = #{activityExpectedProfit,jdbcType=DOUBLE}
-							where ACTIVITY_ID = #{activityId,jdbcType=CHAR}
+		ACTIVITY_ID= #{activityId,jdbcType=CHAR}
+		,ACTIVITY_NAME = #{activityName,jdbcType=VARCHAR}
+		,ACTIVITY_TYPE = #{activityType,jdbcType=CHAR}
+		,ACTIVITY_DESC = #{activityDesc,jdbcType=VARCHAR}
+		,ACTIVITY_EXPECTED_PROFIT = #{activityExpectedProfit,jdbcType=DOUBLE}
+	where ACTIVITY_ID = #{activityId,jdbcType=CHAR}
 	</update>
 </mapper>

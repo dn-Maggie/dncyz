@@ -85,6 +85,8 @@
 				<value>/varifyCode.do</value>
 				<value>/staticAnalysis/toAllStatic.do</value>
 				<value>/store/toListStore.do</value>
+				<value>/activity/toListActivity.do</value>
+				<value>/userInfo/toEditPassWord.do</value>
 			</list>
 		</property>
 	</bean>

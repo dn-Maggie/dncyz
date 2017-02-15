@@ -12,6 +12,7 @@ import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.product.model.Product;
+import com.dongnao.workbench.product.service.ProductClassService;
 import com.dongnao.workbench.product.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class ProductController{
          @Resource
 	private ProductService productService;
+         @Resource
+     	private ProductClassService productClassService;
 	 
  	/**
  	* 进入新增页面
@@ -40,6 +43,7 @@ public class ProductController{
  	@RequestMapping("/toAddProduct")
 	public ModelAndView toAdd(){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/product/product/addProduct");
+		mv.addObject("productClass", productClassService.listByCondition(null));
 		return mv;
 	}
 	

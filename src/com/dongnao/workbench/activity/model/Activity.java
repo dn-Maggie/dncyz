@@ -5,10 +5,10 @@ import java.math.BigDecimal;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.dongnao.workbench.common.bean.Model;
 /**
- * 描述：活动模块实体类，负责页面与后台数据传输功能
+ * 描述：近期活动模块实体类，负责页面与后台数据传输功能
  *
  * @author maggie
- * @version 1.0 2017-02-10
+ * @version 1.0 2017-02-14
  */
 public class Activity extends Model{
 	

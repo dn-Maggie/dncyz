@@ -19,14 +19,19 @@ public class ProductList extends Model{
 				   			private String productListId;
 		   		
 		            /**
-	                 * 订单ID
+	                 * 订单ID(多个订单产品列表对应一个订单ID)
 	                 **/
 				   			private String orderId;
+				   	/**
+	                 * 订单来源
+	                 **/
+				   			private String orderSource;
 		   		
 		            /**
 	                 * 产品ID
 	                 **/
 				   			private String productId;
+				   			private String productName;
 		   		
 		            /**
 	                 * 数量

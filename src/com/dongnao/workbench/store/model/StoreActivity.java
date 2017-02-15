@@ -22,11 +22,13 @@ public class StoreActivity extends Model{
 	                 * 店铺ID
 	                 **/
 				   			private String storeId;
+				   			private String storeName;
 		   		
 		            /**
 	                 * 活动ID
 	                 **/
 				   			private String activityId;
+				   			private String activityName;
 		   		
 		            /**
 	                 * 活动起始时间
@@ -276,5 +278,21 @@ public class StoreActivity extends Model{
 			 */
 			public void setActivityExecuteTime(Date activityExecuteTime){
 				this.activityExecuteTime = activityExecuteTime;
+			}
+
+			public String getStoreName() {
+				return storeName;
+			}
+
+			public void setStoreName(String storeName) {
+				this.storeName = storeName;
+			}
+
+			public String getActivityName() {
+				return activityName;
+			}
+
+			public void setActivityName(String activityName) {
+				this.activityName = activityName;
 			}
 			}

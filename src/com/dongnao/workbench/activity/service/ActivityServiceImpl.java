@@ -10,10 +10,10 @@ import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.util.AjaxUtils;
  
 /**
- * 描述：活动模块service接口实现类，实现service接口方法
+ * 描述：近期活动模块service接口实现类，实现service接口方法
  *
  * @author maggie
- * @version 1.0 2017-02-10
+ * @version 1.0 2017-02-14
  */
 @Service("activityService")
 public class ActivityServiceImpl implements ActivityService{
@@ -22,7 +22,7 @@ public class ActivityServiceImpl implements ActivityService{
 	
  
 	/**
-	 * 新增活动方法
+	 * 新增近期活动方法
 	 * @param activity:实体类
 	 */	
 	public ResultMessage add(Activity activity){
@@ -31,7 +31,7 @@ public class ActivityServiceImpl implements ActivityService{
 	}
 	
 	/**
-	 * 根据主键查找活动实体方法
+	 * 根据主键查找近期活动实体方法
 	 * @param key String 实体主键
 	 * @return Activity 实体对象
 	 */
@@ -40,7 +40,7 @@ public class ActivityServiceImpl implements ActivityService{
 	}
 	
 	/**
-	 * 删除活动方法
+	 * 删除近期活动方法
 	 * @param key String 多个由“，”分割开的id字符串
 	 */
 	public void deleteByKey(String key){
@@ -48,7 +48,7 @@ public class ActivityServiceImpl implements ActivityService{
 	}
 	
 	/**
-	 * 根据条件查找活动列表方法
+	 * 根据条件查找近期活动列表方法
 	 * @param activity Activity 实体对象（查询条件）
 	 * @return List<Activity> 实体对象的list
 	 */
@@ -57,7 +57,7 @@ public class ActivityServiceImpl implements ActivityService{
 	}
 	
 	/**
-	 * 修改活动方法
+	 * 修改近期活动方法
 	 * @param activity Activity 实体对象
 	 */	
 	public ResultMessage update(Activity activity){

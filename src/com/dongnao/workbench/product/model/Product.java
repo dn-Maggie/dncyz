@@ -22,6 +22,7 @@ public class Product extends Model{
 	                 * 产品分类ID
 	                 **/
 				   			private String productClassId;
+				   			private String productClassName;
 		   		
 		            /**
 	                 * 产品名称
@@ -184,6 +185,14 @@ public class Product extends Model{
 			 */
 			public void setProductStatus(String productStatus){
 				this.productStatus = productStatus;
+			}
+
+			public String getProductClassName() {
+				return productClassName;
+			}
+
+			public void setProductClassName(String productClassName) {
+				this.productClassName = productClassName;
 			}
 		   		
 		

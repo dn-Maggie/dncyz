@@ -19,7 +19,7 @@ var gridObj = {};
             colModel:[
 				{name : "storeActivityId",hidden : true,key : true,label:"店铺活动ID(主键)",index : "STORE_ACTIVITY_ID"},				
 				{name : "storeId",label:"店铺ID",index : "STORE_ID"},				
-				{name : "activityId",label:"活动ID",index : "ACTIVITY_ID"},				
+				{name : "activityName",label:"活动名称",index : "ACTIVITY_ID"},				
 				{name : "activityTimeBegin",label:"活动起始时间",index : "ACTIVITY_TIME_BEGIN"},				
 				{name : "activityTimeEnd",label:"活动结束时间",index : "ACTIVITY_TIME_END"},				
 				{name : "activityExpectedBudget",label:"活动预算费用",index : "ACTIVITY_EXPECTED_BUDGET"},				
@@ -64,8 +64,8 @@ var gridObj = {};
 		add_iframe_dialog = new biz.dialog({
 			id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: 800,
-			height: 235,
+			width: $(window).width()*0.6,
+			height: $(window).height()*0.8,
 			title: "店铺活动增加"
 		});
 		add_iframe_dialog.open();
@@ -86,8 +86,8 @@ var gridObj = {};
 		edit_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: 800,
-			height: 235,
+			width: $(window).width()*0.6,
+			height: $(window).height()*0.8,
 			title: "店铺活动编辑"
 		});
   		edit_iframe_dialog.open();
@@ -108,8 +108,8 @@ var gridObj = {};
 		show_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: 800,
-			height: 235,
+			width: $(window).width()*0.6,
+			height: $(window).height()*0.8,
 				title: "店铺活动详情"
 		});
   		show_iframe_dialog.open();

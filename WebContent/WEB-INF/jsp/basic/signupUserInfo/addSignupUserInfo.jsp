@@ -183,11 +183,6 @@
 			dateFmt : 'yyyy-MM-dd'
 		});
 
-		new biz.select(
-				{//状态下拉
-					id : "#edit_states",
-					url : "<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=status'/>"
-				});
 
 	});
 

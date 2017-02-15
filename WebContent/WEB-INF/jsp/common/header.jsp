@@ -17,59 +17,39 @@
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/css/base.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/css/master.css" />
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/styles/default/css/trans.css" />
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/styles/default/css/popup_window.css"
-	media="screen" />
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/styles/default/css/style.css"
-	media="screen" />
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/styles/default/css/pagination.css"
-	media="screen" />
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/css/trans.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/css/popup_window.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/css/style.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/css/pagination.css" media="screen" />
+<style>
+<!--
+.ui-jqgrid tr.ui-row-ltr td{
+	text-align:center;
+}
+-->
+</style>
 <script type="text/javascript">
   baseUrl="<%=request.getContextPath() %>";
 </script>
-<script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/excelExport.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath() %>/styles/index.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/lib/biz.jquery.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/lib/biz-html5.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/lib/biz-ie.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/jquery.cookie.js"></script>
-<%-- <script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/lib/WdatePicker.js"></script> --%>
-<script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/i18n/i18n_zh.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/lib/biz.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/jquery.nicescroll.js"></script>
-<script title="js模板控件" type="text/javascript"
-	src="<%=request.getContextPath() %>/js/doT.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/lib/biz.jquery.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/excelExport.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/styles/index.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/lib/biz-html5.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/lib/biz-ie.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/i18n/i18n_zh.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/lib/biz.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery.nicescroll.js"></script>
+<script title="js模板控件" type="text/javascript" src="<%=request.getContextPath() %>/js/doT.min.js"></script>
 <!-- 自定义js -->
-<script title="表格列耐热格式" type="text/javascript"
-	src="<%=request.getContextPath() %>/js/GridColModelForMatter.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/bizLib/common.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/bizLib/jquery.form.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/bizLib/jquery.contextmenu.r2.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/tiledCombobox.js"></script>
-<%-- <script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/bizLib/placeholder.js"></script> --%>
+<script title="表格列耐热格式" type="text/javascript" src="<%=request.getContextPath() %>/js/GridColModelForMatter.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/bizLib/common.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/bizLib/jquery.form.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/bizLib/jquery.contextmenu.r2.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/tiledCombobox.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/bizLib/placeholder.js"></script>
 
 
-<script
-	src="<%=request.getContextPath() %>/js/gameco/jquery.collapse.js"></script>
+<script src="<%=request.getContextPath() %>/js/gameco/jquery.collapse.js"></script>
 <script src="<%=request.getContextPath() %>/modulejs/common.js"></script>
 

@@ -116,29 +116,8 @@ $(function() {
 			name : "fullName",
 			label : "用户姓名",
 			index : "full_Name"
-		}, {width : 100,
-			name : "dutyName",
-			label : "岗位",
-			index : "duty_name"
-		}, {width : 50,
-			name : "sex",
-			label : "性别",
-			formatter:function(cellvalue, options, rowObject){
-				 if (cellvalue==1) {
-				 	return '男';
-				 }else {
-				 	return '女';
-				 }
-			}
-		}, 
-		 {width : 50,
-			name : "age",
-			label : "年龄"
-		},{width : 100,
-			name : "mobilePhone",
-			label : "手机号码",
-			index:"MOBILE_PHONE"
-		},{width : 100,
+		},
+		{width : 100,
 			name : "lastLoginIp",
 			label : "最后登录IP",
 			index : "LAST_LOGIN_IP"
@@ -195,8 +174,8 @@ function add() {
 										+ url
 										+ '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
 				modal : true,
-				width : 800,
-				height : 300,
+				width: $(window).width()*0.6,
+				height: $(window).height()*0.8,
 				title : "用户信息增加"
 			});
 	add_iframe_dialog.open();
@@ -222,8 +201,8 @@ function edit() {
 										+ url
 										+ '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
 				modal : true,
-				width : 800,
-				height : 500,
+				width: $(window).width()*0.6,
+				height: $(window).height()*0.8,
 				title : "用户信息编辑"
 			});
 	edit_iframe_dialog.open();
@@ -249,8 +228,8 @@ function show() {
 										+ url
 										+ '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
 				modal : true,
-				width : 800,
-				height : 700,
+				width: $(window).width()*0.6,
+				height: $(window).height()*0.8,
 				title : "用户信息详情"
 			});
 	show_iframe_dialog.open();

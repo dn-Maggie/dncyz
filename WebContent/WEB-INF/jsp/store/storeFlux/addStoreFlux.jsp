@@ -7,7 +7,7 @@
 $(function() {
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
-		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});
+		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});showMessage("正在处理...");
 		if(!biz.validate("valid",$('#storeFluxFormEdit')[0])){
 			showWarn("数据验证失败",3000);
 			$("#submit").prop('disabled', false).css({'cursor':'pointer'});

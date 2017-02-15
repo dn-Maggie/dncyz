@@ -33,45 +33,39 @@
 			}, {
 				name : "resourceName",
 				label : "<m:message code="moduleRes.resourceName"/>",
-				align : "left",
 				width : 120,
-				index : "RESOURCE_NAME"
+				index : "RESOURCE_NAME",
+				align : "left",
 			}, {
 				name : "resourcecode",
 				label : "<m:message code="moduleRes.resourcecode"/>",
-				align : "left",
 				width : 120,
 				index : "RESOURCECODE"
 			}, {
 				name : "resTypeName",
 				label : "<m:message code='moduleRes.resType'/>",
-				align : "left",
 				width : 40,
 				index : "RES_TYPE"
 			}, {
 				name : "resurl",
 				label : "<m:message code="moduleRes.resurl"/>",
-				align : "left",
 				width : 120,
 				index : "RESURL"
 			}, {
 				name : "status",
 				label : "<m:message code="moduleRes.status"/>",
 				formatter : ma_status,
-				align : "center",
 				width : 40,
 				index : "STATUS"
 			}, {
 				name : "needright",
 				label : "<m:message code="moduleRes.needright"/>",
 				formatter : ma_needright,
-				align : "center",
 				width : 40,
 				index : "NEEDRIGHT"
 			}, {
 				name : "serialindex",
 				label : "<m:message code="moduleRes.serialindex"/>",
-				align : "left",
 				width : 40,
 				index : "SERIALINDEX"
 			}, {
@@ -368,13 +362,12 @@
 						placeholder="<m:message code="moduleRes.resourcecode" />"
 						class="search_choose100" value="" name="resourcecode"
 						autocomplete="off"></li>
-					<li><select id="status" name="status" class="search_select"></select>
-						<span><m:message code="moduleRes.status" />:</span></li>
+				<%-- 	<li><select id="status" name="status" class="search_select"></select>
+						<span><m:message code="moduleRes.status" />:</span></li> --%>
 					<!--下拉 -->
 
-					<li><select id="needright" name="needright"
-						class="search_select"></select> <span><m:message
-								code="moduleRes.needright" />:</span></li>
+					<!-- <li><select id="needright" name="needright"
+						class="search_select"></select></li> -->
 					<!--下拉 -->
 
 					<li><input type="reset" value="重置"

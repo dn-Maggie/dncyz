@@ -63,7 +63,6 @@
 </head>
 <body>
 	<form action="" method="post" id="addForm" name="addForm">
-		<hi:icssToken />
 		<div class="ui-table ui-widget ui-corner-all ui-border">
 			<table class="table">
 				<tr>

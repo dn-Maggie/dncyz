@@ -64,7 +64,7 @@ public class UserInfo extends Model{
 	                 * 最后登录时间
 	                 **/
 					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-			private Date lastLoginTime;
+							private Date lastLoginTime;
 		
 		            /**
 	                 * 最后一次登录ip
@@ -120,6 +120,42 @@ public class UserInfo extends Model{
 	                 **/
 				   			private Integer isActive;
 		   		
+		   		  /**
+	                 * 平台类别
+	                 **/
+				   			private String platformType;
+		   		
+		            /**
+	                 * 店铺ID
+	                 **/
+				   			private String storeId;
+		   		
+		            /**
+	                 * 平台店铺序号
+	                 **/
+				   			private Integer platformStoreIndex;
+		   		
+		            /**
+	                 * 平台名称
+	                 **/
+				   			private String platformStoreName;
+		   		
+		            /**
+	                 * 评分
+	                 **/
+				   			private String platformStoreScore;
+		   		
+		            /**
+	                 * 市场经理
+	                 **/
+				   			private String marketingManager;
+		   		
+		            /**
+	                 * 市场经理电话
+	                 **/
+				   			private String marketingManagerTel;
+		   		 		
+		   			
 				
 		  			/**
 			 * 获取 用户ID
@@ -498,6 +534,62 @@ public class UserInfo extends Model{
 			 */
 			public void setIsActive(Integer isActive){
 				this.isActive = isActive;
+			}
+
+			public String getPlatformType() {
+				return platformType;
+			}
+
+			public void setPlatformType(String platformType) {
+				this.platformType = platformType;
+			}
+
+			public String getStoreId() {
+				return storeId;
+			}
+
+			public void setStoreId(String storeId) {
+				this.storeId = storeId;
+			}
+
+			public Integer getPlatformStoreIndex() {
+				return platformStoreIndex;
+			}
+
+			public void setPlatformStoreIndex(Integer platformStoreIndex) {
+				this.platformStoreIndex = platformStoreIndex;
+			}
+
+			public String getPlatformStoreName() {
+				return platformStoreName;
+			}
+
+			public void setPlatformStoreName(String platformStoreName) {
+				this.platformStoreName = platformStoreName;
+			}
+
+			public String getPlatformStoreScore() {
+				return platformStoreScore;
+			}
+
+			public void setPlatformStoreScore(String platformStoreScore) {
+				this.platformStoreScore = platformStoreScore;
+			}
+
+			public String getMarketingManager() {
+				return marketingManager;
+			}
+
+			public void setMarketingManager(String marketingManager) {
+				this.marketingManager = marketingManager;
+			}
+
+			public String getMarketingManagerTel() {
+				return marketingManagerTel;
+			}
+
+			public void setMarketingManagerTel(String marketingManagerTel) {
+				this.marketingManagerTel = marketingManagerTel;
 			}
 		  		
 		

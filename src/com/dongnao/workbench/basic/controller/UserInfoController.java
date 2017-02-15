@@ -60,7 +60,6 @@ public class UserInfoController extends BaseController{
 	public ModelAndView toAdd() {
 		ModelAndView mv = new ModelAndView( "WEB-INF/jsp/basic/userInfo/addUserInfo");
 		List<Role> roleList = roleService.listByCondition(new Role());
-		dictInfoService.getDictInfoByType("");
 		mv.addObject("roleList", roleList);
 		return mv;
 	}
@@ -103,10 +102,8 @@ public class UserInfoController extends BaseController{
 			HttpServletRequest request, HttpServletResponse response) {
 		// 设置普通员工
 		userInfo.setUserType(UserInfoType.STAFF.getValue());
-		AjaxUtils.sendAjaxForObjectStr(
-				response,
-				userInfoService.add(userInfo, roleId,
-						Utils.getLoginUserInfo(request)));
+		AjaxUtils.sendAjaxForObjectStr(response,
+				userInfoService.add(userInfo, roleId,Utils.getLoginUserInfo(request)));
 	}
 
 	/**
@@ -289,11 +286,11 @@ public class UserInfoController extends BaseController{
 	public ModelAndView toEditPassWord(HttpServletRequest request){
 		UserInfo userInfo=Utils.getLoginUserInfo(request);
 		if(userInfo!=null){
-			return new ModelAndView("jsp/common/editPassWord", "userInfo",
+			return new ModelAndView("WEB-INF/jsp/common/editPassWord", "userInfo",
 					userInfo);
 		}else{
 			request.getSession().removeAttribute(Constant.LOGIN_USER_KEY);
-			return new ModelAndView("jsp/common/login");
+			return new ModelAndView("WEB-INF/jsp/common/login");
 		}
 	}
 	

@@ -6,11 +6,11 @@
 
 			<div class="navbar-container" id="navbar-container">
 				<div class="navbar-header pull-left">
-					<a href="#" class="navbar-brand">
+					<!-- a href="#" class="navbar-brand">
 					</a><!-- /.brand -->
 					<a href="#" style="float:right">
-						
 					</a>
+					<img alt="" src="<%=request.getContextPath() %>/styles/images/logo.png" >
 				</div><!-- /.navbar-header -->
 
 				<div class="navbar-header pull-right" role="navigation">
@@ -29,9 +29,9 @@
 
 							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 								<li>
-									<a href="#">
+									<a href="javascript:;" id="setPwdBtn">
 										<i class="icon-cog"></i>
-										设置
+										修改密码
 									</a>
 								</li>
 

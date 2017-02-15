@@ -22,6 +22,14 @@
 		<result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
 		<result column="CREATED" property="created" jdbcType="TIMESTAMP" />
 		<result column="IS_ACTIVE" property="isActive" jdbcType="INTEGER" />
+		<result column="PLATFORM_TYPE" property="platformType" jdbcType="CHAR" />
+		<result column="STORE_ID" property="storeId" jdbcType="CHAR" />
+		<result column="PLATFORM_STORE_INDEX" property="platformStoreIndex" jdbcType="INTEGER" />
+		<result column="PLATFORM_STORE_NAME" property="platformStoreName" jdbcType="VARCHAR" />
+		<result column="PLATFORM_STORE_SCORE" property="platformStoreScore" jdbcType="DOUBLE" />
+		<result column="MARKETING_MANAGER" property="marketingManager" jdbcType="VARCHAR" />
+		<result column="MARKETING_MANAGER_TEL" property="marketingManagerTel" jdbcType="VARCHAR" />
+		
 	</resultMap>
 	<sql id="Base_Column_List">
 		 	ID
@@ -44,6 +52,13 @@
 			,CREATEDBY
 			,CREATED
 			,IS_ACTIVE
+			,PLATFORM_TYPE
+			,STORE_ID
+			,PLATFORM_STORE_INDEX
+			,PLATFORM_STORE_NAME
+			,PLATFORM_STORE_SCORE
+			,MARKETING_MANAGER
+			,MARKETING_MANAGER_TEL
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -118,6 +133,27 @@
 		<if test="isActive != null and '' != isActive">  
 			and IS_ACTIVE = #{isActive,jdbcType=INTEGER}
 		</if>
+		<if test="platformType != null and '' != platformType">  
+			and PLATFORM_TYPE = #{platformType,jdbcType=CHAR}
+		</if>
+		<if test="storeId != null and '' != storeId">  
+			and STORE_ID = #{storeId,jdbcType=CHAR}
+		</if>
+		<if test="platformStoreIndex != null and '' != platformStoreIndex">  
+			and PLATFORM_STORE_INDEX = #{platformStoreIndex,jdbcType=INTEGER}
+		</if>
+		<if test="platformStoreName != null and '' != platformStoreName">  
+			and PLATFORM_STORE_NAME = #{platformStoreName,jdbcType=VARCHAR}
+		</if>
+		<if test="platformStoreScore != null and '' != platformStoreScore">  
+			and PLATFORM_STORE_SCORE = #{platformStoreScore,jdbcType=DOUBLE}
+		</if>
+		<if test="marketingManager != null and '' != marketingManager">  
+			and MARKETING_MANAGER = #{marketingManager,jdbcType=VARCHAR}
+		</if>
+		<if test="marketingManagerTel != null and '' != marketingManagerTel">  
+			and MARKETING_MANAGER_TEL = #{marketingManagerTel,jdbcType=VARCHAR}
+		</if>
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
        	</if>
@@ -163,6 +199,13 @@
 			,#{createdby,jdbcType=VARCHAR}
 			,#{created,jdbcType=TIMESTAMP}
 			,#{isActive,jdbcType=INTEGER}
+			,#{platformType,jdbcType=CHAR}
+			,#{storeId,jdbcType=CHAR}
+			,#{platformStoreIndex,jdbcType=INTEGER}
+			,#{platformStoreName,jdbcType=VARCHAR}
+			,#{platformStoreScore,jdbcType=DOUBLE}
+			,#{marketingManager,jdbcType=VARCHAR}
+			,#{marketingManagerTel,jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -187,6 +230,13 @@
 				,ENABLE_END_DATE = #{enableEndDate,jdbcType=TIMESTAMP}
 				,UPDATED = #{updated,jdbcType=TIMESTAMP}
 				,UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+				,PLATFORM_TYPE = #{platformType,jdbcType=CHAR}
+				,STORE_ID = #{storeId,jdbcType=CHAR}
+				,PLATFORM_STORE_INDEX = #{platformStoreIndex,jdbcType=INTEGER}
+				,PLATFORM_STORE_NAME = #{platformStoreName,jdbcType=VARCHAR}
+				,PLATFORM_STORE_SCORE = #{platformStoreScore,jdbcType=DOUBLE}
+				,MARKETING_MANAGER = #{marketingManager,jdbcType=VARCHAR}
+				,MARKETING_MANAGER_TEL = #{marketingManagerTel,jdbcType=VARCHAR}
 			where ID = #{id,jdbcType=VARCHAR}
 	</update>
 	

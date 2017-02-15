@@ -13,6 +13,8 @@ var gridObj = {};
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"ACTIVITY_ID",
            	sortorder:"asc",
+           	//navtype:"top" /*导航栏类型*/,
+           	//height: gridHeight,
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
     		rowNum:10,//默认显示15条
@@ -60,7 +62,7 @@ var gridObj = {};
 			modal: true,
 			width: 800,
 			height: 235,
-			title: "活动增加"
+			title: "近期活动增加"
 		});
 		add_iframe_dialog.open();
   	}
@@ -82,7 +84,7 @@ var gridObj = {};
 			modal: true,
 			width: 800,
 			height: 235,
-			title: "活动编辑"
+			title: "近期活动编辑"
 		});
   		edit_iframe_dialog.open();
     }
@@ -104,7 +106,7 @@ var gridObj = {};
 			modal: true,
 			width: 800,
 			height: 235,
-				title: "活动详情"
+				title: "近期活动详情"
 		});
   		show_iframe_dialog.open();
     }
@@ -162,49 +164,22 @@ var gridObj = {};
 
 	<div class="main  choice_box">
 		<form id="queryForm"><!-- 查询区 表单 -->
-			<div class="search border-bottom">
-				<ul>
-				<li><input type="text" name="actorName" id="actorName" class="search_choose"> <span>操作人:</span></li><!-- 输入框-->
-				<li class="date_area">
-					<span>日期:</span>
-					<div class="time_bg">
-						<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate">
-						<i class="search_time_ico2"  onclick="WdatePicker({el:'startDate'})"></i>
-					</div>
-					<i>至</i>
-					<div class="time_bg">
-						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" mainid="endDate">
-						<i class="search_time_ico2"  onclick="WdatePicker({el:'endDate'})"></i>
-					</div></li>	
-				 <li><select class="search_select" name="actType" id="actType" mainid="actType"><option value="">--请选择--</option><option value="add">add</option><option value="save">save</option><option value="update">update</option><option value="edit">edit</option><option value="insert">insert</option><option value="delete">delete</option><option value="remove">remove</option></select>
-				<span>操作类型:</span></li><!--下拉 -->
-				<li><input type="text" name="actResult" id="actResult" class="search_choose"> <span>操作结果:</span></li><!-- 输入框-->			
-				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
-						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
-				</ul>
-		   </div>
 	    </form>
-		<div class="listplace">
+<div class="listplace">
 				<!--功能按钮begin-->
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
-						<c:if test="${add}">
 							<li><a title="<m:message code="button.add"/>" href="javascript:;"
 								onclick="add();"> <i class="icon_bg icon_add"> </i> <span><m:message
 											code="button.add" /></span>
 							</a></li>
-						</c:if>
-						<c:if test="${edit}">
 							<li><a title="<m:message code="button.edit"/>" href="javascript:;"
 								onclick="edit();"><i class="icon_bg icon_edit"></i> <span><m:message
 											code="button.edit" /></span> </a></li>
-						</c:if>
-						<c:if test="${delete}">
 							<li><a title="<m:message code="button.delete"/>" href="javascript:;"
 								onclick="batchDelete();"> <i class="icon_bg icon_del"></i> <span><m:message
 											code="button.delete" /></span>
 							</a></li>
-						</c:if>
 						<li><a title="<m:message code="button.view"/>" href="javascript:"
 							onclick="show();"> <i class="icon_bg icon_ckxq"></i> <span><m:message
 										code="button.view" /></span>
@@ -212,7 +187,7 @@ var gridObj = {};
 					</ul>
 				</div>
 	
-				<!--功能按钮end-->
+			<!--功能按钮end-->
 				<div class="listtable_box">
 					<!--此处放表格-->
 				<table  id="remote_rowed" ></table>

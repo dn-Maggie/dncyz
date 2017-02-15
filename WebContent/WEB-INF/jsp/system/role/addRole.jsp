@@ -91,7 +91,8 @@ $(function() {
 							type="text" class="text" value="${role.roleDesc}" /></td>
 						<td class="inputLabelTd"><m:message code="role.states" />:</td>
 						<td class="inputTd"><select id="edit_states" name="states"
-							class="select"></select></td>
+							class="select">
+							</select></td>
 
 					</tr>
 					<tr>

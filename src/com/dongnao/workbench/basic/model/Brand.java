@@ -57,11 +57,13 @@ public class Brand extends Model{
 	                 * 行业ID
 	                 **/
 				   			private String industryId;
+				   			private String industryName;
 		   		
 		            /**
 	                 * 品类ID
 	                 **/
 				   			private String categoryId;
+				   			private String categoryName;
 		   		
 		            /**
 	                 * 对接人
@@ -86,14 +88,14 @@ public class Brand extends Model{
 		            /**
 	                 * 合同签订时间
 	                 **/
-					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-			private Date signContractDate;
+					@DateTimeFormat(pattern="yyyy-MM-dd") 
+							private Date signContractDate;
 		
 		            /**
 	                 * 创建时间
 	                 **/
-					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-			private Date createDate;
+					@DateTimeFormat(pattern="yyyy-MM-dd") 
+							private Date createDate;
 		
 	
 				
@@ -405,5 +407,21 @@ public class Brand extends Model{
 			 */
 			public void setCreateDate(Date createDate){
 				this.createDate = createDate;
+			}
+
+			public String getIndustryName() {
+				return industryName;
+			}
+
+			public void setIndustryName(String industryName) {
+				this.industryName = industryName;
+			}
+
+			public String getCategoryName() {
+				return categoryName;
+			}
+
+			public void setCategoryName(String categoryName) {
+				this.categoryName = categoryName;
 			}
 			}

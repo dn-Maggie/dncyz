@@ -11,8 +11,11 @@ import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
+import com.dongnao.workbench.area.service.ChinaAreaService;
 import com.dongnao.workbench.basic.model.Brand;
 import com.dongnao.workbench.basic.service.BrandService;
+import com.dongnao.workbench.basic.service.CategoryService;
+import com.dongnao.workbench.basic.service.IndustryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,8 +33,14 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("brand")
 public class BrandController{
-         @Resource
+	@Resource
 	private BrandService brandService;
+	@Resource
+	private CategoryService categoryService;
+	@Resource
+	private IndustryService industryService;
+	@Resource
+	private ChinaAreaService chinaAreaService;
 	 
  	/**
  	* 进入新增页面
@@ -40,6 +49,9 @@ public class BrandController{
  	@RequestMapping("/toAddBrand")
 	public ModelAndView toAdd(){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/basic/brand/addBrand");
+		mv.addObject("category", categoryService.listByCondition(null));
+		mv.addObject("industry", industryService.listByCondition(null));
+		mv.addObject("chinaArea", chinaAreaService.loadAreaByParent(0));
 		return mv;
 	}
 	
@@ -64,8 +76,7 @@ public class BrandController{
 	@RequestMapping("/addBrand")
 	public void add(Brand brand,HttpServletRequest request,HttpServletResponse response){
 	brand.setBrandId(Utils.generateUniqueID());
-	AjaxUtils.sendAjaxForObjectStr(
-				response,brandService.add(brand));		
+	AjaxUtils.sendAjaxForObjectStr(response,brandService.add(brand));		
 	}
 	
 	/**
@@ -120,7 +131,6 @@ public class BrandController{
 	public ModelAndView toEdit(String key){
 		Brand entity = brandService.getByPrimaryKey(key);
 		Map<String,String> brand = FormatEntity.getObjectValue(entity);
-		
 		return new ModelAndView("WEB-INF/jsp/basic/brand/editBrand","brand",brand );
 	}
 	

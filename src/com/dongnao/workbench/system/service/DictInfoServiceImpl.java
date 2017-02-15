@@ -183,8 +183,7 @@ public class DictInfoServiceImpl implements DictInfoService {
 	 * @return List<String>
 	 */
 	public String getDictByTypeCode(String dictTypeCode) {
-		List<DictInfo> dictInfoList = dictInfoMapper
-				.getDictByTypeCode(dictTypeCode);
+		List<DictInfo> dictInfoList = dictInfoMapper .getDictByTypeCode(dictTypeCode);
 		JSONArray arr = new JSONArray();
 		JSONObject obj = null;
 		for (DictInfo d : dictInfoList) {

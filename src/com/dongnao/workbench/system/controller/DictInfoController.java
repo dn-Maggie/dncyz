@@ -209,8 +209,7 @@ public class DictInfoController{
 	 */
 	@RequestMapping("/getDictByTypeCode")
 	public void getDictByTypeCode(String dictTypeCode,HttpServletResponse response){
-		//String str = dictInfoService.getDictByTypeCode(dictTypeCode);
-		AjaxUtils.sendAjaxForObject(response, Utils.getDictInfo(dictTypeCode, true));	
+		AjaxUtils.sendAjaxForObject(response, dictInfoService.getDictByTypeCode(dictTypeCode));	
 	}
 	
 	/**
@@ -225,19 +224,4 @@ public class DictInfoController{
 		AjaxUtils.sendAjaxForObject(response, Utils.getDictInfo(dictTypeCode, false));	
 	}
 	
-	/**
-	 * 获取入学年份下拉框
-	 */
-	@RequestMapping("/getAdmissionYear")
-	public void getAdmissionYear(HttpServletResponse response){
-		List<String> list = new ArrayList<String>();
-		 Calendar cal = Calendar.getInstance();
-		 int year = cal.get(Calendar.YEAR);
-		 String option = "";
-		 for(int i=0;i<6;i++){
-			 option = "\"name\":\""+(year-i)+"级"+"\",\"value\":\""+(year-i)+"\""; 
-				list.add(option);
-		 }
-		 AjaxUtils.sendAjaxForSelect(response, list);	
-	}
 }

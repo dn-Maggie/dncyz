@@ -13,11 +13,10 @@
 <%@ include file="../../common/header.jsp"%>
 </head>
 <body style="height: 100%;">
-
 	<div class="main  choice_box"
 		style="height: 100%; float: left; width: 22%">
 		<div class="ui-table ui-widget ui-corner-all ui-margin ui-leftDiv">
-			<form id="queryForm1">
+			<form id="queryForm1" style="height:auto">
 				<div id="equal1" class="equal">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0"
 						class="top_table">
@@ -101,8 +100,8 @@
 	$(function() {
 		initDictTypeTree();
 		initDictInfoTable();
-		$('#dictTypeTree').height(605-$("#queryForm1").height()-80);
-		window.parent.loadedMask();
+		/* $('#dictTypeTree').height(605-$("#queryForm1").height()-80);
+		window.parent.loadedMask();  */
 	});
 
 	var dictTypeTree;
@@ -226,13 +225,14 @@
 		$.ajax({
 			url : "<m:url value='/dictType/initDictTypeTree.do'/>",
 			data : {
-				typeName : $('#typeName').val()
+				 typeName : $('#typeName').val()
 			},
 			type : "POST",
+			dataType:"json",
 			success : function(data, textStatus, jqXHR) {
-				var setting_checkbox = {
+				/* var setting_checkbox = {
 					id : "#dictTypeTree",
-					nodes : $.parseJSON(data), //数据节点指定     
+					nodes : data, //数据节点指定     
 					view : {
 						addHoverDom : addHoverDom,
 						removeHoverDom : removeHoverDom,
@@ -253,7 +253,21 @@
 						onClick : treeOnClick
 					}
 				};
-				dictTypeTree = new biz.tree(setting_checkbox);//创建树 
+				dictTypeTree = new biz.tree(setting_checkbox);//创建树  */
+				var setting_checkbox = {
+						data : {},
+						id : "#dictTypeTree",
+						nodes :data, // 数据节点指定
+						data : {
+							simpleData : {
+								enable : true
+							}
+						},
+						callback : {
+							onClick : treeOnClick
+						}
+					};
+				dictTypeTree = new biz.tree(setting_checkbox);// 创建树
 			}
 		});
 	}
@@ -329,7 +343,15 @@
 	function addDictInfo() {
 		var nodes = dictTypeTree.getSelectedNodes();
 		if(nodes.length != 1 || nodes[0].isParent){
-			showMessage("<m:message code='grid.add.chooseType'/>");
+			var url = "dictType/toAddDictType.do";
+			add_iframe_dialog = new biz.dialog({
+				id : $('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="' + url + '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
+				modal : true,
+				width : 550,
+				height : 320,
+				title : "<m:message code='dict.zdbxxxz' />"
+			});
+			add_iframe_dialog.open();
 			return;
 		}
 		

@@ -3,11 +3,32 @@
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
+<%@ include file="../../common/ace.jsp"%>
 <script type="text/javascript">
 $(function() {
+	//select多选 初始化方法
+	$(".choose_select").chosen(); 
+	$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
+		$(this).prev().focus();
+	});
+	$('.number').ace_spinner({value:0,min:0,max:200000,step:1, touch_spinner: true, icon_up:'icon-caret-up', icon_down:'icon-caret-down'});
+	$('.timepicker').timepicker({
+		minuteStep: 1,
+		showSeconds: true,
+		showMeridian: false
+	}).next().on(ace.click_event, function(){
+		$(this).prev().focus();
+	});
+	new biz.select({//状态下拉
+	    id:"#edit_settlementMethod",
+	    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=settlementMethod'/>",
+	});
+	
+	
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
 		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});
+		showMessage("正在处理...");
 		if(!biz.validate("valid",$('#storeFormEdit')[0])){
 			showWarn("数据验证失败",3000);
 			$("#submit").prop('disabled', false).css({'cursor':'pointer'});
@@ -36,6 +57,15 @@ $(function() {
 	new biz.validate({
 		id:"#storeFormEdit",
 		rules:{
+			"storeName":{required : true},
+			"storeAddress":{required : true},
+			"workTimeBegin":{required : true},
+			"workTimeEnd":{required : true},
+			"storeOwnerTel" : {
+				required : true,
+				maxlength : 11,
+				naturalnum:true
+			},
 		}
 	}); 
 });
@@ -52,9 +82,14 @@ $(function() {
 				<td class="inputTd">
 					<input id="edit_storeName" name="storeName" type="text" class="text" value="${store.storeName}"/>
 				</td>
-				<td class="inputLabelTd">所属品牌ID：</td>
+				<td class="inputLabelTd">所属品牌：</td>
 				<td class="inputTd">
-					<input id="edit_brandId" name="brandId" type="text" class="text" value="${store.brandId}"/>
+					<select class="search_select choose_select" name="brandId" id="edit_brandId">
+						<option value="">--请选择--</option>
+						<c:forEach var="brand" items="${brand}">
+							<option value="${brand.brandId}"> <c:out value="${brand.brandName}"></c:out> </option>
+			             </c:forEach>
+					</select>
 				</td>
 			</tr>
 			<tr>
@@ -64,13 +99,23 @@ $(function() {
 				</td>
 				<td class="inputLabelTd">营业时间起：</td>
 				<td class="inputTd">
-					<input id="edit_workTimeBegin" name="workTimeBegin" type="text" class="text" value="${store.workTimeBegin}"/>
+					<div class="input-group bootstrap-timepicker">
+						<input class="timepicker text" name="workTimeBegin" id="edit_workTimeBegin" type="text" />
+						<span>
+							<i class="icon-time bigger-110"></i>
+						</span>
+					</div>
 				</td>
 			</tr>
 			<tr>
-				<td class="inputLabelTd">营业时间起：</td>
+				<td class="inputLabelTd">营业时间止：</td>
 				<td class="inputTd">
-					<input id="edit_workTimeEnd" name="workTimeEnd" type="text" class="text" value="${store.workTimeEnd}"/>
+					<div class="input-group bootstrap-timepicker">
+						<input class="timepicker text" name="workTimeEnd" id="edit_workTimeEnd" type="text" />
+						<span>
+							<i class="icon-time bigger-110"></i>
+						</span>
+					</div>
 				</td>
 				<td class="inputLabelTd">店长姓名：</td>
 				<td class="inputTd">
@@ -80,11 +125,17 @@ $(function() {
 			<tr>
 				<td class="inputLabelTd">店长电话：</td>
 				<td class="inputTd">
-					<input id="edit_storeOwnerTel" name="storeOwnerTel" type="text" class="text" value="${store.storeOwnerTel}"/>
+					<span class="input-icon">
+						<input id="edit_storeOwnerTel" name="storeOwnerTel" type="text" class="text" value="${store.storeOwnerTel}"/>
+						<i class="icon-phone green"></i>
+					</span>
 				</td>
 				<td class="inputLabelTd">是否可以提供发票：</td>
 				<td class="inputTd">
-					<input id="edit_proInvoiceFlag" name="proInvoiceFlag" type="text" class="text" value="${store.proInvoiceFlag}"/>
+					<label>
+						<input id="edit_proInvoiceFlag" name="proInvoiceFlag" class="ace ace-switch ace-switch-5" type="checkbox" />
+						<span class="lbl"></span>
+					</label>
 				</td>
 			</tr>
 			<tr>
@@ -94,17 +145,26 @@ $(function() {
 				</td>
 				<td class="inputLabelTd">运营开始时间：</td>
 				<td class="inputTd">
-					<input id="edit_operateDate" name="operateDate" type="text" class="text" value="${store.operateDate}"/>
+					<div class="input-group">
+						<input class="date-picker text" name="operateDate" id="edit_operateDate" type="text" data-date-format="yyyy-mm-dd" />
+						<span>
+							<i class="icon-calendar bigger-110"></i>
+						</span>
+					</div>
 				</td>
 			</tr>
 			<tr>
 				<td class="inputLabelTd">结算方式：</td>
 				<td class="inputTd">
-					<input id="edit_settlementMethod" name="settlementMethod" type="text" class="text" value="${store.settlementMethod}"/>
+					<select class="search_select" name="settlementMethod" id="edit_settlementMethod">
+					</select>
 				</td>
 				<td class="inputLabelTd">店铺联系电话：</td>
 				<td class="inputTd">
-					<input id="edit_storeTel" name="storeTel" type="text" class="text" value="${store.storeTel}"/>
+					<span class="input-icon">
+						<input id="edit_storeTel" name="storeTel" type="text" class="text" value="${store.storeTel}"/>
+						<i class="icon-phone green"></i>
+					</span>
 				</td>
 			</tr>
 			<tr>

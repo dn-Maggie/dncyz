@@ -3,19 +3,20 @@
 <mapper namespace="com.dongnao.workbench.area.dao.ChinaAreaMapper">
 	<resultMap id="BaseResultMap" type="com.dongnao.workbench.area.model.ChinaArea">
 		<id column="Id" property="id" jdbcType="INTEGER" />
-															<result column="Name" property="name" jdbcType="VARCHAR" />
-													<result column="Pid" property="pid" jdbcType="INTEGER" />
-									</resultMap>
+		<result column="Name" property="name" jdbcType="VARCHAR" />
+		<result column="Pid" property="pid" jdbcType="INTEGER" />
+	</resultMap>
 	<sql id="Base_Column_List">
-						 	Id
-										,Name
-										,Pid
-						</sql>
+	 	Id
+		,Name
+		,Pid
+	</sql>
 	
 	<select id="selectByPid" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.area.model.ChinaArea">
 		select
-		<include refid="Base_Column_List" />
+			<include refid="Base_Column_List" />
 		from CHINA_AREA
-		where 1=1 and id!=0 and Pid = #{pid,jdbcType=INTEGER}
+		where id !=0 
+		and Pid = #{pid,jdbcType=INTEGER}
 	</select>
 </mapper>

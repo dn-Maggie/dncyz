@@ -27,6 +27,7 @@ public class Store extends Model{
 	                 * 所属品牌ID
 	                 **/
 				   			private String brandId;
+				   			private String brandName;
 		   		
 		            /**
 	                 * 店铺地址
@@ -36,13 +37,13 @@ public class Store extends Model{
 		            /**
 	                 * 营业时间起
 	                 **/
-					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
+					@DateTimeFormat(pattern="HH:mm:ss") 
 							private Date workTimeBegin;
 		
 		            /**
 	                 * 营业时间起
 	                 **/
-					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
+					@DateTimeFormat(pattern="HH:mm:ss") 
 							private Date workTimeEnd;
 		
 		            /**
@@ -68,7 +69,7 @@ public class Store extends Model{
 		            /**
 	                 * 运营开始时间
 	                 **/
-					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
+					@DateTimeFormat(pattern="yyyy-MM-dd") 
 							private Date operateDate;
 		
 		            /**
@@ -397,6 +398,14 @@ public class Store extends Model{
 			 */
 			public void setRealImagePath3(String realImagePath3){
 				this.realImagePath3 = realImagePath3;
+			}
+
+			public String getBrandName() {
+				return brandName;
+			}
+
+			public void setBrandName(String brandName) {
+				this.brandName = brandName;
 			}
 		   		
 		

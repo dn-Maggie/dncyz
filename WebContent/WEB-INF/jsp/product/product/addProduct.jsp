@@ -3,11 +3,25 @@
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
+<%@ include file="../../common/ace.jsp"%>
 <script type="text/javascript">
 $(function() {
+	//select多选 初始化方法
+	$(".choose_select").chosen(); 
+	$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
+		$(this).prev().focus();
+	});
+	$('.number').ace_spinner({value:0,min:0,max:200000,step:1, touch_spinner: true, icon_up:'icon-caret-up', icon_down:'icon-caret-down'});
+	$('.timepicker').timepicker({
+		minuteStep: 1,
+		showSeconds: true,
+		showMeridian: false
+	}).next().on(ace.click_event, function(){
+		$(this).prev().focus();
+	});
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
-		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});
+		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});showMessage("正在处理...");
 		if(!biz.validate("valid",$('#productFormEdit')[0])){
 			showWarn("数据验证失败",3000);
 			$("#submit").prop('disabled', false).css({'cursor':'pointer'});
@@ -45,12 +59,17 @@ $(function() {
 <body>
 	<form id="productFormEdit" >
     <div class="ui-table ui-widget ui-corner-all ui-border" >
-		<input type="hidden" id="edit_productClassId" name="productClassId" type="text" value="${product.productClassId}"/>
+		<input type="hidden" id="edit_productId" name="productId" type="text" value="${product.productId}"/>
 		<table class="table">
 			<tr>
-				<td class="inputLabelTd">产品ID(主键)：</td>
+				<td class="inputLabelTd">产品类别：</td>
 				<td class="inputTd">
-					<input id="edit_productId" name="productId" type="text" class="text" value="${product.productId}"/>
+					<select class="search_select choose_select" name="productClassId" id="edit_productClassId">
+						<option value="">--请选择--</option>
+						<c:forEach var="productClass" items="${productClass}">
+							<option value="${productClass.productClassId}"> <c:out value="${productClass.productClassName}"></c:out> </option>
+			             </c:forEach>
+					</select>
 				</td>
 				<td class="inputLabelTd">产品名称：</td>
 				<td class="inputTd">
@@ -64,13 +83,13 @@ $(function() {
 				</td>
 				<td class="inputLabelTd">产品单价：</td>
 				<td class="inputTd">
-					<input id="edit_productUnitPrice" name="productUnitPrice" type="text" class="text" value="${product.productUnitPrice}"/>
+					<input id="edit_productUnitPrice" name="productUnitPrice" type="text" class="text number" value="${product.productUnitPrice}"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="inputLabelTd">库存数量：</td>
 				<td class="inputTd">
-					<input id="edit_productStocks" name="productStocks" type="text" class="text" value="${product.productStocks}"/>
+					<input id="edit_productStocks" name="productStocks" type="text" class="text number" value="${product.productStocks}"/>
 				</td>
 				<td class="inputLabelTd">产品状态：</td>
 				<td class="inputTd">
