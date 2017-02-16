@@ -33,14 +33,14 @@ public class StoreActivity extends Model{
 		            /**
 	                 * 活动起始时间
 	                 **/
-					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-			private Date activityTimeBegin;
+					@DateTimeFormat(pattern="yyyy-MM-dd") 
+						private Date activityTimeBegin;
 		
 		            /**
 	                 * 活动结束时间
 	                 **/
-					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-			private Date activityTimeEnd;
+					@DateTimeFormat(pattern="yyyy-MM-dd") 
+						private Date activityTimeEnd;
 		
 		            /**
 	                 * 活动预算费用
@@ -70,8 +70,8 @@ public class StoreActivity extends Model{
 		            /**
 	                 * 活动执行时间
 	                 **/
-					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-			private Date activityExecuteTime;
+					@DateTimeFormat(pattern="yyyy-MM-dd") 
+						private Date activityExecuteTime;
 		
 	
 				

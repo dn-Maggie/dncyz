@@ -170,7 +170,7 @@
 	<select id="getDictByTypeCode" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select dict_name,dict_code from sys_dict_info 
 			where DICT_TYPE_CODE = #{dictTypeCode,jdbcType=VARCHAR}
-			and STATES!= '0' and is_delete = '0'
+			and STATES!= '0'
 			order by DICT_TYPE_CODE, ORDER_NO
 	</select>
 </mapper>

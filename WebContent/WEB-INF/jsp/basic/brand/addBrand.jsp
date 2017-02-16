@@ -29,12 +29,12 @@ $(function() {
 				dataType:"json",
 				success : function(d) {
 					if(d.status){
-						showMessage(d.message,"","",function(){
+						showMessage("操作成功","","",function(){
 							window.parent.closeAdd();
 				     		window.parent.doSearch();
 						});
 					}else{
-						showMessage(d.message);
+						showMessage("操作失败");
 					}
 				}
 		};
@@ -106,7 +106,6 @@ function cityCodeChange(obj){
 			if(!data){
 				$('#edit_cityCode').append('<option value="">--请选择--</option>');
 			} 
-			/* $("#edit_cityCode").chosen();  */
 		}
 	});
 } 

@@ -9,7 +9,7 @@ var gridObj = {};
 	$(function(){
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/storeActivity/listStoreActivity.do'/>",/*grid初始化请求数据的远程地址*/
+            url: "<m:url value='/staticAnalysis/listStoreActivity.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"STORE_ACTIVITY_ID",
            	sortorder:"asc",
@@ -17,17 +17,21 @@ var gridObj = {};
      		rowList:[10,15,50,100],//每页显示记录数
     		rowNum:10,//默认显示15条
             colModel:[
-				{name : "storeActivityId",hidden : true,key : true,label:"店铺活动ID(主键)",index : "STORE_ACTIVITY_ID"},				
-				{name : "storeId",label:"店铺ID",index : "STORE_ID"},				
-				{name : "activityId",label:"活动ID",index : "ACTIVITY_ID"},				
-				{name : "activityTimeBegin",label:"活动起始时间",index : "ACTIVITY_TIME_BEGIN"},				
-				{name : "activityTimeEnd",label:"活动结束时间",index : "ACTIVITY_TIME_END"},				
-				{name : "activityExpectedBudget",label:"活动预算费用",index : "ACTIVITY_EXPECTED_BUDGET"},				
-				{name : "activityExpectedReturn",label:"活动预计回报",index : "ACTIVITY_EXPECTED_RETURN"},				
-				{name : "activityStatus",label:"活动状态",index : "ACTIVITY_STATUS"},				
-				{name : "activityActualProfit",label:"活动实际价值",index : "ACTIVITY_ACTUAL_PROFIT"},				
-				{name : "activityExecutor",label:"活动执行人",index : "ACTIVITY_EXECUTOR"},				
-				{name : "activityExecuteTime",label:"活动执行时间",index : "ACTIVITY_EXECUTE_TIME"}				
+				/* {name : "storeActivityId",hidden : true,key : true,label:"店铺活动ID(主键)",index : "STORE_ACTIVITY_ID"}, */				
+				{name : "storeName",label:"商户名称"},				
+				{name : "storeArea",label:"商圈",},				
+				{name : "activityType",label:"活动类型",},				
+				{name : "activityName",label:"活动名称",},				
+				{name : "platformAllowance",label:"平台补贴金额"},				
+				{name : "activityIntensity",label:"活动力度",},				
+				{name : "activityCycle",label:"活动周期",},				
+				{name : "activityTotalCost",label:"该活动总支出",},				
+				{name : "activityTotalProfit",label:"共计产生利润"},				
+				{name : "profitPercent",label:"利润率"},	
+				{name : "enterRateInActivity",label:"活动期间进店率"},
+				{name : "conversionRateInActivity",label:"活动期间转化率"},
+				{name : "tradeAmountIncrementPercent",label:"活动期间同比上期交易额增幅"},	
+				{name : "orderAmountIncrementPercent",label:"活动期间同比上期订单量增幅"},	
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();

@@ -16,67 +16,91 @@
 													<result column="FLUX_IN_SEARCH" property="fluxInSearch" jdbcType="INTEGER" />
 									</resultMap>
 	<sql id="Base_Column_List">
-						 	FLUX_ID
-										,PLATFORM_ID
-										,STORE_ID
-										,STORE_EXPOSURE
-										,STORE_VISITOR_NUM
-										,STORE_ORDER_NUM
-										,FLUX_IN_CATEGORY
-										,FLUX_IN_HOMEPAGE
-										,FLUX_IN_DETAILE
-										,FLUX_IN_ACTIVITY
-										,FLUX_IN_COLLECT
-										,FLUX_IN_SEARCH
-						</sql>
+	 	FLUX_ID
+		,PLATFORM_ID
+		,STORE_ID
+		,STORE_EXPOSURE
+		,STORE_VISITOR_NUM
+		,STORE_ORDER_NUM
+		,FLUX_IN_CATEGORY
+		,FLUX_IN_HOMEPAGE
+		,FLUX_IN_DETAILE
+		,FLUX_IN_ACTIVITY
+		,FLUX_IN_COLLECT
+		,FLUX_IN_SEARCH
+	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
-		<include refid="Base_Column_List" />
-		from dn_store_flux
+		sf.FLUX_ID
+			,sf.PLATFORM_ID
+			,s.STORE_NAME as storeName
+			,sf.STORE_EXPOSURE
+			,sf.STORE_VISITOR_NUM
+			,sf.STORE_ORDER_NUM
+			,sf.FLUX_IN_CATEGORY
+			,sf.FLUX_IN_HOMEPAGE
+			,sf.FLUX_IN_DETAILE
+			,sf.FLUX_IN_ACTIVITY
+			,sf.FLUX_IN_COLLECT
+			,sf.FLUX_IN_SEARCH
+		from dn_store_flux as sf
+		left join dn_store as s on sf.STORE_ID = s.STORE_ID
 		where FLUX_ID = #{fluxId,jdbcType=CHAR}
 	</select>
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.StoreFlux">
 		select
-		<include refid="Base_Column_List" />
-		from dn_store_flux
+			sf.FLUX_ID
+			,sf.PLATFORM_ID
+			,s.STORE_NAME as storeName
+			,sf.STORE_EXPOSURE
+			,sf.STORE_VISITOR_NUM
+			,sf.STORE_ORDER_NUM
+			,sf.FLUX_IN_CATEGORY
+			,sf.FLUX_IN_HOMEPAGE
+			,sf.FLUX_IN_DETAILE
+			,sf.FLUX_IN_ACTIVITY
+			,sf.FLUX_IN_COLLECT
+			,sf.FLUX_IN_SEARCH
+		from dn_store_flux as sf
+		left join dn_store as s on sf.STORE_ID = s.STORE_ID
 		where 1=1
 		<if test="fluxId != null and '' != fluxId">  
-			and FLUX_ID = #{fluxId,jdbcType=CHAR}
+			and sf.FLUX_ID = #{fluxId,jdbcType=CHAR}
 		</if>
 		<if test="platformId != null and '' != platformId">  
-			and PLATFORM_ID = #{platformId,jdbcType=CHAR}
+			and sf.PLATFORM_ID = #{platformId,jdbcType=CHAR}
 		</if>
 		<if test="storeId != null and '' != storeId">  
-			and STORE_ID = #{storeId,jdbcType=CHAR}
+			and sf.STORE_ID = #{storeId,jdbcType=CHAR}
 		</if>
 		<if test="storeExposure != null and '' != storeExposure">  
-			and STORE_EXPOSURE = #{storeExposure,jdbcType=INTEGER}
+			and sf.STORE_EXPOSURE = #{storeExposure,jdbcType=INTEGER}
 		</if>
 		<if test="storeVisitorNum != null and '' != storeVisitorNum">  
-			and STORE_VISITOR_NUM = #{storeVisitorNum,jdbcType=INTEGER}
+			and sf.STORE_VISITOR_NUM = #{storeVisitorNum,jdbcType=INTEGER}
 		</if>
 		<if test="storeOrderNum != null and '' != storeOrderNum">  
-			and STORE_ORDER_NUM = #{storeOrderNum,jdbcType=INTEGER}
+			and sf.STORE_ORDER_NUM = #{storeOrderNum,jdbcType=INTEGER}
 		</if>
 		<if test="fluxInCategory != null and '' != fluxInCategory">  
-			and FLUX_IN_CATEGORY = #{fluxInCategory,jdbcType=INTEGER}
+			and sf.FLUX_IN_CATEGORY = #{fluxInCategory,jdbcType=INTEGER}
 		</if>
 		<if test="fluxInHomepage != null and '' != fluxInHomepage">  
-			and FLUX_IN_HOMEPAGE = #{fluxInHomepage,jdbcType=INTEGER}
+			and sf.FLUX_IN_HOMEPAGE = #{fluxInHomepage,jdbcType=INTEGER}
 		</if>
 		<if test="fluxInDetaile != null and '' != fluxInDetaile">  
-			and FLUX_IN_DETAILE = #{fluxInDetaile,jdbcType=INTEGER}
+			and sf.FLUX_IN_DETAILE = #{fluxInDetaile,jdbcType=INTEGER}
 		</if>
 		<if test="fluxInActivity != null and '' != fluxInActivity">  
-			and FLUX_IN_ACTIVITY = #{fluxInActivity,jdbcType=INTEGER}
+			and sf.FLUX_IN_ACTIVITY = #{fluxInActivity,jdbcType=INTEGER}
 		</if>
 		<if test="fluxInCollect != null and '' != fluxInCollect">  
-			and FLUX_IN_COLLECT = #{fluxInCollect,jdbcType=INTEGER}
+			and sf.FLUX_IN_COLLECT = #{fluxInCollect,jdbcType=INTEGER}
 		</if>
 		<if test="fluxInSearch != null and '' != fluxInSearch">  
-			and FLUX_IN_SEARCH = #{fluxInSearch,jdbcType=INTEGER}
+			and sf.FLUX_IN_SEARCH = #{fluxInSearch,jdbcType=INTEGER}
 		</if>
 				<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}

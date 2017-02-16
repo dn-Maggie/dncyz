@@ -23,7 +23,7 @@
 		<div id="loginWindow">
 			<table>
 				<tr>
-					<td class="logo_box" align="center">参与者运营中心管理系统</td>
+					<td class="logo_box" align="center">餐予者运营中心管理系统</td>
 				</tr>
 				<tr>
 					<td>

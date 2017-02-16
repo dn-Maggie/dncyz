@@ -18,7 +18,7 @@ var gridObj = {};
     		rowNum:10,//默认显示15条
             colModel:[
 				{name : "storeActivityId",hidden : true,key : true,label:"店铺活动ID(主键)",index : "STORE_ACTIVITY_ID"},				
-				{name : "storeId",label:"店铺ID",index : "STORE_ID"},				
+				{name : "storeName",label:"店铺名称",index : "STORE_ID"},				
 				{name : "activityName",label:"活动名称",index : "ACTIVITY_ID"},				
 				{name : "activityTimeBegin",label:"活动起始时间",index : "ACTIVITY_TIME_BEGIN"},				
 				{name : "activityTimeEnd",label:"活动结束时间",index : "ACTIVITY_TIME_END"},				

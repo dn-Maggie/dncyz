@@ -30,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("productClass")
 public class ProductClassController{
-         @Resource
+    @Resource
 	private ProductClassService productClassService;
 	 
  	/**

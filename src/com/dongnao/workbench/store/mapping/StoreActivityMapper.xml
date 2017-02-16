@@ -30,52 +30,76 @@
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
-		<include refid="Base_Column_List" />
-		from dn_store_activity
-		where STORE_ACTIVITY_ID = #{storeActivityId,jdbcType=CHAR}
+			sa.STORE_ACTIVITY_ID
+			,s.STORE_NAME as storeName
+			,a.ACTIVITY_NAME as activityName
+			,sa.ACTIVITY_TIME_BEGIN
+			,sa.ACTIVITY_TIME_END
+			,sa.ACTIVITY_EXPECTED_BUDGET
+			,sa.ACTIVITY_EXPECTED_RETURN
+			,sa.ACTIVITY_STATUS
+			,sa.ACTIVITY_ACTUAL_PROFIT
+			,sa.ACTIVITY_EXECUTOR
+			,sa.ACTIVITY_EXECUTE_TIME
+		from dn_store_activity as sa
+		left join dn_store as s on sa.STORE_ID = s.STORE_ID
+		left join dn_activity as a on sa.ACTIVITY_ID = a.ACTIVITY_ID
+		where sa.STORE_ACTIVITY_ID = #{storeActivityId,jdbcType=CHAR}
 	</select>
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.StoreActivity">
 		select
-		<include refid="Base_Column_List" />
-		from dn_store_activity
+			sa.STORE_ACTIVITY_ID
+			,s.STORE_NAME as storeName
+			,a.ACTIVITY_NAME as activityName
+			,sa.ACTIVITY_TIME_BEGIN
+			,sa.ACTIVITY_TIME_END
+			,sa.ACTIVITY_EXPECTED_BUDGET
+			,sa.ACTIVITY_EXPECTED_RETURN
+			,sa.ACTIVITY_STATUS
+			,sa.ACTIVITY_ACTUAL_PROFIT
+			,sa.ACTIVITY_EXECUTOR
+			,sa.ACTIVITY_EXECUTE_TIME
+		from dn_store_activity as sa
+		left join dn_store as s on sa.STORE_ID = s.STORE_ID
+		left join dn_activity as a on sa.ACTIVITY_ID = a.ACTIVITY_ID
 		where 1=1
 		<if test="storeActivityId != null and '' != storeActivityId">  
-			and STORE_ACTIVITY_ID = #{storeActivityId,jdbcType=CHAR}
+			and sa.STORE_ACTIVITY_ID = #{storeActivityId,jdbcType=CHAR}
 		</if>
 		<if test="storeId != null and '' != storeId">  
-			and STORE_ID = #{storeId,jdbcType=CHAR}
+			and sa.STORE_ID = #{storeId,jdbcType=CHAR}
 		</if>
 		<if test="activityId != null and '' != activityId">  
-			and ACTIVITY_ID = #{activityId,jdbcType=CHAR}
+			and sa.ACTIVITY_ID = #{activityId,jdbcType=CHAR}
 		</if>
 		<if test="activityTimeBegin != null and '' != activityTimeBegin">  
-			and ACTIVITY_TIME_BEGIN = #{activityTimeBegin,jdbcType=TIMESTAMP}
+			and sa.ACTIVITY_TIME_BEGIN = #{activityTimeBegin,jdbcType=TIMESTAMP}
 		</if>
 		<if test="activityTimeEnd != null and '' != activityTimeEnd">  
-			and ACTIVITY_TIME_END = #{activityTimeEnd,jdbcType=TIMESTAMP}
+			and sa.ACTIVITY_TIME_END = #{activityTimeEnd,jdbcType=TIMESTAMP}
 		</if>
 		<if test="activityExpectedBudget != null and '' != activityExpectedBudget">  
-			and ACTIVITY_EXPECTED_BUDGET = #{activityExpectedBudget,jdbcType=DOUBLE}
+			and sa.ACTIVITY_EXPECTED_BUDGET = #{activityExpectedBudget,jdbcType=DOUBLE}
 		</if>
 		<if test="activityExpectedReturn != null and '' != activityExpectedReturn">  
-			and ACTIVITY_EXPECTED_RETURN = #{activityExpectedReturn,jdbcType=DOUBLE}
+			and sa.ACTIVITY_EXPECTED_RETURN = #{activityExpectedReturn,jdbcType=DOUBLE}
 		</if>
 		<if test="activityStatus != null and '' != activityStatus">  
-			and ACTIVITY_STATUS = #{activityStatus,jdbcType=CHAR}
+			and sa.ACTIVITY_STATUS = #{activityStatus,jdbcType=CHAR}
 		</if>
 		<if test="activityActualProfit != null and '' != activityActualProfit">  
-			and ACTIVITY_ACTUAL_PROFIT = #{activityActualProfit,jdbcType=DOUBLE}
+			and sa.ACTIVITY_ACTUAL_PROFIT = #{activityActualProfit,jdbcType=DOUBLE}
 		</if>
 		<if test="activityExecutor != null and '' != activityExecutor">  
-			and ACTIVITY_EXECUTOR = #{activityExecutor,jdbcType=VARCHAR}
+			and sa.ACTIVITY_EXECUTOR = #{activityExecutor,jdbcType=VARCHAR}
 		</if>
 		<if test="activityExecuteTime != null and '' != activityExecuteTime">  
-			and ACTIVITY_EXECUTE_TIME = #{activityExecuteTime,jdbcType=TIMESTAMP}
+			and sa.ACTIVITY_EXECUTE_TIME = #{activityExecuteTime,jdbcType=TIMESTAMP}
 		</if>
-				<if test="orderFields != null and '' != orderFields">  
-           	order by ${orderFields} ${order}
-         	</if>
+		<if test="orderFields != null and '' != orderFields">  
+          	order by ${orderFields} ${order}
+       	</if>
 	</select>
 	
 	<delete id="deleteByKey" parameterType="java.lang.String">

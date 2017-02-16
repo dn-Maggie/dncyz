@@ -1,13 +1,14 @@
 package com.dongnao.workbench.product.service;
-import javax.annotation.Resource;
 import java.util.List;
-import com.dongnao.workbench.product.dao.ProductMapper;
-import com.dongnao.workbench.product.model.Product;
-import com.dongnao.workbench.product.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.product.dao.ProductMapper;
+import com.dongnao.workbench.product.model.Product;
  
 /**
  * 描述：产品模块service接口实现类，实现service接口方法
@@ -17,7 +18,7 @@ import com.dongnao.workbench.common.util.AjaxUtils;
  */
 @Service("productService")
 public class ProductServiceImpl implements ProductService{
-        @Resource
+    @Resource
 	private ProductMapper productMapper;
 	
  

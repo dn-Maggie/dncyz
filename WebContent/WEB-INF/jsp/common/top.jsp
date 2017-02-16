@@ -5,12 +5,13 @@
 			</script>
 
 			<div class="navbar-container" id="navbar-container">
-				<div class="navbar-header pull-left">
+				<div class="navbar-header pull-left" style="color:#fff;cursor:default">
 					<!-- a href="#" class="navbar-brand">
 					</a><!-- /.brand -->
-					<a href="#" style="float:right">
-					</a>
+					<!-- <a href="#" style="float:right;color:#fff">运营中心
+					</a> -->
 					<img alt="" src="<%=request.getContextPath() %>/styles/images/logo.png" >
+					运营中心 
 				</div><!-- /.navbar-header -->
 
 				<div class="navbar-header pull-right" role="navigation">

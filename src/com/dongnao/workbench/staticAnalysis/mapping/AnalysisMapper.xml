@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.staticAnalysis.dao.AnalysisMapper">
+	<resultMap id="StoreActiveAnalysisResultMap" type="com.dongnao.workbench.staticAnalysis.model.StoreActiveAnalysis">
+		<result column="storeName" property="storeName" jdbcType="VARCHAR" />
+		<result column="storeArea" property="storeArea" jdbcType="VARCHAR" />
+		<result column="searchTime" property="searchTime" jdbcType="VARCHAR" />
+		<result column="activityType" property="activityType" jdbcType="VARCHAR" />
+		<result column="activityName" property="activityName" jdbcType="VARCHAR" />
+		<result column="platformAllowance" property="platformAllowance" jdbcType="VARCHAR" />
+		<result column="activityIntensity" property="activityIntensity" jdbcType="VARCHAR" />
+		<result column="activityCycle" property="activityCycle" jdbcType="VARCHAR" />
+		<result column="activityTotalCost" property="activityTotalCost" jdbcType="VARCHAR" />
+		<result column="activityTotalProfit" property="activityTotalProfit" jdbcType="VARCHAR" />
+		<result column="profitPercent" property="profitPercent" jdbcType="VARCHAR" />
+		<result column="enterRateInActivity" property="enterRateInActivity" jdbcType="VARCHAR" />
+		<result column="conversionRateInActivity" property="conversionRateInActivity" jdbcType="VARCHAR" />
+		<result column="tradeAmountIncrementPercent" property="tradeAmountIncrementPercent" jdbcType="VARCHAR" />
+		<result column="orderAmountIncrementPercent" property="orderAmountIncrementPercent" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="BidStaticAnalysisResultMap" type="com.dongnao.workbench.staticAnalysis.model.BidStaticAnalysis">
+		<result column="storeName" property="storeName" jdbcType="VARCHAR" />
+		<result column="storeArea" property="storeArea" jdbcType="VARCHAR" />
+		<result column="bidTime" property="bidTime" jdbcType="VARCHAR" />
+		<result column="searchTime" property="searchTime" jdbcType="VARCHAR" />
+		<result column="bidCycle" property="bidCycle" jdbcType="VARCHAR" />
+		<result column="bidTotalAmountInWeek" property="bidTotalAmountInWeek" jdbcType="VARCHAR" />
+		<result column="averageClickCost" property="averageClickCost" jdbcType="VARCHAR" />
+		<result column="bidActivityIntensity" property="bidActivityIntensity" jdbcType="VARCHAR" />
+		<result column="exposureIncrementPercent" property="exposureIncrementPercent" jdbcType="VARCHAR" />
+		<result column="enterRateIncrementPercent" property="enterRateIncrementPercent" jdbcType="VARCHAR" />
+		<result column="tradeAmountIncrementPercent" property="tradeAmountIncrementPercent" jdbcType="VARCHAR" />
+		<result column="rankBeforeBid" property="rankBeforeBid" jdbcType="VARCHAR" />
+		<result column="rankAfterBid" property="rankAfterBid" jdbcType="VARCHAR" />
+		<result column="contributionInBid" property="contributionInBid" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="DemandAnalysisBaseResultMap" type="com.dongnao.workbench.staticAnalysis.model.DemandAnalysis">
+		<result column="searchTime" property="searchTime" jdbcType="VARCHAR" />
+		<result column="storeArea" property="storeArea" jdbcType="VARCHAR" />
+		<result column="customName" property="customName" jdbcType="VARCHAR" />
+		<result column="customOrdAddr" property="customOrdAddr" jdbcType="VARCHAR" />
+		<result column="customTel" property="customTel" jdbcType="VARCHAR" />
+		<result column="mostBrowseMerchantName" property="mostBrowseMerchantName" jdbcType="VARCHAR" />
+		<result column="mostBrowseMerchantType" property="mostBrowseMerchantType" jdbcType="VARCHAR" />
+		<result column="averageCost" property="averageCost" jdbcType="VARCHAR" />
+		<result column="favoriteDishesName" property="favoriteDishesName" jdbcType="VARCHAR" />
+		<result column="favoriteDishesCost" property="favoriteDishesCost" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="StoreActiveAnalysis_Column_List">
+	 	storeName
+		,storeArea
+		,searchTime
+		,activityType
+		,activityName
+		,platformAllowance
+		,activityIntensity
+		,activityCycle
+		,activityTotalCost
+		,activityTotalProfit
+		,profitPercent
+		,enterRateInActivity
+		,conversionRateInActivity
+		,tradeAmountIncrementPercent
+		,orderAmountIncrementPercent
+	</sql>
+	<sql id="DemandAnalysis_Column_List">
+	 	searchTime
+		,storeArea
+		,customName
+		,customOrdAddr
+		,customTel
+		,mostBrowseMerchantName
+		,mostBrowseMerchantType
+		,averageCost
+		,favoriteDishesName
+		,favoriteDishesCost
+	</sql>
+	<sql id="BidStaticAnalysis_Column_List">
+	 	storeName
+		,storeArea
+		,bidTime
+		,searchTime
+		,bidCycle
+		,bidTotalAmountInWeek
+		,averageClickCost
+		,bidActivityIntensity
+		,exposureIncrementPercent
+		,enterRateIncrementPercent
+		,tradeAmountIncrementPercent
+		,rankBeforeBid
+		,rankAfterBid
+		,contributionInBid
+	</sql>
+	<select id="demandAnalysis" resultMap="DemandAnalysisBaseResultMap" parameterType="com.dongnao.workbench.staticAnalysis.model.DemandAnalysis">
+	
+	
+	</select>
+	
+	<select id="bidStaticAnalysis" resultMap="BidStaticAnalysisResultMap" parameterType="com.dongnao.workbench.staticAnalysis.model.BidStaticAnalysis">
+	
+	
+	
+	</select>
+	
+	<select id="storeActiveAnalysis" resultMap="StoreActiveAnalysisResultMap" parameterType="com.dongnao.workbench.staticAnalysis.model.StoreActiveAnalysis">
+	
+	
+	
+	</select>
+	
+	<!-- <select id="allStatic" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.product.model.Product">
+	
+	
+	</select> -->
+</mapper>

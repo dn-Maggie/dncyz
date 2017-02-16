@@ -45,10 +45,10 @@
 		<div class="col-sm-12">
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-flat">
-					<h4 class="lighter" style="color:#555">
+					<h5 class="lighter" style="color:#555">
 						<i class="icon-signal"></i>
 						营业额趋势图
-					</h4>
+					</h5>
 					<div class="widget-toolbar">
 						<a href="#" data-action="collapse">
 							<i class="icon-chevron-up"></i>
@@ -65,10 +65,10 @@
 		<div class="col-sm-12">
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-flat">
-					<h4 class="lighter" style="color:#555">
+					<h5 class="lighter" style="color:#555">
 						<i class="icon-eye-open"></i>
 						三大平台营业额总览
-					</h4>
+					</h5>
 				</div>
 				<div class="widget-body">
 					<div class="col-sm-4 platform_totalMoney">
@@ -104,7 +104,7 @@
 					var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
 					$(this).sparkline('html', {
 						tagValuesAttribute:'data-values',
-						type: 'bar',
+						type: 'line',
 						barColor: barColor ,
 						chartRangeMin:$(this).data('min') || 0} 
 					);
@@ -136,7 +136,7 @@
 					shadowSize: 0,
 					series: {
 						lines: { show: true },
-						points: { show: true }
+						points: { show: true},
 					},
 					xaxis: {
 						tickLength: 0

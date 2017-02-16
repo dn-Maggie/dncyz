@@ -20,6 +20,9 @@
 		display: inline-block;
 	    height: 100%;
 	}
+	ul{
+		margin:0;
+	}
 	.elm{
 		color:#359BF5;
 	}
@@ -36,6 +39,7 @@
 		width:100%;
 		height:auto;
 		cursor:default;
+		margin:0;
 	}
 	ul{
 		height:100%;

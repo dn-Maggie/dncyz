@@ -18,7 +18,7 @@ var gridObj = {};
     		rowNum:10,//默认显示15条
             colModel:[
 				{name : "orderId",hidden : true,key : true,label:"订单ID(主键)",index : "ORDER_ID"},				
-				{name : "orderSource",label:"订单来源,来自数据字典",index : "ORDER_SOURCE"},				
+				{name : "orderSource",label:"订单来源",index : "ORDER_SOURCE"},				
 				{name : "storeId",label:"店铺ID",index : "STORE_ID"},				
 				{name : "orderTime",label:"订单时间",index : "ORDER_TIME"},				
 				{name : "orderPersonName",label:"订单人",index : "ORDER_PERSON_NAME"},				
@@ -37,17 +37,6 @@ var gridObj = {};
     		}
       });
         
-	new biz.datepicker({
-  			id : "#startDate",
-  			maxDate:'#F{$dp.$D(\'endDate\',{d:0});}',
-  			dateFmt:'yyyy-MM-dd'
-  		});
-  	    
-  	    new biz.datepicker({
-  			id : "#endDate",
-  			minDate:'#F{$dp.$D(\'startDate\',{d:0});}',
-  			dateFmt:'yyyy-MM-dd'
-  		});
     });
 
  

@@ -19,6 +19,11 @@ $(function() {
 	}).next().on(ace.click_event, function(){
 		$(this).prev().focus();
 	});
+
+	new biz.select({//产品状态下拉
+	    id:"#edit_productStatus",
+	    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=productStatus'/>",
+	});
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
 		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});showMessage("正在处理...");
@@ -93,7 +98,8 @@ $(function() {
 				</td>
 				<td class="inputLabelTd">产品状态：</td>
 				<td class="inputTd">
-					<input id="edit_productStatus" name="productStatus" type="text" class="text" value="${product.productStatus}"/>
+					<select class="search_select" name="productStatus" id="edit_productStatus">
+					</select>
 				</td>
 			</tr>
 			<tr>

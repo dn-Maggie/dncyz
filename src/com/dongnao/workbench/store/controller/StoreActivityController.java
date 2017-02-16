@@ -7,12 +7,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dongnao.workbench.activity.service.ActivityService;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.store.model.StoreActivity;
 import com.dongnao.workbench.store.service.StoreActivityService;
+import com.dongnao.workbench.store.service.StoreService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +34,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class StoreActivityController{
     @Resource
 	private StoreActivityService storeActivityService;
+    @Resource
+	private StoreService storeService;
+    @Resource
+	private ActivityService activityService;
 	 
  	/**
  	* 进入新增页面
@@ -40,6 +46,8 @@ public class StoreActivityController{
  	@RequestMapping("/toAddStoreActivity")
 	public ModelAndView toAdd(){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/storeActivity/addStoreActivity");
+		mv.addObject("store", storeService.listByCondition(null));
+		mv.addObject("activity", activityService.listByCondition(null));
 		return mv;
 	}
 	

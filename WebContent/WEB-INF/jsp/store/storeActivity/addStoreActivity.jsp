@@ -3,11 +3,26 @@
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
+<%@ include file="../../common/ace.jsp"%>
 <script type="text/javascript">
 $(function() {
+	
+	//select多选 初始化方法
+	$(".choose_select").chosen(); 
+	$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
+		$(this).prev().focus();
+	});
+	
+	
+	new biz.select({//活动状态下拉
+	    id:"#edit_activityStatus",
+	    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=activityStatus'/>",
+	});
+	
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
-		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});showMessage("正在处理...");
+		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});
+		showMessage("正在处理...");
 		if(!biz.validate("valid",$('#storeActivityFormEdit')[0])){
 			showWarn("数据验证失败",3000);
 			$("#submit").prop('disabled', false).css({'cursor':'pointer'});
@@ -25,7 +40,12 @@ $(function() {
 						});
 					}else{
 						showMessage(d.message);
+						$("#submit").prop('disabled', false).css({'cursor':'pointer'});
 					}
+				},
+				error:function(){
+					showWarn("数据插入失败",3000);
+					$("#submit").prop('disabled', false).css({'cursor':'pointer'});
 				}
 		};
 		// 将options传给ajaxForm
@@ -48,23 +68,43 @@ $(function() {
 		<input type="hidden" id="edit_storeActivityId" name="storeActivityId" type="text" value="${storeActivity.storeActivityId}"/>
 		<table class="table">
 			<tr>
-				<td class="inputLabelTd">店铺ID：</td>
+				<td class="inputLabelTd">店铺名称：</td>
 				<td class="inputTd">
-					<input id="edit_storeId" name="storeId" type="text" class="text" value="${storeActivity.storeId}"/>
+					<select class="search_select choose_select" name="storeId" id="edit_storeId">
+						<option value="">--请选择--</option>
+						<c:forEach var="store" items="${store}">
+							<option value="${store.storeId}"> <c:out value="${store.storeName}"></c:out> </option>
+			             </c:forEach>
+					</select>
 				</td>
-				<td class="inputLabelTd">活动ID：</td>
+				<td class="inputLabelTd">活动名称：</td>
 				<td class="inputTd">
-					<input id="edit_activityId" name="activityId" type="text" class="text" value="${storeActivity.activityId}"/>
+					<select class="search_select choose_select" name="activityId" id="edit_activityId">
+						<option value="">--请选择--</option>
+						<c:forEach var="activity" items="${activity}">
+							<option value="${activity.activityId}"> <c:out value="${activity.activityName}"></c:out> </option>
+			             </c:forEach>
+					</select>
 				</td>
 			</tr>
 			<tr>
 				<td class="inputLabelTd">活动起始时间：</td>
 				<td class="inputTd">
-					<input id="edit_activityTimeBegin" name="activityTimeBegin" type="text" class="text" value="${storeActivity.activityTimeBegin}"/>
+					<div class="input-group">
+						<input class="date-picker text" name="activityTimeBegin" id="edit_activityTimeBegin" type="text" data-date-format="yyyy-mm-dd" />
+						<span>
+							<i class="icon-calendar bigger-110"></i>
+						</span>
+					</div>
 				</td>
 				<td class="inputLabelTd">活动结束时间：</td>
 				<td class="inputTd">
-					<input id="edit_activityTimeEnd" name="activityTimeEnd" type="text" class="text" value="${storeActivity.activityTimeEnd}"/>
+					<div class="input-group">
+						<input class="date-picker text" name="activityTimeEnd" id="edit_activityTimeEnd" type="text" data-date-format="yyyy-mm-dd" />
+						<span>
+							<i class="icon-calendar bigger-110"></i>
+						</span>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -80,7 +120,8 @@ $(function() {
 			<tr>
 				<td class="inputLabelTd">活动状态：</td>
 				<td class="inputTd">
-					<input id="edit_activityStatus" name="activityStatus" type="text" class="text" value="${storeActivity.activityStatus}"/>
+					<select class="search_select" name="activityStatus" id="edit_activityStatus">
+					</select>
 				</td>
 				<td class="inputLabelTd">活动实际价值：</td>
 				<td class="inputTd">
@@ -94,7 +135,12 @@ $(function() {
 				</td>
 				<td class="inputLabelTd">活动执行时间：</td>
 				<td class="inputTd">
-					<input id="edit_activityExecuteTime" name="activityExecuteTime" type="text" class="text" value="${storeActivity.activityExecuteTime}"/>
+					<div class="input-group">
+						<input class="date-picker text" name="activityExecuteTime" id="edit_activityExecuteTime" type="text" data-date-format="yyyy-mm-dd" />
+						<span>
+							<i class="icon-calendar bigger-110"></i>
+						</span>
+					</div>
 				</td>
 			</tr>
 			<tr>
