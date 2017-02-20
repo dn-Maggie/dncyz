@@ -3,22 +3,24 @@
 <mapper namespace="com.dongnao.workbench.product.dao.ProductMapper">
 	<resultMap id="BaseResultMap" type="com.dongnao.workbench.product.model.Product">
 		<id column="PRODUCT_CLASS_ID" property="productClassId" jdbcType="CHAR" />
-							<result column="PRODUCT_ID" property="productId" jdbcType="CHAR" />
-																					<result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
-													<result column="PRODUCT_IMAGE_PATH" property="productImagePath" jdbcType="VARCHAR" />
-													<result column="PRODUCT_UNIT_PRICE" property="productUnitPrice" jdbcType="DOUBLE" />
-													<result column="PRODUCT_STOCKS" property="productStocks" jdbcType="INTEGER" />
-													<result column="PRODUCT_STATUS" property="productStatus" jdbcType="CHAR" />
-									</resultMap>
+		<result column="PRODUCT_ID" property="productId" jdbcType="CHAR" />
+		<result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		<result column="PRODUCT_IMAGE_PATH" property="productImagePath" jdbcType="VARCHAR" />
+		<result column="PRODUCT_UNIT_PRICE" property="productUnitPrice" jdbcType="DOUBLE" />
+		<result column="PRODUCT_STOCKS" property="productStocks" jdbcType="INTEGER" />
+		<result column="PRODUCT_STATUS" property="productStatus" jdbcType="CHAR" />
+		<result column="STORE_ID" property="storeId" jdbcType="CHAR" />
+	</resultMap>
 	<sql id="Base_Column_List">
-						 	PRODUCT_ID
-										,PRODUCT_CLASS_ID
-										,PRODUCT_NAME
-										,PRODUCT_IMAGE_PATH
-										,PRODUCT_UNIT_PRICE
-										,PRODUCT_STOCKS
-										,PRODUCT_STATUS
-						</sql>
+	 	PRODUCT_ID
+		,PRODUCT_CLASS_ID
+		,PRODUCT_NAME
+		,PRODUCT_IMAGE_PATH
+		,PRODUCT_UNIT_PRICE
+		,PRODUCT_STOCKS
+		,PRODUCT_STATUS
+		,STORE_ID
+	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
@@ -29,8 +31,10 @@
 			,p.PRODUCT_UNIT_PRICE
 			,p.PRODUCT_STOCKS
 			,p.PRODUCT_STATUS
+			,p.STORE_ID
 		from dn_product as p
 		left join dn_product_class as pc on pc.PRODUCT_CLASS_ID = p.PRODUCT_CLASS_ID
+		left join dn_store as s on s.STORE_ID = p.STORE_ID
 		where p.PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}
 	</select>
 	
@@ -43,8 +47,10 @@
 			,p.PRODUCT_UNIT_PRICE
 			,p.PRODUCT_STOCKS
 			,p.PRODUCT_STATUS
+			,p.STORE_ID
 		from dn_product as p
 		left join dn_product_class as pc on pc.PRODUCT_CLASS_ID = p.PRODUCT_CLASS_ID
+		left join dn_store as s on s.STORE_ID = p.STORE_ID
 		where 1=1
 		<if test="productId != null and '' != productId">  
 			and p.PRODUCT_ID = #{productId,jdbcType=CHAR}
@@ -67,6 +73,9 @@
 		<if test="productStatus != null and '' != productStatus">  
 			and p.PRODUCT_STATUS = #{productStatus,jdbcType=CHAR}
 		</if>
+		<if test="storeId != null and '' != storeId">  
+			and p.STORE_ID = #{storeId,jdbcType=CHAR}
+		</if>
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
        	</if>
@@ -81,25 +90,27 @@
 		insert into dn_product (
 		<include refid="Base_Column_List" />
 		)values (
-										#{productId,jdbcType=CHAR}
-														,#{productClassId,jdbcType=CHAR}
-														,#{productName,jdbcType=VARCHAR}
-														,#{productImagePath,jdbcType=VARCHAR}
-														,#{productUnitPrice,jdbcType=DOUBLE}
-														,#{productStocks,jdbcType=INTEGER}
-														,#{productStatus,jdbcType=CHAR}
-									)
+			#{productId,jdbcType=CHAR}
+			,#{productClassId,jdbcType=CHAR}
+			,#{productName,jdbcType=VARCHAR}
+			,#{productImagePath,jdbcType=VARCHAR}
+			,#{productUnitPrice,jdbcType=DOUBLE}
+			,#{productStocks,jdbcType=INTEGER}
+			,#{productStatus,jdbcType=CHAR}
+			,#{storeId,jdbcType=CHAR}
+		)
 	</insert>
 	
 	<update id="update" parameterType="com.dongnao.workbench.product.model.Product">
 		update dn_product  set
-		ID= #{productClassId,jdbcType=CHAR}
-								,PRODUCT_ID = #{productId,jdbcType=CHAR}
-																,PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
-											,PRODUCT_IMAGE_PATH = #{productImagePath,jdbcType=VARCHAR}
-											,PRODUCT_UNIT_PRICE = #{productUnitPrice,jdbcType=DOUBLE}
-											,PRODUCT_STOCKS = #{productStocks,jdbcType=INTEGER}
-											,PRODUCT_STATUS = #{productStatus,jdbcType=CHAR}
-							where PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}
+			ID= #{productClassId,jdbcType=CHAR}
+			,PRODUCT_ID = #{productId,jdbcType=CHAR}
+			,PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+			,PRODUCT_IMAGE_PATH = #{productImagePath,jdbcType=VARCHAR}
+			,PRODUCT_UNIT_PRICE = #{productUnitPrice,jdbcType=DOUBLE}
+			,PRODUCT_STOCKS = #{productStocks,jdbcType=INTEGER}
+			,PRODUCT_STATUS = #{productStatus,jdbcType=CHAR}
+			,STORE_ID = #{storeId,jdbcType=CHAR}
+		where PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}
 	</update>
 </mapper>

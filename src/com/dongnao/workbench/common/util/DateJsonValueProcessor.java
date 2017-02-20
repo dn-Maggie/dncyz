@@ -33,7 +33,11 @@ public class DateJsonValueProcessor implements JsonValueProcessor  {
             String str = new SimpleDateFormat(format).format((java.util.Date) value);  
             return str;  
         }  
-          
+        if (value instanceof java.sql.Time)  
+        {  
+            String str = new SimpleDateFormat(format).format((java.sql.Time) value);  
+            return str;  
+        }  
         return value.toString();  
     }  
 }  

@@ -6,12 +6,16 @@
 <%@ include file="../../common/ace.jsp"%>
 <script type="text/javascript">
 $(function() {
+	
+	
 	//select多选 初始化方法
 	$(".choose_select").chosen(); 
 	$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
 		$(this).prev().focus();
 	});
-	$('.number').ace_spinner({value:0,min:0,max:200000,step:1, touch_spinner: true, icon_up:'icon-caret-up', icon_down:'icon-caret-down'});
+	$('.number').ace_spinner({value:0,min:0,max:999999,step:1, touch_spinner: true, icon_up:'icon-caret-up', icon_down:'icon-caret-down'});
+	$('.money').ace_spinner({value:0,min:0,step:1, max:999999,touch_spinner: true, icon_up:'icon-caret-up', icon_down:'icon-caret-down'});
+	$('.rate').ace_spinner({value:0,min:0,max:100,step:1,  on_sides: true, icon_up:'icon-plus smaller-75', icon_down:'icon-minus smaller-75', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
 	$('.timepicker').timepicker({
 		minuteStep: 1,
 		showSeconds: true,
@@ -24,6 +28,18 @@ $(function() {
 	    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=settlementMethod'/>",
 	});
 	
+	$('input[type="file"]').ace_file_input({
+		no_file:'请选择...',
+		btn_choose:'选择',
+		btn_change:'更换',
+		droppable:false,
+		onchange:null,
+		thumbnail:false,
+		whitelist:'gif|png|jpg|jpeg'
+		//blacklist:'exe|php'
+		//onchange:''
+		//
+	});
 	
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
@@ -34,11 +50,49 @@ $(function() {
 			$("#submit").prop('disabled', false).css({'cursor':'pointer'});
 			return;
 		}
-		var options = {
+		/* var paramArray = [];
+        var paramObj = {};
+        paramObj.storeName:
+        paramObj.brandId:
+     	paramObj.storeAddress:
+    	paramObj.storeTel:
+  		paramObj.workTimeBegin:
+  		paramObj.workTimeEnd:
+  		paramObj.storeOwnerName:
+  		paramObj.storeOwnerTel:
+		paramObj.settlementMethod:1
+		paramObj.proInvoiceFlag:on
+		paramObj.registrant:
+		paramObj.registDate:
+		paramObj.operateDate:
+		paramObj.remark:
+		paramObj.averageSales:0
+		paramObj.elmSale:0
+		paramObj.meituanSale:0
+		paramObj.baiduSale:0
+		paramObj.elmRate:0
+		paramObj.meituanRate:0
+		paramObj.baiduRate:0
+		paramObj.realImagePath1:
+		paramObj.realImagePath2:
+		paramObj.realImagePath3:
+		paramObj.businessLicenseImg:
+		paramObj.healthLicenseImg:
+		paramObj.menuImg:
+		paramObj.corporateIdcardFront:
+		paramObj.corporateIdcardBack:
+		paramObj.canteenImg:
+		paramObj.kitchenImg:
+		paramObj.doorImg:
+		paramObj.corporateWithidcardFront:
+		paramObj.corporateWithidcardBack:
+     	paramArray.push(paramObj); */
+         
+		  var options = {
 			url : "<m:url value='/store/addStore.do'/>",
 			type : "post",
-				dataType:"json",
-				success : function(d) {
+			dataType:"json",
+			success : function(d) {
 					if(d.status){
 						showMessage(d.message,"","",function(){
 							window.parent.closeAdd();
@@ -47,14 +101,14 @@ $(function() {
 					}else{
 						showMessage(d.message);
 					}
-				}
+				},
 		};
 		// 将options传给ajaxForm
-		$('#storeFormEdit').ajaxSubmit(options);
+		$('#storeFormEdit').ajaxSubmit(options); 
 	});
 
 	/*编辑表单数据验证*/
-	new biz.validate({
+	/* new biz.validate({
 		id:"#storeFormEdit",
 		rules:{
 			"storeName":{required : true},
@@ -67,13 +121,13 @@ $(function() {
 				naturalnum:true
 			},
 		}
-	}); 
+	});  */
 });
 </script>
 </head>
   
 <body>
-	<form id="storeFormEdit" >
+	<form id="storeFormEdit">
     <div class="ui-table ui-widget ui-corner-all ui-border" >
 		<input type="hidden" id="edit_storeId" name="storeId" type="text" value="${store.storeId}"/>
 		<table class="table">
@@ -97,6 +151,15 @@ $(function() {
 				<td class="inputTd">
 					<input id="edit_storeAddress" name="storeAddress" type="text" class="text" value="${store.storeAddress}"/>
 				</td>
+				<td class="inputLabelTd">店铺联系电话：</td>
+				<td class="inputTd">
+					<span class="input-icon">
+						<input id="edit_storeTel" name="storeTel" type="text" class="text" value="${store.storeTel}"/>
+						<i class="icon-phone green"></i>
+					</span>
+				</td>
+			</tr>
+			<tr>
 				<td class="inputLabelTd">营业时间起：</td>
 				<td class="inputTd">
 					<div class="input-group bootstrap-timepicker">
@@ -106,8 +169,6 @@ $(function() {
 						</span>
 					</div>
 				</td>
-			</tr>
-			<tr>
 				<td class="inputLabelTd">营业时间止：</td>
 				<td class="inputTd">
 					<div class="input-group bootstrap-timepicker">
@@ -117,18 +178,25 @@ $(function() {
 						</span>
 					</div>
 				</td>
+			</tr>
+			<tr>
 				<td class="inputLabelTd">店长姓名：</td>
 				<td class="inputTd">
 					<input id="edit_storeOwnerName" name="storeOwnerName" type="text" class="text" value="${store.storeOwnerName}"/>
 				</td>
-			</tr>
-			<tr>
 				<td class="inputLabelTd">店长电话：</td>
 				<td class="inputTd">
 					<span class="input-icon">
 						<input id="edit_storeOwnerTel" name="storeOwnerTel" type="text" class="text" value="${store.storeOwnerTel}"/>
 						<i class="icon-phone green"></i>
 					</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="inputLabelTd">结算方式：</td>
+				<td class="inputTd">
+					<select class="search_select" name="settlementMethod" id="edit_settlementMethod">
+					</select>
 				</td>
 				<td class="inputLabelTd">是否可以提供发票：</td>
 				<td class="inputTd">
@@ -139,10 +207,21 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-				<td class="inputLabelTd">备注：</td>
+				<td class="inputLabelTd">登记人：</td>
 				<td class="inputTd">
-					<input id="edit_remark" name="remark" type="text" class="text" value="${store.remark}"/>
+					<input id="edit_registrant" name="registrant" type="text" class="text" value="${store.registrant}"/>
 				</td>
+				<td class="inputLabelTd">登记日期：</td>
+				<td class="inputTd">
+					<div class="input-group">
+						<input class="date-picker text" name="registDate" id="edit_registDate" type="text" data-date-format="yyyy-mm-dd" />
+						<span>
+							<i class="icon-calendar bigger-110"></i>
+						</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
 				<td class="inputLabelTd">运营开始时间：</td>
 				<td class="inputTd">
 					<div class="input-group">
@@ -152,36 +231,113 @@ $(function() {
 						</span>
 					</div>
 				</td>
+				<td class="inputLabelTd">备注：</td>
+				<td class="inputTd">
+					<input id="edit_remark" name="remark" type="text" class="text" value="${store.remark}"/>
+				</td>
 			</tr>
 			<tr>
-				<td class="inputLabelTd">结算方式：</td>
+				<td class="inputLabelTd">大概店铺月销售额(万元)：</td>
 				<td class="inputTd">
-					<select class="search_select" name="settlementMethod" id="edit_settlementMethod">
-					</select>
+					<input id="edit_averageSales" name="averageSales" type="text" class="text money" value="${store.averageSales}"/>
 				</td>
-				<td class="inputLabelTd">店铺联系电话：</td>
+				<td class="inputLabelTd">饿了么平台月销售单量：</td>
 				<td class="inputTd">
-					<span class="input-icon">
-						<input id="edit_storeTel" name="storeTel" type="text" class="text" value="${store.storeTel}"/>
-						<i class="icon-phone green"></i>
-					</span>
+					<input id="edit_elmSale" name="elmSale" type="text" class="text number" value="${store.elmSale}"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="inputLabelTd">美团平台月销售单量：</td>
+				<td class="inputTd">
+					<input id="edit_meituanSale" name="meituanSale" type="text" class="text number" value="${store.meituanSale}"/>
+				</td>
+				<td class="inputLabelTd">百度平台月销售单量：</td>
+				<td class="inputTd">
+					<input id="edit_baiduSale" name="baiduSale" type="text" class="text number" value="${store.baiduSale}"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="inputLabelTd">饿了么平台佣金率(%)：</td>
+				<td class="inputTd">
+					<input id="edit_elmRate" name="elmRate" type="text" class="text rate" value="${store.elmRate}"/>
+				</td>
+				<td class="inputLabelTd">美团平台佣金率(%)：</td>
+				<td class="inputTd">
+					<input id="edit_meituanRate" name="meituanRate" type="text" class="text rate" value="${store.meituanRate}"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="inputLabelTd">百度平台佣金率(%)：</td>
+				<td class="inputTd">
+					<input id="edit_baiduRate" name="baiduRate" type="text" class="text rate" value="${store.baiduRate}"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="inputLabelTd">实景图片1：</td>
 				<td class="inputTd">
-					<input id="edit_realImagePath1" name="realImagePath1" type="text" class="text" value="${store.realImagePath1}"/>
+					<input id="edit_realImagePath1" name="realImagePath1" type="file" class="text" value="${store.realImagePath1}"/>
 				</td>
 				<td class="inputLabelTd">实景图片2：</td>
 				<td class="inputTd">
-					<input id="edit_realImagePath2" name="realImagePath2" type="text" class="text" value="${store.realImagePath2}"/>
+					<input id="edit_realImagePath2" name="realImagePath2" type="file" class="text" value="${store.realImagePath2}"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="inputLabelTd">实景图片3：</td>
 				<td class="inputTd">
-					<input id="edit_realImagePath3" name="realImagePath3" type="text" class="text" value="${store.realImagePath3}"/>
+					<input id="edit_realImagePath3" name="realImagePath3" type="file" class="text" value="${store.realImagePath3}"/>
 				</td>
+				<td class="inputLabelTd">营业执照：</td>
+				<td class="inputTd">
+					<input id="edit_businessLicenseImg" name="businessLicenseImg" type="file" class="text" value="${store.businessLicenseImg}"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="inputLabelTd">卫生经营许可证：</td>
+				<td class="inputTd">
+					<input id="edit_healthLicenseImg" name="healthLicenseImg" type="file" class="text" value="${store.healthLicenseImg}"/>
+				</td>
+				<td class="inputLabelTd">菜单：</td>
+				<td class="inputTd">
+					<input id="edit_menuImg" name="menuImg" type="file" class="text" value="${store.menuImg}"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="inputLabelTd">法人身份证（正面）：</td>
+				<td class="inputTd">
+					<input id="edit_corporateIdcardFront" name="corporateIdcardFront" type="file" class="text" value="${store.corporateIdcardFront}"/>
+				</td>
+				<td class="inputLabelTd">法人身份证（反面）：</td>
+				<td class="inputTd">
+					<input id="edit_corporateIdcardBack" name="corporateIdcardBack" type="file" class="text" value="${store.corporateIdcardBack}"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="inputLabelTd">堂食照：</td>
+				<td class="inputTd">
+					<input id="edit_canteenImg" name="canteenImg" type="file" class="text" value="${store.canteenImg}"/>
+				</td>
+				<td class="inputLabelTd">后厨照：</td>
+				<td class="inputTd">
+					<input id="edit_kitchenImg" name="kitchenImg" type="file" class="text" value="${store.kitchenImg}"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="inputLabelTd">门头：</td>
+				<td class="inputTd">
+					<input id="edit_doorImg" name="doorImg" type="file" class="text" value="${store.doorImg}"/>
+				</td>
+				<td class="inputLabelTd">法人手持身份证(正）：</td>
+				<td class="inputTd">
+					<input id="edit_corporateWithidcardFront" name="corporateWithidcardFront" type="file" class="text" value="${store.corporateWithidcardFront}"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="inputLabelTd">法人手持身份证(反)：</td>
+				<td class="inputTd">
+					<input id="edit_corporateWithidcardBack" name="corporateWithidcardBack" type="file" class="text" value="${store.corporateWithidcardBack}"/>
+				</td>
+			</tr>
 			<tr>
 				<td class="inputTd" colspan="4" style="text-align:center;">
 					<input id="submit" type="button" class="ti_bottom" value="保存"/>

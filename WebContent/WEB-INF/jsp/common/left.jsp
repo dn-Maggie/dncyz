@@ -31,7 +31,8 @@
 				</a>
 				<ul class="submenu">
 					<c:forEach var="mr" items="${menu.listModuleRes}">
-						<li id="lm${mr.id}" data-moduleName="${mr.resourceName}"><a href="javascript:;"
+						<li id="lm${mr.id}" data-moduleName="${mr.resourceName}">
+						<a href="javascript:;"
 							onclick='setIframePage("${mr.resourceName}","${ctx}${mr.resurl}","lm${mr.id }","z${menu.id }");'
 							target="iframepage"> <i class="icon-double-angle-right"></i>
 								${mr.resourceName }

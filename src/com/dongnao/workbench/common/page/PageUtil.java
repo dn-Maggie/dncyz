@@ -2,6 +2,7 @@ package com.dongnao.workbench.common.page;
 
 import java.io.StringWriter;
 import java.lang.reflect.Field;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -95,8 +96,9 @@ public class PageUtil {
 		/**采用JSON解析结果集内容---start */
 		JsonConfig config=new JsonConfig();
 		config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
-		config.registerJsonValueProcessor(java.sql.Timestamp.class, new DateJsonValueProcessor(Constants.DATE_FORMATE));  
+		config.registerJsonValueProcessor(java.sql.Timestamp.class, new DateJsonValueProcessor(Constants.DATE_TIME_FORMATE));  
 		config.registerJsonValueProcessor(java.util.Date.class, new DateJsonValueProcessor(Constants.DATE_FORMATE));  
+		config.registerJsonValueProcessor(java.sql.Time.class, new DateJsonValueProcessor(Constants.TIME_FORMATE));
 		JSONArray jsonArray=JSONArray.fromObject(page.getResult(),config);
 		stringbuffer.append(jsonArray);
 		/**采用JSON解析结果集内容---end */
@@ -301,10 +303,16 @@ public class PageUtil {
 				stringbuffer.append(simpledateformat.format(date));
 			}else if (obj instanceof Date) {
 				SimpleDateFormat simpledateformat = new SimpleDateFormat(
-						Constants.DATE_TIME_FORMATE);
+						Constants.DATE_FORMATE);
 
 				stringbuffer.append(simpledateformat.format(obj));
-			} else {
+			}else if (obj instanceof Time) {
+				SimpleDateFormat simpledateformat = new SimpleDateFormat(
+						Constants.TIME_FORMATE);
+
+				stringbuffer.append(simpledateformat.format(obj));
+			} 
+			else {
 				stringbuffer.append(replaceSpecChar(obj));
 			}
 			stringbuffer.append("\"");
@@ -555,7 +563,6 @@ public class PageUtil {
 	protected static Logger logger;
 
 	static {
-		logger = LoggerFactory
-				.getLogger(PageUtil.class);
+		logger = LoggerFactory.getLogger(PageUtil.class);
 	}
 }

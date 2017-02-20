@@ -51,7 +51,9 @@ public class AjaxUtils {
 			config.registerJsonValueProcessor(java.sql.Timestamp.class,
 					new DateJsonValueProcessor(Constant.DATETIME_FORMAT));
 			config.registerJsonValueProcessor(java.util.Date.class,
-					new DateJsonValueProcessor(Constant.DATETIME_FORMAT));
+					new DateJsonValueProcessor(Constant.DATE_FORMAT));
+			config.registerJsonValueProcessor(java.sql.Time.class,
+					new DateJsonValueProcessor(Constant.TIME_FORMAT));
 			out.print(JSONObject.fromObject(map, config).toString());
 		} catch (IOException e) {
 			log.error("ajax传送map对象出错", e);
@@ -83,7 +85,9 @@ public class AjaxUtils {
 			config.registerJsonValueProcessor(java.sql.Timestamp.class,
 					new DateJsonValueProcessor(Constant.DATETIME_FORMAT));
 			config.registerJsonValueProcessor(java.util.Date.class,
-					new DateJsonValueProcessor(Constant.DATETIME_FORMAT));
+					new DateJsonValueProcessor(Constant.DATE_FORMAT));
+			config.registerJsonValueProcessor(java.sql.Time.class,
+					new DateJsonValueProcessor(Constant.TIME_FORMAT));
 			out.print(JSONArray.fromObject(list, config).toString());
 		} catch (IOException e) {
 			log.error("ajax传送Object对象出错", e);
@@ -115,7 +119,9 @@ public class AjaxUtils {
 			config.registerJsonValueProcessor(java.sql.Timestamp.class,
 					new DateJsonValueProcessor(Constant.DATETIME_FORMAT));
 			config.registerJsonValueProcessor(java.util.Date.class,
-					new DateJsonValueProcessor(Constant.DATETIME_FORMAT));
+					new DateJsonValueProcessor(Constant.DATE_FORMAT));
+			config.registerJsonValueProcessor(java.sql.Time.class,
+					new DateJsonValueProcessor(Constant.TIME_FORMAT));
 			out.print(JSONObject.fromObject(obj, config).toString());
 		} catch (IOException e) {
 			log.error("ajax传送Object对象出错", e);

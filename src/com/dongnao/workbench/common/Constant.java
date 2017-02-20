@@ -21,6 +21,10 @@ public class Constant {
 	 * 日期格式字符串
 	 */
 	public static final String DATE_FORMAT = "yyyy-MM-dd";
+	/**
+	 * 时间格式字符串
+	 */
+	public static final String TIME_FORMAT = "HH:mm:ss";
 
 	/**
 	 * 日期时间格式字符串

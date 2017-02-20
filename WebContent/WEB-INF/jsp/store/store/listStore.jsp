@@ -5,8 +5,11 @@
 <%@ include file="../../common/header.jsp"%>
 <title></title>
 <script type="text/javascript">
+
+
 var gridObj = {};
 	$(function(){
+		
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
             url: "<m:url value='/store/listStore.do'/>",/*grid初始化请求数据的远程地址*/
@@ -21,7 +24,10 @@ var gridObj = {};
 				{name : "storeName",label:"店铺名称",index : "STORE_NAME"},				
 				{name : "brandName",label:"所属品牌",index : "BRAND_ID"},				
 				{name : "storeAddress",label:"店铺地址",index : "STORE_ADDRESS"},				
-				{name : "workTimeBegin",label:"营业时间起",index : "WORK_TIME_BEGIN"},				
+				{name : "workTimeBegin",label:"营业时间起",index : "WORK_TIME_BEGIN",
+					/* formatter:'date',
+					formatoptions:{srcformat: 'Y-m-d H:i:s', newformat: 'H:i:s'}, */
+				},				
 				{name : "workTimeEnd",label:"营业时间起",index : "WORK_TIME_END"},				
 				{name : "storeOwnerName",label:"店长姓名",index : "STORE_OWNER_NAME"},				
 				{name : "storeOwnerTel",label:"店长电话",index : "STORE_OWNER_TEL"},				
@@ -69,7 +75,7 @@ var gridObj = {};
 		add_iframe_dialog = new biz.dialog({
 			id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: $(window).width()*0.6,
+			width: $(window).width()*0.8,
 			height: $(window).height()*0.8,
 			title: "店铺增加"
 		});

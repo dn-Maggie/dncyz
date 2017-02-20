@@ -60,7 +60,7 @@
 							<span class="addon">验</span> 
 							<input class="codeInput" id="codeInput" onkeypress="xKeyEvent(event)"/>
 							<img src="<%=basePath%>validateCode" id="codeImg" alt="点击刷新验证码">
-							<a href="javascript:0" onclick="refreshCaptcha()">看不清换一张</a>
+							<a href="javascript:0" onclick="refreshCaptcha()">看不清<br/>换一张</a>
 						</div> 
 					</td>
 				</tr>

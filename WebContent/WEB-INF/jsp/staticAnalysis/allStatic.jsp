@@ -41,7 +41,7 @@
 		<script src="<%=request.getContextPath() %>/static/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<%=request.getContextPath() %>/static/js/flot/jquery.flot.resize.min.js"></script>
 	</head>
-	<body>
+	<body onbeforeunload="checkLeave()">
 		<div class="col-sm-12">
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-flat">
@@ -98,7 +98,16 @@
 		</div>		
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
+			//离开页面的恢复导航栏方法
+			function checkLeave(){
+				var _iframe = window.parent;
+				_iframe.$(".inlineBlock").each(function(){this.className='hidden'})
+			}
 			jQuery(function($) {
+				//进入页面的展开导航栏搜索方法
+				var _iframe = window.parent;
+				_iframe.$(".hidden").each(function(){this.className='inlineBlock'})
+				//画折线图方法
 				$('.sparkline').each(function(){
 					var $box = $(this).closest('.infobox');
 					var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
@@ -109,6 +118,7 @@
 						chartRangeMin:$(this).data('min') || 0} 
 					);
 				});
+				
 				var d1 = [];
 				for (var i = 0; i < 12; i ++) {
 					d1.push([i, Math.round(Math.random()*100)]);

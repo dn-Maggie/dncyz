@@ -10,6 +10,7 @@ public class Constants {
 	  public static final String NEW_FORM = "newForm";
 	  public static final String I18N_LANGUAGE = "language";
 	  public static String DATE_FORMATE = "yyyy-MM-dd";
+	  public static String TIME_FORMATE = "HH:mm:ss";
 	  public static String DATE_TIME_FORMATE = "yyyy-MM-dd HH:mm:ss";
 	  public static final String MESSAGE_INFO = "info";
 	  public static final String MESSAGE_ERROR = "error";

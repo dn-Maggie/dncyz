@@ -41,9 +41,8 @@
 		<script src="<%=request.getContextPath() %>/static/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<%=request.getContextPath() %>/static/js/flot/jquery.flot.resize.min.js"></script>
 	</head>
-	<body>
-		<div class="col-sm-12">
-			<div class="col-sm-6">
+	<body onbeforeunload="checkLeave()">
+			<div class="col-sm-12">
 				<div class="widget-box">
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5 style="color:#555">
@@ -107,7 +106,7 @@
 					</div><!-- /widget-body -->
 				</div><!-- /widget-box -->
 			</div>
-			<div class="col-sm-6">
+			<div class="col-sm-12">
 				<div class="widget-box">
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5 style="color:#555">
@@ -169,7 +168,6 @@
 						</div><!-- /widget-main -->
 					</div><!-- /widget-body -->
 				</div><!-- /widget-box -->
-			</div>
 			</div>
 			<div class="col-sm-12">
 				<div class="widget-box">
@@ -270,9 +268,147 @@
 			</div><!-- /widget-box -->
 			
 		</div>		
+		<div class="col-sm-12">
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat widget-header-small">
+						<h5 style="color:#555">
+							<i class="icon-signal"></i>
+							品类销售饼图
+						</h5>
+
+						<div class="widget-toolbar no-border">
+							<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+								本周<i class="icon-angle-down icon-on-right bigger-110"></i>
+							</button>
+
+							<ul class="dropdown-menu pull-right dropdown-125 dropdown-lighter dropdown-caret">
+								<li class="active">
+									<a href="#" class="blue"><i class="icon-caret-right bigger-110">&nbsp;</i>本周</a>
+								</li>
+								<li>
+									<a href="#"><i class="icon-caret-right bigger-110 invisible">&nbsp;</i>上周</a>
+								</li>
+								<li>
+									<a href="#"><i class="icon-caret-right bigger-110 invisible">&nbsp;</i>本月</a>
+								</li>
+								<li>
+									<a href="#"><i class="icon-caret-right bigger-110 invisible">&nbsp;</i>上月</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="widget-body">
+						<div class="widget-main">
+							<div id="piechart-category"></div>
+
+							<div class="hr hr8 hr-double"></div>
+
+							<div class="clearfix">
+								<div class="grid3">
+									<span class="grey">
+										<i class="icon-facebook-sign icon-2x blue"></i>
+										&nbsp; likes
+									</span>
+									<h4 class="bigger pull-right">1,255</h4>
+								</div>
+
+								<div class="grid3">
+									<span class="grey">
+										<i class="icon-twitter-sign icon-2x purple"></i>
+										&nbsp; tweets
+									</span>
+									<h4 class="bigger pull-right">941</h4>
+								</div>
+
+								<div class="grid3">
+									<span class="grey">
+										<i class="icon-pinterest-sign icon-2x red"></i>
+										&nbsp; pins
+									</span>
+									<h4 class="bigger pull-right">1,050</h4>
+								</div>
+							</div>
+						</div><!-- /widget-main -->
+					</div><!-- /widget-body -->
+				</div><!-- /widget-box -->
+		</div>
+		<div class="col-sm-12">
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat widget-header-small">
+						<h5 style="color:#555">
+							<i class="icon-signal"></i>
+							品类销售饼图
+						</h5>
+
+						<div class="widget-toolbar no-border">
+							<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+								本周<i class="icon-angle-down icon-on-right bigger-110"></i>
+							</button>
+
+							<ul class="dropdown-menu pull-right dropdown-125 dropdown-lighter dropdown-caret">
+								<li class="active">
+									<a href="#" class="blue"><i class="icon-caret-right bigger-110">&nbsp;</i>本周</a>
+								</li>
+								<li>
+									<a href="#"><i class="icon-caret-right bigger-110 invisible">&nbsp;</i>上周</a>
+								</li>
+								<li>
+									<a href="#"><i class="icon-caret-right bigger-110 invisible">&nbsp;</i>本月</a>
+								</li>
+								<li>
+									<a href="#"><i class="icon-caret-right bigger-110 invisible">&nbsp;</i>上月</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="widget-body">
+						<div class="widget-main">
+							<div id="piechart-category"></div>
+
+							<div class="hr hr8 hr-double"></div>
+
+							<div class="clearfix">
+								<div class="grid3">
+									<span class="grey">
+										<i class="icon-facebook-sign icon-2x blue"></i>
+										&nbsp; likes
+									</span>
+									<h4 class="bigger pull-right">1,255</h4>
+								</div>
+
+								<div class="grid3">
+									<span class="grey">
+										<i class="icon-twitter-sign icon-2x purple"></i>
+										&nbsp; tweets
+									</span>
+									<h4 class="bigger pull-right">941</h4>
+								</div>
+
+								<div class="grid3">
+									<span class="grey">
+										<i class="icon-pinterest-sign icon-2x red"></i>
+										&nbsp; pins
+									</span>
+									<h4 class="bigger pull-right">1,050</h4>
+								</div>
+							</div>
+						</div><!-- /widget-main -->
+					</div><!-- /widget-body -->
+				</div><!-- /widget-box -->
+		</div>
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
+		//离开页面的恢复导航栏方法
+		function checkLeave(){
+			var _iframe = window.parent;
+			_iframe.$(".inlineBlock").each(function(){this.className='hidden'})
+		}
 			jQuery(function($){
+				//进入页面的展开导航栏搜索方法
+				var _iframe = window.parent;
+				_iframe.$(".hidden").each(function(){this.className='inlineBlock'})
 				<!--产品销售饼状图-->
 				var product = $('#piechart-product').css({'width':'90%' , 'min-height':'150px'});
 				  var data = [

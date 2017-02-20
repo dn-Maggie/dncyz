@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="/WEB-INF/tld/fmt.tld"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
-<html>
+<html style="overflow:hidden">
 <head lang="en">
 <meta charset="UTF-8">
 <title>后台管理</title>
@@ -75,6 +75,12 @@ input[name='timeQuantum']:checked+label{
     line-height: 20px;
     border-radius: 3px;
 }
+.hidden{
+	display:none;
+}
+.inlineBlock{
+	display:inline-block;
+}
 .input-group{
 	margin:0;
 	padding:0;
@@ -92,7 +98,7 @@ input[name='timeQuantum']:checked+label{
 	font-weight:bold;
 }
 .breadcrumb>li>span{
-	margin-right:8px;
+	margin-right:4px;
 	vertical-align:middle;
 }
 </style>
@@ -102,6 +108,10 @@ jQuery(function($) {
 	$('input[name=date-range-picker]').daterangepicker().prev().on(ace.click_event, function(){
 		$(this).next().focus();
 	});
+	try {
+		ace.settings.check('main-container', 'fixed');
+		ace.settings.check('breadcrumbs', 'fixed');
+	} catch (e) { }
 });
 </script>
 	
@@ -111,13 +121,13 @@ jQuery(function($) {
 	<!-- 页面顶部¨ -->
 	<%@ include file="top.jsp"%>
 	<div class="main-container" id="main-container">
-		<script type="text/javascript">
+		<!-- script type="text/javascript">
 			try {
 				ace.settings.check('main-container', 'fixed')
 			} catch (e) {
 			}
 			
-		</script>
+		</script-->
 		<div class="main-container-inner">
 			<a class="menu-toggler" id="menu-toggler" href="#"> <span
 				class="menu-text"></span>
@@ -125,49 +135,55 @@ jQuery(function($) {
 			<%@ include file="left.jsp"%>
 			<div class="main-content">
 				<div class="breadcrumbs" id="breadcrumbs" style="display:none">
-					<script type="text/javascript">
+					<!--script type="text/javascript">
 						try {
 							ace.settings.check('breadcrumbs', 'fixed');
 						} catch (e) {
 						}
-					</script>
+					</script-->
 					<form id="queryForm">
 					<ul class="breadcrumb">
 						<li class="posiText"><i class="icon-home home-icon"></i> <a href="${ctx}/index.do">首页</a></li>
 						<li class="posiText active" style="margin-right:10px;"></li>
-						<li style="margin-right:30px;"><span class="nowDate"></span></li>
-						<li>
+						<li style="margin-right:10px;"><span class="nowDate"></span></li>
+						<li class="hidden">
 							<span>商圈</span>
-							<select class="search_select" name="bussinessCir">
+							<select class="search_select_nowidth" name="bussinessCir" id="bussinessCir">
 								<option>请选择</option>
+								<c:forEach items="${tradingArea}" var="activeType">
+									<option value="${tradingArea.dictCode}"><c:out value="${tradingArea.dictName}"></c:out></option>
+								</c:forEach>
 							</select>
 						</li>
-						<li style="margin-right:10px;">
+						<li style="margin-right:10px;"  class="hidden">
 							<span>活动类型</span>
-							<select class="search_select" name="activeType" >
+							<select class="search_select_nowidth" name="activeType" id="activeType">
 								<option>请选择</option>
+								<c:forEach items="${activeType}" var="activeType">
+									<option value="${activeType.dictCode}"><c:out value="${activeType.dictName}"></c:out></option>
+								</c:forEach>
 							</select>
 						</li>
-						<li style="margin-right:10px">
+						<li style="margin-right:10px"  class="hidden">
 							<input type="radio" name="timeQuantum" id="timeQuantum_today"><label for="timeQuantum_today">今天</label>
 							<input type="radio" name="timeQuantum" id="timeQuantum_yesterday"><label for="timeQuantum_yesterday">昨天</label>
 							<input type="radio" name="timeQuantum" id="timeQuantum_7"><label for="timeQuantum_7">近7天</label>
 							<input type="radio" name="timeQuantum" id="timeQuantum_30"><label for="timeQuantum_30">近30天</label>
 							<input type="radio" name="timeQuantum" id="timeQuantum_90"><label for="timeQuantum_90">近90天</label>
 						</li>
-						<li style="width:300px;display:inline-block;vertical-align: middle;">
-								<div class="input-group">
-									<span class="input-group-addon">
-										<i class="icon-calendar bigger-110"></i>
-									</span>
-	
-									<input class="form-control" type="text" name="date-range-picker" id="id-date-range-picker-1" />
-								</div>
+						<li style="width:220px;display:inline-block;vertical-align: middle;"  class="hidden">
+							<div class="input-group">
+								<span class="input-group-addon">
+									<i class="icon-calendar bigger-110"></i>
+								</span>
+								<input class="form-control" type="text" name="date-range-picker" id="id-date-range-picker-1" />
+							</div>
 						</li>
-						<li><input type="text" name="keyWord" id="keyWord" class="form-control" placeholder="请输入搜索关键字"></li>
-						<li><input type="button" class="search_btn" value="查询"></li>
+						<li  class="hidden"><input type="text" name="keyWord" id="keyWord" class="form-control" placeholder="请输入搜索关键字"></li>
+						<li  class="hidden"><input type="button" class="search_btn_default" value="查询"></li>
 					</ul>
 					</form>
+					
 					<!-- .breadcrumb -->
 					<!-- #nav-search -->
 				</div>
@@ -285,9 +301,6 @@ jQuery(function($) {
 		    if(targetUrl.indexOf('http:')>-1){
 		    	targetUrl=targetUrl.substr(4);
 		    }
-		    if(fid=="z2c9285944061be01014061be01a70000"){
-		    	loadingMask($('#contentright'));
-		    }
 		    $("#breadcrumbs").css("display", "block");
 	    	document.getElementById("iframepage").src = targetUrl; 
 		    getModuleName(urlPath);
@@ -324,10 +337,12 @@ jQuery(function($) {
 			}
 		}
 		function cmainFrame() {
-			$('#contentright').height(pageHeight() - 92);
+			$('#contentright').height(pageHeight() - 132);
 			var hmain = document.getElementById("iframepage");
 			hmain.style.width = '100%';
-			hmain.style.height = (pageHeight() - 92) + 'px';
+			hmain.style.height = (pageHeight() - 132) + 'px';
+			/* hmain.style.overflowX='none';
+			hmain.style.overflowY='scroll'; */
 		}
 		//保存缩放菜单状态
 		function menusf() {

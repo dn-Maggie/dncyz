@@ -17,6 +17,7 @@ public class Product extends Model{
 	                 * 产品ID(主键)
 	                 **/
 				   			private String productId;
+				   			
 		   		
 		            /**
 	                 * 产品分类ID
@@ -48,7 +49,10 @@ public class Product extends Model{
 	                 * 产品状态
 	                 **/
 				   			private String productStatus;
-		   		
+		   			/**
+	                 * 关联店铺ID
+	                 **/
+				   			private String storeId;		   		
 	
 				
 		  			/**
@@ -193,6 +197,14 @@ public class Product extends Model{
 
 			public void setProductClassName(String productClassName) {
 				this.productClassName = productClassName;
+			}
+
+			public String getStoreId() {
+				return storeId;
+			}
+
+			public void setStoreId(String storeId) {
+				this.storeId = storeId;
 			}
 		   		
 		

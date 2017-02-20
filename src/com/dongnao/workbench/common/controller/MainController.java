@@ -24,6 +24,7 @@ import com.dongnao.workbench.common.util.MD5Encryption;
 import com.dongnao.workbench.common.util.StringUtil;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.system.model.Module;
+import com.dongnao.workbench.system.service.DictInfoService;
 import com.dongnao.workbench.system.service.ModuleService;
 
 
@@ -49,7 +50,15 @@ public class MainController {
 	public void setUserInfoService(UserInfoService userInfoService) {
 		this.userInfoService = userInfoService;
 	}
-
+	private DictInfoService dictInfoService;
+	/**
+	 * 设置service
+	 * @param dictInfoService DictInfoService
+	 */
+	@Autowired
+	public void setDictInfoService(DictInfoService dictInfoService) {
+		this.dictInfoService = dictInfoService;
+	}
 	private ModuleService moduleService;
 
 	/**
@@ -82,6 +91,8 @@ public class MainController {
 		ModelAndView m = new ModelAndView("WEB-INF/jsp/common/adminMain");
 		Map<String, Object> map = m.getModel();
 		map.put("menus", menus);
+		m.addObject("activeType", dictInfoService.getDictInfoListByType("activeType"));
+		m.addObject("tradingArea", dictInfoService.getDictInfoListByType("tradingArea"));
 		return m;
 	}
 	

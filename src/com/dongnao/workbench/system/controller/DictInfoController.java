@@ -203,6 +203,19 @@ public class DictInfoController{
 
 	
 	/**
+	 * 根据类别查询字典信息为页面下拉框提供字典信息
+	 * @param type String 类别编码
+	 * @param response HttpServletResponse
+	 */
+	@RequestMapping("/getDictInfoListByType")
+	public void getDictInfoListByType(HttpServletResponse response,String type){
+		DictType dictType = new DictType();
+		dictType.setIsActive(Constant.ISDELETE_FALSE);
+		List<DictInfo> list = dictInfoService.getDictInfoListByType(type);
+		AjaxUtils.sendAjaxForObject(response, list);
+	}
+	
+	/**
 	 * 根据字典类型编码查询字典数据
 	 * @param dictTypeCode String
 	 * @param response HttpServletResponse

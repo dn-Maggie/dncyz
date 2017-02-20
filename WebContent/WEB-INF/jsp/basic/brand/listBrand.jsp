@@ -4,6 +4,11 @@
 <head>
 <%@ include file="../../common/header.jsp"%>
 <title></title>
+<style type="text/css">
+	#breadcrumbs{
+		display:none;
+	}
+</style>
 <script type="text/javascript">
 var gridObj = {};
 	$(function(){

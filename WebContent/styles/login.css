@@ -81,7 +81,6 @@
 }
 #loginForm div.group.check_code>a{
     display: table-cell;
-    width: 36px;
     color: #aaa;
     float: left;
     margin-left: 10px;
@@ -103,7 +102,7 @@
 }
 #loginForm div.group.check_code input{
 	height: 100%;
-	width:90px;
+	width:80px;
 	display: table-cell;
 	text-indent: 10px;
 	line-height: 0;

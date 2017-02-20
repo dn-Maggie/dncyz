@@ -6,7 +6,15 @@
 <title></title>
 <script type="text/javascript">
 var gridObj = {};
+//离开页面的恢复导航栏方法
+function checkLeave(){
+	var _iframe = window.parent;
+	_iframe.$(".inlineBlock").each(function(){this.className='hidden'})
+}
 	$(function(){
+		//进入页面的展开导航栏搜索方法
+		var _iframe = window.parent;
+		_iframe.$(".hidden").each(function(){this.className='inlineBlock'})
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
             url: "<m:url value='/storeActivity/listStoreActivity.do'/>",/*grid初始化请求数据的远程地址*/
@@ -164,8 +172,7 @@ var gridObj = {};
     }
     </script>
 </head>
-<body style="height:100%;">
-
+<body onbeforeunload="checkLeave()">
 	<div class="main  choice_box">
 		<form id="queryForm"><!-- 查询区 表单 -->
 			<div class="search border-bottom">

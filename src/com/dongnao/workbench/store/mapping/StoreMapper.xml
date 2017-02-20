@@ -6,8 +6,8 @@
 					<result column="STORE_NAME" property="storeName" jdbcType="VARCHAR" />
 					<result column="BRAND_ID" property="brandId" jdbcType="CHAR" />
 					<result column="STORE_ADDRESS" property="storeAddress" jdbcType="VARCHAR" />
-					<result column="WORK_TIME_BEGIN" property="workTimeBegin" jdbcType="TIMESTAMP" />
-					<result column="WORK_TIME_END" property="workTimeEnd" jdbcType="TIMESTAMP" />
+					<result column="WORK_TIME_BEGIN" property="workTimeBegin" jdbcType="TIME" />
+					<result column="WORK_TIME_END" property="workTimeEnd" jdbcType="TIME" />
 					<result column="STORE_OWNER_NAME" property="storeOwnerName" jdbcType="VARCHAR" />
 					<result column="STORE_OWNER_TEL" property="storeOwnerTel" jdbcType="VARCHAR" />
 					<result column="PRO_INVOICE_FLAG" property="proInvoiceFlag" jdbcType="CHAR" />
@@ -18,6 +18,25 @@
 					<result column="REAL_IMAGE_PATH_1" property="realImagePath1" jdbcType="VARCHAR" />
 					<result column="REAL_IMAGE_PATH_2" property="realImagePath2" jdbcType="VARCHAR" />
 					<result column="REAL_IMAGE_PATH_3" property="realImagePath3" jdbcType="VARCHAR" />
+					<result column="AVERAGE_SALES" property="averageSales" jdbcType="DOUBLE" />
+					<result column="ELM_SALE" property="elmSale" jdbcType="DOUBLE" />
+					<result column="MEITUAN_SALE" property="meituanSale" jdbcType="DOUBLE" />
+					<result column="BAIDU_SALE" property="baiduSale" jdbcType="DOUBLE" />
+					<result column="ELM_RATE" property="elmRate" jdbcType="DOUBLE" />
+					<result column="MEITUAN_RATE" property="meituanRate" jdbcType="DOUBLE" />
+					<result column="BAIDU_RATE" property="baiduRate" jdbcType="DOUBLE" />
+					<result column="registrant" property="registrant" jdbcType="VARCHAR" />
+					<result column="regist_date" property="registDate" jdbcType="DATE" />
+					<result column="business_license_img" property="businessLicenseImg" jdbcType="VARCHAR" />
+					<result column="health_license_img" property="healthLicenseImg" jdbcType="VARCHAR" />
+					<result column="menu_img" property="menuImg" jdbcType="VARCHAR" />
+					<result column="corporate_idcard_front" property="corporateIdcardFront" jdbcType="VARCHAR" />
+					<result column="corporate_idcard_back" property="corporateIdcardBack" jdbcType="VARCHAR" />
+					<result column="canteen_img" property="canteenImg" jdbcType="VARCHAR" />
+					<result column="kitchen_img" property="kitchenImg" jdbcType="VARCHAR" />
+					<result column="door_img" property="doorImg" jdbcType="VARCHAR" />
+					<result column="corporate_withidcard_front" property="corporateWithidcardFront" jdbcType="VARCHAR" />
+					<result column="corporate_withidcard_back" property="corporateWithidcardBack" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		 	 STORE_ID
@@ -36,6 +55,25 @@
 			,REAL_IMAGE_PATH_1
 			,REAL_IMAGE_PATH_2
 			,REAL_IMAGE_PATH_3
+			,AVERAGE_SALES
+			,ELM_SALE
+			,MEITUAN_SALE
+			,BAIDU_SALE
+			,ELM_RATE
+			,MEITUAN_RATE
+			,BAIDU_RATE
+			,registrant
+			,regist_date
+			,business_license_img
+			,health_license_img
+			,menu_img
+			,corporate_idcard_front
+			,corporate_idcard_back
+			,canteen_img
+			,kitchen_img
+			,door_img
+			,corporate_withidcard_front
+			,corporate_withidcard_back
 		</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -56,6 +94,25 @@
 			,s.REAL_IMAGE_PATH_1
 			,s.REAL_IMAGE_PATH_2
 			,s.REAL_IMAGE_PATH_3
+			,s.AVERAGE_SALES
+			,s.ELM_SALE
+			,s.MEITUAN_SALE
+			,s.BAIDU_SALE
+			,s.ELM_RATE
+			,s.MEITUAN_RATE
+			,s.BAIDU_RATE
+			,s.registrant
+			,s.regist_date
+			,s.business_license_img
+			,s.health_license_img
+			,s.menu_img
+			,s.corporate_idcard_front
+			,s.corporate_idcard_back
+			,s.canteen_img
+			,s.kitchen_img
+			,s.door_img
+			,s.corporate_withidcard_front
+			,s.corporate_withidcard_back
 		from dn_store as s
 		left join dn_brand as b on b.BRAND_ID = s.BRAND_ID
 		where s.STORE_ID = #{storeId,jdbcType=CHAR}
@@ -79,6 +136,25 @@
 			,s.REAL_IMAGE_PATH_1
 			,s.REAL_IMAGE_PATH_2
 			,s.REAL_IMAGE_PATH_3
+			,s.AVERAGE_SALES
+			,s.ELM_SALE
+			,s.MEITUAN_SALE
+			,s.BAIDU_SALE
+			,s.ELM_RATE
+			,s.MEITUAN_RATE
+			,s.BAIDU_RATE
+			,s.registrant
+			,s.regist_date
+			,s.business_license_img
+			,s.health_license_img
+			,s.menu_img
+			,s.corporate_idcard_front
+			,s.corporate_idcard_back
+			,s.canteen_img
+			,s.kitchen_img
+			,s.door_img
+			,s.corporate_withidcard_front
+			,s.corporate_withidcard_back
 		from dn_store as s
 		left join dn_brand as b on b.BRAND_ID = s.BRAND_ID
 		where 1=1
@@ -95,10 +171,10 @@
 			and s.STORE_ADDRESS = #{storeAddress,jdbcType=VARCHAR}
 		</if>
 		<if test="workTimeBegin != null and '' != workTimeBegin">  
-			and s.WORK_TIME_BEGIN = #{workTimeBegin,jdbcType=TIMESTAMP}
+			and s.WORK_TIME_BEGIN = #{workTimeBegin,jdbcType=TIME}
 		</if>
 		<if test="workTimeEnd != null and '' != workTimeEnd">  
-			and s.WORK_TIME_END = #{workTimeEnd,jdbcType=TIMESTAMP}
+			and s.WORK_TIME_END = #{workTimeEnd,jdbcType=TIME}
 		</if>
 		<if test="storeOwnerName != null and '' != storeOwnerName">  
 			and s.STORE_OWNER_NAME = #{storeOwnerName,jdbcType=VARCHAR}
@@ -121,15 +197,6 @@
 		<if test="storeTel != null and '' != storeTel">  
 			and s.STORE_TEL = #{storeTel,jdbcType=VARCHAR}
 		</if>
-		<if test="realImagePath1 != null and '' != realImagePath1">  
-			and s.REAL_IMAGE_PATH_1 = #{realImagePath1,jdbcType=VARCHAR}
-		</if>
-		<if test="realImagePath2 != null and '' != realImagePath2">  
-			and s.REAL_IMAGE_PATH_2 = #{realImagePath2,jdbcType=VARCHAR}
-		</if>
-		<if test="realImagePath3 != null and '' != realImagePath3">  
-			and s.REAL_IMAGE_PATH_3 = #{realImagePath3,jdbcType=VARCHAR}
-		</if>
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
        	</if>
@@ -148,8 +215,8 @@
 			,#{storeName,jdbcType=VARCHAR}
 			,#{brandId,jdbcType=CHAR}
 			,#{storeAddress,jdbcType=VARCHAR}
-			,#{workTimeBegin,jdbcType=TIMESTAMP}
-			,#{workTimeEnd,jdbcType=TIMESTAMP}
+			,#{workTimeBegin,jdbcType=TIME}
+			,#{workTimeEnd,jdbcType=TIME}
 			,#{storeOwnerName,jdbcType=VARCHAR}
 			,#{storeOwnerTel,jdbcType=VARCHAR}
 			,#{proInvoiceFlag,jdbcType=CHAR}
@@ -160,27 +227,65 @@
 			,#{realImagePath1,jdbcType=VARCHAR}
 			,#{realImagePath2,jdbcType=VARCHAR}
 			,#{realImagePath3,jdbcType=VARCHAR}
+			,#{averageSales,jdbcType=DOUBLE}
+			,#{elmSale,jdbcType=DOUBLE}
+			,#{meituanSale,jdbcType=DOUBLE}
+			,#{baiduSale,jdbcType=DOUBLE}
+			,#{elmRate,jdbcType=DOUBLE}
+			,#{meituanRate,jdbcType=DOUBLE}
+			,#{baiduRate,jdbcType=DOUBLE}
+			,#{registrant,jdbcType=VARCHAR}
+			,#{registDate,jdbcType=DATE}
+			,#{businessLicenseImg,jdbcType=VARCHAR}
+			,#{healthLicenseImg,jdbcType=VARCHAR}
+			,#{menuImg,jdbcType=VARCHAR}
+			,#{corporateIdcardFront,jdbcType=VARCHAR}
+			,#{corporateIdcardBack,jdbcType=VARCHAR}
+			,#{canteenImg,jdbcType=VARCHAR}
+			,#{kitchenImg,jdbcType=VARCHAR}
+			,#{doorImg,jdbcType=VARCHAR}
+			,#{corporateWithidcardFront,jdbcType=VARCHAR}
+			,#{corporateWithidcardBack,jdbcType=VARCHAR}
 		)
 	</insert>
 	
 	<update id="update" parameterType="com.dongnao.workbench.store.model.Store">
 		update dn_store  set
-		ID= #{storeId,jdbcType=CHAR}
-													,STORE_NAME = #{storeName,jdbcType=VARCHAR}
-											,BRAND_ID = #{brandId,jdbcType=CHAR}
-											,STORE_ADDRESS = #{storeAddress,jdbcType=VARCHAR}
-											,WORK_TIME_BEGIN = #{workTimeBegin,jdbcType=TIMESTAMP}
-											,WORK_TIME_END = #{workTimeEnd,jdbcType=TIMESTAMP}
-											,STORE_OWNER_NAME = #{storeOwnerName,jdbcType=VARCHAR}
-											,STORE_OWNER_TEL = #{storeOwnerTel,jdbcType=VARCHAR}
-											,PRO_INVOICE_FLAG = #{proInvoiceFlag,jdbcType=CHAR}
-											,REMARK = #{remark,jdbcType=VARCHAR}
-											,OPERATE_DATE = #{operateDate,jdbcType=DATE}
-											,SETTLEMENT_METHOD = #{settlementMethod,jdbcType=CHAR}
-											,STORE_TEL = #{storeTel,jdbcType=VARCHAR}
-											,REAL_IMAGE_PATH_1 = #{realImagePath1,jdbcType=VARCHAR}
-											,REAL_IMAGE_PATH_2 = #{realImagePath2,jdbcType=VARCHAR}
-											,REAL_IMAGE_PATH_3 = #{realImagePath3,jdbcType=VARCHAR}
-							where STORE_ID = #{storeId,jdbcType=CHAR}
+			ID= #{storeId,jdbcType=CHAR}
+			,STORE_NAME = #{storeName,jdbcType=VARCHAR}
+			,BRAND_ID = #{brandId,jdbcType=CHAR}
+			,STORE_ADDRESS = #{storeAddress,jdbcType=VARCHAR}
+			,WORK_TIME_BEGIN = #{workTimeBegin,jdbcType=TIME}
+			,WORK_TIME_END = #{workTimeEnd,jdbcType=TIME}
+			,STORE_OWNER_NAME = #{storeOwnerName,jdbcType=VARCHAR}
+			,STORE_OWNER_TEL = #{storeOwnerTel,jdbcType=VARCHAR}
+			,PRO_INVOICE_FLAG = #{proInvoiceFlag,jdbcType=CHAR}
+			,REMARK = #{remark,jdbcType=VARCHAR}
+			,OPERATE_DATE = #{operateDate,jdbcType=DATE}
+			,SETTLEMENT_METHOD = #{settlementMethod,jdbcType=CHAR}
+			,STORE_TEL = #{storeTel,jdbcType=VARCHAR}
+			,REAL_IMAGE_PATH_1 = #{realImagePath1,jdbcType=VARCHAR}
+			,REAL_IMAGE_PATH_2 = #{realImagePath2,jdbcType=VARCHAR}
+			,REAL_IMAGE_PATH_3 = #{realImagePath3,jdbcType=VARCHAR}
+			,AVERAGE_SALES = #{averageSales,jdbcType=DOUBLE}
+			,ELM_SALE = #{elmSale,jdbcType=DOUBLE}
+			,MEITUAN_SALE = #{meituanSale,jdbcType=DOUBLE}
+			,BAIDU_SALE = #{baiduSale,jdbcType=DOUBLE}
+			,ELM_RATE = #{elmRate,jdbcType=DOUBLE}
+			,MEITUAN_RATE = #{meituanRate,jdbcType=DOUBLE}
+			,BAIDU_RATE = #{baiduRate,jdbcType=DOUBLE}
+			,registrant = #{registrant,jdbcType=VARCHAR}
+			,regist_date = #{registDate,jdbcType=DATE}
+			,business_license_img = #{businessLicenseImg,jdbcType=VARCHAR}
+			,health_license_img = #{healthLicenseImg,jdbcType=VARCHAR}
+			,menu_img = #{menuImg,jdbcType=VARCHAR}
+			,corporate_idcard_front = #{corporateIdcardFront,jdbcType=VARCHAR}
+			,corporate_idcard_back = #{corporateIdcardBack,jdbcType=VARCHAR}
+			,canteen_img = #{canteenImg,jdbcType=VARCHAR}
+			,kitchen_img = #{kitchenImg,jdbcType=VARCHAR}
+			,door_img = #{doorImg,jdbcType=VARCHAR}
+			,corporate_withidcard_front = #{corporateWithidcardFront,jdbcType=VARCHAR}
+			,corporate_withidcard_back = #{corporateWithidcardBack,jdbcType=VARCHAR}
+		where STORE_ID = #{storeId,jdbcType=CHAR}
 	</update>
 </mapper>

@@ -1,8 +1,10 @@
 package com.dongnao.workbench.store.model;
 
+import java.sql.Time;
 import java.util.Date;
-import java.math.BigDecimal;
+
 import org.springframework.format.annotation.DateTimeFormat;
+
 import com.dongnao.workbench.common.bean.Model;
 /**
  * 描述：店铺模块实体类，负责页面与后台数据传输功能
@@ -37,14 +39,14 @@ public class Store extends Model{
 		            /**
 	                 * 营业时间起
 	                 **/
-					@DateTimeFormat(pattern="HH:mm:ss") 
-							private Date workTimeBegin;
+				   			@DateTimeFormat(pattern="HH:mm:ss") 
+							private Time workTimeBegin;
 		
 		            /**
-	                 * 营业时间起
+	                 * 营业时间止
 	                 **/
-					@DateTimeFormat(pattern="HH:mm:ss") 
-							private Date workTimeEnd;
+				   			@DateTimeFormat(pattern="HH:mm:ss") 
+							private Time workTimeEnd;
 		
 		            /**
 	                 * 店长姓名
@@ -95,7 +97,103 @@ public class Store extends Model{
 		            /**
 	                 * 实景图片3
 	                 **/
-				   			private String realImagePath3;
+				   			private String realImagePath3;		            
+		   	      /**
+	                 * 大概店铺月销售额
+	                 **/
+				   			private String averageSales;
+		   		
+		            /**
+	                 * 饿了么平台月销售单量
+	                 **/
+				   			private String elmSale;
+		   		
+		            /**
+	                 * 美团平台月销售单量
+	                 **/
+				   			private String meituanSale;
+		   		
+		            /**
+	                 * 百度平台月销售单量
+	                 **/
+				   			private String baiduSale;
+		   		
+		            /**
+	                 * 饿了么平台佣金率
+	                 **/
+				   			private String elmRate;
+		   		
+		            /**
+	                 * 美团平台佣金率
+	                 **/
+				   			private String meituanRate;
+		   		
+		            /**
+	                 * 百度平台佣金率
+	                 **/
+				   			private String baiduRate;
+		   		
+		            /**
+	                 * 登记人
+	                 **/
+				   			private String registrant;
+		   		
+		            /**
+	                 * 登记日期
+	                 **/
+					@DateTimeFormat(pattern="yyyy-MM-dd") 
+							private Date registDate;
+		
+		   		
+		            /**
+	                 * 营业执照
+	                 **/
+				   			private String businessLicenseImg;
+		   		
+		            /**
+	                 * 卫生经营许可证
+	                 **/
+				   			private String healthLicenseImg;
+		   		
+		            /**
+	                 * 菜单
+	                 **/
+				   			private String menuImg;
+		   		
+		            /**
+	                 * 法人身份证（正面）
+	                 **/
+				   			private String corporateIdcardFront;
+		   		
+		            /**
+	                 * 法人身份证（反面）
+	                 **/
+				   			private String corporateIdcardBack;
+		   		
+		            /**
+	                 * 堂食照
+	                 **/
+				   			private String canteenImg;
+		   		
+		            /**
+	                 * 后厨照
+	                 **/
+				   			private String kitchenImg;
+		   		
+		            /**
+	                 * 门头
+	                 **/
+				   			private String doorImg;
+		   		
+		            /**
+	                 * 法人手持身份证(正）
+	                 **/
+				   			private String corporateWithidcardFront;
+		   		
+		            /**
+	                 * 法人手持身份证(反)
+	                 **/
+				   			private String corporateWithidcardBack;
 		   		
 	
 				
@@ -178,11 +276,11 @@ public class Store extends Model{
 		
 		
 			
-								/**
+			/**
 			 * 获取 营业时间起
 			 * @return Date this.workTimeBegin
 			 */
-			public Date getWorkTimeBegin(){
+			public Time getWorkTimeBegin(){
 				return this.workTimeBegin;
 			}
 			
@@ -190,14 +288,14 @@ public class Store extends Model{
 			 * 设置 营业时间起
 			 * @param Date workTimeBegin 
 			 */
-			public void setWorkTimeBegin(Date workTimeBegin){
+			public void setWorkTimeBegin(Time workTimeBegin){
 				this.workTimeBegin = workTimeBegin;
 			}
 								/**
 			 * 获取 营业时间起
 			 * @return Date this.workTimeEnd
 			 */
-			public Date getWorkTimeEnd(){
+			public Time getWorkTimeEnd(){
 				return this.workTimeEnd;
 			}
 			
@@ -205,7 +303,7 @@ public class Store extends Model{
 			 * 设置 营业时间起
 			 * @param Date workTimeEnd 
 			 */
-			public void setWorkTimeEnd(Date workTimeEnd){
+			public void setWorkTimeEnd(Time workTimeEnd){
 				this.workTimeEnd = workTimeEnd;
 			}
 						
@@ -406,6 +504,159 @@ public class Store extends Model{
 
 			public void setBrandName(String brandName) {
 				this.brandName = brandName;
+			}
+
+			public String getAverageSales() {
+				return averageSales;
+			}
+
+			public void setAverageSales(String averageSales) {
+				this.averageSales = averageSales;
+			}
+
+			public String getElmSale() {
+				return elmSale;
+			}
+
+			public void setElmSale(String elmSale) {
+				this.elmSale = elmSale;
+			}
+
+			public String getMeituanSale() {
+				return meituanSale;
+			}
+
+			public void setMeituanSale(String meituanSale) {
+				this.meituanSale = meituanSale;
+			}
+
+			public String getBaiduSale() {
+				return baiduSale;
+			}
+
+			public void setBaiduSale(String baiduSale) {
+				this.baiduSale = baiduSale;
+			}
+
+			public String getElmRate() {
+				return elmRate;
+			}
+
+			public void setElmRate(String elmRate) {
+				this.elmRate = elmRate;
+			}
+
+			public String getMeituanRate() {
+				return meituanRate;
+			}
+
+			public void setMeituanRate(String meituanRate) {
+				this.meituanRate = meituanRate;
+			}
+
+			public String getBaiduRate() {
+				return baiduRate;
+			}
+
+			public void setBaiduRate(String baiduRate) {
+				this.baiduRate = baiduRate;
+			}
+
+			public String getRegistrant() {
+				return registrant;
+			}
+
+			public void setRegistrant(String registrant) {
+				this.registrant = registrant;
+			}
+
+			public Date getRegistDate() {
+				return registDate;
+			}
+
+			public void setRegistDate(Date registDate) {
+				this.registDate = registDate;
+			}
+
+
+			public String getBusinessLicenseImg() {
+				return businessLicenseImg;
+			}
+
+			public void setBusinessLicenseImg(String businessLicenseImg) {
+				this.businessLicenseImg = businessLicenseImg;
+			}
+
+			public String getHealthLicenseImg() {
+				return healthLicenseImg;
+			}
+
+			public void setHealthLicenseImg(String healthLicenseImg) {
+				this.healthLicenseImg = healthLicenseImg;
+			}
+
+			public String getMenuImg() {
+				return menuImg;
+			}
+
+			public void setMenuImg(String menuImg) {
+				this.menuImg = menuImg;
+			}
+
+			public String getCorporateIdcardFront() {
+				return corporateIdcardFront;
+			}
+
+			public void setCorporateIdcardFront(String corporateIdcardFront) {
+				this.corporateIdcardFront = corporateIdcardFront;
+			}
+
+			public String getCorporateIdcardBack() {
+				return corporateIdcardBack;
+			}
+
+			public void setCorporateIdcardBack(String corporateIdcardBack) {
+				this.corporateIdcardBack = corporateIdcardBack;
+			}
+
+			public String getCanteenImg() {
+				return canteenImg;
+			}
+
+			public void setCanteenImg(String canteenImg) {
+				this.canteenImg = canteenImg;
+			}
+
+			public String getKitchenImg() {
+				return kitchenImg;
+			}
+
+			public void setKitchenImg(String kitchenImg) {
+				this.kitchenImg = kitchenImg;
+			}
+
+			public String getDoorImg() {
+				return doorImg;
+			}
+
+			public void setDoorImg(String doorImg) {
+				this.doorImg = doorImg;
+			}
+
+			public String getCorporateWithidcardFront() {
+				return corporateWithidcardFront;
+			}
+
+			public void setCorporateWithidcardFront(String corporateWithidcardFront) {
+				this.corporateWithidcardFront = corporateWithidcardFront;
+			}
+
+			public String getCorporateWithidcardBack() {
+				return corporateWithidcardBack;
+			}
+
+			public void setCorporateWithidcardBack(String corporateWithidcardBack) {
+				this.corporateWithidcardBack = corporateWithidcardBack;
 			}
 		   		
 		
