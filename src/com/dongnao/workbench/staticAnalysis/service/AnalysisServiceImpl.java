@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.dongnao.workbench.staticAnalysis.model.DemandAnalysis;
+import com.dongnao.workbench.common.bean.ResultMessage;
+import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.product.dao.ProductMapper;
 import com.dongnao.workbench.staticAnalysis.dao.AnalysisMapper;
 import com.dongnao.workbench.staticAnalysis.model.BidStaticAnalysis;
@@ -21,7 +23,7 @@ import com.dongnao.workbench.staticAnalysis.model.StoreActiveAnalysis;
 @Service("analysisService")
 public class AnalysisServiceImpl implements AnalysisService{
 	@Resource
-	private AnalysisMapper AnalysisMapper;
+	private AnalysisMapper analysisMapper;
 	/**
 	 * 精准客户需求分析方法
 	 * */
@@ -48,6 +50,16 @@ public class AnalysisServiceImpl implements AnalysisService{
 	 * */
 	public List<BidStaticAnalysis> allStatic(Object object) {
 		return null;
-	};
+	}
 	
+	/**
+	 * 新增员工工资表方法
+	 * @param empSalary:实体类
+	 */
+	@Override
+	public ResultMessage addbidAnalysis(BidStaticAnalysis bidAnalysis) {
+		analysisMapper.addbidAnalysis(bidAnalysis);
+		return AjaxUtils.getSuccessMessage();
+	};
+
 }

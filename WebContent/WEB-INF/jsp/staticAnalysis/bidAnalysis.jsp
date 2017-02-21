@@ -95,6 +95,35 @@ function checkLeave(){
     		}}) ;   
     	}
     }
+    
+    //导入excel数据
+	function importData(){
+		 if($('input[type="file"]').val()!=""){
+			var extend=$('input[type="file"]').val().substr($('input[type="file"]').val().lastIndexOf(".")+1);
+			if("xls|xlsx".indexOf(extend+"|")==-1){
+				 showInfo("选择的文件必须是EXCEL文件,请确认！",3000);
+	         }else{
+	        	ajaxFileUpload();
+	        	showInfo("数据导入成功",2000);
+	        	gridObj.trigger('reloadGrid');
+	         }
+		 }else{
+			showInfo("请选择EXCEL文件！",3000);
+	    }
+	}
+    
+ 	function ajaxFileUpload(){
+ 		var options = {
+				url : "<m:url value='/staticAnalysis/bidimport.do'/>",
+				type : "post",
+					dataType:"text",
+					success : function(d) {gridObj.trigger('reloadGrid');},
+					error : function(d) {gridObj.trigger('reloadGrid');},
+			};
+			// 将options传给ajaxForm
+			$('#form').ajaxSubmit(options);
+ 	}
+ 	
     </script>
 </head>
 <body onbeforeunload="checkLeave()">
@@ -103,15 +132,29 @@ function checkLeave(){
 				<!--功能按钮begin-->
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
-						<c:if test="${add}">
-							<li><a title="<m:message code="button.add"/>" href="javascript:;"
-								onclick="add();"> <i class="icon_bg icon_add"> </i> <span><m:message
-											code="button.add" /></span>
-							</a></li>
-						</c:if>
+<%-- 						<c:if test="${add}"> --%>
+							<li>
+								<a title="导入数据" href="javascript:;" onclick="$('#file').click()"> 
+									<i class="back_icon import_icon"> </i> 
+									<span>导入数据</span>
+								</a>
+								<form name="form" id="form" method="post"  enctype="multipart/form-data">
+									<input type="file" id="file" name="file" style="display: none" onchange="importData();"/>
+								</form>
+							</li>
+							<li>
+								<a title="导出数据" href="javascript:;" onclick=""> 
+									<i class="back_icon import_icon"> </i> 
+									<span>导出数据</span>
+								</a>
+							</li>
+						<%-- </c:if> --%>
 					</ul>
 				</div>
-	
+				<!-- 导入导出 -->
+				<div>
+					
+				</div>
 				<!--功能按钮end-->
 				<div class="listtable_box">
 					<!--此处放表格-->
