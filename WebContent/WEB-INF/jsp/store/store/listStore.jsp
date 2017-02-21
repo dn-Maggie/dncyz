@@ -5,11 +5,8 @@
 <%@ include file="../../common/header.jsp"%>
 <title></title>
 <script type="text/javascript">
-
-
 var gridObj = {};
 	$(function(){
-		
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
             url: "<m:url value='/store/listStore.do'/>",/*grid初始化请求数据的远程地址*/
@@ -31,14 +28,13 @@ var gridObj = {};
 				{name : "workTimeEnd",label:"营业时间起",index : "WORK_TIME_END"},				
 				{name : "storeOwnerName",label:"店长姓名",index : "STORE_OWNER_NAME"},				
 				{name : "storeOwnerTel",label:"店长电话",index : "STORE_OWNER_TEL"},				
-				{name : "proInvoiceFlag",label:"是否可以提供发票",index : "PRO_INVOICE_FLAG"},				
+				{name : "proInvoiceFlag",label:"是否可以提供发票",index : "PRO_INVOICE_FLAG"
+					,formatter:GridColModelForMatter.yesno},				
 				{name : "remark",label:"备注",index : "REMARK"},				
 				{name : "operateDate",label:"运营开始时间",index : "OPERATE_DATE"},				
-				{name : "settlementMethod",label:"结算方式",index : "SETTLEMENT_METHOD"},				
+				{name : "settlementMethod",label:"结算方式",index : "SETTLEMENT_METHOD"
+					,formatter:GridColModelForMatter.settlementMethod},				
 				{name : "storeTel",label:"店铺联系电话",index : "STORE_TEL"},				
-			/* 	{name : "realImagePath1",label:"实景图片1",index : "REAL_IMAGE_PATH_1"},				
-				{name : "realImagePath2",label:"实景图片2",index : "REAL_IMAGE_PATH_2"},				
-				{name : "realImagePath3",label:"实景图片3",index : "REAL_IMAGE_PATH_3"}		 */		
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -75,7 +71,7 @@ var gridObj = {};
 		add_iframe_dialog = new biz.dialog({
 			id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: $(window).width()*0.8,
+			width: $(window).width()*0.9,
 			height: $(window).height()*0.8,
 			title: "店铺增加"
 		});
@@ -97,7 +93,7 @@ var gridObj = {};
 		edit_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: $(window).width()*0.6,
+			width: $(window).width()*0.8,
 			height: $(window).height()*0.8,
 			title: "店铺编辑"
 		});
@@ -119,7 +115,7 @@ var gridObj = {};
 		show_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: $(window).width()*0.6,
+			width: $(window).width()*0.8,
 			height: $(window).height()*0.8,
 				title: "店铺详情"
 		});
@@ -173,52 +169,67 @@ var gridObj = {};
     		}}) ;   
     	}
     }
+ 	// 打开产品资源界面
+    function linkStoreProduct(){
+   		var key = ICSS.utils.getSelectRowData("storeId");
+   		if (key.indexOf(",") > -1 || key == "") {
+   			showMessage("请选择一条数据");
+   			return;
+   		}
+   		var url = baseUrl + '/store/toListStoreProduct.do?key=' + key;
+   		productList_iframe_dialog = new biz.dialog(
+   				{
+   					id : $('<div id="sublist_window_iframe"></div>')
+   							.html(
+   									'<iframe id="iframeSublist" name="iframeSublist" src="'
+   											+ url
+   											+ '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
+   					modal : true,
+   					width : $(window).width()*0.8,
+   					height : $(window).height()*0.8,
+   					title : "店铺产品管理"
+   				});
+   		productList_iframe_dialog.open();
+    }
     </script>
 </head>
 <body style="height:100%;">
 
 	<div class="main  choice_box">
 		<form id="queryForm"><!-- 查询区 表单 -->
-			<!-- <div class="search border-bottom">
+			 <div class="search border-bottom">
 				<ul>
-				<li><input type="text" name="actorName" id="actorName" class="search_choose"> <span>操作人:</span></li>输入框
-				<li class="date_area">
-					<span>日期:</span>
-					<div class="time_bg">
-						<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate">
-						<i class="search_time_ico2"  onclick="WdatePicker({el:'startDate'})"></i>
-					</div>
-					<i>至</i>
-					<div class="time_bg">
-						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" mainid="endDate">
-						<i class="search_time_ico2"  onclick="WdatePicker({el:'endDate'})"></i>
-					</div></li>	
-				 <li><select class="search_select" name="actType" id="actType" mainid="actType"><option value="">--请选择--</option><option value="add">add</option><option value="save">save</option><option value="update">update</option><option value="edit">edit</option><option value="insert">insert</option><option value="delete">delete</option><option value="remove">remove</option></select>
-				<span>操作类型:</span></li>下拉
-				<li><input type="text" name="actResult" id="actResult" class="search_choose"> <span>操作结果:</span></li>输入框			
-				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置">重置
-						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li>查询
+				<li>
+					<span>关键字:</span>
+					<input type="text" name="storeName" id="storeName" class="search_choose" placeholder="店铺名称">
+					</li>
+				<li><input type="text" name="storeOwnerName" id="storeOwnerName" class="search_choose" placeholder="店长姓名">
+				</li>
+				<li>	<input type="text" name="storeAddress" id="storeAddress" class="search_choose" placeholder="店铺地址">
+				</li>
+				<li>
+					<input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置">
+					<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li>
 				</ul>
-		   </div> -->
+		   </div>
 	    </form>
 		<div class="listplace">
 				<!--功能按钮begin-->
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
-						<li><a title="<m:message code="button.add"/>" href="javascript:;"
-							onclick="add();"> <i class="icon_bg icon_add"> </i> <span><m:message
-										code="button.add" /></span>
+						<li><a title="<m:message code="button.add"/>" href="javascript:;" onclick="add();"> <i class="icon_bg icon_add"> </i> <span><m:message
+							code="button.add" /></span>
 						</a></li>
-							<li><a title="<m:message code="button.edit"/>" href="javascript:;"
-								onclick="edit();"><i class="icon_bg icon_edit"></i> <span><m:message
-											code="button.edit" /></span> </a></li>
-							<li><a title="<m:message code="button.delete"/>" href="javascript:;"
-								onclick="batchDelete();"> <i class="icon_bg icon_del"></i> <span><m:message
-											code="button.delete" /></span>
-							</a></li>
-						<li><a title="<m:message code="button.view"/>" href="javascript:"
-							onclick="show();"> <i class="icon_bg icon_ckxq"></i> <span><m:message
-										code="button.view" /></span>
+						<li><a title="<m:message code="button.edit"/>" href="javascript:;" onclick="edit();"><i class="icon_bg icon_edit"></i> <span><m:message
+							code="button.edit" /></span> </a></li>
+						<li><a title="<m:message code="button.delete"/>" href="javascript:;" onclick="batchDelete();"> <i class="icon_bg icon_del"></i> <span><m:message
+							code="button.delete" /></span>
+						</a></li>
+						<li><a title="店铺产品关联" href="javascript:;" onclick="linkStoreProduct();"> <i class="back_icon resources_icon"></i> 
+							<span>店铺产品关联</span>
+						</a></li>
+						<li><a title="<m:message code="button.view"/>" href="javascript:" onclick="show();">
+							<i class="icon_bg icon_ckxq"></i> <span><m:message code="button.view" /></span>
 						</a></li>
 					</ul>
 				</div>

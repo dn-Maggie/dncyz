@@ -7,7 +7,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.basic.service.BrandService;
+import com.dongnao.workbench.basic.service.UserInfoService;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
@@ -39,14 +41,20 @@ public class StoreController{
     private BrandService brandService;
     @Resource
     private DictInfoService dictInfoService;
+    @Resource
+    private UserInfoService userInfoService;
  	/**
  	* 进入新增页面
  	* @return ModelAndView 返回到新增页面
  	*/
  	@RequestMapping("/toAddStore")
-	public ModelAndView toAdd(){
+	public ModelAndView toAdd(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/store/addStore");
 		mv.addObject("brand", brandService.listByCondition(null));
+		UserInfo userInfo = new UserInfo();
+		if(!Utils.isSuperAdmin(request))
+ 		{userInfo.setId(Utils.getLoginUserInfoId(request));}
+		mv.addObject("user", userInfoService.listByCondition(userInfo));
 		return mv;
 	}
 	
@@ -80,8 +88,7 @@ public class StoreController{
 	@RequestMapping("/addStore")
 	public void add(Store store,HttpServletRequest request,HttpServletResponse response){
 	store.setStoreId(Utils.generateUniqueID());
-	AjaxUtils.sendAjaxForObjectStr(
-				response,storeService.add(store));		
+	AjaxUtils.sendAjaxForObjectStr(response,storeService.add(store));		
 	}
 	
 	/**
@@ -106,7 +113,7 @@ public class StoreController{
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/toListStore")
-	public ModelAndView toList(){
+	public ModelAndView toList(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/store/listStore");
 		 return mv;
 	}
@@ -123,6 +130,8 @@ public class StoreController{
 	public void listByCondition(Store store,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		store.setPage(page);	
+		if(!Utils.isSuperAdmin(request))
+ 		{store.setOwnerUserId(Utils.getLoginUserInfoId(request));}
 		List<Store> list = storeService.listByCondition(store);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
@@ -136,7 +145,6 @@ public class StoreController{
 	public ModelAndView toEdit(String key){
 		Store entity = storeService.getByPrimaryKey(key);
 		Map<String,String> store = FormatEntity.getObjectValue(entity);
-		
 		return new ModelAndView("WEB-INF/jsp/store/store/editStore","store",store );
 	}
 	
@@ -151,5 +159,22 @@ public class StoreController{
 		AjaxUtils.sendAjaxForObjectStr(
 				response,storeService.update(store));	
 	}
-	
+	/**
+	 * 进入产品资源界面
+	 * @param key String：店铺ID
+	 * @return ModelAndView: 查询实体
+	 */	
+	@RequestMapping("/toListStoreProduct")
+	public ModelAndView toListStoreProduct(String key){
+		return new ModelAndView("WEB-INF/jsp/store/store/listStoreProduct","storeId",key );
+	}
+	/**
+	 * 进入店铺产品分类界面
+	 * @param key String：店铺ID
+	 * @return ModelAndView: 查询实体
+	 */	
+	@RequestMapping("/toListStoreProductClass")
+	public ModelAndView toListStoreProductClass(String key){
+		return new ModelAndView("WEB-INF/jsp/store/store/listStoreProduct","storeId",key );
+	}
 }

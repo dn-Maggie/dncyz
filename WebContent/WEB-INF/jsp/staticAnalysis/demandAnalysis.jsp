@@ -15,32 +15,25 @@ var gridObj = {};
 		//进入页面的展开导航栏搜索方法
 		var _iframe = window.parent;
 		_iframe.$(".hidden").each(function(){this.className='inlineBlock'})
-  		
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/staticAnalysis/listStoreActivity.do'/>",/*grid初始化请求数据的远程地址*/
+            url: "<m:url value='/staticAnalysis/demandAnalysis.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
-           	sortname:"STORE_ACTIVITY_ID",
+           	sortname:"averageCost",
            	sortorder:"asc",
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
     		rowNum:10,//默认显示15条
             colModel:[
-				/* {name : "storeActivityId",hidden : true,key : true,label:"店铺活动ID(主键)",index : "STORE_ACTIVITY_ID"}, */				
-				{name : "storeName",label:"商户名称"},				
-				{name : "storeArea",label:"商圈",},				
-				{name : "activityType",label:"活动类型",},				
-				{name : "activityName",label:"活动名称",},				
-				{name : "platformAllowance",label:"平台补贴金额"},				
-				{name : "activityIntensity",label:"活动力度",},				
-				{name : "activityCycle",label:"活动周期",},				
-				{name : "activityTotalCost",label:"该活动总支出",},				
-				{name : "activityTotalProfit",label:"共计产生利润"},				
-				{name : "profitPercent",label:"利润率"},	
-				{name : "enterRateInActivity",label:"活动期间进店率"},
-				{name : "conversionRateInActivity",label:"活动期间转化率"},
-				{name : "tradeAmountIncrementPercent",label:"活动期间同比上期交易额增幅"},	
-				{name : "orderAmountIncrementPercent",label:"活动期间同比上期订单量增幅"},	
+				{name : "storeArea",hidden : true,key : true,label:"商户所在区域",index : "storeArea"},				
+				{name : "customName",label:"客户名称",index : "customName"},				
+				{name : "customOrdAddr",label:"客户常用订餐地址",index : "customOrdAddr"},				
+				{name : "customTel",label:"客户手机号",index : "customTel"},				
+				{name : "mostBrowseMerchantName",label:"客户浏览最多次的商户名称",index : "mostBrowseMerchantName"},				
+				{name : "mostBrowseMerchantType",label:"客户浏览最多次的商户类型",index : "mostBrowseMerchantType"},				
+				{name : "averageCost",label:"客户消费的平均单价",index : "averageCost"},				
+				{name : "favoriteDishesName",label:"客户最喜欢的菜品名称",index : "favoriteDishesName"},				
+				{name : "favoriteDishesCost",label:"客户最喜欢的菜品的平均价格",index : "favoriteDishesCost"},				
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -99,6 +92,7 @@ var gridObj = {};
     </script>
 </head>
 <body onbeforeunload="checkLeave()">
+
 	<div class="main  choice_box">
 		<div class="listplace">
 				<!--功能按钮begin-->

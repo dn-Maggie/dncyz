@@ -31,9 +31,9 @@ a{text-decoration:none;outline:none;}
 
 
 
-form{height:100%;}
-form>.ui-table{height:100%;}
-form>.ui-table>.table{height:100%;}
+form{/* height:100%; */height:auto;}
+form>.ui-table{/* height:100%; */height:auto;}
+form>.ui-table>.table{/* height:100%; */height:auto;}
 .form_select{width: 150px;height: 30px;line-height:30px; border: 1px solid #ddd;color: #666;padding-left: 5px;outline: none;}
 
 /*状态样式*/

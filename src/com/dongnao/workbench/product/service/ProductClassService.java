@@ -43,4 +43,10 @@ public interface ProductClassService  {
 	 * @param productClass ProductClass 实体对象
 	 */	
 	public ResultMessage update(ProductClass productClass);
+	/**
+	 * 初始化树
+	 * @param productClassName 类型名
+	 * @return String 
+	 */
+	String initDictTypeTree(String productClassName);
 }

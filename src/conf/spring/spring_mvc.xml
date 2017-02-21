@@ -87,6 +87,7 @@
 				<value>/store/toListStore.do</value>
 				<value>/activity/toListActivity.do</value>
 				<value>/userInfo/toEditPassWord.do</value>
+				<value>/productClass/toProductManage.do</value>
 			</list>
 		</property>
 	</bean>

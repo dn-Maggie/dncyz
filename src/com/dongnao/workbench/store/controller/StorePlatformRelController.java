@@ -30,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("storePlatformRel")
 public class StorePlatformRelController{
-         @Resource
+	@Resource
 	private StorePlatformRelService storePlatformRelService;
 	 
  	/**

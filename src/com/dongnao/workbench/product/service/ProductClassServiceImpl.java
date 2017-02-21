@@ -4,10 +4,18 @@ import java.util.List;
 import com.dongnao.workbench.product.dao.ProductClassMapper;
 import com.dongnao.workbench.product.model.ProductClass;
 import com.dongnao.workbench.product.service.ProductClassService;
+import com.dongnao.workbench.system.model.DictType;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.dongnao.workbench.common.Constant;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.common.util.Utils;
  
 /**
  * 描述：产品分类模块service接口实现类，实现service接口方法
@@ -63,5 +71,35 @@ public class ProductClassServiceImpl implements ProductClassService{
 	public ResultMessage update(ProductClass productClass){
 		productClassMapper.update(productClass);
 		return AjaxUtils.getSuccessMessage();
+	}
+	/**
+	 * 初始化树
+	 * @param productClassName 类型名
+	 * @return String 
+	 */
+	@Override
+	public String initDictTypeTree(String productClassName) {
+		JSONArray productClassTree = new JSONArray();
+		//根节点数据
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("id", "0");
+		jsonObj.put("name", Utils.getI18n("system.product", null));
+		jsonObj.put("open", "true");
+		jsonObj.put("isParent", "true");
+		productClassTree.add(jsonObj);
+		
+		ProductClass productClass = new ProductClass();
+		productClass.setProductClassName(productClassName);;
+		productClass.setOrder("asc");
+		productClass.setOrderFields("PRODUCT_CLASS_NAME");
+		List<ProductClass> productClassList = productClassMapper.listByCondition(productClass);
+		for (ProductClass dt : productClassList) {
+			jsonObj = new JSONObject();
+			jsonObj.put("id", dt.getProductClassId());
+			jsonObj.put("pId", 0);
+			jsonObj.put("name", dt.getProductClassName());
+			productClassTree.add(jsonObj);
+		}
+		return productClassTree.toString();
 	}
 }

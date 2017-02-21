@@ -37,6 +37,7 @@
 					<result column="door_img" property="doorImg" jdbcType="VARCHAR" />
 					<result column="corporate_withidcard_front" property="corporateWithidcardFront" jdbcType="VARCHAR" />
 					<result column="corporate_withidcard_back" property="corporateWithidcardBack" jdbcType="VARCHAR" />
+					<result column="owner_userId" property="ownerUserId" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		 	 STORE_ID
@@ -74,6 +75,7 @@
 			,door_img
 			,corporate_withidcard_front
 			,corporate_withidcard_back
+			,owner_userId
 		</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -113,6 +115,7 @@
 			,s.door_img
 			,s.corporate_withidcard_front
 			,s.corporate_withidcard_back
+			,s.owner_userId
 		from dn_store as s
 		left join dn_brand as b on b.BRAND_ID = s.BRAND_ID
 		where s.STORE_ID = #{storeId,jdbcType=CHAR}
@@ -155,9 +158,13 @@
 			,s.door_img
 			,s.corporate_withidcard_front
 			,s.corporate_withidcard_back
+			,s.owner_userId
 		from dn_store as s
 		left join dn_brand as b on b.BRAND_ID = s.BRAND_ID
 		where 1=1
+		<if test="ownerUserId != null and '' != ownerUserId">  
+			and s.owner_userId = #{ownerUserId,jdbcType=VARCHAR}
+		</if>
 		<if test="storeId != null and '' != storeId">  
 			and s.STORE_ID = #{storeId,jdbcType=CHAR}
 		</if>
@@ -168,7 +175,7 @@
 			and s.BRAND_ID = #{brandId,jdbcType=CHAR}
 		</if>
 		<if test="storeAddress != null and '' != storeAddress">  
-			and s.STORE_ADDRESS = #{storeAddress,jdbcType=VARCHAR}
+			and s.STORE_ADDRESS like CONCAT('%',#{storeAddress,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="workTimeBegin != null and '' != workTimeBegin">  
 			and s.WORK_TIME_BEGIN = #{workTimeBegin,jdbcType=TIME}
@@ -177,7 +184,7 @@
 			and s.WORK_TIME_END = #{workTimeEnd,jdbcType=TIME}
 		</if>
 		<if test="storeOwnerName != null and '' != storeOwnerName">  
-			and s.STORE_OWNER_NAME = #{storeOwnerName,jdbcType=VARCHAR}
+			and s.STORE_OWNER_NAME like CONCAT('%',#{storeOwnerName,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="storeOwnerTel != null and '' != storeOwnerTel">  
 			and s.STORE_OWNER_TEL = #{storeOwnerTel,jdbcType=VARCHAR}
@@ -246,6 +253,7 @@
 			,#{doorImg,jdbcType=VARCHAR}
 			,#{corporateWithidcardFront,jdbcType=VARCHAR}
 			,#{corporateWithidcardBack,jdbcType=VARCHAR}
+			,#{ownerUserId,jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -286,6 +294,7 @@
 			,door_img = #{doorImg,jdbcType=VARCHAR}
 			,corporate_withidcard_front = #{corporateWithidcardFront,jdbcType=VARCHAR}
 			,corporate_withidcard_back = #{corporateWithidcardBack,jdbcType=VARCHAR}
+			,owner_userId = #{ownerUserId,jdbcType=VARCHAR}
 		where STORE_ID = #{storeId,jdbcType=CHAR}
 	</update>
 </mapper>

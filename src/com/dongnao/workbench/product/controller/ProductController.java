@@ -41,9 +41,10 @@ public class ProductController{
  	* @return ModelAndView 返回到新增页面
  	*/
  	@RequestMapping("/toAddProduct")
-	public ModelAndView toAdd(){
+	public ModelAndView toAdd(String productClassId){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/product/product/addProduct");
 		mv.addObject("productClass", productClassService.listByCondition(null));
+		mv.addObject("productClassId", productClassId);
 		return mv;
 	}
 	
@@ -122,10 +123,10 @@ public class ProductController{
 	 */	
 	@RequestMapping("/toEditProduct")
 	public ModelAndView toEdit(String key){
-		Product entity = productService.getByPrimaryKey(key);
-		Map<String,String> product = FormatEntity.getObjectValue(entity);
-		
-		return new ModelAndView("WEB-INF/jsp/product/product/editProduct","product",product );
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/product/product/editProduct");
+		mv.addObject("productClass", productClassService.listByCondition(null));
+		mv.addObject("product", FormatEntity.getObjectValue(productService.getByPrimaryKey(key)));
+		return mv;
 	}
 	
 	/**
@@ -139,5 +140,13 @@ public class ProductController{
 		AjaxUtils.sendAjaxForObjectStr(
 				response,productService.update(product));	
 	}
-	
+	/**
+	 * 进入产品资源管理选择界面
+	 * @param key String：店铺ID
+	 * @return ModelAndView: 查询实体
+	 */	
+	@RequestMapping("/toSelectProduct")
+	public ModelAndView toSelectProduct(String key){
+		return new ModelAndView("WEB-INF/jsp/product/product/selectProduct","storeId",key);
+	}
 }

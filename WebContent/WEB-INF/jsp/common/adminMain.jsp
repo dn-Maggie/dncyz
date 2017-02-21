@@ -150,17 +150,17 @@ jQuery(function($) {
 							<span>商圈</span>
 							<select class="search_select_nowidth" name="bussinessCir" id="bussinessCir">
 								<option>请选择</option>
-								<c:forEach items="${tradingArea}" var="activeType">
+								<c:forEach items="${tradingArea}" var="tradingArea">
 									<option value="${tradingArea.dictCode}"><c:out value="${tradingArea.dictName}"></c:out></option>
 								</c:forEach>
 							</select>
 						</li>
 						<li style="margin-right:10px;"  class="hidden">
 							<span>活动类型</span>
-							<select class="search_select_nowidth" name="activeType" id="activeType">
+							<select class="search_select_nowidth" name="activityType" id="activityType">
 								<option>请选择</option>
-								<c:forEach items="${activeType}" var="activeType">
-									<option value="${activeType.dictCode}"><c:out value="${activeType.dictName}"></c:out></option>
+								<c:forEach items="${activityType}" var="activityType">
+									<option value="${activityType.dictCode}"><c:out value="${activityType.dictName}"></c:out></option>
 								</c:forEach>
 							</select>
 						</li>

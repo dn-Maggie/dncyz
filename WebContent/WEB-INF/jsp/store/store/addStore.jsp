@@ -6,8 +6,6 @@
 <%@ include file="../../common/ace.jsp"%>
 <script type="text/javascript">
 $(function() {
-	
-	
 	//select多选 初始化方法
 	$(".choose_select").chosen(); 
 	$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
@@ -270,6 +268,14 @@ $(function() {
 				<td class="inputLabelTd">百度平台佣金率(%)：</td>
 				<td class="inputTd">
 					<input id="edit_baiduRate" name="baiduRate" type="text" class="text rate" value="${store.baiduRate}"/>
+				</td>
+				<td class="inputLabelTd">关联店铺账号：</td>
+				<td class="inputTd">
+					<select class="search_select" name="ownerUserId" id="edit_ownerUserId">
+						<c:forEach items="${user}" var="user">
+							<option value="${user.id}"><c:out value="${user.userAccount}"></c:out></option>
+						</c:forEach>
+					</select>
 				</td>
 			</tr>
 			<tr>

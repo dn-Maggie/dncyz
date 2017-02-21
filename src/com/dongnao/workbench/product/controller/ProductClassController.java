@@ -94,7 +94,15 @@ public class ProductClassController{
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/product/productClass/listProductClass");
 		 return mv;
 	}
-	
+	/**
+	 * 进入产品管理页面
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toProductManage")
+	public ModelAndView toProductManage(){
+		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/product/productManage/productManage");
+		 return mv;
+	}
 	/**
 	 * 根据条件查找列表方法
 	 * @param productClass ProductClass：实体对象（查询条件）
@@ -135,5 +143,16 @@ public class ProductClassController{
 		AjaxUtils.sendAjaxForObjectStr(
 				response,productClassService.update(productClass));	
 	}
-	
+	/**
+	 * 初始化树
+	 * @param productClassName 
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse
+	 */
+	@RequestMapping("/initProductClassTree")
+	public void initProductClassTree(String productClassName, HttpServletRequest request,
+			HttpServletResponse response){
+		String jsonData = productClassService.initDictTypeTree(productClassName);
+		AjaxUtils.sendAjaxForObject(response, jsonData);
+	}
 }

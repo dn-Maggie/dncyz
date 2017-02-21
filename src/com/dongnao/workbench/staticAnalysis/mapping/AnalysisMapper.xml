@@ -47,7 +47,8 @@
 		<result column="favoriteDishesCost" property="favoriteDishesCost" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="StoreActiveAnalysis_Column_List">
-	 	storeName
+	 	id
+	 	,storeName
 		,storeArea
 		,searchTime
 		,activityType
@@ -64,7 +65,8 @@
 		,orderAmountIncrementPercent
 	</sql>
 	<sql id="DemandAnalysis_Column_List">
-	 	searchTime
+	 	id
+	 	,searchTime
 		,storeArea
 		,customName
 		,customOrdAddr
@@ -76,7 +78,8 @@
 		,favoriteDishesCost
 	</sql>
 	<sql id="BidStaticAnalysis_Column_List">
-	 	storeName
+		id
+	 	,storeName
 		,storeArea
 		,bidTime
 		,searchTime
@@ -92,20 +95,159 @@
 		,contributionInBid
 	</sql>
 	<select id="demandAnalysis" resultMap="DemandAnalysisBaseResultMap" parameterType="com.dongnao.workbench.staticAnalysis.model.DemandAnalysis">
-	
-	
+		select
+		<include refid="DemandAnalysis_Column_List" />
+		from analysis_demand
+		where 1=1
+		<if test="id != null and '' != id">  
+			and id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="searchtime != null and '' != searchtime">  
+			and searchTime = #{searchtime,jdbcType=VARCHAR}
+		</if>
+		<if test="storearea != null and '' != storearea">  
+			and storeArea = #{storearea,jdbcType=VARCHAR}
+		</if>
+		<if test="customname != null and '' != customname">  
+			and customName = #{customname,jdbcType=VARCHAR}
+		</if>
+		<if test="customordaddr != null and '' != customordaddr">  
+			and customOrdAddr = #{customordaddr,jdbcType=VARCHAR}
+		</if>
+		<if test="customtel != null and '' != customtel">  
+			and customTel = #{customtel,jdbcType=VARCHAR}
+		</if>
+		<if test="mostbrowsemerchantname != null and '' != mostbrowsemerchantname">  
+			and mostBrowseMerchantName = #{mostbrowsemerchantname,jdbcType=VARCHAR}
+		</if>
+		<if test="mostbrowsemerchanttype != null and '' != mostbrowsemerchanttype">  
+			and mostBrowseMerchantType = #{mostbrowsemerchanttype,jdbcType=VARCHAR}
+		</if>
+		<if test="averagecost != null and '' != averagecost">  
+			and averageCost = #{averagecost,jdbcType=DECIMAL}
+		</if>
+		<if test="favoritedishesname != null and '' != favoritedishesname">  
+			and favoriteDishesName = #{favoritedishesname,jdbcType=VARCHAR}
+		</if>
+		<if test="favoritedishescost != null and '' != favoritedishescost">  
+			and favoriteDishesCost = #{favoritedishescost,jdbcType=DECIMAL}
+		</if>
+		<if test="orderFields != null and '' != orderFields">  
+         	order by ${orderFields} ${order}
+       	</if>
+		
 	</select>
 	
 	<select id="bidStaticAnalysis" resultMap="BidStaticAnalysisResultMap" parameterType="com.dongnao.workbench.staticAnalysis.model.BidStaticAnalysis">
-	
+		select
+		<include refid="BidStaticAnalysis_Column_List" />
+		from analysis_bid
+		where 1=1
+		<if test="id != null and '' != id">  
+			and id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="storename != null and '' != storename">  
+			and storeName = #{storename,jdbcType=VARCHAR}
+		</if>
+		<if test="storearea != null and '' != storearea">  
+			and storeArea = #{storearea,jdbcType=VARCHAR}
+		</if>
+		<if test="bidtime != null and '' != bidtime">  
+			and bidTime = #{bidtime,jdbcType=VARCHAR}
+		</if>
+		<if test="searchtime != null and '' != searchtime">  
+			and searchTime = #{searchtime,jdbcType=VARCHAR}
+		</if>
+		<if test="bidcycle != null and '' != bidcycle">  
+			and bidCycle = #{bidcycle,jdbcType=VARCHAR}
+		</if>
+		<if test="bidtotalamountinweek != null and '' != bidtotalamountinweek">  
+			and bidTotalAmountInWeek = #{bidtotalamountinweek,jdbcType=VARCHAR}
+		</if>
+		<if test="averageclickcost != null and '' != averageclickcost">  
+			and averageClickCost = #{averageclickcost,jdbcType=DECIMAL}
+		</if>
+		<if test="bidactivityintensity != null and '' != bidactivityintensity">  
+			and bidActivityIntensity = #{bidactivityintensity,jdbcType=VARCHAR}
+		</if>
+		<if test="exposureincrementpercent != null and '' != exposureincrementpercent">  
+			and exposureIncrementPercent = #{exposureincrementpercent,jdbcType=VARCHAR}
+		</if>
+		<if test="enterrateincrementpercent != null and '' != enterrateincrementpercent">  
+			and enterRateIncrementPercent = #{enterrateincrementpercent,jdbcType=VARCHAR}
+		</if>
+		<if test="tradeamountincrementpercent != null and '' != tradeamountincrementpercent">  
+			and tradeAmountIncrementPercent = #{tradeamountincrementpercent,jdbcType=VARCHAR}
+		</if>
+		<if test="rankbeforebid != null and '' != rankbeforebid">  
+			and rankBeforeBid = #{rankbeforebid,jdbcType=VARCHAR}
+		</if>
+		<if test="rankafterbid != null and '' != rankafterbid">  
+			and rankAfterBid = #{rankafterbid,jdbcType=VARCHAR}
+		</if>
+		<if test="contributioninbid != null and '' != contributioninbid">  
+			and contributionInBid = #{contributioninbid,jdbcType=VARCHAR}
+		</if>
+		<if test="orderFields != null and '' != orderFields">  
+         	order by ${orderFields} ${order}
+       	</if>
 	
 	
 	</select>
 	
 	<select id="storeActiveAnalysis" resultMap="StoreActiveAnalysisResultMap" parameterType="com.dongnao.workbench.staticAnalysis.model.StoreActiveAnalysis">
-	
-	
-	
+		select
+		<include refid="StoreActiveAnalysis_Column_List" />
+		from analysis_bid
+		where 1=1
+		<if test="id != null and '' != id">  
+			and id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="storename != null and '' != storename">  
+			and storeName = #{storename,jdbcType=VARCHAR}
+		</if>
+		<if test="storearea != null and '' != storearea">  
+			and storeArea = #{storearea,jdbcType=VARCHAR}
+		</if>
+		<if test="bidtime != null and '' != bidtime">  
+			and bidTime = #{bidtime,jdbcType=VARCHAR}
+		</if>
+		<if test="searchtime != null and '' != searchtime">  
+			and searchTime = #{searchtime,jdbcType=VARCHAR}
+		</if>
+		<if test="bidcycle != null and '' != bidcycle">  
+			and bidCycle = #{bidcycle,jdbcType=VARCHAR}
+		</if>
+		<if test="bidtotalamountinweek != null and '' != bidtotalamountinweek">  
+			and bidTotalAmountInWeek = #{bidtotalamountinweek,jdbcType=VARCHAR}
+		</if>
+		<if test="averageclickcost != null and '' != averageclickcost">  
+			and averageClickCost = #{averageclickcost,jdbcType=DECIMAL}
+		</if>
+		<if test="bidactivityintensity != null and '' != bidactivityintensity">  
+			and bidActivityIntensity = #{bidactivityintensity,jdbcType=VARCHAR}
+		</if>
+		<if test="exposureincrementpercent != null and '' != exposureincrementpercent">  
+			and exposureIncrementPercent = #{exposureincrementpercent,jdbcType=VARCHAR}
+		</if>
+		<if test="enterrateincrementpercent != null and '' != enterrateincrementpercent">  
+			and enterRateIncrementPercent = #{enterrateincrementpercent,jdbcType=VARCHAR}
+		</if>
+		<if test="tradeamountincrementpercent != null and '' != tradeamountincrementpercent">  
+			and tradeAmountIncrementPercent = #{tradeamountincrementpercent,jdbcType=VARCHAR}
+		</if>
+		<if test="rankbeforebid != null and '' != rankbeforebid">  
+			and rankBeforeBid = #{rankbeforebid,jdbcType=VARCHAR}
+		</if>
+		<if test="rankafterbid != null and '' != rankafterbid">  
+			and rankAfterBid = #{rankafterbid,jdbcType=VARCHAR}
+		</if>
+		<if test="contributioninbid != null and '' != contributioninbid">  
+			and contributionInBid = #{contributioninbid,jdbcType=VARCHAR}
+		</if>
+		<if test="orderFields != null and '' != orderFields">  
+         	order by ${orderFields} ${order}
+       	</if>
 	</select>
 	
 	<!-- <select id="allStatic" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.product.model.Product">

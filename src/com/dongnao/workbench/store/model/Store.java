@@ -13,8 +13,10 @@ import com.dongnao.workbench.common.bean.Model;
  * @version 1.0 2017-02-10
  */
 public class Store extends Model{
-	
-	
+				    /**
+				     * 店铺使用者ID
+				     **/
+							private String ownerUserId;
 		            /**
 	                 * 店铺ID(主键)
 	                 **/
@@ -197,7 +199,15 @@ public class Store extends Model{
 		   		
 	
 				
-		  			/**
+		  			public String getOwnerUserId() {
+						return ownerUserId;
+					}
+
+					public void setOwnerUserId(String ownerUserId) {
+						this.ownerUserId = ownerUserId;
+					}
+
+					/**
 					 * 获取 店铺ID(主键)
 					 * @return String this.storeId
 					 */

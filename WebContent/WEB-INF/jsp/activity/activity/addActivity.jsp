@@ -3,8 +3,15 @@
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
+<%@ include file="../../common/ace.jsp"%>
 <script type="text/javascript">
 $(function() {
+	
+	new biz.select({//状态下拉
+	    id:"#edit_activityType",
+	    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=activityType'/>",
+	});
+	
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
 		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});
@@ -55,7 +62,8 @@ $(function() {
 				</td>
 				<td class="inputLabelTd">活动类型：</td>
 				<td class="inputTd">
-					<input id="edit_activityType" name="activityType" type="text" class="text" value="${activity.activityType}"/>
+					<select class="search_select" name="activityType" id="edit_activityType">
+					</select>
 				</td>
 			</tr>
 			<tr>

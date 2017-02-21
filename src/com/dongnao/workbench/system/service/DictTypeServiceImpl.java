@@ -52,7 +52,11 @@ public class DictTypeServiceImpl implements DictTypeService{
 	public void setDictTypeMapper(DictTypeMapper dictTypeMapper) {
 		this.dictTypeMapper = dictTypeMapper;
 	}
-	
+	/**
+	 * 初始化树
+	 * @param typeName 类型名
+	 * @return String 
+	 */
 	@Override
 	public String initDictTypeTree(String typeName) {
 		JSONArray dictTypeTree = new JSONArray();

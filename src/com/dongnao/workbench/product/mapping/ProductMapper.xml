@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dongnao.workbench.product.dao.ProductMapper">
 	<resultMap id="BaseResultMap" type="com.dongnao.workbench.product.model.Product">
-		<id column="PRODUCT_CLASS_ID" property="productClassId" jdbcType="CHAR" />
-		<result column="PRODUCT_ID" property="productId" jdbcType="CHAR" />
+		<id column="PRODUCT_ID" property="productId" jdbcType="CHAR" />
+		<result column="PRODUCT_CLASS_ID" property="productClassId" jdbcType="CHAR" />
+		<result column="PRODUCT_CLASS_NAME" property="productClassName" jdbcType="CHAR" />
 		<result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
 		<result column="PRODUCT_IMAGE_PATH" property="productImagePath" jdbcType="VARCHAR" />
 		<result column="PRODUCT_UNIT_PRICE" property="productUnitPrice" jdbcType="DOUBLE" />
@@ -14,6 +15,7 @@
 	<sql id="Base_Column_List">
 	 	PRODUCT_ID
 		,PRODUCT_CLASS_ID
+		,PRODUCT_CLASS_NAME
 		,PRODUCT_NAME
 		,PRODUCT_IMAGE_PATH
 		,PRODUCT_UNIT_PRICE
@@ -25,6 +27,7 @@
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 			p.PRODUCT_ID
+			,p.PRODUCT_CLASS_ID
 			,pc.PRODUCT_CLASS_NAME as productClassName
 			,p.PRODUCT_NAME
 			,p.PRODUCT_IMAGE_PATH
@@ -35,12 +38,13 @@
 		from dn_product as p
 		left join dn_product_class as pc on pc.PRODUCT_CLASS_ID = p.PRODUCT_CLASS_ID
 		left join dn_store as s on s.STORE_ID = p.STORE_ID
-		where p.PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}
+		where p.PRODUCT_ID = #{productId,jdbcType=CHAR}
 	</select>
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.product.model.Product">
 		select
 			p.PRODUCT_ID
+			,p.PRODUCT_CLASS_ID
 			,pc.PRODUCT_CLASS_NAME as productClassName
 			,p.PRODUCT_NAME
 			,p.PRODUCT_IMAGE_PATH
@@ -83,7 +87,7 @@
 	
 	<delete id="deleteByKey" parameterType="java.lang.String">
 		delete from dn_product
-		where PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}
+		where PRODUCT_ID = #{productId,jdbcType=CHAR}
 	</delete>
 	
 	<insert id="add" parameterType="com.dongnao.workbench.product.model.Product">
@@ -111,6 +115,6 @@
 			,PRODUCT_STOCKS = #{productStocks,jdbcType=INTEGER}
 			,PRODUCT_STATUS = #{productStatus,jdbcType=CHAR}
 			,STORE_ID = #{storeId,jdbcType=CHAR}
-		where PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}
+		where PRODUCT_ID = #{productId,jdbcType=CHAR}
 	</update>
 </mapper>

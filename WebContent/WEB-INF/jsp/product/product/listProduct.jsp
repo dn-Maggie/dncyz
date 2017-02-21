@@ -23,7 +23,8 @@ var gridObj = {};
 				{name : "productImagePath",label:"产品图片地址",index : "PRODUCT_IMAGE_PATH"},				
 				{name : "productUnitPrice",label:"产品单价",index : "PRODUCT_UNIT_PRICE"},				
 				{name : "productStocks",label:"库存数量",index : "PRODUCT_STOCKS"},				
-				{name : "productStatus",label:"产品状态",index : "PRODUCT_STATUS"}				
+				{name : "productStatus",label:"产品状态",index : "PRODUCT_STATUS"
+					,formatter:GridColModelForMatter.productStatus}				
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -161,9 +162,23 @@ var gridObj = {};
     </script>
 </head>
 <body style="height:100%;">
-
 	<div class="main  choice_box">
 		<form id="queryForm"><!-- 查询区 表单 -->
+			 <div class="search border-bottom">
+				<ul>
+				<li>
+					<span>关键字:</span>
+					<input type="text" name="storeName" id="storeName" class="search_choose" placeholder="店铺名称">
+					</li>
+				<li><input type="text" name="storeOwnerName" id="storeOwnerName" class="search_choose" placeholder="店长姓名">
+				</li>
+				<li>	<input type="text" name="storeAddress" id="storeAddress" class="search_choose" placeholder="店铺地址">
+				</li>
+				<li>
+					<input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置">
+					<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li>
+				</ul>
+		   </div>
 	    </form>
 		<div class="listplace">
 				<!--功能按钮begin-->

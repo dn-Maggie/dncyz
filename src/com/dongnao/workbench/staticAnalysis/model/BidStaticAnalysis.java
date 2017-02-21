@@ -40,8 +40,7 @@ public class BidStaticAnalysis extends Model{
 	/**
      * 竞价期间活动力度
      **/
-   			private String bidActivityIntensity
-;
+   			private String bidActivityIntensity;
 	 /**
      * 竞价期间同比周期曝光量增幅
      **/

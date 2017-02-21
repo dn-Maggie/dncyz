@@ -19,7 +19,19 @@ $(function() {
 	}).next().on(ace.click_event, function(){
 		$(this).prev().focus();
 	});
-
+	$('input[type="file"]').ace_file_input({
+		no_file:'请选择...',
+		btn_choose:'选择',
+		btn_change:'更换',
+		droppable:false,
+		onchange:null,
+		thumbnail:false,
+		whitelist:'gif|png|jpg|jpeg'
+		//blacklist:'exe|php'
+		//onchange:''
+		//
+	});
+	
 	new biz.select({//产品状态下拉
 	    id:"#edit_productStatus",
 	    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=productStatus'/>",
@@ -72,7 +84,7 @@ $(function() {
 					<select class="search_select choose_select" name="productClassId" id="edit_productClassId">
 						<option value="">--请选择--</option>
 						<c:forEach var="productClass" items="${productClass}">
-							<option value="${productClass.productClassId}"> <c:out value="${productClass.productClassName}"></c:out> </option>
+							<option value="${productClass.productClassId}"<c:if test="${productClass.productClassId==productClassId}">selected</c:if>> <c:out value="${productClass.productClassName}"></c:out> </option>
 			             </c:forEach>
 					</select>
 				</td>
@@ -82,9 +94,9 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-				<td class="inputLabelTd">产品图片地址：</td>
+				<td class="inputLabelTd">产品图片：</td>
 				<td class="inputTd">
-					<input id="edit_productImagePath" name="productImagePath" type="text" class="text" value="${product.productImagePath}"/>
+					<input id="edit_productImagePath" name="productImagePath" type="file" class="text" value="${product.productImagePath}"/>
 				</td>
 				<td class="inputLabelTd">产品单价：</td>
 				<td class="inputTd">

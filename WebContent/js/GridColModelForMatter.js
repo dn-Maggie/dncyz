@@ -6,6 +6,52 @@ GridColModelForMatter = {
 		else
 			return "有";
 	},
+	// 是否状态
+	yesno : function(cellvalue, options, cellObject) {
+		switch (cellvalue) {
+		case "0":return "否";
+		case "1":return "是";
+		default:
+			return "";
+		}
+	},
+	// 产品状态
+	productStatus : function(cellvalue, options, cellObject) {
+		switch (cellvalue) {
+		case "1":return "<i value='0' class='state_icons icon_enabled'></i>正常销售";
+		case "2":return "<i value='2' class='state_icons icon_nochange'></i>库存告罄";
+		case "3":return "<i value='3' class='state_icons icon_noaudit'></i>存货短缺";
+		default:
+			return "";
+		}
+	},
+	// 活动类型
+	activityType : function(cellvalue, options, cellObject) {
+		if (cellvalue == "1")
+			return "平台活动";
+		else
+			return "店铺活动";
+	},
+	// 活动状态
+	activityStatus : function(cellvalue, options, cellObject) {
+		if (cellvalue == "1")
+			return '<i value="0" class="state_icons icon_enabled"></i>正在进行';
+		else
+			return '<i value="1" class="state_icons icon_nochange"></i>暂未进行';
+	},
+	// 结算方式
+	settlementMethod : function(cellvalue, options, cellObject) {
+		switch (cellvalue) {
+		case "1":return "现金结算";
+		case "2":return "转帐结算";
+		case "3":return "支票";
+		case "4":return "信用卡";
+		case "5":return "银行汇票";
+		case "6":return "商业汇票";
+		default:
+			return "";
+		}
+	},
 	// 主计划审核状态
 	groupCkStatus : function(cellvalue, options, cellObject) {
 		if (cellvalue == "0") {
@@ -42,23 +88,6 @@ GridColModelForMatter = {
 			return '<i value="0" class="state_icons icon_nochange"></i>停用';//
 		} else {
 			return '<i value="1" class="state_icons icon_enabled"></i>启用';//
-		}
-	},
-	// （工资类型）
-	salaryType : function(cellvalue, options, cellObject) {
-		if (cellvalue == "year") {
-			return '年薪';
-		} else if (cellvalue == "month") {
-			return '月薪';
-		} else {
-			return '绩效提成';
-		}
-	},
-	sanctionType : function(cellvalue, options, rowObject) {
-		if (cellvalue == 1) {
-			return '奖励';
-		} else {
-			return '处罚';
 		}
 	},
 	rate : function(cellvalue, options, cellObject) {

@@ -21,7 +21,8 @@ var gridObj = {};
             colModel:[
 				{name : "activityId",hidden : true,key : true,label:"活动ID(主键)",index : "ACTIVITY_ID"},				
 				{name : "activityName",label:"活动名称",index : "ACTIVITY_NAME"},				
-				{name : "activityType",label:"活动类型",index : "ACTIVITY_TYPE"},				
+				{name : "activityType",label:"活动类型",index : "ACTIVITY_TYPE"
+					,formatter:GridColModelForMatter.activityType},				
 				{name : "activityDesc",label:"活动描述",index : "ACTIVITY_DESC"},				
 				{name : "activityExpectedProfit",label:"活动预计价值",index : "ACTIVITY_EXPECTED_PROFIT"}				
            	],
@@ -164,8 +165,25 @@ var gridObj = {};
 
 	<div class="main  choice_box">
 		<form id="queryForm"><!-- 查询区 表单 -->
+			 <div class="search border-bottom">
+				<ul>
+				<li>
+				<span>关键字:</span>
+				<input type="text" name="storeName" id="storeName" class="search_choose" placeholder="店铺名称">
+				</li>
+				<li>
+				<input type="text" name="storeOwnerName" id="storeOwnerName" class="search_choose" placeholder="店长姓名">
+				</li>
+				<li>
+				<input type="text" name="storeAddress" id="storeAddress" class="search_choose" placeholder="店铺地址">
+				</li>
+				<li>
+				<input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置">
+				<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li>
+			</ul>
+		   </div>
 	    </form>
-<div class="listplace">
+		<div class="listplace">
 				<!--功能按钮begin-->
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>

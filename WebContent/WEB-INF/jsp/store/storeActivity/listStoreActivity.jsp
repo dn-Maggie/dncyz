@@ -24,7 +24,8 @@ var gridObj = {};
 				{name : "activityTimeEnd",label:"活动结束时间",index : "ACTIVITY_TIME_END"},				
 				{name : "activityExpectedBudget",label:"活动预算费用",index : "ACTIVITY_EXPECTED_BUDGET"},				
 				{name : "activityExpectedReturn",label:"活动预计回报",index : "ACTIVITY_EXPECTED_RETURN"},				
-				{name : "activityStatus",label:"活动状态",index : "ACTIVITY_STATUS"},				
+				{name : "activityStatus",label:"活动状态",index : "ACTIVITY_STATUS"
+					,formatter:GridColModelForMatter.activityStatus},		
 				{name : "activityActualProfit",label:"活动实际价值",index : "ACTIVITY_ACTUAL_PROFIT"},				
 				{name : "activityExecutor",label:"活动执行人",index : "ACTIVITY_EXECUTOR"},				
 				{name : "activityExecuteTime",label:"活动执行时间",index : "ACTIVITY_EXECUTE_TIME"}				
@@ -168,25 +169,19 @@ var gridObj = {};
 
 	<div class="main  choice_box">
 		<form id="queryForm"><!-- 查询区 表单 -->
-			<div class="search border-bottom">
+			 <div class="search border-bottom">
 				<ul>
-				<li><input type="text" name="actorName" id="actorName" class="search_choose"> <span>操作人:</span></li><!-- 输入框-->
-				<li class="date_area">
-					<span>日期:</span>
-					<div class="time_bg">
-						<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate">
-						<i class="search_time_ico2"  onclick="WdatePicker({el:'startDate'})"></i>
-					</div>
-					<i>至</i>
-					<div class="time_bg">
-						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" mainid="endDate">
-						<i class="search_time_ico2"  onclick="WdatePicker({el:'endDate'})"></i>
-					</div></li>	
-				 <li><select class="search_select" name="actType" id="actType" mainid="actType"><option value="">--请选择--</option><option value="add">add</option><option value="save">save</option><option value="update">update</option><option value="edit">edit</option><option value="insert">insert</option><option value="delete">delete</option><option value="remove">remove</option></select>
-				<span>操作类型:</span></li><!--下拉 -->
-				<li><input type="text" name="actResult" id="actResult" class="search_choose"> <span>操作结果:</span></li><!-- 输入框-->			
-				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
-						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
+				<li>
+					<span>关键字:</span>
+					<input type="text" name="storeName" id="storeName" class="search_choose" placeholder="店铺名称">
+					</li>
+				<li><input type="text" name="storeOwnerName" id="storeOwnerName" class="search_choose" placeholder="店长姓名">
+				</li>
+				<li>	<input type="text" name="storeAddress" id="storeAddress" class="search_choose" placeholder="店铺地址">
+				</li>
+				<li>
+					<input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置">
+					<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li>
 				</ul>
 		   </div>
 	    </form>

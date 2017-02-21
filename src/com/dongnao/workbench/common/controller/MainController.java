@@ -91,7 +91,7 @@ public class MainController {
 		ModelAndView m = new ModelAndView("WEB-INF/jsp/common/adminMain");
 		Map<String, Object> map = m.getModel();
 		map.put("menus", menus);
-		m.addObject("activeType", dictInfoService.getDictInfoListByType("activeType"));
+		m.addObject("activityType", dictInfoService.getDictInfoListByType("activityType"));
 		m.addObject("tradingArea", dictInfoService.getDictInfoListByType("tradingArea"));
 		return m;
 	}

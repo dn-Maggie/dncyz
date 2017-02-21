@@ -21,11 +21,11 @@ $(function() {
 	}).next().on(ace.click_event, function(){
 		$(this).prev().focus();
 	});
-	new biz.select({//状态下拉
+	 /* new biz.select({//状态下拉
 	    id:"#edit_settlementMethod",
-	    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=settlementMethod'/>",
-	});
-	
+	    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=settlementMethod'/>", 
+	});  */
+	  
 	$('input[type="file"]').ace_file_input({
 		no_file:'请选择...',
 		btn_choose:'选择',
@@ -158,6 +158,7 @@ $(function() {
 				<td class="inputLabelTd">结算方式：</td>
 				<td class="inputTd">
 					<select class="search_select" name="settlementMethod" id="edit_settlementMethod">
+						<option value="${store.settlementMethod}"></option>
 					</select>
 				</td>
 				<td class="inputLabelTd">是否可以提供发票：</td>
