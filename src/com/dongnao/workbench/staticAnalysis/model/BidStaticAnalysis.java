@@ -49,6 +49,10 @@ public class BidStaticAnalysis extends Model{
      * 竞价期间同比周期进店率增幅
      **/
    			private String enterRateIncrementPercent;
+	/**
+     * 竞价期间同比同期转化率增幅
+     **/
+   			private String transformIncrementPercent;
 	 /**
      * 竞价期间同期交易额增幅
      **/
