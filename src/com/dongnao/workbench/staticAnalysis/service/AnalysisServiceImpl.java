@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.dongnao.workbench.staticAnalysis.model.DemandAnalysis;
+import com.dongnao.workbench.common.bean.ResultMessage;
+import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.product.dao.ProductMapper;
 import com.dongnao.workbench.staticAnalysis.dao.AnalysisMapper;
 import com.dongnao.workbench.staticAnalysis.model.BidStaticAnalysis;
@@ -21,33 +23,41 @@ import com.dongnao.workbench.staticAnalysis.model.StoreActiveAnalysis;
 @Service("analysisService")
 public class AnalysisServiceImpl implements AnalysisService{
 	@Resource
-	private AnalysisMapper AnalysisMapper;
+	private AnalysisMapper analysisMapper;
 	/**
 	 * 精准客户需求分析方法
 	 * */
 	public List<DemandAnalysis> demandAnalysis(DemandAnalysis demandAnalysis){
-		return null;
+		return analysisMapper.demandAnalysis(demandAnalysis);
 		
 	};
 	/**
 	 * 	竞价分析方法
 	 * */
 	public List<BidStaticAnalysis> bidStaticAnalysis(BidStaticAnalysis bidStaticAnalysis){
-		return null;
+		return analysisMapper.bidStaticAnalysis(bidStaticAnalysis);
 		
 	};
 	/**
 	 * 活动数据分析方法
 	 * */
 	public List<StoreActiveAnalysis> storeActiveAnalysis(StoreActiveAnalysis storeActiveAnalysis){
-		return null;
+		return analysisMapper.storeActiveAnalysis(storeActiveAnalysis);
 		
 	}
 	/**
 	 * 获取数据总览信息
 	 * */
 	public List<BidStaticAnalysis> allStatic(Object object) {
-		return null;
+		return analysisMapper.allStatic(object);
 	};
-	
+	/**
+	 * 新增竞价分析方法
+	 * @param empSalary:实体类
+	 */
+	@Override
+	public ResultMessage addbidAnalysis(BidStaticAnalysis bidAnalysis) {
+		analysisMapper.addbidAnalysis(bidAnalysis);
+		return AjaxUtils.getSuccessMessage();
+	};
 }
