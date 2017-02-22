@@ -34,5 +34,5 @@ public interface AnalysisMapper {
 	 * 插入竞价分析数据的方法
 	 * @param BidStaticAnalysis bidAnalysis:实体类
 	 */
-	public ResultMessage addbidAnalysis(BidStaticAnalysis bidAnalysis);
+	public void addbidAnalysis(BidStaticAnalysis bidAnalysis);
 }

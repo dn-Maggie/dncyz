@@ -23,7 +23,7 @@
 						<tr>
 							<td class="rightSide"><m:message code="type.typeName" />:</td>
 							<td><input type="text" name="typeName" id="typeName"
-								class="text " onkeyup="initDictTypeTree();" /></td>
+								 onkeyup="initDictTypeTree();" /></td>
 						</tr>
 					</table>
 				</div>
