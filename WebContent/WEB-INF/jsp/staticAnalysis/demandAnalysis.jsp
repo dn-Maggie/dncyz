@@ -89,6 +89,34 @@ var gridObj = {};
     		}}) ;   
     	}
     }
+    
+  //导入excel数据
+	function importData(){
+		 if($('input[type="file"]').val()!=""){
+			var extend=$('input[type="file"]').val().substr($('input[type="file"]').val().lastIndexOf(".")+1);
+			if("xls|xlsx".indexOf(extend)==-1){//在字符串中xls|xlsx寻找后缀xls或者xlsx，有的话返回下标，没有就返回-1
+				 showInfo("选择的文件必须是EXCEL文件,请确认！",3000);
+	         }else{
+	        	ajaxFileUpload();
+	        	showInfo("数据导入成功",2000);
+	        	gridObj.trigger('reloadGrid');
+	         }
+		 }else{
+			showInfo("请选择EXCEL文件！",3000);
+	    }
+	}
+    
+ 	function ajaxFileUpload(){
+ 		var options = {
+			url : "<m:url value='/staticAnalysis/demandimport.do'/>",
+			type : "post",
+			dataType:"text",
+			success : function(d) {gridObj.trigger('reloadGrid');},
+			error : function(d) {gridObj.trigger('reloadGrid');},
+		};
+		// 将options传给ajaxForm
+		$('#form').ajaxSubmit(options);
+ 	}
     </script>
 </head>
 <body onbeforeunload="checkLeave()">
@@ -104,6 +132,21 @@ var gridObj = {};
 											code="button.add" /></span>
 							</a></li>
 						</c:if>
+					<li>
+						<a title="导入数据" href="javascript:;" onclick="$('#file').click()"> 
+							<i class="back_icon import_icon"> </i> 
+							<span>导入数据</span>
+						</a>
+						<form name="form" id="form" method="post"  enctype="multipart/form-data">
+							<input type="file" id="file" name="file" style="display: none" onchange="importData();"/>
+						</form>
+					</li>
+					<li>
+						<a title="导出数据" href="javascript:;" onclick=""> 
+							<i class="back_icon import_icon"> </i> 
+							<span>导出数据</span>
+						</a>
+					</li>
 					</ul>
 				</div>
 	

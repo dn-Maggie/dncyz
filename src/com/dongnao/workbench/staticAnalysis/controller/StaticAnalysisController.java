@@ -190,4 +190,107 @@ public class StaticAnalysisController{
         out.flush();  
         out.close();  
 	}
+ 	
+ 	
+	 /**
+     * 读取Excel的内容，第一维数组存储的是一行中格列的值，二维数组存储的是多少个行
+     * @param file 读取数据的源Excel
+     * @param ignoreRows 读取数据忽略的行数，比喻行头不需要读入 忽略的行数为1
+     * @return 读出的Excel中数据的内容
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+ 	@RequestMapping("/demandimport")
+	public void demandimport(HttpServletRequest request,HttpServletResponse response
+		)throws Exception {  	
+ 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+ 		InputStream in =null;  
+        List<List<Object>> listob = null;  
+        ArrayList<DemandAnalysis> demandlist = new ArrayList<DemandAnalysis>();
+        MultipartFile file = multipartRequest.getFile("file");  
+        if(file.isEmpty()){  
+            throw new Exception("文件不存在！");  
+        }  
+        in = file.getInputStream();  
+        listob = new ImportExcelUtil().getBankListByExcel(in,file.getOriginalFilename());
+        for (int i = 1; i < listob.size(); i++) {  
+            List<Object> lo = listob.get(i);  
+            DemandAnalysis demandAnalysis = new DemandAnalysis();  
+            try{
+            	demandAnalysis.setId(Utils.generateUniqueID());
+            	demandAnalysis.setCustomName(StringUtil.valueOf(lo.get(0)));
+            	demandAnalysis.setCustomOrdAddr(StringUtil.valueOf(lo.get(1)));
+            	demandAnalysis.setCustomTel(StringUtil.valueOf(lo.get(2)));
+            	demandAnalysis.setMostBrowseMerchantName(StringUtil.valueOf(lo.get(3)));
+            	demandAnalysis.setMostBrowseMerchantType(StringUtil.valueOf(lo.get(4)));
+            	demandAnalysis.setAverageCost(StringUtil.valueOf(lo.get(5)));
+            	demandAnalysis.setFavoriteDishesName(StringUtil.valueOf(lo.get(6)));
+            	demandAnalysis.setFavoriteDishesCost(StringUtil.valueOf(lo.get(7)));
+            	demandlist.add(demandAnalysis);
+            }catch(Exception e){
+            	e.printStackTrace();
+            }
+        }  
+        analysisService.adddemanAnalysis(demandlist);//批量插入，传入bidAnalysis实体集合
+        PrintWriter out = null;  
+        response.setCharacterEncoding("utf-8");  //防止ajax接受到的中文信息乱码  
+        out = response.getWriter();  
+        out.print("文件导入成功！");  
+        out.flush();  
+        out.close();  
+	}
+ 	
+ 	 /**
+     * 读取Excel的内容，第一维数组存储的是一行中格列的值，二维数组存储的是多少个行
+     * @param file 读取数据的源Excel
+     * @param ignoreRows 读取数据忽略的行数，比喻行头不需要读入 忽略的行数为1
+     * @return 读出的Excel中数据的内容
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+ 	@RequestMapping("/sactiveimport")
+	public void sactiveimport(HttpServletRequest request,HttpServletResponse response
+		)throws Exception {  	
+ 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+ 		InputStream in =null;  
+        List<List<Object>> listob = null;  
+        ArrayList<StoreActiveAnalysis> activelist = new ArrayList<StoreActiveAnalysis>();
+        MultipartFile file = multipartRequest.getFile("file");  
+        if(file.isEmpty()){  
+            throw new Exception("文件不存在！");  
+        }  
+        in = file.getInputStream();  
+        listob = new ImportExcelUtil().getBankListByExcel(in,file.getOriginalFilename());
+        for (int i = 1; i < listob.size(); i++) {  
+            List<Object> lo = listob.get(i);  
+            StoreActiveAnalysis storeActiveAnalysis = new StoreActiveAnalysis();  
+            try{
+            	storeActiveAnalysis.setId(Utils.generateUniqueID());
+            	storeActiveAnalysis.setStoreName(StringUtil.valueOf(lo.get(0)));
+            	storeActiveAnalysis.setStoreArea(StringUtil.valueOf(lo.get(1)));
+            	storeActiveAnalysis.setActivityName(StringUtil.valueOf(lo.get(2)));
+            	storeActiveAnalysis.setPlatformAllowance(StringUtil.valueOf(lo.get(3)));
+            	storeActiveAnalysis.setActivityType(StringUtil.valueOf(lo.get(4)));
+            	storeActiveAnalysis.setActivityIntensity(StringUtil.valueOf(lo.get(5)));
+            	storeActiveAnalysis.setActivityCycle(StringUtil.valueOf(lo.get(6)));
+            	storeActiveAnalysis.setActivityTotalCost(StringUtil.valueOf(lo.get(7)));
+            	storeActiveAnalysis.setActivityTotalProfit(StringUtil.valueOf(lo.get(8)));
+            	storeActiveAnalysis.setProfitPercent(StringUtil.valueOf(lo.get(9)));
+            	storeActiveAnalysis.setEnterRateInActivity(StringUtil.valueOf(lo.get(10)));
+            	storeActiveAnalysis.setConversionRateInActivity(StringUtil.valueOf(lo.get(11)));
+            	storeActiveAnalysis.setTradeAmountIncrementPercent(StringUtil.valueOf(lo.get(12)));
+            	storeActiveAnalysis.setOrderAmountIncrementPercent(StringUtil.valueOf(lo.get(13)));
+            	activelist.add(storeActiveAnalysis);
+            }catch(Exception e){
+            	e.printStackTrace();
+            }
+        }  
+        analysisService.addactiveAnalysis(activelist);//批量插入，传入bidAnalysis实体集合
+        PrintWriter out = null;  
+        response.setCharacterEncoding("utf-8");  //防止ajax接受到的中文信息乱码  
+        out = response.getWriter();  
+        out.print("文件导入成功！");  
+        out.flush();  
+        out.close();  
+	}
 }
