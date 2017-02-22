@@ -318,7 +318,7 @@
 			,#{item.mostBrowseMerchantType,jdbcType=VARCHAR}
 			,#{item.averageCost,jdbcType=DECIMAL}
 			,#{item.favoriteDishesName,jdbcType=VARCHAR}
-			,#{item.favoriteDishesCost,jdbcType=DECIMAL}
+			,#{item.favoriteDishesCost,jdbcType=VARCHAR}
 		)
 		</foreach>
 	</insert>
