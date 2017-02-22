@@ -9,6 +9,10 @@ import com.dongnao.workbench.common.bean.Model;
  */
 public class BidStaticAnalysis extends Model{
 	 /**
+     * 主键
+     **/
+   			private String id;
+	 /**
      * 商户名称
      **/
    			private String storeName;
@@ -70,6 +74,12 @@ public class BidStaticAnalysis extends Model{
      **/
    			private String contributionInBid;
    			
+			public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 			public String getStoreName() {
 				return storeName;
 			}
@@ -153,5 +163,11 @@ public class BidStaticAnalysis extends Model{
 			}
 			public void setSearchTime(String searchTime) {
 				this.searchTime = searchTime;
+			}
+			public String getTransformIncrementPercent() {
+				return transformIncrementPercent;
+			}
+			public void setTransformIncrementPercent(String transformIncrementPercent) {
+				this.transformIncrementPercent = transformIncrementPercent;
 			}
 }
