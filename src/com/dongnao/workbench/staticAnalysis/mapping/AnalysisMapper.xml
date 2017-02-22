@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dongnao.workbench.staticAnalysis.dao.AnalysisMapper">
 	<resultMap id="StoreActiveAnalysisResultMap" type="com.dongnao.workbench.staticAnalysis.model.StoreActiveAnalysis">
+		<id column="id" property="id" jdbcType="VARCHAR" />
 		<result column="storeName" property="storeName" jdbcType="VARCHAR" />
 		<result column="storeArea" property="storeArea" jdbcType="VARCHAR" />
 		<result column="searchTime" property="searchTime" jdbcType="VARCHAR" />
@@ -19,6 +20,7 @@
 		<result column="orderAmountIncrementPercent" property="orderAmountIncrementPercent" jdbcType="VARCHAR" />
 	</resultMap>
 	<resultMap id="BidStaticAnalysisResultMap" type="com.dongnao.workbench.staticAnalysis.model.BidStaticAnalysis">
+		<id column="id" property="id" jdbcType="VARCHAR" />
 		<result column="storeName" property="storeName" jdbcType="VARCHAR" />
 		<result column="storeArea" property="storeArea" jdbcType="VARCHAR" />
 		<result column="bidTime" property="bidTime" jdbcType="VARCHAR" />
@@ -29,12 +31,14 @@
 		<result column="bidActivityIntensity" property="bidActivityIntensity" jdbcType="VARCHAR" />
 		<result column="exposureIncrementPercent" property="exposureIncrementPercent" jdbcType="VARCHAR" />
 		<result column="enterRateIncrementPercent" property="enterRateIncrementPercent" jdbcType="VARCHAR" />
+		<result column="transformIncrementPercent" property="transformIncrementPercent" jdbcType="VARCHAR" />
 		<result column="tradeAmountIncrementPercent" property="tradeAmountIncrementPercent" jdbcType="VARCHAR" />
 		<result column="rankBeforeBid" property="rankBeforeBid" jdbcType="VARCHAR" />
 		<result column="rankAfterBid" property="rankAfterBid" jdbcType="VARCHAR" />
 		<result column="contributionInBid" property="contributionInBid" jdbcType="VARCHAR" />
 	</resultMap>
 	<resultMap id="DemandAnalysisBaseResultMap" type="com.dongnao.workbench.staticAnalysis.model.DemandAnalysis">
+		<id column="id" property="id" jdbcType="VARCHAR" />
 		<result column="searchTime" property="searchTime" jdbcType="VARCHAR" />
 		<result column="storeArea" property="storeArea" jdbcType="VARCHAR" />
 		<result column="customName" property="customName" jdbcType="VARCHAR" />
@@ -89,6 +93,7 @@
 		,bidActivityIntensity
 		,exposureIncrementPercent
 		,enterRateIncrementPercent
+		,transformIncrementPercent
 		,tradeAmountIncrementPercent
 		,rankBeforeBid
 		,rankAfterBid
@@ -102,35 +107,35 @@
 		<if test="id != null and '' != id">  
 			and id = #{id,jdbcType=VARCHAR}
 		</if>
-		<if test="searchtime != null and '' != searchtime">  
-			and searchTime = #{searchtime,jdbcType=VARCHAR}
+		<if test="searchTime != null and '' != searchTime">  
+			and searchTime = #{searchTime,jdbcType=VARCHAR}
 		</if>
-		<if test="storearea != null and '' != storearea">  
-			and storeArea = #{storearea,jdbcType=VARCHAR}
+		<if test="storeArea != null and '' != storeArea">  
+			and storeArea = #{storeArea,jdbcType=VARCHAR}
 		</if>
-		<if test="customname != null and '' != customname">  
-			and customName = #{customname,jdbcType=VARCHAR}
+		<if test="customName != null and '' != customName">  
+			and customName = #{customName,jdbcType=VARCHAR}
 		</if>
-		<if test="customordaddr != null and '' != customordaddr">  
-			and customOrdAddr = #{customordaddr,jdbcType=VARCHAR}
+		<if test="customOrdAddr != null and '' != customOrdAddr">  
+			and customOrdAddr = #{customOrdAddr,jdbcType=VARCHAR}
 		</if>
-		<if test="customtel != null and '' != customtel">  
-			and customTel = #{customtel,jdbcType=VARCHAR}
+		<if test="customTel != null and '' != customTel">  
+			and customTel = #{customTel,jdbcType=VARCHAR}
 		</if>
-		<if test="mostbrowsemerchantname != null and '' != mostbrowsemerchantname">  
-			and mostBrowseMerchantName = #{mostbrowsemerchantname,jdbcType=VARCHAR}
+		<if test="mostBrowseMerchantName != null and '' != mostBrowseMerchantName">  
+			and mostBrowseMerchantName = #{mostBrowseMerchantName,jdbcType=VARCHAR}
 		</if>
-		<if test="mostbrowsemerchanttype != null and '' != mostbrowsemerchanttype">  
-			and mostBrowseMerchantType = #{mostbrowsemerchanttype,jdbcType=VARCHAR}
+		<if test="mostBrowseMerchantType != null and '' != mostBrowseMerchantType">  
+			and mostBrowseMerchantType = #{mostBrowseMerchantType,jdbcType=VARCHAR}
 		</if>
-		<if test="averagecost != null and '' != averagecost">  
-			and averageCost = #{averagecost,jdbcType=DECIMAL}
+		<if test="averageCost != null and '' != averageCost">  
+			and averageCost = #{averageCost,jdbcType=DECIMAL}
 		</if>
-		<if test="favoritedishesname != null and '' != favoritedishesname">  
-			and favoriteDishesName = #{favoritedishesname,jdbcType=VARCHAR}
+		<if test="favoriteDishesName != null and '' != favoriteDishesName">  
+			and favoriteDishesName = #{favoriteDishesName,jdbcType=VARCHAR}
 		</if>
-		<if test="favoritedishescost != null and '' != favoritedishescost">  
-			and favoriteDishesCost = #{favoritedishescost,jdbcType=DECIMAL}
+		<if test="favoriteDishesCost != null and '' != favoriteDishesCost">  
+			and favoriteDishesCost = #{favoriteDishesCost,jdbcType=DECIMAL}
 		</if>
 		<if test="orderFields != null and '' != orderFields">  
          	order by ${orderFields} ${order}
@@ -146,111 +151,110 @@
 		<if test="id != null and '' != id">  
 			and id = #{id,jdbcType=VARCHAR}
 		</if>
-		<if test="storename != null and '' != storename">  
-			and storeName = #{storename,jdbcType=VARCHAR}
+		<if test="storeName != null and '' != storeName">  
+			and storeName = #{storeName,jdbcType=VARCHAR}
 		</if>
-		<if test="storearea != null and '' != storearea">  
-			and storeArea = #{storearea,jdbcType=VARCHAR}
+		<if test="storeArea != null and '' != storeArea">  
+			and storeArea = #{storeArea,jdbcType=VARCHAR}
 		</if>
-		<if test="bidtime != null and '' != bidtime">  
-			and bidTime = #{bidtime,jdbcType=VARCHAR}
+		<if test="bidTime != null and '' != bidTime">  
+			and bidTime = #{bidTime,jdbcType=VARCHAR}
 		</if>
-		<if test="searchtime != null and '' != searchtime">  
-			and searchTime = #{searchtime,jdbcType=VARCHAR}
+		<if test="searchTime != null and '' != searchTime">  
+			and searchTime = #{searchTime,jdbcType=VARCHAR}
 		</if>
-		<if test="bidcycle != null and '' != bidcycle">  
-			and bidCycle = #{bidcycle,jdbcType=VARCHAR}
+		<if test="bidCycle != null and '' != bidCycle">  
+			and bidCycle = #{bidCycle,jdbcType=VARCHAR}
 		</if>
-		<if test="bidtotalamountinweek != null and '' != bidtotalamountinweek">  
-			and bidTotalAmountInWeek = #{bidtotalamountinweek,jdbcType=VARCHAR}
+		<if test="bidTotalAmountInWeek != null and '' != bidTotalAmountInWeek">  
+			and bidTotalAmountInWeek = #{bidTotalAmountInWeek,jdbcType=VARCHAR}
 		</if>
-		<if test="averageclickcost != null and '' != averageclickcost">  
-			and averageClickCost = #{averageclickcost,jdbcType=DECIMAL}
+		<if test="averageClickCost != null and '' != averageClickCost">  
+			and averageClickCost = #{averageClickCost,jdbcType=DECIMAL}
 		</if>
-		<if test="bidactivityintensity != null and '' != bidactivityintensity">  
-			and bidActivityIntensity = #{bidactivityintensity,jdbcType=VARCHAR}
+		<if test="bidActivityIntensity != null and '' != bidActivityIntensity">  
+			and bidActivityIntensity = #{bidActivityIntensity,jdbcType=VARCHAR}
 		</if>
-		<if test="exposureincrementpercent != null and '' != exposureincrementpercent">  
-			and exposureIncrementPercent = #{exposureincrementpercent,jdbcType=VARCHAR}
+		<if test="exposureIncrementPercent != null and '' != exposureIncrementPercent">  
+			and exposureIncrementPercent = #{exposureIncrementPercent,jdbcType=VARCHAR}
 		</if>
-		<if test="enterrateincrementpercent != null and '' != enterrateincrementpercent">  
-			and enterRateIncrementPercent = #{enterrateincrementpercent,jdbcType=VARCHAR}
+		<if test="enterRateIncrementPercent != null and '' != enterRateIncrementPercent">  
+			and enterRateIncrementPercent = #{enterRateIncrementPercent,jdbcType=VARCHAR}
 		</if>
-		<if test="tradeamountincrementpercent != null and '' != tradeamountincrementpercent">  
-			and tradeAmountIncrementPercent = #{tradeamountincrementpercent,jdbcType=VARCHAR}
+		<if test="tradeAmountIncrementPercent != null and '' != tradeAmountIncrementPercent">  
+			and tradeAmountIncrementPercent = #{tradeAmountIncrementPercent,jdbcType=VARCHAR}
 		</if>
-		<if test="rankbeforebid != null and '' != rankbeforebid">  
-			and rankBeforeBid = #{rankbeforebid,jdbcType=VARCHAR}
+		<if test="rankBeforeBid != null and '' != rankBeforeBid">  
+			and rankBeforeBid = #{rankBeforeBid,jdbcType=VARCHAR}
 		</if>
-		<if test="rankafterbid != null and '' != rankafterbid">  
-			and rankAfterBid = #{rankafterbid,jdbcType=VARCHAR}
+		<if test="rankAfterBid != null and '' != rankAfterBid">  
+			and rankAfterBid = #{rankAfterBid,jdbcType=VARCHAR}
 		</if>
-		<if test="contributioninbid != null and '' != contributioninbid">  
-			and contributionInBid = #{contributioninbid,jdbcType=VARCHAR}
+		<if test="contributionInBid != null and '' != contributionInBid">  
+			and contributionInBid = #{contributionInBid,jdbcType=VARCHAR}
 		</if>
 		<if test="orderFields != null and '' != orderFields">  
          	order by ${orderFields} ${order}
        	</if>
-	
-	
 	</select>
 	
 	<select id="storeActiveAnalysis" resultMap="StoreActiveAnalysisResultMap" parameterType="com.dongnao.workbench.staticAnalysis.model.StoreActiveAnalysis">
 		select
 		<include refid="StoreActiveAnalysis_Column_List" />
-		from analysis_bid
+		from analysis_storeactive
 		where 1=1
 		<if test="id != null and '' != id">  
 			and id = #{id,jdbcType=VARCHAR}
 		</if>
-		<if test="storename != null and '' != storename">  
-			and storeName = #{storename,jdbcType=VARCHAR}
+		<if test="storeName != null and '' != storeName">  
+			and storeName = #{storeName,jdbcType=VARCHAR}
 		</if>
-		<if test="storearea != null and '' != storearea">  
-			and storeArea = #{storearea,jdbcType=VARCHAR}
+		<if test="storeArea != null and '' != storeArea">  
+			and storeArea = #{storeArea,jdbcType=VARCHAR}
 		</if>
-		<if test="bidtime != null and '' != bidtime">  
-			and bidTime = #{bidtime,jdbcType=VARCHAR}
+		<if test="searchTime != null and '' != searchTime">  
+			and searchTime = #{searchTime,jdbcType=VARCHAR}
 		</if>
-		<if test="searchtime != null and '' != searchtime">  
-			and searchTime = #{searchtime,jdbcType=VARCHAR}
+		<if test="activityType != null and '' != activityType">  
+			and activityType = #{activityType,jdbcType=VARCHAR}
 		</if>
-		<if test="bidcycle != null and '' != bidcycle">  
-			and bidCycle = #{bidcycle,jdbcType=VARCHAR}
+		<if test="activityName != null and '' != activityName">  
+			and activityName = #{activityName,jdbcType=VARCHAR}
 		</if>
-		<if test="bidtotalamountinweek != null and '' != bidtotalamountinweek">  
-			and bidTotalAmountInWeek = #{bidtotalamountinweek,jdbcType=VARCHAR}
+		<if test="platformAllowance != null and '' != platformAllowance">  
+			and platformAllowance = #{platformAllowance,jdbcType=VARCHAR}
 		</if>
-		<if test="averageclickcost != null and '' != averageclickcost">  
-			and averageClickCost = #{averageclickcost,jdbcType=DECIMAL}
+		<if test="activityIntensity != null and '' != activityIntensity">  
+			and activityIntensity = #{activityIntensity,jdbcType=VARCHAR}
 		</if>
-		<if test="bidactivityintensity != null and '' != bidactivityintensity">  
-			and bidActivityIntensity = #{bidactivityintensity,jdbcType=VARCHAR}
+		<if test="activityCycle != null and '' != activityCycle">  
+			and activityCycle = #{activityCycle,jdbcType=VARCHAR}
 		</if>
-		<if test="exposureincrementpercent != null and '' != exposureincrementpercent">  
-			and exposureIncrementPercent = #{exposureincrementpercent,jdbcType=VARCHAR}
+		<if test="activityTotalCost != null and '' != activityTotalCost">  
+			and activityTotalCost = #{activityTotalCost,jdbcType=DECIMAL}
 		</if>
-		<if test="enterrateincrementpercent != null and '' != enterrateincrementpercent">  
-			and enterRateIncrementPercent = #{enterrateincrementpercent,jdbcType=VARCHAR}
+		<if test="activityTotalProfit != null and '' != activityTotalProfit">  
+			and activityTotalProfit = #{activityTotalProfit,jdbcType=VARCHAR}
 		</if>
-		<if test="tradeamountincrementpercent != null and '' != tradeamountincrementpercent">  
-			and tradeAmountIncrementPercent = #{tradeamountincrementpercent,jdbcType=VARCHAR}
+		<if test="profitPercent != null and '' != profitPercent">  
+			and profitPercent = #{profitPercent,jdbcType=VARCHAR}
 		</if>
-		<if test="rankbeforebid != null and '' != rankbeforebid">  
-			and rankBeforeBid = #{rankbeforebid,jdbcType=VARCHAR}
+		<if test="enterRateInActivity != null and '' != enterRateInActivity">  
+			and enterRateInActivity = #{enterRateInActivity,jdbcType=VARCHAR}
 		</if>
-		<if test="rankafterbid != null and '' != rankafterbid">  
-			and rankAfterBid = #{rankafterbid,jdbcType=VARCHAR}
+		<if test="conversionRateInActivity != null and '' != conversionRateInActivity">  
+			and conversionRateInActivity = #{conversionRateInActivity,jdbcType=VARCHAR}
 		</if>
-		<if test="contributioninbid != null and '' != contributioninbid">  
-			and contributionInBid = #{contributioninbid,jdbcType=VARCHAR}
+		<if test="tradeAmountIncrementPercent != null and '' != tradeAmountIncrementPercent">  
+			and tradeAmountIncrementPercent = #{tradeAmountIncrementPercent,jdbcType=VARCHAR}
+		</if>
+		<if test="orderAmountIncrementPercent != null and '' != orderAmountIncrementPercent">  
+			and orderAmountIncrementPercent = #{orderAmountIncrementPercent,jdbcType=VARCHAR}
 		</if>
 		<if test="orderFields != null and '' != orderFields">  
          	order by ${orderFields} ${order}
        	</if>
 	</select>
-	
-	
 	<insert id="addbidAnalysis" parameterType="com.dongnao.workbench.staticAnalysis.model.BidStaticAnalysis">
 		insert into emp_salary (
 				id
@@ -310,7 +314,6 @@
 			,#{note,jdbcType=VARCHAR}
 		)
 	</insert>
-	
 	<!-- <select id="allStatic" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.product.model.Product">
 	
 	
