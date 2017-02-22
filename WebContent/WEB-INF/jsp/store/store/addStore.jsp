@@ -5,7 +5,17 @@
 <%@ include file="../../common/header.jsp"%>
 <%@ include file="../../common/ace.jsp"%>
 <script type="text/javascript">
+function checkRealImage(elementId) {
+	var text = $('#' + elementId).contents().find('pre').text();
+	var textJo = JSON.parse(text);
+	if(textJo.respCode != '0000') {
+		showMessage("图片上传失败！");
+	}
+}
 $(function() {
+	//存放店铺信息
+	var storeInfo = {};
+	
 	//select多选 初始化方法
 	$(".choose_select").chosen(); 
 	$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
@@ -39,6 +49,25 @@ $(function() {
 		//
 	});
 	
+	$('#realImage_submit').click(function(){
+		
+		if(!$("#edit_storeName").val()) {
+			showMessage("请先填写店铺名称！");
+			return;
+		}
+		$('#image_storeName').val($("#edit_storeName").val());
+		$('#realImageForm').submit();
+		
+	});
+	
+	function getImageUrl(elementId) {
+		var text = $('#' + elementId).contents().find('pre').text();
+		var textJo = JSON.parse(text);
+		var picAddr = textJo.picAddr;
+		
+		return picAddr;
+	}
+	
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
 		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});
@@ -48,6 +77,10 @@ $(function() {
 			$("#submit").prop('disabled', false).css({'cursor':'pointer'});
 			return;
 		}
+		
+		//var pre = $('#realImageIframe').contentWindow.document.find('pre');
+		var realImageUrl = getImageUrl('realImageIframe');
+		
         var storeName = $("#edit_storeName").val();
         var brandId=$("#edit_brandId").val();
      	var storeAddress=$("#edit_storeAddress").val();
@@ -162,6 +195,7 @@ $(function() {
 		$('#storeFormEdit').ajaxSubmit(options);  */
 		
 	});
+	
 
 	/*编辑表单数据验证*/
 	/* new biz.validate({
@@ -183,7 +217,6 @@ $(function() {
 </head>
   
 <body>
-	<form id="storeFormEdit">
     <div class="ui-table ui-widget ui-corner-all ui-border" >
 		<input type="hidden" id="edit_storeId" name="storeId" type="text" value="${store.storeId}"/>
 		<table class="table">
@@ -339,7 +372,12 @@ $(function() {
 			<tr>
 				<td class="inputLabelTd">实景图片1：</td>
 				<td class="inputTd">
+				<form method="post" id="realImageForm" target="realImageIframe" action="<%=request.getContextPath()%>/common/fileUpload" enctype="multipart/form-data">
+					<input id="image_storeName" name="image_storeName" type="text" class="text" style="display:none;" value="storeName999"/>
 					<input id="edit_realImagePath1" name="realImagePath1" type="file" class="text" value="${store.realImagePath1}"/>
+					<input id="realImage_submit" type="button" value="上传">
+					<iframe id="realImageIframe" name="realImageIframe" onload="checkRealImage('realImageIframe');" style="display:none;"></iframe>
+				</form>
 				</td>
 				<td class="inputLabelTd">实景图片2：</td>
 				<td class="inputTd">
@@ -409,6 +447,5 @@ $(function() {
 			</tr>
 		</table>
     </div>
-	</form>
 </body>
 </html>
