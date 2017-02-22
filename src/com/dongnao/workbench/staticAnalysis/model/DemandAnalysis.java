@@ -3,7 +3,12 @@ package com.dongnao.workbench.staticAnalysis.model;
 import com.dongnao.workbench.common.bean.Model;
 
 public class DemandAnalysis extends Model{
+	
 	/**
+     * 主键
+     **/
+	private String id;
+   	/**
      * 查询时间（日期时间段）
      **/
 	private String searchTime;
@@ -28,6 +33,12 @@ public class DemandAnalysis extends Model{
 	/*客户最喜欢的菜品的平均价格*/
 	private String favoriteDishesCost;
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getSearchTime() {
 		return searchTime;
 	}
