@@ -785,7 +785,7 @@ position:relative;width:340px
 	background-color: white;
 } 
 .ui-leftDiv {
-	height:96%;
+	height:100%;
 	/* border: 1px solid #DEE3EF; */
 }
 .ui-rightDiv{
@@ -802,7 +802,7 @@ position:relative;width:340px
 	margin-left: 5px;
 	margin-right: 5px; */
    /* margin-top: 10px; */
-   background-color: white;
+   background-color: #fff5d9;
    /* border: 1px solid #ccd5de; */
 	*margin-top: 5px;
 	*display: inline-block;

@@ -20,28 +20,29 @@ var gridObj = {};
             id:"#remote_rowed",/*html部分table id*/
             url: "<m:url value='/staticAnalysis/listStoreActivity.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
-           	sortname:"activityTotalCost",
+           	sortname:"id",
            	sortorder:"asc",
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
     		rowNum:10,//默认显示15条
-            colModel:[
-				/* {name : "storeActivityId",hidden : true,key : true,label:"店铺活动ID(主键)",index : "STORE_ACTIVITY_ID"}, */				
-				{name : "storeName",label:"商户名称"},				
-				{name : "storeArea",label:"商圈",},				
-				{name : "activityType",label:"活动类型",},				
-				{name : "activityName",label:"活动名称",},				
-				{name : "platformAllowance",label:"平台补贴金额"},				
-				{name : "activityIntensity",label:"活动力度",},				
-				{name : "activityCycle",label:"活动周期",},				
-				{name : "activityTotalCost",label:"该活动总支出",},				
-				{name : "activityTotalProfit",label:"共计产生利润"},				
-				{name : "profitPercent",label:"利润率"},	
-				{name : "enterRateInActivity",label:"活动期间进店率"},
-				{name : "conversionRateInActivity",label:"活动期间转化率"},
-				{name : "tradeAmountIncrementPercent",label:"活动期间同比上期交易额增幅"},	
-				{name : "orderAmountIncrementPercent",label:"活动期间同比上期订单量增幅"},	
-           	],
+   		  	colModel:[
+   					{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
+   					{name : "storeName",label:"商户名称",index : "storeName"},				
+   					{name : "storeArea",label:"商圈",index : "storeArea"},				
+   					{name : "searchTime",label:"查询时间",index : "searchTime"},				
+   					{name : "activityType",label:"活动类型",index : "activityType"},				
+   					{name : "activityName",label:"活动名称",index : "activityName"},				
+   					{name : "platformAllowance",label:"平台补贴金额",index : "platformAllowance"},				
+   					{name : "activityIntensity",label:"活动力度",index : "activityIntensity"},				
+   					{name : "activityCycle",label:"活动周期",index : "activityCycle"},				
+   					{name : "activityTotalCost",label:"该活动总支出",index : "activityTotalCost"},				
+   					{name : "activityTotalProfit",label:"共计产生利润",index : "activityTotalProfit"},				
+   					{name : "profitPercent",label:"利润率",index : "profitPercent"},				
+   					{name : "enterRateInActivity",label:"活动期间进店率",index : "enterRateInActivity"},				
+   					{name : "conversionRateInActivity",label:"活动期间转化率",index : "conversionRateInActivity"},				
+   					{name : "tradeAmountIncrementPercent",label:"活动期间同比上期交易额增幅",index : "tradeAmountIncrementPercent"},				
+   					{name : "orderAmountIncrementPercent",label:"活动期间同比上期订单量增幅",index : "orderAmountIncrementPercent"}				
+   	           	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
     			$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
@@ -75,28 +76,8 @@ var gridObj = {};
 		document.getElementById(formId).reset();
 	}
     
-    //删除
-    function batchDelete(){
-    	var ids = ICSS.utils.getSelectRowData("storeActivityId");
-    	if(ids==""){
-    		showMessage("请至少选择一条数据！");
-    		return ;
-    	}else{
-    		new biz.alert({type:"confirm",message:I18N.msg_del_confirm,title:I18N.promp,callback:function(result){
-    			if(result){
-    				$ .ajax({
-        				url: "<m:url value='/storeActivity/deleteStoreActivity.do'/>?key="+ids,
-        				cache:false,
-        				success: function(data, textStatus, jqXHR){
-        					doSearch();
-    						showInfo("删除成功",3000);
-        				}
-        			});
-    			}
-    		}}) ;   
-    	}
-    }
-    
+
+
   //导入excel数据
 	function importData(){
 		 if($('input[type="file"]').val()!=""){
@@ -124,6 +105,7 @@ var gridObj = {};
 		// 将options传给ajaxForm
 		$('#form').ajaxSubmit(options);
  	}
+
     </script>
 </head>
 <body onbeforeunload="checkLeave()">

@@ -19,7 +19,7 @@
 					<table class="top_table">
 						<tr>
 							<td class="rightSide">产品类名:</td>
-							<td><input type="text" name="productClassName" id="productClassName" class="text" onkeyup="initProductClassTree();"/></td>
+							<td><input type="text" name="productClassName" id="productClassName" onkeyup="initProductClassTree();"/></td>
 						</tr>
 					</table>
 				</div>

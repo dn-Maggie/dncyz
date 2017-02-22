@@ -53,11 +53,9 @@
   <listener>
     <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
   </listener>
-  <!-- 登录验证码 -->
- <servlet>  
-    <servlet-name>ValidateCode</servlet-name>  
-    <servlet-class>com.dongnao.workbench.common.util.ValidateCodeServlet</servlet-class>  
-    <!-- ValidateCode配置 -->
+  <servlet>
+    <servlet-name>ValidateCode</servlet-name>
+    <servlet-class>com.dongnao.workbench.common.util.ValidateCodeServlet</servlet-class>
     <init-param>
       <param-name>width</param-name>
       <param-value>100</param-value>
@@ -70,12 +68,11 @@
       <param-name>codeCount</param-name>
       <param-value>4</param-value>
     </init-param>
-    </servlet>  
-    <servlet-mapping>  
-	    <servlet-name>ValidateCode</servlet-name>  
-	    <url-pattern>/validateCode</url-pattern>  
-	 </servlet-mapping>
-   <!-- SpringMVC -->
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ValidateCode</servlet-name>
+    <url-pattern>/validateCode</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>SpringMVC</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -95,6 +92,17 @@
     <servlet-class>com.dongnao.workbench.common.util.InitServlet</servlet-class>
     <load-on-startup>2</load-on-startup>
   </servlet>
+  
+   <servlet>
+    <servlet-name>fileUpload</servlet-name>
+    <servlet-class>com.dongnao.workbench.fileUpload.FileUpload</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>fileUpload</servlet-name>
+    <url-pattern>/common/fileUpload</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
     <welcome-file>/index.jsp</welcome-file>
   </welcome-file-list>

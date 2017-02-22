@@ -119,22 +119,22 @@ var storeProductGrid = {};
 <body>
 <div class="main  choice_box">
 		<form id="queryForm"><!-- 查询区 表单 -->
-			 <div class="search border-bottom">
-				<ul>
+			<div class="search border-bottom">
+			<ul>
 				<li>
 				<span>关键字:</span>
 				<input type="text" name="storeName" id="storeName" class="search_choose" placeholder="店铺名称">
 				</li>
 				<li>
-				<input type="text" name="storeOwnerName" id="storeOwnerName" class="search_choose" placeholder="店长姓名">
+				<input type="text" name="productName" id="productName" class="search_choose" placeholder="产品名称">
 				</li>
 				<li>
-				<input type="text" name="storeAddress" id="storeAddress" class="search_choose" placeholder="店铺地址">
+				<input type="text" name="productClassName" id="productClassName" class="search_choose" placeholder="产品类名">
 				</li>
 				<li>
 				<input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置">
 				<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li>
-			</ul>
+			</ul> 
 		   </div>
 	    </form>
 	<div class="listplace">

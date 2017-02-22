@@ -34,6 +34,7 @@ public interface AnalysisMapper {
 	 * 插入竞价分析数据的方法
 	 * @param BidStaticAnalysis bidAnalysis:实体类
 	 */
+
 	public int addbidAnalysis(List<BidStaticAnalysis> bidAnalysis);
 	
 	/**
@@ -48,4 +49,6 @@ public interface AnalysisMapper {
 	 * @param StoreActiveAnalysis storeActiveAnalysis:实体类
 	 */
 	public int addactiveAnalysis(List<StoreActiveAnalysis> storeActiveAnalysis);
+
+
 }

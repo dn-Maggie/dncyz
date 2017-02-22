@@ -30,7 +30,7 @@ function checkLeave(){
 				{name : "storeName",label:"商户名称",index : "storeName"},				
 				{name : "storeArea",label:"商圈",index : "storeArea"},				
 				{name : "bidTime",label:"竞价时段",index : "bidTime"},				
-				{name : "searchTime",label:"查询时间",index : "searchTime"},				
+				/* {name : "searchTime",label:"查询时间",index : "searchTime"}, */				
 				{name : "bidCycle",label:"竞价周期",index : "bidCycle"},				
 				{name : "bidTotalAmountInWeek",label:"一周内竞价总金额",index : "bidTotalAmountInWeek"},				
 				{name : "averageClickCost",label:"平均单次点击费用",index : "averageClickCost"},				
