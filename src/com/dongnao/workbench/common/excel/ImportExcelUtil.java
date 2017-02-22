@@ -46,15 +46,15 @@ public class ImportExcelUtil {
             //遍历当前sheet中的所有行  
             for (int j = sheet.getFirstRowNum(); j < sheet.getLastRowNum(); j++) {  
                 row = sheet.getRow(j);  
-                if(row==null||row.getFirstCellNum()==j){continue;}  
-                  
+                if(row==null||row.getFirstCellNum()==j||row.getCell(0).toString().equals("")){continue;}//虽然cell为空，但是不是String，要toString之后才能用equals
+               //System.out.println(row.getCell(0).toString());
                 //遍历所有的列  
                 List<Object> li = new ArrayList<Object>();  
                 for (int y = row.getFirstCellNum(); y < row.getLastCellNum(); y++) {  
                     cell = row.getCell(y);  
                     li.add(this.getCellValue(cell));  
                 }  
-                list.add(li);  
+                list.add(li); 
             }  
         }  
        /* work.close();  */

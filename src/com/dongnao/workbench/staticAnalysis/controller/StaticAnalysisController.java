@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.excel.ImportExcelUtil;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
@@ -150,6 +152,7 @@ public class StaticAnalysisController{
  		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
  		InputStream in =null;  
         List<List<Object>> listob = null;  
+        ArrayList<BidStaticAnalysis> bidlist = new ArrayList<BidStaticAnalysis>();
         MultipartFile file = multipartRequest.getFile("file");  
         if(file.isEmpty()){  
             throw new Exception("文件不存在！");  
@@ -159,9 +162,8 @@ public class StaticAnalysisController{
         for (int i = 1; i < listob.size(); i++) {  
             List<Object> lo = listob.get(i);  
             BidStaticAnalysis bidAnalysis = new BidStaticAnalysis();  
-            Calendar c = Calendar.getInstance();
-     		c.add(Calendar.MONTH, -1);
             try{
+            	bidAnalysis.setId(Utils.generateUniqueID());
             	bidAnalysis.setStoreName(StringUtil.valueOf(lo.get(0)));
             	bidAnalysis.setStoreArea(StringUtil.valueOf(lo.get(1)));
             	bidAnalysis.setBidTime(StringUtil.valueOf(lo.get(2)));
@@ -175,11 +177,12 @@ public class StaticAnalysisController{
             	bidAnalysis.setRankBeforeBid(StringUtil.valueOf(lo.get(11)));
             	bidAnalysis.setRankAfterBid(StringUtil.valueOf(lo.get(12)));
             	bidAnalysis.setContributionInBid(StringUtil.valueOf(lo.get(13)));
-            	analysisService.addbidAnalysis(bidAnalysis);
+            	bidlist.add(bidAnalysis);
             }catch(Exception e){
-            	continue;
+            	e.printStackTrace();
             }
         }  
+        analysisService.addbidAnalysis(bidlist);//批量插入，传入bidAnalysis实体集合
         PrintWriter out = null;  
         response.setCharacterEncoding("utf-8");  //防止ajax接受到的中文信息乱码  
         out = response.getWriter();  
