@@ -20,7 +20,7 @@ var gridObj = {};
             id:"#remote_rowed",/*html部分table id*/
             url: "<m:url value='/staticAnalysis/listStoreActivity.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
-           	sortname:"STORE_ACTIVITY_ID",
+           	sortname:"activityTotalCost",
            	sortorder:"asc",
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
