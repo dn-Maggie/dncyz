@@ -30,11 +30,9 @@ public interface AnalysisMapper {
 	 * 获取数据总览信息
 	 * */
 	public List<BidStaticAnalysis> allStatic(Object object);
-	
 	/**
 	 * 插入竞价分析数据的方法
 	 * @param BidStaticAnalysis bidAnalysis:实体类
 	 */
 	public ResultMessage addbidAnalysis(BidStaticAnalysis bidAnalysis);
-	
 }
