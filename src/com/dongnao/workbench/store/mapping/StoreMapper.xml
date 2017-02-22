@@ -259,7 +259,7 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.store.model.Store">
 		update dn_store  set
-			ID= #{storeId,jdbcType=CHAR}
+			STORE_ID= #{storeId,jdbcType=CHAR}
 			,STORE_NAME = #{storeName,jdbcType=VARCHAR}
 			,BRAND_ID = #{brandId,jdbcType=CHAR}
 			,STORE_ADDRESS = #{storeAddress,jdbcType=VARCHAR}

@@ -12,6 +12,7 @@ import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
+import com.dongnao.workbench.store.model.Store;
 import com.dongnao.workbench.store.model.StoreActivity;
 import com.dongnao.workbench.store.service.StoreActivityService;
 import com.dongnao.workbench.store.service.StoreService;
@@ -44,9 +45,12 @@ public class StoreActivityController{
  	* @return ModelAndView 返回到新增页面
  	*/
  	@RequestMapping("/toAddStoreActivity")
-	public ModelAndView toAdd(){
+	public ModelAndView toAdd(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/storeActivity/addStoreActivity");
-		mv.addObject("store", storeService.listByCondition(null));
+		Store store = new Store();
+		if(!Utils.isSuperAdmin(request))
+ 		{store.setOwnerUserId(Utils.getLoginUserInfoId(request));}
+		mv.addObject("store", storeService.listByCondition(store));
 		mv.addObject("activity", activityService.listByCondition(null));
 		return mv;
 	}
@@ -125,11 +129,16 @@ public class StoreActivityController{
 	 * @return ModelAndView: 查询实体
 	 */	
 	@RequestMapping("/toEditStoreActivity")
-	public ModelAndView toEdit(String key){
+	public ModelAndView toEdit(String key,HttpServletRequest request){
 		StoreActivity entity = storeActivityService.getByPrimaryKey(key);
 		Map<String,String> storeActivity = FormatEntity.getObjectValue(entity);
-		
-		return new ModelAndView("WEB-INF/jsp/store/storeActivity/editStoreActivity","storeActivity",storeActivity );
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/storeActivity/editStoreActivity","storeActivity",storeActivity);
+		Store store = new Store();
+		if(!Utils.isSuperAdmin(request))
+ 		{store.setOwnerUserId(Utils.getLoginUserInfoId(request));}
+		mv.addObject("store", storeService.listByCondition(store));
+		mv.addObject("activity", activityService.listByCondition(null));
+		return mv;
 	}
 	
 	/**

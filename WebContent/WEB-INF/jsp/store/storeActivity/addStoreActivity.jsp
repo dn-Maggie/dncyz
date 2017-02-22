@@ -12,13 +12,14 @@ $(function() {
 	$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
 		$(this).prev().focus();
 	});
-	
-	
 	new biz.select({//活动状态下拉
 	    id:"#edit_activityStatus",
 	    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=activityStatus'/>",
 	});
-	
+	new biz.select({//活动类型下拉
+	    id:"#edit_activityType",
+	    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=activityType'/>",
+	});
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
 		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});
@@ -59,6 +60,10 @@ $(function() {
 		}
 	}); 
 });
+function getactivityIdByName(obj,value){
+	var did = $("#activityList").find("option[value="+value+"]").data('aid')
+	$(obj).parents('.inputTd').find("#edit_activityId").val(did);
+}
 </script>
 </head>
   
@@ -68,23 +73,26 @@ $(function() {
 		<input type="hidden" id="edit_storeActivityId" name="storeActivityId" type="text" value="${storeActivity.storeActivityId}"/>
 		<table class="table">
 			<tr>
-				<td class="inputLabelTd">店铺名称：</td>
+				<td class="inputLabelTd">活动类型：</td>
 				<td class="inputTd">
-					<select class="search_select choose_select" name="storeId" id="edit_storeId">
-						<option value="">--请选择--</option>
-						<c:forEach var="store" items="${store}">
-							<option value="${store.storeId}"> <c:out value="${store.storeName}"></c:out> </option>
-			             </c:forEach>
-					</select>
+					<select class="search_select" name="activityType" id="edit_activityType"></select>
 				</td>
 				<td class="inputLabelTd">活动名称：</td>
 				<td class="inputTd">
-					<select class="search_select choose_select" name="activityId" id="edit_activityId">
+					<input class="text" name="activityName" id="edit_activityName" list="activityList"
+						oninput="getactivityIdByName(this,this.value);"/>
+					<input type="hidden" name="activityId" id="edit_activityId">
+					<datalist id="activityList">
+						<c:forEach var="activity" items="${activity}">
+							<option data-aid="${activity.activityId}" value="${activity.activityName}" label="${activity.activityName}"></option>
+			             </c:forEach>
+					</datalist>
+					<%-- <select class="search_select choose_select" name="activityId" id="edit_activityId">
 						<option value="">--请选择--</option>
 						<c:forEach var="activity" items="${activity}">
 							<option value="${activity.activityId}"> <c:out value="${activity.activityName}"></c:out> </option>
 			             </c:forEach>
-					</select>
+					</select> --%>
 				</td>
 			</tr>
 			<tr>
@@ -118,9 +126,18 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-				<td class="inputLabelTd">活动状态：</td>
+				<!-- <td class="inputLabelTd">活动状态：</td>
 				<td class="inputTd">
 					<select class="search_select" name="activityStatus" id="edit_activityStatus">
+					</select>
+				</td> -->
+				<td class="inputLabelTd">店铺名称：</td>
+				<td class="inputTd">
+					<select class="search_select choose_select" name="storeId" id="edit_storeId">
+						<option value="">--请选择--</option>
+						<c:forEach var="store" items="${store}">
+							<option value="${store.storeId}"> <c:out value="${store.storeName}"></c:out> </option>
+			             </c:forEach>
 					</select>
 				</td>
 				<td class="inputLabelTd">活动实际价值：</td>

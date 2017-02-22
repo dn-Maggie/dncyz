@@ -57,7 +57,7 @@ $(function() {
   		var storeOwnerName=$("#edit_storeOwnerName").val();
   		var storeOwnerTel=$("#edit_storeOwnerTel").val();
 		var settlementMethod=$("#edit_settlementMethod").val();
-		var proInvoiceFlag=$("#edit_proInvoiceFlag").val()=='on'?'1':'0';
+		var proInvoiceFlag=$("input[name='proInvoiceFlag']").val()=='on'?'1':'0';
 		var registrant=$("#edit_registrant").val();
 		var registDate=$("#edit_registDate").val();
 		var operateDate=$("#edit_operateDate").val();
@@ -126,8 +126,6 @@ $(function() {
  		   data: paramDatas,
  		   cache: false,
  		   dataType:"json",
- 		   processData: false,
-           contentType: false, 
            success : function(d) {
 				if(d.status){
 					showMessage(d.message,"","",function(){
@@ -164,7 +162,7 @@ $(function() {
 	});
 
 	/*编辑表单数据验证*/
-	/* new biz.validate({
+	 new biz.validate({
 		id:"#storeFormEdit",
 		rules:{
 			"storeName":{required : true},
@@ -177,7 +175,7 @@ $(function() {
 				naturalnum:true
 			},
 		}
-	});  */
+	});  
 });
 </script>
 </head>

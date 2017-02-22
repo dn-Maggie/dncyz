@@ -19,6 +19,9 @@
 </head>
 
 <body id="login-body">
+	<div class="bg_logo">
+		<img class="logo" src="<%=path%>/styles/images/logo.svg" /><span>运营中心</span>
+	</div>
 	<form id="loginForm" name="loginForm" method="post" action="">
 		<div id="loginWindow">
 			<table>
@@ -28,7 +31,8 @@
 				<tr>
 					<td>
 						<div class="group">
-							<span class="addon login_name fa fa-user fa-3x"></span> 
+							<span class="addon login_name fa fa-user fa-3x">
+							</span> 
 							<input id="loginName" name="loginName" onkeypress="xKeyEvent(event)" 
 							placeholder="用户名"
 							tabindex="1" accesskey="n" type="text" autocomplete="off" />
@@ -45,6 +49,16 @@
 						</div>
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<div class="group check_code">
+							<span class="addon">验</span> 
+							<input class="codeInput" id="codeInput" onkeypress="xKeyEvent(event)"/>
+							<img src="<%=basePath%>validateCode" id="codeImg" alt="点击刷新验证码">
+							<a href="javascript:0" onclick="refreshCaptcha()">看不清<br/>换一张</a>
+						</div> 
+					</td>
+				</tr>
 				<tr style="height:20px">
 					<td>
 						<div class="remb">
@@ -56,19 +70,11 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="group check_code">
-							<span class="addon">验</span> 
-							<input class="codeInput" id="codeInput" onkeypress="xKeyEvent(event)"/>
-							<img src="<%=basePath%>validateCode" id="codeImg" alt="点击刷新验证码">
-							<a href="javascript:0" onclick="refreshCaptcha()">看不清<br/>换一张</a>
-						</div> 
-					</td>
-				</tr>
-				<tr>
-					<td>
 						<button type="button" onclick="loginAction('#loginForm');"
 							class="btn_login">登录</button>
 					</td>
+				</tr>
+				<tr style="height:20px">
 				</tr>
 			</table>
 		</div>

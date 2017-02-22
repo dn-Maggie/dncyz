@@ -26,7 +26,7 @@ public class StoreActivity extends Model{
 		   		
 		            /**
 	                 * 活动ID
-	                 **/
+	                 **/	private String activityType;
 				   			private String activityId;
 				   			private String activityName;
 		   		
@@ -123,6 +123,14 @@ public class StoreActivity extends Model{
 				return this.activityId;
 			}
 			
+			public String getActivityType() {
+						return activityType;
+					}
+
+					public void setActivityType(String activityType) {
+						this.activityType = activityType;
+					}
+
 			/**
 			 * 设置 活动ID
 			 * @param String activityId 

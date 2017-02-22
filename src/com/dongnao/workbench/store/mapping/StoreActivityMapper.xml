@@ -4,19 +4,21 @@
 	<resultMap id="BaseResultMap" type="com.dongnao.workbench.store.model.StoreActivity">
 		<id column="STORE_ACTIVITY_ID" property="storeActivityId" jdbcType="CHAR" />
 		<result column="STORE_ID" property="storeId" jdbcType="CHAR" />
+		<result column="ACTIVITY_TYPE" property="activityType" jdbcType="CHAR" />
 		<result column="ACTIVITY_ID" property="activityId" jdbcType="CHAR" />
-		<result column="ACTIVITY_TIME_BEGIN" property="activityTimeBegin" jdbcType="TIMESTAMP" />
-		<result column="ACTIVITY_TIME_END" property="activityTimeEnd" jdbcType="TIMESTAMP" />
+		<result column="ACTIVITY_TIME_BEGIN" property="activityTimeBegin" jdbcType="DATE" />
+		<result column="ACTIVITY_TIME_END" property="activityTimeEnd" jdbcType="DATE" />
 		<result column="ACTIVITY_EXPECTED_BUDGET" property="activityExpectedBudget" jdbcType="DOUBLE" />
 		<result column="ACTIVITY_EXPECTED_RETURN" property="activityExpectedReturn" jdbcType="DOUBLE" />
 		<result column="ACTIVITY_STATUS" property="activityStatus" jdbcType="CHAR" />
 		<result column="ACTIVITY_ACTUAL_PROFIT" property="activityActualProfit" jdbcType="DOUBLE" />
 		<result column="ACTIVITY_EXECUTOR" property="activityExecutor" jdbcType="VARCHAR" />
-		<result column="ACTIVITY_EXECUTE_TIME" property="activityExecuteTime" jdbcType="TIMESTAMP" />
+		<result column="ACTIVITY_EXECUTE_TIME" property="activityExecuteTime" jdbcType="DATE" />
 	</resultMap>
 	<sql id="Base_Column_List">
 	 	STORE_ACTIVITY_ID
 		,STORE_ID
+		,ACTIVITY_TYPE
 		,ACTIVITY_ID
 		,ACTIVITY_TIME_BEGIN
 		,ACTIVITY_TIME_END
@@ -32,6 +34,8 @@
 		select
 			sa.STORE_ACTIVITY_ID
 			,s.STORE_NAME as storeName
+			,sa.ACTIVITY_TYPE
+			,sa.ACTIVITY_ID
 			,a.ACTIVITY_NAME as activityName
 			,sa.ACTIVITY_TIME_BEGIN
 			,sa.ACTIVITY_TIME_END
@@ -53,6 +57,8 @@
 		select
 			sa.STORE_ACTIVITY_ID
 			,s.STORE_NAME as storeName
+			,sa.ACTIVITY_TYPE
+			,sa.ACTIVITY_ID
 			,a.ACTIVITY_NAME as activityName
 			,sa.ACTIVITY_TIME_BEGIN
 			,sa.ACTIVITY_TIME_END
@@ -74,14 +80,17 @@
 		<if test="storeId != null and '' != storeId">  
 			and sa.STORE_ID = #{storeId,jdbcType=CHAR}
 		</if>
+		<if test="activityType != null and '' != activityType">  
+			and sa.ACTIVITY_TYPE = #{activityType,jdbcType=CHAR}
+		</if>
 		<if test="activityId != null and '' != activityId">  
 			and sa.ACTIVITY_ID = #{activityId,jdbcType=CHAR}
 		</if>
 		<if test="activityTimeBegin != null and '' != activityTimeBegin">  
-			and sa.ACTIVITY_TIME_BEGIN = #{activityTimeBegin,jdbcType=TIMESTAMP}
+			and sa.ACTIVITY_TIME_BEGIN = #{activityTimeBegin,jdbcType=DATE}
 		</if>
 		<if test="activityTimeEnd != null and '' != activityTimeEnd">  
-			and sa.ACTIVITY_TIME_END = #{activityTimeEnd,jdbcType=TIMESTAMP}
+			and sa.ACTIVITY_TIME_END = #{activityTimeEnd,jdbcType=DATE}
 		</if>
 		<if test="activityExpectedBudget != null and '' != activityExpectedBudget">  
 			and sa.ACTIVITY_EXPECTED_BUDGET = #{activityExpectedBudget,jdbcType=DOUBLE}
@@ -99,7 +108,7 @@
 			and sa.ACTIVITY_EXECUTOR = #{activityExecutor,jdbcType=VARCHAR}
 		</if>
 		<if test="activityExecuteTime != null and '' != activityExecuteTime">  
-			and sa.ACTIVITY_EXECUTE_TIME = #{activityExecuteTime,jdbcType=TIMESTAMP}
+			and sa.ACTIVITY_EXECUTE_TIME = #{activityExecuteTime,jdbcType=DATE}
 		</if>
 		<if test="orderFields != null and '' != orderFields">  
           	order by ${orderFields} ${order}
@@ -115,33 +124,35 @@
 		insert into dn_store_activity (
 		<include refid="Base_Column_List" />
 		)values (
-										#{storeActivityId,jdbcType=CHAR}
-														,#{storeId,jdbcType=CHAR}
-														,#{activityId,jdbcType=CHAR}
-														,#{activityTimeBegin,jdbcType=TIMESTAMP}
-														,#{activityTimeEnd,jdbcType=TIMESTAMP}
-														,#{activityExpectedBudget,jdbcType=DOUBLE}
-														,#{activityExpectedReturn,jdbcType=DOUBLE}
-														,#{activityStatus,jdbcType=CHAR}
-														,#{activityActualProfit,jdbcType=DOUBLE}
-														,#{activityExecutor,jdbcType=VARCHAR}
-														,#{activityExecuteTime,jdbcType=TIMESTAMP}
-									)
+			#{storeActivityId,jdbcType=CHAR}
+			,#{storeId,jdbcType=CHAR}
+			,#{activityType,jdbcType=CHAR}
+			,#{activityId,jdbcType=CHAR}
+			,#{activityTimeBegin,jdbcType=DATE}
+			,#{activityTimeEnd,jdbcType=DATE}
+			,#{activityExpectedBudget,jdbcType=DOUBLE}
+			,#{activityExpectedReturn,jdbcType=DOUBLE}
+			,#{activityStatus,jdbcType=CHAR}
+			,#{activityActualProfit,jdbcType=DOUBLE}
+			,#{activityExecutor,jdbcType=VARCHAR}
+			,#{activityExecuteTime,jdbcType=DATE}
+		)
 	</insert>
 	
 	<update id="update" parameterType="com.dongnao.workbench.store.model.StoreActivity">
 		update dn_store_activity  set
-		ID= #{storeActivityId,jdbcType=CHAR}
-													,STORE_ID = #{storeId,jdbcType=CHAR}
-											,ACTIVITY_ID = #{activityId,jdbcType=CHAR}
-											,ACTIVITY_TIME_BEGIN = #{activityTimeBegin,jdbcType=TIMESTAMP}
-											,ACTIVITY_TIME_END = #{activityTimeEnd,jdbcType=TIMESTAMP}
-											,ACTIVITY_EXPECTED_BUDGET = #{activityExpectedBudget,jdbcType=DOUBLE}
-											,ACTIVITY_EXPECTED_RETURN = #{activityExpectedReturn,jdbcType=DOUBLE}
-											,ACTIVITY_STATUS = #{activityStatus,jdbcType=CHAR}
-											,ACTIVITY_ACTUAL_PROFIT = #{activityActualProfit,jdbcType=DOUBLE}
-											,ACTIVITY_EXECUTOR = #{activityExecutor,jdbcType=VARCHAR}
-											,ACTIVITY_EXECUTE_TIME = #{activityExecuteTime,jdbcType=TIMESTAMP}
-							where STORE_ACTIVITY_ID = #{storeActivityId,jdbcType=CHAR}
+			ID= #{storeActivityId,jdbcType=CHAR}
+			,STORE_ID = #{storeId,jdbcType=CHAR}
+			,ACTIVITY_TYPE = #{activityType,jdbcType=CHAR}
+			,ACTIVITY_ID = #{activityId,jdbcType=CHAR}
+			,ACTIVITY_TIME_BEGIN = #{activityTimeBegin,jdbcType=DATE}
+			,ACTIVITY_TIME_END = #{activityTimeEnd,jdbcType=DATE}
+			,ACTIVITY_EXPECTED_BUDGET = #{activityExpectedBudget,jdbcType=DOUBLE}
+			,ACTIVITY_EXPECTED_RETURN = #{activityExpectedReturn,jdbcType=DOUBLE}
+			,ACTIVITY_STATUS = #{activityStatus,jdbcType=CHAR}
+			,ACTIVITY_ACTUAL_PROFIT = #{activityActualProfit,jdbcType=DOUBLE}
+			,ACTIVITY_EXECUTOR = #{activityExecutor,jdbcType=VARCHAR}
+			,ACTIVITY_EXECUTE_TIME = #{activityExecuteTime,jdbcType=DATE}
+		where STORE_ACTIVITY_ID = #{storeActivityId,jdbcType=CHAR}
 	</update>
 </mapper>

@@ -9,6 +9,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.sql.Time;
 
 import com.dongnao.workbench.common.Constant;
 
@@ -78,7 +79,29 @@ public class FormatEntity {
 					Date val = (Date) m.invoke(object);
 					if (val != null) {
 						SimpleDateFormat dateFormat = new SimpleDateFormat(
+								Constant.DATE_FORMAT);
+						v = dateFormat.format(val);
+					}
+
+				}
+				// 如果类型是DateTime
+				if (property.getPropertyType().equals(java.sql.Timestamp.class)) {
+					Method m = property.getReadMethod();
+					Date val = (Date) m.invoke(object);
+					if (val != null) {
+						SimpleDateFormat dateFormat = new SimpleDateFormat(
 								Constant.DATETIME_FORMAT);
+						v = dateFormat.format(val);
+					}
+
+				}
+				// 如果类型是Time
+				if (property.getPropertyType().equals(java.sql.Time.class)) {
+					Method m = property.getReadMethod();
+					Time val = (Time) m.invoke(object);
+					if (val != null) {
+						SimpleDateFormat dateFormat = new SimpleDateFormat(
+								Constant.TIME_FORMAT);
 						v = dateFormat.format(val);
 					}
 
@@ -182,13 +205,35 @@ public class FormatEntity {
 					}
 				}
 
+				// 如果类型是DateTime
+				if (property.getPropertyType().equals(java.sql.Timestamp.class)) {
+					Method m = property.getReadMethod();
+					Date val = (Date) m.invoke(object);
+					if (val != null) {
+						SimpleDateFormat dateFormat = new SimpleDateFormat(
+								Constant.DATETIME_FORMAT);
+						v = dateFormat.format(val);
+					}
+
+				}
 				// 如果类型是Date
 				if (property.getPropertyType().equals(java.util.Date.class)) {
 					Method m = property.getReadMethod();
 					Date val = (Date) m.invoke(object);
 					if (val != null) {
 						SimpleDateFormat dateFormat = new SimpleDateFormat(
-								Constant.DATETIME_FORMAT);
+								Constant.DATE_FORMAT);
+						v = dateFormat.format(val);
+					}
+
+				}
+				// 如果类型是Time
+				if (property.getPropertyType().equals(java.sql.Time.class)) {
+					Method m = property.getReadMethod();
+					Time val = (Time) m.invoke(object);
+					if (val != null) {
+						SimpleDateFormat dateFormat = new SimpleDateFormat(
+								Constant.TIME_FORMAT);
 						v = dateFormat.format(val);
 					}
 

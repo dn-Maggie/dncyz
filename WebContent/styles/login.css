@@ -1,54 +1,59 @@
 #login-body{
-	background-color: #f7d28b;
+	background-color: #fff;
 	background-image: url('images/login_bg.jpg');
 	background-repeat: no-repeat;
 	background-size: 100%;
-	background-position: bottom;
+	background-position: center;
 }
-#login-body .bg_flag{
+#login-body .bg_logo{
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: 40px;
+	left:15%;
 	right: 0;
-	height: 7%;
+	height: 10%;
 }
-#login-body .bg_flag .left{
-	height: 100%;
+#login-body .bg_logo span{
+    position: relative;
+    bottom: 10px;
+    right: 0;
+    font-size: 1rem;
+    margin-left: 20px;
+    color: #f47115;
+    font-family: microsoft yahei;
+    font-weight: 500;
+    cursor:default;
 }
-#login-body .bg_flag .right{
-	-webkit-transform: scaleX(-1);
-	-moz-transform: scaleX(-1);
-	-ms-transform: scaleX(-1);
-	-o-transform: scaleX(-1);
-	transform: scaleX(-1);
+#login-body .bg_logo .logo{
 	height: 100%;
-	float: right;
+	height:4rem;
 }
 #loginWindow{
 	position: absolute;
-    left: 80%;
-    top: 50%;
-    transform: translate(-50%,-70%);
-    width: 300px;
-    min-width: 300px;
-   	padding: 0 20px; 
-    background: #ffffff;
-    border-radius: 2px;
+	left: 70%;
+	top: 55%;
+	transform: translate(-50%,-70%);
+	width: 280px;
+	min-width: 280px;
+	padding: 0 20px;
+	background: #ffffff;
+	border-radius: 2px;
 }
 #loginWindow table{
 	width: 100%;
 }
 #loginWindow table tr{
-	height:70px;
+	height:60px;
 }
 #loginWindow .logo_box{
-	padding: 20px 50px 10px;
-    font-size: 18px;
-    color: #666;
-    border-bottom: 1px dotted #bababa;
+	/* padding: 20px 50px 10px; */
+	font-size: 18px;
+	color: #666;
+	border-bottom: 1px dotted #bababa;
 }
+
 #loginWindow .logo_box img{
 	width: 100%;
+	
 }
 #loginForm input{
 	background-color:#fff;
@@ -59,8 +64,8 @@
 	overflow: hidden;
 }
 #loginForm div.group span.addon{
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -107,6 +112,7 @@
 	text-indent: 10px;
 	line-height: 0;
 	float: left;
+	box-sizing: border-box;
 }
 #loginForm div.group.check_code img{
 	height: 100%;
@@ -118,8 +124,7 @@
 	margin:20px 0px 10px 10px;
 }
 #loginForm div.remb label {
-    color: #f29e2a;
-    font-weight: bold;
+    color: #666;
 }
 #loginForm div.remb .remb_label {
     background: #fff;
@@ -164,17 +169,17 @@
 	color:#fff;
 }
 #loginForm div.group input{
-	width: 300px;
-	height: 40px;
-	text-indent: 65px;
+	width: 280px;
+	height: 35px;
+	text-indent: 45px;
 	border:none;
 	font-size: 16px;
 	color: #999;
 	border: #ccc 1px solid;
 }
 #loginForm button{
-	height:40px;
-	font-size:20px;
+	height:35px;
+	font-size:18px;
 	letter-spacing:8px;
 	color:#fff;
 	border:none;

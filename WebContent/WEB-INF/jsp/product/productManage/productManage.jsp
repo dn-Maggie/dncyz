@@ -264,14 +264,6 @@
 				return obj;
 			},
 			rowNum : 10,//默认显示15条
-			/* gridComplete : function() {
-				//数据加载完毕后，调整样式
-				var ids = gridObj.getDataIDs();
-				if (ids == "") {
-					$("#next_remote_prowed").attr("class", "ui-pg-button ui-corner-all ui-state-disabled");
-					$("#last_remote_prowed").attr("class", "ui-pg-button ui-corner-all ui-state-disabled");
-				}
-			} */
 		});
 	}
 
