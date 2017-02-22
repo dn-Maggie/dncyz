@@ -3,30 +3,30 @@
 <mapper namespace="com.dongnao.workbench.store.dao.StoreActivityMapper">
 	<resultMap id="BaseResultMap" type="com.dongnao.workbench.store.model.StoreActivity">
 		<id column="STORE_ACTIVITY_ID" property="storeActivityId" jdbcType="CHAR" />
-															<result column="STORE_ID" property="storeId" jdbcType="CHAR" />
-													<result column="ACTIVITY_ID" property="activityId" jdbcType="CHAR" />
-													<result column="ACTIVITY_TIME_BEGIN" property="activityTimeBegin" jdbcType="TIMESTAMP" />
-													<result column="ACTIVITY_TIME_END" property="activityTimeEnd" jdbcType="TIMESTAMP" />
-													<result column="ACTIVITY_EXPECTED_BUDGET" property="activityExpectedBudget" jdbcType="DOUBLE" />
-													<result column="ACTIVITY_EXPECTED_RETURN" property="activityExpectedReturn" jdbcType="DOUBLE" />
-													<result column="ACTIVITY_STATUS" property="activityStatus" jdbcType="CHAR" />
-													<result column="ACTIVITY_ACTUAL_PROFIT" property="activityActualProfit" jdbcType="DOUBLE" />
-													<result column="ACTIVITY_EXECUTOR" property="activityExecutor" jdbcType="VARCHAR" />
-													<result column="ACTIVITY_EXECUTE_TIME" property="activityExecuteTime" jdbcType="TIMESTAMP" />
-									</resultMap>
+		<result column="STORE_ID" property="storeId" jdbcType="CHAR" />
+		<result column="ACTIVITY_ID" property="activityId" jdbcType="CHAR" />
+		<result column="ACTIVITY_TIME_BEGIN" property="activityTimeBegin" jdbcType="TIMESTAMP" />
+		<result column="ACTIVITY_TIME_END" property="activityTimeEnd" jdbcType="TIMESTAMP" />
+		<result column="ACTIVITY_EXPECTED_BUDGET" property="activityExpectedBudget" jdbcType="DOUBLE" />
+		<result column="ACTIVITY_EXPECTED_RETURN" property="activityExpectedReturn" jdbcType="DOUBLE" />
+		<result column="ACTIVITY_STATUS" property="activityStatus" jdbcType="CHAR" />
+		<result column="ACTIVITY_ACTUAL_PROFIT" property="activityActualProfit" jdbcType="DOUBLE" />
+		<result column="ACTIVITY_EXECUTOR" property="activityExecutor" jdbcType="VARCHAR" />
+		<result column="ACTIVITY_EXECUTE_TIME" property="activityExecuteTime" jdbcType="TIMESTAMP" />
+	</resultMap>
 	<sql id="Base_Column_List">
-						 	STORE_ACTIVITY_ID
-										,STORE_ID
-										,ACTIVITY_ID
-										,ACTIVITY_TIME_BEGIN
-										,ACTIVITY_TIME_END
-										,ACTIVITY_EXPECTED_BUDGET
-										,ACTIVITY_EXPECTED_RETURN
-										,ACTIVITY_STATUS
-										,ACTIVITY_ACTUAL_PROFIT
-										,ACTIVITY_EXECUTOR
-										,ACTIVITY_EXECUTE_TIME
-						</sql>
+	 	STORE_ACTIVITY_ID
+		,STORE_ID
+		,ACTIVITY_ID
+		,ACTIVITY_TIME_BEGIN
+		,ACTIVITY_TIME_END
+		,ACTIVITY_EXPECTED_BUDGET
+		,ACTIVITY_EXPECTED_RETURN
+		,ACTIVITY_STATUS
+		,ACTIVITY_ACTUAL_PROFIT
+		,ACTIVITY_EXECUTOR
+		,ACTIVITY_EXECUTE_TIME
+	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
@@ -37,7 +37,9 @@
 			,sa.ACTIVITY_TIME_END
 			,sa.ACTIVITY_EXPECTED_BUDGET
 			,sa.ACTIVITY_EXPECTED_RETURN
-			,sa.ACTIVITY_STATUS
+			<![CDATA[
+			,(CASE WHEN DATEDIFF(SYSDATE(), ACTIVITY_TIME_END)<=0 AND DATEDIFF(SYSDATE(), ACTIVITY_TIME_BEGIN)>=0 THEN '1'  
+			ELSE '0'  END)as ACTIVITY_STATUS]]>
 			,sa.ACTIVITY_ACTUAL_PROFIT
 			,sa.ACTIVITY_EXECUTOR
 			,sa.ACTIVITY_EXECUTE_TIME
@@ -56,7 +58,9 @@
 			,sa.ACTIVITY_TIME_END
 			,sa.ACTIVITY_EXPECTED_BUDGET
 			,sa.ACTIVITY_EXPECTED_RETURN
-			,sa.ACTIVITY_STATUS
+			<![CDATA[
+			,(CASE WHEN DATEDIFF(SYSDATE(), ACTIVITY_TIME_END)<=0 AND DATEDIFF(SYSDATE(), ACTIVITY_TIME_BEGIN)>=0 THEN '1'  
+			ELSE '0'  END)as ACTIVITY_STATUS]]>
 			,sa.ACTIVITY_ACTUAL_PROFIT
 			,sa.ACTIVITY_EXECUTOR
 			,sa.ACTIVITY_EXECUTE_TIME

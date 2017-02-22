@@ -48,45 +48,102 @@ $(function() {
 			$("#submit").prop('disabled', false).css({'cursor':'pointer'});
 			return;
 		}
-		/* var paramArray = [];
-        var paramObj = {};
-        paramObj.storeName:
-        paramObj.brandId:
-     	paramObj.storeAddress:
-    	paramObj.storeTel:
-  		paramObj.workTimeBegin:
-  		paramObj.workTimeEnd:
-  		paramObj.storeOwnerName:
-  		paramObj.storeOwnerTel:
-		paramObj.settlementMethod:1
-		paramObj.proInvoiceFlag:on
-		paramObj.registrant:
-		paramObj.registDate:
-		paramObj.operateDate:
-		paramObj.remark:
-		paramObj.averageSales:0
-		paramObj.elmSale:0
-		paramObj.meituanSale:0
-		paramObj.baiduSale:0
-		paramObj.elmRate:0
-		paramObj.meituanRate:0
-		paramObj.baiduRate:0
-		paramObj.realImagePath1:
-		paramObj.realImagePath2:
-		paramObj.realImagePath3:
-		paramObj.businessLicenseImg:
-		paramObj.healthLicenseImg:
-		paramObj.menuImg:
-		paramObj.corporateIdcardFront:
-		paramObj.corporateIdcardBack:
-		paramObj.canteenImg:
-		paramObj.kitchenImg:
-		paramObj.doorImg:
-		paramObj.corporateWithidcardFront:
-		paramObj.corporateWithidcardBack:
-     	paramArray.push(paramObj); */
-         
-		  var options = {
+        var storeName = $("#edit_storeName").val();
+        var brandId=$("#edit_brandId").val();
+     	var storeAddress=$("#edit_storeAddress").val();
+    	var storeTel=$("#edit_storeTel").val();
+  		var workTimeBegin=$("#edit_workTimeBegin").val();
+  		var workTimeEnd=$("#edit_workTimeEnd").val();
+  		var storeOwnerName=$("#edit_storeOwnerName").val();
+  		var storeOwnerTel=$("#edit_storeOwnerTel").val();
+		var settlementMethod=$("#edit_settlementMethod").val();
+		var proInvoiceFlag=$("#edit_proInvoiceFlag").val()=='on'?'1':'0';
+		var registrant=$("#edit_registrant").val();
+		var registDate=$("#edit_registDate").val();
+		var operateDate=$("#edit_operateDate").val();
+		var remark=$("#edit_remark").val();
+		var averageSales=$("#edit_averageSales").val();
+		var elmSale=$("#edit_elmSale").val();
+		var meituanSale=$("#edit_meituanSale").val();
+		var baiduSale=$("#edit_baiduSale").val();
+		var elmRate=$("#edit_elmRate").val();
+		var meituanRate=$("#edit_meituanRate").val();
+		var baiduRate=$("#edit_baiduRate").val();
+		var realImagePath1=$("#edit_realImagePath1").val();
+		var realImagePath2=$("#edit_realImagePath2").val();
+		var realImagePath3=$("#edit_realImagePath3").val();
+		var businessLicenseImg=$("#edit_businessLicenseImg").val();
+		var healthLicenseImg=$("#edit_healthLicenseImg").val();
+		var menuImg=$("#edit_menuImg").val();
+		var corporateIdcardFront=$("#edit_corporateIdcardFront").val();
+		var corporateIdcardBack=$("#edit_corporateIdcardBack").val();
+		var canteenImg=$("#edit_canteenImg").val();
+		var kitchenImg=$("#edit_kitchenImg").val();
+		var doorImg=$("#edit_doorImg").val();
+		var corporateWithidcardFront=$("#edit_corporateWithidcardFront").val();
+		var corporateWithidcardBack=$("#edit_corporateWithidcardBack").val();
+		var ownerUserId=$("#edit_ownerUserId").val();
+		var paramDatas = {
+			storeName:storeName,
+	        brandId:brandId,
+	     	storeAddress:storeAddress,
+	    	storeTel:storeTel,
+	  		workTimeBegin:workTimeBegin,
+	  		workTimeEnd:workTimeEnd,
+	  		storeOwnerName:storeOwnerName,
+	  		storeOwnerTel:storeOwnerTel,
+			settlementMethod:settlementMethod,
+			proInvoiceFlag:proInvoiceFlag,
+			registrant:registrant,
+			registDate:registDate,
+			operateDate:operateDate,
+			remark:remark,
+			averageSales:averageSales,
+			elmSale:elmSale,
+			meituanSale:meituanSale,
+			baiduSale:baiduSale,
+			elmRate:elmRate,
+			meituanRate:meituanRate,
+			baiduRate:baiduRate,
+			realImagePath1:realImagePath1,
+			realImagePath2:realImagePath2,
+			realImagePath3:realImagePath3,
+			businessLicenseImg:businessLicenseImg,
+			healthLicenseImg:healthLicenseImg,
+			menuImg:menuImg,
+			corporateIdcardFront:corporateIdcardFront,
+			corporateIdcardBack:corporateIdcardBack,
+			canteenImg:canteenImg,
+			kitchenImg:kitchenImg,
+			doorImg:doorImg,
+			corporateWithidcardFront:corporateWithidcardFront,
+			corporateWithidcardBack:corporateWithidcardBack,
+			ownerUserId:ownerUserId
+		};
+		$.ajax({
+ 		   type: "post",
+ 		   url: "<m:url value='/store/addStore.do'/>",
+ 		   data: paramDatas,
+ 		   cache: false,
+ 		   dataType:"json",
+ 		   processData: false,
+           contentType: false, 
+           success : function(d) {
+				if(d.status){
+					showMessage(d.message,"","",function(){
+						window.parent.closeAdd();
+			     		window.parent.doSearch();
+					});
+				}else{
+					showMessage(d.message);
+				}
+			},
+           error: function() {
+          	showMessage("请求失败");
+           }
+ 		});
+     	
+		 /*  var options = {
 			url : "<m:url value='/store/addStore.do'/>",
 			type : "post",
 			dataType:"json",
@@ -102,7 +159,8 @@ $(function() {
 				},
 		};
 		// 将options传给ajaxForm
-		$('#storeFormEdit').ajaxSubmit(options); 
+		$('#storeFormEdit').ajaxSubmit(options);  */
+		
 	});
 
 	/*编辑表单数据验证*/

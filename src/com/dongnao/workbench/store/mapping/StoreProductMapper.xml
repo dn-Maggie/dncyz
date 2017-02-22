@@ -121,17 +121,20 @@
 		<if test="storeId != null and '' != storeId">  
 			and sp.store_id = #{storeId,jdbcType=CHAR}
 		</if>
+		<if test="storeName != null and '' != storeName">  
+			and s.STORE_NAME like CONCAT('%',#{storeName,jdbcType=CHAR},'%') 
+		</if>
 		<if test="productClassId != null and '' != productClassId">  
 			and sp.product_class_id = #{productClassId,jdbcType=CHAR}
 		</if>
 		<if test="productClassName != null and '' != productClassName">  
-			and sp.product_class_name = #{productClassName,jdbcType=VARCHAR}
+			and sp.product_class_name like CONCAT('%',#{productClassName,jdbcType=VARCHAR},'%') 
 		</if>
 		<if test="productId != null and '' != productId">  
 			and sp.product_id = #{productId,jdbcType=CHAR}
 		</if>
 		<if test="productName != null and '' != productName">  
-			and sp.product_name = #{productName,jdbcType=VARCHAR}
+			and sp.product_name like CONCAT('%', #{productName,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="productImagePath != null and '' != productImagePath">  
 			and sp.PRODUCT_IMAGE_PATH = #{productImagePath,jdbcType=VARCHAR}

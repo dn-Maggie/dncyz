@@ -41,14 +41,12 @@ public class Store extends Model{
 		            /**
 	                 * 营业时间起
 	                 **/
-				   			@DateTimeFormat(pattern="HH:mm:ss") 
-							private Time workTimeBegin;
+							private String workTimeBegin;
 		
 		            /**
 	                 * 营业时间止
 	                 **/
-				   			@DateTimeFormat(pattern="HH:mm:ss") 
-							private Time workTimeEnd;
+							private String workTimeEnd;
 		
 		            /**
 	                 * 店长姓名
@@ -290,7 +288,7 @@ public class Store extends Model{
 			 * 获取 营业时间起
 			 * @return Date this.workTimeBegin
 			 */
-			public Time getWorkTimeBegin(){
+			public String getWorkTimeBegin(){
 				return this.workTimeBegin;
 			}
 			
@@ -298,14 +296,14 @@ public class Store extends Model{
 			 * 设置 营业时间起
 			 * @param Date workTimeBegin 
 			 */
-			public void setWorkTimeBegin(Time workTimeBegin){
+			public void setWorkTimeBegin(String workTimeBegin){
 				this.workTimeBegin = workTimeBegin;
 			}
 								/**
 			 * 获取 营业时间起
 			 * @return Date this.workTimeEnd
 			 */
-			public Time getWorkTimeEnd(){
+			public String getWorkTimeEnd(){
 				return this.workTimeEnd;
 			}
 			
@@ -313,7 +311,7 @@ public class Store extends Model{
 			 * 设置 营业时间起
 			 * @param Date workTimeEnd 
 			 */
-			public void setWorkTimeEnd(Time workTimeEnd){
+			public void setWorkTimeEnd(String workTimeEnd){
 				this.workTimeEnd = workTimeEnd;
 			}
 						

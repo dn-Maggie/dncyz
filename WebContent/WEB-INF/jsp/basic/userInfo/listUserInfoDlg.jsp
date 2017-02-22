@@ -204,7 +204,7 @@ function treeOnClick(event, treeId, treeNode) {//
 						<tr>
 							<td class="rightSide">名称：</td>
 							<td><input type="text" name="orgName" id="orgName"
-								class="text" style="width: 100px;"
+								style="width: 100px;"
 								onkeyup="search_ztree('orgTree','name',this);" /></td>
 
 						</tr>
