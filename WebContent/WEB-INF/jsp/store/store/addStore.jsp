@@ -48,45 +48,68 @@ $(function() {
 			$("#submit").prop('disabled', false).css({'cursor':'pointer'});
 			return;
 		}
-		/* var paramArray = [];
+		var paramArray = [];
         var paramObj = {};
-        paramObj.storeName:
-        paramObj.brandId:
-     	paramObj.storeAddress:
-    	paramObj.storeTel:
-  		paramObj.workTimeBegin:
-  		paramObj.workTimeEnd:
-  		paramObj.storeOwnerName:
-  		paramObj.storeOwnerTel:
-		paramObj.settlementMethod:1
-		paramObj.proInvoiceFlag:on
-		paramObj.registrant:
-		paramObj.registDate:
-		paramObj.operateDate:
-		paramObj.remark:
-		paramObj.averageSales:0
-		paramObj.elmSale:0
-		paramObj.meituanSale:0
-		paramObj.baiduSale:0
-		paramObj.elmRate:0
-		paramObj.meituanRate:0
-		paramObj.baiduRate:0
-		paramObj.realImagePath1:
-		paramObj.realImagePath2:
-		paramObj.realImagePath3:
-		paramObj.businessLicenseImg:
-		paramObj.healthLicenseImg:
-		paramObj.menuImg:
-		paramObj.corporateIdcardFront:
-		paramObj.corporateIdcardBack:
-		paramObj.canteenImg:
-		paramObj.kitchenImg:
-		paramObj.doorImg:
-		paramObj.corporateWithidcardFront:
-		paramObj.corporateWithidcardBack:
-     	paramArray.push(paramObj); */
-         
-		  var options = {
+        paramObj.storeName = $("#edit_storeName").val();
+        paramObj.brandId=$("#edit_brandId").val();
+     	paramObj.storeAddress=$("#edit_storeAddress").val();
+    	paramObj.storeTel=$("#edit_storeTel").val();
+  		paramObj.workTimeBegin=$("#edit_workTimeBegin").val();
+  		paramObj.workTimeEnd=$("#edit_workTimeEnd").val();
+  		paramObj.storeOwnerName=$("#edit_storeOwnerName").val();
+  		paramObj.storeOwnerTel=$("#edit_storeOwnerTel").val();
+		paramObj.settlementMethod=$("#edit_settlementMethod").val();
+		paramObj.proInvoiceFlag=$("#edit_proInvoiceFlag").val()=='on'?'1':'0';
+		paramObj.registrant=$("#edit_registrant").val();
+		paramObj.registDate=$("#edit_registDate").val();
+		paramObj.operateDate=$("#edit_operateDate").val();
+		paramObj.remark=$("#edit_remark").val();
+		paramObj.averageSales=$("#edit_averageSales").val();
+		paramObj.elmSale=$("#edit_elmSale").val();
+		paramObj.meituanSale=$("#edit_meituanSale").val();
+		paramObj.baiduSale=$("#edit_baiduSale").val();
+		paramObj.elmRate=$("#edit_elmRate").val();
+		paramObj.meituanRate=$("#edit_meituanRate").val();
+		paramObj.baiduRate=$("#edit_baiduRate").val();
+		paramObj.realImagePath1=$("#edit_realImagePath1").val();
+		paramObj.realImagePath2=$("#edit_realImagePath2").val();
+		paramObj.realImagePath3=$("#edit_realImagePath3").val();
+		paramObj.businessLicenseImg=$("#edit_businessLicenseImg").val();
+		paramObj.healthLicenseImg=$("#edit_healthLicenseImg").val();
+		paramObj.menuImg=$("#edit_menuImg").val();
+		paramObj.corporateIdcardFront=$("#edit_corporateIdcardFront").val();
+		paramObj.corporateIdcardBack=$("#edit_corporateIdcardBack").val();
+		paramObj.canteenImg=$("#edit_canteenImg").val();
+		paramObj.kitchenImg=$("#edit_kitchenImg").val();
+		paramObj.doorImg=$("#edit_doorImg").val();
+		paramObj.corporateWithidcardFront=$("#edit_corporateWithidcardFront").val();
+		paramObj.corporateWithidcardBack=$("#edit_corporateWithidcardBack").val();
+		paramObj.ownerUserId=$("#edit_ownerUserId").val();
+     	paramArray.push(paramObj); 
+     	$.ajax({
+            url: "<m:url value='/store/addStore.do'/>",
+            type: 'post',
+            dataType:"json",
+            data: JSON.stringify(paramArray),
+            /* 设置processData和contentType属性为false,防止JQ胡乱解析文件格式 */
+            processData: false,
+            contentType: false, 
+            success : function(d) {
+				if(d.status){
+					showMessage(d.message,"","",function(){
+						window.parent.closeAdd();
+			     		window.parent.doSearch();
+					});
+				}else{
+					showMessage(d.message);
+				}
+			},
+            error: function() {
+            	showMessage("请求失败");
+            }
+        });
+     	
+		 /*  var options = {
 			url : "<m:url value='/store/addStore.do'/>",
 			type : "post",
 			dataType:"json",
@@ -102,7 +125,8 @@ $(function() {
 				},
 		};
 		// 将options传给ajaxForm
-		$('#storeFormEdit').ajaxSubmit(options); 
+		$('#storeFormEdit').ajaxSubmit(options);  */
+		
 	});
 
 	/*编辑表单数据验证*/

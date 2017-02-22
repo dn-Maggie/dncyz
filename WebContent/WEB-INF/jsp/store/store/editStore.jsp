@@ -75,8 +75,8 @@ $(function() {
 		rules:{
 			"storeName":{required : true},
 			"storeAddress":{required : true},
-			"workTimeBegin":{required : true},
-			"workTimeEnd":{required : true},
+			/* "workTimeBegin":{required : true},
+			"workTimeEnd":{required : true}, */
 			"storeOwnerTel" : {
 				required : true,
 				maxlength : 11,
@@ -158,7 +158,9 @@ $(function() {
 				<td class="inputLabelTd">结算方式：</td>
 				<td class="inputTd">
 					<select class="search_select" name="settlementMethod" id="edit_settlementMethod">
-						<option value="${store.settlementMethod}"></option>
+						<c:forEach var="settlementMethod" items="${settlementMethod}">
+							<option value="${settlementMethod.dictCode}" <c:if test="${settlementMethod.dictCode==store.settlementMethod}">selected</c:if>> <c:out value="${settlementMethod.dictName}"></c:out> </option>
+			             </c:forEach>
 					</select>
 				</td>
 				<td class="inputLabelTd">是否可以提供发票：</td>
@@ -233,6 +235,14 @@ $(function() {
 				<td class="inputLabelTd">百度平台佣金率(%)：</td>
 				<td class="inputTd">
 					<input id="edit_baiduRate" name="baiduRate" type="text" class="text rate" value="${store.baiduRate}"/>
+				</td>
+				<td class="inputLabelTd">关联店铺账号：</td>
+				<td class="inputTd">
+					<select class="search_select" name="ownerUserId" id="edit_ownerUserId">
+						<c:forEach items="${user}" var="user">
+							<option value="${user.id}"<c:if test="${user.id==store.ownerUserId}">selected</c:if>><c:out value="${user.userAccount}"></c:out></option>
+						</c:forEach>
+					</select>
 				</td>
 			</tr>
 			<tr>

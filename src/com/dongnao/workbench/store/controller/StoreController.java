@@ -142,10 +142,17 @@ public class StoreController{
 	 * @return ModelAndView: 查询实体
 	 */	
 	@RequestMapping("/toEditStore")
-	public ModelAndView toEdit(String key){
+	public ModelAndView toEdit(String key,HttpServletRequest request){
 		Store entity = storeService.getByPrimaryKey(key);
 		Map<String,String> store = FormatEntity.getObjectValue(entity);
-		return new ModelAndView("WEB-INF/jsp/store/store/editStore","store",store );
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/store/editStore","store",store );
+		mv.addObject("settlementMethod", dictInfoService.getDictInfoListByType("settlementMethod"));
+		UserInfo userInfo = new UserInfo();
+		if(!Utils.isSuperAdmin(request))
+ 		{userInfo.setId(Utils.getLoginUserInfoId(request));}
+		mv.addObject("user", userInfoService.listByCondition(userInfo));
+		
+		return mv;
 	}
 	
 	/**
