@@ -255,63 +255,71 @@
          	order by ${orderFields} ${order}
        	</if>
 	</select>
-	<insert id="addbidAnalysis" parameterType="com.dongnao.workbench.staticAnalysis.model.BidStaticAnalysis">
-		insert into emp_salary (
+	
+	
+	
+	<insert id="addbidAnalysis" parameterType="java.util.List">
+		insert into analysis_bid (
 				id
-			 	,create_date
-				,emp_id
-				,emp_bank
-				,emp_bank_card
-				,basic_salary
-				,should_salary
-				,duty_level_salary
-				,social_security
-				,late_early_time
-				,late_early_cost
-				,attendance_anomaly_time
-				,attendance_anomaly_cost
-				,leave_day
-				,leave_cost
-				,table_money
-				,housing_allowance
-				,merit_raise
-				,rests
-				,actual_salary
-				,send_flag
-				,check_id
-				,send_date
-				,check_date
-				,check_flag
-				,assign_flag
-				,note
+			 	,storeName
+				,storeArea
+				,bidTime
+				,bidCycle
+				,bidTotalAmountInWeek
+				,averageClickCost
+				,bidActivityIntensity
+				,exposureIncrementPercent
+				,enterRateIncrementPercent
+				,tradeAmountIncrementPercent
+				,rankBeforeBid
+				,rankAfterBid
+				,contributionInBid
+		)values
+		
+		<foreach collection="list" item="item" index="index" separator="," >
+		 (
+			 #{item.id,jdbcType=VARCHAR}
+			,#{item.storeName,jdbcType=VARCHAR}
+			,#{item.storeArea,jdbcType=VARCHAR}
+			,#{item.bidTime,jdbcType=VARCHAR}
+			,#{item.bidCycle,jdbcType=VARCHAR}
+			,#{item.bidTotalAmountInWeek,jdbcType=VARCHAR}
+			,#{item.averageClickCost,jdbcType=VARCHAR}
+			,#{item.bidActivityIntensity,jdbcType=VARCHAR}
+			,#{item.exposureIncrementPercent,jdbcType=VARCHAR}
+			,#{item.enterRateIncrementPercent,jdbcType=VARCHAR}
+			,#{item.tradeAmountIncrementPercent,jdbcType=VARCHAR}
+			,#{item.rankBeforeBid,jdbcType=VARCHAR}
+			,#{item.rankAfterBid,jdbcType=VARCHAR}
+			,#{item.contributionInBid,jdbcType=VARCHAR} 
+		)
+		</foreach>
+	
+	</insert>
+	
+		<insert id="adddemanAnalysis" parameterType="com.dongnao.workbench.staticAnalysis.model.DemandAnalysis">
+		insert into analysis_bid (
+				id
+			 	,storeName
+
 		)values (
 			#{id,jdbcType=VARCHAR}
-			,#{createDate,jdbcType=TIMESTAMP}
-			,#{empId,jdbcType=VARCHAR}
-			,#{empBank,jdbcType=VARCHAR}
-			,#{empBankCard,jdbcType=VARCHAR}
-			,#{basicSalary,jdbcType=DECIMAL}
-			,#{shouldSalary,jdbcType=DECIMAL}
-			,#{dutyLevelSalary,jdbcType=DECIMAL}
-			,#{socialSecurity,jdbcType=DECIMAL}
-			,#{lateEarlyTime,jdbcType=INTEGER}
-			,#{lateEarlyCost,jdbcType=DOUBLE}
-			,#{attendanceAnomalyTime,jdbcType=INTEGER}
-			,#{attendanceAnomalyCost,jdbcType=DOUBLE}
-			,#{leaveDay,jdbcType=DOUBLE}
-			,#{leaveCost,jdbcType=DOUBLE}
-			,#{tableMoney,jdbcType=DECIMAL}
-			,#{housingAllowance,jdbcType=DECIMAL}
-			,#{meritRaise,jdbcType=DECIMAL}
-			,#{rests,jdbcType=DECIMAL}
-			,#{actualSalary,jdbcType=DECIMAL}
-			,#{sendFlag,jdbcType=INTEGER}
-			,#{checkId,jdbcType=VARCHAR}
-			,#{sendDate,jdbcType=TIMESTAMP}
-			,#{checkDate,jdbcType=TIMESTAMP}
-			,#{checkFlag,jdbcType=INTEGER}
-			,#{assignFlag,jdbcType=INTEGER}
-			,#{note,jdbcType=VARCHAR}
+			,#{storeName,jdbcType=VARCHAR}
+
+		)
+	</insert>
+	
+		<insert id="addactiveAnalysis" parameterType="com.dongnao.workbench.staticAnalysis.model.StoreActiveAnalysis">
+		insert into analysis_bid (
+				id
+			 	,storeName
+				,storeArea
+
+		)values (
+			#{id,jdbcType=VARCHAR}
+			,#{storeName,jdbcType=VARCHAR}
+			,#{storeArea,jdbcType=VARCHAR}
+
 		)
 	</insert>
 	<!-- <select id="allStatic" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.product.model.Product">

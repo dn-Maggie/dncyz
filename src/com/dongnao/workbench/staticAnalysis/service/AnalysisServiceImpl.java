@@ -53,11 +53,28 @@ public class AnalysisServiceImpl implements AnalysisService{
 	};
 	/**
 	 * 新增竞价分析方法
-	 * @param empSalary:实体类
+	 * @param bidAnalysis:实体类
 	 */
 	@Override
-	public ResultMessage addbidAnalysis(BidStaticAnalysis bidAnalysis) {
-		analysisMapper.addbidAnalysis(bidAnalysis);
-		return AjaxUtils.getSuccessMessage();
+	public int addbidAnalysis(List<BidStaticAnalysis> bidAnalysis) {
+		return analysisMapper.addbidAnalysis(bidAnalysis);
+	};
+	
+	/**
+	 *插入精准需求分析的方法
+	 * @param demanAnalysis:实体类
+	 */
+	@Override
+	public int adddemanAnalysis(List<DemandAnalysis> demanAnalysis) {
+		return analysisMapper.adddemanAnalysis(demanAnalysis);
+	};
+	
+	/**
+	 *  插入活动数据分析的方法
+	 * @param storeActiveAnalysis:实体类
+	 */
+	@Override
+	public int addactiveAnalysis(List<StoreActiveAnalysis> storeActiveAnalysis) {
+		return analysisMapper.addactiveAnalysis(storeActiveAnalysis);
 	};
 }

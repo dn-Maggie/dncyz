@@ -78,7 +78,7 @@ function checkLeave(){
 	function importData(){
 		 if($('input[type="file"]').val()!=""){
 			var extend=$('input[type="file"]').val().substr($('input[type="file"]').val().lastIndexOf(".")+1);
-			if("xls|xlsx".indexOf(extend+"|")==-1){
+			if("xls|xlsx".indexOf(extend)==-1){//在字符串中xls|xlsx寻找后缀xls或者xlsx，有的话返回下标，没有就返回-1
 				 showInfo("选择的文件必须是EXCEL文件,请确认！",3000);
 	         }else{
 	        	ajaxFileUpload();

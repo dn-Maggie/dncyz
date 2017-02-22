@@ -34,5 +34,17 @@ public interface AnalysisService {
 	 * 插入竞价分析数据的方法
 	 * @param BidStaticAnalysis bidAnalysis:实体类
 	 */
-	public ResultMessage addbidAnalysis(BidStaticAnalysis bidAnalysis);
+	public int  addbidAnalysis(List<BidStaticAnalysis> bidAnalysis);
+	
+	/**
+	 *  插入精准需求分析的方法
+	 * @param DemandAnalysis demanAnalysis:实体类
+	 */
+	public int adddemanAnalysis(List<DemandAnalysis> demanAnalysis);
+	
+	/**
+	 * 插入活动数据分析的方法
+	 * @param StoreActiveAnalysis storeActiveAnalysis:实体类
+	 */
+	public int addactiveAnalysis(List<StoreActiveAnalysis> storeActiveAnalysis);
 }
