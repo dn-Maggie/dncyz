@@ -3,7 +3,10 @@ package com.dongnao.workbench.staticAnalysis.model;
 import com.dongnao.workbench.common.bean.Model;
 
 public class StoreActiveAnalysis extends Model {
-
+	 /**
+     * 主键
+     **/
+	private String id;
 	/**
 	 * 商户名称
 	 **/
@@ -66,6 +69,14 @@ public class StoreActiveAnalysis extends Model {
 	 * 活动期间同比上期订单量增幅
 	 **/
 	private String orderAmountIncrementPercent;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getStoreName() {
 		return storeName;
