@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.order.dao.OrderMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.order.model.Order">
+		<id column="ORDER_ID" property="orderId" jdbcType="CHAR" />
+															<result column="ORDER_SOURCE" property="orderSource" jdbcType="VARCHAR" />
+													<result column="STORE_ID" property="storeId" jdbcType="CHAR" />
+													<result column="ORDER_TIME" property="orderTime" jdbcType="TIMESTAMP" />
+													<result column="ORDER_PERSON_NAME" property="orderPersonName" jdbcType="VARCHAR" />
+													<result column="ORDER_PERSON_TEL" property="orderPersonTel" jdbcType="VARCHAR" />
+													<result column="PRODUCT_LIST_ID" property="productListId" jdbcType="CHAR" />
+													<result column="DELIVERY_COST" property="deliveryCost" jdbcType="DOUBLE" />
+													<result column="FOODBOX_COST" property="foodboxCost" jdbcType="DOUBLE" />
+													<result column="PRIVILEGE" property="privilege" jdbcType="DOUBLE" />
+													<result column="DEDUCTION" property="deduction" jdbcType="DOUBLE" />
+													<result column="ORDER_STATUS" property="orderStatus" jdbcType="CHAR" />
+									</resultMap>
+	<sql id="Base_Column_List">
+						 	ORDER_ID
+										,ORDER_SOURCE
+										,STORE_ID
+										,ORDER_TIME
+										,ORDER_PERSON_NAME
+										,ORDER_PERSON_TEL
+										,PRODUCT_LIST_ID
+										,DELIVERY_COST
+										,FOODBOX_COST
+										,PRIVILEGE
+										,DEDUCTION
+										,ORDER_STATUS
+						</sql>
+	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from dn_order
+		where ORDER_ID = #{orderId,jdbcType=CHAR}
+	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.order.model.Order">
+		select
+		<include refid="Base_Column_List" />
+		from dn_order
+		where 1=1
+		<if test="orderId != null and '' != orderId">  
+			and ORDER_ID = #{orderId,jdbcType=CHAR}
+		</if>
+		<if test="orderSource != null and '' != orderSource">  
+			and ORDER_SOURCE = #{orderSource,jdbcType=VARCHAR}
+		</if>
+		<if test="storeId != null and '' != storeId">  
+			and STORE_ID = #{storeId,jdbcType=CHAR}
+		</if>
+		<if test="orderTime != null and '' != orderTime">  
+			and ORDER_TIME = #{orderTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="orderPersonName != null and '' != orderPersonName">  
+			and ORDER_PERSON_NAME = #{orderPersonName,jdbcType=VARCHAR}
+		</if>
+		<if test="orderPersonTel != null and '' != orderPersonTel">  
+			and ORDER_PERSON_TEL = #{orderPersonTel,jdbcType=VARCHAR}
+		</if>
+		<if test="productListId != null and '' != productListId">  
+			and PRODUCT_LIST_ID = #{productListId,jdbcType=CHAR}
+		</if>
+		<if test="deliveryCost != null and '' != deliveryCost">  
+			and DELIVERY_COST = #{deliveryCost,jdbcType=DOUBLE}
+		</if>
+		<if test="foodboxCost != null and '' != foodboxCost">  
+			and FOODBOX_COST = #{foodboxCost,jdbcType=DOUBLE}
+		</if>
+		<if test="privilege != null and '' != privilege">  
+			and PRIVILEGE = #{privilege,jdbcType=DOUBLE}
+		</if>
+		<if test="deduction != null and '' != deduction">  
+			and DEDUCTION = #{deduction,jdbcType=DOUBLE}
+		</if>
+		<if test="orderStatus != null and '' != orderStatus">  
+			and ORDER_STATUS = #{orderStatus,jdbcType=CHAR}
+		</if>
+				<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+         	</if>
+	</select>
+	
+	<delete id="deleteByKey" parameterType="java.lang.String">
+		delete from dn_order
+		where ORDER_ID = #{orderId,jdbcType=CHAR}
+	</delete>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.order.model.Order">
+		insert into dn_order (
+		<include refid="Base_Column_List" />
+		)values (
+										#{orderId,jdbcType=CHAR}
+														,#{orderSource,jdbcType=VARCHAR}
+														,#{storeId,jdbcType=CHAR}
+														,#{orderTime,jdbcType=TIMESTAMP}
+														,#{orderPersonName,jdbcType=VARCHAR}
+														,#{orderPersonTel,jdbcType=VARCHAR}
+														,#{productListId,jdbcType=CHAR}
+														,#{deliveryCost,jdbcType=DOUBLE}
+														,#{foodboxCost,jdbcType=DOUBLE}
+														,#{privilege,jdbcType=DOUBLE}
+														,#{deduction,jdbcType=DOUBLE}
+														,#{orderStatus,jdbcType=CHAR}
+									)
+	</insert>
+	
+	<update id="update" parameterType="com.dongnao.workbench.order.model.Order">
+		update dn_order  set
+		ID= #{orderId,jdbcType=CHAR}
+													,ORDER_SOURCE = #{orderSource,jdbcType=VARCHAR}
+											,STORE_ID = #{storeId,jdbcType=CHAR}
+											,ORDER_TIME = #{orderTime,jdbcType=TIMESTAMP}
+											,ORDER_PERSON_NAME = #{orderPersonName,jdbcType=VARCHAR}
+											,ORDER_PERSON_TEL = #{orderPersonTel,jdbcType=VARCHAR}
+											,PRODUCT_LIST_ID = #{productListId,jdbcType=CHAR}
+											,DELIVERY_COST = #{deliveryCost,jdbcType=DOUBLE}
+											,FOODBOX_COST = #{foodboxCost,jdbcType=DOUBLE}
+											,PRIVILEGE = #{privilege,jdbcType=DOUBLE}
+											,DEDUCTION = #{deduction,jdbcType=DOUBLE}
+											,ORDER_STATUS = #{orderStatus,jdbcType=CHAR}
+							where ORDER_ID = #{orderId,jdbcType=CHAR}
+	</update>
+</mapper>

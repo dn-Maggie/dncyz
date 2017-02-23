@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.store.dao.StoreFluxMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.store.model.StoreFlux">
+		<id column="FLUX_ID" property="fluxId" jdbcType="CHAR" />
+															<result column="PLATFORM_ID" property="platformId" jdbcType="CHAR" />
+													<result column="STORE_ID" property="storeId" jdbcType="CHAR" />
+													<result column="STORE_EXPOSURE" property="storeExposure" jdbcType="INTEGER" />
+													<result column="STORE_VISITOR_NUM" property="storeVisitorNum" jdbcType="INTEGER" />
+													<result column="STORE_ORDER_NUM" property="storeOrderNum" jdbcType="INTEGER" />
+													<result column="FLUX_IN_CATEGORY" property="fluxInCategory" jdbcType="INTEGER" />
+													<result column="FLUX_IN_HOMEPAGE" property="fluxInHomepage" jdbcType="INTEGER" />
+													<result column="FLUX_IN_DETAILE" property="fluxInDetaile" jdbcType="INTEGER" />
+													<result column="FLUX_IN_ACTIVITY" property="fluxInActivity" jdbcType="INTEGER" />
+													<result column="FLUX_IN_COLLECT" property="fluxInCollect" jdbcType="INTEGER" />
+													<result column="FLUX_IN_SEARCH" property="fluxInSearch" jdbcType="INTEGER" />
+									</resultMap>
+	<sql id="Base_Column_List">
+	 	FLUX_ID
+		,PLATFORM_ID
+		,STORE_ID
+		,STORE_EXPOSURE
+		,STORE_VISITOR_NUM
+		,STORE_ORDER_NUM
+		,FLUX_IN_CATEGORY
+		,FLUX_IN_HOMEPAGE
+		,FLUX_IN_DETAILE
+		,FLUX_IN_ACTIVITY
+		,FLUX_IN_COLLECT
+		,FLUX_IN_SEARCH
+	</sql>
+	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		sf.FLUX_ID
+			,sf.PLATFORM_ID
+			,s.STORE_NAME as storeName
+			,sf.STORE_EXPOSURE
+			,sf.STORE_VISITOR_NUM
+			,sf.STORE_ORDER_NUM
+			,sf.FLUX_IN_CATEGORY
+			,sf.FLUX_IN_HOMEPAGE
+			,sf.FLUX_IN_DETAILE
+			,sf.FLUX_IN_ACTIVITY
+			,sf.FLUX_IN_COLLECT
+			,sf.FLUX_IN_SEARCH
+		from dn_store_flux as sf
+		left join dn_store as s on sf.STORE_ID = s.STORE_ID
+		where FLUX_ID = #{fluxId,jdbcType=CHAR}
+	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.StoreFlux">
+		select
+			sf.FLUX_ID
+			,sf.PLATFORM_ID
+			,s.STORE_NAME as storeName
+			,sf.STORE_EXPOSURE
+			,sf.STORE_VISITOR_NUM
+			,sf.STORE_ORDER_NUM
+			,sf.FLUX_IN_CATEGORY
+			,sf.FLUX_IN_HOMEPAGE
+			,sf.FLUX_IN_DETAILE
+			,sf.FLUX_IN_ACTIVITY
+			,sf.FLUX_IN_COLLECT
+			,sf.FLUX_IN_SEARCH
+		from dn_store_flux as sf
+		left join dn_store as s on sf.STORE_ID = s.STORE_ID
+		where 1=1
+		<if test="fluxId != null and '' != fluxId">  
+			and sf.FLUX_ID = #{fluxId,jdbcType=CHAR}
+		</if>
+		<if test="platformId != null and '' != platformId">  
+			and sf.PLATFORM_ID = #{platformId,jdbcType=CHAR}
+		</if>
+		<if test="storeId != null and '' != storeId">  
+			and sf.STORE_ID = #{storeId,jdbcType=CHAR}
+		</if>
+		<if test="storeExposure != null and '' != storeExposure">  
+			and sf.STORE_EXPOSURE = #{storeExposure,jdbcType=INTEGER}
+		</if>
+		<if test="storeVisitorNum != null and '' != storeVisitorNum">  
+			and sf.STORE_VISITOR_NUM = #{storeVisitorNum,jdbcType=INTEGER}
+		</if>
+		<if test="storeOrderNum != null and '' != storeOrderNum">  
+			and sf.STORE_ORDER_NUM = #{storeOrderNum,jdbcType=INTEGER}
+		</if>
+		<if test="fluxInCategory != null and '' != fluxInCategory">  
+			and sf.FLUX_IN_CATEGORY = #{fluxInCategory,jdbcType=INTEGER}
+		</if>
+		<if test="fluxInHomepage != null and '' != fluxInHomepage">  
+			and sf.FLUX_IN_HOMEPAGE = #{fluxInHomepage,jdbcType=INTEGER}
+		</if>
+		<if test="fluxInDetaile != null and '' != fluxInDetaile">  
+			and sf.FLUX_IN_DETAILE = #{fluxInDetaile,jdbcType=INTEGER}
+		</if>
+		<if test="fluxInActivity != null and '' != fluxInActivity">  
+			and sf.FLUX_IN_ACTIVITY = #{fluxInActivity,jdbcType=INTEGER}
+		</if>
+		<if test="fluxInCollect != null and '' != fluxInCollect">  
+			and sf.FLUX_IN_COLLECT = #{fluxInCollect,jdbcType=INTEGER}
+		</if>
+		<if test="fluxInSearch != null and '' != fluxInSearch">  
+			and sf.FLUX_IN_SEARCH = #{fluxInSearch,jdbcType=INTEGER}
+		</if>
+		<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+       	</if>
+	</select>
+	
+	<delete id="deleteByKey" parameterType="java.lang.String">
+		delete from dn_store_flux
+		where FLUX_ID = #{fluxId,jdbcType=CHAR}
+	</delete>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.store.model.StoreFlux">
+		insert into dn_store_flux (
+		<include refid="Base_Column_List" />
+		)values (
+										#{fluxId,jdbcType=CHAR}
+														,#{platformId,jdbcType=CHAR}
+														,#{storeId,jdbcType=CHAR}
+														,#{storeExposure,jdbcType=INTEGER}
+														,#{storeVisitorNum,jdbcType=INTEGER}
+														,#{storeOrderNum,jdbcType=INTEGER}
+														,#{fluxInCategory,jdbcType=INTEGER}
+														,#{fluxInHomepage,jdbcType=INTEGER}
+														,#{fluxInDetaile,jdbcType=INTEGER}
+														,#{fluxInActivity,jdbcType=INTEGER}
+														,#{fluxInCollect,jdbcType=INTEGER}
+														,#{fluxInSearch,jdbcType=INTEGER}
+									)
+	</insert>
+	
+	<update id="update" parameterType="com.dongnao.workbench.store.model.StoreFlux">
+		update dn_store_flux  set
+		ID= #{fluxId,jdbcType=CHAR}
+													,PLATFORM_ID = #{platformId,jdbcType=CHAR}
+											,STORE_ID = #{storeId,jdbcType=CHAR}
+											,STORE_EXPOSURE = #{storeExposure,jdbcType=INTEGER}
+											,STORE_VISITOR_NUM = #{storeVisitorNum,jdbcType=INTEGER}
+											,STORE_ORDER_NUM = #{storeOrderNum,jdbcType=INTEGER}
+											,FLUX_IN_CATEGORY = #{fluxInCategory,jdbcType=INTEGER}
+											,FLUX_IN_HOMEPAGE = #{fluxInHomepage,jdbcType=INTEGER}
+											,FLUX_IN_DETAILE = #{fluxInDetaile,jdbcType=INTEGER}
+											,FLUX_IN_ACTIVITY = #{fluxInActivity,jdbcType=INTEGER}
+											,FLUX_IN_COLLECT = #{fluxInCollect,jdbcType=INTEGER}
+											,FLUX_IN_SEARCH = #{fluxInSearch,jdbcType=INTEGER}
+							where FLUX_ID = #{fluxId,jdbcType=CHAR}
+	</update>
+</mapper>
