@@ -63,6 +63,7 @@ public class FileUpload extends HttpServlet {
         //form提交采用multipart/form-data,无法采用req.getParameter()取得数据  
         //String itemNo = req.getParameter("itemNo");  
         //System.out.println("itemNo======" + itemNo);  
+        request.setCharacterEncoding("utf-8");
         
         File uploadPath = new File("D:" + File.separator + "static");
         logger.debug("uploadPath=====" + uploadPath);
@@ -119,6 +120,7 @@ public class FileUpload extends HttpServlet {
                     //                    if ("itemNo".equals(item.getFieldName())) {
                     //itemNo为界面上传过来的店铺的名称
                     itemNo = item.getString();
+                    itemNo = new String(itemNo.getBytes("ISO-8859-1"), "utf-8");
                     
                     if (itemNo != null && !"".equals(itemNo)) {
                         storeNamePath = new File(imagePath.getAbsoluteFile()
