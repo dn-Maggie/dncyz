@@ -6,18 +6,19 @@
 <%@ include file="../../common/ace.jsp"%>
 <style>
 	.ace-file-input{width:180px; position: relative;  height: 38px; line-height: 38px; margin:0; display:inline-block;float:left}
+	.upload{    margin-left: 15px;display:none;}
 </style>
 <script type="text/javascript">
-	/* function checkRealImage(elementId) {
+	 function checkRealImage(elementId) {
 		var text = $("#"+elementId).contents().find('pre').text();
 		var textJo = JSON.parse(text);
 		if(textJo.respCode != '0000') {
 			showMessage("图片上传失败！");
 		}
-	} */
+	} 
 $(function() {
 	//存放店铺信息
-	/* var storeInfo = {}; */
+	 var storeInfo = {}; 
 	
 	//select多选 初始化方法
 	$(".choose_select").chosen(); 
@@ -39,13 +40,9 @@ $(function() {
 	    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=settlementMethod'/>",
 	});
 	//checkbox
-	$('#skip-validation').removeAttr('checked').on('click', function(){
-		if(this.checked) {
-			$("#edit_proInvoiceFlag").val("1");
-		}
-		else {
-			$("#edit_proInvoiceFlag").val("0");
-		}
+	$('#edit_proInvoiceFlag').removeAttr('checked').on('click', function(){
+		if(this.checked) {$("#edit_proInvoiceFlag").val("1");}
+		else {$("#edit_proInvoiceFlag").val("0");}
 	});
 
 	$('input[type="file"]').ace_file_input({
@@ -57,11 +54,12 @@ $(function() {
 		thumbnail:false,
 		whitelist:'gif|png|jpg|jpeg',
 		onchange:function(){
+			console.log(this);
 		}
 		
 	});
 	
-	/* $('#realImage_submit').click(function(){
+	$('#realImage_submit').click(function(){
 		
 		if(!$("#edit_storeName").val()) {
 			showMessage("请先填写店铺名称！");
@@ -70,15 +68,15 @@ $(function() {
 		$('#image_storeName').val($("#edit_storeName").val());
 		$('#realImageForm').submit();
 		
-	}); */
+	}); 
 	
-	/* function getImageUrl(elementId) {
+	 function getImageUrl(elementId) {
 		var text = $('#' + elementId).contents().find('pre').text();
 		var textJo = JSON.parse(text);
 		var picAddr = textJo.picAddr;
 		
 		return picAddr;
-	} */
+	} 
 	
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
@@ -88,10 +86,9 @@ $(function() {
 			showWarn("数据验证失败",3000);
 			$("#submit").prop('disabled', false).css({'cursor':'pointer'});
 			return;
-		} */
-		
+		} */		
 		//var pre = $('#realImageIframe').contentWindow.document.find('pre');
-		/* var realImageUrl = getImageUrl('realImageIframe'); */
+		 var realImageUrl = getImageUrl('realImageIframe1'); 
 		
         var storeName = $("#edit_storeName").val();
         var brandId=$("#edit_brandId").val();
@@ -367,16 +364,21 @@ $(function() {
 			<tr>
 				<td class="inputLabelTd">实景图片1：</td>
 				<td class="inputTd">
-				<%-- <form method="post" id="realImageForm" target="realImageIframe" action="<%=request.getContextPath()%>/common/fileUpload" enctype="multipart/form-data">
+				<form method="post" id="realImageForm" target="realImageIframe" action="<%=request.getContextPath()%>/common/fileUpload" enctype="multipart/form-data">
 					<input id="image_storeName" name="image_storeName" type="text" class="text" style="display:none;" value="storeName"/>
 					<input id="edit_realImagePath1" name="realImagePath1" type="file" class="text" value="${store.realImagePath1}"/>
 					<input id="realImage_submit" type="button" value="上传" class="btn spinner-up btn-xs btn-success upload" >
-					<iframe id="realImageIframe" name="realImageIframe" onload="checkRealImage('realImageIframe');" style="display:none;"></iframe>
-				</form> --%>
+					<iframe id="realImageIframe1" name="realImageIframe1" onload="checkRealImage('realImageIframe1');" style="display:none;"></iframe>
+				</form> 
 				</td>
 				<td class="inputLabelTd">实景图片2：</td>
 				<td class="inputTd">
+				<form method="post" id="realImageForm" target="realImageIframe" action="<%=request.getContextPath()%>/common/fileUpload" enctype="multipart/form-data">
+					<input id="image_storeName" name="image_storeName" type="text" class="text" style="display:none;" value="storeName"/>
 					<input id="edit_realImagePath2" name="realImagePath2" type="file" class="text" value="${store.realImagePath2}"/>
+					<input id="realImage_submit" type="button" value="上传" class="btn spinner-up btn-xs btn-success upload" >
+					<iframe id="realImageIframe2" name="realImageIframe1" onload="checkRealImage('realImageIframe2');" style="display:none;"></iframe>
+				</form> 
 				</td>
 			</tr>
 			<tr>

@@ -1530,6 +1530,7 @@ div.error{
 	font-size: 14px;
 	font-weight: 500;
 	line-height: 2.25em;
+	text-indent:10px;
 	color: white;
 /* 	background: url("images/ui-bg_flat_55_5c9ccc_40x100.png")  repeat-x scroll 50% 50% #CCCCCC; */
     background:#f47115;

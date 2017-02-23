@@ -52,8 +52,7 @@ public class StoreController{
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/store/addStore");
 		mv.addObject("brand", brandService.listByCondition(null));
 		UserInfo userInfo = new UserInfo();
-		if(!Utils.isSuperAdmin(request))
- 		{userInfo.setId(Utils.getLoginUserInfoId(request));}
+		if(!Utils.isSuperAdmin(request)){userInfo.setId(Utils.getLoginUserInfoId(request));}
 		mv.addObject("user", userInfoService.listByCondition(userInfo));
 		return mv;
 	}

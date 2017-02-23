@@ -88,7 +88,7 @@
     display: table-cell;
     color: #aaa;
     float: left;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
     cursor: pointer;
 }
 #loginForm div.group.check_code span.addon{
