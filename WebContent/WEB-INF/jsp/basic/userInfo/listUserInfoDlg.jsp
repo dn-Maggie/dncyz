@@ -199,14 +199,12 @@ function treeOnClick(event, treeId, treeNode) {//
 		<div class="ui-table ui-widget ui-corner-all ui-margin ui-leftDiv">
 			<form id="queryForm1">
 				<div id="equal1" class="equal">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0"
-						class="top_table">
+					<table class="top_table">
 						<tr>
 							<td class="rightSide">名称：</td>
 							<td><input type="text" name="orgName" id="orgName"
 								style="width: 100px;"
 								onkeyup="search_ztree('orgTree','name',this);" /></td>
-
 						</tr>
 					</table>
 				</div>

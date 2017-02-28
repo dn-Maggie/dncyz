@@ -133,7 +133,7 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.store.model.StoreFlux">
 		update dn_store_flux  set
-		ID= #{fluxId,jdbcType=CHAR}
+		FLUX_ID= #{fluxId,jdbcType=CHAR}
 													,PLATFORM_ID = #{platformId,jdbcType=CHAR}
 											,STORE_ID = #{storeId,jdbcType=CHAR}
 											,STORE_EXPOSURE = #{storeExposure,jdbcType=INTEGER}

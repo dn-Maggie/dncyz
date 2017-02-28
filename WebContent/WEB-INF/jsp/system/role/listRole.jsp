@@ -366,14 +366,9 @@
 </script>
 </head>
 <body style="height: 100%;">
-
-
-	<div class="main  choice_box"
-		style="height: 100%; float: right; width: 22%">
+	<div class="main  choice_box" style="height: 100%; float: right; width: 22%">
 		<div class="ui-table ui-widget ui-corner-all ui-margin ui-leftDiv">
-			<div id="equal1"
-				style="height: 25px; text-align: center; padding-top: 5px;">
-				菜单列表</div>
+			<div id="equal1" style="height: 25px;height: 25px; text-align: center;">菜单列表</div>
 			<ul id="menutree" class="ztree"
 				style="height: 420px; margin-top: 0; border-top: 1px solid #ddd; position: relative; overflow: auto; width: 97%"></ul>
 		</div>
@@ -387,14 +382,13 @@
 					id="dictTypeCode" name="dictTypeCode" value="" />
 				<div class="search border-bottom">
 					<ul>
-						<li style="width: 220px; float: left;"><span>关键字:</span> <input
-							id="roleName" type="text" placeholder="角色名称"
-							class="search_choose100" value="" name="roleName"
-							autocomplete="off"></li>
-						<li><input type="reset" value="重置"
-							onClick="resetForm('queryForm')" class="reset_btn"> <!-- 重置 -->
-							<input type="button" value="查询" onclick="doSearch();"
-							class="search_btn mr22 " /></li>
+						<li style="width: 220px; float: left;"><span>关键字:</span> 
+							<input id="roleName" type="text" placeholder="角色名称" class="search_choose100" value="" name="roleName" autocomplete="off">
+						</li>
+						<li>
+							<input type="reset" value="重置" onClick="resetForm('queryForm')" class="reset_btn"> <!-- 重置 -->
+							<input type="button" value="查询" onclick="doSearch();" class="search_btn mr22 " />
+						</li>
 						<!-- 查询-->
 					</ul>
 				</div>
@@ -404,45 +398,34 @@
 			<div class="list_btn_bg fl" style="z-index: 2">
 				<!--功能按钮 div-->
 				<ul>
-
-					<li><a title="<m:message 
-
-code="button.add"/>"
+					<li><a title="<m:message code="button.add"/>"
 						href="javascript:;" onclick="add();"> <i
 							class="icon_bg icon_add"> </i> <span><m:message
 									code="button.add" /></span>
 					</a></li>
 
 					<c:if test="${edit}">
-						<li><a title="<m:message 
-
-code="button.edit"/>"
+						<li><a title="<m:message code="button.edit"/>"
 							href="javascript:;" onclick="edit();"><i
 								class="icon_bg icon_edit"></i> <span><m:message
 										code="button.edit" /></span> </a></li>
 					</c:if>
 					<c:if test="${delete}">
-						<li><a title="<m:message 
-
-code="button.delete"/>"
+						<li><a title="<m:message code="button.delete"/>"
 							href="javascript:;" onclick="batchDelete();"> <i
 								class="icon_bg icon_del"></i> <span><m:message
 										code="button.delete" /></span>
 						</a></li>
 					</c:if>
 					<c:if test="${showUser}">
-						<li><a title="<m:message 
-
-code="button.role.showUser"/>"
+						<li><a title="<m:message code="button.role.showUser"/>"
 							href="javascript:" onclick="showRoleUser();"> <i
 								class="back_icon role_icon"></i> <span> <m:message
 										code="button.role.showUser" /></span>
 						</a></li>
 					</c:if>
 					<c:if test="${portionRight}">
-						<li><a title="<m:message 
-
-code="button.role.portion"/>"
+						<li><a title="<m:message code="button.role.portion"/>"
 							href="javascript:" onclick="portionRes();"> <i
 								class="back_icon permissions_icon"></i> <span> <m:message
 										code="button.role.portion" /></span>

@@ -43,4 +43,9 @@ public interface StoreService  {
 	 * @param store Store 实体对象
 	 */	
 	public ResultMessage update(Store store);
+	/**
+	 * 修改店铺资料图片方法
+	 * @param store Store 实体对象
+	 */	
+	public ResultMessage updateImg(Store store);
 }

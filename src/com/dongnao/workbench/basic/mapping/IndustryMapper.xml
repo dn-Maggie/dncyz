@@ -49,7 +49,7 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.basic.model.Industry">
 		update dn_industry  set
-		ID= #{industryId,jdbcType=CHAR}
+		INDUSTRY_ID= #{industryId,jdbcType=CHAR}
 													,INDUSTRY_NAME = #{industryName,jdbcType=VARCHAR}
 							where INDUSTRY_ID = #{industryId,jdbcType=CHAR}
 	</update>

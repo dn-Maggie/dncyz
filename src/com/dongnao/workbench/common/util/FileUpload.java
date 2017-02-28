@@ -1,4 +1,4 @@
-package com.dongnao.workbench.fileUpload;
+package com.dongnao.workbench.common.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +21,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
+import com.dongnao.workbench.common.util.AjaxUtils;
 
 /**
  * Servlet implementation class FileUpload
@@ -57,21 +58,23 @@ public class FileUpload extends HttpServlet {
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
-    protected void doPost(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         //从item_upload.jsp中拿取数据，因为上传页的编码格式跟一般的不同，使用的是enctype="multipart/form-data"  
         //form提交采用multipart/form-data,无法采用req.getParameter()取得数据  
         //String itemNo = req.getParameter("itemNo");  
         //System.out.println("itemNo======" + itemNo);  
+    	
+    	request.setCharacterEncoding("utf-8");
+       /* response.setContentType("application/xml");*/
         
-        File uploadPath = new File("D:" + File.separator + "static");
+        File uploadPath = new File("D:" + File.separator + "餐予者");
         logger.debug("uploadPath=====" + uploadPath);
         
         if (!uploadPath.exists() && !uploadPath.isDirectory()) {
             uploadPath.mkdir();
         }
-        File imagePath = new File(uploadPath.getAbsoluteFile() + File.separator
-                + "file");
+        File imagePath = new File(uploadPath.getAbsoluteFile() + File.separator+ "店铺资料");
+        
         if (!imagePath.exists() && !imagePath.isDirectory()) {
             imagePath.mkdir();
         }
@@ -101,12 +104,14 @@ public class FileUpload extends HttpServlet {
         
         /*******************************解析表单传递过来的数据，返回List集合数据-类型:FileItem***********/
         
+        
         File storeNamePath = null;
+        File itemPath = null;
         try {
             
             List fileItems = upload.parseRequest(request);
             
-            String itemNo = "";
+            String itemNo = "";String itemFold="";
             //Iterator iter = fileItems.iterator()取其迭代器  
             //iter.hasNext()检查序列中是否还有元素  
             for (Iterator iter = fileItems.iterator(); iter.hasNext();) {
@@ -116,16 +121,20 @@ public class FileUpload extends HttpServlet {
                 //判断是文件还是文本信息  
                 //是普通的表单输入域  
                 if (item.isFormField()) {
-                    //                    if ("itemNo".equals(item.getFieldName())) {
+                    //if ("itemNo".equals(item.getFieldName())) {
                     //itemNo为界面上传过来的店铺的名称
                     itemNo = item.getString();
-                    
+                    itemFold = item.getFieldName();
+                    itemNo = new String(itemNo.getBytes("ISO-8859-1"), "utf-8");
+                    itemFold = new String(itemFold.getBytes("ISO-8859-1"), "utf-8");
                     if (itemNo != null && !"".equals(itemNo)) {
-                        storeNamePath = new File(imagePath.getAbsoluteFile()
-                                + File.separator + itemNo);
-                        if (!storeNamePath.exists()
-                                && !storeNamePath.isDirectory()) {
+                        storeNamePath = new File(imagePath.getAbsoluteFile() + File.separator + itemNo);
+                        if (!storeNamePath.exists() && !storeNamePath.isDirectory()) {
                             storeNamePath.mkdir();
+                        }
+                       itemPath = new File(storeNamePath.getAbsoluteFile() + File.separator+ itemFold);
+                        if (!itemPath.exists() && !itemPath.isDirectory()) {
+                        	itemPath.mkdir();
                         }
                     }
                     
@@ -144,13 +153,13 @@ public class FileUpload extends HttpServlet {
                     //截取字符串 如：C:\WINDOWS\Debug\PASSWD.LOG  
                     fileName = fileName.substring(fileName.lastIndexOf("\\") + 1,
                             fileName.length());
-                    String imageName = new Date().getTime() + ".jpg";
+                  /*  String imageName = new Date().getTime() + ".jpg";*/
                     // 保存文件在服务器的物理磁盘中：第一个参数是：完整路径（不包括文件名）第二个参数是：文件名称     
                     //item.write(file);  
                     //修改文件名和物料名一致，且强行修改了文件扩展名为gif  
                     //item.write(new File(uploadPath, itemNo + ".gif"));  
                     //将文件保存到目录下，不修改文件名  
-                    File file = new File(storeNamePath, imageName);
+                    File file = new File(itemPath, fileName);
                     logger.debug("图片路径========" + file.getAbsolutePath());
                     item.write(file);
                     
@@ -162,10 +171,10 @@ public class FileUpload extends HttpServlet {
                                     + request.getServerName() + ":"
                                     + request.getServerPort()
                                     + request.getContextPath() + "/file/"
-                                    + itemNo + "/" + imageName);
-                    PrintWriter out = response.getWriter();
-                    out.print(reJo);
-                    
+                                    + itemNo +"/" + itemFold+"/" + fileName);
+                   /* PrintWriter out = response.getWriter();
+                    out.print(reJo);*/
+                    AjaxUtils.sendAjaxForObject(response,reJo);	
                 }
             }
         }

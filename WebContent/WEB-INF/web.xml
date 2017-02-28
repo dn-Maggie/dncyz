@@ -95,7 +95,7 @@
   
    <servlet>
     <servlet-name>fileUpload</servlet-name>
-    <servlet-class>com.dongnao.workbench.fileUpload.FileUpload</servlet-class>
+    <servlet-class>com.dongnao.workbench.common.util.FileUpload</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>

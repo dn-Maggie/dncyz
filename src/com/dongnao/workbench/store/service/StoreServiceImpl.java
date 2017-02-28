@@ -64,4 +64,10 @@ public class StoreServiceImpl implements StoreService{
 		storeMapper.update(store);
 		return AjaxUtils.getSuccessMessage();
 	}
+
+	@Override
+	public ResultMessage updateImg(Store store) {
+		storeMapper.updateImg(store);
+		return AjaxUtils.getSuccessMessage();
+	}
 }

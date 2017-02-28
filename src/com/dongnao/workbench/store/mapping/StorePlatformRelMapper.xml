@@ -67,7 +67,7 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.store.model.StorePlatformRel">
 		update dn_store_platform_rel  set
-		ID= #{platformId,jdbcType=CHAR}
+		PLATFORM_ID= #{platformId,jdbcType=CHAR}
 								,REL_ID = #{relId,jdbcType=CHAR}
 											,STORE_ID = #{storeId,jdbcType=CHAR}
 											,STORE_NAME = #{storeName,jdbcType=VARCHAR}

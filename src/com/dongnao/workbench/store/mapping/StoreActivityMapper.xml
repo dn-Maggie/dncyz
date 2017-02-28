@@ -74,6 +74,9 @@
 		left join dn_store as s on sa.STORE_ID = s.STORE_ID
 		left join dn_activity as a on sa.ACTIVITY_ID = a.ACTIVITY_ID
 		where 1=1
+		<if test="ownerUserId != null and '' != ownerUserId">  
+			and s.owner_userId = #{ownerUserId,jdbcType=VARCHAR}
+		</if>
 		<if test="storeActivityId != null and '' != storeActivityId">  
 			and sa.STORE_ACTIVITY_ID = #{storeActivityId,jdbcType=CHAR}
 		</if>
@@ -141,7 +144,7 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.store.model.StoreActivity">
 		update dn_store_activity  set
-			ID= #{storeActivityId,jdbcType=CHAR}
+			STORE_ACTIVITY_ID= #{storeActivityId,jdbcType=CHAR}
 			,STORE_ID = #{storeId,jdbcType=CHAR}
 			,ACTIVITY_TYPE = #{activityType,jdbcType=CHAR}
 			,ACTIVITY_ID = #{activityId,jdbcType=CHAR}

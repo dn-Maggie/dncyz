@@ -21,7 +21,8 @@ $(function() {
 					if(d.status){
 						showMessage(d.message,"","",function(){
 							window.parent.closeAdd();
-				     		window.parent.doSearch();
+							window.parent.initProductClassTree();
+				     		window.parent.initProductTable();
 						});
 					}else{
 						showMessage(d.message);

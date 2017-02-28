@@ -85,12 +85,12 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.store.model.StoreEvaluate">
 		update dn_store_evaluate  set
-		ID= #{evaluateId,jdbcType=CHAR}
-													,PRODUCT_ID = #{productId,jdbcType=CHAR}
-											,CHANNEL_ID = #{channelId,jdbcType=CHAR}
-											,STAR_LEVEL = #{starLevel,jdbcType=INTEGER}
-											,EVALUATE_CONTENT = #{evaluateContent,jdbcType=VARCHAR}
-											,REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR}
-							where EVALUATE_ID = #{evaluateId,jdbcType=CHAR}
+			EVALUATE_ID= #{evaluateId,jdbcType=CHAR}
+			,PRODUCT_ID = #{productId,jdbcType=CHAR}
+			,CHANNEL_ID = #{channelId,jdbcType=CHAR}
+			,STAR_LEVEL = #{starLevel,jdbcType=INTEGER}
+			,EVALUATE_CONTENT = #{evaluateContent,jdbcType=VARCHAR}
+			,REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR}
+		where EVALUATE_ID = #{evaluateId,jdbcType=CHAR}
 	</update>
 </mapper>

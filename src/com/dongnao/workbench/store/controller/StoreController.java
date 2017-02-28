@@ -72,10 +72,17 @@ public class StoreController{
 	 * @return ModelAndView: 查询实体
 	 */	
 	@RequestMapping("/toShowStore")
-	public ModelAndView toShow(String key){
+	public ModelAndView toShow(String key,HttpServletRequest request){
 		Store entity = storeService.getByPrimaryKey(key);
 		Map<String,String> store = FormatEntity.getObjectValue(entity);
-		return new ModelAndView("WEB-INF/jsp/store/store/showStore","store",store );
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/store/showStore","store",store);
+		mv.addObject("settlementMethod", dictInfoService.getDictInfoListByType("settlementMethod"));
+		UserInfo userInfo = new UserInfo();
+		if(!Utils.isSuperAdmin(request))
+ 		{userInfo.setId(Utils.getLoginUserInfoId(request));}
+		mv.addObject("user", userInfoService.listByCondition(userInfo));
+		mv.addObject("brand", brandService.listByCondition(null));
+		return mv;
 	}
 	
 	/**
@@ -87,7 +94,8 @@ public class StoreController{
 	@RequestMapping("/addStore")
 	public void add(Store store,HttpServletRequest request,HttpServletResponse response){
 	store.setStoreId(Utils.generateUniqueID());
-	AjaxUtils.sendAjaxForObjectStr(response,storeService.add(store));		
+	storeService.add(store);
+	AjaxUtils.sendAjaxForObjectStr(response,storeService.getByPrimaryKey(store.getStoreId()));
 	}
 	
 	/**
@@ -150,10 +158,21 @@ public class StoreController{
 		if(!Utils.isSuperAdmin(request))
  		{userInfo.setId(Utils.getLoginUserInfoId(request));}
 		mv.addObject("user", userInfoService.listByCondition(userInfo));
-		
+		mv.addObject("brand", brandService.listByCondition(null));
 		return mv;
 	}
 	
+	/**
+	 * 修改图片方法
+	 * @param store Store：实体对象
+	 * @param response HttpServletResponse
+	 * @return: ajax输入json字符串
+	 */	
+	@RequestMapping("/updateImg")
+	public void updateImg(Store store,HttpServletRequest request,HttpServletResponse response){
+		AjaxUtils.sendAjaxForObjectStr(
+				response,storeService.updateImg(store));	
+	}
 	/**
 	 * 修改方法
 	 * @param store Store：实体对象

@@ -119,6 +119,8 @@ public class StoreActivityController{
 	public void listByCondition(StoreActivity storeActivity,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		storeActivity.setPage(page);	
+		if(!Utils.isSuperAdmin(request))
+ 		{storeActivity.setOwnerUserId(Utils.getLoginUserInfoId(request));}
 		List<StoreActivity> list = storeActivityService.listByCondition(storeActivity);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}

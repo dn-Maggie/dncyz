@@ -23,6 +23,7 @@ public class StoreActivity extends Model{
 	                 **/
 				   			private String storeId;
 				   			private String storeName;
+				   			private String ownerUserId;
 		   		
 		            /**
 	                 * 活动ID
@@ -115,7 +116,15 @@ public class StoreActivity extends Model{
 		
 			
 						
-		  			/**
+		  			public String getOwnerUserId() {
+				return ownerUserId;
+			}
+
+			public void setOwnerUserId(String ownerUserId) {
+				this.ownerUserId = ownerUserId;
+			}
+
+					/**
 			 * 获取 活动ID
 			 * @return String this.activityId
 			 */

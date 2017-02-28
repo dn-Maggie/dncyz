@@ -29,7 +29,7 @@
 				</div>
 			</form>
 			<ul id="dictTypeTree" class="ztree"
-				style="height: 350px; margin-top: 0; border-top: 1px solid #ddd; position: relative; overflow: auto; width: 97%">
+				style="height: 100%; margin-top: 0; border-top: 1px solid #ddd; position: relative; overflow: auto; width: 97%">
 			</ul>
 		</div>
 	</div>

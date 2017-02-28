@@ -22,6 +22,7 @@ import com.dongnao.workbench.store.model.Store;
 import com.dongnao.workbench.store.model.StoreProduct;
 import com.dongnao.workbench.store.service.StoreProductService;
 import com.dongnao.workbench.store.service.StoreService;
+import com.dongnao.workbench.system.service.DictInfoService;
 
 
 /**
@@ -42,7 +43,8 @@ public class StoreProductController{
 	private ProductService productService;	
 	@Resource
 	private StoreService storeService;
-	 
+	@Resource
+	private DictInfoService dictInfoService;
  	/**
  	* 进入新增页面
  	* @return ModelAndView 返回到新增页面
@@ -65,10 +67,18 @@ public class StoreProductController{
 	 * @return ModelAndView: 查询实体
 	 */	
 	@RequestMapping("/toShowStoreProduct")
-	public ModelAndView toShow(String key){
+	public ModelAndView toShow(String key,HttpServletRequest request){
 		StoreProduct entity = storeProductService.getByPrimaryKey(key);
 		Map<String,String> storeProduct = FormatEntity.getObjectValue(entity);
-		return new ModelAndView("WEB-INF/jsp/store/storeProduct/showStoreProduct","storeProduct",storeProduct );
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/storeProduct/showStoreProduct","storeProduct",storeProduct );
+		mv.addObject("productClass", productClassService.listByCondition(null));
+ 		mv.addObject("product", productService.listByCondition(null));
+ 		mv.addObject("productStatus", dictInfoService.getDictInfoListByType("productStatus"));
+		Store store = new Store();
+		if(!Utils.isSuperAdmin(request))
+ 		{store.setOwnerUserId(Utils.getLoginUserInfoId(request));}
+ 		mv.addObject("store",storeService.listByCondition(store));
+		return mv;
 	}
 	
 	/**
@@ -135,11 +145,18 @@ public class StoreProductController{
 	 * @return ModelAndView: 查询实体
 	 */	
 	@RequestMapping("/toEditStoreProduct")
-	public ModelAndView toEdit(String key){
+	public ModelAndView toEdit(String key,HttpServletRequest request){
 		StoreProduct entity = storeProductService.getByPrimaryKey(key);
 		Map<String,String> storeProduct = FormatEntity.getObjectValue(entity);
-		
-		return new ModelAndView("WEB-INF/jsp/store/storeProduct/editStoreProduct","storeProduct",storeProduct );
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/storeProduct/editStoreProduct","storeProduct",storeProduct );
+		mv.addObject("productClass", productClassService.listByCondition(null));
+ 		mv.addObject("product", productService.listByCondition(null));
+ 		mv.addObject("productStatus", dictInfoService.getDictInfoListByType("productStatus"));
+		Store store = new Store();
+		if(!Utils.isSuperAdmin(request))
+ 		{store.setOwnerUserId(Utils.getLoginUserInfoId(request));}
+ 		mv.addObject("store",storeService.listByCondition(store));
+		return mv;
 	}
 	
 	/**

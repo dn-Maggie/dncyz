@@ -107,7 +107,7 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.product.model.Product">
 		update dn_product  set
-			ID= #{productClassId,jdbcType=CHAR}
+			PRODUCT_CLASS_ID= #{productClassId,jdbcType=CHAR}
 			,PRODUCT_ID = #{productId,jdbcType=CHAR}
 			,PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
 			,PRODUCT_IMAGE_PATH = #{productImagePath,jdbcType=VARCHAR}

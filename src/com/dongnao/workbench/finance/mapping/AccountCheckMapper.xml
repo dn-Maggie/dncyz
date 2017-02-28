@@ -109,18 +109,18 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.finance.model.AccountCheck">
 		update account_check  set
-		ID= #{id,jdbcType=VARCHAR}
-													,account_time = #{accountTime,jdbcType=DATE}
-											,elm_settlement = #{elmSettlement,jdbcType=DOUBLE}
-											,baidu_settlement = #{baiduSettlement,jdbcType=DOUBLE}
-											,meituan_settlement = #{meituanSettlement,jdbcType=DOUBLE}
-											,total_settlement = #{totalSettlement,jdbcType=DOUBLE}
-											,elm_cost = #{elmCost,jdbcType=DOUBLE}
-											,baidu_cost = #{baiduCost,jdbcType=DOUBLE}
-											,meituan_cost = #{meituanCost,jdbcType=DOUBLE}
-											,actual_settlement = #{actualSettlement,jdbcType=DOUBLE}
-											,remark = #{remark,jdbcType=VARCHAR}
-											,store_id = #{storeId,jdbcType=VARCHAR}
-							where id = #{id,jdbcType=VARCHAR}
+			ID= #{id,jdbcType=VARCHAR}
+			,account_time = #{accountTime,jdbcType=DATE}
+			,elm_settlement = #{elmSettlement,jdbcType=DOUBLE}
+			,baidu_settlement = #{baiduSettlement,jdbcType=DOUBLE}
+			,meituan_settlement = #{meituanSettlement,jdbcType=DOUBLE}
+			,total_settlement = #{totalSettlement,jdbcType=DOUBLE}
+			,elm_cost = #{elmCost,jdbcType=DOUBLE}
+			,baidu_cost = #{baiduCost,jdbcType=DOUBLE}
+			,meituan_cost = #{meituanCost,jdbcType=DOUBLE}
+			,actual_settlement = #{actualSettlement,jdbcType=DOUBLE}
+			,remark = #{remark,jdbcType=VARCHAR}
+			,store_id = #{storeId,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
 	</update>
 </mapper>

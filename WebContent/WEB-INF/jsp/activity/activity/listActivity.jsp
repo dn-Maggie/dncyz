@@ -33,17 +33,6 @@ var gridObj = {};
     		}
       });
         
-	new biz.datepicker({
-  			id : "#startDate",
-  			maxDate:'#F{$dp.$D(\'endDate\',{d:0});}',
-  			dateFmt:'yyyy-MM-dd'
-  		});
-  	    
-  	    new biz.datepicker({
-  			id : "#endDate",
-  			minDate:'#F{$dp.$D(\'startDate\',{d:0});}',
-  			dateFmt:'yyyy-MM-dd'
-  		});
     });
 
  
@@ -169,13 +158,13 @@ var gridObj = {};
 				<ul>
 				<li>
 				<span>关键字:</span>
-				<input type="text" name="storeName" id="storeName" class="search_choose" placeholder="店铺名称">
+					<input type="text" name="platformType" id="platformType" class="search_choose" placeholder="平台名称">
 				</li>
 				<li>
-				<input type="text" name="storeOwnerName" id="storeOwnerName" class="search_choose" placeholder="店长姓名">
+				<input type="text" name="activityName" id="activityName" class="search_choose" placeholder="活动名称">
 				</li>
 				<li>
-				<input type="text" name="storeAddress" id="storeAddress" class="search_choose" placeholder="店铺地址">
+				<input type="text" name="activityCategory" id="activityCategory" class="search_choose" placeholder="活动类型">
 				</li>
 				<li>
 				<input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置">
@@ -184,8 +173,8 @@ var gridObj = {};
 		   </div>
 	    </form>
 		<div class="listplace">
-				<!--功能按钮begin-->
-				<div class="list_btn_bg fl"><!--功能按钮 div-->
+				<!--功能按钮begin>
+				<div class="list_btn_bg fl">
 					<ul>
 							<li><a title="<m:message code="button.add"/>" href="javascript:;"
 								onclick="add();"> <i class="icon_bg icon_add"> </i> <span><m:message
@@ -203,7 +192,7 @@ var gridObj = {};
 										code="button.view" /></span>
 						</a></li>
 					</ul>
-				</div>
+				</div-->
 	
 			<!--功能按钮end-->
 				<div class="listtable_box">

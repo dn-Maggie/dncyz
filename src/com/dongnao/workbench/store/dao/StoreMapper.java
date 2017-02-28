@@ -41,4 +41,6 @@ public interface StoreMapper  {
 	 * @param store Store：实体对象
 	 */	
 	public void update(Store store);
+
+	public void updateImg(Store store);
 }

@@ -61,7 +61,7 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.product.model.ProductClass">
 		update dn_product_class  set
-			ID= #{productClassId,jdbcType=CHAR}
+			PRODUCT_CLASS_ID= #{productClassId,jdbcType=CHAR}
 			,PRODUCT_CLASS_NAME = #{productClassName,jdbcType=VARCHAR}
 			,STORE_ID = #{storeId,jdbcType=CHAR}
 		where PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}
