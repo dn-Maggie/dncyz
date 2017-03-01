@@ -11,10 +11,7 @@
 <script type="text/javascript">
 $(function() {
 	//select多选 初始化方法
-	$(".choose_select").chosen(); 
-	$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
-		$(this).prev().focus();
-	});
+	/*  $(".choose_select").chosen(); 
 	$('.number').ace_spinner({value:0,min:0,max:200000,step:1, touch_spinner: true, icon_up:'icon-caret-up', icon_down:'icon-caret-down'});
 	$('.timepicker').timepicker({
 		minuteStep: 1,
@@ -22,14 +19,8 @@ $(function() {
 		showMeridian: false
 	}).next().on(ace.click_event, function(){
 		$(this).prev().focus();
-	});
-	$('input[type="file"]').ace_file_input({
-		no_file:'请选择...',
-		btn_choose:'选择',
-		btn_change:'更换',
-		droppable:false,
-		thumbnail:false,
-	}).on('change',function(){
+	});  */
+	$('input[type="file"]').on('change',function(){
     	$(this).parent().parent().find('.realImage_submit').val("上传");
     	$(this).parent().parent().find('.path').val($(this).val());
     	var extend=$(this).val().split('.').pop().toLowerCase();

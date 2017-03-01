@@ -2,6 +2,7 @@ package com.dongnao.workbench.system.service;
 
 import java.util.List;
 
+import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.system.model.Role;
 
@@ -84,6 +85,5 @@ public interface RoleService  {
 	 * @return List<String>，元素为name:XX,value:XX 的字符串
 	 */
 	List<String> getRoleListForSelect(Role role);
-	
-	
+
 }

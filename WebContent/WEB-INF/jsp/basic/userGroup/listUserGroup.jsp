@@ -1,39 +1,33 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<!DOCTYPE HTML>
+<!DOCTYPE HTML  >
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
 <title></title>
-<style type="text/css">
-	#breadcrumbs{
-		display:none;
-	}
-</style>
 <script type="text/javascript">
 var gridObj = {};
 	$(function(){
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/brand/listBrand.do'/>",/*grid初始化请求数据的远程地址*/
+            url: "<m:url value='/userGroup/listUserGroup.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
-           	sortname:"BRAND_ID",
+           	sortname:"id",
            	sortorder:"asc",
+           	//navtype:"top" /*导航栏类型*/,
+           	//height: gridHeight,
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
     		rowNum:10,//默认显示15条
             colModel:[
-				{name : "brandId",hidden : true,key : true,label:"品牌ID(主键)",index : "BRAND_ID"},				
-				{name : "brandName",label:"品牌名称",index : "BRAND_NAME"},				
-				{name : "brandManager",label:"品牌负责人",index : "BRAND_MANAGER"},				
-				{name : "brandManagerTel",label:"负责人电话",index : "BRAND_MANAGER_TEL"},				
-				{name : "industryName",label:"所属行业",index : "INDUSTRY_ID"},				
-				{name : "categoryName",label:"所属品类",index : "CATEGORY_ID"},				
-				{name : "contactName",label:"对接人",index : "CONTACT_NAME"},				
-				{name : "contactTel",label:"对接人电话",index : "CONTACT_TEL"},				
-				{name : "merchantName",label:"招商人",index : "MERCHANT_NAME"},				
-				{name : "merchantTel",label:"招商人电话",index : "MERCHANT_TEL"},				
-				{name : "signContractDate",label:"合同签订时间",index : "SIGN_CONTRACT_DATE"},				
-				{name : "createDate",label:"创建时间",index : "CREATE_DATE"}				
+				{name : "id",hidden : true,key : true,label:"组别ID(主键)",index : "id"},				
+				{name : "groupName",label:"组别名",index : "group_name"},				
+				{name : "groupDesc",label:"组别描述",index : "group_desc"},				
+				{name : "groupStates",label:"组别状态",index : "group_states",
+					formatter:GridColModelForMatter.enableStates},				
+				{name : "groupCreater",label:"创建者",index : "group_creater"},				
+				{name : "groupUpdater",label:"更新者",index : "group_updater"},				
+				{name : "groupCreateTime",label:"创建时间",index : "group_create_time"},				
+				{name : "groupUpdateTime",label:"更新时间",index : "group_update_time"}				
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -41,6 +35,18 @@ var gridObj = {};
     			return obj;
     		}
       });
+        
+	new biz.datepicker({
+  			id : "#startDate",
+  			maxDate:'#F{$dp.$D(\'endDate\',{d:0});}',
+  			dateFmt:'yyyy-MM-dd'
+  		});
+  	    
+  	    new biz.datepicker({
+  			id : "#endDate",
+  			minDate:'#F{$dp.$D(\'startDate\',{d:0});}',
+  			dateFmt:'yyyy-MM-dd'
+  		});
     });
 
  
@@ -54,13 +60,13 @@ var gridObj = {};
   	
   	function add(){
   	//xin zeng iframe 弹出框
-		var url="<m:url value='/brand/toAddBrand.do'/>";
+		var url="<m:url value='/userGroup/toAddUserGroup.do'/>";
 		add_iframe_dialog = new biz.dialog({
 			id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: $(window).width()*0.6,
-			height: $(window).height()*0.8,
-			title: "餐饮品牌增加"
+			width: 800,
+			height: 235,
+			title: "用户组别增加"
 		});
 		add_iframe_dialog.open();
   	}
@@ -71,18 +77,18 @@ var gridObj = {};
   	}
   	
     function edit(){
-		var key = ICSS.utils.getSelectRowData("brandId");
+		var key = ICSS.utils.getSelectRowData("groupId");
 		if(key.indexOf(",")>-1||key==""){
 			showMessage("请选择一条数据！");
 			return ;
 		}
-		var url="<m:url value='/brand/toEditBrand.do'/>?key="+key;
+		var url="<m:url value='/userGroup/toEditUserGroup.do'/>?key="+key;
 		edit_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: $(window).width()*0.6,
-			height: $(window).height()*0.8,
-			title: "餐饮品牌编辑"
+			width: 800,
+			height: 235,
+			title: "用户组别编辑"
 		});
   		edit_iframe_dialog.open();
     }
@@ -93,18 +99,18 @@ var gridObj = {};
     }
     
     function show(){
-    	var key = ICSS.utils.getSelectRowData("brandId");
+    	var key = ICSS.utils.getSelectRowData("groupId");
 		if(key.indexOf(",")>-1||key==""){
 			showMessage("请选择一条数据！");
 			return ;
 		}
-		var url="<m:url value='/brand/toShowBrand.do'/>?key="+key;
+		var url="<m:url value='/userGroup/toShowUserGroup.do'/>?key="+key;
 		show_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: $(window).width()*0.6,
-			height: $(window).height()*0.8,
-				title: "餐饮品牌详情"
+			width: 800,
+			height: 235,
+				title: "用户组别详情"
 		});
   		show_iframe_dialog.open();
     }
@@ -137,7 +143,7 @@ var gridObj = {};
     
     //删除
     function batchDelete(){
-    	var ids = ICSS.utils.getSelectRowData("brandId");
+    	var ids = ICSS.utils.getSelectRowData("groupId");
     	if(ids==""){
     		showMessage("请至少选择一条数据！");
     		return ;
@@ -145,7 +151,7 @@ var gridObj = {};
     		new biz.alert({type:"confirm",message:I18N.msg_del_confirm,title:I18N.promp,callback:function(result){
     			if(result){
     				$ .ajax({
-        				url: "<m:url value='/brand/deleteBrand.do'/>?key="+ids,
+        				url: "<m:url value='/userGroup/deleteUserGroup.do'/>?key="+ids,
         				cache:false,
         				success: function(data, textStatus, jqXHR){
         					doSearch();
@@ -162,29 +168,8 @@ var gridObj = {};
 
 	<div class="main  choice_box">
 		<form id="queryForm"><!-- 查询区 表单 -->
-			<!-- <div class="search border-bottom">
-				<ul>
-				<li><input type="text" name="actorName" id="actorName" class="search_choose"> <span>操作人:</span></li>输入框
-				<li class="date_area">
-					<span>日期:</span>
-					<div class="time_bg">
-						<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate">
-						<i class="search_time_ico2"  onclick="WdatePicker({el:'startDate'})"></i>
-					</div>
-					<i>至</i>
-					<div class="time_bg">
-						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" mainid="endDate">
-						<i class="search_time_ico2"  onclick="WdatePicker({el:'endDate'})"></i>
-					</div></li>	
-				 <li><select class="search_select" name="actType" id="actType" mainid="actType"><option value="">--请选择--</option><option value="add">add</option><option value="save">save</option><option value="update">update</option><option value="edit">edit</option><option value="insert">insert</option><option value="delete">delete</option><option value="remove">remove</option></select>
-				<span>操作类型:</span></li>下拉
-				<li><input type="text" name="actResult" id="actResult" class="search_choose"> <span>操作结果:</span></li>输入框			
-				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置">重置
-						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li>查询
-				</ul>
-		   </div> -->
 	    </form>
-		<div class="listplace">
+<div class="listplace">
 				<!--功能按钮begin-->
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
@@ -209,10 +194,16 @@ var gridObj = {};
 							onclick="show();"> <i class="icon_bg icon_ckxq"></i> <span><m:message
 										code="button.view" /></span>
 						</a></li>
+						<c:if test="${manage}">
+						<li><a title="<m:message code="button.module.moduleRes"/>" href="javascript:"
+							onclick="moduleResMgt();"> <i class="back_icon resources_icon"></i> <span><m:message
+										code="button.module.moduleRes" /></span>
+						</a></li>
+						</c:if>
 					</ul>
 				</div>
 	
-				<!--功能按钮end-->
+			<!--功能按钮end-->
 				<div class="listtable_box">
 					<!--此处放表格-->
 				<table  id="remote_rowed" ></table>

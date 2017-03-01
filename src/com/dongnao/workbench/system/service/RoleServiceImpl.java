@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
+import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.common.Constant;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.util.DateUtil;
@@ -383,4 +384,5 @@ public class RoleServiceImpl implements RoleService{
 		}
 		return list;
 	}
+
 }

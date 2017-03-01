@@ -77,3 +77,4 @@
     	border-top: 0;
 	}  
 </style>
+<script src="<%=request.getContextPath() %>/js/ace-common.js"></script>

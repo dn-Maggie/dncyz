@@ -14,9 +14,9 @@
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
-			PRODUCT_CLASS_ID
-			,PRODUCT_CLASS_NAME
-			,STORE_ID
+			pc.PRODUCT_CLASS_ID
+			,pc.PRODUCT_CLASS_NAME
+			,pc.STORE_ID
 		from dn_product_class as pc
 		left join dn_store as s on s.STORE_ID = pc.STORE_ID
 		where PRODUCT_CLASS_ID = #{productClassId,jdbcType=CHAR}

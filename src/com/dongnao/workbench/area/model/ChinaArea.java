@@ -45,12 +45,8 @@ public class ChinaArea extends Model{
 			public void setId(Integer id){
 				this.id = id;
 			}
-		  		
-		
-		
-			
 						
-		  			/**
+  			/**
 			 * 获取 
 			 * @return String this.name
 			 */

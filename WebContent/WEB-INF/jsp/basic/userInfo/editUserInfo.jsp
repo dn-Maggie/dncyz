@@ -3,64 +3,10 @@
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
-<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/js/huploadify/jquery.Huploadify.js"></script>
-<link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/js/huploadify/Huploadify.css">
 <script type="text/javascript">
 	var menutree;
-	var areaProvinceBox, areaRegionBox, areaCityBox;
 	$(function() {
 		//取得添加节点的父节点ID
-		//身份证图片上传控件
-			 var up=$("#upload").Huploadify(
-					{
-						auto : true,
-						fileTypeExts : '*.*',
-						multi : true,
-						// formData:{key:123456,key2:'vvvv'},
-						fileSizeLimit : 102400,
-						showUploadedPercent : true,
-						showUploadedSize : true,
-						removeTimeout : 9999999,
-						uploader : "<m:url value='/upload/idCard.do'/>",
-						onUploadStart : function(file) {
-							console.log(file.name + '开始上传');
-						},
-						onInit : function(obj) {
-							console.log('初始化');
-							console.log(obj);
-						},
-						onUploadComplete : function(file) {
-							console.log(file.name + '上传完成');
-						},
-						onCancel : function(file) {
-							console.log(file.name + '删除成功');
-						},
-						onClearQueue : function(queueItemCount) {
-							console.log('有' + queueItemCount + '个文件被删除了');
-						},
-						onDestroy : function() {
-							console.log('destroyed!');
-						},
-						onSelect : function(file) {
-							console.log(file.name + '加入上传队列');
-						},
-						onQueueComplete : function(queueData) {
-							console.log('队列中的文件全部上传完成', queueData);
-							up.cancel('*');
-						},
-						onUploadSuccess : function(file, data, response) {
-							console.log('服务器返回数据', data);
-							data = jQuery.parseJSON(data);
-							$('#idCardImgPath').val(data.data);
-							var imgUrl="<m:url value='/download/tmpIdCard.do'/>?fileName="+data.data;
-							$("#idCardImgDiv").html("");
-							$("#idCardImgDiv").append($('<img style="max-width:600px;" src="'+imgUrl+'"/>'));
-							
-						}
-					});
-		
-
-		
 		
 		//绑定提交按钮click事件
 		$("#submit").click(function() {
@@ -127,8 +73,6 @@
 				}
 			}
 		});
-
-
 		new biz.select(
 				{//状态下拉
 					id : "#edit_states",
@@ -140,12 +84,8 @@
 			url : "<m:url value='/role/getRoleListForSelect.do'/>",
 			addEmptyItem : true
 		});
-		
 
 	});
-
-
-
 	//获取菜单资源数据，构建树
 	function setMenuTreeJson(rid) {
 		$.ajax({
@@ -220,16 +160,6 @@
 							</c:forEach>
 					</select></td>
 					<td class="inputLabelTd">身份证图片：</td>
-					<td class="inputTd" colspan="3"><input id="idCardImgPath"
-						name="idCardImgPath" type="hidden" class="text"
-						value="${userInfo.idCardImgPath}" />
-						<div id="upload" style="text-align: center"></div> <a
-						href="javascript:void(0);"
-						onClick="$('#file_upload_1-button').click();">选择图片</a>
-						<div id="idCardImgDiv" style="width: 600px;">
-							<img style="max-width: 600px;"
-								src="<m:url value='/download/tmpIdCard.do'/>?fileName=${userInfo.idCardImgPath}" />
-						</div></td>
 				</tr>
 				<tr>
 					<td class="inputTd" colspan="5" style="text-align: center;"><input

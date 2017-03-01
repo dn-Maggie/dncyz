@@ -19,4 +19,5 @@ public interface ChinaAreaService  {
 	 */	
 	public List<ChinaArea> loadAreaByParent(Integer pid);
 	
+	public List<ChinaArea> listByCondition(ChinaArea ChinaArea);
 }

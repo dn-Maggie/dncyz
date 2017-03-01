@@ -96,7 +96,7 @@ public class RoleController{
 	@RequestMapping("/addRole")
 	public void add(Role role,HttpServletRequest request,HttpServletResponse response){
 		role.setRoleId(Utils.generateUniqueID());
-		String userId=Utils.getLoginUser(request);
+		String userId=Utils.getLoginUserInfoId(request);
 		role.setCreatorId(userId);
 		role.setUpdaterId(userId);
 		AjaxUtils.sendAjaxForObjectStr(response, roleService.add(role));
@@ -118,7 +118,7 @@ public class RoleController{
 		AjaxUtils.sendAjaxForObject(response, "0");
 		}
 		else {
-		roleService.deleteByKey(key,Utils.getLoginUser(request));
+		roleService.deleteByKey(key,Utils.getLoginUserInfoId(request));
 		//Map<String, String> map = new HashMap<String, String>();
 		//map.put("msg", Utils.getI18n("role.success", null));
 		AjaxUtils.sendAjaxForObject(response, "1");
@@ -171,7 +171,7 @@ public class RoleController{
 	 */
 	@RequestMapping("/updateRole")
 	public void update(Role role,HttpServletRequest request,HttpServletResponse response){
-		role.setUpdaterId(Utils.getLoginUser(request));
+		role.setUpdaterId(Utils.getLoginUserInfoId(request));
 		AjaxUtils.sendAjaxForObjectStr(response, roleService.update(role));
 	}
 
@@ -254,5 +254,4 @@ public class RoleController{
 		roles=roleService.getRoleListForSelect(role);
 		AjaxUtils.sendAjaxForSelect(response, roles);
 	}
-
 }

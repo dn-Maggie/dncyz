@@ -11,24 +11,6 @@
 <script type="text/javascript">
 $(function() {
 	//select多选 初始化方法
-	$(".choose_select").chosen(); 
-	$('input[type="file"]').ace_file_input({
-		no_file:'请选择...',
-		btn_choose:'选择',
-		btn_change:'更换',
-		droppable:false,
-		thumbnail:false,
-	}).on('change',function(){
-    	$(this).parent().parent().find('.realImage_submit').val("上传");
-    	var extend=$(this).val().split('.').pop().toLowerCase();
-			if("gif|png|jpg|jpeg|svg".indexOf(extend)==-1){
-				 showInfo("请上传图片格式文件！",3000);
-				 $(this).parent().parent().find('.realImage_submit').prop("disabled",true);
-				 return;
-	         }else{
-	        	 $(this).parent().parent().find('.realImage_submit').prop("disabled",false);
-	         }
-	});
 	$('.realImage_submit').click(function(){
 		if(!$("#edit_storeId").val()) {showMessage("请先填写店铺名称"); return;}
 		if(!$("#edit_productClassName").val()) {showMessage("请填写产品类别"); return;}
@@ -59,34 +41,10 @@ $(function() {
 	    id:"#edit_productStatus",
 	    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=productStatus'/>",
 	});
-	$('.number').ace_spinner({value:0,min:0,max:200000,step:1, touch_spinner: true, icon_up:'icon-caret-up', icon_down:'icon-caret-down'});
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
 		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});
 		showMessage("正在处理...");
-		/* if(!biz.validate("valid",$('#storeProductFormEdit')[0])){
-			showWarn("数据验证失败",3000);
-			$("#submit").prop('disabled', false).css({'cursor':'pointer'});
-			return;
-		} */
-		
-		/* var options = {
-			url : "<m:url value='/storeProduct/addStoreProduct.do'/>",
-			type : "post",
-				dataType:"json",
-				success : function(d) {
-					if(d.status){
-						showMessage(d.message,"","",function(){
-							window.parent.closeAdd();
-				     		window.parent.doSearch();
-						});
-					}else{
-						showMessage(d.message);
-					}
-				}
-		};
-		// 将options传给ajaxForm
-		$('#storeProductFormEdit').ajaxSubmit(options); */
 		var paramDatas = {
 				storeId:$("#edit_storeId").val(),
 				productClassId:$("#edit_productClassId").val(),

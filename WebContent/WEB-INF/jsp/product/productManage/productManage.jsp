@@ -86,7 +86,6 @@
 	});
 
 	var productClassTree;
-	var className = "dark";
 	//新增框
 	var add_iframe_dialog;
 	//编辑窗
@@ -96,107 +95,10 @@
 	//产品信息
 	var gridObj = {};
 
-	function beforeEditName(treeId, treeNode) {
-		if (treeNode.isParent) {
-			showMessage("父节点不能编辑！");
-		} else {	
-		var url = "productClass/toEditProductClass.do?key=" + treeNode.id;
-			edit_iframe_dialog = new biz.dialog({
-				id : $('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="' + url + '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
-				modal : true,
-				width : 550,
-				height : 320,
-				title : "编辑产品类别"
-			});
-			edit_iframe_dialog.open();
-			return false;
-		}
-	}
 
 	//供子页面调用
 	function closeEdit() {
 		edit_iframe_dialog.close();
-	}
-
-	function beforeRemove(treeId, treeNode) {
-		if (treeNode.isParent) {
-			showMessage("父节点不能删除！");
-			return false;
-		}	
-		else{
-		className = (className === "dark" ? "" : "dark");
-			productClassTree.selectNode(treeNode);
-			new biz.alert({
-				type : "confirm",
-				message : I18N.msg_del_confirm,
-				title : I18N.promp,
-				callback : function(result) {
-					if (result) {
-						$.ajax({
-							url : "<m:url value='/productClass/deleteProductClass.do'/>",
-							data : {
-								key : treeNode.id
-							},
-							type : "POST",
-							success : function(data, status, jqXHR) {
-								var d = $.parseJSON(data);
-								showMessage(d.msg,"","",function(){
-									if(d.rs == "success"){
-										productClassTree.removeNode(treeNode);
-									} 
-								});
-							},
-							error : function(data, status) {
-							}
-						});
-
-					}
-				}
-			});
-			return false;	
-		}
-	}
-
-	function addHoverDom(treeId, treeNode) {
-		var sObj = $("#" + treeNode.tId + "_span");
-		if (treeNode.editNameFlag || $("#addBtn_" + treeNode.id).length > 0) {
-			return;
-		}
-
-		if (treeNode.isParent) {//只有父节点有新增按钮
-			var addStr = "<span class='button add' id='addBtn_" + treeNode.id
-					+ "' title='增加' onfocus='this.blur();'></span>";
-			sObj.append(addStr);
-			var btn = $("#addBtn_" + treeNode.id);
-			if (btn) {
-				btn.bind("click", function() {
-					add_iframe_dialog = new biz.dialog({
-						id : $('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="dictType/toAddDictType.do" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
-						modal : true,
-						width : 550,
-						height : 320,
-						title : "<m:message code='type.addType' />"
-					});
-					add_iframe_dialog.open();
-				});
-			}
-		}
-	}
-
-	function removeHoverDom(treeId, treeNode) {
-		$("#addBtn_" + treeNode.id).unbind().remove();
-	}
-	
-	function addNode(obj){
-		var parentNode = productClassTree.getNodeByParam("id", "0", null);
-		var newNode = {id:obj.id, name:obj.name};
-		productClassTree.addNodes(parentNode, newNode, true);
-	}
-	
-	function modifyNode(obj){
-		var node = productClassTree.getNodeByParam("id", obj.id, null);
-		node.name = obj.name;
-		productClassTree.updateNode(node);
 	}
 
 	function closeAdd() {
@@ -320,8 +222,28 @@
 	function batchDelete() {
 		var ids = ICSS.utils.getSelectRowData("productId");
 		if (ids == "") {
-			showMessage("<m:message code='grid.delete.chooseColAlert'/>");
-			return;
+			var nodes = productClassTree.getSelectedNodes();
+			if(nodes.length != 0 && !nodes[0].isParent){
+				new biz.alert({
+					type : "confirm",
+					message : "确定删除该类别以及改类别下所有产品？",
+					title : I18N.promp,
+					callback : function(r) {
+						if (r) {
+							$.ajax({
+								url: "<m:url value='/productClass/deleteProductClass.do'/>?key="+nodes[0].id,
+								cache : false,
+								success : function(data, textStatus, jqXHR) {
+									initProductClassTree();
+									initProductTable();
+									showInfo("<m:message code='delete.success'/>", 3000);
+								}
+							});
+						}
+					}
+				});
+				return;
+			}
 		} else {
 			new biz.alert({
 				type : "confirm",
@@ -346,9 +268,24 @@
 	//编辑
 	function editProduct() {
 		var key = ICSS.utils.getSelectRowData("productId");
-		if (key.indexOf(",") > -1 || key == "") {
+		if (key.indexOf(",") > -1) {
 			showMessage("<m:message code='grid.edit.chooseColAlert'/>");
 			return;
+		}
+		if(key ==""){
+			var nodes = productClassTree.getSelectedNodes();
+			if (nodes.length != 0 && !nodes[0].isParent) {
+				var url = "productClass/toEditProductClass.do?key=" + nodes[0].id;
+				edit_iframe_dialog = new biz.dialog({
+					id : $('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="' + url + '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
+					modal : true,
+					width : 550,
+					height : 320,
+					title : "编辑产品类别"
+				});
+				edit_iframe_dialog.open();
+				return;
+			} 
 		}
 		var url="<m:url value='/product/toEditProduct.do'/>?key="+key;
 		edit_iframe_dialog = new biz.dialog({

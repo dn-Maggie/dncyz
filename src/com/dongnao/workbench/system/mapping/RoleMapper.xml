@@ -61,17 +61,17 @@
 	
 	<select id="verifyNameAdd" parameterType="java.lang.String" resultType="java.lang.String">
 	select A.ROLE_NAME  FROM SYS_RO_ROLE A 
-	WHERE A.ROLE_NAME=#{roleName,jdbcType=VARCHAR}
-	AND A.IS_DELETE ='0'
+		WHERE A.ROLE_NAME=#{roleName,jdbcType=VARCHAR}
+		AND A.IS_DELETE ='0'
 	LIMIT 1
 	</select>
 	
 	
 	<select id="verifyNameUpdate" parameterType="com.dongnao.workbench.system.model.Role" resultType="java.lang.String">
 	select A.ROLE_NAME  FROM SYS_RO_ROLE A 
-	WHERE A.ROLE_NAME=#{roleName,jdbcType=VARCHAR}
-	AND A.IS_DELETE ='0'
-	AND A.ROLE_ID &lt;&gt; #{roleId,jdbcType=VARCHAR}
+		WHERE A.ROLE_NAME=#{roleName,jdbcType=VARCHAR}
+		AND A.IS_DELETE ='0'
+		AND A.ROLE_ID &lt;&gt; #{roleId,jdbcType=VARCHAR}
 	LIMIT 1
 	</select>
 	
@@ -81,31 +81,26 @@
 	
 	<select id="verifyCodeAdd" parameterType="java.lang.String" resultType="java.lang.String">
 	select A.ROLE_CODE  FROM SYS_RO_ROLE A 
-	WHERE A.ROLE_CODE=#{roleCode,jdbcType=VARCHAR}
-	AND A.IS_DELETE ='0'
+		WHERE A.ROLE_CODE=#{roleCode,jdbcType=VARCHAR}
+		AND A.IS_DELETE ='0'
 	LIMIT 1
 	</select>
 	
 		<select id="verifyCodeUpdate" parameterType="com.dongnao.workbench.system.model.Role" resultType="java.lang.String">
 	select A.ROLE_CODE  FROM SYS_RO_ROLE A 
-	WHERE A.ROLE_CODE=#{roleCode,jdbcType=VARCHAR}
-	AND A.IS_DELETE ='0'
-	AND A.ROLE_ID &lt;&gt; #{roleId,jdbcType=VARCHAR}
+		WHERE A.ROLE_CODE=#{roleCode,jdbcType=VARCHAR}
+		AND A.IS_DELETE ='0'
+		AND A.ROLE_ID &lt;&gt; #{roleId,jdbcType=VARCHAR}
 	LIMIT 1
 	</select>
 
 
-
-
-	<select id="listByCondition" resultMap="BaseResultMap"
-		parameterType="com.dongnao.workbench.system.model.Role">
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.system.model.Role">
 		select
-
 		<include refid="Base_Query_List" />
 		from SYS_RO_ROLE r
 		where 1=1
 		AND IS_DELETE='0'
-		
 		<if test="bureauId != null and '' != bureauId">
 			and r.BUREAU_ID = #{bureauId,jdbcType=VARCHAR}
 		</if>

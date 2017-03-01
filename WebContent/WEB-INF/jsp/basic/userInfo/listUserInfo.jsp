@@ -14,12 +14,18 @@
 <%@ include file="../../common/header.jsp"%>
 </head>
 <body style="height: 100%;">
+	<div class="main  choice_box container" style="height: 100%; float: left; width: 26%">
+		<div class="ui-table ui-widget ui-corner-all ui-margin ui-leftDiv">
+			<ul id="groupTree" class="ztree"
+				style="height: 100%; border-top: 1px solid #ddd; position: relative; overflow: auto; width: 97%"></ul>
+		</div>
+	</div>
 	<div class="main  choice_box">
 		<div class="ui-table ui-widget ui-corner-all ui-margin ui-rightDiv"
 			style="display: block;">
 			<form id="queryForm">
 				<!-- 查询区 表单 -->
-				<input type="hidden" id="orgId" name="orgId" />
+				<input type="hidden" id="groupId" name="userGroup" value="${userGroup}"/>
 				<!-- 查询区 表单 -->
 				<div class="search border-bottom">
 					<ul>
@@ -40,7 +46,6 @@
 
 			<!--功能按钮begin-->
 			<div class="list_btn_bg fl" style="z-index: 2">
-				<!--功能按钮 div-->
 				<!--功能按钮 div-->
 				<ul>
 					<c:if test="${add}">
@@ -71,12 +76,6 @@
 					<li><a href="javascript:;" onClick="expExcelWinShow();"> <i
 							class="icon_bg icon_download"></i> <span>导出</span>
 					</a></li>
-					<!--<c:if test="${manage}">
-							<li><a title="<m:message code="button.module.moduleRes"/>" href="javascript:"
-								onclick="employeeMgt();"> <i class="back_icon resources_icon"></i> <span><m:message
-											code="button.module.moduleRes" /></span>
-							</a></li>
-							</c:if>-->
 				</ul>
 			</div>
 			<!--功能按钮end-->
@@ -87,17 +86,27 @@
 </body>
 <script type="text/javascript">
 var gridObj = {};
-var orgId, orgName;
-var areaProvinceBox, areaRegionBox, areaCityBox;
+var groupId, groupName,groupTree;
+
+//新增的弹出框
+var add_iframe_dialog;
+//修改的弹出框
+var edit_iframe_dialog;
+//查看的弹出框
+var show_iframe_dialog;
+
 $(function() {
+	initGroupTree();
+	initUserTable();
+});
+
+function initUserTable(){
 	gridObj = new biz.grid({
 		id : "#remote_rowed",/* html部分table id */
 		url : baseUrl + "/userInfo/listUserInfo.do",/* grid初始化请求数据的远程地址 */
 		datatype : "json",/* 数据类型，设置为json数据，默认为json */
 		sortname : "created",
 		sortorder : "asc",
-		// navtype:"top" /*导航栏类型*/,
-		// height: gridHeight,
 		pager : '#remote_prowed' /* 分页栏id */,
 		rowList : [ 10, 20, 30, 50, 100, 200 ],// 每页显示记录数
 		rowNum : 10,// 默认显示15条
@@ -140,8 +149,7 @@ $(function() {
 			$("#gview_remote_rowed").setGridWidth($(window).width()*0.98);
 		}
 	});
-
-});
+}
 
 /**
  * 获取查询条件值
@@ -156,16 +164,22 @@ function getQueryCondition() {
 	return obj;
 }
 
-// 新增的弹出框
-var add_iframe_dialog;
-// 修改的弹出框
-var edit_iframe_dialog;
-// 查看的弹出框
-var show_iframe_dialog;
 
 function add() {
-	// xin zeng iframe 弹出框
-	var url = baseUrl + '/userInfo/toAddUserInfo.do';
+	var nodes = groupTree.getSelectedNodes();
+	if(nodes.length != 1){
+		var url = "userGroup/toAddUserGroup.do";
+		add_iframe_dialog = new biz.dialog({
+			id : $('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="' + url + '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
+			modal : true,
+			width : 550,
+			height : 320,
+			title : "增加组别"
+		});
+		add_iframe_dialog.open();
+		return;
+	}
+	var url = baseUrl + "/userInfo/toAddUserInfo.do?userGroup=" + nodes[0].id;
 	add_iframe_dialog = new biz.dialog(
 			{
 				id : $('<div id="addwindow_iframe"></div>')
@@ -188,9 +202,24 @@ function closeAdd() {
 
 function edit() {
 	var key = ICSS.utils.getSelectRowData("id");
-	if (key.indexOf(",") > -1 || key == "") {
+	if (key.indexOf(",") > -1) {
 		showMessage("请选择一条数据！");
 		return;
+	}
+	if(key ==""){
+		var nodes = groupTree.getSelectedNodes();
+		if (nodes.length != 0 && !nodes[0].isParent) {
+			var url = "userGroup/toEditUserGroup.do?key=" + nodes[0].id;
+			edit_iframe_dialog = new biz.dialog({
+				id : $('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="' + url + '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
+				modal : true,
+				width : 550,
+				height : 320,
+				title : "编辑组别"
+			});
+			edit_iframe_dialog.open();
+			return;
+		} 
 	}
 	var url = baseUrl + '/userInfo/toEditUserInfo.do?key=' + key;
 	edit_iframe_dialog = new biz.dialog(
@@ -253,6 +282,7 @@ function resetForm(formId) {
 	document.getElementById(formId).reset();
 	$("#"+formId+" input[type='hidden']").val(""); 
 	$(".selected").removeClass("selected");//清除选中
+	initGroupTree();
 	doSearch();
 }
 
@@ -260,8 +290,28 @@ function resetForm(formId) {
 function batchDelete() {
 	var ids = ICSS.utils.getSelectRowData("id");
 	if (ids == "") {
-		showMessage("请至少选择一条数据！");
-		return;
+		var nodes = groupTree.getSelectedNodes();
+		if(nodes.length != 0 && !nodes[0].isParent){
+			new biz.alert({
+				type : "confirm",
+				message : "确定删除该组别以及改组别下所有用户？",
+				title : I18N.promp,
+				callback : function(r) {
+					if (r) {
+						$.ajax({
+							url: "<m:url value='/userGroup/deleteUserGroup.do'/>?key="+nodes[0].id,
+							cache : false,
+							success : function(data, textStatus, jqXHR) {
+								initGroupTree();
+								initUserTable();
+								showInfo("<m:message code='delete.success'/>", 3000);
+							}
+						});
+					}
+				}
+			});
+			return;
+		}
 	} else {
 		new biz.alert({
 			type : "confirm",
@@ -284,9 +334,44 @@ function batchDelete() {
 	}
 }
 
+function initGroupTree() {
+	$.ajax({
+		url : baseUrl + "/userGroup/initGroupTree.do",
+		data : {
+			groupId:$("#groupId").val()
+		},
+		type : "POST",
+		dataType:"json",
+		success : function(data, textStatus, jqXHR) {
+			var setting_checkbox = {
+				data : {},
+				id : "#groupTree",
+				nodes :data, // 数据节点指定
+				data : {
+					simpleData : {
+						enable : true
+					}
+				},
+				callback : {
+					onClick : treeOnClick
+				}
+			};
+			groupTree = new biz.tree(setting_checkbox);// 创建树
+		}
+	});
+}
+function treeOnClick(event, treeId, treeNode) {
+	$("#groupId").val(treeNode.id);
+	groupId = treeNode.id;
+	groupName = treeNode.name;
+	doSearch();
+}
+
+//下载导出
 function expExcelWinShow(){
 	ExpExcel.showWin(gridObj,baseUrl+"/userInfo/exportExcel.do",'grid','queryForm');
 }
+
 
 
 </script>

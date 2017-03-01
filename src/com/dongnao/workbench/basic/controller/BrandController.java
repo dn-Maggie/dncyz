@@ -1,26 +1,28 @@
 package com.dongnao.workbench.basic.controller;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dongnao.workbench.common.page.Page;
-import com.dongnao.workbench.common.util.AjaxUtils;
-import com.dongnao.workbench.common.util.Utils;
-import com.dongnao.workbench.common.util.FormatEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.dongnao.workbench.area.service.ChinaAreaService;
 import com.dongnao.workbench.basic.model.Brand;
 import com.dongnao.workbench.basic.service.BrandService;
 import com.dongnao.workbench.basic.service.CategoryService;
 import com.dongnao.workbench.basic.service.IndustryService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import com.dongnao.workbench.common.controller.BaseController;
+import com.dongnao.workbench.common.page.Page;
+import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.common.util.FormatEntity;
+import com.dongnao.workbench.common.util.Utils;
 
 
 /**
@@ -32,7 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
  
 @Controller
 @RequestMapping("brand")
-public class BrandController{
+public class BrandController extends BaseController{
 	@Resource
 	private BrandService brandService;
 	@Resource
@@ -61,10 +63,20 @@ public class BrandController{
 	 * @return ModelAndView: 查询实体
 	 */	
 	@RequestMapping("/toShowBrand")
-	public ModelAndView toShow(String key){
+	public ModelAndView toShow(String key) throws Exception{
 		Brand entity = brandService.getByPrimaryKey(key);
 		Map<String,String> brand = FormatEntity.getObjectValue(entity);
-		return new ModelAndView("WEB-INF/jsp/basic/brand/showBrand","brand",brand );
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/basic/brand/showBrand","brand",brand );
+		mv.addObject("category", categoryService.listByCondition(null));
+		mv.addObject("industry", industryService.listByCondition(null));
+		mv.addObject("province", chinaAreaService.loadAreaByParent(0));
+		try {
+			mv.addObject("region", chinaAreaService.loadAreaByParent(Integer.parseInt(entity.getProvinceCode())));
+			mv.addObject("city", chinaAreaService.loadAreaByParent(Integer.parseInt(entity.getRegionCode())));
+		} catch (Exception e) {
+			 throw new SQLException();
+		}
+		return mv;
 	}
 	
 	/**
@@ -75,8 +87,8 @@ public class BrandController{
 	 */
 	@RequestMapping("/addBrand")
 	public void add(Brand brand,HttpServletRequest request,HttpServletResponse response){
-	brand.setBrandId(Utils.generateUniqueID());
-	AjaxUtils.sendAjaxForObjectStr(response,brandService.add(brand));		
+		brand.setBrandId(Utils.generateUniqueID());
+		AjaxUtils.sendAjaxForObjectStr(response,brandService.add(brand));		
 	}
 	
 	/**
@@ -128,10 +140,20 @@ public class BrandController{
 	 * @return ModelAndView: 查询实体
 	 */	
 	@RequestMapping("/toEditBrand")
-	public ModelAndView toEdit(String key){
+	public ModelAndView toEdit(String key) throws Exception{
 		Brand entity = brandService.getByPrimaryKey(key);
 		Map<String,String> brand = FormatEntity.getObjectValue(entity);
-		return new ModelAndView("WEB-INF/jsp/basic/brand/editBrand","brand",brand );
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/basic/brand/editBrand","brand",brand );
+		mv.addObject("category", categoryService.listByCondition(null));
+		mv.addObject("industry", industryService.listByCondition(null));
+		mv.addObject("province", chinaAreaService.loadAreaByParent(0));
+		try {
+			mv.addObject("region", chinaAreaService.loadAreaByParent(Integer.parseInt(entity.getProvinceCode())));
+			mv.addObject("city", chinaAreaService.loadAreaByParent(Integer.parseInt(entity.getRegionCode())));
+		} catch (Exception e) {
+			 throw new SQLException();
+		}
+		return mv;
 	}
 	
 	/**

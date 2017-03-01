@@ -16,19 +16,7 @@
 <script src="<%=request.getContextPath() %>/static/js/select2.min.js"></script>
 <script type="text/javascript">
 $(function() {
-	$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
-		$(this).prev().focus();
-	});
-	$('.rate').ace_spinner({min:0,max:100,step:1, icon_up:'icon-plus smaller-75', icon_down:'icon-minus smaller-75', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
-	$('.timepicker').timepicker({
-		minuteStep: 1,
-		showSeconds: true,
-		showMeridian: false
-	}).next().on(ace.click_event, function(){
-		$(this).prev().focus();
-	});
 	//是否提供发票checkbox点击事件
-	
 	 $('#edit_proInvoiceFlag').on('click', function(){
 		if(this.checked) { $("#edit_proInvoiceFlag").val("1"); }
 		else { $("#edit_proInvoiceFlag").val("0"); }
@@ -82,13 +70,7 @@ $(function() {
 		$('#basicMessForm').ajaxSubmit(options);
 		
 	})
-	$('input[type="file"]').ace_file_input({
-		no_file:'请选择...',
-		btn_choose:'选择',
-		btn_change:'更换',
-		droppable:false,
-		thumbnail:false,
-	}).on('change',function(){
+	$('input[type="file"]').on('change',function(){
 		$(this).parent().parent().find('.realImage_submit').val("上传");
     	$(this).parent().parent().find('.path').val($(this).val());
     	var extend=$(this).val().split('.').pop().toLowerCase();
@@ -100,9 +82,6 @@ $(function() {
 	        	 $(this).parent().parent().find('.realImage_submit').prop("disabled",false);
 	         }
 	})
-	$('.icon-remove').click(function(){
-		$(this).parent().find('.realImage_submit').val("上传");
-	});
 	 $(".path").on('click', function(){
 		 $(this).parent().find('input[type="file"]').trigger("click");
 	});
