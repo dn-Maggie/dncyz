@@ -203,14 +203,14 @@ var gridObj = {};
 		<form id="queryForm"><!-- 查询区 表单 -->
 			<div class="search border-bottom">
 				<ul>
-				<li><input type="text" name="actorName" id="actorName" class="search_choose"> <span>操作人:</span></li><!-- 输入框-->
-				<li><span>开始日期:</span>
+				<li><span>关键字：</span><input type="text" name="actorName" id="actorName" class="search_choose" placeholder="商户名称"></li><!-- 输入框-->
+				<li><span>日期:</span>
 						<div class="time_bg">
 						<input type="text" class="search_time150" name="actTime" id="actTime" mainid="actTime"><!-- 时间选择控件-->
 						<i class="search_time_ico2" ></i>
 						</div></li>
 				<li class="date_area">
-					<span>日期:</span>
+					<span>创建时间:</span>
 					<div class="time_bg">
 						<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate">
 						<i class="search_time_ico2"  onclick="WdatePicker({el:'startDate'})"></i>
@@ -220,9 +220,10 @@ var gridObj = {};
 						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" mainid="endDate">
 						<i class="search_time_ico2"  onclick="WdatePicker({el:'endDate'})"></i>
 					</div></li>	
-				 <li><select class="search_select" name="actType" id="actType" mainid="actType"><option value="">--请选择--</option><option value="add">add</option><option value="save">save</option><option value="update">update</option><option value="edit">edit</option><option value="insert">insert</option><option value="delete">delete</option><option value="remove">remove</option></select>
-				<span>操作类型:</span></li><!--下拉 -->
-				<li><input type="text" name="actResult" id="actResult" class="search_choose"> <span>操作结果:</span></li><!-- 输入框-->			
+				 <li><select class="search_select" name="actType" id="actType"><option value="">---请选择---</option></select>
+				<span>订单类型:</span></li><!--下拉 -->
+				 <li><select class="search_select" name="actType" id="actType"><option value="">---请选择---</option></select>
+				<span>配送方式:</span></li><!--下拉 -->
 				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
 						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
 				</ul>
