@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.finance.dao.AccountOrderDetailMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.finance.model.AccountOrderDetail">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+			<result column="create_date" property="createDate" jdbcType="DATE" />
+			<result column="store_id" property="storeId" jdbcType="CHAR" />
+			<result column="store_name" property="storeName" jdbcType="VARCHAR" />
+			<result column="check_no" property="checkNo" jdbcType="VARCHAR" />
+			<result column="order_type" property="orderType" jdbcType="VARCHAR" />
+			<result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+			<result column="over_time" property="overTime" jdbcType="TIMESTAMP" />
+			<result column="order_index" property="orderIndex" jdbcType="VARCHAR" />
+			<result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+			<result column="prices" property="prices" jdbcType="VARCHAR" />
+			<result column="meal_fee" property="mealFee" jdbcType="VARCHAR" />
+			<result column="gift_allowance" property="giftAllowance" jdbcType="VARCHAR" />
+			<result column="activities_subsidies" property="activitiesSubsidies" jdbcType="VARCHAR" />
+			<result column="subsidy_vouchers" property="subsidyVouchers" jdbcType="VARCHAR" />
+			<result column="merchant_charge" property="merchantCharge" jdbcType="VARCHAR" />
+			<result column="service_rate" property="serviceRate" jdbcType="VARCHAR" />
+			<result column="service_charge" property="serviceCharge" jdbcType="VARCHAR" />
+			<result column="refund_amount" property="refundAmount" jdbcType="VARCHAR" />
+			<result column="settlement_amount" property="settlementAmount" jdbcType="VARCHAR" />
+			<result column="distribution_mode" property="distributionMode" jdbcType="VARCHAR" />
+			<result column="remark" property="remark" jdbcType="VARCHAR" />
+			<result column="elm_activities_subsidies" property="elmActivitiesSubsidies" jdbcType="VARCHAR" />
+			<result column="elm_subsidy_vouchers" property="elmSubsidyVouchers" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	 	id
+		,create_date
+		,store_id
+		,store_name
+		,check_no
+		,order_type
+		,order_time
+		,over_time
+		,order_index
+		,order_no
+		,prices
+		,meal_fee
+		,gift_allowance
+		,activities_subsidies
+		,subsidy_vouchers
+		,merchant_charge
+		,service_rate
+		,service_charge
+		,refund_amount
+		,settlement_amount
+		,distribution_mode
+		,remark
+		,elm_activities_subsidies
+		,elm_subsidy_vouchers
+	</sql>
+	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from account_order_detail
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
+		select
+		<include refid="Base_Column_List" />
+		from account_order_detail
+		where 1=1
+		<if test="id != null and '' != id">  
+			and id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="createDate != null and '' != createDate">  
+			and create_date = #{createDate,jdbcType=DATE}
+		</if>
+		<if test="storeId != null and '' != storeId">  
+			and store_id = #{storeId,jdbcType=CHAR}
+		</if>
+		<if test="storeName != null and '' != storeName">  
+			and store_name = #{storeName,jdbcType=VARCHAR}
+		</if>
+		<if test="checkNo != null and '' != checkNo">  
+			and check_no = #{checkNo,jdbcType=VARCHAR}
+		</if>
+		<if test="orderType != null and '' != orderType">  
+			and order_type = #{orderType,jdbcType=VARCHAR}
+		</if>
+		<if test="orderTime != null and '' != orderTime">  
+			and order_time = #{orderTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="overTime != null and '' != overTime">  
+			and over_time = #{overTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="orderIndex != null and '' != orderIndex">  
+			and order_index = #{orderIndex,jdbcType=VARCHAR}
+		</if>
+		<if test="orderNo != null and '' != orderNo">  
+			and order_no = #{orderNo,jdbcType=VARCHAR}
+		</if>
+		<if test="prices != null and '' != prices">  
+			and prices = #{prices,jdbcType=VARCHAR}
+		</if>
+		<if test="mealFee != null and '' != mealFee">  
+			and meal_fee = #{mealFee,jdbcType=VARCHAR}
+		</if>
+		<if test="giftAllowance != null and '' != giftAllowance">  
+			and gift_allowance = #{giftAllowance,jdbcType=VARCHAR}
+		</if>
+		<if test="activitiesSubsidies != null and '' != activitiesSubsidies">  
+			and activities_subsidies = #{activitiesSubsidies,jdbcType=VARCHAR}
+		</if>
+		<if test="subsidyVouchers != null and '' != subsidyVouchers">  
+			and subsidy_vouchers = #{subsidyVouchers,jdbcType=VARCHAR}
+		</if>
+		<if test="merchantCharge != null and '' != merchantCharge">  
+			and merchant_charge = #{merchantCharge,jdbcType=VARCHAR}
+		</if>
+		<if test="serviceRate != null and '' != serviceRate">  
+			and service_rate = #{serviceRate,jdbcType=VARCHAR}
+		</if>
+		<if test="serviceCharge != null and '' != serviceCharge">  
+			and service_charge = #{serviceCharge,jdbcType=VARCHAR}
+		</if>
+		<if test="refundAmount != null and '' != refundAmount">  
+			and refund_amount = #{refundAmount,jdbcType=VARCHAR}
+		</if>
+		<if test="settlementAmount != null and '' != settlementAmount">  
+			and settlement_amount = #{settlementAmount,jdbcType=VARCHAR}
+		</if>
+		<if test="distributionMode != null and '' != distributionMode">  
+			and distribution_mode = #{distributionMode,jdbcType=VARCHAR}
+		</if>
+		<if test="remark != null and '' != remark">  
+			and remark = #{remark,jdbcType=VARCHAR}
+		</if>
+		<if test="elmActivitiesSubsidies != null and '' != elmActivitiesSubsidies">  
+			and elm_activities_subsidies = #{elmActivitiesSubsidies,jdbcType=VARCHAR}
+		</if>
+		<if test="elmSubsidyVouchers != null and '' != elmSubsidyVouchers">  
+			and elm_subsidy_vouchers = #{elmSubsidyVouchers,jdbcType=VARCHAR}
+		</if>
+			<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+         	</if>
+	</select>
+	
+	<delete id="deleteByKey" parameterType="java.lang.String">
+		delete from account_order_detail
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
+		insert into account_order_detail (
+		<include refid="Base_Column_List" />
+		)values (
+				#{id,jdbcType=VARCHAR}
+				,#{createDate,jdbcType=DATE}
+				,#{storeId,jdbcType=CHAR}
+				,#{storeName,jdbcType=VARCHAR}
+				,#{checkNo,jdbcType=VARCHAR}
+				,#{orderType,jdbcType=VARCHAR}
+				,#{orderTime,jdbcType=TIMESTAMP}
+				,#{overTime,jdbcType=TIMESTAMP}
+				,#{orderIndex,jdbcType=VARCHAR}
+				,#{orderNo,jdbcType=VARCHAR}
+				,#{prices,jdbcType=VARCHAR}
+				,#{mealFee,jdbcType=VARCHAR}
+				,#{giftAllowance,jdbcType=VARCHAR}
+				,#{activitiesSubsidies,jdbcType=VARCHAR}
+				,#{subsidyVouchers,jdbcType=VARCHAR}
+				,#{merchantCharge,jdbcType=VARCHAR}
+				,#{serviceRate,jdbcType=VARCHAR}
+				,#{serviceCharge,jdbcType=VARCHAR}
+				,#{refundAmount,jdbcType=VARCHAR}
+				,#{settlementAmount,jdbcType=VARCHAR}
+				,#{distributionMode,jdbcType=VARCHAR}
+				,#{remark,jdbcType=VARCHAR}
+				,#{elmActivitiesSubsidies,jdbcType=VARCHAR}
+				,#{elmSubsidyVouchers,jdbcType=VARCHAR}
+			)
+	</insert>
+	
+	<insert id="addOrderDetail" parameterType="java.util.List">
+		insert into account_order_detail (
+				id
+				,create_date
+				,store_id
+				,store_name
+				,check_no
+				,order_type
+				,order_time
+				,over_time
+				,order_index
+				,order_no
+				,prices
+				,meal_fee
+				,gift_allowance
+				,activities_subsidies
+				,subsidy_vouchers
+				,merchant_charge
+				,service_rate
+				,service_charge
+				,refund_amount
+				,settlement_amount
+				,distribution_mode
+				,remark
+				,elm_activities_subsidies
+				,elm_subsidy_vouchers
+		)values
+		<foreach collection="list" item="item" index="index" separator="," >
+		 (
+				#{item.id,jdbcType=VARCHAR}
+				,#{item.createDate,jdbcType=DATE}
+				,#{item.storeId,jdbcType=CHAR}
+				,#{item.storeName,jdbcType=VARCHAR}
+				,#{item.checkNo,jdbcType=VARCHAR}
+				,#{item.orderType,jdbcType=VARCHAR}
+				,#{item.orderTime,jdbcType=TIMESTAMP}
+				,#{item.overTime,jdbcType=TIMESTAMP}
+				,#{item.orderIndex,jdbcType=VARCHAR}
+				,#{item.orderNo,jdbcType=VARCHAR}
+				,#{item.prices,jdbcType=VARCHAR}
+				,#{item.mealFee,jdbcType=VARCHAR}
+				,#{item.giftAllowance,jdbcType=VARCHAR}
+				,#{item.activitiesSubsidies,jdbcType=VARCHAR}
+				,#{item.subsidyVouchers,jdbcType=VARCHAR}
+				,#{item.merchantCharge,jdbcType=VARCHAR}
+				,#{item.serviceRate,jdbcType=VARCHAR}
+				,#{item.serviceCharge,jdbcType=VARCHAR}
+				,#{item.refundAmount,jdbcType=VARCHAR}
+				,#{item.settlementAmount,jdbcType=VARCHAR}
+				,#{item.distributionMode,jdbcType=VARCHAR}
+				,#{item.remark,jdbcType=VARCHAR}
+				,#{item.elmActivitiesSubsidies,jdbcType=VARCHAR}
+				,#{item.elmSubsidyVouchers,jdbcType=VARCHAR}
+		)
+		</foreach>
+	</insert>
+	
+	
+	<update id="update" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
+		update account_order_detail  set
+		id= #{id,jdbcType=VARCHAR}
+		,create_date = #{createDate,jdbcType=DATE}
+		,store_id = #{storeId,jdbcType=CHAR}
+		,store_name = #{storeId,jdbcType=VARCHAR}
+		,check_no = #{checkNo,jdbcType=VARCHAR}
+		,order_type = #{orderType,jdbcType=VARCHAR}
+		,order_time = #{orderTime,jdbcType=TIMESTAMP}
+		,over_time = #{overTime,jdbcType=TIMESTAMP}
+		,order_index = #{orderIndex,jdbcType=VARCHAR}
+		,order_no = #{orderNo,jdbcType=VARCHAR}
+		,prices = #{prices,jdbcType=VARCHAR}
+		,meal_fee = #{mealFee,jdbcType=VARCHAR}
+		,gift_allowance = #{giftAllowance,jdbcType=VARCHAR}
+		,activities_subsidies = #{activitiesSubsidies,jdbcType=VARCHAR}
+		,subsidy_vouchers = #{subsidyVouchers,jdbcType=VARCHAR}
+		,merchant_charge = #{merchantCharge,jdbcType=VARCHAR}
+		,service_rate = #{serviceRate,jdbcType=VARCHAR}
+		,service_charge = #{serviceCharge,jdbcType=VARCHAR}
+		,refund_amount = #{refundAmount,jdbcType=VARCHAR}
+		,settlement_amount = #{settlementAmount,jdbcType=VARCHAR}
+		,distribution_mode = #{distributionMode,jdbcType=VARCHAR}
+		,remark = #{remark,jdbcType=VARCHAR}
+		,elm_activities_subsidies = #{elmActivitiesSubsidies,jdbcType=VARCHAR}
+		,elm_subsidy_vouchers = #{elmSubsidyVouchers,jdbcType=VARCHAR}
+	where id = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

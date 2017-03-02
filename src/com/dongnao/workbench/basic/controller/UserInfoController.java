@@ -63,13 +63,15 @@ public class UserInfoController extends BaseController{
 	public ModelAndView toAdd(HttpServletRequest request,String userGroup) {
 		ModelAndView mv = new ModelAndView( "WEB-INF/jsp/basic/userInfo/addUserInfo");
 		Role role = new Role();
-		List<Role> roleList = roleService.listByCondition(role);
-		mv.addObject("roleList", roleList);
-		/*if(!Utils.isSuperAdmin(request)){
+		role.setStates("1");
+		mv.addObject("roleList", roleService.listByCondition(role));
+		role.setRoleCode("platformStore");
+		mv.addObject("platformStoreRole", roleService.listByCondition(role).get(0));
+		if(!Utils.isSuperAdmin(request)){
 			mv.addObject("userGroup", Utils.getLoginUserInfo(request).getUserGroup());
-		}*/
+		}
 		mv.addObject("userGroupList", userGroupService.listByCondition(null));
-		mv.addObject("userGroup", userGroup);
+		mv.addObject("userGroupId", userGroup);
 		return mv;
 	}
 
@@ -215,13 +217,15 @@ public class UserInfoController extends BaseController{
 		if (personrole != null) {
 			userInfo.put("roleId", personrole.getRoleId());
 		}
-		List<Role> roleList = roleService.listByCondition(new Role());
-//		List<SalStandard> salStandardList = salStandardService
-//				.listByCondition(new SalStandard());
+		Role role = new Role();
+		role.setStates("1");
+		List<Role> roleList = roleService.listByCondition(role);
+		role.setRoleCode("platformStore");
+		mv.addObject("platformStoreRole", roleService.listByCondition(role).get(0));
 		dictInfoService.getDictInfoByType("");
-//		mv.addObject("salStandardList", salStandardList);
 		mv.addObject("roleList", roleList);
 		mv.addObject("userInfo", userInfo);
+		mv.addObject("userGroupList", userGroupService.listByCondition(null));
 		return mv;
 	}
 

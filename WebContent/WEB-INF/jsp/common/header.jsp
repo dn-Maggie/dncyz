@@ -52,4 +52,12 @@
 
 <script src="<%=request.getContextPath() %>/js/gameco/jquery.collapse.js"></script>
 <script src="<%=request.getContextPath() %>/modulejs/common.js"></script>
+<style>
+.ui-pg-selbox {
+	font-size: 14px;
+}
+.ui-pg-selbox option:hover{
+	color: ;
+}
+</style>
 

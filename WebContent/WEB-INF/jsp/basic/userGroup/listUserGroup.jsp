@@ -13,8 +13,6 @@ var gridObj = {};
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"id",
            	sortorder:"asc",
-           	//navtype:"top" /*导航栏类型*/,
-           	//height: gridHeight,
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
     		rowNum:10,//默认显示15条
@@ -24,8 +22,8 @@ var gridObj = {};
 				{name : "groupDesc",label:"组别描述",index : "group_desc"},				
 				{name : "groupStates",label:"组别状态",index : "group_states",
 					formatter:GridColModelForMatter.enableStates},				
-				{name : "groupCreater",label:"创建者",index : "group_creater"},				
-				{name : "groupUpdater",label:"更新者",index : "group_updater"},				
+				{name : "groupCreaterName",label:"创建者",index : "group_creater"},				
+				{name : "groupUpdaterName",label:"更新者",index : "group_updater"},				
 				{name : "groupCreateTime",label:"创建时间",index : "group_create_time"},				
 				{name : "groupUpdateTime",label:"更新时间",index : "group_update_time"}				
            	],
@@ -36,17 +34,6 @@ var gridObj = {};
     		}
       });
         
-	new biz.datepicker({
-  			id : "#startDate",
-  			maxDate:'#F{$dp.$D(\'endDate\',{d:0});}',
-  			dateFmt:'yyyy-MM-dd'
-  		});
-  	    
-  	    new biz.datepicker({
-  			id : "#endDate",
-  			minDate:'#F{$dp.$D(\'startDate\',{d:0});}',
-  			dateFmt:'yyyy-MM-dd'
-  		});
     });
 
  
@@ -77,7 +64,7 @@ var gridObj = {};
   	}
   	
     function edit(){
-		var key = ICSS.utils.getSelectRowData("groupId");
+		var key = ICSS.utils.getSelectRowData("id");
 		if(key.indexOf(",")>-1||key==""){
 			showMessage("请选择一条数据！");
 			return ;
@@ -99,7 +86,7 @@ var gridObj = {};
     }
     
     function show(){
-    	var key = ICSS.utils.getSelectRowData("groupId");
+    	var key = ICSS.utils.getSelectRowData("id");
 		if(key.indexOf(",")>-1||key==""){
 			showMessage("请选择一条数据！");
 			return ;
@@ -143,7 +130,7 @@ var gridObj = {};
     
     //删除
     function batchDelete(){
-    	var ids = ICSS.utils.getSelectRowData("groupId");
+    	var ids = ICSS.utils.getSelectRowData("id");
     	if(ids==""){
     		showMessage("请至少选择一条数据！");
     		return ;

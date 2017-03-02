@@ -83,18 +83,20 @@ public class UserGroupServiceImpl implements UserGroupService{
 	 */
 		public String initGroupTree(String groupName, UserInfo userInfo) {
 		JSONArray roleTree = new JSONArray();
+		
+		
 		UserGroup group = new UserGroup();
 		group.setGroupName(groupName);
 		group.setIsActive(Constant.ISDELETE_FALSE);
 		group.setGroupStates("1");
 		if(!Utils.isSuperAdmin(userInfo)){
+			group.setGroupPId(userInfo.getUserGroup());
 			group.setId(userInfo.getUserGroup());
 		}
 		List<UserGroup> groups = userGroupMapper.listByCondition(group);
 		JSONObject jsonObj;
 		for (UserGroup o : groups) {
 			jsonObj = new JSONObject();
-			jsonObj.put("open", "true");
 			jsonObj.put("isParent", "true");
 			jsonObj.put("id", o.getId());
 			jsonObj.put("pId", o.getGroupPId());

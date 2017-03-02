@@ -22,7 +22,7 @@ public class AccountCheck extends Model{
 	                 * 结算日期
 	                 **/
 					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-			private Date accountTime;
+						private Date accountTime;
 		
 		            /**
 	                 * 饿了吗结算款
@@ -73,6 +73,7 @@ public class AccountCheck extends Model{
 	                 * 店铺ID
 	                 **/
 				   			private String storeId;
+				   			private String storeName;
 		   		
 	
 				
@@ -305,6 +306,14 @@ public class AccountCheck extends Model{
 			 */
 			public void setStoreId(String storeId){
 				this.storeId = storeId;
+			}
+
+			public String getStoreName() {
+				return storeName;
+			}
+
+			public void setStoreName(String storeName) {
+				this.storeName = storeName;
 			}
 		   		
 		

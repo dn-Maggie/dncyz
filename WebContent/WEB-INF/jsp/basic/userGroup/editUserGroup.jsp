@@ -29,7 +29,11 @@ $(function() {
 		// 将options传给ajaxForm
 		$('#userGroupFormEdit').ajaxSubmit(options);
 	});
-
+	new biz.select({//状态下拉
+	    id:"#edit_groupStates",
+	    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=status'/>",
+	    value:"${role.states}"
+	});
 	/*编辑表单数据验证*/
 	new biz.validate({
 		id:"#userGroupFormEdit",
@@ -47,43 +51,32 @@ $(function() {
 		<input type="hidden" id="edit_id" name="id" type="text" value="${userGroup.id}"/>
 		<table class="table">
 			<tr>
-				<td class="inputLabelTd">组别名：</td>
+				<td class="inputLabelTd">上级名称：</td>
+				<td class="inputTd">
+					<select name="groupPId" class="search_select">
+							<c:forEach var="userGroupList" items="${userGroupList}">
+								<option value="${userGroupList.id}" <c:if test="${userGroup.groupPId==userGroupList.id}">selected</c:if>>${userGroupList.groupName}</option>
+							</c:forEach>
+					</select>
+				</td>
+				<td class="inputLabelTd">小组名称：</td>
 				<td class="inputTd">
 					<input id="edit_groupName" name="groupName" type="text" class="text" value="${userGroup.groupName}"/>
 				</td>
+			</tr>
+			<tr>
 				<td class="inputLabelTd">组别描述：</td>
 				<td class="inputTd">
 					<input id="edit_groupDesc" name="groupDesc" type="text" class="text" value="${userGroup.groupDesc}"/>
 				</td>
-			</tr>
-			<tr>
 				<td class="inputLabelTd">组别状态：</td>
 				<td class="inputTd">
-					<input id="edit_groupStates" name="groupStates" type="text" class="text" value="${userGroup.groupStates}"/>
-				</td>
-				<td class="inputLabelTd">创建者ID：</td>
-				<td class="inputTd">
-					<input id="edit_groupCreater" name="groupCreater" type="text" class="text" value="${userGroup.groupCreater}"/>
+					<select id="edit_groupStates" name="groupStates" class="search_select"></select>
 				</td>
 			</tr>
-			<tr>
-				<td class="inputLabelTd">更新者ID：</td>
-				<td class="inputTd">
-					<input id="edit_groupUpdater" name="groupUpdater" type="text" class="text" value="${userGroup.groupUpdater}"/>
-				</td>
-				<td class="inputLabelTd">创建时间：</td>
-				<td class="inputTd">
-					<input id="edit_groupCreateTime" name="groupCreateTime" type="text" class="text" value="${userGroup.groupCreateTime}"/>
-				</td>
-			</tr>
-			<tr>
-				<td class="inputLabelTd">更新时间：</td>
-				<td class="inputTd">
-					<input id="edit_groupUpdateTime" name="groupUpdateTime" type="text" class="text" value="${userGroup.groupUpdateTime}"/>
-				</td>
 			<tr>
 				<td class="inputTd" colspan="4" style="text-align:center;">
-					<input id="submit" type="button" class="ti_bottom" value="<m:message code='button.save' />"/>
+					<input id="submit" type="button" class="ti_bottom" value="保存"/>
 				</td>
 			</tr>
 		</table>

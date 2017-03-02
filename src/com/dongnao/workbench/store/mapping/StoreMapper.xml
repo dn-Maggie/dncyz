@@ -131,7 +131,7 @@
 		where s.STORE_ID = #{storeId,jdbcType=CHAR}
 	</select>
 	
-	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.Store">
+	<!-- select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.Store">
 		select
 		 	s.STORE_ID
 			,s.STORE_NAME
@@ -176,6 +176,147 @@
 		from dn_store as s
 		left join dn_brand as b on b.BRAND_ID = s.BRAND_ID
 		where 1=1
+		<if test="ownerUserId != null and '' != ownerUserId">  
+			and s.owner_userId = #{ownerUserId,jdbcType=VARCHAR}
+		</if>
+		<if test="storeId != null and '' != storeId">  
+			and s.STORE_ID = #{storeId,jdbcType=CHAR}
+		</if>
+		<if test="storeName != null and '' != storeName">  
+			and s.STORE_NAME like CONCAT('%',#{storeName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="brandId != null and '' != brandId">  
+			and s.BRAND_ID = #{brandId,jdbcType=CHAR}
+		</if>
+		<if test="storeAddress != null and '' != storeAddress">  
+			and s.STORE_ADDRESS like CONCAT('%',#{storeAddress,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="workTimeBegin != null and '' != workTimeBegin">  
+			and s.WORK_TIME_BEGIN = #{workTimeBegin,jdbcType=TIME}
+		</if>
+		<if test="workTimeEnd != null and '' != workTimeEnd">  
+			and s.WORK_TIME_END = #{workTimeEnd,jdbcType=TIME}
+		</if>
+		<if test="storeOwnerName != null and '' != storeOwnerName">  
+			and s.STORE_OWNER_NAME like CONCAT('%',#{storeOwnerName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="storeOwnerTel != null and '' != storeOwnerTel">  
+			and s.STORE_OWNER_TEL = #{storeOwnerTel,jdbcType=VARCHAR}
+		</if>
+		<if test="proInvoiceFlag != null and '' != proInvoiceFlag">  
+			and s.PRO_INVOICE_FLAG = #{proInvoiceFlag,jdbcType=CHAR}
+		</if>
+		<if test="remark != null and '' != remark">  
+			and s.REMARK = #{remark,jdbcType=VARCHAR}
+		</if>
+		<if test="operateDate != null and '' != operateDate">  
+			and s.OPERATE_DATE = #{operateDate,jdbcType=DATE}
+		</if>
+		<if test="settlementMethod != null and '' != settlementMethod">  
+			and s.SETTLEMENT_METHOD = #{settlementMethod,jdbcType=CHAR}
+		</if>
+		<if test="storeTel != null and '' != storeTel">  
+			and s.STORE_TEL = #{storeTel,jdbcType=VARCHAR}
+		</if>
+		<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+       	</if>
+	</select-->
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.Store">
+		SELECT
+			s.STORE_ID
+			,s.STORE_NAME
+			,s.BRAND_ID
+			,b.BRAND_NAME as brandName
+			,s.STORE_ADDRESS
+			,s.WORK_TIME_BEGIN
+			,s.WORK_TIME_END
+			,s.STORE_OWNER_NAME
+			,s.STORE_OWNER_TEL
+			,s.PRO_INVOICE_FLAG
+			,s.REMARK
+			,s.OPERATE_DATE
+			,s.SETTLEMENT_METHOD
+			,s.STORE_TEL
+			,s.REAL_IMAGE_PATH_1
+			,s.REAL_IMAGE_PATH_2
+			,s.REAL_IMAGE_PATH_3
+			,s.AVERAGE_SALES
+			,s.ELM_SALE
+			,s.MEITUAN_SALE
+			,s.BAIDU_SALE
+			,s.elm_id
+			,s.ELM_RATE
+			,s.meituan_id
+			,s.MEITUAN_RATE
+			,s.baidu_id
+			,s.BAIDU_RATE
+			,s.registrant
+			,s.regist_date
+			,s.business_license_img
+			,s.health_license_img
+			,s.menu_img
+			,s.corporate_idcard_front
+			,s.corporate_idcard_back
+			,s.canteen_img
+			,s.kitchen_img
+			,s.door_img
+			,s.corporate_withidcard_front
+			,s.corporate_withidcard_back
+			,s.owner_userId
+		FROM
+			(
+			SELECT
+			ds.STORE_ID
+			,STORE_NAME
+			,BRAND_ID
+			,STORE_ADDRESS
+			,WORK_TIME_BEGIN
+			,WORK_TIME_END
+			,STORE_OWNER_NAME
+			,STORE_OWNER_TEL
+			,PRO_INVOICE_FLAG
+			,REMARK
+			,OPERATE_DATE
+			,SETTLEMENT_METHOD
+			,STORE_TEL
+			,REAL_IMAGE_PATH_1
+			,REAL_IMAGE_PATH_2
+			,REAL_IMAGE_PATH_3
+			,AVERAGE_SALES
+			,ELM_SALE
+			,MEITUAN_SALE
+			,BAIDU_SALE
+			,elm_id
+			,ELM_RATE
+			,meituan_id
+			,MEITUAN_RATE
+			,baidu_id
+			,BAIDU_RATE
+			,registrant
+			,regist_date
+			,business_license_img
+			,health_license_img
+			,menu_img
+			,corporate_idcard_front
+			,corporate_idcard_back
+			,canteen_img
+			,kitchen_img
+			,door_img
+			,corporate_withidcard_front
+			,corporate_withidcard_back
+			,owner_userId
+		FROM
+			`basic_user_info` AS ui
+		LEFT JOIN dn_store AS ds ON ui.id = ds.owner_userId
+		WHERE 1= 1
+		<if test="userGroup != null and '' != userGroup">  
+			and ui.user_group= #{userGroup,jdbcType=VARCHAR}
+		</if>
+		) AS s
+		left join dn_brand as b on b.BRAND_ID = s.BRAND_ID
+		where s.owner_userId is not null
 		<if test="ownerUserId != null and '' != ownerUserId">  
 			and s.owner_userId = #{ownerUserId,jdbcType=VARCHAR}
 		</if>

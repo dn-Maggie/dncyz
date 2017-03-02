@@ -17,6 +17,7 @@ public class Store extends Model{
 				     * 店铺使用者ID
 				     **/
 							private String ownerUserId;
+							private String userGroup;
 		            /**
 	                 * 店铺ID(主键)
 	                 **/
@@ -692,6 +693,14 @@ public class Store extends Model{
 
 			public void setCorporateWithidcardBack(String corporateWithidcardBack) {
 				this.corporateWithidcardBack = corporateWithidcardBack;
+			}
+
+			public String getUserGroup() {
+				return userGroup;
+			}
+
+			public void setUserGroup(String userGroup) {
+				this.userGroup = userGroup;
 			}
 		   		
 		

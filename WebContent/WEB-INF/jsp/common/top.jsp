@@ -20,7 +20,7 @@
 
 						</li>
 						<li>
-							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+							<a data-toggle="dropdown" href="#" class="dropdown-toggle" style="line-height:22.5px;">
 								<%-- <img class="nav-user-photo" src="<%=request.getContextPath() %>/styles/images/logo_face.png"  /> --%>
 							<!-- 	<span class="user-info"> -->
 									<%=Utils.getLoginUser(request)%>

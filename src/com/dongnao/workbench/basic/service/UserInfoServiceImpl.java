@@ -151,8 +151,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 			UserInfo loginUserInfo) {
 		userInfo.setUpdated(DateUtil.now());
 		userInfo.setUpdatedby(loginUserInfo.getId());
-		UserInfo oldUserInfo = userInfoMapper.getByPrimaryKey(userInfo
-				.getId());
+		/*UserInfo oldUserInfo = userInfoMapper.getByPrimaryKey(userInfo
+				.getId());*/
 		// 如果有身份证，那么要复制身份证图片信息到指定目录,删除原来的
 //		if (!userInfo.getIdCardImgPath().equals(oldUserInfo.getIdCardImgPath())) {
 //			// 先删除原来的
@@ -165,7 +165,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 //		}
 		//属性覆盖
 //		Utils.copyPropertiesIgnoreNull(userInfo, oldUserInfo);
-		userInfoMapper.update(oldUserInfo);
+		userInfoMapper.update(userInfo);
 		if (StringUtil.isNotBlank(roleId)) {
 			Personrole personrole = new Personrole();
 			personrole.setUserId(userInfo.getId());

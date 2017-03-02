@@ -17,7 +17,7 @@
 	<div class="main  choice_box container" style="height: 100%; float: left; width: 26%">
 		<div class="ui-table ui-widget ui-corner-all ui-margin ui-leftDiv">
 			<ul id="groupTree" class="ztree"
-				style="height: 100%; border-top: 1px solid #ddd; position: relative; overflow: auto; width: 97%"></ul>
+				style="height: 100%;position: relative; overflow: auto; width: 97%"></ul>
 		</div>
 	</div>
 	<div class="main  choice_box">
@@ -206,9 +206,9 @@ function edit() {
 		showMessage("请选择一条数据！");
 		return;
 	}
-	if(key ==""){
+	if(key==""){
 		var nodes = groupTree.getSelectedNodes();
-		if (nodes.length != 0 && !nodes[0].isParent) {
+		if (nodes.length != 0) {
 			var url = "userGroup/toEditUserGroup.do?key=" + nodes[0].id;
 			edit_iframe_dialog = new biz.dialog({
 				id : $('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="' + url + '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
@@ -291,7 +291,7 @@ function batchDelete() {
 	var ids = ICSS.utils.getSelectRowData("id");
 	if (ids == "") {
 		var nodes = groupTree.getSelectedNodes();
-		if(nodes.length != 0 && !nodes[0].isParent){
+		if(nodes.length != 0){
 			new biz.alert({
 				type : "confirm",
 				message : "确定删除该组别以及改组别下所有用户？",
@@ -338,7 +338,8 @@ function initGroupTree() {
 	$.ajax({
 		url : baseUrl + "/userGroup/initGroupTree.do",
 		data : {
-			groupId:$("#groupId").val()
+			groupId:$("#groupId").val(),
+			groupPId:$("#groupPId").val()
 		},
 		type : "POST",
 		dataType:"json",
@@ -362,6 +363,7 @@ function initGroupTree() {
 }
 function treeOnClick(event, treeId, treeNode) {
 	$("#groupId").val(treeNode.id);
+	$("#groupPId").val(treeNode.pId);
 	groupId = treeNode.id;
 	groupName = treeNode.name;
 	doSearch();

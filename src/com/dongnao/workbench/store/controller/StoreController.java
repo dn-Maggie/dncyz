@@ -17,7 +17,9 @@ import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.store.model.Store;
 import com.dongnao.workbench.store.service.StoreService;
 import com.dongnao.workbench.system.model.DictInfo;
+import com.dongnao.workbench.system.model.Personrole;
 import com.dongnao.workbench.system.service.DictInfoService;
+import com.dongnao.workbench.system.service.PersonroleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("store")
 public class StoreController{
+	@Resource
+	private PersonroleService personroleService;
     @Resource
     private StoreService storeService;
     @Resource
@@ -137,12 +141,35 @@ public class StoreController{
 	public void listByCondition(Store store,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		store.setPage(page);	
-		if(!Utils.isSuperAdmin(request))
- 		{store.setOwnerUserId(Utils.getLoginUserInfoId(request));}
+		Personrole personrole = getPersonrole(Utils.getLoginUserInfoId(request));
+		if(!Utils.isSuperAdmin(request)&&personrole.getRoleId().equals("38703abe-b9ab-4dd1-aa8d-1327c9b35dee"))
+ 		{
+			store.setUserGroup(Utils.getLoginUserInfo(request).getUserGroup());
+		}else if(!Utils.isSuperAdmin(request)&&!personrole.getRoleId().equals("38703abe-b9ab-4dd1-aa8d-1327c9b35dee")){
+			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+		}
 		List<Store> list = storeService.listByCondition(store);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
-	
+	/**
+	 * 根据用户ID获取角色用户关联实体
+	 * 
+	 * @param userInfoId
+	 *            用户ID
+	 * @return 角色用户关联实体
+	 */
+	private Personrole getPersonrole(String userInfoId) {
+		Personrole personrole = new Personrole();
+		personrole.setUserId(userInfoId);
+		List<Personrole> personroles = personroleService
+				.listByCondition(personrole);
+		if (personroles != null && personroles.size() > 0) {
+			return personroles.get(0);
+		} else {
+			return null;
+		}
+	}
+
 	/**
 	 * 进入修改页面方法
 	 * @param key String：实体id

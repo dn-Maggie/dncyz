@@ -3,16 +3,18 @@
 <mapper namespace="com.dongnao.workbench.basic.dao.UserGroupMapper">
 	<resultMap id="BaseResultMap" type="com.dongnao.workbench.basic.model.UserGroup">
 		<id column="id" property="id" jdbcType="VARCHAR" />
-															<result column="group_name" property="groupName" jdbcType="VARCHAR" />
-													<result column="group_desc" property="groupDesc" jdbcType="VARCHAR" />
-													<result column="group_states" property="groupStates" jdbcType="CHAR" />
-													<result column="group_creater" property="groupCreater" jdbcType="VARCHAR" />
-													<result column="group_updater" property="groupUpdater" jdbcType="VARCHAR" />
-													<result column="group_create_time" property="groupCreateTime" jdbcType="TIMESTAMP" />
-													<result column="group_update_time" property="groupUpdateTime" jdbcType="TIMESTAMP" />
-									</resultMap>
+			<result column="groupPId" property="groupPId" jdbcType="VARCHAR" />
+			<result column="group_name" property="groupName" jdbcType="VARCHAR" />
+			<result column="group_desc" property="groupDesc" jdbcType="VARCHAR" />
+			<result column="group_states" property="groupStates" jdbcType="CHAR" />
+			<result column="group_creater" property="groupCreater" jdbcType="VARCHAR" />
+			<result column="group_updater" property="groupUpdater" jdbcType="VARCHAR" />
+			<result column="group_create_time" property="groupCreateTime" jdbcType="TIMESTAMP" />
+			<result column="group_update_time" property="groupUpdateTime" jdbcType="TIMESTAMP" />
+				</resultMap>
 	<sql id="Base_Column_List">
 					 	id
+					 	,groupPId
 						,group_name
 						,group_desc
 						,group_states
@@ -25,13 +27,14 @@
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 			ug.id
+			,ug.groupPId
 			,ug.group_name
 			,ug.group_desc
 			,ug.group_states
-			,ui1.user_account as groupCreater
-			<!-- ,ug.group_creater -->
-			,ui2.user_account as groupUpdater
-			<!-- ,ug.group_updater -->
+			,ui1.user_account as groupCreaterName
+			,ug.group_creater
+			,ui2.user_account as groupUpdaterName
+			,ug.group_updater
 			,ug.group_create_time
 			,ug.group_update_time
 		from basic_user_group as ug
@@ -43,13 +46,14 @@
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.basic.model.UserGroup">
 		select
 			ug.id
+			,ug.groupPId
 			,ug.group_name
 			,ug.group_desc
 			,ug.group_states
-			,ui1.user_account as groupCreater
-			<!-- ,ug.group_creater -->
-			,ui2.user_account as groupUpdater
-			<!-- ,ug.group_updater -->
+			,ui1.user_account as groupCreaterName
+			,ug.group_creater
+			,ui2.user_account as groupUpdaterName
+			,ug.group_updater
 			,ug.group_create_time
 			,ug.group_update_time
 		from basic_user_group as ug
@@ -94,20 +98,22 @@
 		insert into basic_user_group (
 		<include refid="Base_Column_List" />
 		)values (
-										#{id,jdbcType=VARCHAR}
-														,#{groupName,jdbcType=VARCHAR}
-														,#{groupDesc,jdbcType=VARCHAR}
-														,#{groupStates,jdbcType=CHAR}
-														,#{groupCreater,jdbcType=VARCHAR}
-														,#{groupUpdater,jdbcType=VARCHAR}
-														,#{groupCreateTime,jdbcType=TIMESTAMP}
-														,#{groupUpdateTime,jdbcType=TIMESTAMP}
-									)
+			#{id,jdbcType=VARCHAR}
+			,#{groupPId,jdbcType=VARCHAR}
+			,#{groupName,jdbcType=VARCHAR}
+			,#{groupDesc,jdbcType=VARCHAR}
+			,#{groupStates,jdbcType=CHAR}
+			,#{groupCreater,jdbcType=VARCHAR}
+			,#{groupUpdater,jdbcType=VARCHAR}
+			,#{groupCreateTime,jdbcType=TIMESTAMP}
+			,#{groupUpdateTime,jdbcType=TIMESTAMP}
+		)
 	</insert>
 	
 	<update id="update" parameterType="com.dongnao.workbench.basic.model.UserGroup">
 		update basic_user_group  set
 		id= #{id,jdbcType=VARCHAR}
+		,groupPId = #{groupPId,jdbcType=VARCHAR}
 				,group_name = #{groupName,jdbcType=VARCHAR}
 				,group_desc = #{groupDesc,jdbcType=VARCHAR}
 				,group_states = #{groupStates,jdbcType=CHAR}

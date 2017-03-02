@@ -10,7 +10,6 @@ $(function() {
 	    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=status'/>",
 	    value:"${role.states}"
 	});
-		
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
 		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});
@@ -58,7 +57,12 @@ $(function() {
 			<tr>
 				<td class="inputLabelTd">上级名称：</td>
 				<td class="inputTd">
-					<input id="edit_groupName" name="groupName" type="text" class="text" value="${userGroup.groupName}"/>
+					<select name="groupPId"
+						class="search_select">
+							<c:forEach var="userGroup" items="${userGroupList}">
+								<option value="${userGroup.id}">${userGroup.groupName}</option>
+							</c:forEach>
+					</select>
 				</td>
 				<td class="inputLabelTd">小组名称：</td>
 				<td class="inputTd">
@@ -73,7 +77,7 @@ $(function() {
 				</td>
 				<td class="inputLabelTd">组别状态：</td>
 				<td class="inputTd">
-					<input id="edit_groupStates" name="groupStates" type="text" class="text" value="${userGroup.groupStates}"/>
+					<select id="edit_groupStates" name="groupStates" class="search_select"></select>
 				</td>
 			</tr>
 			<tr>

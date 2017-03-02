@@ -38,11 +38,13 @@ public class UserGroup extends Model{
 	                 * 创建者ID
 	                 **/
 				   			private String groupCreater;
+				   			private String groupCreaterName;
 		   		
 		            /**
 	                 * 更新者ID
 	                 **/
 				   			private String groupUpdater;
+				   			private String groupUpdaterName;
 		   		
 		            /**
 	                 * 创建时间
@@ -214,6 +216,22 @@ public class UserGroup extends Model{
 			 */
 			public void setGroupUpdateTime(Date groupUpdateTime){
 				this.groupUpdateTime = groupUpdateTime;
+			}
+
+			public String getGroupCreaterName() {
+				return groupCreaterName;
+			}
+
+			public void setGroupCreaterName(String groupCreaterName) {
+				this.groupCreaterName = groupCreaterName;
+			}
+
+			public String getGroupUpdaterName() {
+				return groupUpdaterName;
+			}
+
+			public void setGroupUpdaterName(String groupUpdaterName) {
+				this.groupUpdaterName = groupUpdaterName;
 			}
 
 		}

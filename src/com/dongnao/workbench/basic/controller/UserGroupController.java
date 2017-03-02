@@ -42,6 +42,7 @@ public class UserGroupController{
  	@RequestMapping("/toAddUserGroup")
 	public ModelAndView toAdd(){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/basic/userGroup/addUserGroup");
+		mv.addObject("userGroupList", userGroupService.listByCondition(null));
 		return mv;
 	}
 	
@@ -126,8 +127,9 @@ public class UserGroupController{
 	public ModelAndView toEdit(String key){
 		UserGroup entity = userGroupService.getByPrimaryKey(key);
 		Map<String,String> userGroup = FormatEntity.getObjectValue(entity);
-		
-		return new ModelAndView("WEB-INF/jsp/basic/userGroup/editUserGroup","userGroup",userGroup );
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/basic/userGroup/editUserGroup","userGroup",userGroup );
+		mv.addObject("userGroupList", userGroupService.listByCondition(null));
+		return mv;
 	}
 	
 	/**
