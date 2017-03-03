@@ -97,7 +97,7 @@ public class AccountOrderDetailController{
 	}
 	
 	/**
-	 * 进入列表页面
+	 * 进入订单详细列表页面
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/toListAccountOrderDetail")
@@ -107,7 +107,33 @@ public class AccountOrderDetailController{
 	}
 	
 	/**
-	 * 根据条件查找列表方法
+	 * 进入运营数据
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toListOperaData")
+	public ModelAndView toListOperaData(){
+		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/operaData/listOperaData");
+		 return mv;
+	}
+	
+	/**
+	 * 根据条件查找运营数据
+	 * @param accountOrderDetail AccountOrderDetail：实体对象（查询条件）
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse
+	 * @param page Page:分页对象
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/listOperaData")
+	public void listOperaData(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		accountOrderDetail.setPage(page);	
+		List<AccountOrderDetail> list = accountOrderDetailService.listByCondition(accountOrderDetail);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	
+	/**
+	 * 根据条件查找订单详细
 	 * @param accountOrderDetail AccountOrderDetail：实体对象（查询条件）
 	 * @param request HttpServletRequest
 	 * @param response HttpServletResponse
@@ -121,7 +147,6 @@ public class AccountOrderDetailController{
 		List<AccountOrderDetail> list = accountOrderDetailService.listByCondition(accountOrderDetail);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
-	
 	/**
 	 * 进入修改页面方法
 	 * @param key String：实体id
@@ -169,7 +194,7 @@ public class AccountOrderDetailController{
         }  
         in = file.getInputStream();  
         listob = new ImportExcelUtil().getBankListByExcel(in,file.getOriginalFilename());
-        for (int i = 1; i < listob.size(); i++) {  
+        for (int i = 0; i < listob.size(); i++) {  
             List<Object> lo = listob.get(i);  
             AccountOrderDetail orderDetail = new AccountOrderDetail();  
             try{
@@ -183,20 +208,20 @@ public class AccountOrderDetailController{
 				orderDetail.setOverTime(DateUtil.parseStringToyyyyMMddHHmmss(StringUtil.valueOf(lo.get(6))));
 				orderDetail.setOrderIndex(StringUtil.valueOf(lo.get(7)));
 				orderDetail.setOrderNo(StringUtil.valueOf(lo.get(8)));
-				orderDetail.setPrices(StringUtil.valueOf(lo.get(9)));
-				orderDetail.setMealFee(StringUtil.valueOf(lo.get(10)));
-				orderDetail.setGiftAllowance(StringUtil.valueOf(lo.get(11)));
-				orderDetail.setActivitiesSubsidies(StringUtil.valueOf(lo.get(12)));
-				orderDetail.setSubsidyVouchers(StringUtil.valueOf(lo.get(13)));
-				orderDetail.setMerchantCharge(StringUtil.valueOf(lo.get(14)));
+				orderDetail.setPrices(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(9))));
+				orderDetail.setMealFee(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(10))));
+				orderDetail.setGiftAllowance(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(11))));
+				orderDetail.setActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(12))));
+				orderDetail.setSubsidyVouchers(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(13))));
+				orderDetail.setMerchantCharge(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(14))));
 				orderDetail.setServiceRate(StringUtil.valueOf(lo.get(15)));
-				orderDetail.setServiceCharge(StringUtil.valueOf(lo.get(16)));
+				orderDetail.setServiceCharge(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(16))));
 				orderDetail.setRefundAmount(StringUtil.valueOf(lo.get(17)));
-				orderDetail.setSettlementAmount(StringUtil.valueOf(lo.get(18)));
+				orderDetail.setSettlementAmount(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(18))));
 				orderDetail.setDistributionMode(StringUtil.valueOf(lo.get(19)));
 				orderDetail.setRemark(StringUtil.valueOf(lo.get(20)));
-				orderDetail.setElmActivitiesSubsidies(StringUtil.valueOf(lo.get(21)));
-				orderDetail.setElmSubsidyVouchers(StringUtil.valueOf(lo.get(22)));
+				orderDetail.setElmActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(21))));
+				orderDetail.setElmSubsidyVouchers(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(22))));
             	orderDetailList.add(orderDetail);
             }catch(Exception e){
             	e.printStackTrace();

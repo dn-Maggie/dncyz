@@ -65,32 +65,32 @@ public class AccountOrderDetail extends Model{
 		            /**
 	                 * 菜价
 	                 **/
-				   			private String prices;
+				   			private BigDecimal prices;
 		   		
 		            /**
 	                 * 餐盒费
 	                 **/
-				   			private String mealFee;
+				   			private BigDecimal mealFee;
 		   		
 		            /**
 	                 * 赠品补贴
 	                 **/
-				   			private String giftAllowance;
+				   			private BigDecimal giftAllowance;
 		   		
 		            /**
 	                 * 商户承担活动补贴
 	                 **/
-				   			private String activitiesSubsidies;
+				   			private BigDecimal activitiesSubsidies;
 		   		
 		            /**
 	                 * 商户承担代金券补贴
 	                 **/
-				   			private String subsidyVouchers;
+				   			private BigDecimal subsidyVouchers;
 		   		
 		            /**
 	                 * 商户收取配送费
 	                 **/
-				   			private String merchantCharge;
+				   			private BigDecimal merchantCharge;
 		   		
 		            /**
 	                 * 服务费费率
@@ -100,7 +100,7 @@ public class AccountOrderDetail extends Model{
 		            /**
 	                 * 服务费
 	                 **/
-				   			private String serviceCharge;
+				   			private BigDecimal serviceCharge;
 		   		
 		            /**
 	                 * 用户申请退单金额
@@ -110,7 +110,7 @@ public class AccountOrderDetail extends Model{
 		            /**
 	                 * 结算金额
 	                 **/
-				   			private String settlementAmount;
+				   			private BigDecimal settlementAmount;
 		   		
 		            /**
 	                 * 配送方式
@@ -125,12 +125,12 @@ public class AccountOrderDetail extends Model{
 		            /**
 	                 * 饿了么承担活动补贴
 	                 **/
-				   			private String elmActivitiesSubsidies;
+				   			private BigDecimal elmActivitiesSubsidies;
 		   		
 		            /**
 	                 * 饿了么承担代金券补贴
 	                 **/
-				   			private String elmSubsidyVouchers;
+				   			private BigDecimal elmSubsidyVouchers;
 		   		
 	
 				
@@ -303,7 +303,7 @@ public class AccountOrderDetail extends Model{
 			 * 获取 菜价
 			 * @return String this.prices
 			 */
-			public String getPrices(){
+			public BigDecimal getPrices(){
 				return this.prices;
 			}
 			
@@ -311,7 +311,7 @@ public class AccountOrderDetail extends Model{
 			 * 设置 菜价
 			 * @param String prices 
 			 */
-			public void setPrices(String prices){
+			public void setPrices(BigDecimal prices){
 				this.prices = prices;
 			}
 		   		
@@ -323,7 +323,7 @@ public class AccountOrderDetail extends Model{
 			 * 获取 餐盒费
 			 * @return String this.mealFee
 			 */
-			public String getMealFee(){
+			public BigDecimal getMealFee(){
 				return this.mealFee;
 			}
 			
@@ -331,7 +331,7 @@ public class AccountOrderDetail extends Model{
 			 * 设置 餐盒费
 			 * @param String mealFee 
 			 */
-			public void setMealFee(String mealFee){
+			public void setMealFee(BigDecimal mealFee){
 				this.mealFee = mealFee;
 			}
 		   		
@@ -343,7 +343,7 @@ public class AccountOrderDetail extends Model{
 			 * 获取 赠品补贴
 			 * @return String this.giftAllowance
 			 */
-			public String getGiftAllowance(){
+			public BigDecimal getGiftAllowance(){
 				return this.giftAllowance;
 			}
 			
@@ -351,7 +351,7 @@ public class AccountOrderDetail extends Model{
 			 * 设置 赠品补贴
 			 * @param String giftAllowance 
 			 */
-			public void setGiftAllowance(String giftAllowance){
+			public void setGiftAllowance(BigDecimal giftAllowance){
 				this.giftAllowance = giftAllowance;
 			}
 		   		
@@ -363,7 +363,7 @@ public class AccountOrderDetail extends Model{
 			 * 获取 商户承担活动补贴
 			 * @return String this.activitiesSubsidies
 			 */
-			public String getActivitiesSubsidies(){
+			public BigDecimal getActivitiesSubsidies(){
 				return this.activitiesSubsidies;
 			}
 			
@@ -371,7 +371,7 @@ public class AccountOrderDetail extends Model{
 			 * 设置 商户承担活动补贴
 			 * @param String activitiesSubsidies 
 			 */
-			public void setActivitiesSubsidies(String activitiesSubsidies){
+			public void setActivitiesSubsidies(BigDecimal activitiesSubsidies){
 				this.activitiesSubsidies = activitiesSubsidies;
 			}
 		   		
@@ -383,7 +383,7 @@ public class AccountOrderDetail extends Model{
 			 * 获取 商户承担代金券补贴
 			 * @return String this.subsidyVouchers
 			 */
-			public String getSubsidyVouchers(){
+			public BigDecimal getSubsidyVouchers(){
 				return this.subsidyVouchers;
 			}
 			
@@ -391,7 +391,7 @@ public class AccountOrderDetail extends Model{
 			 * 设置 商户承担代金券补贴
 			 * @param String subsidyVouchers 
 			 */
-			public void setSubsidyVouchers(String subsidyVouchers){
+			public void setSubsidyVouchers(BigDecimal subsidyVouchers){
 				this.subsidyVouchers = subsidyVouchers;
 			}
 		   		
@@ -403,7 +403,7 @@ public class AccountOrderDetail extends Model{
 			 * 获取 商户收取配送费
 			 * @return String this.merchantCharge
 			 */
-			public String getMerchantCharge(){
+			public BigDecimal getMerchantCharge(){
 				return this.merchantCharge;
 			}
 			
@@ -411,7 +411,7 @@ public class AccountOrderDetail extends Model{
 			 * 设置 商户收取配送费
 			 * @param String merchantCharge 
 			 */
-			public void setMerchantCharge(String merchantCharge){
+			public void setMerchantCharge(BigDecimal merchantCharge){
 				this.merchantCharge = merchantCharge;
 			}
 		   		
@@ -443,7 +443,7 @@ public class AccountOrderDetail extends Model{
 			 * 获取 服务费
 			 * @return String this.serviceCharge
 			 */
-			public String getServiceCharge(){
+			public BigDecimal getServiceCharge(){
 				return this.serviceCharge;
 			}
 			
@@ -451,7 +451,7 @@ public class AccountOrderDetail extends Model{
 			 * 设置 服务费
 			 * @param String serviceCharge 
 			 */
-			public void setServiceCharge(String serviceCharge){
+			public void setServiceCharge(BigDecimal serviceCharge){
 				this.serviceCharge = serviceCharge;
 			}
 		   		
@@ -483,7 +483,7 @@ public class AccountOrderDetail extends Model{
 			 * 获取 结算金额
 			 * @return String this.settlementAmount
 			 */
-			public String getSettlementAmount(){
+			public BigDecimal getSettlementAmount(){
 				return this.settlementAmount;
 			}
 			
@@ -491,7 +491,7 @@ public class AccountOrderDetail extends Model{
 			 * 设置 结算金额
 			 * @param String settlementAmount 
 			 */
-			public void setSettlementAmount(String settlementAmount){
+			public void setSettlementAmount(BigDecimal settlementAmount){
 				this.settlementAmount = settlementAmount;
 			}
 		   		
@@ -543,7 +543,7 @@ public class AccountOrderDetail extends Model{
 			 * 获取 饿了么承担活动补贴
 			 * @return String this.elmActivitiesSubsidies
 			 */
-			public String getElmActivitiesSubsidies(){
+			public BigDecimal getElmActivitiesSubsidies(){
 				return this.elmActivitiesSubsidies;
 			}
 			
@@ -551,7 +551,7 @@ public class AccountOrderDetail extends Model{
 			 * 设置 饿了么承担活动补贴
 			 * @param String elmActivitiesSubsidies 
 			 */
-			public void setElmActivitiesSubsidies(String elmActivitiesSubsidies){
+			public void setElmActivitiesSubsidies(BigDecimal elmActivitiesSubsidies){
 				this.elmActivitiesSubsidies = elmActivitiesSubsidies;
 			}
 		   		
@@ -560,7 +560,7 @@ public class AccountOrderDetail extends Model{
 			 * 获取 饿了么承担代金券补贴
 			 * @return String this.elmSubsidyVouchers
 			 */
-			public String getElmSubsidyVouchers(){
+			public BigDecimal getElmSubsidyVouchers(){
 				return this.elmSubsidyVouchers;
 			}
 			
@@ -568,7 +568,7 @@ public class AccountOrderDetail extends Model{
 			 * 设置 饿了么承担代金券补贴
 			 * @param String elmSubsidyVouchers 
 			 */
-			public void setElmSubsidyVouchers(String elmSubsidyVouchers){
+			public void setElmSubsidyVouchers(BigDecimal elmSubsidyVouchers){
 				this.elmSubsidyVouchers = elmSubsidyVouchers;
 			}
 

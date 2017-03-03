@@ -130,7 +130,7 @@ ExpExcel = {
 		htmlTmp += '<input type="hidden" id="pageSize" name="pageSize"/>';
 		htmlTmp += '<input type="hidden" id="orderFields" name="orderFields"/>';
 		htmlTmp += '<input type="hidden" id="order" name="order"/>';
-		htmlTmp += '<div style="height:140px;margin-left:44px; margin-top:16px;"><div style="height:32px; line-height:32px;"><input type="radio" checked="checked" name="expType" value="1" />导出当前页数据</div>';
+		htmlTmp += '<div style="height:100px;margin-left:44px; margin-top:16px;"><div style="height:32px; line-height:32px;"><input type="radio" checked="checked" name="expType" value="1" />导出当前页数据</div>';
 		htmlTmp += '<div style="height:32px; line-height:32px;"><input type="radio" name="expType" value="2" />导出全部数据</div></div>';
 		htmlTmp += '<div style="float:left;margin-left:46px;"><input type="button" id="cancel" class="search_btn4" value="取消">';
 		htmlTmp += '<input type="button" id="export" class="add_save" value="导出" /></div>';
@@ -148,8 +148,8 @@ ExpExcel = {
 			var columns = gridObj.jqGrid('getGridParam', 'colModel');
 			var queryPostDatas = getQueryCondition();
 			$.each(queryPostDatas, function(k, v) {
-						$(ExpExcel.createHidden(k, v)).appendTo(expExcelForm);
-					});
+				$(ExpExcel.createHidden(k, v)).appendTo(expExcelForm);
+			});
 			$('#orderFields').val(gridObj.jqGrid('getGridParam', 'sortname'));
 			$('#order').val(gridObj.jqGrid('getGridParam', 'sortorder'));
 			var page = gridObj.jqGrid('getGridParam', 'page');
@@ -165,7 +165,6 @@ ExpExcel = {
 	},
 	showWin : function(tableIdOrGridId, expUrl, type, queryForm) {
 		$("#excelExportDialogDiv").remove();
-		
 		var excelExportDialogDiv = $('<div id="excelExportDialogDiv">'
 				+ ExpExcel.createWinHtml() + '</div>');
 		$(document.body).append(excelExportDialogDiv);
@@ -177,17 +176,16 @@ ExpExcel = {
 		} else {
 
 		}
-
 		excelExportDialogDiv.find('#cancel').bind("click", function() {
-					excelExportDialogDiv.dialog("close");
-				});
+			excelExportDialogDiv.dialog("close");
+		});
 		excelExportDialogDiv.dialog({
-					height : 250,
-					width : 320,
-					autoOpen : false,
-					modal : true,
-					title : "导出选择"
-				});
+			height : 250,
+			width : 320,
+			autoOpen : false,
+			modal : true,
+			title : "导出选择"
+		});
 		excelExportDialogDiv.dialog("open");
 	}
 
