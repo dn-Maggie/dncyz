@@ -431,12 +431,20 @@ public class StringUtil {
 
 	public static BigDecimal stringToDecimal(String str) throws Exception {
 		if (str == null) {
-			return null;
+			return new BigDecimal("0");
 		}
 		BigDecimal dc = new BigDecimal(str);
 		return dc;
 	}
 
+	public static BigDecimal stringToDecimal(Object obj) throws Exception {
+		if (valueOf(obj) == null) {
+			return new BigDecimal("0");
+		}
+		BigDecimal dc = new BigDecimal(valueOf(obj));
+		return dc;
+	}
+	
 	public static String getLastString(String src, String splitString) {
 		if ((src == null) || (src.trim().equals(""))) {
 			return "";

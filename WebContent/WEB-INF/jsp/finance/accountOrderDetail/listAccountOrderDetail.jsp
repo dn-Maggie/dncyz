@@ -19,7 +19,8 @@ var gridObj = {};
             colModel:[
 				{name : "id",hidden : true,key : true,label:"账单ID",index : "id"},				
 				{name : "createDate",label:"创建日期",index : "create_date"},				
-				{name : "storeId",label:"商户id",index : "store_id"},			
+				/* {name : "storeELMId",label:"商户id",index : "store_ELM_id"},			
+				{name : "storeMTId",label:"商户id",index : "store_MT_id"},		 */
 				{name : "storeName",label:"商户名称",index : "store_name"},			
 				{name : "checkNo",label:"账单编号",index : "check_no"},				
 				{name : "orderType",label:"订单类型",index : "order_type"},				
@@ -166,37 +167,11 @@ var gridObj = {};
     }
     //导入excel数据
 	function importData(){
-		 if($('input[type="file"]').val()!=""){
-			var extend=$('input[type="file"]').val().substr($('input[type="file"]').val().lastIndexOf(".")+1);
-			if("xls|xlsx".indexOf(extend)==-1){//在字符串中xls|xlsx寻找后缀xls或者xlsx，有的话返回下标，没有就返回-1
-				 showInfo("选择的文件必须是EXCEL文件,请确认！",3000);
-	         }else{
-	        	ajaxFileUpload();
-	         }
-		 }else{
-			showInfo("请选择EXCEL文件！",3000);
-	    }
+		ExpExcel.showImportWin();
 	}
-    
- 	function ajaxFileUpload(){
- 		var options = {
-			url : "<m:url value='/accountOrderDetail/orderDetailImport.do'/>",
-			type : "post",
-			dataType:"text",
-			success : function(d) {
-				if(d&&d.dataSize){showMessage(d.msg+"导入"+d.dataSize+"条数据",2000);}
-				gridObj.trigger('reloadGrid');
-			},
-			error : function(d) {
-				showInfo(d.msg);
-				gridObj.trigger('reloadGrid');},
-		};
-		// 将options传给ajaxForm
-		$('#form').ajaxSubmit(options);
- 	}
  	//导出数据
  	function exportData(){
- 		ExpExcel.showWin(gridObj,baseUrl+"/empDining/exportExcel.do",'grid','queryForm');
+ 		ExpExcel.showWin(gridObj,baseUrl+"/accountOrderDetail/exportExcel.do",'grid','queryForm');
  	}
     </script>
 </head>
@@ -209,23 +184,25 @@ var gridObj = {};
 				<li><span>关键字：</span><input type="text" name="actorName" id="actorName" class="search_choose" placeholder="商户名称"></li><!-- 输入框-->
 				<li><span>日期:</span>
 						<div class="time_bg">
-						<input type="text" class="search_time150" name="actTime" id="actTime" mainid="actTime"><!-- 时间选择控件-->
+						<input type="text" class="search_time150" name="createDate" id="createDate"><!-- 时间选择控件-->
 						<i class="search_time_ico2" ></i>
 						</div></li>
 				<li class="date_area">
 					<span>创建时间:</span>
 					<div class="time_bg">
-						<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate">
+						<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" >
 						<i class="search_time_ico2"  onclick="WdatePicker({el:'startDate'})"></i>
 					</div>
 					<i>至</i>
 					<div class="time_bg">
-						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" mainid="endDate">
+						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" >
 						<i class="search_time_ico2"  onclick="WdatePicker({el:'endDate'})"></i>
 					</div></li>	
-				 <li><select class="search_select" name="actType" id="actType"><option value="">---请选择---</option></select>
-				<span>订单类型:</span></li><!--下拉 -->
-				 <li><select class="search_select" name="actType" id="actType"><option value="">---请选择---</option></select>
+				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
+				 <option value="elm">饿了么</option><option value="meituan">美团</option>
+				</select>
+				<span>平台类型:</span></li><!--下拉 -->
+				 <li><select class="search_select" name="distributionMode" id="distributionMode"><option value="">---请选择---</option></select>
 				<span>配送方式:</span></li><!--下拉 -->
 				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
 						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
@@ -240,18 +217,11 @@ var gridObj = {};
 							onclick="download();"> <i class="icon_bg icon_download"></i> <span>下载模板</span>
 						</a></li>
 						<c:if test="${add}">
-							<%-- <li><a title="<m:message code="button.add"/>" href="javascript:;"
-								onclick="add();"> <i class="icon_bg icon_add"> </i> <span><m:message
-											code="button.add" /></span>
-							</a></li> --%>
 							<li>
-								<a title="导入数据" href="javascript:;" onclick="$('#file').click()"> 
+								<a title="导入原始数据" href="javascript:;" onclick="importData();"> 
 									<i class="back_icon import_icon"> </i> 
-									<span>导入数据</span>
+									<span>导入原始数据</span>
 								</a>
-								<form name="form" id="form" method="post"  enctype="multipart/form-data">
-									<input type="file" id="file" name="file" style="display: none" onchange="importData();"/>
-								</form>
 							</li>
 							<li>
 								<a title="导出数据" href="javascript:;" onclick="exportData();"> 

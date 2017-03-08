@@ -5,6 +5,9 @@
 		<id column="id" property="id" jdbcType="VARCHAR" />
 			<result column="create_date" property="createDate" jdbcType="DATE" />
 			<result column="store_id" property="storeId" jdbcType="CHAR" />
+			<result column="store_ELM_id" property="storeELMId" jdbcType="CHAR" />
+			<result column="store_MT_id" property="storeMTId" jdbcType="CHAR" />
+			<result column="store_BD_id" property="storeBDId" jdbcType="CHAR" />
 			<result column="store_name" property="storeName" jdbcType="VARCHAR" />
 			<result column="check_no" property="checkNo" jdbcType="VARCHAR" />
 			<result column="order_type" property="orderType" jdbcType="VARCHAR" />
@@ -15,22 +18,27 @@
 			<result column="prices" property="prices" jdbcType="DECIMAL" />
 			<result column="meal_fee" property="mealFee" jdbcType="DECIMAL" />
 			<result column="gift_allowance" property="giftAllowance" jdbcType="DECIMAL" />
-			<result column="activities_subsidies" property="activitiesSubsidies" jdbcType="DECIMAL" />
-			<result column="subsidy_vouchers" property="subsidyVouchers" jdbcType="DECIMAL" />
-			<result column="merchant_charge" property="merchantCharge" jdbcType="DECIMAL" />
+			<result column="merchant_activities_subsidies" property="merchantActivitiesSubsidies" jdbcType="DECIMAL" />
+			<result column="merchant_subsidy_vouchers" property="merchantSubsidyVouchers" jdbcType="DECIMAL" />
+			<result column="merchant_dist_charge" property="merchantDistCharge" jdbcType="DECIMAL" />
+			<result column="platform_dist_charge" property="platformDistCharge" jdbcType="DECIMAL" />
 			<result column="service_rate" property="serviceRate" jdbcType="VARCHAR" />
 			<result column="service_charge" property="serviceCharge" jdbcType="DECIMAL" />
 			<result column="refund_amount" property="refundAmount" jdbcType="VARCHAR" />
 			<result column="settlement_amount" property="settlementAmount" jdbcType="DECIMAL" />
 			<result column="distribution_mode" property="distributionMode" jdbcType="VARCHAR" />
 			<result column="remark" property="remark" jdbcType="VARCHAR" />
-			<result column="elm_activities_subsidies" property="elmActivitiesSubsidies" jdbcType="DECIMAL" />
-			<result column="elm_subsidy_vouchers" property="elmSubsidyVouchers" jdbcType="DECIMAL" />
+			<result column="platform_activities_subsidies" property="platformActivitiesSubsidies" jdbcType="DECIMAL" />
+			<result column="platform_subsidy_vouchers" property="platformSubsidyVouchers" jdbcType="DECIMAL" />
+			<result column="platform_type" property="platformType" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 	 	id
 		,create_date
 		,store_id
+		,store_ELM_id
+		,store_MT_id
+		,store_BD_id
 		,store_name
 		,check_no
 		,order_type
@@ -41,17 +49,19 @@
 		,prices
 		,meal_fee
 		,gift_allowance
-		,activities_subsidies
-		,subsidy_vouchers
-		,merchant_charge
+		,merchant_activities_subsidies
+		,merchant_subsidy_vouchers
+		,merchant_dist_charge
+		,platform_dist_charge
 		,service_rate
 		,service_charge
 		,refund_amount
 		,settlement_amount
 		,distribution_mode
 		,remark
-		,elm_activities_subsidies
-		,elm_subsidy_vouchers
+		,platform_activities_subsidies
+		,platform_subsidy_vouchers
+		,platform_type
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -87,6 +97,16 @@
 		<if test="orderTime != null and '' != orderTime">  
 			and order_time = #{orderTime,jdbcType=TIMESTAMP}
 		</if>
+		<!-- <if test="null != propsMap.startDate and propsMap.startDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(order_time,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			]]>
+		</if>
+		<if test="null != propsMap.endDate and propsMap.endDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(order_time,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			]]>
+		</if> -->
 		<if test="overTime != null and '' != overTime">  
 			and over_time = #{overTime,jdbcType=TIMESTAMP}
 		</if>
@@ -104,15 +124,6 @@
 		</if>
 		<if test="giftAllowance != null and '' != giftAllowance">  
 			and gift_allowance = #{giftAllowance,jdbcType=DECIMAL}
-		</if>
-		<if test="activitiesSubsidies != null and '' != activitiesSubsidies">  
-			and activities_subsidies = #{activitiesSubsidies,jdbcType=DECIMAL}
-		</if>
-		<if test="subsidyVouchers != null and '' != subsidyVouchers">  
-			and subsidy_vouchers = #{subsidyVouchers,jdbcType=DECIMAL}
-		</if>
-		<if test="merchantCharge != null and '' != merchantCharge">  
-			and merchant_charge = #{merchantCharge,jdbcType=DECIMAL}
 		</if>
 		<if test="serviceRate != null and '' != serviceRate">  
 			and service_rate = #{serviceRate,jdbcType=VARCHAR}
@@ -132,15 +143,12 @@
 		<if test="remark != null and '' != remark">  
 			and remark = #{remark,jdbcType=VARCHAR}
 		</if>
-		<if test="elmActivitiesSubsidies != null and '' != elmActivitiesSubsidies">  
-			and elm_activities_subsidies = #{elmActivitiesSubsidies,jdbcType=DECIMAL}
+		<if test="platformType != null and '' != platformType">  
+			and platform_type = #{platformType,jdbcType=DECIMAL}
 		</if>
-		<if test="elmSubsidyVouchers != null and '' != elmSubsidyVouchers">  
-			and elm_subsidy_vouchers = #{elmSubsidyVouchers,jdbcType=DECIMAL}
-		</if>
-			<if test="orderFields != null and '' != orderFields">  
+		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
-         	</if>
+       	</if>
 	</select>
 	
 	<delete id="deleteByKey" parameterType="java.lang.String">
@@ -155,6 +163,9 @@
 				#{id,jdbcType=VARCHAR}
 				,#{createDate,jdbcType=DATE}
 				,#{storeId,jdbcType=CHAR}
+				,#{storeELMId,jdbcType=CHAR}
+				,#{storeMTId,jdbcType=CHAR}
+				,#{storeBDId,jdbcType=CHAR}
 				,#{storeName,jdbcType=VARCHAR}
 				,#{checkNo,jdbcType=VARCHAR}
 				,#{orderType,jdbcType=VARCHAR}
@@ -165,17 +176,19 @@
 				,#{prices,jdbcType=DECIMAL}
 				,#{mealFee,jdbcType=DECIMAL}
 				,#{giftAllowance,jdbcType=DECIMAL}
-				,#{activitiesSubsidies,jdbcType=DECIMAL}
-				,#{subsidyVouchers,jdbcType=DECIMAL}
-				,#{merchantCharge,jdbcType=DECIMAL}
+				,#{merchantActivitiesSubsidies,jdbcType=DECIMAL}
+				,#{merchantSubsidyVouchers,jdbcType=DECIMAL}
+				,#{merchantDistCharge,jdbcType=DECIMAL}
+				,#{platformDistCharge,jdbcType=DECIMAL}
 				,#{serviceRate,jdbcType=VARCHAR}
 				,#{serviceCharge,jdbcType=DECIMAL}
 				,#{refundAmount,jdbcType=VARCHAR}
 				,#{settlementAmount,jdbcType=DECIMAL}
 				,#{distributionMode,jdbcType=VARCHAR}
 				,#{remark,jdbcType=VARCHAR}
-				,#{elmActivitiesSubsidies,jdbcType=DECIMAL}
-				,#{elmSubsidyVouchers,jdbcType=DECIMAL}
+				,#{platformActivitiesSubsidies,jdbcType=DECIMAL}
+				,#{platformSubsidyVouchers,jdbcType=DECIMAL}
+				,#{platformType,jdbcType=VARCHAR}
 			)
 	</insert>
 	
@@ -184,6 +197,9 @@
 				id
 				,create_date
 				,store_id
+				,store_ELM_id
+				,store_MT_id
+				,store_BD_id
 				,store_name
 				,check_no
 				,order_type
@@ -194,23 +210,28 @@
 				,prices
 				,meal_fee
 				,gift_allowance
-				,activities_subsidies
-				,subsidy_vouchers
-				,merchant_charge
+				,merchant_activities_subsidies
+				,merchant_subsidy_vouchers
+				,merchant_dist_charge
+				,platform_dist_charge
 				,service_rate
 				,service_charge
 				,refund_amount
 				,settlement_amount
 				,distribution_mode
 				,remark
-				,elm_activities_subsidies
-				,elm_subsidy_vouchers
+				,platform_activities_subsidies
+				,platform_subsidy_vouchers
+				,platform_type
 		)values
 		<foreach collection="list" item="item" index="index" separator="," >
 		 (
 				#{item.id,jdbcType=VARCHAR}
 				,#{item.createDate,jdbcType=DATE}
 				,#{item.storeId,jdbcType=CHAR}
+				,#{item.storeELMId,jdbcType=CHAR}
+				,#{item.storeMTId,jdbcType=CHAR}
+				,#{item.storeBDId,jdbcType=CHAR}
 				,#{item.storeName,jdbcType=VARCHAR}
 				,#{item.checkNo,jdbcType=VARCHAR}
 				,#{item.orderType,jdbcType=VARCHAR}
@@ -221,17 +242,19 @@
 				,#{item.prices,jdbcType=DECIMAL}
 				,#{item.mealFee,jdbcType=DECIMAL}
 				,#{item.giftAllowance,jdbcType=DECIMAL}
-				,#{item.activitiesSubsidies,jdbcType=DECIMAL}
-				,#{item.subsidyVouchers,jdbcType=DECIMAL}
-				,#{item.merchantCharge,jdbcType=DECIMAL}
+				,#{item.merchantActivitiesSubsidies,jdbcType=DECIMAL}
+				,#{item.merchantSubsidyVouchers,jdbcType=DECIMAL}
+				,#{item.merchantDistCharge,jdbcType=DECIMAL}
+				,#{item.platformDistCharge,jdbcType=DECIMAL}
 				,#{item.serviceRate,jdbcType=VARCHAR}
 				,#{item.serviceCharge,jdbcType=DECIMAL}
 				,#{item.refundAmount,jdbcType=VARCHAR}
 				,#{item.settlementAmount,jdbcType=DECIMAL}
 				,#{item.distributionMode,jdbcType=VARCHAR}
 				,#{item.remark,jdbcType=VARCHAR}
-				,#{item.elmActivitiesSubsidies,jdbcType=DECIMAL}
-				,#{item.elmSubsidyVouchers,jdbcType=DECIMAL}
+				,#{item.platformActivitiesSubsidies,jdbcType=DECIMAL}
+				,#{item.platformSubsidyVouchers,jdbcType=DECIMAL}
+				,#{item.platformType,jdbcType=VARCHAR}
 		)
 		</foreach>
 	</insert>
@@ -242,6 +265,9 @@
 		id= #{id,jdbcType=VARCHAR}
 		,create_date = #{createDate,jdbcType=DATE}
 		,store_id = #{storeId,jdbcType=CHAR}
+		,store_ELM_id = #{storeELMId,jdbcType=CHAR}
+		,store_MT_id = #{storeMTId,jdbcType=CHAR}
+		,store_BD_id = #{storeBDId,jdbcType=CHAR}
 		,store_name = #{storeId,jdbcType=VARCHAR}
 		,check_no = #{checkNo,jdbcType=VARCHAR}
 		,order_type = #{orderType,jdbcType=VARCHAR}
@@ -252,17 +278,19 @@
 		,prices = #{prices,jdbcType=DECIMAL}
 		,meal_fee = #{mealFee,jdbcType=DECIMAL}
 		,gift_allowance = #{giftAllowance,jdbcType=DECIMAL}
-		,activities_subsidies = #{activitiesSubsidies,jdbcType=DECIMAL}
-		,subsidy_vouchers = #{subsidyVouchers,jdbcType=DECIMAL}
-		,merchant_charge = #{merchantCharge,jdbcType=DECIMAL}
+		,merchant_activities_subsidies = #{merchantActivitiesSubsidies,jdbcType=DECIMAL}
+		,merchant_subsidy_vouchers = #{merchantSubsidyVouchers,jdbcType=DECIMAL}
+		,merchant_dist_charge = #{merchantDistCharge,jdbcType=DECIMAL}
+		,platform_dist_charge = #{platformDistCharge,jdbcType=DECIMAL}
 		,service_rate = #{serviceRate,jdbcType=VARCHAR}
 		,service_charge = #{serviceCharge,jdbcType=DECIMAL}
 		,refund_amount = #{refundAmount,jdbcType=VARCHAR}
 		,settlement_amount = #{settlementAmount,jdbcType=DECIMAL}
 		,distribution_mode = #{distributionMode,jdbcType=VARCHAR}
 		,remark = #{remark,jdbcType=VARCHAR}
-		,elm_activities_subsidies = #{elmActivitiesSubsidies,jdbcType=DECIMAL}
-		,elm_subsidy_vouchers = #{elmSubsidyVouchers,jdbcType=DECIMAL}
+		,platform_activities_subsidies = #{platformActivitiesSubsidies,jdbcType=DECIMAL}
+		,platform_subsidy_vouchers = #{platformSubsidyVouchers,jdbcType=DECIMAL}
+		,platform_type = #{platformType,jdbcType=VARCHAR}
 	where id = #{id,jdbcType=VARCHAR}
 	</update>
 </mapper>

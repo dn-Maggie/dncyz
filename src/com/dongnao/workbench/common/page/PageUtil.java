@@ -277,50 +277,44 @@ public class PageUtil {
 	 * @param flag boolean
 	 * @param flag1 boolean
 	 * @return boolean
+	 * @throws ParseException 
 	 */
+	@SuppressWarnings("unused")
 	private static boolean ifTo4Json(StringBuffer stringbuffer, String s, Object obj,
-			boolean flag, boolean flag1) {
-		try {
-			if (obj == null) {
-				return flag;
-			}
-			if (flag) {
-				stringbuffer.append(",");
-			}
-			if (flag1) {
-				stringbuffer.append("\"").append(s).append("\":\"");
-			} else {
-				stringbuffer.append("\"");
-			}
-
-			if (obj instanceof Timestamp) {
-				SimpleDateFormat simpledateformat = new SimpleDateFormat(
-						Constants.DATE_TIME_FORMATE);
-				java.util.Date date;
-
-				date = simpledateformat.parse(obj.toString());
-
-				stringbuffer.append(simpledateformat.format(date));
-			}else if (obj instanceof Date) {
-				SimpleDateFormat simpledateformat = new SimpleDateFormat(
-						Constants.DATE_FORMATE);
-
-				stringbuffer.append(simpledateformat.format(obj));
-			}else if (obj instanceof Time) {
-				SimpleDateFormat simpledateformat = new SimpleDateFormat(
-						Constants.TIME_FORMATE);
-
-				stringbuffer.append(simpledateformat.format(obj));
-			} 
-			else {
-				stringbuffer.append(replaceSpecChar(obj));
-			}
-			stringbuffer.append("\"");
-			return true;
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			boolean flag, boolean flag1) throws ParseException {
+		if (obj == null) {
+			return flag;
 		}
+		if (flag) {
+			stringbuffer.append(",");
+		}
+		if (flag1) {
+			stringbuffer.append("\"").append(s).append("\":\"");
+		} else {
+			stringbuffer.append("\"");
+		}
+
+		if (obj instanceof Timestamp) {
+			SimpleDateFormat simpledateformat = new SimpleDateFormat(
+					Constants.DATE_TIME_FORMATE);
+			java.util.Date dateTime;
+			dateTime = simpledateformat.parse(obj.toString());
+			stringbuffer.append(simpledateformat.format(obj));
+		}else if (obj instanceof Date) {
+			SimpleDateFormat simpledateformat = new SimpleDateFormat(
+					Constants.DATE_FORMATE);
+
+			stringbuffer.append(simpledateformat.format(obj));
+		}else if (obj instanceof Time) {
+			SimpleDateFormat simpledateformat = new SimpleDateFormat(
+					Constants.TIME_FORMATE);
+
+			stringbuffer.append(simpledateformat.format(obj));
+		} 
+		else {
+			stringbuffer.append(replaceSpecChar(obj));
+		}
+		stringbuffer.append("\"");
 		return true;
 	}
 

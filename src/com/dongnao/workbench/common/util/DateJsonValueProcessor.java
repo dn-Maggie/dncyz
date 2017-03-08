@@ -25,7 +25,7 @@ public class DateJsonValueProcessor implements JsonValueProcessor  {
         }  
         if(value instanceof java.sql.Timestamp)  
        {  
-            String str = new SimpleDateFormat(format).format((java.sql.Timestamp)value);  
+            String str = new SimpleDateFormat(format).format((java.util.Date) value);  
             return str;  
         }  
         if (value instanceof java.util.Date)  

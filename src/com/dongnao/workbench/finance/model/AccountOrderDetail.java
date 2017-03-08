@@ -2,6 +2,8 @@ package com.dongnao.workbench.finance.model;
 
 import java.util.Date;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import com.dongnao.workbench.common.bean.Model;
 /**
@@ -21,13 +23,17 @@ public class AccountOrderDetail extends Model{
 		            /**
 	                 * 创建日期
 	                 **/
-					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
+					@DateTimeFormat(pattern="yyyy-MM-dd") 
 					private Date createDate;
 		
-		            /**
+
+					/**
 	                 * 
 	                 **/
 				   			private String storeId;
+				   			private String storeELMId;
+				   			private String storeMTId;
+				   			private String storeBDId;
 				   			private String storeName;
 		   		
 		            /**
@@ -44,13 +50,13 @@ public class AccountOrderDetail extends Model{
 	                 * 订单创建时间
 	                 **/
 					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-			private Date orderTime;
+						private Timestamp orderTime;
 		
 		            /**
 	                 * 订单完成时间
 	                 **/
 					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-			private Date overTime;
+						private Timestamp overTime;
 		
 		            /**
 	                 * 接单序号
@@ -80,18 +86,21 @@ public class AccountOrderDetail extends Model{
 		            /**
 	                 * 商户承担活动补贴
 	                 **/
-				   			private BigDecimal activitiesSubsidies;
+				   			private BigDecimal merchantActivitiesSubsidies;
 		   		
 		            /**
 	                 * 商户承担代金券补贴
 	                 **/
-				   			private BigDecimal subsidyVouchers;
+				   			private BigDecimal merchantSubsidyVouchers;
 		   		
 		            /**
 	                 * 商户收取配送费
 	                 **/
-				   			private BigDecimal merchantCharge;
-		   		
+				   			private BigDecimal merchantDistCharge;
+		   			/**
+	                 * 平台收取配送费
+	                 **/
+				   			private BigDecimal platformDistCharge;
 		            /**
 	                 * 服务费费率
 	                 **/
@@ -121,16 +130,23 @@ public class AccountOrderDetail extends Model{
 	                 * 备注
 	                 **/
 				   			private String remark;
+				   			private String platformType;
 		   		
 		            /**
 	                 * 饿了么承担活动补贴
 	                 **/
-				   			private BigDecimal elmActivitiesSubsidies;
+				   			private BigDecimal platformActivitiesSubsidies;
+		   			/**
+	                 * 美团承担活动补贴
+	                 **/
 		   		
 		            /**
 	                 * 饿了么承担代金券补贴
 	                 **/
-				   			private BigDecimal elmSubsidyVouchers;
+		   			private BigDecimal platformSubsidyVouchers;
+		   			/**
+	                 * 美团承担代金券补贴
+	                 **/
 		   		
 	
 				
@@ -232,7 +248,7 @@ public class AccountOrderDetail extends Model{
 			 * 获取 订单创建时间
 			 * @return Date this.orderTime
 			 */
-			public Date getOrderTime(){
+			public Timestamp getOrderTime(){
 				return this.orderTime;
 			}
 			
@@ -240,14 +256,14 @@ public class AccountOrderDetail extends Model{
 			 * 设置 订单创建时间
 			 * @param Date orderTime 
 			 */
-			public void setOrderTime(Date orderTime){
+			public void setOrderTime(Timestamp orderTime){
 				this.orderTime = orderTime;
 			}
-								/**
+			/**
 			 * 获取 订单完成时间
 			 * @return Date this.overTime
 			 */
-			public Date getOverTime(){
+			public Timestamp getOverTime(){
 				return this.overTime;
 			}
 			
@@ -255,7 +271,7 @@ public class AccountOrderDetail extends Model{
 			 * 设置 订单完成时间
 			 * @param Date overTime 
 			 */
-			public void setOverTime(Date overTime){
+			public void setOverTime(Timestamp overTime){
 				this.overTime = overTime;
 			}
 						
@@ -358,64 +374,12 @@ public class AccountOrderDetail extends Model{
 		
 		
 			
-						
-		  			/**
-			 * 获取 商户承担活动补贴
-			 * @return String this.activitiesSubsidies
-			 */
-			public BigDecimal getActivitiesSubsidies(){
-				return this.activitiesSubsidies;
-			}
-			
-			/**
-			 * 设置 商户承担活动补贴
-			 * @param String activitiesSubsidies 
-			 */
-			public void setActivitiesSubsidies(BigDecimal activitiesSubsidies){
-				this.activitiesSubsidies = activitiesSubsidies;
-			}
-		   		
 		
 		
 			
-						
-		  			/**
-			 * 获取 商户承担代金券补贴
-			 * @return String this.subsidyVouchers
-			 */
-			public BigDecimal getSubsidyVouchers(){
-				return this.subsidyVouchers;
-			}
-			
-			/**
-			 * 设置 商户承担代金券补贴
-			 * @param String subsidyVouchers 
-			 */
-			public void setSubsidyVouchers(BigDecimal subsidyVouchers){
-				this.subsidyVouchers = subsidyVouchers;
-			}
-		   		
 		
 		
 			
-						
-		  			/**
-			 * 获取 商户收取配送费
-			 * @return String this.merchantCharge
-			 */
-			public BigDecimal getMerchantCharge(){
-				return this.merchantCharge;
-			}
-			
-			/**
-			 * 设置 商户收取配送费
-			 * @param String merchantCharge 
-			 */
-			public void setMerchantCharge(BigDecimal merchantCharge){
-				this.merchantCharge = merchantCharge;
-			}
-		   		
-		
 		
 			
 						
@@ -537,48 +501,96 @@ public class AccountOrderDetail extends Model{
 		   		
 		
 		
-			
 						
-		  			/**
-			 * 获取 饿了么承担活动补贴
-			 * @return String this.elmActivitiesSubsidies
-			 */
-			public BigDecimal getElmActivitiesSubsidies(){
-				return this.elmActivitiesSubsidies;
-			}
-			
-			/**
-			 * 设置 饿了么承担活动补贴
-			 * @param String elmActivitiesSubsidies 
-			 */
-			public void setElmActivitiesSubsidies(BigDecimal elmActivitiesSubsidies){
-				this.elmActivitiesSubsidies = elmActivitiesSubsidies;
-			}
-		   		
-						
-		  			/**
-			 * 获取 饿了么承担代金券补贴
-			 * @return String this.elmSubsidyVouchers
-			 */
-			public BigDecimal getElmSubsidyVouchers(){
-				return this.elmSubsidyVouchers;
-			}
-			
-			/**
-			 * 设置 饿了么承担代金券补贴
-			 * @param String elmSubsidyVouchers 
-			 */
-			public void setElmSubsidyVouchers(BigDecimal elmSubsidyVouchers){
-				this.elmSubsidyVouchers = elmSubsidyVouchers;
-			}
 
 			public String getStoreName() {
-				return storeName;
+				return this.storeName;
 			}
 
 			public void setStoreName(String storeName) {
 				this.storeName = storeName;
 			}
+
+			public String getPlatformType() {
+				return this.platformType;
+			}
+
+			public void setPlatformType(String platformType) {
+				this.platformType = platformType;
+			}
+
+			public String getStoreELMId() {
+				return storeELMId;
+			}
+
+			public void setStoreELMId(String storeELMId) {
+				this.storeELMId = storeELMId;
+			}
+
+			public String getStoreMTId() {
+				return this.storeMTId;
+			}
+
+			public void setStoreMTId(String storeMTId) {
+				this.storeMTId = storeMTId;
+			}
+
+			public String getStoreBDId() {
+				return this.storeBDId;
+			}
+
+			public void setStoreBDId(String storeBDId) {
+				this.storeBDId = storeBDId;
+			}
+
+			public BigDecimal getMerchantActivitiesSubsidies() {
+				return merchantActivitiesSubsidies;
+			}
+
+			public void setMerchantActivitiesSubsidies(BigDecimal merchantActivitiesSubsidies) {
+				this.merchantActivitiesSubsidies = merchantActivitiesSubsidies;
+			}
+
+			public BigDecimal getMerchantSubsidyVouchers() {
+				return merchantSubsidyVouchers;
+			}
+
+			public void setMerchantSubsidyVouchers(BigDecimal merchantSubsidyVouchers) {
+				this.merchantSubsidyVouchers = merchantSubsidyVouchers;
+			}
+
+			public BigDecimal getMerchantDistCharge() {
+				return merchantDistCharge;
+			}
+
+			public void setMerchantDistCharge(BigDecimal merchantDistCharge) {
+				this.merchantDistCharge = merchantDistCharge;
+			}
+
+			public BigDecimal getPlatformDistCharge() {
+				return platformDistCharge;
+			}
+
+			public void setPlatformDistCharge(BigDecimal platformDistCharge) {
+				this.platformDistCharge = platformDistCharge;
+			}
+
+			public BigDecimal getPlatformActivitiesSubsidies() {
+				return platformActivitiesSubsidies;
+			}
+
+			public void setPlatformActivitiesSubsidies(BigDecimal platformActivitiesSubsidies) {
+				this.platformActivitiesSubsidies = platformActivitiesSubsidies;
+			}
+
+			public BigDecimal getPlatformSubsidyVouchers() {
+				return platformSubsidyVouchers;
+			}
+
+			public void setPlatformSubsidyVouchers(BigDecimal platformSubsidyVouchers) {
+				this.platformSubsidyVouchers = platformSubsidyVouchers;
+			}
+
 		   		
 		
 		

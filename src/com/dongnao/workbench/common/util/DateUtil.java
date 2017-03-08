@@ -237,6 +237,26 @@ public class DateUtil {
 	}
 	
 	/**
+	 * 字符串格式化成日期
+	 * 
+	 * @param dataStr
+	 *            日期字符串2015-11-11 11:11:11
+	 * @param format
+	 *            日期格式
+	 * @return
+	 */
+	public static Timestamp parseToyyyyMMddHHmmss(String dataStr) {
+		SimpleDateFormat format = new SimpleDateFormat(Constant.DATETIME_FORMAT);
+		Timestamp date = null;
+		try {
+			date = (Timestamp) format.parse(dataStr);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
+	}
+	
+	/**
 	 * 字符串格式化成日期 yyyy-MM-dd
 	 * 
 	 * @param dataStr
@@ -252,6 +272,7 @@ public class DateUtil {
 			date = format.parse(dataStr);
 		} catch (ParseException e) {
 			e.printStackTrace();
+			return new Date();
 		}
 		return date;
 	}

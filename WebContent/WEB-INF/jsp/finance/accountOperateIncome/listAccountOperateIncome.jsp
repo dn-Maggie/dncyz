@@ -17,26 +17,39 @@ var gridObj = {};
      		rowList:[10,15,50,100],//每页显示记录数
     		rowNum:10,//默认显示15条
             colModel:[
-				{name : "id",hidden : true,key : true,label:"主键",index : "id"},	
-				{name : "createDate",label:"品牌",index : "create_date"},
-				{name : "storeName",label:"店铺",index : "store_name"},
-				{name : "createDate",label:"日期",index : "create_date"},
-				{name : "storeType",label:"店铺类型"},	
-				{name : "storeWorkTime",label:"营业时间"},		
+				{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
+				{name : "createDate",label:"日期",index : "create_date"},				
+				{name : "createTime",label:"订单时点",index : "create_time"},				
+				{name : "orderNo",label:"订单编号",index : "order_no"},				
+				{name : "orginPrice",label:"原价",index : "orgin_price"},				
+				{name : "discountPrice",label:"菜品折扣",index : "discount_price"},				
+				{name : "afterDiscountPrice",label:"折扣后菜价格",index : "after_discount_price"},				
+				{name : "actualPrice",label:"实际结算折扣菜金额",index : "actual_price"},				
+				{name : "orderDistributionCharge",label:"订单上收取客户配送费",index : "order_distribution_charge"},				
+				{name : "platformDistributionCharge",label:"平台收取客户配送费",index : "platform_distribution_charge"},				
+				{name : "cyzDistributionCharge",label:"公司收取客户配送费",index : "cyz_distribution_charge"},				
 				{name : "invalidNum",label:"无效单",index : "invalid_num"},				
-				{name : "validNum",label:"有效单",index : "valid_num"},		
+				{name : "validNum",label:"有效单",index : "valid_num"},				
 				{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount"},				
-				{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable"},		
+				{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable"},				
+				{name : "seventypProductSaleAmount",label:"70%结算金额",index : "seventyP_product_sale_amount"},				
+				{name : "discountBackCommission",label:"折扣菜退还佣金",index : "discount_back_commission"},				
 				{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable"},				
+				{name : "cyzServiceCharge",label:"公司收取店铺服务费",index : "cyz_service_charge"},				
+				{name : "cyzActivitiesCharge",label:"公司承担线上活动费",index : "cyz_activities_charge"},				
 				{name : "cyzAllIncome",label:"公司收入",index : "cyz_all_income"},				
 				{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit"},				
-				{name : "shouldDistributionCharge",label:"收取自配送金额",index : "should_distribution_charge"},				
-				{name : "cyzDistributionChargeActual",label:"按10元/单自配送金额",index : "cyz_distribution_charge_actual"},				
+				{name : "saleGrossProfitRate",label:"毛利率",index : "sale_gross_profit_rate"},				
+				{name : "distributionActualPayment",label:"自配送实际支付金额",index : "distribution_actual_payment"},				
+				{name : "platformActivitiesCharge",label:"平台承担线上活动费",index : "platform_activities_charge"},				
+				{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge"},				
+				{name : "shouldDistributionCharge",label:"应收取自配送金额",index : "should_distribution_charge"},				
+				{name : "cyzDistributionChargeActual",label:"实际按10元/单自配送金额",index : "cyz_distribution_charge_actual"},				
 				{name : "diffDistributionCharge",label:"按10元/单自配送金额补差",index : "diff_distribution_charge"},				
-				{name : "platformSubsidy",label:"平台补贴",index : "platform_subsidy"},		
-				{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge"},		
-				{name : "actualProfit",label:"实际运营毛利(销售毛利-补差-服务费)",index : "platform_subsidy"},
-				{name : "platformType",label:"平台类型",index : "platform_type"},		
+				{name : "platformSubsidy",label:"平台补贴服务费",index : "platform_subsidy"},				
+				{name : "actual",label:"实际运营毛利(销售毛利-补差-服务费)",index : "platform_subsidy"},
+				{name : "platformType",label:"平台类型",index : "platform_type"},				
+				{name : "storeId",label:"店铺ID",index : "store_id"}				
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -44,6 +57,18 @@ var gridObj = {};
     			return obj;
     		}
       });
+        
+	new biz.datepicker({
+  			id : "#startDate",
+  			maxDate:'#F{$dp.$D(\'endDate\',{d:0});}',
+  			dateFmt:'yyyy-MM-dd'
+  		});
+  	    
+  	    new biz.datepicker({
+  			id : "#endDate",
+  			minDate:'#F{$dp.$D(\'startDate\',{d:0});}',
+  			dateFmt:'yyyy-MM-dd'
+  		});
     });
 
  
@@ -167,32 +192,32 @@ var gridObj = {};
 		<form id="queryForm"><!-- 查询区 表单 -->
 			<div class="search border-bottom">
 				<ul>
-				<li><input type="text" name="storeName" id="storeName" class="search_choose"> <span>店铺名称:</span></li><!-- 输入框-->
-				<li><span>日期:</span>
+				<li><input type="text" name="actorName" id="actorName" class="search_choose"> <span>操作人:</span></li><!-- 输入框-->
+				<li><span>开始日期:</span>
 						<div class="time_bg">
-						<input type="text" class="search_time150" name="actTime" id="actTime"><!-- 时间选择控件-->
+						<input type="text" class="search_time150" name="actTime" id="actTime" mainid="actTime"><!-- 时间选择控件-->
 						<i class="search_time_ico2" ></i>
 						</div></li>
-				<li >
+				<li class="date_area">
+					<span>日期:</span>
 					<div class="time_bg">
-						<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" placeholder="订单时点起">
-						<i class="search_time_ico2"></i>
+						<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate">
+						<i class="search_time_ico2"  onclick="WdatePicker({el:'startDate'})"></i>
 					</div>
+					<i>至</i>
 					<div class="time_bg">
-						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" placeholder="订单时点止">
-						<i class="search_time_ico2"></i>
+						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" mainid="endDate">
+						<i class="search_time_ico2"  onclick="WdatePicker({el:'endDate'})"></i>
 					</div></li>	
-				 <li>
-				 <select class="search_select" name="platformType" id="platformType" >
-				 <option value="">--请选择--</option>
-				 </select>
-				<span>平台:</span></li><!--下拉 -->
+				 <li><select class="search_select" name="actType" id="actType" mainid="actType"><option value="">--请选择--</option><option value="add">add</option><option value="save">save</option><option value="update">update</option><option value="edit">edit</option><option value="insert">insert</option><option value="delete">delete</option><option value="remove">remove</option></select>
+				<span>操作类型:</span></li><!--下拉 -->
+				<li><input type="text" name="actResult" id="actResult" class="search_choose"> <span>操作结果:</span></li><!-- 输入框-->			
 				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
 						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
 				</ul>
 		   </div>
 	    </form>
-		<div class="listplace">
+<div class="listplace">
 				<!--功能按钮begin-->
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
@@ -222,8 +247,7 @@ var gridObj = {};
 							onclick="moduleResMgt();"> <i class="back_icon resources_icon"></i> <span><m:message
 										code="button.module.moduleRes" /></span>
 						</a></li>
-						</c:if>
-						 <!-- <li>
+						<li>
 							<a title="导入数据" href="javascript:;" onclick="$('#file').click()"> 
 								<i class="back_icon import_icon"> </i> 
 								<span>导入数据</span>
@@ -231,13 +255,14 @@ var gridObj = {};
 							<form name="form" id="form" method="post"  enctype="multipart/form-data">
 								<input type="file" id="file" name="file" style="display: none" onchange="importData();"/>
 							</form>
-						</li>  -->
+						</li>
 						<li>
 							<a title="导出数据" href="javascript:;" onclick="exportData();"> 
 								<i class="back_icon import_icon"> </i> 
 								<span>导出数据</span>
 							</a>
 						</li>
+						</c:if>
 					</ul>
 				</div>
 	

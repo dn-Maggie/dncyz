@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.finance.dao.AccountOperateIncomeMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.finance.model.AccountOperateIncome">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="DATE" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+		<result column="orgin_price" property="orginPrice" jdbcType="DECIMAL" />
+		<result column="discount_price" property="discountPrice" jdbcType="DECIMAL" />
+		<result column="after_discount_price" property="afterDiscountPrice" jdbcType="DECIMAL" />
+		<result column="actual_price" property="actualPrice" jdbcType="DECIMAL" />
+		<result column="order_distribution_charge" property="orderDistributionCharge" jdbcType="DECIMAL" />
+		<result column="platform_distribution_charge" property="platformDistributionCharge" jdbcType="DECIMAL" />
+		<result column="cyz_distribution_charge" property="cyzDistributionCharge" jdbcType="DECIMAL" />
+		<result column="invalid_num" property="invalidNum" jdbcType="INTEGER" />
+		<result column="valid_num" property="validNum" jdbcType="INTEGER" />
+		<result column="product_sale_amount" property="productSaleAmount" jdbcType="DECIMAL" />
+		<result column="amount_receivable" property="amountReceivable" jdbcType="DECIMAL" />
+		<result column="seventyP_product_sale_amount" property="seventypProductSaleAmount" jdbcType="DECIMAL" />
+		<result column="discount_back_commission" property="discountBackCommission" jdbcType="DECIMAL" />
+		<result column="amount_payable" property="amountPayable" jdbcType="DECIMAL" />
+		<result column="cyz_service_charge" property="cyzServiceCharge" jdbcType="DECIMAL" />
+		<result column="cyz_activities_charge" property="cyzActivitiesCharge" jdbcType="DECIMAL" />
+		<result column="cyz_all_income" property="cyzAllIncome" jdbcType="DECIMAL" />
+		<result column="sale_gross_profit" property="saleGrossProfit" jdbcType="DECIMAL" />
+		<result column="sale_gross_profit_rate" property="saleGrossProfitRate" jdbcType="VARCHAR" />
+		<result column="distribution_actual_payment" property="distributionActualPayment" jdbcType="DECIMAL" />
+		<result column="platform_activities_charge" property="platformActivitiesCharge" jdbcType="DECIMAL" />
+		<result column="platform_service_charge" property="platformServiceCharge" jdbcType="DECIMAL" />
+		<result column="should_distribution_charge" property="shouldDistributionCharge" jdbcType="DECIMAL" />
+		<result column="cyz_distribution_charge_actual" property="cyzDistributionChargeActual" jdbcType="DECIMAL" />
+		<result column="diff_distribution_charge" property="diffDistributionCharge" jdbcType="DECIMAL" />
+		<result column="platform_subsidy" property="platformSubsidy" jdbcType="DECIMAL" />
+		<result column="platform_type" property="platformType" jdbcType="VARCHAR" />
+		<result column="store_id" property="storeId" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+						 	id
+							,create_date
+							,create_time
+							,order_no
+							,orgin_price
+							,discount_price
+							,after_discount_price
+							,actual_price
+							,order_distribution_charge
+							,platform_distribution_charge
+							,cyz_distribution_charge
+							,invalid_num
+							,valid_num
+							,product_sale_amount
+							,amount_receivable
+							,seventyP_product_sale_amount
+							,discount_back_commission
+							,amount_payable
+							,cyz_service_charge
+							,cyz_activities_charge
+							,cyz_all_income
+							,sale_gross_profit
+							,sale_gross_profit_rate
+							,distribution_actual_payment
+							,platform_activities_charge
+							,platform_service_charge
+							,should_distribution_charge
+							,cyz_distribution_charge_actual
+							,diff_distribution_charge
+							,platform_subsidy
+							,platform_type
+							,store_id
+						</sql>
+	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+			oi.id
+			,oi.create_date
+			,oi.create_time
+			,oi.order_no
+			,oi.orgin_price
+			,oi.discount_price
+			,oi.after_discount_price
+			,oi.actual_price
+			,oi.order_distribution_charge
+			,oi.platform_distribution_charge
+			,oi.cyz_distribution_charge
+			,oi.invalid_num
+			,oi.valid_num
+			,oi.product_sale_amount
+			,oi.amount_receivable
+			,oi.seventyP_product_sale_amount
+			,oi.discount_back_commission
+			,oi.amount_payable
+			,oi.cyz_service_charge
+			,oi.cyz_activities_charge
+			,oi.cyz_all_income
+			,oi.sale_gross_profit
+			,oi.sale_gross_profit_rate
+			,oi.distribution_actual_payment
+			,oi.platform_activities_charge
+			,oi.platform_service_charge
+			,oi.should_distribution_charge
+			,oi.cyz_distribution_charge_actual
+			,oi.diff_distribution_charge
+			,oi.platform_subsidy
+			,oi.platform_type
+			,oi.store_id
+		from account_operate_income as oi
+		left join dn_store as s on s.STORE_ID =  oi.store_id
+		where oi.id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOperateIncome">
+		select
+			oi.id
+			,oi.create_date
+			,oi.create_time
+			,oi.order_no
+			,oi.orgin_price
+			,oi.discount_price
+			,oi.after_discount_price
+			,oi.actual_price
+			,oi.order_distribution_charge
+			,oi.platform_distribution_charge
+			,oi.cyz_distribution_charge
+			,oi.invalid_num
+			,oi.valid_num
+			,oi.product_sale_amount
+			,oi.amount_receivable
+			,oi.seventyP_product_sale_amount
+			,oi.discount_back_commission
+			,oi.amount_payable
+			,oi.cyz_service_charge
+			,oi.cyz_activities_charge
+			,oi.cyz_all_income
+			,oi.sale_gross_profit
+			,oi.sale_gross_profit_rate
+			,oi.distribution_actual_payment
+			,oi.platform_activities_charge
+			,oi.platform_service_charge
+			,oi.should_distribution_charge
+			,oi.cyz_distribution_charge_actual
+			,oi.diff_distribution_charge
+			,oi.platform_subsidy
+			,oi.platform_type
+			,oi.store_id
+		from account_operate_income as oi
+		left join dn_store as s on s.STORE_ID =  oi.store_id
+		where 1=1
+		<if test="id != null and '' != id">  
+			and oi.id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="createDate != null and '' != createDate">  
+			and oi.create_date = #{createDate,jdbcType=DATE}
+		</if>
+		<if test="createTime != null and '' != createTime">  
+			and oi.create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="orderNo != null and '' != orderNo">  
+			and oi.order_no = #{orderNo,jdbcType=VARCHAR}
+		</if>
+		<if test="orginPrice != null and '' != orginPrice">  
+			and oi.orgin_price = #{orginPrice,jdbcType=DECIMAL}
+		</if>
+		<if test="discountPrice != null and '' != discountPrice">  
+			and oi.discount_price = #{discountPrice,jdbcType=DECIMAL}
+		</if>
+		<if test="afterDiscountPrice != null and '' != afterDiscountPrice">  
+			and oi.after_discount_price = #{afterDiscountPrice,jdbcType=DECIMAL}
+		</if>
+		<if test="actualPrice != null and '' != actualPrice">  
+			and oi.actual_price = #{actualPrice,jdbcType=DECIMAL}
+		</if>
+		<if test="orderDistributionCharge != null and '' != orderDistributionCharge">  
+			and oi.order_distribution_charge = #{orderDistributionCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="platformDistributionCharge != null and '' != platformDistributionCharge">  
+			and oi.platform_distribution_charge = #{platformDistributionCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="cyzDistributionCharge != null and '' != cyzDistributionCharge">  
+			and oi.cyz_distribution_charge = #{cyzDistributionCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="invalidNum != null and '' != invalidNum">  
+			and oi.invalid_num = #{invalidNum,jdbcType=INTEGER}
+		</if>
+		<if test="validNum != null and '' != validNum">  
+			and oi.valid_num = #{validNum,jdbcType=INTEGER}
+		</if>
+		<if test="productSaleAmount != null and '' != productSaleAmount">  
+			and oi.product_sale_amount = #{productSaleAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="amountReceivable != null and '' != amountReceivable">  
+			and oi.amount_receivable = #{amountReceivable,jdbcType=DECIMAL}
+		</if>
+		<if test="seventypProductSaleAmount != null and '' != seventypProductSaleAmount">  
+			and oi.seventyP_product_sale_amount = #{seventypProductSaleAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="discountBackCommission != null and '' != discountBackCommission">  
+			and oi.discount_back_commission = #{discountBackCommission,jdbcType=DECIMAL}
+		</if>
+		<if test="amountPayable != null and '' != amountPayable">  
+			and oi.amount_payable = #{amountPayable,jdbcType=DECIMAL}
+		</if>
+		<if test="cyzServiceCharge != null and '' != cyzServiceCharge">  
+			and oi.cyz_service_charge = #{cyzServiceCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="cyzActivitiesCharge != null and '' != cyzActivitiesCharge">  
+			and oi.cyz_activities_charge = #{cyzActivitiesCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="cyzAllIncome != null and '' != cyzAllIncome">  
+			and oi.cyz_all_income = #{cyzAllIncome,jdbcType=DECIMAL}
+		</if>
+		<if test="saleGrossProfit != null and '' != saleGrossProfit">  
+			and oi.sale_gross_profit = #{saleGrossProfit,jdbcType=DECIMAL}
+		</if>
+		<if test="saleGrossProfitRate != null and '' != saleGrossProfitRate">  
+			and oi.sale_gross_profit_rate = #{saleGrossProfitRate,jdbcType=VARCHAR}
+		</if>
+		<if test="distributionActualPayment != null and '' != distributionActualPayment">  
+			and oi.distribution_actual_payment = #{distributionActualPayment,jdbcType=DECIMAL}
+		</if>
+		<if test="platformActivitiesCharge != null and '' != platformActivitiesCharge">  
+			and oi.platform_activities_charge = #{platformActivitiesCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="platformServiceCharge != null and '' != platformServiceCharge">  
+			and oi.platform_service_charge = #{platformServiceCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="shouldDistributionCharge != null and '' != shouldDistributionCharge">  
+			and oi.should_distribution_charge = #{shouldDistributionCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="cyzDistributionChargeActual != null and '' != cyzDistributionChargeActual">  
+			and oi.cyz_distribution_charge_actual = #{cyzDistributionChargeActual,jdbcType=DECIMAL}
+		</if>
+		<if test="diffDistributionCharge != null and '' != diffDistributionCharge">  
+			and oi.diff_distribution_charge = #{diffDistributionCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="platformSubsidy != null and '' != platformSubsidy">  
+			and oi.platform_subsidy = #{platformSubsidy,jdbcType=DECIMAL}
+		</if>
+		<if test="platformType != null and '' != platformType">  
+			and oi.platform_type = #{platformType,jdbcType=VARCHAR}
+		</if>
+		<if test="storeId != null and '' != storeId">  
+			and oi.store_id = #{storeId,jdbcType=VARCHAR}
+		</if>
+		<if test="storeName!= null and '' != storeName">  
+			and oi.STORE_NAME = #{storeName,jdbcType=VARCHAR}
+		</if>
+		<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+       	</if>
+	</select>
+	
+	<select id="listByConditionFromOrderDetail" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOperateIncome">
+		select
+			oi.id
+			,oi.create_date
+			,oi.create_time
+			,oi.order_no
+			,oi.orgin_price
+			,oi.discount_price
+			,oi.after_discount_price
+			,oi.actual_price
+			,oi.order_distribution_charge
+			,oi.platform_distribution_charge
+			,oi.cyz_distribution_charge
+			,oi.invalid_num
+			,oi.valid_num
+			,oi.product_sale_amount
+			,oi.amount_receivable
+			,oi.seventyP_product_sale_amount
+			,oi.discount_back_commission
+			,oi.amount_payable
+			,oi.cyz_service_charge
+			,oi.cyz_activities_charge
+			,oi.cyz_all_income
+			,oi.sale_gross_profit
+			,oi.sale_gross_profit_rate
+			,oi.distribution_actual_payment
+			,oi.platform_activities_charge
+			,oi.platform_service_charge
+			,oi.should_distribution_charge
+			,oi.cyz_distribution_charge_actual
+			,oi.diff_distribution_charge
+			,oi.platform_subsidy
+			,oi.platform_type
+			,oi.store_id
+		from account_operate_income as oi
+		left join dn_store as s on s.STORE_ID =  oi.store_id
+		where 1=1
+		<if test="id != null and '' != id">  
+			and oi.id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="createDate != null and '' != createDate">  
+			and oi.create_date = #{createDate,jdbcType=DATE}
+		</if>
+		<if test="createTime != null and '' != createTime">  
+			and oi.create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="orderNo != null and '' != orderNo">  
+			and oi.order_no = #{orderNo,jdbcType=VARCHAR}
+		</if>
+		<if test="orginPrice != null and '' != orginPrice">  
+			and oi.orgin_price = #{orginPrice,jdbcType=DECIMAL}
+		</if>
+		<if test="discountPrice != null and '' != discountPrice">  
+			and oi.discount_price = #{discountPrice,jdbcType=DECIMAL}
+		</if>
+		<if test="afterDiscountPrice != null and '' != afterDiscountPrice">  
+			and oi.after_discount_price = #{afterDiscountPrice,jdbcType=DECIMAL}
+		</if>
+		<if test="actualPrice != null and '' != actualPrice">  
+			and oi.actual_price = #{actualPrice,jdbcType=DECIMAL}
+		</if>
+		<if test="orderDistributionCharge != null and '' != orderDistributionCharge">  
+			and oi.order_distribution_charge = #{orderDistributionCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="platformDistributionCharge != null and '' != platformDistributionCharge">  
+			and oi.platform_distribution_charge = #{platformDistributionCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="cyzDistributionCharge != null and '' != cyzDistributionCharge">  
+			and oi.cyz_distribution_charge = #{cyzDistributionCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="invalidNum != null and '' != invalidNum">  
+			and oi.invalid_num = #{invalidNum,jdbcType=INTEGER}
+		</if>
+		<if test="validNum != null and '' != validNum">  
+			and oi.valid_num = #{validNum,jdbcType=INTEGER}
+		</if>
+		<if test="productSaleAmount != null and '' != productSaleAmount">  
+			and oi.product_sale_amount = #{productSaleAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="amountReceivable != null and '' != amountReceivable">  
+			and oi.amount_receivable = #{amountReceivable,jdbcType=DECIMAL}
+		</if>
+		<if test="seventypProductSaleAmount != null and '' != seventypProductSaleAmount">  
+			and oi.seventyP_product_sale_amount = #{seventypProductSaleAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="discountBackCommission != null and '' != discountBackCommission">  
+			and oi.discount_back_commission = #{discountBackCommission,jdbcType=DECIMAL}
+		</if>
+		<if test="amountPayable != null and '' != amountPayable">  
+			and oi.amount_payable = #{amountPayable,jdbcType=DECIMAL}
+		</if>
+		<if test="cyzServiceCharge != null and '' != cyzServiceCharge">  
+			and oi.cyz_service_charge = #{cyzServiceCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="cyzActivitiesCharge != null and '' != cyzActivitiesCharge">  
+			and oi.cyz_activities_charge = #{cyzActivitiesCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="cyzAllIncome != null and '' != cyzAllIncome">  
+			and oi.cyz_all_income = #{cyzAllIncome,jdbcType=DECIMAL}
+		</if>
+		<if test="saleGrossProfit != null and '' != saleGrossProfit">  
+			and oi.sale_gross_profit = #{saleGrossProfit,jdbcType=DECIMAL}
+		</if>
+		<if test="saleGrossProfitRate != null and '' != saleGrossProfitRate">  
+			and oi.sale_gross_profit_rate = #{saleGrossProfitRate,jdbcType=VARCHAR}
+		</if>
+		<if test="distributionActualPayment != null and '' != distributionActualPayment">  
+			and oi.distribution_actual_payment = #{distributionActualPayment,jdbcType=DECIMAL}
+		</if>
+		<if test="platformActivitiesCharge != null and '' != platformActivitiesCharge">  
+			and oi.platform_activities_charge = #{platformActivitiesCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="platformServiceCharge != null and '' != platformServiceCharge">  
+			and oi.platform_service_charge = #{platformServiceCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="shouldDistributionCharge != null and '' != shouldDistributionCharge">  
+			and oi.should_distribution_charge = #{shouldDistributionCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="cyzDistributionChargeActual != null and '' != cyzDistributionChargeActual">  
+			and oi.cyz_distribution_charge_actual = #{cyzDistributionChargeActual,jdbcType=DECIMAL}
+		</if>
+		<if test="diffDistributionCharge != null and '' != diffDistributionCharge">  
+			and oi.diff_distribution_charge = #{diffDistributionCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="platformSubsidy != null and '' != platformSubsidy">  
+			and oi.platform_subsidy = #{platformSubsidy,jdbcType=DECIMAL}
+		</if>
+		<if test="platformType != null and '' != platformType">  
+			and oi.platform_type = #{platformType,jdbcType=VARCHAR}
+		</if>
+		<if test="storeId != null and '' != storeId">  
+			and oi.store_id = #{storeId,jdbcType=VARCHAR}
+		</if>
+		<if test="storeName!= null and '' != storeName">  
+			and oi.STORE_NAME = #{storeName,jdbcType=VARCHAR}
+		</if>
+		<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+       	</if>
+	</select>
+	
+	<delete id="deleteByKey" parameterType="java.lang.String">
+		delete from account_operate_income
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.finance.model.AccountOperateIncome">
+		insert into account_operate_income (
+		<include refid="Base_Column_List" />
+		)values (
+				#{id,jdbcType=VARCHAR}
+				,#{createDate,jdbcType=DATE}
+				,#{createTime,jdbcType=TIMESTAMP}
+				,#{orderNo,jdbcType=VARCHAR}
+				,#{orginPrice,jdbcType=DECIMAL}
+				,#{discountPrice,jdbcType=DECIMAL}
+				,#{afterDiscountPrice,jdbcType=DECIMAL}
+				,#{actualPrice,jdbcType=DECIMAL}
+				,#{orderDistributionCharge,jdbcType=DECIMAL}
+				,#{platformDistributionCharge,jdbcType=DECIMAL}
+				,#{cyzDistributionCharge,jdbcType=DECIMAL}
+				,#{invalidNum,jdbcType=INTEGER}
+				,#{validNum,jdbcType=INTEGER}
+				,#{productSaleAmount,jdbcType=DECIMAL}
+				,#{amountReceivable,jdbcType=DECIMAL}
+				,#{seventypProductSaleAmount,jdbcType=DECIMAL}
+				,#{discountBackCommission,jdbcType=DECIMAL}
+				,#{amountPayable,jdbcType=DECIMAL}
+				,#{cyzServiceCharge,jdbcType=DECIMAL}
+				,#{cyzActivitiesCharge,jdbcType=DECIMAL}
+				,#{cyzAllIncome,jdbcType=DECIMAL}
+				,#{saleGrossProfit,jdbcType=DECIMAL}
+				,#{saleGrossProfitRate,jdbcType=VARCHAR}
+				,#{distributionActualPayment,jdbcType=DECIMAL}
+				,#{platformActivitiesCharge,jdbcType=DECIMAL}
+				,#{platformServiceCharge,jdbcType=DECIMAL}
+				,#{shouldDistributionCharge,jdbcType=DECIMAL}
+				,#{cyzDistributionChargeActual,jdbcType=DECIMAL}
+				,#{diffDistributionCharge,jdbcType=DECIMAL}
+				,#{platformSubsidy,jdbcType=DECIMAL}
+				,#{platformType,jdbcType=VARCHAR}
+				,#{storeId,jdbcType=VARCHAR}
+			)
+	</insert>
+	
+	<update id="update" parameterType="com.dongnao.workbench.finance.model.AccountOperateIncome">
+		update account_operate_income  set
+			id= #{id,jdbcType=VARCHAR}
+			,create_date = #{createDate,jdbcType=DATE}
+			,create_time = #{createTime,jdbcType=TIMESTAMP}
+			,order_no = #{orderNo,jdbcType=VARCHAR}
+			,orgin_price = #{orginPrice,jdbcType=DECIMAL}
+			,discount_price = #{discountPrice,jdbcType=DECIMAL}
+			,after_discount_price = #{afterDiscountPrice,jdbcType=DECIMAL}
+			,actual_price = #{actualPrice,jdbcType=DECIMAL}
+			,order_distribution_charge = #{orderDistributionCharge,jdbcType=DECIMAL}
+			,platform_distribution_charge = #{platformDistributionCharge,jdbcType=DECIMAL}
+			,cyz_distribution_charge = #{cyzDistributionCharge,jdbcType=DECIMAL}
+			,invalid_num = #{invalidNum,jdbcType=INTEGER}
+			,valid_num = #{validNum,jdbcType=INTEGER}
+			,product_sale_amount = #{productSaleAmount,jdbcType=DECIMAL}
+			,amount_receivable = #{amountReceivable,jdbcType=DECIMAL}
+			,seventyP_product_sale_amount = #{seventypProductSaleAmount,jdbcType=DECIMAL}
+			,discount_back_commission = #{discountBackCommission,jdbcType=DECIMAL}
+			,amount_payable = #{amountPayable,jdbcType=DECIMAL}
+			,cyz_service_charge = #{cyzServiceCharge,jdbcType=DECIMAL}
+			,cyz_activities_charge = #{cyzActivitiesCharge,jdbcType=DECIMAL}
+			,cyz_all_income = #{cyzAllIncome,jdbcType=DECIMAL}
+			,sale_gross_profit = #{saleGrossProfit,jdbcType=DECIMAL}
+			,sale_gross_profit_rate = #{saleGrossProfitRate,jdbcType=VARCHAR}
+			,distribution_actual_payment = #{distributionActualPayment,jdbcType=DECIMAL}
+			,platform_activities_charge = #{platformActivitiesCharge,jdbcType=DECIMAL}
+			,platform_service_charge = #{platformServiceCharge,jdbcType=DECIMAL}
+			,should_distribution_charge = #{shouldDistributionCharge,jdbcType=DECIMAL}
+			,cyz_distribution_charge_actual = #{cyzDistributionChargeActual,jdbcType=DECIMAL}
+			,diff_distribution_charge = #{diffDistributionCharge,jdbcType=DECIMAL}
+			,platform_subsidy = #{platformSubsidy,jdbcType=DECIMAL}
+			,platform_type = #{platformType,jdbcType=VARCHAR}
+			,store_id = #{storeId,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>
