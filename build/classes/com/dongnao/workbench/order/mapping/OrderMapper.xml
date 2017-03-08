@@ -109,7 +109,7 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.order.model.Order">
 		update dn_order  set
-		ID= #{orderId,jdbcType=CHAR}
+		ORDER_ID= #{orderId,jdbcType=CHAR}
 													,ORDER_SOURCE = #{orderSource,jdbcType=VARCHAR}
 											,STORE_ID = #{storeId,jdbcType=CHAR}
 											,ORDER_TIME = #{orderTime,jdbcType=TIMESTAMP}

@@ -67,7 +67,7 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.store.model.StoreHealth">
 		update dn_store_health  set
-		ID= #{healthId,jdbcType=CHAR}
+		HEALTH_ID= #{healthId,jdbcType=CHAR}
 													,STORE_ID = #{storeId,jdbcType=CHAR}
 											,ASSESS_DATE = #{assessDate,jdbcType=TIMESTAMP}
 											,ASSESSORS = #{assessors,jdbcType=VARCHAR}

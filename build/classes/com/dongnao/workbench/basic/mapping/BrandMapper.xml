@@ -3,22 +3,22 @@
 <mapper namespace="com.dongnao.workbench.basic.dao.BrandMapper">
 	<resultMap id="BaseResultMap" type="com.dongnao.workbench.basic.model.Brand">
 		<id column="BRAND_ID" property="brandId" jdbcType="CHAR" />
-															<result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
-													<result column="BRAND_MANAGER" property="brandManager" jdbcType="VARCHAR" />
-													<result column="BRAND_MANAGER_TEL" property="brandManagerTel" jdbcType="VARCHAR" />
-													<result column="STORES_NUMBER" property="storesNumber" jdbcType="INTEGER" />
-													<result column="PROVINCE_CODE" property="provinceCode" jdbcType="VARCHAR" />
-													<result column="REGION_CODE" property="regionCode" jdbcType="VARCHAR" />
-													<result column="CITY_CODE" property="cityCode" jdbcType="VARCHAR" />
-													<result column="INDUSTRY_ID" property="industryId" jdbcType="CHAR" />
-													<result column="CATEGORY_ID" property="categoryId" jdbcType="CHAR" />
-													<result column="CONTACT_NAME" property="contactName" jdbcType="VARCHAR" />
-													<result column="CONTACT_TEL" property="contactTel" jdbcType="VARCHAR" />
-													<result column="MERCHANT_NAME" property="merchantName" jdbcType="VARCHAR" />
-													<result column="MERCHANT_TEL" property="merchantTel" jdbcType="VARCHAR" />
-													<result column="SIGN_CONTRACT_DATE" property="signContractDate" jdbcType="TIMESTAMP" />
-													<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
-									</resultMap>
+		<result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+		<result column="BRAND_MANAGER" property="brandManager" jdbcType="VARCHAR" />
+		<result column="BRAND_MANAGER_TEL" property="brandManagerTel" jdbcType="VARCHAR" />
+		<result column="STORES_NUMBER" property="storesNumber" jdbcType="INTEGER" />
+		<result column="PROVINCE_CODE" property="provinceCode" jdbcType="VARCHAR" />
+		<result column="REGION_CODE" property="regionCode" jdbcType="VARCHAR" />
+		<result column="CITY_CODE" property="cityCode" jdbcType="VARCHAR" />
+		<result column="INDUSTRY_ID" property="industryId" jdbcType="CHAR" />
+		<result column="CATEGORY_ID" property="categoryId" jdbcType="CHAR" />
+		<result column="CONTACT_NAME" property="contactName" jdbcType="VARCHAR" />
+		<result column="CONTACT_TEL" property="contactTel" jdbcType="VARCHAR" />
+		<result column="MERCHANT_NAME" property="merchantName" jdbcType="VARCHAR" />
+		<result column="MERCHANT_TEL" property="merchantTel" jdbcType="VARCHAR" />
+		<result column="SIGN_CONTRACT_DATE" property="signContractDate" jdbcType="TIMESTAMP" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+	</resultMap>
 	<sql id="Base_Column_List">
 		 	BRAND_ID
 			,BRAND_NAME
@@ -48,6 +48,8 @@
 			,b.PROVINCE_CODE
 			,b.REGION_CODE
 			,b.CITY_CODE
+			,b.INDUSTRY_ID
+			,b.CATEGORY_ID
 			,i.INDUSTRY_NAME AS industryName
 			,c.CATEGORY_NAME AS categoryName
 			,b.CONTACT_NAME

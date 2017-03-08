@@ -79,7 +79,7 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.order.model.ProductList">
 		update dn_product_list  set
-		ID= #{productListId,jdbcType=CHAR}
+		PRODUCT_LIST_ID= #{productListId,jdbcType=CHAR}
 													,ORDER_ID = #{orderId,jdbcType=CHAR}
 											,PRODUCT_ID = #{productId,jdbcType=CHAR}
 											,PRODUCT_COUNT = #{productCount,jdbcType=INTEGER}
