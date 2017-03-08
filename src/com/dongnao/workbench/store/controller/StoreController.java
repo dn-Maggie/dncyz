@@ -17,7 +17,9 @@ import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.store.model.Store;
 import com.dongnao.workbench.store.service.StoreService;
 import com.dongnao.workbench.system.model.DictInfo;
+import com.dongnao.workbench.system.model.Personrole;
 import com.dongnao.workbench.system.service.DictInfoService;
+import com.dongnao.workbench.system.service.PersonroleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("store")
 public class StoreController{
+	@Resource
+	private PersonroleService personroleService;
     @Resource
     private StoreService storeService;
     @Resource
@@ -72,10 +76,17 @@ public class StoreController{
 	 * @return ModelAndView: 查询实体
 	 */	
 	@RequestMapping("/toShowStore")
-	public ModelAndView toShow(String key){
+	public ModelAndView toShow(String key,HttpServletRequest request){
 		Store entity = storeService.getByPrimaryKey(key);
 		Map<String,String> store = FormatEntity.getObjectValue(entity);
-		return new ModelAndView("WEB-INF/jsp/store/store/showStore","store",store );
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/store/showStore","store",store);
+		mv.addObject("settlementMethod", dictInfoService.getDictInfoListByType("settlementMethod"));
+		UserInfo userInfo = new UserInfo();
+		if(!Utils.isSuperAdmin(request))
+ 		{userInfo.setId(Utils.getLoginUserInfoId(request));}
+		mv.addObject("user", userInfoService.listByCondition(userInfo));
+		mv.addObject("brand", brandService.listByCondition(null));
+		return mv;
 	}
 	
 	/**
@@ -87,7 +98,8 @@ public class StoreController{
 	@RequestMapping("/addStore")
 	public void add(Store store,HttpServletRequest request,HttpServletResponse response){
 	store.setStoreId(Utils.generateUniqueID());
-	AjaxUtils.sendAjaxForObjectStr(response,storeService.add(store));		
+	storeService.add(store);
+	AjaxUtils.sendAjaxForObjectStr(response,storeService.getByPrimaryKey(store.getStoreId()));
 	}
 	
 	/**
@@ -129,12 +141,35 @@ public class StoreController{
 	public void listByCondition(Store store,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		store.setPage(page);	
-		if(!Utils.isSuperAdmin(request))
- 		{store.setOwnerUserId(Utils.getLoginUserInfoId(request));}
+		Personrole personrole = getPersonrole(Utils.getLoginUserInfoId(request));
+		if(!Utils.isSuperAdmin(request)&&personrole.getRoleId().equals("38703abe-b9ab-4dd1-aa8d-1327c9b35dee"))
+ 		{
+			store.setUserGroup(Utils.getLoginUserInfo(request).getUserGroup());
+		}else if(!Utils.isSuperAdmin(request)&&!personrole.getRoleId().equals("38703abe-b9ab-4dd1-aa8d-1327c9b35dee")){
+			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+		}
 		List<Store> list = storeService.listByCondition(store);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
-	
+	/**
+	 * 根据用户ID获取角色用户关联实体
+	 * 
+	 * @param userInfoId
+	 *            用户ID
+	 * @return 角色用户关联实体
+	 */
+	private Personrole getPersonrole(String userInfoId) {
+		Personrole personrole = new Personrole();
+		personrole.setUserId(userInfoId);
+		List<Personrole> personroles = personroleService
+				.listByCondition(personrole);
+		if (personroles != null && personroles.size() > 0) {
+			return personroles.get(0);
+		} else {
+			return null;
+		}
+	}
+
 	/**
 	 * 进入修改页面方法
 	 * @param key String：实体id
@@ -150,10 +185,21 @@ public class StoreController{
 		if(!Utils.isSuperAdmin(request))
  		{userInfo.setId(Utils.getLoginUserInfoId(request));}
 		mv.addObject("user", userInfoService.listByCondition(userInfo));
-		
+		mv.addObject("brand", brandService.listByCondition(null));
 		return mv;
 	}
 	
+	/**
+	 * 修改图片方法
+	 * @param store Store：实体对象
+	 * @param response HttpServletResponse
+	 * @return: ajax输入json字符串
+	 */	
+	@RequestMapping("/updateImg")
+	public void updateImg(Store store,HttpServletRequest request,HttpServletResponse response){
+		AjaxUtils.sendAjaxForObjectStr(
+				response,storeService.updateImg(store));	
+	}
 	/**
 	 * 修改方法
 	 * @param store Store：实体对象

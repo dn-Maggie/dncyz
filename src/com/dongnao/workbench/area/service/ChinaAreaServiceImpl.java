@@ -23,6 +23,11 @@ public class ChinaAreaServiceImpl implements ChinaAreaService{
 		public List<ChinaArea> loadAreaByParent(Integer pid) {
 			return chinaAreaMapper.selectByPid(pid);
 		}
+
+		@Override
+		public List<ChinaArea> listByCondition(ChinaArea ChinaArea) {
+			return chinaAreaMapper.listByCondition(ChinaArea);
+		}
 	
         
 }

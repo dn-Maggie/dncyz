@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dongnao.workbench.basic.model.UserInfo;
+import com.dongnao.workbench.basic.service.UserGroupService;
 import com.dongnao.workbench.basic.service.UserInfoService;
 import com.dongnao.workbench.common.Constant;
 import com.dongnao.workbench.common.controller.BaseController;
@@ -51,16 +52,26 @@ public class UserInfoController extends BaseController{
 	private RoleService roleService;
 	@Resource
 	private DictInfoService dictInfoService;
+	@Resource
+	private UserGroupService userGroupService;
 	/**
 	 * 进入新增页面
 	 * 
 	 * @return ModelAndView 返回到新增页面
 	 */
 	@RequestMapping("/toAddUserInfo")
-	public ModelAndView toAdd() {
+	public ModelAndView toAdd(HttpServletRequest request,String userGroup) {
 		ModelAndView mv = new ModelAndView( "WEB-INF/jsp/basic/userInfo/addUserInfo");
-		List<Role> roleList = roleService.listByCondition(new Role());
-		mv.addObject("roleList", roleList);
+		Role role = new Role();
+		role.setStates("1");
+		mv.addObject("roleList", roleService.listByCondition(role));
+		role.setRoleCode("platformStore");
+		mv.addObject("platformStoreRole", roleService.listByCondition(role).get(0));
+		if(!Utils.isSuperAdmin(request)){
+			mv.addObject("userGroup", Utils.getLoginUserInfo(request).getUserGroup());
+		}
+		mv.addObject("userGroupList", userGroupService.listByCondition(null));
+		mv.addObject("userGroupId", userGroup);
 		return mv;
 	}
 
@@ -152,27 +163,17 @@ public class UserInfoController extends BaseController{
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/toListUserInfo")
-	public ModelAndView toList() {
+	public ModelAndView toList( HttpServletRequest request) {
 		ModelAndView m = new ModelAndView(
 				"WEB-INF/jsp/basic/userInfo/listUserInfo");
+		if (!Utils.isSuperAdmin(request)) {
+			m.addObject("userGroup", Utils.getLoginUserInfo(request).getUserGroup());
+		}
 		m.addObject("statusData", Utils.getDictInfo("status", true));
 		m.addObject("userTypeData", Utils.getDictInfo("userType", true));
 		return m;
 	}
 	
-	/**
-	 * 进入列表弹出选择页面
-	 * 
-	 * @return ModelAndView
-	 */
-	@RequestMapping("/toListDlg")
-	public ModelAndView toListDlg() {
-		ModelAndView m = new ModelAndView(
-				"WEB-INF/jsp/basic/userInfo/listUserInfoDlg");
-		m.addObject("statusData", Utils.getDictInfo("status", true));
-		m.addObject("userTypeData", Utils.getDictInfo("userType", true));
-		return m;
-	}
 
 	/**
 	 * 根据条件查找列表方法
@@ -216,13 +217,15 @@ public class UserInfoController extends BaseController{
 		if (personrole != null) {
 			userInfo.put("roleId", personrole.getRoleId());
 		}
-		List<Role> roleList = roleService.listByCondition(new Role());
-//		List<SalStandard> salStandardList = salStandardService
-//				.listByCondition(new SalStandard());
+		Role role = new Role();
+		role.setStates("1");
+		List<Role> roleList = roleService.listByCondition(role);
+		role.setRoleCode("platformStore");
+		mv.addObject("platformStoreRole", roleService.listByCondition(role).get(0));
 		dictInfoService.getDictInfoByType("");
-//		mv.addObject("salStandardList", salStandardList);
 		mv.addObject("roleList", roleList);
 		mv.addObject("userInfo", userInfo);
+		mv.addObject("userGroupList", userGroupService.listByCondition(null));
 		return mv;
 	}
 

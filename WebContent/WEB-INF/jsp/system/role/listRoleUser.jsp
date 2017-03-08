@@ -132,14 +132,11 @@
 				<!-- 查询区 表单 -->
 				<div class="search border-bottom">
 					<ul>
-						<li style="width: 200px;"><span style="width: 80px"><m:message
-									code='userInfo.userAccount' />:</span><input type="text"
+						<li style="width: 200px;"><span style="width: 80px"><m:message code='userInfo.userAccount' />:</span><input type="text"
 							class="search_choose" style="width: 100px;" id="userAccount"
 							name="userAccount"></li>
 						<!-- 输入框-->
-						<li style="width: 200px;"><span style="width: 80px"><m:message
-									code="user.userName" />:</span><input type="text"
-							class="search_choose" style="width: 100px;" id="fullName"
+						<li style="width: 200px;"><span style="width: 80px"><m:message code="user.userName" />:</span><input type="text" class="search_choose" style="width: 100px;" id="fullName"
 							name="fullName"></li>
 						<!-- 输入框-->
 						<li style="width: 180px;"><input type="button" value="查询"

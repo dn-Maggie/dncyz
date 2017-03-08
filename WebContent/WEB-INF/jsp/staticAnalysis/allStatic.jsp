@@ -18,15 +18,26 @@
 				padding: 10px;
 			}
 			.platform_totalMoney_item-todayValue{
+				color: #3ECF8B;
 				display:block;
 				height:30%;
 				text-align:center;
 				font-size:40px;
 			}
+			.widget-body .col-sm-4:first-child .platform_totalMoney_item-todayValue{
+				color: #359BF5;
+			}
+			.widget-body .col-sm-4:last-child .platform_totalMoney_item-todayValue{
+				color: #FF2D48;
+			}
+			
 			.platform_totalMoney_item-yesterdayValue{
 				display:block;
 				height:30%;
 				text-align:center;
+			}
+			.widget-body {
+				background: #ffffff;
 			}
 		</style>
 		
@@ -55,7 +66,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="widget-body">
+				<div class="widget-body" style="background-color: #ffffff;">
 					<div class="widget-main padding-4">
 						<div id="sales-charts"></div>
 					</div><!-- /widget-main -->
@@ -73,16 +84,17 @@
 				<div class="widget-body">
 					<div class="col-sm-4 platform_totalMoney">
 						<div class="platform_totalMoney_item">
-							<span class="platform_totalMoney_item-Name">美团外卖</span>
-							<strong class="platform_totalMoney_item-todayValue">8909.00</strong>
-							<span class="platform_totalMoney_item-yesterdayValue">昨日  ￥7890.00</span>
-						</div>
-					</div>
-					<div class="col-sm-4 platform_totalMoney">
-						<div class="platform_totalMoney_item">
 							<span class="platform_totalMoney_item-Name">饿了么外卖</span>
 							<strong class="platform_totalMoney_item-todayValue">7099.00</strong>
 							<span class="platform_totalMoney_item-yesterdayValue">昨日  ￥7090.00</span>
+						</div>
+						
+					</div>
+					<div class="col-sm-4 platform_totalMoney">
+						<div class="platform_totalMoney_item">
+							<span class="platform_totalMoney_item-Name">美团外卖</span>
+							<strong class="platform_totalMoney_item-todayValue">8909.00</strong>
+							<span class="platform_totalMoney_item-yesterdayValue">昨日  ￥7890.00</span>
 						</div>
 					</div>
 					<div class="col-sm-4 platform_totalMoney">

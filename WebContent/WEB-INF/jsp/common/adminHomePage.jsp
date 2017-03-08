@@ -10,6 +10,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
 <style type="text/css">
+	body {
+		padding: 20px;
+	}
 	img,i{
 	    vertical-align: middle;
 	    display: inline-block;
@@ -50,28 +53,32 @@
 		height:250px;
 	}
 	.ht33p{
-		width:100%;
-		height:33.33%;
-		position:relative;
+		height: 50px;
+		margin-top: 5px;
 	}
+	.ht33p span:first-child {
+		float: left;
+	}
+	.ht33p span:last-child {
+		float: right;
+	}
+	
 	.ht25p{
-	    width: 100%;
-	    height: 25%;
+		height: 30px;
 	    border-bottom: 1px solid #ddd;
 	    box-sizing: border-box;
-	    position:relative;
 	}
 	 .ht25p>span:first-child,.ht33p>span:first-child{
 		display:inline-block;
 		height:100%;
-		position:absolute;
-		left:20px;
+		/* position:absolute;
+		left:20px; */
 	} 
 	 .ht25p>span:last-child,.ht33p>span:last-child{
 		display:inline-block;
 		height:100%;
-		position:absolute;
-		right:20px;
+		/* position:absolute; */
+		/* right:20px; */
 	} 
 	.wh50p{
 		width: 50%;
@@ -98,7 +105,7 @@
 	}
 	.wh50p>span:first-child{
 		display: block;
-	    height: 20%;
+	   /*  height: 20%; */
 	}
 	.wh50p>span:last-child{
 		display: block;
@@ -144,9 +151,11 @@
 		width:100%;
 	}
 	.today_item>.today_item_title{
-		height:20%;
+		/* height:20%; */
+		height: 40px;
+		line-height: 40px;
 	    border-bottom: 2px #eee solid;
-	    position:relative;
+	    /* position:relative; */
 	    font-size:14px;
 	}
 	.today_item>.today_item_data{
@@ -157,18 +166,33 @@
 	.today_item_title>span{
 		display:inline-block;
 		height:100%;
-		position:absolute;
-		left:20px;
+		margin-left: 10px;
 	}
 	.today_item_title>a{
 		display:inline-block;
-		position:absolute;
-		right:20px;
-		text-decoration:underline;
+		text-decoration: underline;
+		margin-right: 10px;
+		float: right;
 		color:#999;
-		height:100%;
-		cursor:pointer;
 	}
+	.today_item_title>a:hover {
+		color: #F47115;
+	}
+	.todayRank ul li {
+		height: 35px;
+		border-bottom: 1px solid #eee; 
+	}
+	.todayRank ul li span {
+		line-height: 35px;
+		display: block;
+	}
+	.todayRank ul li span:first-child {
+		float: left;
+	}
+	.todayRank ul li span:last-child {
+		float: right;
+	}
+	
 </style>
 </head>
 <body onselect="return false;">
@@ -185,12 +209,12 @@
 					<ul>
 						<li class="wh50p">
 							<span><b></b>订单成交数量</span>
-							<strong>304568</strong>
+							<strong style="color: rgb(238, 114, 26)">304568</strong>
 							<span>昨日293784单</span>
 						</li>
 						<li class="wh50p">
 							<span><b></b>成交金额</span>
-							<strong>4342785.00</strong>
+							<strong style="color: rgb(237, 121, 122)">4342785.00</strong>
 							<span>昨日39487.00</span>
 						</li>
 					</ul>
@@ -202,21 +226,21 @@
 				</div>
 				<div class="today_item_data">
 					<ul>
-						<li class="ht25p">
-							<span><i></i>肯德基</span>
-							<span><i></i>2006单</span>
+						<li >
+							<span>肯德基</span>
+							<span>2006单</span>
 						</li>
-						<li class="ht25p">
-							<span><i></i>旗鼓村米线</span>
-							<span><i></i>1890单</span>
+						<li >
+							<span>旗鼓村米线</span>
+							<span>1890单</span>
 						</li>
-						<li class="ht25p">
-							<span><i></i>兰州拉面</span>
-							<span><i></i>1708单</span>
+						<li >
+							<span>兰州拉面</span>
+							<span>1708单</span>
 						</li>
-						<li class="ht25p">
-							<span><i></i>福建沙县小吃</span>
-							<span><i></i>1308单</span>
+						<li >
+							<span>福建沙县小吃</span>
+							<span>1308单</span>
 						</li>
 					</ul>
 				</div>
@@ -252,16 +276,16 @@
 				<div class="today_item_data">
 					<ul>
 						<li class="ht33p">
-							<span><i></i>商家总数</span>
-							<span><i></i>13344家</span>
+							<span>商家总数</span>
+							<span>13344家</span>
 						</li>
 						<li class="ht33p">
-							<span><i></i>商家新增数量</span>
-							<span><i></i>344家</span>
+							<span>商家新增数量</span>
+							<span>344家</span>
 						</li>
 						<li class="ht33p">
-							<span><i></i>商家退出数量</span>
-							<span><i></i>4家</span>
+							<span>商家退出数量</span>
+							<span>4家</span>
 						</li>
 					</ul>
 				</div>

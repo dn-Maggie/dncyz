@@ -14,6 +14,11 @@ public class UserInfo extends Model{
 	
 	
 		            /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+					/**
 	                 * 用户ID
 	                 **/
 				   			private String id;
@@ -37,6 +42,7 @@ public class UserInfo extends Model{
 	                 * 用户类型(1公司员工，2公众投资人)
 	                 **/
 				   			private Integer userType;
+				   			private String userGroup;
 		   		
 		            /**
 	                 * 用户类型名称
@@ -590,6 +596,14 @@ public class UserInfo extends Model{
 
 			public void setMarketingManagerTel(String marketingManagerTel) {
 				this.marketingManagerTel = marketingManagerTel;
+			}
+
+			public String getUserGroup() {
+				return userGroup;
+			}
+
+			public void setUserGroup(String userGroup) {
+				this.userGroup = userGroup;
 			}
 		  		
 		

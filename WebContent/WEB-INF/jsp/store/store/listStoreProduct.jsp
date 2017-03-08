@@ -5,9 +5,9 @@
 <%@ include file="../../common/header.jsp"%>
 <title><m:message code="moduleRes.list.title" /></title>
 <script type="text/javascript">
-var storeProductGrid = {};
+var gridObj = {};
 	$(function(){
-  		storeProductGrid = new biz.grid({
+  		gridObj = new biz.grid({
             id:"#storeProduct_rowed",/*html部分table id*/
             url: "<m:url value='/storeProduct/listStoreProduct.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
@@ -35,34 +35,38 @@ var storeProductGrid = {};
    						,formatter:GridColModelForMatter.productStatus}				
    	        ],
            	serializeGridData:function(postData){//添加查询条件值
-				var obj = {storeId:"${storeId}"};
+				var obj = getQueryCondition();
     			$.extend(true,obj,postData);//合并查询条件值与grid的默认传递参数   				
     			return obj;
-    			
     		},
       });
+  	//产品状态下拉
+	new biz.select({
+	    id:"#productStatus",
+	    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=productStatus'/>",
+	});
     });
 
-    function ma_status(cellvalue, options, rowObject){
-    	if(cellvalue=='1'){
-			return "启用";
-		}else if(cellvalue=='0'){
-			return "禁用";
-		}
+	 /**
+    * 获取查询条件值
+    */
+    function getQueryCondition(){
+       var obj = {storeId:"${storeId}"};
+		jQuery.each($("#queryForm").serializeArray(),function(i,o){
+        	if(o.value){
+        		obj[o.name] = o.value;
+        	}
+        });
+		return obj;
     }
-
-    function ma_needright(cellvalue, options, rowObject){
-    	if(cellvalue=='1'){
-			return "是";
-		}else if(cellvalue=='0'){
-			return "否";
-		}
-    }
-    
     function doSearch(isStayCurrentPage){
-    	storeProductGrid.setGridParam({"page":"1"});
-    	storeProductGrid.trigger('reloadGrid');
+    	if(!isStayCurrentPage)gridObj.setGridParam({"page":"1"});
+    	gridObj.trigger('reloadGrid');
     }
+    //重置查询表单
+    function resetForm(formId){
+		document.getElementById(formId).reset();
+	}
     //新增的弹出框
 	var add_iframe_dialog;
     
@@ -72,8 +76,8 @@ var storeProductGrid = {};
    		add_iframe_dialog = new biz.dialog({
    			id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
    			modal: true,
-   			width: $(window).width()*0.6,
-			height:600,
+   			width: $(window).width()*0.8,
+			height:$(window).height()*0.8,
    			title: "店铺产品增加"
    		});
    		add_iframe_dialog.open();
@@ -83,10 +87,32 @@ var storeProductGrid = {};
    	function closeAdd(){
  		add_iframe_dialog.close();
    	}
-   	
+  	//修改的弹出框
+   	var edit_iframe_dialog;
+    function edit(){
+		var key = ICSS.utils.getSelectRowData("storeProductId");
+		if(key.indexOf(",")>-1||key==""){
+			showMessage("请选择一条数据！");
+			return ;
+		}
+		var url="<m:url value='/storeProduct/toEditStoreProduct.do'/>?key="+key;
+		edit_iframe_dialog = new biz.dialog({
+		 	id:$('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+			modal: true,
+			width: $(window).width()*0.8,
+			height: $(window).height()*0.8,
+			title: "店铺产品编辑"
+		});
+  		edit_iframe_dialog.open();
+    }
+    
+    //关闭编辑页面，供子页面调用
+    function closeEdit(){
+    	edit_iframe_dialog.close();
+    }
 	
     function delProFromStore(){
-    	rowid = storeProductGrid.getGridParam("selarrrow");
+    	rowid = gridObj.getGridParam("selarrrow");
     	if(rowid == null || rowid.length == 0){
 			showInfo("<m:message code='grid.delete.chooseColAlert'/>",3000);
 			return ;
@@ -97,7 +123,7 @@ var storeProductGrid = {};
 	    		}
 				var ids="";
 				for(var i=0; i < rowid.length;i++){
-					var id = storeProductGrid.getCell(rowid[i],'storeProductId');
+					var id = gridObj.getCell(rowid[i],'storeProductId');
 					if(i>0){
 						ids +=',';
 					}
@@ -124,13 +150,14 @@ var storeProductGrid = {};
 				<ul>
 				<li>
 				<span>关键字:</span>
-				<input type="text" name="storeName" id="storeName" class="search_choose" placeholder="店铺名称">
+				<input type="text" name="productClassName" id="productClassName" class="search_choose" placeholder="产品类名">
 				</li>
 				<li>
-				<input type="text" name="storeOwnerName" id="storeOwnerName" class="search_choose" placeholder="店长姓名">
+				<input type="text" name="productName" id="productName" class="search_choose" placeholder="产品名称">
 				</li>
 				<li>
-				<input type="text" name="storeAddress" id="storeAddress" class="search_choose" placeholder="店铺地址">
+					<select  name="productStatus" id="productStatus" class="search_select"></select>
+				<!-- <input type="text" name="productStatus" id="productStatus" class="search_choose" placeholder="产品状态"> -->
 				</li>
 				<li>
 				<input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置">
@@ -147,6 +174,11 @@ var storeProductGrid = {};
 					href="javascript:;" onclick="add();"> <i
 						class="icon_bg icon_add"> </i> <span><m:message
 								code="button.add" /></span>
+				</a></li>
+				<li><a title="<m:message code="button.edit"/>"
+					href="javascript:;" onclick="edit();"> <i
+						class="icon_bg icon_edit"> </i> <span><m:message
+								code="button.edit" /></span>
 				</a></li>
 				<li><a title="<m:message code="button.delete"/>"
 					href="javascript:;" onclick="delProFromStore();"> <i

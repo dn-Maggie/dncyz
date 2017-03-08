@@ -29,7 +29,7 @@
 		<result column="PLATFORM_STORE_SCORE" property="platformStoreScore" jdbcType="DOUBLE" />
 		<result column="MARKETING_MANAGER" property="marketingManager" jdbcType="VARCHAR" />
 		<result column="MARKETING_MANAGER_TEL" property="marketingManagerTel" jdbcType="VARCHAR" />
-		
+		<result column="user_group" property="userGroup" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		 	ID
@@ -59,6 +59,7 @@
 			,PLATFORM_STORE_SCORE
 			,MARKETING_MANAGER
 			,MARKETING_MANAGER_TEL
+			,user_group
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -84,7 +85,9 @@
 		<if test="userAccount != null and '' != userAccount">  
 			and USER_ACCOUNT LIKE CONCAT('%',#{userAccount,jdbcType=VARCHAR},'%')
 		</if>
-
+		<if test="userGroup != null and '' != userGroup">  
+			and user_group = #{userGroup,jdbcType=VARCHAR}
+		</if>
 		<if test="fullName != null and '' != fullName">  
 			and FULL_NAME LIKE CONCAT('%',#{fullName,jdbcType=VARCHAR},'%')
 		</if>
@@ -166,7 +169,6 @@
 	   set t.IS_ACTIVE=0 
 	   where t.ID = #{id,jdbcType=VARCHAR}
 	   and t.id &lt;&gt;'00000000-0000-0000-0000-000000000000'
-	
 	</update>
 	
 	<delete id="deleteByKey" parameterType="java.lang.Integer">
@@ -206,6 +208,7 @@
 			,#{platformStoreScore,jdbcType=DOUBLE}
 			,#{marketingManager,jdbcType=VARCHAR}
 			,#{marketingManagerTel,jdbcType=VARCHAR}
+			,#{userGroup,jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -237,6 +240,7 @@
 				,PLATFORM_STORE_SCORE = #{platformStoreScore,jdbcType=DOUBLE}
 				,MARKETING_MANAGER = #{marketingManager,jdbcType=VARCHAR}
 				,MARKETING_MANAGER_TEL = #{marketingManagerTel,jdbcType=VARCHAR}
+				,user_group = #{userGroup,jdbcType=VARCHAR}
 			where ID = #{id,jdbcType=VARCHAR}
 	</update>
 	

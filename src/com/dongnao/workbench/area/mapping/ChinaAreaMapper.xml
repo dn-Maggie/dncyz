@@ -19,4 +19,11 @@
 		where id !=0 
 		and Pid = #{pid,jdbcType=INTEGER}
 	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.area.model.ChinaArea">
+		select
+			<include refid="Base_Column_List" />
+		from CHINA_AREA
+		where id !=0 
+	</select>
 </mapper>

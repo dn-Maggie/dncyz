@@ -130,11 +130,20 @@ ExpExcel = {
 		htmlTmp += '<input type="hidden" id="pageSize" name="pageSize"/>';
 		htmlTmp += '<input type="hidden" id="orderFields" name="orderFields"/>';
 		htmlTmp += '<input type="hidden" id="order" name="order"/>';
-		htmlTmp += '<div style="height:140px;margin-left:44px; margin-top:16px;"><div style="height:32px; line-height:32px;"><input type="radio" checked="checked" name="expType" value="1" />导出当前页数据</div>';
+		htmlTmp += '<div style="height:100px;margin-left:44px; margin-top:16px;"><div style="height:32px; line-height:32px;"><input type="radio" checked="checked" name="expType" value="1" />导出当前页数据</div>';
 		htmlTmp += '<div style="height:32px; line-height:32px;"><input type="radio" name="expType" value="2" />导出全部数据</div></div>';
 		htmlTmp += '<div style="float:left;margin-left:46px;"><input type="button" id="cancel" class="search_btn4" value="取消">';
 		htmlTmp += '<input type="button" id="export" class="add_save" value="导出" /></div>';
 		htmlTmp += '</form>';
+		return htmlTmp;
+	},
+	createImportWinHtml : function() {
+		var htmlTmp = '';
+		htmlTmp += '<div style="height:100px;margin-left:44px; margin-top:16px;">';
+		htmlTmp += '<select class="search_select" id="platFormType"><option value="elm">饿了么</option><option value="meituan">美团</option><option value="baidu">百度</option></select></div>';
+		htmlTmp += '<div style="float:left;margin-left:46px;"><input type="button" id="cancel" class="search_btn4" value="取消">';
+		htmlTmp += '<input type="button" id="import" class="add_save" value="导入" onclick="$(\'#file\').click()"></div>';
+		htmlTmp += '<form name="form" id="form" method="post"  enctype="multipart/form-data"><input type="file" id="file" name="file" style="display: none" onchange="ExpExcel.importData()"/></form>';
 		return htmlTmp;
 	},
 	// Grid导出
@@ -148,8 +157,8 @@ ExpExcel = {
 			var columns = gridObj.jqGrid('getGridParam', 'colModel');
 			var queryPostDatas = getQueryCondition();
 			$.each(queryPostDatas, function(k, v) {
-						$(ExpExcel.createHidden(k, v)).appendTo(expExcelForm);
-					});
+				$(ExpExcel.createHidden(k, v)).appendTo(expExcelForm);
+			});
 			$('#orderFields').val(gridObj.jqGrid('getGridParam', 'sortname'));
 			$('#order').val(gridObj.jqGrid('getGridParam', 'sortorder'));
 			var page = gridObj.jqGrid('getGridParam', 'page');
@@ -165,7 +174,6 @@ ExpExcel = {
 	},
 	showWin : function(tableIdOrGridId, expUrl, type, queryForm) {
 		$("#excelExportDialogDiv").remove();
-		
 		var excelExportDialogDiv = $('<div id="excelExportDialogDiv">'
 				+ ExpExcel.createWinHtml() + '</div>');
 		$(document.body).append(excelExportDialogDiv);
@@ -177,18 +185,73 @@ ExpExcel = {
 		} else {
 
 		}
-
 		excelExportDialogDiv.find('#cancel').bind("click", function() {
-					excelExportDialogDiv.dialog("close");
-				});
+			excelExportDialogDiv.dialog("close");
+		});
 		excelExportDialogDiv.dialog({
-					height : 250,
-					width : 320,
-					autoOpen : false,
-					modal : true,
-					title : "导出选择"
-				});
+			height : 250,
+			width : 320,
+			autoOpen : false,
+			modal : true,
+			title : "导出选择"
+		});
 		excelExportDialogDiv.dialog("open");
+	},
+	showImportWin : function() {
+		$("#excelExportDialogDiv").remove();
+		var excelExportDialogDiv = $('<div id="excelExportDialogDiv">'
+				+ ExpExcel.createImportWinHtml() + '</div>');
+		$(document.body).append(excelExportDialogDiv);
+		excelExportDialogDiv.find('#cancel').bind("click", function() {
+			excelExportDialogDiv.dialog("close");
+		});
+		excelExportDialogDiv.dialog({
+			height : 250,
+			width : 320,
+			autoOpen : false,
+			modal : true,
+			title : "导入选择"
+		});
+		excelExportDialogDiv.dialog("open");
+	},
+	importData : function(){
+		if($('input[type="file"]').val()!=""){
+		var extend=$('input[type="file"]').val().substr($('input[type="file"]').val().lastIndexOf(".")+1);
+		if("xls|xlsx".indexOf(extend)==-1){//在字符串中xls|xlsx寻找后缀xls或者xlsx，有的话返回下标，没有就返回-1
+			 showInfo("选择的文件必须是EXCEL文件,请确认！",3000);
+         }else{ 
+        	 var plat = $("#platFormType").val();
+        	 switch (plat) {
+				case 'elm':
+					 ExpExcel.ajaxFileUpload(baseUrl+"/accountOrderDetail/emlorderDetailImport.do");
+					break;
+				case 'meituan':
+					 ExpExcel.ajaxFileUpload(baseUrl+"/accountOrderDetail/meituanorderDetailImport.do");
+					break;
+				case 'baidu':
+					 ExpExcel.ajaxFileUpload(baseUrl+"/accountOrderDetail/baiduorderDetailImport.do");
+					break;
+				default:
+					break;
+				}
+        	 }
+	 }else{
+		showInfo("请选择EXCEL文件！",3000);
+	 	} 
+	},
+	ajaxFileUpload:function(Url){
+		var options = {
+				url : Url,
+				type : "post",
+				dataType:"text",
+				success : function(d) {
+					if(d){showMessage("导入数据成功","","",function(){
+						gridObj.trigger('reloadGrid');
+					});}
+				},
+				error : function(d) {
+					showInfo(d.msg);},
+			};
+			$('#form').ajaxSubmit(options);
 	}
-
 }

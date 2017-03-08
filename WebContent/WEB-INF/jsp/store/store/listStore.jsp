@@ -42,18 +42,6 @@ var gridObj = {};
     			return obj;
     		}
       });
-        
-	new biz.datepicker({
-  			id : "#startDate",
-  			maxDate:'#F{$dp.$D(\'endDate\',{d:0});}',
-  			dateFmt:'yyyy-MM-dd'
-  		});
-  	    
-  	    new biz.datepicker({
-  			id : "#endDate",
-  			minDate:'#F{$dp.$D(\'startDate\',{d:0});}',
-  			dateFmt:'yyyy-MM-dd'
-  		});
     });
 
  

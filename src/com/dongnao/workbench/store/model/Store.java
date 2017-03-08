@@ -17,6 +17,7 @@ public class Store extends Model{
 				     * 店铺使用者ID
 				     **/
 							private String ownerUserId;
+							private String userGroup;
 		            /**
 	                 * 店铺ID(主键)
 	                 **/
@@ -110,7 +111,7 @@ public class Store extends Model{
 		   		
 		            /**
 	                 * 美团平台月销售单量
-	                 **/
+	                 **/	
 				   			private String meituanSale;
 		   		
 		            /**
@@ -121,16 +122,19 @@ public class Store extends Model{
 		            /**
 	                 * 饿了么平台佣金率
 	                 **/
+				   			private String elmId;
 				   			private String elmRate;
 		   		
 		            /**
 	                 * 美团平台佣金率
 	                 **/
+				   			private String meituanId;
 				   			private String meituanRate;
 		   		
 		            /**
 	                 * 百度平台佣金率
 	                 **/
+				   			private String baiduId;
 				   			private String baiduRate;
 		   		
 		            /**
@@ -554,6 +558,14 @@ public class Store extends Model{
 				this.elmRate = elmRate;
 			}
 
+			public String getElmId() {
+				return elmId;
+			}
+
+			public void setElmId(String elmId) {
+				this.elmId = elmId;
+			}
+
 			public String getMeituanRate() {
 				return meituanRate;
 			}
@@ -562,12 +574,28 @@ public class Store extends Model{
 				this.meituanRate = meituanRate;
 			}
 
+			public String getMeituanId() {
+				return meituanId;
+			}
+
+			public void setMeituanId(String meituanId) {
+				this.meituanId = meituanId;
+			}
+
 			public String getBaiduRate() {
 				return baiduRate;
 			}
 
 			public void setBaiduRate(String baiduRate) {
 				this.baiduRate = baiduRate;
+			}
+
+			public String getBaiduId() {
+				return baiduId;
+			}
+
+			public void setBaiduId(String baiduId) {
+				this.baiduId = baiduId;
 			}
 
 			public String getRegistrant() {
@@ -665,6 +693,14 @@ public class Store extends Model{
 
 			public void setCorporateWithidcardBack(String corporateWithidcardBack) {
 				this.corporateWithidcardBack = corporateWithidcardBack;
+			}
+
+			public String getUserGroup() {
+				return userGroup;
+			}
+
+			public void setUserGroup(String userGroup) {
+				this.userGroup = userGroup;
 			}
 		   		
 		

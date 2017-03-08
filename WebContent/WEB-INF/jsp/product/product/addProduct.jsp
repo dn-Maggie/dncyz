@@ -4,13 +4,14 @@
 <head>
 <%@ include file="../../common/header.jsp"%>
 <%@ include file="../../common/ace.jsp"%>
+<style>
+	.ace-file-input{width:180px;position: relative;height: 38px; line-height: 38px; margin:0; display:inline-block;float:left;}
+	.upload{margin-left: 15px;}
+</style>
 <script type="text/javascript">
 $(function() {
 	//select多选 初始化方法
-	$(".choose_select").chosen(); 
-	$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
-		$(this).prev().focus();
-	});
+	/*  $(".choose_select").chosen(); 
 	$('.number').ace_spinner({value:0,min:0,max:200000,step:1, touch_spinner: true, icon_up:'icon-caret-up', icon_down:'icon-caret-down'});
 	$('.timepicker').timepicker({
 		minuteStep: 1,
@@ -18,18 +19,18 @@ $(function() {
 		showMeridian: false
 	}).next().on(ace.click_event, function(){
 		$(this).prev().focus();
-	});
-	$('input[type="file"]').ace_file_input({
-		no_file:'请选择...',
-		btn_choose:'选择',
-		btn_change:'更换',
-		droppable:false,
-		onchange:null,
-		thumbnail:false,
-		whitelist:'gif|png|jpg|jpeg'
-		//blacklist:'exe|php'
-		//onchange:''
-		//
+	});  */
+	$('input[type="file"]').on('change',function(){
+    	$(this).parent().parent().find('.realImage_submit').val("上传");
+    	$(this).parent().parent().find('.path').val($(this).val());
+    	var extend=$(this).val().split('.').pop().toLowerCase();
+			if("gif|png|jpg|jpeg|svg".indexOf(extend)==-1){
+				 showInfo("请上传图片格式文件！",3000);
+				 $(this).parent().parent().find('.realImage_submit').prop("disabled",true);
+				 return;
+	         }else{
+	        	 $(this).parent().parent().find('.realImage_submit').prop("disabled",false);
+	         }
 	});
 	
 	new biz.select({//产品状态下拉
@@ -63,18 +64,18 @@ $(function() {
 		$('#productFormEdit').ajaxSubmit(options);
 	});
 
-	/*编辑表单数据验证*/
+	/* 
 	new biz.validate({
 		id:"#productFormEdit",
 		rules:{
 		}
-	}); 
+	});  */
 });
 </script>
 </head>
   
 <body>
-	<form id="productFormEdit" >
+	<!-- <form id="productFormEdit" > -->
     <div class="ui-table ui-widget ui-corner-all ui-border" >
 		<input type="hidden" id="edit_productId" name="productId" type="text" value="${product.productId}"/>
 		<table class="table">
@@ -96,7 +97,12 @@ $(function() {
 			<tr>
 				<td class="inputLabelTd">产品图片：</td>
 				<td class="inputTd">
-					<input id="edit_productImagePath" name="productImagePath" type="file" class="text" value="${product.productImagePath}"/>
+					<form method="post" id="realImageForm" target="realImageIframe" enctype="multipart/form-data" action="<%=request.getContextPath()%>/common/fileUpload">
+						<input id="image_storeName" name="image_storeName"  class="text" type="hidden" value="storeName"/><!-- 商铺名称作为文件夹名称 -->
+						<input type="file" class="text" name="image"/>
+						<input id="edit_productImagePath" name="productImagePath" type="hidden" class="path"/><!-- 数据库保存地址 -->
+						<input type="button" class="realImage_submit btn btn-xs spinner-up btn-success upload" value="上传" disabled><!--上传按钮-->
+					</form>
 				</td>
 				<td class="inputLabelTd">产品单价：</td>
 				<td class="inputTd">
@@ -121,6 +127,6 @@ $(function() {
 			</tr>
 		</table>
     </div>
-	</form>
+	<!-- </form> -->
 </body>
 </html>

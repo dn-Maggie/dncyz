@@ -12,7 +12,7 @@ GridColModelForMatter = {
 		case "0":return "否";
 		case "1":return "是";
 		default:
-			return "";
+			return "否";
 		}
 	},
 	// 产品状态

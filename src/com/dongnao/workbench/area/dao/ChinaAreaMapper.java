@@ -16,4 +16,5 @@ public interface ChinaAreaMapper  {
 	 * @return List<ChinaArea>: 实体对象的list
 	 */
 	public List<ChinaArea>  selectByPid(Integer pid);
+	public List<ChinaArea> listByCondition(ChinaArea chinaArea);
 }

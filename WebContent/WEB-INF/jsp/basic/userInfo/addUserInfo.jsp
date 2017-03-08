@@ -23,25 +23,10 @@
 		    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=status'/>",
 		    value:"${role.states}"
 		});
-		new biz.select({//状态下拉
+		/* new biz.select({//状态下拉
 		    id:"#edit_platformType",
 		    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=platformType'/>",
-		});
-		
-		$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
-			$(this).prev().focus();
-		});
-		$('.number').ace_spinner({value:0,min:0,max:200000,step:1, touch_spinner: true, icon_up:'icon-caret-up', icon_down:'icon-caret-down'});
-		$('.timepicker').timepicker({
-			minuteStep: 1,
-			showSeconds: true,
-			showMeridian: false
-		}).next().on(ace.click_event, function(){
-			$(this).prev().focus();
-		});
-		
-		//select多选 初始化方法
-		$(".choose_select").chosen(); 
+		}); */
 		$(".knob").knob();
 		
 		/*编辑表单数据验证*/
@@ -59,24 +44,19 @@
 		init();
 		//绑定提交按钮click事件
 		$(".submit").click(function() {
-			
-			this.disabled = true;
-			this.style.cursor ='not-allowed'
+			$(this).prop("disabled",true).css("cursor","not-allowed");
 			showMessage("正在处理...");
 			if (!biz.validate("valid", $("#"+this.id).parents('#userInfoFormAdd')[0])) {
 				showWarn("<m:message code='validation.object'/>", 3000);
-				this.disabled = false;
-				this.style.cursor ='pointer';
+				$(this).prop("disabled",false).css("cursor","pointer");
 				return;
 			}
-		 	var userAccount = $("#"+this.id).parents('#userInfoFormAdd').find('#edit_userAccount').val()
+		 	var userAccount = $(this).parents('#userInfoFormAdd').find('#edit_userAccount').val()
 			if (ajaxGetUserInfoByUserAccount(userAccount)) {
 				showMessage("登录账户已经存在，请重新输入.");
-				this.disabled = false;
-				this.style.cursor ='pointer';
+				$(this).prop("disabled",false).css("cursor","pointer");
 				return;
 			} 
-			
 			var options = {
 					url : "<m:url value='/userInfo/addUserInfo.do'/>",
 					type : "post",
@@ -93,7 +73,7 @@
 					}
 				};
 			// 将options传给ajaxForm
-			$("#"+this.id).parents('#userInfoFormAdd').ajaxSubmit(options);
+			$(this).parents('#userInfoFormAdd').ajaxSubmit(options);
 			
 		});
 	});
@@ -198,8 +178,6 @@
 					<td class="inputLabelTd">状态：</td>
 					<td class="inputTd">
 					<select id="edit_states1" name="states" class="search_select">
-					<!-- <option value="1">启用</option>
-					<option value="0">禁用</option> -->
 					</select></td>
 				</tr>
 				<tr>
@@ -211,12 +189,14 @@
 								<option value="${role.roleId}">${role.roleName}</option>
 							</c:forEach>
 					</select></td>
-					<td class="inputLabelTd">身份证图片：</td>
-					<td class="inputTd" colspan="3">
-						<!--<input id="idCardImgPath" name="idCardImgPath" type="hidden" class="text" value="${userInfo.idCardImgPath}" />--> 
-						<input id="fileData" name="idCardImgPath" type="hidden">
-						<input id="file" type="file" class="text" />
-					</td>
+					<td class="inputLabelTd">组别</td>
+					<td class="inputTd">
+					<select name="userGroup"
+						class="search_select">
+							<c:forEach var="userGroup" items="${userGroupList}">
+								<option value="${userGroup.id}" <c:if test="${userGroup.id==userGroupId}">selected</c:if>>${userGroup.groupName}</option>
+							</c:forEach>
+					</select></td>
 				</tr>
 				<tr>
 					<td class="inputTd" colspan="5" style="text-align: center;">
@@ -242,13 +222,20 @@
 							<input id="edit_storeId" name="storeId" type="hidden"/> 
 							<input id="fullName" name="fullName" type="hidden"/> 
 						</td>
-						<td class="inputLabelTd">平台类别：</td>
+						<td class="inputLabelTd">组别</td>
+							<td class="inputTd">
+							<select name="userGroup"
+								class="search_select">
+									<c:forEach var="userGroup" items="${userGroupList}">
+										<option value="${userGroup.id}" <c:if test="${userGroup.id==userGroupId}">selected</c:if>>${userGroup.groupName}</option>
+									</c:forEach>
+						</select></td>
+						<!-- <td class="inputLabelTd">平台类别：</td>
 						<td class="inputTd">
 							<select id="edit_platformType" name="platformType"
 							class="search_select">
 							</select>
-						</td>
-						
+						</td> -->
 					</tr>
 					<tr>
 						<td class="inputLabelTd">平台店铺序号：</td>
@@ -284,9 +271,7 @@
 					<td class="inputTd">
 					<select id="edit_roleId" name="roleId"
 						class="search_select">
-							<c:forEach var="role" items="${roleList}">
-								<option value="${role.roleId}">${role.roleName}</option>
-							</c:forEach>
+							<option value="${platformStoreRole.roleId}">${platformStoreRole.roleName}</option> 
 					</select></td>
 				</tr>
 				<tr>
@@ -296,8 +281,6 @@
 					<td class="inputLabelTd">状态：</td>
 					<td class="inputTd">
 					<select id="edit_states2" name="states" class="search_select">
-					<!-- <option value="1">启用</option>
-					<option value="0">禁用</option> -->
 					</select></td>
 				</tr>
 				<tr>

@@ -7,14 +7,6 @@
 
 <script type="text/javascript">
 $(function() {
-	
-	//select多选 初始化方法
-	$(".choose_select").chosen(); 
-	$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
-		$(this).prev().focus();
-	});
-	$('.number').ace_spinner({value:0,min:0,max:200000,step:1, touch_spinner: true, icon_up:'icon-caret-up', icon_down:'icon-caret-down'});
-	
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
 		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});showMessage("正在处理...");

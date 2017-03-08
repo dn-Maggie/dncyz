@@ -17,70 +17,96 @@
 									</resultMap>
 	<sql id="Base_Column_List">
 						 	id
-										,account_time
-										,elm_settlement
-										,baidu_settlement
-										,meituan_settlement
-										,total_settlement
-										,elm_cost
-										,baidu_cost
-										,meituan_cost
-										,actual_settlement
-										,remark
-										,store_id
+							,account_time
+							,elm_settlement
+							,baidu_settlement
+							,meituan_settlement
+							,total_settlement
+							,elm_cost
+							,baidu_cost
+							,meituan_cost
+							,actual_settlement
+							,remark
+							,store_id
 						</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
-		<include refid="Base_Column_List" />
-		from account_check
+			ac.id
+			,ac.account_time
+			,ac.elm_settlement
+			,ac.baidu_settlement
+			,ac.meituan_settlement
+			,ac.total_settlement
+			,ac.elm_cost
+			,ac.baidu_cost
+			,ac.meituan_cost
+			,ac.actual_settlement
+			,ac.remark
+			,ac.store_id
+			,s.STORE_NAME as storeName
+		from account_check as ac
+		left join dn_store as s on s.STORE_ID = ac.store_id
 		where id = #{id,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountCheck">
 		select
-		<include refid="Base_Column_List" />
-		from account_check
+			ac.id
+			,ac.account_time
+			,ac.elm_settlement
+			,ac.baidu_settlement
+			,ac.meituan_settlement
+			,ac.total_settlement
+			,ac.elm_cost
+			,ac.baidu_cost
+			,ac.meituan_cost
+			,ac.actual_settlement
+			,ac.remark
+			,ac.store_id
+			,s.STORE_NAME as storeName
+		from account_check as ac
+		left join dn_store as s on s.STORE_ID = ac.store_id
 		where 1=1
 		<if test="id != null and '' != id">  
-			and id = #{id,jdbcType=VARCHAR}
+			and ac.id = #{id,jdbcType=VARCHAR}
 		</if>
 		<if test="accountTime != null and '' != accountTime">  
-			and account_time = #{accountTime,jdbcType=DATE}
+			and ac.account_time = #{accountTime,jdbcType=DATE}
 		</if>
 		<if test="elmSettlement != null and '' != elmSettlement">  
-			and elm_settlement = #{elmSettlement,jdbcType=DOUBLE}
+			and ac.elm_settlement = #{elmSettlement,jdbcType=DOUBLE}
 		</if>
 		<if test="baiduSettlement != null and '' != baiduSettlement">  
-			and baidu_settlement = #{baiduSettlement,jdbcType=DOUBLE}
+			and ac.baidu_settlement = #{baiduSettlement,jdbcType=DOUBLE}
 		</if>
 		<if test="meituanSettlement != null and '' != meituanSettlement">  
-			and meituan_settlement = #{meituanSettlement,jdbcType=DOUBLE}
+			and ac.meituan_settlement = #{meituanSettlement,jdbcType=DOUBLE}
 		</if>
 		<if test="totalSettlement != null and '' != totalSettlement">  
-			and total_settlement = #{totalSettlement,jdbcType=DOUBLE}
+			and ac.total_settlement = #{totalSettlement,jdbcType=DOUBLE}
 		</if>
 		<if test="elmCost != null and '' != elmCost">  
-			and elm_cost = #{elmCost,jdbcType=DOUBLE}
+			and ac.elm_cost = #{elmCost,jdbcType=DOUBLE}
 		</if>
 		<if test="baiduCost != null and '' != baiduCost">  
-			and baidu_cost = #{baiduCost,jdbcType=DOUBLE}
+			and ac.baidu_cost = #{baiduCost,jdbcType=DOUBLE}
 		</if>
 		<if test="meituanCost != null and '' != meituanCost">  
-			and meituan_cost = #{meituanCost,jdbcType=DOUBLE}
+			and ac.meituan_cost = #{meituanCost,jdbcType=DOUBLE}
 		</if>
 		<if test="actualSettlement != null and '' != actualSettlement">  
-			and actual_settlement = #{actualSettlement,jdbcType=DOUBLE}
+			and ac.actual_settlement = #{actualSettlement,jdbcType=DOUBLE}
 		</if>
 		<if test="remark != null and '' != remark">  
-			and remark = #{remark,jdbcType=VARCHAR}
+			and ac.remark = #{remark,jdbcType=VARCHAR}
 		</if>
 		<if test="storeId != null and '' != storeId">  
-			and store_id = #{storeId,jdbcType=VARCHAR}
+			and ac.store_id = #{storeId,jdbcType=VARCHAR}
 		</if>
-				<if test="orderFields != null and '' != orderFields">  
+		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
-         	</if>
+       	</if>
 	</select>
 	
 	<delete id="deleteByKey" parameterType="java.lang.String">
@@ -92,35 +118,36 @@
 		insert into account_check (
 		<include refid="Base_Column_List" />
 		)values (
-										#{id,jdbcType=VARCHAR}
-														,#{accountTime,jdbcType=DATE}
-														,#{elmSettlement,jdbcType=DOUBLE}
-														,#{baiduSettlement,jdbcType=DOUBLE}
-														,#{meituanSettlement,jdbcType=DOUBLE}
-														,#{totalSettlement,jdbcType=DOUBLE}
-														,#{elmCost,jdbcType=DOUBLE}
-														,#{baiduCost,jdbcType=DOUBLE}
-														,#{meituanCost,jdbcType=DOUBLE}
-														,#{actualSettlement,jdbcType=DOUBLE}
-														,#{remark,jdbcType=VARCHAR}
-														,#{storeId,jdbcType=VARCHAR}
-									)
+				#{id,jdbcType=VARCHAR}
+				,#{accountTime,jdbcType=DATE}
+				,#{elmSettlement,jdbcType=DOUBLE}
+				,#{baiduSettlement,jdbcType=DOUBLE}
+				,#{meituanSettlement,jdbcType=DOUBLE}
+				,#{totalSettlement,jdbcType=DOUBLE}
+				,#{elmCost,jdbcType=DOUBLE}
+				,#{baiduCost,jdbcType=DOUBLE}
+				,#{meituanCost,jdbcType=DOUBLE}
+				,#{actualSettlement,jdbcType=DOUBLE}
+				,#{remark,jdbcType=VARCHAR}
+				,#{storeId,jdbcType=VARCHAR}
+			)
 	</insert>
+	
 	
 	<update id="update" parameterType="com.dongnao.workbench.finance.model.AccountCheck">
 		update account_check  set
-		ID= #{id,jdbcType=VARCHAR}
-													,account_time = #{accountTime,jdbcType=DATE}
-											,elm_settlement = #{elmSettlement,jdbcType=DOUBLE}
-											,baidu_settlement = #{baiduSettlement,jdbcType=DOUBLE}
-											,meituan_settlement = #{meituanSettlement,jdbcType=DOUBLE}
-											,total_settlement = #{totalSettlement,jdbcType=DOUBLE}
-											,elm_cost = #{elmCost,jdbcType=DOUBLE}
-											,baidu_cost = #{baiduCost,jdbcType=DOUBLE}
-											,meituan_cost = #{meituanCost,jdbcType=DOUBLE}
-											,actual_settlement = #{actualSettlement,jdbcType=DOUBLE}
-											,remark = #{remark,jdbcType=VARCHAR}
-											,store_id = #{storeId,jdbcType=VARCHAR}
-							where id = #{id,jdbcType=VARCHAR}
+			ID= #{id,jdbcType=VARCHAR}
+			,account_time = #{accountTime,jdbcType=DATE}
+			,elm_settlement = #{elmSettlement,jdbcType=DOUBLE}
+			,baidu_settlement = #{baiduSettlement,jdbcType=DOUBLE}
+			,meituan_settlement = #{meituanSettlement,jdbcType=DOUBLE}
+			,total_settlement = #{totalSettlement,jdbcType=DOUBLE}
+			,elm_cost = #{elmCost,jdbcType=DOUBLE}
+			,baidu_cost = #{baiduCost,jdbcType=DOUBLE}
+			,meituan_cost = #{meituanCost,jdbcType=DOUBLE}
+			,actual_settlement = #{actualSettlement,jdbcType=DOUBLE}
+			,remark = #{remark,jdbcType=VARCHAR}
+			,store_id = #{storeId,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
 	</update>
 </mapper>

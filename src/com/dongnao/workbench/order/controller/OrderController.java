@@ -1,23 +1,28 @@
 package com.dongnao.workbench.order.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dongnao.workbench.common.page.Page;
-import com.dongnao.workbench.common.util.AjaxUtils;
-import com.dongnao.workbench.common.util.Utils;
-import com.dongnao.workbench.common.util.FormatEntity;
-import com.dongnao.workbench.order.model.Order;
-import com.dongnao.workbench.order.service.OrderService;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.dongnao.workbench.common.page.Page;
+import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.common.util.FormatEntity;
+import com.dongnao.workbench.common.util.Utils;
+import com.dongnao.workbench.order.model.Order;
+import com.dongnao.workbench.order.service.OrderService;
+
+import net.sf.json.JSONObject;
 
 
 /**
@@ -136,4 +141,52 @@ public class OrderController{
 				response,orderService.update(order));	
 	}
 	
+	@RequestMapping("/testOrder")
+	public void test(HttpServletRequest request,HttpServletResponse response){
+		int a = new java.util.Random().nextInt(10);
+		if(a%10>5){
+			//返回某个订单
+			int b = new java.util.Random().nextInt(10);
+			//b+".json"
+			String fullFileName = "E:/"+b+".json";
+			File file = new File(fullFileName);
+	        Scanner scanner = null;
+	        StringBuilder buffer = new StringBuilder();
+	        try {
+	            scanner = new Scanner(file, "utf-8");
+	            while (scanner.hasNextLine()) {
+	                buffer.append(scanner.nextLine());
+	            }
+	        } catch (FileNotFoundException e) {
+	            // TODO Auto-generated catch block  
+	        } finally {
+	            if (scanner != null) {
+	                scanner.close();
+	            }
+	        }
+	        JSONObject jsonObj = JSONObject.fromObject(buffer.toString());
+	        AjaxUtils.sendAjaxForObject(response,jsonObj);	
+		}else{
+			String fullFileName = "E:/null.json";
+			File file = new File(fullFileName);
+	        Scanner scanner = null;
+	        StringBuilder buffer = new StringBuilder();
+	        try {
+	            scanner = new Scanner(file, "utf-8");
+	            while (scanner.hasNextLine()) {
+	                buffer.append(scanner.nextLine());
+	            }
+	 
+	        } catch (FileNotFoundException e) {
+	            // TODO Auto-generated catch block  
+	 
+	        } finally {
+	            if (scanner != null) {
+	                scanner.close();
+	            }
+	        }
+	        JSONObject jsonObj = JSONObject.fromObject(buffer.toString());
+	        AjaxUtils.sendAjaxForObject(response,jsonObj);	
+		}
+	}
 }

@@ -175,9 +175,9 @@ var gridObj = {};
 					<span>关键字:</span>
 					<input type="text" name="storeName" id="storeName" class="search_choose" placeholder="店铺名称">
 					</li>
-				<li><input type="text" name="storeOwnerName" id="storeOwnerName" class="search_choose" placeholder="店长姓名">
+				<li>	<input type="text" name="activityType" id="activityType" class="search_choose" placeholder="活动类型">
 				</li>
-				<li>	<input type="text" name="storeAddress" id="storeAddress" class="search_choose" placeholder="店铺地址">
+				<li><input type="text" name="activityName" id="activityName" class="search_choose" placeholder="活动名称">
 				</li>
 				<li>
 					<input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置">
