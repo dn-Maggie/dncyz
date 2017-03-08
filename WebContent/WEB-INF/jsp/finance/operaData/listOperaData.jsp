@@ -9,34 +9,52 @@ var gridObj = {};
 	$(function(){
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/accountOperateIncome/listAccountOperateIncome.do'/>",/*grid初始化请求数据的远程地址*/
+            url: "<m:url value='/accountOrderDetail/listOperaData.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
-           	sortname:"id",
+           	sortname:"create_time",
            	sortorder:"asc",
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
     		rowNum:10,//默认显示15条
             colModel:[
-				{name : "id",hidden : true,key : true,label:"主键",index : "id"},	
-				{name : "createDate",label:"品牌",index : "create_date"},
-				{name : "storeName",label:"店铺",index : "store_name"},
-				{name : "createDate",label:"日期",index : "create_date"},
-				{name : "storeType",label:"店铺类型"},	
-				{name : "storeWorkTime",label:"营业时间"},		
-				{name : "invalidNum",label:"无效单",index : "invalid_num"},				
-				{name : "validNum",label:"有效单",index : "valid_num"},		
-				{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount"},				
-				{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable"},		
-				{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable"},				
-				{name : "cyzAllIncome",label:"公司收入",index : "cyz_all_income"},				
-				{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit"},				
-				{name : "shouldDistributionCharge",label:"收取自配送金额",index : "should_distribution_charge"},				
-				{name : "cyzDistributionChargeActual",label:"按10元/单自配送金额",index : "cyz_distribution_charge_actual"},				
-				{name : "diffDistributionCharge",label:"按10元/单自配送金额补差",index : "diff_distribution_charge"},				
-				{name : "platformSubsidy",label:"平台补贴",index : "platform_subsidy"},		
+				{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
+				{name : "createDate",label:"日期",index : "create_date"},				
+				{name : "createTime",label:"订单时点",index : "create_time"},				
+				{name : "orderNo",label:"订单编号",index : "order_no"},				
+				{name : "orginPrice",label:"原价",index : "orgin_price"},				
+				{name : "discountPrice",label:"菜品折扣",index : "discount_price"},				
+				{name : "afterDiscountPrice",label:"折扣后菜价格",index : "after_discount_price"},				
+				{name : "actualPrice",label:"结算特价",index : "actual_price"},				
+				{name : "orderDistributionCharge",label:"订单上收取客户配送费",index : "order_distribution_charge"},				
+				{name : "platformDistributionCharge",label:"平台收取客户配送费",index : "platform_distribution_charge"},				
+				{name : "cyzDistributionCharge",label:"公司收取客户配送费",index : "cyz_distribution_charge"},				
+				{name : "cyzActivitiesCharge",label:"公司承担线上活动费",index : "cyz_activities_charge"},	
+				{name : "platformActivitiesCharge",label:"平台承担线上活动费",index : "platform_activities_charge"},
 				{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge"},		
-				{name : "actualProfit",label:"实际运营毛利(销售毛利-补差-服务费)",index : "platform_subsidy"},
-				{name : "platformType",label:"平台类型",index : "platform_type"},		
+				/* {name : "invalidNum",label:"无效单",index : "invalid_num"},				
+				{name : "validNum",label:"有效单",index : "valid_num"},	 */			
+				{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount"},				
+				{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable"},				
+				{name : "seventypProductSaleAmount",label:"70%结算金额",index : "seventyP_product_sale_amount"},				
+				/* {name : "discountBackCommission",label:"折扣菜退还佣金",index : "discount_back_commission"},		 */		
+				{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable"},				
+				{name : "cyzServiceCharge",label:"公司收取店铺服务费",index : "cyz_service_charge"},				
+				{name : "distributionActualPayment",label:"自配送实际支付金额",index : "distribution_actual_payment"},
+				/* {name : "cyzAllIncome",label:"公司收入",index : "cyz_all_income"},	 */			
+				{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit"},				
+				{name : "saleGrossProfitRate",label:"毛利率",index : "sale_gross_profit_rate"},				
+				/* {name : "shouldDistributionCharge",label:"应收取自配送金额",index : "should_distribution_charge"},				
+				{name : "cyzDistributionChargeActual",label:"实际按10元/单自配送金额",index : "cyz_distribution_charge_actual"},				
+				{name : "diffDistributionCharge",label:"按10元/单自配送金额补差",index : "diff_distribution_charge"},				
+				{name : "platformSubsidy",label:"平台补贴服务费",index : "platform_subsidy"},				
+				{name : "actual",label:"实际运营毛利(销售毛利-补差-服务费)",index : "platform_subsidy"}, */
+				{name : "platformType",label:"平台类型",index : "platform_type",
+					formatter:function(cellvalue, options, rowObject){
+		 				 if (cellvalue=='elm') {return '饿了么';}
+		 				 else if (cellvalue=='meituan'){return '美团';}
+		 				 else if (cellvalue=='baidu'){return '百度';}
+				}},				
+				/* {name : "storeId",label:"店铺ID",index : "store_id"}		 */		
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -173,20 +191,20 @@ var gridObj = {};
 						<input type="text" class="search_time150" name="actTime" id="actTime"><!-- 时间选择控件-->
 						<i class="search_time_ico2" ></i>
 						</div></li>
-				<li >
+				<li class="date_area">
+					<span>创建时间:</span>
 					<div class="time_bg">
-						<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" placeholder="订单时点起">
+						<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']">
 						<i class="search_time_ico2"></i>
 					</div>
+					<i>至</i>
 					<div class="time_bg">
-						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" placeholder="订单时点止">
+						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" >
 						<i class="search_time_ico2"></i>
 					</div></li>	
-				 <li>
-				 <select class="search_select" name="platformType" id="platformType" >
-				 <option value="">--请选择--</option>
-				 </select>
-				<span>平台:</span></li><!--下拉 -->
+				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
+					 <option value="elm">饿了么</option><option value="meituan">美团</option>
+					</select><span>平台类型:</span></li><!--下拉 -->
 				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
 						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
 				</ul>

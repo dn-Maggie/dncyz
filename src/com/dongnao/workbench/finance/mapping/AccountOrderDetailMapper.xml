@@ -31,6 +31,7 @@
 			<result column="platform_activities_subsidies" property="platformActivitiesSubsidies" jdbcType="DECIMAL" />
 			<result column="platform_subsidy_vouchers" property="platformSubsidyVouchers" jdbcType="DECIMAL" />
 			<result column="platform_type" property="platformType" jdbcType="VARCHAR" />
+			<result column="is_invalid" property="isInvalid" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 	 	id
@@ -62,6 +63,7 @@
 		,platform_activities_subsidies
 		,platform_subsidy_vouchers
 		,platform_type
+		,is_invalid
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -97,7 +99,10 @@
 		<if test="orderTime != null and '' != orderTime">  
 			and order_time = #{orderTime,jdbcType=TIMESTAMP}
 		</if>
-		<!-- <if test="null != propsMap.startDate and propsMap.startDate != ''">
+		<if test="isInvalid != null and '' != isInvalid">  
+			and is_invalid = #{isInvalid,jdbcType=TIMESTAMP}
+		</if>
+		 <if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
 				and DATE_FORMAT(order_time,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
 			]]>
@@ -106,7 +111,7 @@
 			<![CDATA[
 				and DATE_FORMAT(order_time,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
 			]]>
-		</if> -->
+		</if> 
 		<if test="overTime != null and '' != overTime">  
 			and over_time = #{overTime,jdbcType=TIMESTAMP}
 		</if>
@@ -189,6 +194,7 @@
 				,#{platformActivitiesSubsidies,jdbcType=DECIMAL}
 				,#{platformSubsidyVouchers,jdbcType=DECIMAL}
 				,#{platformType,jdbcType=VARCHAR}
+				,#{isInvalid,jdbcType=VARCHAR}
 			)
 	</insert>
 	
@@ -223,6 +229,7 @@
 				,platform_activities_subsidies
 				,platform_subsidy_vouchers
 				,platform_type
+				,is_invalid
 		)values
 		<foreach collection="list" item="item" index="index" separator="," >
 		 (
@@ -255,6 +262,7 @@
 				,#{item.platformActivitiesSubsidies,jdbcType=DECIMAL}
 				,#{item.platformSubsidyVouchers,jdbcType=DECIMAL}
 				,#{item.platformType,jdbcType=VARCHAR}
+				,#{item.isInvalid,jdbcType=VARCHAR}
 		)
 		</foreach>
 	</insert>
@@ -291,6 +299,7 @@
 		,platform_activities_subsidies = #{platformActivitiesSubsidies,jdbcType=DECIMAL}
 		,platform_subsidy_vouchers = #{platformSubsidyVouchers,jdbcType=DECIMAL}
 		,platform_type = #{platformType,jdbcType=VARCHAR}
+		,is_invalid = #{isInvalid,jdbcType=VARCHAR}
 	where id = #{id,jdbcType=VARCHAR}
 	</update>
 </mapper>

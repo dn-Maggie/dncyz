@@ -19,6 +19,10 @@ public class AccountOrderDetail extends Model{
 	                 * 账单ID
 	                 **/
 				   			private String id;
+				   			/**
+			                 * 是否为有效单
+			                 **/
+				   			private String isInvalid;
 		   		
 		            /**
 	                 * 创建日期
@@ -589,6 +593,14 @@ public class AccountOrderDetail extends Model{
 
 			public void setPlatformSubsidyVouchers(BigDecimal platformSubsidyVouchers) {
 				this.platformSubsidyVouchers = platformSubsidyVouchers;
+			}
+
+			public String getIsInvalid() {
+				return isInvalid;
+			}
+
+			public void setIsInvalid(String isInvalid) {
+				this.isInvalid = isInvalid;
 			}
 
 		   		

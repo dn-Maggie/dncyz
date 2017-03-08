@@ -1,6 +1,7 @@
 package com.dongnao.workbench.finance.dao;
 
 import java.util.List;
+
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
 /**
  * 描述：订单明细模块dao接口，提供数据库操作方法
@@ -43,4 +44,5 @@ public interface AccountOrderDetailMapper  {
 	public void update(AccountOrderDetail accountOrderDetail);
 
 	public int addOrderDetail(List<AccountOrderDetail> orderDetailList);
+
 }

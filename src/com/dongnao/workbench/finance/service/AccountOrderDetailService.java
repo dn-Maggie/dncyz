@@ -3,6 +3,7 @@ package com.dongnao.workbench.finance.service;
 import java.util.ArrayList;
 import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
+import com.dongnao.workbench.finance.model.AccountOperateIncome;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
 
 /**
@@ -49,4 +50,6 @@ public interface AccountOrderDetailService  {
 	 * @param bidAnalysis:实体类
 	 */
 	public int addOrderDetail(List<AccountOrderDetail> orderDetailList);
+
+	public List<AccountOperateIncome> listByConditionFromOrderDetail(AccountOrderDetail accountOrderDetail);
 }

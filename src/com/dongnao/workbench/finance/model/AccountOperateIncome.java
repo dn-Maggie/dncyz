@@ -2,6 +2,8 @@ package com.dongnao.workbench.finance.model;
 
 import java.util.Date;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import com.dongnao.workbench.common.bean.Model;
 /**
@@ -28,7 +30,7 @@ public class AccountOperateIncome extends Model{
 	                 * 订单时点
 	                 **/
 					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-							private Date createTime;
+							private Timestamp createTime;
 					
 		            /**
 	                 * 订单编号
@@ -217,7 +219,7 @@ public class AccountOperateIncome extends Model{
 			 * 获取 订单时点
 			 * @return Date this.createTime
 			 */
-			public Date getCreateTime(){
+			public Timestamp getCreateTime(){
 				return this.createTime;
 			}
 			
@@ -225,7 +227,7 @@ public class AccountOperateIncome extends Model{
 			 * 设置 订单时点
 			 * @param Date createTime 
 			 */
-			public void setCreateTime(Date createTime){
+			public void setCreateTime(Timestamp createTime){
 				this.createTime = createTime;
 			}
 						
@@ -244,10 +246,6 @@ public class AccountOperateIncome extends Model{
 			public void setOrderNo(String orderNo){
 				this.orderNo = orderNo;
 			}
-		   		
-		
-		
-			
 						
 		  			/**
 			 * 获取 原价

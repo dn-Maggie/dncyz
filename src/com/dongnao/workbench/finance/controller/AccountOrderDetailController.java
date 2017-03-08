@@ -25,6 +25,7 @@ import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.common.util.StringUtil;
+import com.dongnao.workbench.finance.model.AccountOperateIncome;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.service.AccountOrderDetailService;
 import com.dongnao.workbench.staticAnalysis.model.DemandAnalysis;
@@ -134,7 +135,7 @@ public class AccountOrderDetailController{
 	public void listOperaData(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		accountOrderDetail.setPage(page);	
-		List<AccountOrderDetail> list = accountOrderDetailService.listByCondition(accountOrderDetail);
+		List<AccountOperateIncome> list = accountOrderDetailService.listByConditionFromOrderDetail(accountOrderDetail);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
@@ -229,6 +230,7 @@ public class AccountOrderDetailController{
 				orderDetail.setPlatformActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(21))));
 				orderDetail.setPlatformSubsidyVouchers(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(22))));
 				orderDetail.setPlatformType("elm");
+				orderDetail.setIsInvalid("0"); //是否为无效单
             	orderDetailList.add(orderDetail);
             }catch(Exception e){
             	e.printStackTrace();
@@ -266,7 +268,8 @@ public class AccountOrderDetailController{
 				orderDetail.setStoreMTId(StringUtil.valueOf(lo.get(4)));
 				orderDetail.setStoreName(StringUtil.valueOf(lo.get(3)));
 				orderDetail.setCheckNo(""); //美团数据无账单编号
-				orderDetail.setOrderType(StringUtil.valueOf(lo.get(7))); //美团订单状态 （订单完成 /订单取消）
+				orderDetail.setIsInvalid(StringUtil.valueOf(lo.get(7)).equals("订单取消")?"1":"0"); //是否为无效单
+				orderDetail.setOrderType(StringUtil.valueOf(lo.get(9)).equals("是")?"预定单":"普通单"); //美团订单状态 （预定单 /普通单）
 				orderDetail.setOrderTime(lo.get(1).toString().length()==0?new Timestamp(0):new Timestamp(DateUtil.parseStringToyyyyMMddHHmmss(StringUtil.valueOf(lo.get(1))).getTime()));//美团下单时间
 				orderDetail.setOverTime(lo.get(29).toString().length()==0?new Timestamp(0):new Timestamp(DateUtil.parseStringToyyyyMMddHHmmss(StringUtil.valueOf(lo.get(29))).getTime())); //订单完成时间
 				orderDetail.setOrderIndex("");//美团数据无接单序号
@@ -278,28 +281,31 @@ public class AccountOrderDetailController{
 				orderDetail.setMealFee(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(27))));//餐盒费
 				orderDetail.setGiftAllowance(new BigDecimal(0)); //赠品补贴
 				orderDetail.setMerchantActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf("-"+lo.get(13))));//订单商家承担活动金额
+				orderDetail.setPlatformActivitiesSubsidies(StringUtil.stringToDecimal(lo.get(12)));//订单美团承担活动金额*/	
 				orderDetail.setMerchantSubsidyVouchers(new BigDecimal(0)); //商户代金券补贴
-				orderDetail.setMerchantDistCharge(new BigDecimal(0));//商户承担配送费
-				orderDetail.setPlatformDistCharge(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(15))));//平台承担配送费
 				orderDetail.setServiceRate("");//服务费费率*/
 				orderDetail.setServiceCharge(lo.get(31).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(31)))); //服务费
 				orderDetail.setRefundAmount("");
+				
+				orderDetail.setDistributionMode(StringUtil.valueOf(lo.get(32))); //配送方式
+				orderDetail.setMerchantDistCharge(
+						StringUtil.valueOf(lo.get(32)).equals("平台配送")?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(15))));//商户承担配送费
+				orderDetail.setPlatformDistCharge(
+						StringUtil.valueOf(lo.get(32)).equals("平台配送")?
+								StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(15))):new BigDecimal(0));//平台承担配送费
+				orderDetail.setRemark("");//备注
+				//结算金额 = 订单总金额-平台配送费 -菜品折扣（订单商家承担活动金额）-服务费+商户配送费（自配送）
 				orderDetail.setSettlementAmount(
 						StringUtil.stringToDecimal(lo.get(10)).subtract(
-								(StringUtil.stringToDecimal(lo.get(15)).add(StringUtil.stringToDecimal(lo.get(13))))
-						).add(lo.get(31).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(31))))); //订单总金额-配送费 -菜品折扣（订单商家承担活动金额）-服务费
-				orderDetail.setDistributionMode(""); //配送方式
-				orderDetail.setRemark("");//备注
-				orderDetail.setPlatformActivitiesSubsidies(StringUtil.stringToDecimal(lo.get(12)));//订单美团承担活动金额*/	
+								(orderDetail.getPlatformDistCharge().add(StringUtil.stringToDecimal(lo.get(13))))
+						).add(lo.get(31).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(31)))).add(orderDetail.getMerchantDistCharge())); 
 				orderDetail.setPlatformType("meituan");
-				/*orderDetail.setMtSubsidyVouchers(new BigDecimal(0));*/
             	orderDetailList.add(orderDetail);
             }catch(ParseException e){
             	e.printStackTrace();
             	Map<String, String> map = new HashMap<String, String>();
         		map.put("msg", "失败");
         		AjaxUtils.sendAjaxForMap(response, map);
-            	/*orderDetailList.add(orderDetail);*/
             }
         }  
         response.setCharacterEncoding("utf-8");  //防止ajax接受到的中文信息乱码  

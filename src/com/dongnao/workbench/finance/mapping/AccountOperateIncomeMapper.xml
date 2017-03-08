@@ -250,141 +250,113 @@
        	</if>
 	</select>
 	
-	<select id="listByConditionFromOrderDetail" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOperateIncome">
-		select
-			oi.id
-			,oi.create_date
-			,oi.create_time
-			,oi.order_no
-			,oi.orgin_price
-			,oi.discount_price
-			,oi.after_discount_price
-			,oi.actual_price
-			,oi.order_distribution_charge
-			,oi.platform_distribution_charge
-			,oi.cyz_distribution_charge
-			,oi.invalid_num
-			,oi.valid_num
-			,oi.product_sale_amount
-			,oi.amount_receivable
-			,oi.seventyP_product_sale_amount
-			,oi.discount_back_commission
-			,oi.amount_payable
-			,oi.cyz_service_charge
-			,oi.cyz_activities_charge
-			,oi.cyz_all_income
-			,oi.sale_gross_profit
-			,oi.sale_gross_profit_rate
-			,oi.distribution_actual_payment
-			,oi.platform_activities_charge
-			,oi.platform_service_charge
-			,oi.should_distribution_charge
-			,oi.cyz_distribution_charge_actual
-			,oi.diff_distribution_charge
-			,oi.platform_subsidy
-			,oi.platform_type
-			,oi.store_id
-		from account_operate_income as oi
-		left join dn_store as s on s.STORE_ID =  oi.store_id
-		where 1=1
-		<if test="id != null and '' != id">  
-			and oi.id = #{id,jdbcType=VARCHAR}
+	<select id="listByConditionFromOrderDetail" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
+		SELECT
+			od.id,
+			od.create_date AS create_date,
+			od.order_time AS create_time,
+			od.order_no AS order_no,
+			(od.prices + od.meal_fee) AS orgin_price,
+			-(od.merchant_activities_subsidies - od.activities_subsidy_bycompany) AS discount_price,
+			od.food_discount AS after_discount_price,
+			od.special_offer AS actual_price,
+			od.platform_dist_charge AS order_distribution_charge,
+			od.platform_dist_charge AS platform_distribution_charge,
+			od.merchant_dist_charge AS cyz_distribution_charge, 
+			od.activities_subsidy_bycompany AS cyz_activities_charge, 
+			od.platform_activities_subsidies AS platform_activities_charge,
+			-od.service_charge AS platform_service_charge,
+			(od.prices + od.meal_fee + od.merchant_activities_subsidies - od.activities_subsidy_bycompany) AS product_sale_amount,  
+			od.settlement_amount AS amount_receivable, 
+			(od.prices + od.meal_fee + od.merchant_activities_subsidies - od.activities_subsidy_bycompany - od.food_discount)* 0.7 AS seventyP_product_sale_amount,
+			(od.prices + od.meal_fee + od.merchant_activities_subsidies - od.activities_subsidy_bycompany - od.food_discount) * 0.7 + od.food_discount AS amount_payable, 
+			(od.prices + od.meal_fee + od.merchant_activities_subsidies - od.activities_subsidy_bycompany - od.food_discount) * 0.3 AS cyz_service_charge,
+			'待确认' AS distribution_actual_payment,
+			(od.prices + od.meal_fee + od.merchant_activities_subsidies - od.activities_subsidy_bycompany) - od.activities_subsidy_bycompany + od.service_charge -
+			((od.prices + od.meal_fee + od.merchant_activities_subsidies - od.activities_subsidy_bycompany - od.food_discount) * 0.7 + od.food_discount) AS sale_gross_profit,
+			((od.prices + od.meal_fee + od.merchant_activities_subsidies - od.activities_subsidy_bycompany) - od.activities_subsidy_bycompany + od.service_charge -
+			((od.prices + od.meal_fee + od.merchant_activities_subsidies - od.activities_subsidy_bycompany - od.food_discount) * 0.7 + od.food_discount))/ 
+			((od.prices + od.meal_fee + od.merchant_activities_subsidies - od.activities_subsidy_bycompany - od.food_discount) * 0.3)
+			AS sale_gross_profit_rate,
+			od.order_no AS remark,
+			od.store_name,
+			od.platform_type AS platform_type,
+			(CASE WHEN od.platform_type = "meituan" THEN od.store_MT_id WHEN od.platform_type like "elm" THEN od.store_ELM_id END) as store_id
+		 	FROM
+				account_order_detail AS od
+			where 1=1
+	<if test="id != null and '' != id">  
+			and od.id = #{id,jdbcType=VARCHAR}
 		</if>
 		<if test="createDate != null and '' != createDate">  
-			and oi.create_date = #{createDate,jdbcType=DATE}
-		</if>
-		<if test="createTime != null and '' != createTime">  
-			and oi.create_time = #{createTime,jdbcType=TIMESTAMP}
-		</if>
-		<if test="orderNo != null and '' != orderNo">  
-			and oi.order_no = #{orderNo,jdbcType=VARCHAR}
-		</if>
-		<if test="orginPrice != null and '' != orginPrice">  
-			and oi.orgin_price = #{orginPrice,jdbcType=DECIMAL}
-		</if>
-		<if test="discountPrice != null and '' != discountPrice">  
-			and oi.discount_price = #{discountPrice,jdbcType=DECIMAL}
-		</if>
-		<if test="afterDiscountPrice != null and '' != afterDiscountPrice">  
-			and oi.after_discount_price = #{afterDiscountPrice,jdbcType=DECIMAL}
-		</if>
-		<if test="actualPrice != null and '' != actualPrice">  
-			and oi.actual_price = #{actualPrice,jdbcType=DECIMAL}
-		</if>
-		<if test="orderDistributionCharge != null and '' != orderDistributionCharge">  
-			and oi.order_distribution_charge = #{orderDistributionCharge,jdbcType=DECIMAL}
-		</if>
-		<if test="platformDistributionCharge != null and '' != platformDistributionCharge">  
-			and oi.platform_distribution_charge = #{platformDistributionCharge,jdbcType=DECIMAL}
-		</if>
-		<if test="cyzDistributionCharge != null and '' != cyzDistributionCharge">  
-			and oi.cyz_distribution_charge = #{cyzDistributionCharge,jdbcType=DECIMAL}
-		</if>
-		<if test="invalidNum != null and '' != invalidNum">  
-			and oi.invalid_num = #{invalidNum,jdbcType=INTEGER}
-		</if>
-		<if test="validNum != null and '' != validNum">  
-			and oi.valid_num = #{validNum,jdbcType=INTEGER}
-		</if>
-		<if test="productSaleAmount != null and '' != productSaleAmount">  
-			and oi.product_sale_amount = #{productSaleAmount,jdbcType=DECIMAL}
-		</if>
-		<if test="amountReceivable != null and '' != amountReceivable">  
-			and oi.amount_receivable = #{amountReceivable,jdbcType=DECIMAL}
-		</if>
-		<if test="seventypProductSaleAmount != null and '' != seventypProductSaleAmount">  
-			and oi.seventyP_product_sale_amount = #{seventypProductSaleAmount,jdbcType=DECIMAL}
-		</if>
-		<if test="discountBackCommission != null and '' != discountBackCommission">  
-			and oi.discount_back_commission = #{discountBackCommission,jdbcType=DECIMAL}
-		</if>
-		<if test="amountPayable != null and '' != amountPayable">  
-			and oi.amount_payable = #{amountPayable,jdbcType=DECIMAL}
-		</if>
-		<if test="cyzServiceCharge != null and '' != cyzServiceCharge">  
-			and oi.cyz_service_charge = #{cyzServiceCharge,jdbcType=DECIMAL}
-		</if>
-		<if test="cyzActivitiesCharge != null and '' != cyzActivitiesCharge">  
-			and oi.cyz_activities_charge = #{cyzActivitiesCharge,jdbcType=DECIMAL}
-		</if>
-		<if test="cyzAllIncome != null and '' != cyzAllIncome">  
-			and oi.cyz_all_income = #{cyzAllIncome,jdbcType=DECIMAL}
-		</if>
-		<if test="saleGrossProfit != null and '' != saleGrossProfit">  
-			and oi.sale_gross_profit = #{saleGrossProfit,jdbcType=DECIMAL}
-		</if>
-		<if test="saleGrossProfitRate != null and '' != saleGrossProfitRate">  
-			and oi.sale_gross_profit_rate = #{saleGrossProfitRate,jdbcType=VARCHAR}
-		</if>
-		<if test="distributionActualPayment != null and '' != distributionActualPayment">  
-			and oi.distribution_actual_payment = #{distributionActualPayment,jdbcType=DECIMAL}
-		</if>
-		<if test="platformActivitiesCharge != null and '' != platformActivitiesCharge">  
-			and oi.platform_activities_charge = #{platformActivitiesCharge,jdbcType=DECIMAL}
-		</if>
-		<if test="platformServiceCharge != null and '' != platformServiceCharge">  
-			and oi.platform_service_charge = #{platformServiceCharge,jdbcType=DECIMAL}
-		</if>
-		<if test="shouldDistributionCharge != null and '' != shouldDistributionCharge">  
-			and oi.should_distribution_charge = #{shouldDistributionCharge,jdbcType=DECIMAL}
-		</if>
-		<if test="cyzDistributionChargeActual != null and '' != cyzDistributionChargeActual">  
-			and oi.cyz_distribution_charge_actual = #{cyzDistributionChargeActual,jdbcType=DECIMAL}
-		</if>
-		<if test="diffDistributionCharge != null and '' != diffDistributionCharge">  
-			and oi.diff_distribution_charge = #{diffDistributionCharge,jdbcType=DECIMAL}
-		</if>
-		<if test="platformSubsidy != null and '' != platformSubsidy">  
-			and oi.platform_subsidy = #{platformSubsidy,jdbcType=DECIMAL}
-		</if>
-		<if test="platformType != null and '' != platformType">  
-			and oi.platform_type = #{platformType,jdbcType=VARCHAR}
+			and od.create_date = #{createDate,jdbcType=DATE}
 		</if>
 		<if test="storeId != null and '' != storeId">  
-			and oi.store_id = #{storeId,jdbcType=VARCHAR}
+			and od.store_id = #{storeId,jdbcType=CHAR}
 		</if>
-		<if test="storeName!= null and '' != storeName">  
-			and oi.STORE_NAME = #{storeName,jdbcType=VARCHAR}
+		<if test="storeName != null and '' != storeName">  
+			and od.store_name = #{storeName,jdbcType=VARCHAR}
+		</if>
+		<if test="checkNo != null and '' != checkNo">  
+			and od.check_no = #{checkNo,jdbcType=VARCHAR}
+		</if>
+		<if test="orderType != null and '' != orderType">  
+			and od.order_type = #{orderType,jdbcType=VARCHAR}
+		</if>
+		<if test="orderTime != null and '' != orderTime">  
+			and od.order_time = #{orderTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="isInvalid != null and '' != isInvalid">  
+			and od.is_invalid = #{isInvalid,jdbcType=TIMESTAMP}
+		</if>
+		 <if test="null != propsMap.startDate and propsMap.startDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(od.order_time,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			]]>
+		</if>
+		<if test="null != propsMap.endDate and propsMap.endDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(od.order_time,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			]]>
+		</if> 
+		<if test="overTime != null and '' != overTime">  
+			and od.over_time = #{overTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="orderIndex != null and '' != orderIndex">  
+			and od.order_index = #{orderIndex,jdbcType=VARCHAR}
+		</if>
+		<if test="orderNo != null and '' != orderNo">  
+			and od.order_no = #{orderNo,jdbcType=VARCHAR}
+		</if>
+		<if test="prices != null and '' != prices">  
+			and od.prices = #{prices,jdbcType=DECIMAL}
+		</if>
+		<if test="mealFee != null and '' != mealFee">  
+			and od.meal_fee = #{mealFee,jdbcType=DECIMAL}
+		</if>
+		<if test="giftAllowance != null and '' != giftAllowance">  
+			and od.gift_allowance = #{giftAllowance,jdbcType=DECIMAL}
+		</if>
+		<if test="serviceRate != null and '' != serviceRate">  
+			and od.service_rate = #{serviceRate,jdbcType=VARCHAR}
+		</if>
+		<if test="serviceCharge != null and '' != serviceCharge">  
+			and od.service_charge = #{serviceCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="refundAmount != null and '' != refundAmount">  
+			and od.refund_amount = #{refundAmount,jdbcType=VARCHAR}
+		</if>
+		<if test="settlementAmount != null and '' != settlementAmount">  
+			and od.settlement_amount = #{settlementAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="distributionMode != null and '' != distributionMode">  
+			and od.distribution_mode = #{distributionMode,jdbcType=VARCHAR}
+		</if>
+		<if test="remark != null and '' != remark">  
+			and od.remark = #{remark,jdbcType=VARCHAR}
+		</if>
+		<if test="platformType != null and '' != platformType">  
+			and od.platform_type = #{platformType,jdbcType=DECIMAL}
 		</if>
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
