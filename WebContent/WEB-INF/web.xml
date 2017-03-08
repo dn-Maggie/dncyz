@@ -103,6 +103,16 @@
     <url-pattern>/common/fileUpload</url-pattern>
   </servlet-mapping>
   
+       <servlet>
+    <servlet-name>fileDownload</servlet-name>
+    <servlet-class>com.dongnao.workbench.common.util.FileDownload</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>fileDownload</servlet-name>
+    <url-pattern>/download/fileDownload</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
     <welcome-file>/index.jsp</welcome-file>
   </welcome-file-list>

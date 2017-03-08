@@ -169,10 +169,20 @@ var gridObj = {};
 	function importData(){
 		ExpExcel.showImportWin();
 	}
+    //下载模板
+    function downloadTemplate(){
+    	ExpExcel.showDownloadWin();
+    }
  	//导出数据
  	function exportData(){
  		ExpExcel.showWin(gridObj,baseUrl+"/accountOrderDetail/exportExcel.do",'grid','queryForm');
  	}
+ 	
+	function executeDownload(){
+		var fid = $("#downloadform");
+		$("#downloadform").attr("action", "<%=request.getContextPath()%>/download/fileDownload");
+		fid.submit();
+	}
     </script>
 </head>
 <body style="height:100%;">
@@ -212,25 +222,21 @@ var gridObj = {};
 		<div class="listplace">
 				<!--功能按钮begin-->
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
-					<ul>	
-						<li><a title="下载模板" href="javascript:"
-							onclick="download();"> <i class="icon_bg icon_download"></i> <span>下载模板</span>
+					<ul>
+					<li><a title="下载模板" href="javascript:" onclick="downloadTemplate();">
+							<i class="icon_bg icon_download"></i> <span>下载模板</span>
+					</a></li>
+					<c:if test="${add}">
+						<li><a title="导入原始数据" href="javascript:;"
+							onclick="importData();"> <i class="back_icon import_icon">
+							</i> <span>导入原始数据</span>
 						</a></li>
-						<c:if test="${add}">
-							<li>
-								<a title="导入原始数据" href="javascript:;" onclick="importData();"> 
-									<i class="back_icon import_icon"> </i> 
-									<span>导入原始数据</span>
-								</a>
-							</li>
-							<li>
-								<a title="导出数据" href="javascript:;" onclick="exportData();"> 
-									<i class="back_icon import_icon"> </i> 
-									<span>导出数据</span>
-								</a>
-							</li>
-						</c:if>
-						<c:if test="${edit}">
+						<li><a title="导出数据" href="javascript:;"
+							onclick="exportData();"> <i class="back_icon import_icon">
+							</i> <span>导出数据</span>
+						</a></li>
+					</c:if>
+					<c:if test="${edit}">
 							<li><a title="<m:message code="button.edit"/>" href="javascript:;"
 								onclick="edit();"><i class="icon_bg icon_edit"></i> <span><m:message
 											code="button.edit" /></span> </a></li>
