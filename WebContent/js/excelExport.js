@@ -146,13 +146,23 @@ ExpExcel = {
 		htmlTmp += '<form name="form" id="form" method="post"  enctype="multipart/form-data"><input type="file" id="file" name="file" style="display: none" onchange="ExpExcel.importData()"/></form>';
 		return htmlTmp;
 	},
-	createImportOperaWinHtml : function() {
+
+	createDownloadWinHtml : function() {
+		var htmlTmp = '';
+		htmlTmp += '<form name="downloadform" id="downloadform" method="GET"><div style="height:100px;margin-left:44px; margin-top:16px;">';
+		htmlTmp += '<select class="search_select" id="platFormType" name="platFormType"><option value="elm">饿了么</option><option value="meituan">美团</option><option value="baidu">百度</option></select></div>';
+		htmlTmp += '<div style="float:left;margin-left:46px;"><input type="button" id="cancel" class="search_btn4" value="取消">';
+		htmlTmp += '<input type="button" id="download" class="add_save" value="下载" onclick="executeDownload()"></div></form>';
+		return htmlTmp;
+    }	,
+createImportOperaWinHtml : function() {
 		var htmlTmp = '';
 		htmlTmp += '<div style="height:100px;margin-left:44px; margin-top:16px;">';
 		htmlTmp += '<select class="search_select" id="platFormType"><option value="elm">饿了么</option><option value="meituan">美团</option><option value="baidu">百度</option></select></div>';
 		htmlTmp += '<div style="float:left;margin-left:46px;"><input type="button" id="cancel" class="search_btn4" value="取消">';
 		htmlTmp += '<input type="button" id="import" class="add_save" value="导入" onclick="$(\'#file\').click()"></div>';
 		htmlTmp += '<form name="form" id="form" method="post"  enctype="multipart/form-data"><input type="file" id="file" name="file" style="display: none" onchange="ExpExcel.importOperaData()"/></form>';
+
 		return htmlTmp;
 	},
 	// Grid导出
@@ -223,6 +233,28 @@ ExpExcel = {
 		});
 		excelExportDialogDiv.dialog("open");
 	},
+
+	executeDownload : function(){
+		var fid = $("#downloadform");
+		fid.submit();
+	},
+	showDownloadWin : function() {
+		$("#excelDownloadDialogDiv").remove();
+		var excelDownloadDialogDiv = $('<div id="excelDownloadDialogDiv">'
+				+ ExpExcel.createDownloadWinHtml() + '</div>');
+		$(document.body).append(excelDownloadDialogDiv);
+		excelDownloadDialogDiv.find('#cancel').bind("click", function() {
+			excelDownloadDialogDiv.dialog("close");
+		});
+		excelDownloadDialogDiv.dialog({
+      	height : 250,
+			width : 320,
+			autoOpen : false,
+			modal : true,
+      title : "选择下载模板"
+		});
+		excelDownloadDialogDiv.dialog("open");
+
 	showImportOperaWin : function() {
 		$("#excelExportDialogDiv").remove();
 		var excelExportDialogDiv = $('<div id="excelExportDialogDiv">'

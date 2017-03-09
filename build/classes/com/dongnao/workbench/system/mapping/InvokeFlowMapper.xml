@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.system.dao.InvokeFlowMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.system.model.InvokeFlow">
+		<id column="FLOW_ID" property="flowId" jdbcType="CHAR" />
+															<result column="PLATFORM_ID" property="platformId" jdbcType="CHAR" />
+													<result column="OP_ID" property="opId" jdbcType="CHAR" />
+													<result column="URL" property="url" jdbcType="VARCHAR" />
+													<result column="INVOKE_INDEX" property="invokeIndex" jdbcType="INTEGER" />
+													<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+									</resultMap>
+	<sql id="Base_Column_List">
+						 	FLOW_ID
+										,PLATFORM_ID
+										,OP_ID
+										,URL
+										,INVOKE_INDEX
+										,REMARK
+						</sql>
+	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from dn_invoke_flow
+		where FLOW_ID = #{flowId,jdbcType=CHAR}
+	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.system.model.InvokeFlow">
+		select
+		<include refid="Base_Column_List" />
+		from dn_invoke_flow
+		where 1=1
+		<if test="flowId != null and '' != flowId">  
+			and FLOW_ID = #{flowId,jdbcType=CHAR}
+		</if>
+		<if test="platformId != null and '' != platformId">  
+			and PLATFORM_ID = #{platformId,jdbcType=CHAR}
+		</if>
+		<if test="opId != null and '' != opId">  
+			and OP_ID = #{opId,jdbcType=CHAR}
+		</if>
+		<if test="url != null and '' != url">  
+			and URL = #{url,jdbcType=VARCHAR}
+		</if>
+		<if test="invokeIndex != null and '' != invokeIndex">  
+			and INVOKE_INDEX = #{invokeIndex,jdbcType=INTEGER}
+		</if>
+		<if test="remark != null and '' != remark">  
+			and REMARK = #{remark,jdbcType=VARCHAR}
+		</if>
+				<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+         	</if>
+	</select>
+	
+	<delete id="deleteByKey" parameterType="java.lang.String">
+		delete from dn_invoke_flow
+		where FLOW_ID = #{flowId,jdbcType=CHAR}
+	</delete>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.system.model.InvokeFlow">
+		insert into dn_invoke_flow (
+		<include refid="Base_Column_List" />
+		)values (
+										#{flowId,jdbcType=CHAR}
+														,#{platformId,jdbcType=CHAR}
+														,#{opId,jdbcType=CHAR}
+														,#{url,jdbcType=VARCHAR}
+														,#{invokeIndex,jdbcType=INTEGER}
+														,#{remark,jdbcType=VARCHAR}
+									)
+	</insert>
+	
+	<update id="update" parameterType="com.dongnao.workbench.system.model.InvokeFlow">
+		update dn_invoke_flow  set
+		ID= #{flowId,jdbcType=CHAR}
+													,PLATFORM_ID = #{platformId,jdbcType=CHAR}
+											,OP_ID = #{opId,jdbcType=CHAR}
+											,URL = #{url,jdbcType=VARCHAR}
+											,INVOKE_INDEX = #{invokeIndex,jdbcType=INTEGER}
+											,REMARK = #{remark,jdbcType=VARCHAR}
+							where FLOW_ID = #{flowId,jdbcType=CHAR}
+	</update>
+</mapper>

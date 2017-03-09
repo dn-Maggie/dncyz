@@ -191,10 +191,23 @@ var gridObj = {};
 	function importData(){
 		ExpExcel.showImportWin();
 	}
+
+    //下载模板
+    function downloadTemplate(){
+    	ExpExcel.showDownloadWin();
+    }
+
  	//导出订单详细数据
+
  	function exportData(){
  		ExpExcel.showWin(gridObj,baseUrl+"/accountOrderDetail/exportExcel.do",'grid','queryForm');
  	}
+ 	
+	function executeDownload(){
+		var fid = $("#downloadform");
+		$("#downloadform").attr("action", "<%=request.getContextPath()%>/download/fileDownload");
+		fid.submit();
+	}
     </script>
 </head>
 <body style="height:100%;">
@@ -243,10 +256,11 @@ var gridObj = {};
 		<div class="listplace">
 				<!--功能按钮begin-->
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
-					<ul>	
-						<li><a title="下载模板" href="javascript:"
-							onclick="download();"> <i class="icon_bg icon_download"></i> <span>下载模板</span>
-						</a></li>
+					<ul>
+					<li><a title="下载模板" href="javascript:" onclick="downloadTemplate();">
+							<i class="icon_bg icon_download"></i> <span>下载模板</span>
+					</a></li>
+				
 						<c:if test="${importData}">
 							<li>
 								<a title="导入原始数据" href="javascript:;" onclick="importData();"> 

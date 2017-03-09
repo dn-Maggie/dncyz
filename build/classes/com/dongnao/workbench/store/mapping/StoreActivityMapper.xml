@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.store.dao.StoreActivityMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.store.model.StoreActivity">
+		<id column="STORE_ACTIVITY_ID" property="storeActivityId" jdbcType="CHAR" />
+		<result column="STORE_ID" property="storeId" jdbcType="CHAR" />
+		<result column="ACTIVITY_TYPE" property="activityType" jdbcType="CHAR" />
+		<result column="ACTIVITY_ID" property="activityId" jdbcType="CHAR" />
+		<result column="ACTIVITY_TIME_BEGIN" property="activityTimeBegin" jdbcType="DATE" />
+		<result column="ACTIVITY_TIME_END" property="activityTimeEnd" jdbcType="DATE" />
+		<result column="ACTIVITY_EXPECTED_BUDGET" property="activityExpectedBudget" jdbcType="DOUBLE" />
+		<result column="ACTIVITY_EXPECTED_RETURN" property="activityExpectedReturn" jdbcType="DOUBLE" />
+		<result column="ACTIVITY_STATUS" property="activityStatus" jdbcType="CHAR" />
+		<result column="ACTIVITY_ACTUAL_PROFIT" property="activityActualProfit" jdbcType="DOUBLE" />
+		<result column="ACTIVITY_EXECUTOR" property="activityExecutor" jdbcType="VARCHAR" />
+		<result column="ACTIVITY_EXECUTE_TIME" property="activityExecuteTime" jdbcType="DATE" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	 	STORE_ACTIVITY_ID
+		,STORE_ID
+		,ACTIVITY_TYPE
+		,ACTIVITY_ID
+		,ACTIVITY_TIME_BEGIN
+		,ACTIVITY_TIME_END
+		,ACTIVITY_EXPECTED_BUDGET
+		,ACTIVITY_EXPECTED_RETURN
+		,ACTIVITY_STATUS
+		,ACTIVITY_ACTUAL_PROFIT
+		,ACTIVITY_EXECUTOR
+		,ACTIVITY_EXECUTE_TIME
+	</sql>
+	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+			sa.STORE_ACTIVITY_ID
+			,s.STORE_NAME as storeName
+			,sa.ACTIVITY_TYPE
+			,sa.ACTIVITY_ID
+			,a.ACTIVITY_NAME as activityName
+			,sa.ACTIVITY_TIME_BEGIN
+			,sa.ACTIVITY_TIME_END
+			,sa.ACTIVITY_EXPECTED_BUDGET
+			,sa.ACTIVITY_EXPECTED_RETURN
+			<![CDATA[
+			,(CASE WHEN DATEDIFF(SYSDATE(), ACTIVITY_TIME_END)<=0 AND DATEDIFF(SYSDATE(), ACTIVITY_TIME_BEGIN)>=0 THEN '1'  
+			ELSE '0'  END)as ACTIVITY_STATUS]]>
+			,sa.ACTIVITY_ACTUAL_PROFIT
+			,sa.ACTIVITY_EXECUTOR
+			,sa.ACTIVITY_EXECUTE_TIME
+		from dn_store_activity as sa
+		left join dn_store as s on sa.STORE_ID = s.STORE_ID
+		left join dn_activity as a on sa.ACTIVITY_ID = a.ACTIVITY_ID
+		where sa.STORE_ACTIVITY_ID = #{storeActivityId,jdbcType=CHAR}
+	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.StoreActivity">
+		select
+			sa.STORE_ACTIVITY_ID
+			,s.STORE_NAME as storeName
+			,sa.ACTIVITY_TYPE
+			,sa.ACTIVITY_ID
+			,a.ACTIVITY_NAME as activityName
+			,sa.ACTIVITY_TIME_BEGIN
+			,sa.ACTIVITY_TIME_END
+			,sa.ACTIVITY_EXPECTED_BUDGET
+			,sa.ACTIVITY_EXPECTED_RETURN
+			<![CDATA[
+			,(CASE WHEN DATEDIFF(SYSDATE(), ACTIVITY_TIME_END)<=0 AND DATEDIFF(SYSDATE(), ACTIVITY_TIME_BEGIN)>=0 THEN '1'  
+			ELSE '0'  END)as ACTIVITY_STATUS]]>
+			,sa.ACTIVITY_ACTUAL_PROFIT
+			,sa.ACTIVITY_EXECUTOR
+			,sa.ACTIVITY_EXECUTE_TIME
+		from dn_store_activity as sa
+		left join dn_store as s on sa.STORE_ID = s.STORE_ID
+		left join dn_activity as a on sa.ACTIVITY_ID = a.ACTIVITY_ID
+		where 1=1
+		<if test="ownerUserId != null and '' != ownerUserId">  
+			and s.owner_userId = #{ownerUserId,jdbcType=VARCHAR}
+		</if>
+		<if test="storeActivityId != null and '' != storeActivityId">  
+			and sa.STORE_ACTIVITY_ID = #{storeActivityId,jdbcType=CHAR}
+		</if>
+		<if test="storeId != null and '' != storeId">  
+			and sa.STORE_ID = #{storeId,jdbcType=CHAR}
+		</if>
+		<if test="activityType != null and '' != activityType">  
+			and sa.ACTIVITY_TYPE = #{activityType,jdbcType=CHAR}
+		</if>
+		<if test="activityId != null and '' != activityId">  
+			and sa.ACTIVITY_ID = #{activityId,jdbcType=CHAR}
+		</if>
+		<if test="activityTimeBegin != null and '' != activityTimeBegin">  
+			and sa.ACTIVITY_TIME_BEGIN = #{activityTimeBegin,jdbcType=DATE}
+		</if>
+		<if test="activityTimeEnd != null and '' != activityTimeEnd">  
+			and sa.ACTIVITY_TIME_END = #{activityTimeEnd,jdbcType=DATE}
+		</if>
+		<if test="activityExpectedBudget != null and '' != activityExpectedBudget">  
+			and sa.ACTIVITY_EXPECTED_BUDGET = #{activityExpectedBudget,jdbcType=DOUBLE}
+		</if>
+		<if test="activityExpectedReturn != null and '' != activityExpectedReturn">  
+			and sa.ACTIVITY_EXPECTED_RETURN = #{activityExpectedReturn,jdbcType=DOUBLE}
+		</if>
+		<if test="activityStatus != null and '' != activityStatus">  
+			and sa.ACTIVITY_STATUS = #{activityStatus,jdbcType=CHAR}
+		</if>
+		<if test="activityActualProfit != null and '' != activityActualProfit">  
+			and sa.ACTIVITY_ACTUAL_PROFIT = #{activityActualProfit,jdbcType=DOUBLE}
+		</if>
+		<if test="activityExecutor != null and '' != activityExecutor">  
+			and sa.ACTIVITY_EXECUTOR = #{activityExecutor,jdbcType=VARCHAR}
+		</if>
+		<if test="activityExecuteTime != null and '' != activityExecuteTime">  
+			and sa.ACTIVITY_EXECUTE_TIME = #{activityExecuteTime,jdbcType=DATE}
+		</if>
+		<if test="orderFields != null and '' != orderFields">  
+          	order by ${orderFields} ${order}
+       	</if>
+	</select>
+	
+	<delete id="deleteByKey" parameterType="java.lang.String">
+		delete from dn_store_activity
+		where STORE_ACTIVITY_ID = #{storeActivityId,jdbcType=CHAR}
+	</delete>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.store.model.StoreActivity">
+		insert into dn_store_activity (
+		<include refid="Base_Column_List" />
+		)values (
+			#{storeActivityId,jdbcType=CHAR}
+			,#{storeId,jdbcType=CHAR}
+			,#{activityType,jdbcType=CHAR}
+			,#{activityId,jdbcType=CHAR}
+			,#{activityTimeBegin,jdbcType=DATE}
+			,#{activityTimeEnd,jdbcType=DATE}
+			,#{activityExpectedBudget,jdbcType=DOUBLE}
+			,#{activityExpectedReturn,jdbcType=DOUBLE}
+			,#{activityStatus,jdbcType=CHAR}
+			,#{activityActualProfit,jdbcType=DOUBLE}
+			,#{activityExecutor,jdbcType=VARCHAR}
+			,#{activityExecuteTime,jdbcType=DATE}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.dongnao.workbench.store.model.StoreActivity">
+		update dn_store_activity  set
+			STORE_ACTIVITY_ID= #{storeActivityId,jdbcType=CHAR}
+			,STORE_ID = #{storeId,jdbcType=CHAR}
+			,ACTIVITY_TYPE = #{activityType,jdbcType=CHAR}
+			,ACTIVITY_ID = #{activityId,jdbcType=CHAR}
+			,ACTIVITY_TIME_BEGIN = #{activityTimeBegin,jdbcType=DATE}
+			,ACTIVITY_TIME_END = #{activityTimeEnd,jdbcType=DATE}
+			,ACTIVITY_EXPECTED_BUDGET = #{activityExpectedBudget,jdbcType=DOUBLE}
+			,ACTIVITY_EXPECTED_RETURN = #{activityExpectedReturn,jdbcType=DOUBLE}
+			,ACTIVITY_STATUS = #{activityStatus,jdbcType=CHAR}
+			,ACTIVITY_ACTUAL_PROFIT = #{activityActualProfit,jdbcType=DOUBLE}
+			,ACTIVITY_EXECUTOR = #{activityExecutor,jdbcType=VARCHAR}
+			,ACTIVITY_EXECUTE_TIME = #{activityExecuteTime,jdbcType=DATE}
+		where STORE_ACTIVITY_ID = #{storeActivityId,jdbcType=CHAR}
+	</update>
+</mapper>

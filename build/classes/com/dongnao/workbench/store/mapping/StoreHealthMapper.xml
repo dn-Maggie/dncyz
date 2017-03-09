@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.store.dao.StoreHealthMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.store.model.StoreHealth">
+		<id column="HEALTH_ID" property="healthId" jdbcType="CHAR" />
+															<result column="STORE_ID" property="storeId" jdbcType="CHAR" />
+													<result column="ASSESS_DATE" property="assessDate" jdbcType="TIMESTAMP" />
+													<result column="ASSESSORS" property="assessors" jdbcType="VARCHAR" />
+													<result column="HEALTH_VALUE" property="healthValue" jdbcType="INTEGER" />
+									</resultMap>
+	<sql id="Base_Column_List">
+						 	HEALTH_ID
+										,STORE_ID
+										,ASSESS_DATE
+										,ASSESSORS
+										,HEALTH_VALUE
+						</sql>
+	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from dn_store_health
+		where HEALTH_ID = #{healthId,jdbcType=CHAR}
+	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.StoreHealth">
+		select
+		<include refid="Base_Column_List" />
+		from dn_store_health
+		where 1=1
+		<if test="healthId != null and '' != healthId">  
+			and HEALTH_ID = #{healthId,jdbcType=CHAR}
+		</if>
+		<if test="storeId != null and '' != storeId">  
+			and STORE_ID = #{storeId,jdbcType=CHAR}
+		</if>
+		<if test="assessDate != null and '' != assessDate">  
+			and ASSESS_DATE = #{assessDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="assessors != null and '' != assessors">  
+			and ASSESSORS = #{assessors,jdbcType=VARCHAR}
+		</if>
+		<if test="healthValue != null and '' != healthValue">  
+			and HEALTH_VALUE = #{healthValue,jdbcType=INTEGER}
+		</if>
+				<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+         	</if>
+	</select>
+	
+	<delete id="deleteByKey" parameterType="java.lang.String">
+		delete from dn_store_health
+		where HEALTH_ID = #{healthId,jdbcType=CHAR}
+	</delete>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.store.model.StoreHealth">
+		insert into dn_store_health (
+		<include refid="Base_Column_List" />
+		)values (
+										#{healthId,jdbcType=CHAR}
+														,#{storeId,jdbcType=CHAR}
+														,#{assessDate,jdbcType=TIMESTAMP}
+														,#{assessors,jdbcType=VARCHAR}
+														,#{healthValue,jdbcType=INTEGER}
+									)
+	</insert>
+	
+	<update id="update" parameterType="com.dongnao.workbench.store.model.StoreHealth">
+		update dn_store_health  set
+		HEALTH_ID= #{healthId,jdbcType=CHAR}
+													,STORE_ID = #{storeId,jdbcType=CHAR}
+											,ASSESS_DATE = #{assessDate,jdbcType=TIMESTAMP}
+											,ASSESSORS = #{assessors,jdbcType=VARCHAR}
+											,HEALTH_VALUE = #{healthValue,jdbcType=INTEGER}
+							where HEALTH_ID = #{healthId,jdbcType=CHAR}
+	</update>
+</mapper>

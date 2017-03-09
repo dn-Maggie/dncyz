@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.store.dao.StorePlatformRelMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.store.model.StorePlatformRel">
+		<id column="PLATFORM_ID" property="platformId" jdbcType="CHAR" />
+							<result column="REL_ID" property="relId" jdbcType="CHAR" />
+													<result column="STORE_ID" property="storeId" jdbcType="CHAR" />
+													<result column="STORE_NAME" property="storeName" jdbcType="VARCHAR" />
+																					<result column="PLATFORM_CODE" property="platformCode" jdbcType="VARCHAR" />
+									</resultMap>
+	<sql id="Base_Column_List">
+						 	REL_ID
+										,STORE_ID
+										,STORE_NAME
+										,PLATFORM_ID
+										,PLATFORM_CODE
+						</sql>
+	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from dn_store_platform_rel
+		where PLATFORM_ID = #{platformId,jdbcType=CHAR}
+	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.StorePlatformRel">
+		select
+		<include refid="Base_Column_List" />
+		from dn_store_platform_rel
+		where 1=1
+		<if test="relId != null and '' != relId">  
+			and REL_ID = #{relId,jdbcType=CHAR}
+		</if>
+		<if test="storeId != null and '' != storeId">  
+			and STORE_ID = #{storeId,jdbcType=CHAR}
+		</if>
+		<if test="storeName != null and '' != storeName">  
+			and STORE_NAME = #{storeName,jdbcType=VARCHAR}
+		</if>
+		<if test="platformId != null and '' != platformId">  
+			and PLATFORM_ID = #{platformId,jdbcType=CHAR}
+		</if>
+		<if test="platformCode != null and '' != platformCode">  
+			and PLATFORM_CODE = #{platformCode,jdbcType=VARCHAR}
+		</if>
+				<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+         	</if>
+	</select>
+	
+	<delete id="deleteByKey" parameterType="java.lang.String">
+		delete from dn_store_platform_rel
+		where PLATFORM_ID = #{platformId,jdbcType=CHAR}
+	</delete>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.store.model.StorePlatformRel">
+		insert into dn_store_platform_rel (
+		<include refid="Base_Column_List" />
+		)values (
+										#{relId,jdbcType=CHAR}
+														,#{storeId,jdbcType=CHAR}
+														,#{storeName,jdbcType=VARCHAR}
+														,#{platformId,jdbcType=CHAR}
+														,#{platformCode,jdbcType=VARCHAR}
+									)
+	</insert>
+	
+	<update id="update" parameterType="com.dongnao.workbench.store.model.StorePlatformRel">
+		update dn_store_platform_rel  set
+		PLATFORM_ID= #{platformId,jdbcType=CHAR}
+								,REL_ID = #{relId,jdbcType=CHAR}
+											,STORE_ID = #{storeId,jdbcType=CHAR}
+											,STORE_NAME = #{storeName,jdbcType=VARCHAR}
+																,PLATFORM_CODE = #{platformCode,jdbcType=VARCHAR}
+							where PLATFORM_ID = #{platformId,jdbcType=CHAR}
+	</update>
+</mapper>
