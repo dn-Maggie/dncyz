@@ -3,6 +3,7 @@
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
+<%@ include file="../../common/ace.jsp"%>
 <title></title>
 <script type="text/javascript">
 var gridObj = {};
@@ -11,22 +12,23 @@ var gridObj = {};
             id:"#remote_rowed",/*html部分table id*/
             url: "<m:url value='/accountOrderDetail/listAccountOrderDetail.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
-           	sortname:"id",
+            footerrow:true,
+           	sortname:"create_date",
            	sortorder:"asc",
+           	emptyrecords: "无记录可显示",
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
-    		rowNum:10,//默认显示15条
+    		rowNum:15,//默认显示15条
             colModel:[
-				{name : "id",hidden : true,key : true,label:"账单ID",index : "id"},				
+				{name : "id",hidden : true,key : true,label:"账单ID",index : "id"},	
+				{name : "storeName",label:"商户名称",index : "store_name"},		
 				{name : "createDate",label:"创建日期",index : "create_date"},				
 				/* {name : "storeELMId",label:"商户id",index : "store_ELM_id"},			
 				{name : "storeMTId",label:"商户id",index : "store_MT_id"},		 */
-				{name : "storeName",label:"商户名称",index : "store_name"},			
 				/* {name : "checkNo",label:"账单编号",index : "check_no"}, */				
 				{name : "orderType",label:"订单类型",index : "order_type"},				
 				{name : "orderTime",label:"订单创建时间",index : "order_time"},				
 				{name : "overTime",label:"订单完成时间",index : "over_time"},				
-				/* {name : "orderIndex",label:"接单序号",index : "order_index"},		 */		
 				{name : "orderNo",label:"订单号",index : "order_no"},				
 				{name : "prices",label:"菜价",index : "prices"},				
 				{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
@@ -54,6 +56,19 @@ var gridObj = {};
 				var obj = getQueryCondition();
     			$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
     			return obj;
+    		},
+    		gridComplete:function(){
+    		    	$(".ui-jqgrid-sdiv").show();
+    		    	$(this).footerData("set",{
+    		    		"rn":"合计",
+    		    		"prices":$(this).getCol("prices",false,"sum").toFixed(2),
+    		    		"mealFee":$(this).getCol("mealFee",false,"sum").toFixed(2),
+    		    		"giftAllowance":$(this).getCol("giftAllowance",false,"sum").toFixed(2),
+    		    		"merchantActivitiesSubsidies":$(this).getCol("merchantActivitiesSubsidies",false,"sum").toFixed(2),
+    		    		"platformActivitiesSubsidies":$(this).getCol("platformActivitiesSubsidies",false,"sum").toFixed(2),
+    		    		"serviceCharge":$(this).getCol("serviceCharge",false,"sum").toFixed(2),
+    		    		"settlementAmount":$(this).getCol("settlementAmount",false,"sum").toFixed(2),
+    		    		}); //将合计值显示出来
     		}
       });
         
@@ -176,7 +191,7 @@ var gridObj = {};
 	function importData(){
 		ExpExcel.showImportWin();
 	}
- 	//导出数据
+ 	//导出订单详细数据
  	function exportData(){
  		ExpExcel.showWin(gridObj,baseUrl+"/accountOrderDetail/exportExcel.do",'grid','queryForm');
  	}
@@ -191,22 +206,30 @@ var gridObj = {};
 				<li><span>关键字：</span>
 				<input type="text" name="storeName" id="storeName" class="search_choose" placeholder="商户名称">
 				<input type="hidden" name="isInvalid" value="0"></li><!-- 输入框-->
-				<li><span>日期:</span>
-						<div class="time_bg">
-						<input type="text" class="search_time150" name="createDate" id="createDate"><!-- 时间选择控件-->
-						<i class="search_time_ico2" ></i>
-						</div></li>
+				<li>
+					<div class="time_bg">
+					<input type="text" placeholder="截止日期"  class="search_time150 date-picker" name="propsMap['endDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
+					<i class="search_time_ico2" ></i>
+					</div>
+					<div class="time_bg">
+					<input type="text" placeholder="起始日期" class="search_time150 date-picker" name="propsMap['startDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
+					<i class="search_time_ico2" ></i>
+					</div>
+				</li>
 				<li class="date_area">
 					<span>创建时间:</span>
-					<div class="time_bg">
-						<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']">
-						<i class="search_time_ico2"></i>
-					</div>
+						<div class="time_bg">
+						<div class="input-group bootstrap-timepicker">
+							<input class="timepicker text" name="propsMap['startTime']" type="text" />
+						</div>
+						</div>
 					<i>至</i>
 					<div class="time_bg">
-						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" >
-						<i class="search_time_ico2"></i>
-					</div></li>	
+						<div class="input-group bootstrap-timepicker">
+							<input class="timepicker text" name="propsMap['endTime']"   type="text" />
+						</div>
+					</div>
+					</li>		
 				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
 					 <option value="elm">饿了么</option><option value="meituan">美团</option>
 					</select><span>平台类型:</span></li><!--下拉 -->
@@ -224,13 +247,15 @@ var gridObj = {};
 						<li><a title="下载模板" href="javascript:"
 							onclick="download();"> <i class="icon_bg icon_download"></i> <span>下载模板</span>
 						</a></li>
-						<c:if test="${add}">
+						<c:if test="${importData}">
 							<li>
 								<a title="导入原始数据" href="javascript:;" onclick="importData();"> 
 									<i class="back_icon import_icon"> </i> 
 									<span>导入原始数据</span>
 								</a>
 							</li>
+						</c:if>
+						<c:if test="${exportData}">
 							<li>
 								<a title="导出数据" href="javascript:;" onclick="exportData();"> 
 									<i class="back_icon import_icon"> </i> 
@@ -249,9 +274,6 @@ var gridObj = {};
 											code="button.delete" /></span>
 							</a></li>
 						</c:if>
-						<%-- <li><a title="<m:message code="button.view"/>" href="javascript:"
-							onclick="show();"> <i class="icon_bg icon_ckxq"></i> <span><m:message
-										code="button.view" /></span></a></li> --%>
 						<c:if test="${manage}">
 						<li><a title="<m:message code="button.module.moduleRes"/>" href="javascript:"
 							onclick="moduleResMgt();"> <i class="back_icon resources_icon"></i> <span><m:message

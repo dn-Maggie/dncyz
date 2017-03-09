@@ -13,9 +13,10 @@ $(function() {
 	$('.timepicker').timepicker({
 		minuteStep: 1,
 		showSeconds: true,
-		showMeridian: false
+		showMeridian: false,
+		defaultTime: false
 	}).next().on(ace.click_event, function(){
-		$(this).prev().focus();
+		/*$(this).prev().focus();*/
 	});
 	//图片上传控件
 	$('input[type="file"]').ace_file_input({

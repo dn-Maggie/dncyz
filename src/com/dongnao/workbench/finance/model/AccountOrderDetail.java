@@ -137,22 +137,32 @@ public class AccountOrderDetail extends Model{
 				   			private String platformType;
 		   		
 		            /**
-	                 * 饿了么承担活动补贴
+	                 * 平台承担活动补贴
 	                 **/
 				   			private BigDecimal platformActivitiesSubsidies;
-		   			/**
-	                 * 美团承担活动补贴
-	                 **/
+		   			
 		   		
 		            /**
-	                 * 饿了么承担代金券补贴
+	                 * 平台承担代金券补贴
 	                 **/
 		   			private BigDecimal platformSubsidyVouchers;
+		   			
 		   			/**
-	                 * 美团承担代金券补贴
+	                 * 商户承担活动补贴(菜品折扣部分)
 	                 **/
-		   		
-	
+		   			private BigDecimal activitiesSubsidyBymerchant;
+		   			/**
+	                 * 商户承担活动补贴（公司承担线上活动费）
+	                 **/
+		   			private BigDecimal activitiesSubsidyBycompany;
+		   			/**
+	                 * 折扣后菜价
+	                 **/
+		   			private BigDecimal foodDiscount;
+		   			/**
+	                 * 特价结算
+	                 **/
+		   			private BigDecimal specialOffer;
 				
 		  			/**
 			 * 获取 账单ID
@@ -601,6 +611,38 @@ public class AccountOrderDetail extends Model{
 
 			public void setIsInvalid(String isInvalid) {
 				this.isInvalid = isInvalid;
+			}
+
+			public BigDecimal getActivitiesSubsidyBymerchant() {
+				return activitiesSubsidyBymerchant;
+			}
+
+			public void setActivitiesSubsidyBymerchant(BigDecimal activitiesSubsidyBymerchant) {
+				this.activitiesSubsidyBymerchant = activitiesSubsidyBymerchant;
+			}
+
+			public BigDecimal getActivitiesSubsidyBycompany() {
+				return activitiesSubsidyBycompany;
+			}
+
+			public void setActivitiesSubsidyBycompany(BigDecimal activitiesSubsidyBycompany) {
+				this.activitiesSubsidyBycompany = activitiesSubsidyBycompany;
+			}
+
+			public BigDecimal getFoodDiscount() {
+				return foodDiscount;
+			}
+
+			public void setFoodDiscount(BigDecimal foodDiscount) {
+				this.foodDiscount = foodDiscount;
+			}
+
+			public BigDecimal getSpecialOffer() {
+				return specialOffer;
+			}
+
+			public void setSpecialOffer(BigDecimal specialOffer) {
+				this.specialOffer = specialOffer;
 			}
 
 		   		

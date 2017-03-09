@@ -1,5 +1,6 @@
 package com.dongnao.workbench.finance.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.finance.model.AccountOperateIncome;
@@ -43,4 +44,8 @@ public interface AccountOperateIncomeService  {
 	 * @param accountOperateIncome AccountOperateIncome 实体对象
 	 */	
 	public ResultMessage update(AccountOperateIncome accountOperateIncome);
+	/**
+	 * 批量插入运营详细方法
+	 */
+	public int addOperaDetail(ArrayList<AccountOperateIncome> operateIncomeList);
 }

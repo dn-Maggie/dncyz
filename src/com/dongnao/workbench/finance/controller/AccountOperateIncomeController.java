@@ -1,5 +1,12 @@
 package com.dongnao.workbench.finance.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,16 +14,26 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dongnao.workbench.common.excel.ExcelExpUtils;
+import com.dongnao.workbench.common.excel.ExpParamBean;
+import com.dongnao.workbench.common.excel.ImportExcelUtil;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
+import com.dongnao.workbench.common.util.StringUtil;
 import com.dongnao.workbench.finance.model.AccountOperateIncome;
+import com.dongnao.workbench.finance.model.AccountOrderDetail;
+import com.dongnao.workbench.finance.model.TotalOperateIncome;
 import com.dongnao.workbench.finance.service.AccountOperateIncomeService;
+import com.dongnao.workbench.finance.service.AccountOrderDetailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -32,7 +49,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class AccountOperateIncomeController{
          @Resource
 	private AccountOperateIncomeService accountOperateIncomeService;
-	 
+         @Resource
+     	private AccountOrderDetailService accountOrderDetailService;
  	/**
  	* 进入新增页面
  	* @return ModelAndView 返回到新增页面
@@ -136,4 +154,108 @@ public class AccountOperateIncomeController{
 				response,accountOperateIncomeService.update(accountOperateIncome));	
 	}
 	
+	 /**
+     * 读取Excel的内容，第一维数组存储的是一行中格列的值，二维数组存储的是多少个行
+     * @param file 读取数据的源Excel
+     * @param ignoreRows 读取数据忽略的行数，比喻行头不需要读入 忽略的行数为1
+     * @return 读出的Excel中数据的内容
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+ 	@RequestMapping("/emlOperateIncomeImport")
+	public void emlorderDetailImport(HttpServletRequest request,HttpServletResponse response
+		)throws Exception {  	
+ 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+ 		InputStream in =null;  
+        List<List<Object>> listob = null;  
+        ArrayList<AccountOperateIncome> operateIncomeList = new ArrayList<AccountOperateIncome>();
+        MultipartFile file = multipartRequest.getFile("file");  
+        if(file.isEmpty()){  
+            throw new Exception("文件不存在！");  
+        }  
+        in = file.getInputStream();  
+        listob = new ImportExcelUtil().getBankListByExcel(in,file.getOriginalFilename());
+        for (int i = 0; i < listob.size(); i++) {  
+            List<Object> lo = listob.get(i);  
+            AccountOperateIncome operateIncome = new AccountOperateIncome();  
+            try{
+            	operateIncome.setId(Utils.generateUniqueID());
+            	operateIncome.setStoreName(StringUtil.valueOf(lo.get(0)));
+            	operateIncome.setCreateDate(DateUtil.parseStringToyyyyMMdd(StringUtil.valueOf(lo.get(1))));
+            	operateIncome.setCreateTime(new Timestamp(DateUtil.parseStringToyyyyMMddHHmmss(StringUtil.valueOf(lo.get(2))).getTime()));
+            	operateIncome.setOrderNo(StringUtil.valueOf(lo.get(3)));
+            	operateIncome.setOrginPrice(lo.get(4).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(4))));
+            	operateIncome.setDiscountPrice(lo.get(5).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(5))));
+            	operateIncome.setAfterDiscountPrice(lo.get(6).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(6))));
+            	operateIncome.setActualPrice(lo.get(7).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(7))));
+            	operateIncome.setOrderDistributionCharge(lo.get(8).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(8))));
+            	operateIncome.setPlatformDistributionCharge(lo.get(9).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(9))));
+            	operateIncome.setCyzDistributionCharge(lo.get(10).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(10))));
+            	operateIncome.setCyzActivitiesCharge(lo.get(11).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(11))));
+            	operateIncome.setPlatformActivitiesCharge(lo.get(12).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(12))));
+            	operateIncome.setPlatformServiceCharge(lo.get(13).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(13))));
+            	operateIncome.setProductSaleAmount(lo.get(14).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(14))));
+            	operateIncome.setAmountReceivable(lo.get(15).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(15))));
+            	operateIncome.setSeventypProductSaleAmount(lo.get(16).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(16))));
+            	operateIncome.setAmountPayable(lo.get(17).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(17))));
+            	operateIncome.setCyzServiceCharge(lo.get(18).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(18))));
+            	operateIncome.setDistributionActualPayment(StringUtil.valueOf(lo.get(19)));
+            	operateIncome.setSaleGrossProfit(lo.get(20).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(20))));
+            	operateIncome.setSaleGrossProfitRate(StringUtil.valueOf(lo.get(21)));
+            	operateIncome.setRemark(StringUtil.valueOf(lo.get(22)));
+            	operateIncome.setPlatformType("elm");
+            	
+            	operateIncomeList.add(operateIncome);
+            }catch(Exception e){
+            	e.printStackTrace();
+            	Map<String, String> map = new HashMap<String, String>();
+        		map.put("msg", "失败");
+        		AjaxUtils.sendAjaxForMap(response, map);
+            }
+        }  
+        response.setCharacterEncoding("utf-8");  //防止ajax接受到的中文信息乱码  
+        Map<String, String> map = new HashMap<String, String>();
+		map.put("msg", "成功");
+		map.put("dataSize", accountOperateIncomeService.addOperaDetail(operateIncomeList)+"");//批量插入，传入orderDetail实体集合
+		AjaxUtils.sendAjaxForMap(response, map);
+	}
+ 	
+ 	@RequestMapping("/meituanOperateIncomeImport")
+	public void meituanorderDetailImport(HttpServletRequest request,HttpServletResponse response
+		)throws Exception {  	
+
+ 	}
+ 	
+ 	@RequestMapping("/baiduOperateIncomeImport")
+	public void baiduorderDetailImport(HttpServletRequest request,HttpServletResponse response
+		)throws Exception {  	
+
+ 	}
+	
+	//导出运营明细数据方法
+	@RequestMapping("/exportDetailExcel")
+	public void exportDetailExcel(AccountOrderDetail accountOrderDetail, ExpParamBean epb,
+			HttpServletRequest request, HttpServletResponse response, Page page)
+			throws Exception {		
+		int expType = Integer.parseInt(request.getParameter("expType"));
+		if (expType == 1) {
+			accountOrderDetail.setPage(page);
+		}
+		List<AccountOperateIncome> list = accountOrderDetailService.listByConditionFromOrderDetail(accountOrderDetail);
+		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
+				"运营明细列表", "运营明细列表");
+	}
+	//导出运营汇总数据方法
+	@RequestMapping("/exportTotalExcel")
+	public void exportTotalExcel(AccountOrderDetail accountOrderDetail, ExpParamBean epb,
+			HttpServletRequest request, HttpServletResponse response, Page page)
+			throws Exception {		
+		int expType = Integer.parseInt(request.getParameter("expType"));
+		if (expType == 1) {
+			accountOrderDetail.setPage(page);
+		}
+		List<TotalOperateIncome> list = accountOrderDetailService.listAllFromOrderDetail(accountOrderDetail);
+		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
+				"运营统计列表", "运营统计列表");
+	}
 }

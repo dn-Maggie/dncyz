@@ -2,6 +2,8 @@ package com.dongnao.workbench.finance.dao;
 
 import java.util.List;
 import com.dongnao.workbench.finance.model.AccountCheck;
+import com.dongnao.workbench.finance.model.AccountOperateIncome;
+import com.dongnao.workbench.finance.model.AccountOrderDetail;
 /**
  * 描述：财务对账模块dao接口，提供数据库操作方法
  *
@@ -41,4 +43,8 @@ public interface AccountCheckMapper  {
 	 * @param accountCheck AccountCheck：实体对象
 	 */	
 	public void update(AccountCheck accountCheck);
+
+	public List<AccountOperateIncome> listTotalAccountCheck(AccountOrderDetail accountOrderDetail);
+
+	public List<AccountOperateIncome> listDetailAccountCheck(AccountOrderDetail accountOrderDetail);
 }

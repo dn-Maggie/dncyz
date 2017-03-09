@@ -27,6 +27,7 @@ import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.common.util.StringUtil;
 import com.dongnao.workbench.finance.model.AccountOperateIncome;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
+import com.dongnao.workbench.finance.model.TotalOperateIncome;
 import com.dongnao.workbench.finance.service.AccountOrderDetailService;
 import com.dongnao.workbench.staticAnalysis.model.DemandAnalysis;
 
@@ -124,6 +125,26 @@ public class AccountOrderDetailController{
 	}
 	
 	/**
+	 * 进入运营统计数据
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toListAllFromOrderDetail")
+	public ModelAndView toListAllFromOrderDetail(){
+		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/operaData/listTotalOperaData");
+		 return mv;
+	}
+	/**
+	 * 运营统计数据
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/listAllFromOrderDetail")
+	public void listAllFromOrderDetail(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		accountOrderDetail.setPage(page);	
+		List<TotalOperateIncome> list = accountOrderDetailService.listAllFromOrderDetail(accountOrderDetail);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	/**
 	 * 根据条件查找运营数据
 	 * @param accountOrderDetail AccountOrderDetail：实体对象（查询条件）
 	 * @param request HttpServletRequest
@@ -218,7 +239,11 @@ public class AccountOrderDetailController{
 				orderDetail.setPrices(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(9))));
 				orderDetail.setMealFee(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(10))));
 				orderDetail.setGiftAllowance(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(11))));
-				orderDetail.setMerchantActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(12))));
+				orderDetail.setMerchantActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(12))));//商户承担活动补贴(总额)
+				orderDetail.setActivitiesSubsidyBymerchant(lo.get(23).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(23))));//商户承担活动补贴(菜品折扣部分)
+				orderDetail.setFoodDiscount(lo.get(25).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(25))));//折扣后菜价
+				orderDetail.setSpecialOffer(lo.get(26).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(26))));//特价结算
+				orderDetail.setActivitiesSubsidyBycompany(lo.get(24).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(24))));//商户承担活动补贴(公司承担线上活动费)
 				orderDetail.setMerchantSubsidyVouchers(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(13))));
 				orderDetail.setMerchantDistCharge(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(14))));
 				orderDetail.setServiceRate(StringUtil.valueOf(lo.get(15)));
@@ -280,7 +305,13 @@ public class AccountOrderDetailController{
 								)); //菜品原价= 订单总金额-(配送费+餐盒费）
 				orderDetail.setMealFee(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(27))));//餐盒费
 				orderDetail.setGiftAllowance(new BigDecimal(0)); //赠品补贴
-				orderDetail.setMerchantActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf("-"+lo.get(13))));//订单商家承担活动金额
+				
+				orderDetail.setMerchantActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf("-"+lo.get(13))));//商户承担活动补贴(总额)
+				orderDetail.setActivitiesSubsidyBymerchant(lo.get(33).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(33))));//商户承担活动补贴(菜品折扣部分)
+				orderDetail.setFoodDiscount(lo.get(35).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(35))));//折扣后菜价
+				orderDetail.setSpecialOffer(lo.get(36).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(36))));//特价结算
+				orderDetail.setActivitiesSubsidyBycompany(lo.get(34).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(34))));//商户承担活动补贴(公司承担线上活动费)
+				
 				orderDetail.setPlatformActivitiesSubsidies(StringUtil.stringToDecimal(lo.get(12)));//订单美团承担活动金额*/	
 				orderDetail.setMerchantSubsidyVouchers(new BigDecimal(0)); //商户代金券补贴
 				orderDetail.setServiceRate("");//服务费费率*/

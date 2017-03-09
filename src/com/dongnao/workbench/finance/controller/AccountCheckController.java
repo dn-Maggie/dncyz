@@ -7,12 +7,18 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dongnao.workbench.common.excel.ExcelExpUtils;
+import com.dongnao.workbench.common.excel.ExpParamBean;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.finance.model.AccountCheck;
+import com.dongnao.workbench.finance.model.AccountOperateIncome;
+import com.dongnao.workbench.finance.model.AccountOrderDetail;
+import com.dongnao.workbench.finance.model.TotalOperateIncome;
 import com.dongnao.workbench.finance.service.AccountCheckService;
+import com.dongnao.workbench.finance.service.AccountOrderDetailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +38,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class AccountCheckController{
          @Resource
 	private AccountCheckService accountCheckService;
+         @Resource
+     	private AccountOrderDetailService accountOrderDetailService;
 	 
  	/**
  	* 进入新增页面
@@ -85,7 +93,7 @@ public class AccountCheckController{
 	}
 	
 	/**
-	 * 进入列表页面
+	 * 进入明细列表页面
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/toListAccountCheck")
@@ -93,6 +101,14 @@ public class AccountCheckController{
 		return new ModelAndView("WEB-INF/jsp/finance/accountCheck/listAccountCheck");
 	}
 	
+	/**
+	 * 进入汇总列表页面
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toListTotalAccountCheck")
+	public ModelAndView toListTotal(){
+		return new ModelAndView("WEB-INF/jsp/finance/accountCheck/listTotalAccountCheck");
+	}
 	/**
 	 * 根据条件查找列表方法
 	 * @param accountCheck AccountCheck：实体对象（查询条件）
@@ -102,13 +118,27 @@ public class AccountCheckController{
 	 * @return: ajax输入json字符串
 	 */
 	@RequestMapping("/listAccountCheck")
-	public void listByCondition(AccountCheck accountCheck,HttpServletRequest request,
+	public void listByCondition(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
 			HttpServletResponse response, Page page){
-		accountCheck.setPage(page);	
-		List<AccountCheck> list = accountCheckService.listByCondition(accountCheck);
+		accountOrderDetail.setPage(page);	
+		List<AccountOperateIncome> list = accountOrderDetailService.listDetailAccountCheck(accountOrderDetail);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
-	
+	/**
+	 * 根据条件查找列表方法
+	 * @param accountCheck AccountCheck：实体对象（查询条件）
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse
+	 * @param page Page:分页对象
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/listTotalAccountCheck")
+	public void listTotalAccountCheck(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		accountOrderDetail.setPage(page);	
+		List<AccountOperateIncome> list = accountOrderDetailService.listTotalAccountCheck(accountOrderDetail);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
 	/**
 	 * 进入修改页面方法
 	 * @param key String：实体id
@@ -133,5 +163,30 @@ public class AccountCheckController{
 		AjaxUtils.sendAjaxForObjectStr(
 				response,accountCheckService.update(accountCheck));	
 	}
-	
+	//导出对账明细方法
+	@RequestMapping("/exportDetailExcel")
+	public void exportDetailExcel(AccountOrderDetail accountOrderDetail, ExpParamBean epb,
+			HttpServletRequest request, HttpServletResponse response, Page page)
+			throws Exception {		
+		int expType = Integer.parseInt(request.getParameter("expType"));
+		if (expType == 1) {
+			accountOrderDetail.setPage(page);
+		}
+		List<AccountOperateIncome> list = accountOrderDetailService.listDetailAccountCheck(accountOrderDetail);
+		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
+				"对账明细列表", "对账明细列表");
+	}
+	//导出对账统计方法
+	@RequestMapping("/exportTotalExcel")
+	public void exportTotalExcel(AccountOrderDetail accountOrderDetail, ExpParamBean epb,
+			HttpServletRequest request, HttpServletResponse response, Page page)
+			throws Exception {		
+		int expType = Integer.parseInt(request.getParameter("expType"));
+		if (expType == 1) {
+			accountOrderDetail.setPage(page);
+		}
+		List<AccountOperateIncome> list = accountOrderDetailService.listTotalAccountCheck(accountOrderDetail);
+		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
+				"对账统计列表", "对账统计列表");
+	}
 }

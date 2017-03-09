@@ -40,37 +40,37 @@ public class AccountOperateIncome extends Model{
 		            /**
 	                 * 原价
 	                 **/
-				   			private String orginPrice;
+				   			private BigDecimal orginPrice;
 		   		
 		            /**
 	                 * 菜品折扣
 	                 **/
-				   			private String discountPrice;
+				   			private BigDecimal discountPrice;
 		   		
 		            /**
 	                 * 折扣后菜价格
 	                 **/
-				   			private String afterDiscountPrice;
+				   			private BigDecimal afterDiscountPrice;
 		   		
 		            /**
 	                 * 实际结算折扣菜金额
 	                 **/
-				   			private String actualPrice;
+				   			private BigDecimal actualPrice;
 		   		
 		            /**
 	                 * 订单上收取客户配送费
 	                 **/
-				   			private String orderDistributionCharge;
+				   			private BigDecimal orderDistributionCharge;
 		   		
 		            /**
 	                 * 平台收取客户配送费
 	                 **/
-				   			private String platformDistributionCharge;
+				   			private BigDecimal platformDistributionCharge;
 		   		
 		            /**
 	                 * 公司收取客户配送费
 	                 **/
-				   			private String cyzDistributionCharge;
+				   			private BigDecimal cyzDistributionCharge;
 		   		
 		            /**
 	                 * 无效单
@@ -85,48 +85,48 @@ public class AccountOperateIncome extends Model{
 		            /**
 	                 * 产品销售金额
 	                 **/
-				   			private String productSaleAmount;
+				   			private BigDecimal productSaleAmount;
 		   		
 		            /**
 	                 * 应收平台结算金额
 	                 **/
-				   			private String amountReceivable;
+				   			private BigDecimal amountReceivable;
 		   		
 		            /**
 	                 * 70%结算金额
 	                 **/
-				   			private String seventypProductSaleAmount;
+				   			private BigDecimal seventypProductSaleAmount;
 		   		
 		            /**
 	                 * 折扣菜退还佣金
 	                 **/
-				   			private String discountBackCommission;
+				   			private BigDecimal discountBackCommission;
 		   		
 		            /**
 	                 * 应付店铺结算金额
 	                 **/
-				   			private String amountPayable;
+				   			private BigDecimal amountPayable;
 		   		
 		            /**
 	                 * 公司收取店铺服务费
 	                 **/
-				   			private String cyzServiceCharge;
+				   			private BigDecimal cyzServiceCharge;
 		   		
 		            /**
 	                 * 公司承担线上活动费
 	                 **/
-				   			private String cyzActivitiesCharge;
+				   			private BigDecimal cyzActivitiesCharge;
 		   		
 		            /**
 	                 * 公司收入
 	                 **/
-				   			private String cyzAllIncome;
+				   			private BigDecimal cyzAllIncome;
 		   		
 		            /**
 	                 * 销售毛利
 	                 **/
-				   			private String saleGrossProfit;
-				   			private String actualProfit;
+				   			private BigDecimal saleGrossProfit;
+				   			private BigDecimal actualProfit;
 		   		
 		            /**
 	                 * 毛利率
@@ -141,12 +141,12 @@ public class AccountOperateIncome extends Model{
 		            /**
 	                 * 平台承担线上活动费
 	                 **/
-				   			private String platformActivitiesCharge;
+				   			private BigDecimal platformActivitiesCharge;
 		   		
 		            /**
 	                 * 平台服务费
 	                 **/
-				   			private String platformServiceCharge;
+				   			private BigDecimal platformServiceCharge;
 		   		
 		            /**
 	                 * 应收取自配送金额
@@ -180,6 +180,7 @@ public class AccountOperateIncome extends Model{
 				   			private String storeName;
 				   			private String storeType;
 				   			private String storeWorkTime;
+				   			private String remark;
 				
 		  			/**
 					 * 获取 主键
@@ -251,7 +252,7 @@ public class AccountOperateIncome extends Model{
 			 * 获取 原价
 			 * @return String this.orginPrice
 			 */
-			public String getOrginPrice(){
+			public BigDecimal getOrginPrice(){
 				return this.orginPrice;
 			}
 			
@@ -259,7 +260,7 @@ public class AccountOperateIncome extends Model{
 			 * 设置 原价
 			 * @param String orginPrice 
 			 */
-			public void setOrginPrice(String orginPrice){
+			public void setOrginPrice(BigDecimal orginPrice){
 				this.orginPrice = orginPrice;
 			}
 		   		
@@ -269,17 +270,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 菜品折扣
-			 * @return String this.discountPrice
+			 * @return BigDecimal this.discountPrice
 			 */
-			public String getDiscountPrice(){
+			public BigDecimal getDiscountPrice(){
 				return this.discountPrice;
 			}
 			
 			/**
 			 * 设置 菜品折扣
-			 * @param String discountPrice 
+			 * @param BigDecimal discountPrice 
 			 */
-			public void setDiscountPrice(String discountPrice){
+			public void setDiscountPrice(BigDecimal discountPrice){
 				this.discountPrice = discountPrice;
 			}
 		   		
@@ -289,17 +290,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 折扣后菜价格
-			 * @return String this.afterDiscountPrice
+			 * @return BigDecimal this.afterDiscountPrice
 			 */
-			public String getAfterDiscountPrice(){
+			public BigDecimal getAfterDiscountPrice(){
 				return this.afterDiscountPrice;
 			}
 			
 			/**
 			 * 设置 折扣后菜价格
-			 * @param String afterDiscountPrice 
+			 * @param BigDecimal afterDiscountPrice 
 			 */
-			public void setAfterDiscountPrice(String afterDiscountPrice){
+			public void setAfterDiscountPrice(BigDecimal afterDiscountPrice){
 				this.afterDiscountPrice = afterDiscountPrice;
 			}
 		   		
@@ -309,17 +310,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 实际结算折扣菜金额
-			 * @return String this.actualPrice
+			 * @return BigDecimal this.actualPrice
 			 */
-			public String getActualPrice(){
+			public BigDecimal getActualPrice(){
 				return this.actualPrice;
 			}
 			
 			/**
 			 * 设置 实际结算折扣菜金额
-			 * @param String actualPrice 
+			 * @param BigDecimal actualPrice 
 			 */
-			public void setActualPrice(String actualPrice){
+			public void setActualPrice(BigDecimal actualPrice){
 				this.actualPrice = actualPrice;
 			}
 		   		
@@ -329,17 +330,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 订单上收取客户配送费
-			 * @return String this.orderDistributionCharge
+			 * @return BigDecimal this.orderDistributionCharge
 			 */
-			public String getOrderDistributionCharge(){
+			public BigDecimal getOrderDistributionCharge(){
 				return this.orderDistributionCharge;
 			}
 			
 			/**
 			 * 设置 订单上收取客户配送费
-			 * @param String orderDistributionCharge 
+			 * @param BigDecimal orderDistributionCharge 
 			 */
-			public void setOrderDistributionCharge(String orderDistributionCharge){
+			public void setOrderDistributionCharge(BigDecimal orderDistributionCharge){
 				this.orderDistributionCharge = orderDistributionCharge;
 			}
 		   		
@@ -349,17 +350,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 平台收取客户配送费
-			 * @return String this.platformDistributionCharge
+			 * @return BigDecimal this.platformDistributionCharge
 			 */
-			public String getPlatformDistributionCharge(){
+			public BigDecimal getPlatformDistributionCharge(){
 				return this.platformDistributionCharge;
 			}
 			
 			/**
 			 * 设置 平台收取客户配送费
-			 * @param String platformDistributionCharge 
+			 * @param BigDecimal platformDistributionCharge 
 			 */
-			public void setPlatformDistributionCharge(String platformDistributionCharge){
+			public void setPlatformDistributionCharge(BigDecimal platformDistributionCharge){
 				this.platformDistributionCharge = platformDistributionCharge;
 			}
 		   		
@@ -369,17 +370,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 公司收取客户配送费
-			 * @return String this.cyzDistributionCharge
+			 * @return BigDecimal this.cyzDistributionCharge
 			 */
-			public String getCyzDistributionCharge(){
+			public BigDecimal getCyzDistributionCharge(){
 				return this.cyzDistributionCharge;
 			}
 			
 			/**
 			 * 设置 公司收取客户配送费
-			 * @param String cyzDistributionCharge 
+			 * @param BigDecimal cyzDistributionCharge 
 			 */
-			public void setCyzDistributionCharge(String cyzDistributionCharge){
+			public void setCyzDistributionCharge(BigDecimal cyzDistributionCharge){
 				this.cyzDistributionCharge = cyzDistributionCharge;
 			}
 		   		
@@ -429,17 +430,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 产品销售金额
-			 * @return String this.productSaleAmount
+			 * @return BigDecimal this.productSaleAmount
 			 */
-			public String getProductSaleAmount(){
+			public BigDecimal getProductSaleAmount(){
 				return this.productSaleAmount;
 			}
 			
 			/**
 			 * 设置 产品销售金额
-			 * @param String productSaleAmount 
+			 * @param BigDecimal productSaleAmount 
 			 */
-			public void setProductSaleAmount(String productSaleAmount){
+			public void setProductSaleAmount(BigDecimal productSaleAmount){
 				this.productSaleAmount = productSaleAmount;
 			}
 		   		
@@ -449,17 +450,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 应收平台结算金额
-			 * @return String this.amountReceivable
+			 * @return BigDecimal this.amountReceivable
 			 */
-			public String getAmountReceivable(){
+			public BigDecimal getAmountReceivable(){
 				return this.amountReceivable;
 			}
 			
 			/**
 			 * 设置 应收平台结算金额
-			 * @param String amountReceivable 
+			 * @param BigDecimal amountReceivable 
 			 */
-			public void setAmountReceivable(String amountReceivable){
+			public void setAmountReceivable(BigDecimal amountReceivable){
 				this.amountReceivable = amountReceivable;
 			}
 		   		
@@ -469,17 +470,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 70%结算金额
-			 * @return String this.seventypProductSaleAmount
+			 * @return BigDecimal this.seventypProductSaleAmount
 			 */
-			public String getSeventypProductSaleAmount(){
+			public BigDecimal getSeventypProductSaleAmount(){
 				return this.seventypProductSaleAmount;
 			}
 			
 			/**
 			 * 设置 70%结算金额
-			 * @param String seventypProductSaleAmount 
+			 * @param BigDecimal seventypProductSaleAmount 
 			 */
-			public void setSeventypProductSaleAmount(String seventypProductSaleAmount){
+			public void setSeventypProductSaleAmount(BigDecimal seventypProductSaleAmount){
 				this.seventypProductSaleAmount = seventypProductSaleAmount;
 			}
 		   		
@@ -489,17 +490,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 折扣菜退还佣金
-			 * @return String this.discountBackCommission
+			 * @return BigDecimal this.discountBackCommission
 			 */
-			public String getDiscountBackCommission(){
+			public BigDecimal getDiscountBackCommission(){
 				return this.discountBackCommission;
 			}
 			
 			/**
 			 * 设置 折扣菜退还佣金
-			 * @param String discountBackCommission 
+			 * @param BigDecimal discountBackCommission 
 			 */
-			public void setDiscountBackCommission(String discountBackCommission){
+			public void setDiscountBackCommission(BigDecimal discountBackCommission){
 				this.discountBackCommission = discountBackCommission;
 			}
 		   		
@@ -509,17 +510,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 应付店铺结算金额
-			 * @return String this.amountPayable
+			 * @return BigDecimal this.amountPayable
 			 */
-			public String getAmountPayable(){
+			public BigDecimal getAmountPayable(){
 				return this.amountPayable;
 			}
 			
 			/**
 			 * 设置 应付店铺结算金额
-			 * @param String amountPayable 
+			 * @param BigDecimal amountPayable 
 			 */
-			public void setAmountPayable(String amountPayable){
+			public void setAmountPayable(BigDecimal amountPayable){
 				this.amountPayable = amountPayable;
 			}
 		   		
@@ -529,17 +530,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 公司收取店铺服务费
-			 * @return String this.cyzServiceCharge
+			 * @return BigDecimal this.cyzServiceCharge
 			 */
-			public String getCyzServiceCharge(){
+			public BigDecimal getCyzServiceCharge(){
 				return this.cyzServiceCharge;
 			}
 			
 			/**
 			 * 设置 公司收取店铺服务费
-			 * @param String cyzServiceCharge 
+			 * @param BigDecimal cyzServiceCharge 
 			 */
-			public void setCyzServiceCharge(String cyzServiceCharge){
+			public void setCyzServiceCharge(BigDecimal cyzServiceCharge){
 				this.cyzServiceCharge = cyzServiceCharge;
 			}
 		   		
@@ -549,17 +550,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 公司承担线上活动费
-			 * @return String this.cyzActivitiesCharge
+			 * @return BigDecimal this.cyzActivitiesCharge
 			 */
-			public String getCyzActivitiesCharge(){
+			public BigDecimal getCyzActivitiesCharge(){
 				return this.cyzActivitiesCharge;
 			}
 			
 			/**
 			 * 设置 公司承担线上活动费
-			 * @param String cyzActivitiesCharge 
+			 * @param BigDecimal cyzActivitiesCharge 
 			 */
-			public void setCyzActivitiesCharge(String cyzActivitiesCharge){
+			public void setCyzActivitiesCharge(BigDecimal cyzActivitiesCharge){
 				this.cyzActivitiesCharge = cyzActivitiesCharge;
 			}
 		   		
@@ -569,17 +570,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 公司收入
-			 * @return String this.cyzAllIncome
+			 * @return BigDecimal this.cyzAllIncome
 			 */
-			public String getCyzAllIncome(){
+			public BigDecimal getCyzAllIncome(){
 				return this.cyzAllIncome;
 			}
 			
 			/**
 			 * 设置 公司收入
-			 * @param String cyzAllIncome 
+			 * @param BigDecimal cyzAllIncome 
 			 */
-			public void setCyzAllIncome(String cyzAllIncome){
+			public void setCyzAllIncome(BigDecimal cyzAllIncome){
 				this.cyzAllIncome = cyzAllIncome;
 			}
 		   		
@@ -589,17 +590,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 销售毛利
-			 * @return String this.saleGrossProfit
+			 * @return BigDecimal this.saleGrossProfit
 			 */
-			public String getSaleGrossProfit(){
+			public BigDecimal getSaleGrossProfit(){
 				return this.saleGrossProfit;
 			}
 			
 			/**
 			 * 设置 销售毛利
-			 * @param String saleGrossProfit 
+			 * @param BigDecimal saleGrossProfit 
 			 */
-			public void setSaleGrossProfit(String saleGrossProfit){
+			public void setSaleGrossProfit(BigDecimal saleGrossProfit){
 				this.saleGrossProfit = saleGrossProfit;
 			}
 		   		
@@ -651,15 +652,15 @@ public class AccountOperateIncome extends Model{
 			 * 获取 平台承担线上活动费
 			 * @return String this.platformActivitiesCharge
 			 */
-			public String getPlatformActivitiesCharge(){
+			public BigDecimal getPlatformActivitiesCharge(){
 				return this.platformActivitiesCharge;
 			}
 			
 			/**
 			 * 设置 平台承担线上活动费
-			 * @param String platformActivitiesCharge 
+			 * @param BigDecimal platformActivitiesCharge 
 			 */
-			public void setPlatformActivitiesCharge(String platformActivitiesCharge){
+			public void setPlatformActivitiesCharge(BigDecimal platformActivitiesCharge){
 				this.platformActivitiesCharge = platformActivitiesCharge;
 			}
 		   		
@@ -669,17 +670,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 平台服务费
-			 * @return String this.platformServiceCharge
+			 * @return BigDecimal this.platformServiceCharge
 			 */
-			public String getPlatformServiceCharge(){
+			public BigDecimal getPlatformServiceCharge(){
 				return this.platformServiceCharge;
 			}
 			
 			/**
 			 * 设置 平台服务费
-			 * @param String platformServiceCharge 
+			 * @param BigDecimal platformServiceCharge 
 			 */
-			public void setPlatformServiceCharge(String platformServiceCharge){
+			public void setPlatformServiceCharge(BigDecimal platformServiceCharge){
 				this.platformServiceCharge = platformServiceCharge;
 			}
 		   		
@@ -803,11 +804,11 @@ public class AccountOperateIncome extends Model{
 				this.storeId = storeId;
 			}
 
-			public String getActualProfit() {
+			public BigDecimal getActualProfit() {
 				return actualProfit;
 			}
 
-			public void setActualProfit(String actualProfit) {
+			public void setActualProfit(BigDecimal actualProfit) {
 				this.actualProfit = actualProfit;
 			}
 
@@ -815,7 +816,7 @@ public class AccountOperateIncome extends Model{
 				return storeName;
 			}
 
-			public void setStoreName(String storeName) {
+			public void setStoreName(String storeName){
 				this.storeName = storeName;
 			}
 
@@ -833,6 +834,14 @@ public class AccountOperateIncome extends Model{
 
 			public void setStoreWorkTime(String storeWorkTime) {
 				this.storeWorkTime = storeWorkTime;
+			}
+
+			public String getRemark() {
+				return remark;
+			}
+
+			public void setRemark(String remark) {
+				this.remark = remark;
 			}
 		   		
 		

@@ -5,6 +5,7 @@ import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.finance.model.AccountOperateIncome;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
+import com.dongnao.workbench.finance.model.TotalOperateIncome;
 
 /**
  * 描述：订单明细模块service接口，提供controller操作所需方法
@@ -47,9 +48,23 @@ public interface AccountOrderDetailService  {
 	public ResultMessage update(AccountOrderDetail accountOrderDetail);
 	/**
 	 * 批量插入订单详细方法
-	 * @param bidAnalysis:实体类
 	 */
 	public int addOrderDetail(List<AccountOrderDetail> orderDetailList);
-
+	/**
+	 * 根据订单计算出运营数据
+	 */
 	public List<AccountOperateIncome> listByConditionFromOrderDetail(AccountOrderDetail accountOrderDetail);
+	/**
+	 * 根据订单计算出运营数据合计
+	 */
+	public List<TotalOperateIncome> listAllFromOrderDetail(AccountOrderDetail accountOrderDetail);
+	/**
+	 * 根据订单计算出财务数据详细
+	 */
+	public List<AccountOperateIncome> listDetailAccountCheck(AccountOrderDetail accountOrderDetail);
+	/**
+	 * 根据订单计算出财务数据合计
+	 */
+	public List<AccountOperateIncome> listTotalAccountCheck(AccountOrderDetail accountOrderDetail);
+	
 }

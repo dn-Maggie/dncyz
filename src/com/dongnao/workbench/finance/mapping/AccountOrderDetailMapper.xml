@@ -32,6 +32,10 @@
 			<result column="platform_subsidy_vouchers" property="platformSubsidyVouchers" jdbcType="DECIMAL" />
 			<result column="platform_type" property="platformType" jdbcType="VARCHAR" />
 			<result column="is_invalid" property="isInvalid" jdbcType="VARCHAR" />
+			<result column="activities_subsidy_bymerchant" property="activitiesSubsidyBymerchant" jdbcType="DECIMAL" />
+			<result column="activities_subsidy_bycompany" property="activitiesSubsidyBycompany" jdbcType="DECIMAL" />
+			<result column="food_discount" property="foodDiscount" jdbcType="DECIMAL" />
+			<result column="special_offer" property="specialOffer" jdbcType="DECIMAL" />
 	</resultMap>
 	<sql id="Base_Column_List">
 	 	id
@@ -64,6 +68,10 @@
 		,platform_subsidy_vouchers
 		,platform_type
 		,is_invalid
+		,activities_subsidy_bymerchant
+		,activities_subsidy_bycompany
+		,food_discount
+		,special_offer
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -103,15 +111,25 @@
 			and is_invalid = #{isInvalid,jdbcType=TIMESTAMP}
 		</if>
 		 <if test="null != propsMap.startDate and propsMap.startDate != ''">
-			<![CDATA[
-				and DATE_FORMAT(order_time,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
-			]]>
-		</if>
-		<if test="null != propsMap.endDate and propsMap.endDate != ''">
-			<![CDATA[
-				and DATE_FORMAT(order_time,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
-			]]>
-		</if> 
+				<![CDATA[
+					and DATE_FORMAT(create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
+				]]>
+			</if>
+			<if test="null != propsMap.endDate and propsMap.endDate != ''">
+				<![CDATA[
+					and DATE_FORMAT(create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
+				]]>
+			</if> 
+			<if test="null != propsMap.startTime and propsMap.startTime != ''">
+				<![CDATA[
+					and DATE_FORMAT(order_time,'%h:%m"%s') >= DATE_FORMAT(#{propsMap.startTime,jdbcType=TIMESTAMP},'%h:%m:%s')
+				]]>
+			</if>
+			<if test="null != propsMap.endTime and propsMap.endTime != ''">
+				<![CDATA[
+					and DATE_FORMAT(order_time,'%h:%m:%s') <= DATE_FORMAT(#{propsMap.endTime,jdbcType=TIMESTAMP},'%h:%m:%s')
+				]]>
+			</if> 
 		<if test="overTime != null and '' != overTime">  
 			and over_time = #{overTime,jdbcType=TIMESTAMP}
 		</if>
@@ -195,6 +213,10 @@
 				,#{platformSubsidyVouchers,jdbcType=DECIMAL}
 				,#{platformType,jdbcType=VARCHAR}
 				,#{isInvalid,jdbcType=VARCHAR}
+				,#{activitiesSubsidyBymerchant,jdbcType=DECIMAL}
+				,#{activitiesSubsidyBycompany,jdbcType=DECIMAL}
+				,#{foodDiscount,jdbcType=DECIMAL}
+				,#{specialOffer,jdbcType=DECIMAL}
 			)
 	</insert>
 	
@@ -230,6 +252,10 @@
 				,platform_subsidy_vouchers
 				,platform_type
 				,is_invalid
+				,activities_subsidy_bymerchant
+				,activities_subsidy_bycompany
+				,food_discount
+				,special_offer
 		)values
 		<foreach collection="list" item="item" index="index" separator="," >
 		 (
@@ -263,6 +289,10 @@
 				,#{item.platformSubsidyVouchers,jdbcType=DECIMAL}
 				,#{item.platformType,jdbcType=VARCHAR}
 				,#{item.isInvalid,jdbcType=VARCHAR}
+				,#{item.activitiesSubsidyBymerchant,jdbcType=DECIMAL}
+				,#{item.activitiesSubsidyBycompany,jdbcType=DECIMAL}
+				,#{item.foodDiscount,jdbcType=DECIMAL}
+				,#{item.specialOffer,jdbcType=DECIMAL}
 		)
 		</foreach>
 	</insert>
@@ -300,6 +330,10 @@
 		,platform_subsidy_vouchers = #{platformSubsidyVouchers,jdbcType=DECIMAL}
 		,platform_type = #{platformType,jdbcType=VARCHAR}
 		,is_invalid = #{isInvalid,jdbcType=VARCHAR}
+		,activities_subsidy_bymerchant = #{activitiesSubsidyBymerchant,jdbcType=DECIMAL}
+		,activities_subsidy_bycompany = #{activitiesSubsidyBycompany,jdbcType=DECIMAL}
+		,food_discount = #{foodDiscount,jdbcType=DECIMAL}
+		,special_offer = #{specialOffer,jdbcType=DECIMAL}
 	where id = #{id,jdbcType=VARCHAR}
 	</update>
 </mapper>
