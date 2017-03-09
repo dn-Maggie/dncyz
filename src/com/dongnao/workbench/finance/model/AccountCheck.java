@@ -21,7 +21,7 @@ public class AccountCheck extends Model{
 		            /**
 	                 * 结算日期
 	                 **/
-					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
+					@DateTimeFormat(pattern="yyyy-MM-dd") 
 						private Date accountTime;
 		
 		            /**

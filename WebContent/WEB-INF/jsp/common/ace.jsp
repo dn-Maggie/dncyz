@@ -76,5 +76,38 @@
 		vertical-align: middle;
     	border-top: 0;
 	}  
+	.ui-pg-table>tbody>tr>.ui-pg-button>.ui-icon {
+	    display: inline-block;
+	    padding: 0;
+	    width: 20px;
+	    height: 20px;
+	    line-height: 20px;
+	    text-align: center;
+	    position: static;
+	    color: #808080;
+	    border: 1px solid #CCC;
+	    background-color: #FFF;
+	    border-radius: 100%;
+	    background-color: white;
+	}
+	.ui-jqgrid-sortable {
+	    padding-left: 4px;
+	    font-size: 13px;
+	    color: #fff;
+	    font-weight: bold;
+	}
+	.ui-jqgrid-sortable:hover {
+	   	 color: #666;
+	}
+	.ui-state-default ui-th-column-header ui-th-ltr,.ui-jqgrid .ui-jqgrid-labels th{
+		text-align: center!important;
+	}
+	.ui-jqgrid tr.footrow-ltr td {
+	    border: 0; 
+	    text-align: center;
+	}
+	.th[aria-selected=true] .ui-jqgrid-sortable {
+	    color: #f47115;
+	}
 </style>
 <script src="<%=request.getContextPath() %>/js/ace-common.js"></script>

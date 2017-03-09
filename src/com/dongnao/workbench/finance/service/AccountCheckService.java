@@ -3,6 +3,7 @@ package com.dongnao.workbench.finance.service;
 import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.finance.model.AccountCheck;
+import com.dongnao.workbench.finance.model.AccountOperateIncome;
 
 /**
  * 描述：财务对账模块service接口，提供controller操作所需方法
@@ -43,4 +44,5 @@ public interface AccountCheckService  {
 	 * @param accountCheck AccountCheck 实体对象
 	 */	
 	public ResultMessage update(AccountCheck accountCheck);
+
 }

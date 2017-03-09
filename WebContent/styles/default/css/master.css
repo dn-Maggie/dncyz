@@ -32,9 +32,9 @@
 
 
 /*搜索区域*/
-.search{margin-bottom: 5px;padding-bottom: 5px;display: table; z-index:8; width:100%; float:left; position:relative;}
+.search{/* margin-bottom: 5px;padding-bottom: 5px; */display: table; z-index:8; width:100%; float:left; position:relative;}
 .border-bottom{ border-bottom:1px solid #dae1e5;}
-.search ul{ width:100%; float:left; display:inline-block;		min-width: 1500px;}
+.search ul{ width:100%; float:left; display:inline-block;/* min-width: 1500px; */}
 .search>ul>li{position:relative;float: left;margin-top: 8px;margin-bottom: 5px;margin-left: 10px;/* width: 200px; */height:28px;line-height: 28px;margin-right: 8px;color: #333;}
 .search li.date_area{width:300px;}
 .search li.date_area div.time_bg{float:left}
@@ -161,7 +161,7 @@ select.search_choose{height:30px;width:127px;}
 
 /*列表区*/
 .listplace{ position:relative; margin: 0 10px; z-index:6; }
-.list_btn_bg{ position:relative; margin-bottom:5px; /*padding-left:10px;*/ padding-right:10px;margin-top: 5px;}
+.list_btn_bg{ position:relative; /*margin-bottom:5px; padding-left:10px;*/ padding-right:10px;margin-top: 5px;}
 .list_btn_bg ul{ display:inline-block; float:left;margin-left:10px;}
 .list_btn_bg ul li{ float:left; margin-right:10px;}
 .list_btn_bg ul li a{ display:inline-block; background: #ffffff; padding:3px 10px;border: 1px solid #dddddd; color:#333; border-radius:2px; -webkit-border-radius:2px;-o-border-radius:2px; -moz-border-radius:2px; overflow:hidden;}

@@ -1,5 +1,7 @@
 package com.dongnao.workbench.finance.service;
 import javax.annotation.Resource;
+
+import java.util.ArrayList;
 import java.util.List;
 import com.dongnao.workbench.finance.dao.AccountOperateIncomeMapper;
 import com.dongnao.workbench.finance.model.AccountOperateIncome;
@@ -63,5 +65,12 @@ public class AccountOperateIncomeServiceImpl implements AccountOperateIncomeServ
 	public ResultMessage update(AccountOperateIncome accountOperateIncome){
 		accountOperateIncomeMapper.update(accountOperateIncome);
 		return AjaxUtils.getSuccessMessage();
+	}
+	/**
+	 * 批量插入运营详细方法
+	 */
+	@Override
+	public int addOperaDetail(ArrayList<AccountOperateIncome> operateIncomeList) {
+		return accountOperateIncomeMapper.addOperaDetail(operateIncomeList);
 	}
 }

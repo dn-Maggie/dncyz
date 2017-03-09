@@ -10,25 +10,24 @@ var gridObj = {};
 	$(function(){
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/accountCheck/listAccountCheck.do'/>",/*grid初始化请求数据的远程地址*/
+            url: "<m:url value='/accountCheck/listTotalAccountCheck.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"create_date",
            	sortorder:"asc",
-        	footerrow:true,
-        	emptyrecords: "无记录可显示",
+           	footerrow:true,
+           	emptyrecords: "无记录可显示",
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
     		rowNum:31,//默认显示15条
             colModel:[
 				{name : "storeName",label:"商户名称",index : "store_name"},	
 				{name : "createDate",label:"日期",index : "create_date"},				
-				{name : "createTime",label:"订单时点",index : "create_time"},				
-				{name : "orderNo",label:"订单号",index : "order_no"},				
+				{name : "validNum",label:"订单数",index : "valid_num"},				
 				{name : "orginPrice",label:"原价",index : "orgin_price"},				
 				{name : "discountPrice",label:"菜品折扣",index : "discount_price"},				
 				{name : "afterDiscountPrice",label:"折扣菜金额",index : "after_discount_price"},				
 				{name : "actualPrice",label:"原价菜金额",index : "actual_price"},				
-				{name : "amountPayable",label:"结算金额",index : "amount_payable"}
+				{name : "amountPayable",label:"结算金额",index : "amount_payable"},				
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -39,6 +38,7 @@ var gridObj = {};
 		    	$(".ui-jqgrid-sdiv").show();
 		    	$(this).footerData("set",{
 		    		"rn":"合计",
+		    		"validNum":$(this).getCol("validNum",false,"sum"),
 		    		"orginPrice":$(this).getCol("orginPrice",false,"sum").toFixed(2),
 		    		"discountPrice":$(this).getCol("discountPrice",false,"sum").toFixed(2),
 		    		"afterDiscountPrice":$(this).getCol("afterDiscountPrice",false,"sum").toFixed(2),
@@ -48,12 +48,10 @@ var gridObj = {};
 			}
       });
     });
-
 	//查看的弹出框
 	var show_iframe_dialog;
   	
-  	
-  	
+    
     function show(){
     	var key = ICSS.utils.getSelectRowData("id");
 		if(key.indexOf(",")>-1||key==""){
@@ -96,9 +94,9 @@ var gridObj = {};
     function resetForm(formId){
 		document.getElementById(formId).reset();
 	}
-  //导出财务明细数据
+  	//导出财务总数据
  	function exportData(){
- 		ExpExcel.showWin(gridObj,baseUrl+"/accountCheck/exportDetailExcel.do",'grid','queryForm');
+ 		ExpExcel.showWin(gridObj,baseUrl+"/accountCheck/exportTotalExcel.do",'grid','queryForm');
  	}
     </script>
 </head>
@@ -121,27 +119,11 @@ var gridObj = {};
 					<i class="search_time_ico2" ></i>
 					</div>
 				</li>
-				<li class="date_area">
-					<span>创建时间:</span>
-						<div class="time_bg">
-						<div class="input-group bootstrap-timepicker">
-							<input class="timepicker text" name="propsMap['startTime']" type="text" />
-						</div>
-						</div>
-					<i>至</i>
-					<div class="time_bg">
-						<div class="input-group bootstrap-timepicker">
-							<input class="timepicker text" name="propsMap['endTime']" type="text" />
-						</div>
-					</div>
-					</li>		
 				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
 					 <option value="elm">饿了么</option><option value="meituan">美团</option>
 					</select><span>平台类型:</span></li><!--下拉 -->
-				 <li><select class="search_select" name="distributionMode" id="distributionMode"><option value="">---请选择---</option></select>
-				<span>配送方式:</span></li><!--下拉 -->
 				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
-						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
+					<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
 				</ul>
 		   </div>
 	    </form>

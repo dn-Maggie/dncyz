@@ -1,7 +1,10 @@
 package com.dongnao.workbench.finance.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.dongnao.workbench.finance.model.AccountOperateIncome;
+import com.dongnao.workbench.finance.model.AccountOrderDetail;
+import com.dongnao.workbench.finance.model.TotalOperateIncome;
 /**
  * 描述：运营数据模块dao接口，提供数据库操作方法
  *
@@ -41,4 +44,12 @@ public interface AccountOperateIncomeMapper  {
 	 * @param accountOperateIncome AccountOperateIncome：实体对象
 	 */	
 	public void update(AccountOperateIncome accountOperateIncome);
+	/**
+	 * 根据订单详细表得到运营数据方法
+	 */
+	public List<AccountOperateIncome> listByConditionFromOrderDetail(AccountOrderDetail accountOrderDetail);
+
+	public List<TotalOperateIncome> listAllFromOrderDetail(AccountOrderDetail accountOrderDetail);
+
+	public int addOperaDetail(ArrayList<AccountOperateIncome> operateIncomeList);
 }
