@@ -10,7 +10,7 @@ var gridObj = {};
 	$(function(){
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/accountOrderDetail/listAllFromOrderDetail.do'/>",/*grid初始化请求数据的远程地址*/
+            url: "<m:url value='/accountOperateIncome/listAllFromOrderDetail.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"create_date",
            	sortorder:"asc",

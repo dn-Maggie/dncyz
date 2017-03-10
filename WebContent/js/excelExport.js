@@ -12,7 +12,6 @@ ExpExcel = {
 		}
 		form.submit();
 	},
-
 	createOrSetQueryHidden : function(formId, queryParams) {
 		$.each(queryParams, function(idx, item) {
 			var eid = formId + '_' + idx;
@@ -154,15 +153,14 @@ ExpExcel = {
 		htmlTmp += '<div style="float:left;margin-left:46px;"><input type="button" id="cancel" class="search_btn4" value="取消">';
 		htmlTmp += '<input type="button" id="download" class="add_save" value="下载" onclick="executeDownload()"></div></form>';
 		return htmlTmp;
-    }	,
-createImportOperaWinHtml : function() {
+    },
+    createImportOperaWinHtml : function() {
 		var htmlTmp = '';
 		htmlTmp += '<div style="height:100px;margin-left:44px; margin-top:16px;">';
 		htmlTmp += '<select class="search_select" id="platFormType"><option value="elm">饿了么</option><option value="meituan">美团</option><option value="baidu">百度</option></select></div>';
 		htmlTmp += '<div style="float:left;margin-left:46px;"><input type="button" id="cancel" class="search_btn4" value="取消">';
 		htmlTmp += '<input type="button" id="import" class="add_save" value="导入" onclick="$(\'#file\').click()"></div>';
 		htmlTmp += '<form name="form" id="form" method="post"  enctype="multipart/form-data"><input type="file" id="file" name="file" style="display: none" onchange="ExpExcel.importOperaData()"/></form>';
-
 		return htmlTmp;
 	},
 	// Grid导出
@@ -233,7 +231,6 @@ createImportOperaWinHtml : function() {
 		});
 		excelExportDialogDiv.dialog("open");
 	},
-
 	executeDownload : function(){
 		var fid = $("#downloadform");
 		fid.submit();
@@ -254,7 +251,7 @@ createImportOperaWinHtml : function() {
       title : "选择下载模板"
 		});
 		excelDownloadDialogDiv.dialog("open");
-
+	},
 	showImportOperaWin : function() {
 		$("#excelExportDialogDiv").remove();
 		var excelExportDialogDiv = $('<div id="excelExportDialogDiv">'

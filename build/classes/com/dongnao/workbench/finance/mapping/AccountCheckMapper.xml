@@ -3,18 +3,64 @@
 <mapper namespace="com.dongnao.workbench.finance.dao.AccountCheckMapper">
 	<resultMap id="BaseResultMap" type="com.dongnao.workbench.finance.model.AccountCheck">
 		<id column="id" property="id" jdbcType="VARCHAR" />
-															<result column="account_time" property="accountTime" jdbcType="DATE" />
-													<result column="elm_settlement" property="elmSettlement" jdbcType="DOUBLE" />
-													<result column="baidu_settlement" property="baiduSettlement" jdbcType="DOUBLE" />
-													<result column="meituan_settlement" property="meituanSettlement" jdbcType="DOUBLE" />
-													<result column="total_settlement" property="totalSettlement" jdbcType="DOUBLE" />
-													<result column="elm_cost" property="elmCost" jdbcType="DOUBLE" />
-													<result column="baidu_cost" property="baiduCost" jdbcType="DOUBLE" />
-													<result column="meituan_cost" property="meituanCost" jdbcType="DOUBLE" />
-													<result column="actual_settlement" property="actualSettlement" jdbcType="DOUBLE" />
-													<result column="remark" property="remark" jdbcType="VARCHAR" />
-													<result column="store_id" property="storeId" jdbcType="VARCHAR" />
-									</resultMap>
+		<result column="account_time" property="accountTime" jdbcType="DATE" />
+		<result column="elm_settlement" property="elmSettlement" jdbcType="DOUBLE" />
+		<result column="baidu_settlement" property="baiduSettlement" jdbcType="DOUBLE" />
+		<result column="meituan_settlement" property="meituanSettlement" jdbcType="DOUBLE" />
+		<result column="total_settlement" property="totalSettlement" jdbcType="DOUBLE" />
+		<result column="elm_cost" property="elmCost" jdbcType="DOUBLE" />
+		<result column="baidu_cost" property="baiduCost" jdbcType="DOUBLE" />
+		<result column="meituan_cost" property="meituanCost" jdbcType="DOUBLE" />
+		<result column="actual_settlement" property="actualSettlement" jdbcType="DOUBLE" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="store_id" property="storeId" jdbcType="VARCHAR" />
+		<result column="store_name" property="storeName" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="AccountCheckTotal" type="com.dongnao.workbench.finance.model.AccountOperateIncome">
+		<result column="store_name" property="storeName" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="DATE" />
+		<result column="valid_num" property="validNum" jdbcType="INTEGER" />
+		<result column="orgin_price" property="orginPrice" jdbcType="DECIMAL" />
+		<result column="discount_price" property="discountPrice" jdbcType="DECIMAL" />
+		<result column="after_discount_price" property="afterDiscountPrice" jdbcType="DECIMAL" />
+		<result column="actual_price" property="actualPrice" jdbcType="DECIMAL" />
+		<result column="amount_payable" property="amountPayable" jdbcType="DECIMAL" />
+	</resultMap>
+	<resultMap id="OperateIncomeResultMap" type="com.dongnao.workbench.finance.model.AccountOperateIncome">
+		<result column="store_name" property="storeName" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="DATE" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+		<result column="orgin_price" property="orginPrice" jdbcType="DECIMAL" />
+		<result column="discount_price" property="discountPrice" jdbcType="DECIMAL" />
+		<result column="after_discount_price" property="afterDiscountPrice" jdbcType="DECIMAL" />
+		<result column="actual_price" property="actualPrice" jdbcType="DECIMAL" />
+		<result column="order_distribution_charge" property="orderDistributionCharge" jdbcType="DECIMAL" />
+		<result column="platform_distribution_charge" property="platformDistributionCharge" jdbcType="DECIMAL" />
+		<result column="cyz_distribution_charge" property="cyzDistributionCharge" jdbcType="DECIMAL" />
+		<result column="invalid_num" property="invalidNum" jdbcType="INTEGER" />
+		<result column="valid_num" property="validNum" jdbcType="INTEGER" />
+		<result column="product_sale_amount" property="productSaleAmount" jdbcType="DECIMAL" />
+		<result column="amount_receivable" property="amountReceivable" jdbcType="DECIMAL" />
+		<result column="seventyP_product_sale_amount" property="seventypProductSaleAmount" jdbcType="DECIMAL" />
+		<result column="discount_back_commission" property="discountBackCommission" jdbcType="DECIMAL" />
+		<result column="amount_payable" property="amountPayable" jdbcType="DECIMAL" />
+		<result column="cyz_service_charge" property="cyzServiceCharge" jdbcType="DECIMAL" />
+		<result column="cyz_activities_charge" property="cyzActivitiesCharge" jdbcType="DECIMAL" />
+		<result column="cyz_all_income" property="cyzAllIncome" jdbcType="DECIMAL" />
+		<result column="sale_gross_profit" property="saleGrossProfit" jdbcType="DECIMAL" />
+		<result column="sale_gross_profit_rate" property="saleGrossProfitRate" jdbcType="VARCHAR" />
+		<result column="distribution_actual_payment" property="distributionActualPayment" jdbcType="DECIMAL" />
+		<result column="platform_activities_charge" property="platformActivitiesCharge" jdbcType="DECIMAL" />
+		<result column="platform_service_charge" property="platformServiceCharge" jdbcType="DECIMAL" />
+		<result column="should_distribution_charge" property="shouldDistributionCharge" jdbcType="DECIMAL" />
+		<result column="cyz_distribution_charge_actual" property="cyzDistributionChargeActual" jdbcType="DECIMAL" />
+		<result column="diff_distribution_charge" property="diffDistributionCharge" jdbcType="DECIMAL" />
+		<result column="platform_subsidy" property="platformSubsidy" jdbcType="DECIMAL" />
+		<result column="platform_type" property="platformType" jdbcType="VARCHAR" />
+		<result column="store_id" property="storeId" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
 	<sql id="Base_Column_List">
 						 	id
 							,account_time
@@ -28,6 +74,7 @@
 							,actual_settlement
 							,remark
 							,store_id
+							,store_name
 						</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -49,6 +96,248 @@
 		left join dn_store as s on s.STORE_ID = ac.store_id
 		where id = #{id,jdbcType=VARCHAR}
 	</select>
+	
+	<select id="listTotalAccountCheck" resultMap="AccountCheckTotal" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
+			SELECT 
+				store_name,
+				create_date,
+				COUNT(*) as valid_num,
+				SUM(operIncome.orgin_price) as orgin_price,
+				-SUM(operIncome.discount_price) as discount_price,
+				SUM(operIncome.after_discount_price) as after_discount_price,
+				SUM(operIncome.orgin_price + operIncome.discount_price - operIncome.after_discount_price ) as actual_price,
+				SUM(operIncome.amount_payable) as amount_payable
+			 from
+				(SELECT
+				od.id,
+				od.is_invalid,
+				od.create_date AS create_date,
+				od.order_time AS create_time,
+				od.order_no AS order_no,
+				(od.prices + od.meal_fee) AS orgin_price,
+				-(od.activities_subsidy_bymerchant) AS discount_price,
+				od.food_discount AS after_discount_price,
+				od.special_offer AS actual_price,
+				od.settlement_amount AS amount_receivable, 
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount)* 0.7 AS seventyP_product_sale_amount,
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount AS amount_payable, 
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.3 AS cyz_service_charge,
+				'待确认' AS distribution_actual_payment,
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant) - (-od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) + od.service_charge -
+				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount) AS sale_gross_profit,
+				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant) - (-od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) + od.service_charge -
+				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount))/ 
+				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.3)
+				AS sale_gross_profit_rate,
+				od.store_name,
+				od.remark,
+				od.platform_type,
+				(CASE WHEN od.platform_type = "meituan" THEN od.store_MT_id WHEN od.platform_type like "elm" THEN od.store_ELM_id END) as store_id
+		 	FROM
+				account_order_detail AS od
+			where 1=1
+			AND od.is_invalid= '0'
+			<if test="createDate != null and '' != createDate">  
+				and od.create_date = #{createDate,jdbcType=DATE}
+			</if>
+			<if test="storeId != null and '' != storeId">  
+				and od.store_id = #{storeId,jdbcType=CHAR}
+			</if>
+			<if test="storeName != null and '' != storeName">  
+				and od.store_name like CONCAT('%',#{storeName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="checkNo != null and '' != checkNo">  
+				and od.check_no = #{checkNo,jdbcType=VARCHAR}
+			</if>
+			<if test="orderType != null and '' != orderType">  
+				and od.order_type = #{orderType,jdbcType=VARCHAR}
+			</if>
+			<if test="orderTime != null and '' != orderTime">  
+				and od.order_time = #{orderTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="isInvalid != null and '' != isInvalid">  
+				and od.is_invalid = #{isInvalid,jdbcType=TIMESTAMP}
+			</if>
+			 <if test="null != propsMap.startDate and propsMap.startDate != ''">
+				<![CDATA[
+					and DATE_FORMAT(od.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
+				]]>
+			</if>
+			<if test="null != propsMap.endDate and propsMap.endDate != ''">
+				<![CDATA[
+					and DATE_FORMAT(od.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
+				]]>
+			</if> 
+			<if test="null != propsMap.startTime and propsMap.startTime != ''">
+				<![CDATA[
+					and DATE_FORMAT(od.order_time,'%h:%m:%s') >= DATE_FORMAT(#{propsMap.startTime,jdbcType=TIMESTAMP},'%h:%m:%s')
+				]]>
+			</if>
+			<if test="null != propsMap.endTime and propsMap.endTime != ''">
+				<![CDATA[
+					and DATE_FORMAT(od.order_time,'%h:%m:%s') <= DATE_FORMAT(#{propsMap.endTime,jdbcType=TIMESTAMP},'%h:%m:%s')
+				]]>
+			</if> 
+			<if test="overTime != null and '' != overTime">  
+				and od.over_time = #{overTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="orderIndex != null and '' != orderIndex">  
+				and od.order_index = #{orderIndex,jdbcType=VARCHAR}
+			</if>
+			<if test="orderNo != null and '' != orderNo">  
+				and od.order_no = #{orderNo,jdbcType=VARCHAR}
+			</if>
+			<if test="prices != null and '' != prices">  
+				and od.prices = #{prices,jdbcType=DECIMAL}
+			</if>
+			<if test="mealFee != null and '' != mealFee">  
+				and od.meal_fee = #{mealFee,jdbcType=DECIMAL}
+			</if>
+			<if test="giftAllowance != null and '' != giftAllowance">  
+				and od.gift_allowance = #{giftAllowance,jdbcType=DECIMAL}
+			</if>
+			<if test="serviceRate != null and '' != serviceRate">  
+				and od.service_rate = #{serviceRate,jdbcType=VARCHAR}
+			</if>
+			<if test="serviceCharge != null and '' != serviceCharge">  
+				and od.service_charge = #{serviceCharge,jdbcType=DECIMAL}
+			</if>
+			<if test="refundAmount != null and '' != refundAmount">  
+				and od.refund_amount = #{refundAmount,jdbcType=VARCHAR}
+			</if>
+			<if test="settlementAmount != null and '' != settlementAmount">  
+				and od.settlement_amount = #{settlementAmount,jdbcType=DECIMAL}
+			</if>
+			<if test="distributionMode != null and '' != distributionMode">  
+				and od.distribution_mode = #{distributionMode,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and '' != remark">  
+				and od.remark = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="platformType != null and '' != platformType">  
+				and od.platform_type = #{platformType,jdbcType=DECIMAL}
+			</if>
+			<if test="orderFields != null and '' != orderFields">  
+	           	order by ${orderFields} ${order}
+	       	</if>
+			) as operIncome
+			GROUP BY create_date
+	</select>
+	
+	<select id="listDetailAccountCheck" resultMap="OperateIncomeResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
+		SELECT
+				od.id,
+				od.create_date AS create_date,
+				od.order_time AS create_time,
+				od.order_no AS order_no,
+				(od.prices + od.meal_fee) AS orgin_price,
+				-(od.activities_subsidy_bymerchant) AS discount_price,
+				od.food_discount AS after_discount_price,
+				od.special_offer AS actual_price,
+				od.settlement_amount AS amount_receivable, 
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount)* 0.7 AS seventyP_product_sale_amount,
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount AS amount_payable, 
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.3 AS cyz_service_charge,
+				'待确认' AS distribution_actual_payment,
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant) - (-od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) + od.service_charge -
+				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount) AS sale_gross_profit,
+				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant) - (-od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) + od.service_charge -
+				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount))/ 
+				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.3)
+				AS sale_gross_profit_rate,
+				od.store_name,
+				od.remark,
+				od.platform_type,
+				(CASE WHEN od.platform_type = "meituan" THEN od.store_MT_id WHEN od.platform_type like "elm" THEN od.store_ELM_id END) as store_id
+		 	FROM
+				account_order_detail AS od
+			where 1=1
+			AND od.is_invalid= '0'
+			<if test="createDate != null and '' != createDate">  
+				and od.create_date = #{createDate,jdbcType=DATE}
+			</if>
+			<if test="storeId != null and '' != storeId">  
+				and od.store_id = #{storeId,jdbcType=CHAR}
+			</if>
+			<if test="storeName != null and '' != storeName">  
+				and od.store_name like CONCAT('%',#{storeName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="checkNo != null and '' != checkNo">  
+				and od.check_no = #{checkNo,jdbcType=VARCHAR}
+			</if>
+			<if test="orderType != null and '' != orderType">  
+				and od.order_type = #{orderType,jdbcType=VARCHAR}
+			</if>
+			<if test="orderTime != null and '' != orderTime">  
+				and od.order_time = #{orderTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="isInvalid != null and '' != isInvalid">  
+				and od.is_invalid = #{isInvalid,jdbcType=TIMESTAMP}
+			</if>
+			  <if test="null != propsMap.startDate and propsMap.startDate != ''">
+				<![CDATA[
+					and DATE_FORMAT(od.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
+				]]>
+			</if>
+			<if test="null != propsMap.endDate and propsMap.endDate != ''">
+				<![CDATA[
+					and DATE_FORMAT(od.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
+				]]>
+			</if> 
+			<if test="null != propsMap.startTime and propsMap.startTime != ''">
+				<![CDATA[
+					and DATE_FORMAT(od.order_time,'%h:%m"%s') >= DATE_FORMAT(#{propsMap.startTime,jdbcType=TIMESTAMP},'%h:%m:%s')
+				]]>
+			</if>
+			<if test="null != propsMap.endTime and propsMap.endTime != ''">
+				<![CDATA[
+					and DATE_FORMAT(od.order_time,'%h:%m:%s') <= DATE_FORMAT(#{propsMap.endTime,jdbcType=TIMESTAMP},'%h:%m:%s')
+				]]>
+			</if> 
+			<if test="overTime != null and '' != overTime">  
+				and od.over_time = #{overTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="orderIndex != null and '' != orderIndex">  
+				and od.order_index = #{orderIndex,jdbcType=VARCHAR}
+			</if>
+			<if test="orderNo != null and '' != orderNo">  
+				and od.order_no = #{orderNo,jdbcType=VARCHAR}
+			</if>
+			<if test="prices != null and '' != prices">  
+				and od.prices = #{prices,jdbcType=DECIMAL}
+			</if>
+			<if test="mealFee != null and '' != mealFee">  
+				and od.meal_fee = #{mealFee,jdbcType=DECIMAL}
+			</if>
+			<if test="giftAllowance != null and '' != giftAllowance">  
+				and od.gift_allowance = #{giftAllowance,jdbcType=DECIMAL}
+			</if>
+			<if test="serviceRate != null and '' != serviceRate">  
+				and od.service_rate = #{serviceRate,jdbcType=VARCHAR}
+			</if>
+			<if test="serviceCharge != null and '' != serviceCharge">  
+				and od.service_charge = #{serviceCharge,jdbcType=DECIMAL}
+			</if>
+			<if test="refundAmount != null and '' != refundAmount">  
+				and od.refund_amount = #{refundAmount,jdbcType=VARCHAR}
+			</if>
+			<if test="settlementAmount != null and '' != settlementAmount">  
+				and od.settlement_amount = #{settlementAmount,jdbcType=DECIMAL}
+			</if>
+			<if test="distributionMode != null and '' != distributionMode">  
+				and od.distribution_mode = #{distributionMode,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and '' != remark">  
+				and od.remark = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="platformType != null and '' != platformType">  
+				and od.platform_type = #{platformType,jdbcType=DECIMAL}
+			</if>
+			<if test="orderFields != null and '' != orderFields">  
+	           	order by ${orderFields} ${order}
+	       	</if>
+	</select>
+	
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountCheck">
 		select
@@ -130,6 +419,7 @@
 				,#{actualSettlement,jdbcType=DOUBLE}
 				,#{remark,jdbcType=VARCHAR}
 				,#{storeId,jdbcType=VARCHAR}
+				,#{storeName,jdbcType=VARCHAR}
 			)
 	</insert>
 	
@@ -148,6 +438,7 @@
 			,actual_settlement = #{actualSettlement,jdbcType=DOUBLE}
 			,remark = #{remark,jdbcType=VARCHAR}
 			,store_id = #{storeId,jdbcType=VARCHAR}
+			,store_name = #{storeName,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
 </mapper>

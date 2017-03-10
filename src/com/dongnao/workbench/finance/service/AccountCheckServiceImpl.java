@@ -3,6 +3,8 @@ import javax.annotation.Resource;
 import java.util.List;
 import com.dongnao.workbench.finance.dao.AccountCheckMapper;
 import com.dongnao.workbench.finance.model.AccountCheck;
+import com.dongnao.workbench.finance.model.AccountOperateIncome;
+import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.service.AccountCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ import com.dongnao.workbench.common.util.AjaxUtils;
  */
 @Service("accountCheckService")
 public class AccountCheckServiceImpl implements AccountCheckService{
-        @Resource
+    @Resource
 	private AccountCheckMapper accountCheckMapper;
 	
  
@@ -63,5 +65,17 @@ public class AccountCheckServiceImpl implements AccountCheckService{
 	public ResultMessage update(AccountCheck accountCheck){
 		accountCheckMapper.update(accountCheck);
 		return AjaxUtils.getSuccessMessage();
+	}
+	/**
+	 * 根据订单计算出财务数据详细
+	 */
+	public List<AccountOperateIncome> listDetailAccountCheck(AccountOrderDetail accountOrderDetail) {
+		return accountCheckMapper.listDetailAccountCheck(accountOrderDetail);
+	}
+	/**
+	 * 根据订单计算出财务数据合计
+	 */
+	public List<AccountOperateIncome> listTotalAccountCheck(AccountOrderDetail accountOrderDetail) {
+		return accountCheckMapper.listTotalAccountCheck(accountOrderDetail);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.finance.model.AccountCheck;
 import com.dongnao.workbench.finance.model.AccountOperateIncome;
+import com.dongnao.workbench.finance.model.AccountOrderDetail;
 
 /**
  * 描述：财务对账模块service接口，提供controller操作所需方法
@@ -45,4 +46,12 @@ public interface AccountCheckService  {
 	 */	
 	public ResultMessage update(AccountCheck accountCheck);
 
+	/**
+	 * 根据订单计算出财务数据详细
+	 */
+	public List<AccountOperateIncome> listDetailAccountCheck(AccountOrderDetail accountOrderDetail) ;
+	/**
+	 * 根据订单计算出财务数据合计
+	 */
+	public List<AccountOperateIncome> listTotalAccountCheck(AccountOrderDetail accountOrderDetail) ;
 }

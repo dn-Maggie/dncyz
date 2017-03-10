@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.finance.model.AccountOperateIncome;
+import com.dongnao.workbench.finance.model.AccountOrderDetail;
+import com.dongnao.workbench.finance.model.TotalOperateIncome;
 
 /**
  * 描述：运营数据模块service接口，提供controller操作所需方法
@@ -48,4 +50,13 @@ public interface AccountOperateIncomeService  {
 	 * 批量插入运营详细方法
 	 */
 	public int addOperaDetail(ArrayList<AccountOperateIncome> operateIncomeList);
+	
+	/**
+	 * 根据订单详细表得到运营数据方法
+	 */
+	public List<AccountOperateIncome> listByConditionFromOrderDetail(AccountOrderDetail accountOrderDetail);
+	/**
+	 * 根据订单计算出运营数据合计
+	 */
+	public List<TotalOperateIncome> listAllFromOrderDetail(AccountOrderDetail accountOrderDetail) ;
 }

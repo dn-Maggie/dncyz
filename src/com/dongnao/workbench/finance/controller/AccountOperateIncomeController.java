@@ -49,8 +49,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class AccountOperateIncomeController{
          @Resource
 	private AccountOperateIncomeService accountOperateIncomeService;
-         @Resource
-     	private AccountOrderDetailService accountOrderDetailService;
  	/**
  	* 进入新增页面
  	* @return ModelAndView 返回到新增页面
@@ -126,6 +124,34 @@ public class AccountOperateIncomeController{
 			HttpServletResponse response, Page page){
 		accountOperateIncome.setPage(page);	
 		List<AccountOperateIncome> list = accountOperateIncomeService.listByCondition(accountOperateIncome);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	
+	/**
+	 * 运营统计数据
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/listAllFromOrderDetail")
+	public void listAllFromOrderDetail(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		accountOrderDetail.setPage(page);	
+		List<TotalOperateIncome> list = accountOperateIncomeService.listAllFromOrderDetail(accountOrderDetail);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	
+	/**
+	 * 根据条件查找运营数据
+	 * @param accountOrderDetail AccountOrderDetail：实体对象（查询条件）
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse
+	 * @param page Page:分页对象
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/listOperaData")
+	public void listOperaData(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		accountOrderDetail.setPage(page);	
+		List<AccountOperateIncome> list = accountOperateIncomeService.listByConditionFromOrderDetail(accountOrderDetail);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
@@ -241,7 +267,7 @@ public class AccountOperateIncomeController{
 		if (expType == 1) {
 			accountOrderDetail.setPage(page);
 		}
-		List<AccountOperateIncome> list = accountOrderDetailService.listByConditionFromOrderDetail(accountOrderDetail);
+		List<AccountOperateIncome> list = accountOperateIncomeService.listByConditionFromOrderDetail(accountOrderDetail);
 		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
 				"运营明细列表", "运营明细列表");
 	}
@@ -254,7 +280,7 @@ public class AccountOperateIncomeController{
 		if (expType == 1) {
 			accountOrderDetail.setPage(page);
 		}
-		List<TotalOperateIncome> list = accountOrderDetailService.listAllFromOrderDetail(accountOrderDetail);
+		List<TotalOperateIncome> list = accountOperateIncomeService.listAllFromOrderDetail(accountOrderDetail);
 		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
 				"运营统计列表", "运营统计列表");
 	}

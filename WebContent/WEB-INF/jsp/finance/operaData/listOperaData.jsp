@@ -16,7 +16,7 @@ var gridObj = {};
  		$("#gbox_remote_rowed").css("display","block");
  		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/accountOrderDetail/listOperaData.do'/>",/*grid初始化请求数据的远程地址*/
+            url: "<m:url value='/accountOperateIncome/listOperaData.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
             footerrow:true,
             emptyrecords: "无记录可显示",

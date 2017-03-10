@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.dongnao.workbench.finance.dao.AccountOperateIncomeMapper;
 import com.dongnao.workbench.finance.model.AccountOperateIncome;
+import com.dongnao.workbench.finance.model.AccountOrderDetail;
+import com.dongnao.workbench.finance.model.TotalOperateIncome;
 import com.dongnao.workbench.finance.service.AccountOperateIncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,8 +71,20 @@ public class AccountOperateIncomeServiceImpl implements AccountOperateIncomeServ
 	/**
 	 * 批量插入运营详细方法
 	 */
-	@Override
 	public int addOperaDetail(ArrayList<AccountOperateIncome> operateIncomeList) {
 		return accountOperateIncomeMapper.addOperaDetail(operateIncomeList);
+	}
+	
+	/**
+	 * 根据订单详细表得到运营数据方法
+	 */
+	public List<AccountOperateIncome> listByConditionFromOrderDetail(AccountOrderDetail accountOrderDetail) {
+		return accountOperateIncomeMapper.listByConditionFromOrderDetail(accountOrderDetail);
+	}
+	/**
+	 * 根据订单计算出运营数据合计
+	 */
+	public List<TotalOperateIncome> listAllFromOrderDetail(AccountOrderDetail accountOrderDetail) {
+		return accountOperateIncomeMapper.listAllFromOrderDetail(accountOrderDetail);
 	}
 }

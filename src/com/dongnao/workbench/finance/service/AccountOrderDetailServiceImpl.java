@@ -78,32 +78,4 @@ public class AccountOrderDetailServiceImpl implements AccountOrderDetailService{
 	public int addOrderDetail(List<AccountOrderDetail> orderDetailList) {
 		return accountOrderDetailMapper.addOrderDetail(orderDetailList);
 	}
-	/**
-	 * 根据订单详细表得到运营数据方法
-	 */
-	@Override
-	public List<AccountOperateIncome> listByConditionFromOrderDetail(AccountOrderDetail accountOrderDetail) {
-		return accountOperateIncomeMapper.listByConditionFromOrderDetail(accountOrderDetail);
-	}
-	/**
-	 * 根据订单计算出运营数据合计
-	 */
-	@Override
-	public List<TotalOperateIncome> listAllFromOrderDetail(AccountOrderDetail accountOrderDetail) {
-		return accountOperateIncomeMapper.listAllFromOrderDetail(accountOrderDetail);
-	}
-	/**
-	 * 根据订单计算出财务数据详细
-	 */
-	@Override
-	public List<AccountOperateIncome> listDetailAccountCheck(AccountOrderDetail accountOrderDetail) {
-		return accountCheckMapper.listDetailAccountCheck(accountOrderDetail);
-	}
-	/**
-	 * 根据订单计算出财务数据合计
-	 */
-	@Override
-	public List<AccountOperateIncome> listTotalAccountCheck(AccountOrderDetail accountOrderDetail) {
-		return accountCheckMapper.listTotalAccountCheck(accountOrderDetail);
-	}
 }

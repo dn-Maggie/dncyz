@@ -121,7 +121,7 @@ public class AccountCheckController{
 	public void listByCondition(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		accountOrderDetail.setPage(page);	
-		List<AccountOperateIncome> list = accountOrderDetailService.listDetailAccountCheck(accountOrderDetail);
+		List<AccountOperateIncome> list = accountCheckService.listDetailAccountCheck(accountOrderDetail);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	/**
@@ -136,7 +136,7 @@ public class AccountCheckController{
 	public void listTotalAccountCheck(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		accountOrderDetail.setPage(page);	
-		List<AccountOperateIncome> list = accountOrderDetailService.listTotalAccountCheck(accountOrderDetail);
+		List<AccountOperateIncome> list = accountCheckService.listTotalAccountCheck(accountOrderDetail);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	/**
@@ -172,7 +172,7 @@ public class AccountCheckController{
 		if (expType == 1) {
 			accountOrderDetail.setPage(page);
 		}
-		List<AccountOperateIncome> list = accountOrderDetailService.listDetailAccountCheck(accountOrderDetail);
+		List<AccountOperateIncome> list = accountCheckService.listDetailAccountCheck(accountOrderDetail);
 		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
 				"对账明细列表", "对账明细列表");
 	}
@@ -185,7 +185,7 @@ public class AccountCheckController{
 		if (expType == 1) {
 			accountOrderDetail.setPage(page);
 		}
-		List<AccountOperateIncome> list = accountOrderDetailService.listTotalAccountCheck(accountOrderDetail);
+		List<AccountOperateIncome> list = accountCheckService.listTotalAccountCheck(accountOrderDetail);
 		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
 				"对账统计列表", "对账统计列表");
 	}

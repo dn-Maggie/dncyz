@@ -227,7 +227,6 @@
 	<select id="listDetailAccountCheck" resultMap="OperateIncomeResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
 		SELECT
 				od.id,
-				od.is_invalid,
 				od.create_date AS create_date,
 				od.order_time AS create_time,
 				od.order_no AS order_no,

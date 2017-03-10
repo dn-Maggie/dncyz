@@ -50,21 +50,4 @@ public interface AccountOrderDetailService  {
 	 * 批量插入订单详细方法
 	 */
 	public int addOrderDetail(List<AccountOrderDetail> orderDetailList);
-	/**
-	 * 根据订单计算出运营数据
-	 */
-	public List<AccountOperateIncome> listByConditionFromOrderDetail(AccountOrderDetail accountOrderDetail);
-	/**
-	 * 根据订单计算出运营数据合计
-	 */
-	public List<TotalOperateIncome> listAllFromOrderDetail(AccountOrderDetail accountOrderDetail);
-	/**
-	 * 根据订单计算出财务数据详细
-	 */
-	public List<AccountOperateIncome> listDetailAccountCheck(AccountOrderDetail accountOrderDetail);
-	/**
-	 * 根据订单计算出财务数据合计
-	 */
-	public List<AccountOperateIncome> listTotalAccountCheck(AccountOrderDetail accountOrderDetail);
-	
 }

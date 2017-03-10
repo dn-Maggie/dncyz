@@ -133,32 +133,7 @@ public class AccountOrderDetailController{
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/operaData/listTotalOperaData");
 		 return mv;
 	}
-	/**
-	 * 运营统计数据
-	 * @return ModelAndView
-	 */
-	@RequestMapping("/listAllFromOrderDetail")
-	public void listAllFromOrderDetail(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
-			HttpServletResponse response, Page page){
-		accountOrderDetail.setPage(page);	
-		List<TotalOperateIncome> list = accountOrderDetailService.listAllFromOrderDetail(accountOrderDetail);
-		AjaxUtils.sendAjaxForPage(request, response, page, list);
-	}
-	/**
-	 * 根据条件查找运营数据
-	 * @param accountOrderDetail AccountOrderDetail：实体对象（查询条件）
-	 * @param request HttpServletRequest
-	 * @param response HttpServletResponse
-	 * @param page Page:分页对象
-	 * @return: ajax输入json字符串
-	 */
-	@RequestMapping("/listOperaData")
-	public void listOperaData(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
-			HttpServletResponse response, Page page){
-		accountOrderDetail.setPage(page);	
-		List<AccountOperateIncome> list = accountOrderDetailService.listByConditionFromOrderDetail(accountOrderDetail);
-		AjaxUtils.sendAjaxForPage(request, response, page, list);
-	}
+	
 	
 	/**
 	 * 根据条件查找订单详细
@@ -412,6 +387,6 @@ public class AccountOrderDetailController{
 		}
 		List<AccountOrderDetail> list = accountOrderDetailService.listByCondition(accountOrderDetail);
 		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
-				"订单明细列表", "订单明细列表");
+				epb.getFieldlist().get(0)+"订单明细列表", "订单明细列表");
 	}
 }
