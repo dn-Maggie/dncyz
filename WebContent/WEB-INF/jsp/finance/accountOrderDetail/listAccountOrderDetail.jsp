@@ -257,18 +257,17 @@ var gridObj = {};
 				<!--功能按钮begin-->
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
-					<li><a title="下载模板" href="javascript:" onclick="downloadTemplate();">
+					<!-- <li><a title="下载模板" href="javascript:" onclick="downloadTemplate();">
 							<i class="icon_bg icon_download"></i> <span>下载模板</span>
-					</a></li>
-				
-						<c:if test="${importData}">
+					</a></li> -->
+						<%-- <c:if test="${importData}">
 							<li>
 								<a title="导入原始数据" href="javascript:;" onclick="importData();"> 
 									<i class="back_icon import_icon"> </i> 
 									<span>导入原始数据</span>
 								</a>
 							</li>
-						</c:if>
+						</c:if> --%>
 						<c:if test="${exportData}">
 							<li>
 								<a title="导出数据" href="javascript:;" onclick="exportData();"> 

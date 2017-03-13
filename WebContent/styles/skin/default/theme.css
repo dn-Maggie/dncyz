@@ -1081,11 +1081,11 @@ position:relative;width:340px
 	padding-left:1px;
 }
 .textlong{
-   	height: 20px;
+   	/* height: 20px; */
     width:  98.6%;
-	padding-top:1px;
+	/* padding-top:1px;
     padding-bottom:1px;
-	padding-left:1px;
+	padding-left:1px; */
 }
 input.Wdate{
     border:#ddd 1px solid;

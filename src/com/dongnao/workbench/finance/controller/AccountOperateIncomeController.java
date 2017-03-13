@@ -284,4 +284,15 @@ public class AccountOperateIncomeController{
 		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
 				"运营统计列表", "运营统计列表");
 	}
+	
+	
+	/**
+	 * 配置表头
+	 */
+	@RequestMapping("/toConfigGridTitle")
+	public ModelAndView toConfigGridTitle(){
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/operaData/configGridTitle");
+		return mv;
+	}
+	
 }

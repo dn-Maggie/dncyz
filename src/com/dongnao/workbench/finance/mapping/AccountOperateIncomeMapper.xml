@@ -455,7 +455,7 @@
 				-(od.activities_subsidy_bymerchant) AS discount_price,
 				od.food_discount AS after_discount_price,
 				od.special_offer AS actual_price,
-				od.platform_dist_charge AS order_distribution_charge,
+				od.order_dist_charge AS order_distribution_charge,
 				od.platform_dist_charge AS platform_distribution_charge,
 				od.merchant_dist_charge AS cyz_distribution_charge, 
 				(-od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) AS cyz_activities_charge, 

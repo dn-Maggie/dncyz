@@ -21,6 +21,7 @@
 			<result column="merchant_activities_subsidies" property="merchantActivitiesSubsidies" jdbcType="DECIMAL" />
 			<result column="merchant_subsidy_vouchers" property="merchantSubsidyVouchers" jdbcType="DECIMAL" />
 			<result column="merchant_dist_charge" property="merchantDistCharge" jdbcType="DECIMAL" />
+			<result column="order_dist_charge" property="orderDistCharge" jdbcType="DECIMAL" />
 			<result column="platform_dist_charge" property="platformDistCharge" jdbcType="DECIMAL" />
 			<result column="service_rate" property="serviceRate" jdbcType="VARCHAR" />
 			<result column="service_charge" property="serviceCharge" jdbcType="DECIMAL" />
@@ -36,42 +37,63 @@
 			<result column="activities_subsidy_bycompany" property="activitiesSubsidyBycompany" jdbcType="DECIMAL" />
 			<result column="food_discount" property="foodDiscount" jdbcType="DECIMAL" />
 			<result column="special_offer" property="specialOffer" jdbcType="DECIMAL" />
+			<result column="booked_time" property="bookedTime" jdbcType="TIMESTAMP" />
+			<result column="consignee_name" property="consigneeName" jdbcType="VARCHAR" />
+			<result column="consignee_phones" property="consigneePhones" jdbcType="VARCHAR" />
+			<result column="active_time" property="activeTime" jdbcType="TIMESTAMP" />
+			<result column="active_total" property="activeTotal" jdbcType="DECIMAL" />
+			<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+			<result column="goods_quality" property="goodsQuality" jdbcType="VARCHAR" />
+			<result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+			<result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+			<result column="order_sale_rate" property="orderSaleRate" jdbcType="DECIMAL" />
 	</resultMap>
 	<sql id="Base_Column_List">
-	 	id
-		,create_date
-		,store_id
-		,store_ELM_id
-		,store_MT_id
-		,store_BD_id
-		,store_name
-		,check_no
-		,order_type
-		,order_time
-		,over_time
-		,order_index
-		,order_no
-		,prices
-		,meal_fee
-		,gift_allowance
-		,merchant_activities_subsidies
-		,merchant_subsidy_vouchers
-		,merchant_dist_charge
-		,platform_dist_charge
-		,service_rate
-		,service_charge
-		,refund_amount
-		,settlement_amount
-		,distribution_mode
-		,remark
-		,platform_activities_subsidies
-		,platform_subsidy_vouchers
-		,platform_type
-		,is_invalid
-		,activities_subsidy_bymerchant
-		,activities_subsidy_bycompany
-		,food_discount
-		,special_offer
+	 	id,
+		create_date,
+		store_id,
+		store_ELM_id,
+		store_MT_id,
+		store_BD_id,
+		store_name,
+		check_no,
+		order_type,
+		order_time,
+		over_time,
+		order_index,
+		order_no,
+		prices,
+		meal_fee,
+		gift_allowance,
+		merchant_activities_subsidies,
+		merchant_subsidy_vouchers,
+		merchant_dist_charge,
+		order_dist_charge,
+		platform_dist_charge,
+		service_rate,
+		service_charge,
+		refund_amount,
+		settlement_amount,
+		distribution_mode,
+		remark,
+		platform_activities_subsidies,
+		platform_subsidy_vouchers,
+		platform_type,
+		is_invalid,
+		activities_subsidy_bymerchant,
+		activities_subsidy_bycompany,
+		food_discount,
+		special_offer,
+		booked_time,
+		consignee_name,
+		consignee_phones,
+		active_time,
+		active_total,
+		goods_name,
+		goods_quality,
+		goods_id,
+		goods_price,
+		order_sale_rate
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -83,7 +105,51 @@
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
 		select
-		<include refid="Base_Column_List" />
+			id,
+			create_date,
+			store_id,
+			store_ELM_id,
+			store_MT_id,
+			store_BD_id,
+			store_name,
+			check_no,
+			order_type,
+			order_time,
+			over_time,
+			order_index,
+			order_no,
+			prices,
+			meal_fee,
+			gift_allowance,
+			merchant_activities_subsidies,
+			merchant_subsidy_vouchers,
+			merchant_dist_charge,
+			order_dist_charge,
+			platform_dist_charge,
+			service_rate,
+			(-service_charge) as service_charge,
+			refund_amount,
+			settlement_amount,
+			distribution_mode,
+			remark,
+			platform_activities_subsidies,
+			platform_subsidy_vouchers,
+			platform_type,
+			is_invalid,
+			activities_subsidy_bymerchant,
+			(-merchant_activities_subsidies-activities_subsidy_bymerchant) as activities_subsidy_bycompany,
+			food_discount,
+			special_offer,
+			booked_time,
+			consignee_name,
+			consignee_phones,
+			active_time,
+			active_total,
+			goods_name,
+			goods_quality,
+			goods_id,
+			goods_price,
+			order_sale_rate
 		from account_order_detail
 		where 1=1
 		<if test="id != null and '' != id">  
@@ -202,6 +268,7 @@
 				,#{merchantActivitiesSubsidies,jdbcType=DECIMAL}
 				,#{merchantSubsidyVouchers,jdbcType=DECIMAL}
 				,#{merchantDistCharge,jdbcType=DECIMAL}
+				,#{orderDistCharge,jdbcType=DECIMAL}
 				,#{platformDistCharge,jdbcType=DECIMAL}
 				,#{serviceRate,jdbcType=VARCHAR}
 				,#{serviceCharge,jdbcType=DECIMAL}
@@ -216,7 +283,17 @@
 				,#{activitiesSubsidyBymerchant,jdbcType=DECIMAL}
 				,#{activitiesSubsidyBycompany,jdbcType=DECIMAL}
 				,#{foodDiscount,jdbcType=DECIMAL}
-				,#{specialOffer,jdbcType=DECIMAL}
+				,#{specialOffer,#{jdbcType=DECIMAL}
+				,#{bookedTime,#{jdbcType=TIMESTAMP}
+				,#{consigneeName,#{jdbcType=VARCHAR}
+				,#{consigneePhones,#{jdbcType=VARCHAR}
+				,#{activeTime,#{jdbcType=TIMESTAMP}
+				,#{activeTotal,#{jdbcType=DECIMAL}
+				,#{goodsName,#{jdbcType=VARCHAR}
+				,#{goodsQuality,#{jdbcType=VARCHAR}
+				,#{goodsId,#{jdbcType=VARCHAR}
+				,#{goodsPrice,#{jdbcType=DECIMAL}
+				,#{orderSaleRate,#{jdbcType=DECIMAL}
 			)
 	</insert>
 	
@@ -241,6 +318,7 @@
 				,merchant_activities_subsidies
 				,merchant_subsidy_vouchers
 				,merchant_dist_charge
+				,order_dist_charge
 				,platform_dist_charge
 				,service_rate
 				,service_charge
@@ -256,6 +334,16 @@
 				,activities_subsidy_bycompany
 				,food_discount
 				,special_offer
+				,booked_time
+				,consignee_name
+				,consignee_phones
+				,active_time
+				,active_total
+				,goods_name
+				,goods_quality
+				,goods_id
+				,goods_price
+				,order_sale_rate
 		)values
 		<foreach collection="list" item="item" index="index" separator="," >
 		 (
@@ -278,6 +366,7 @@
 				,#{item.merchantActivitiesSubsidies,jdbcType=DECIMAL}
 				,#{item.merchantSubsidyVouchers,jdbcType=DECIMAL}
 				,#{item.merchantDistCharge,jdbcType=DECIMAL}
+				,#{item.orderDistCharge,jdbcType=DECIMAL}
 				,#{item.platformDistCharge,jdbcType=DECIMAL}
 				,#{item.serviceRate,jdbcType=VARCHAR}
 				,#{item.serviceCharge,jdbcType=DECIMAL}
@@ -293,6 +382,16 @@
 				,#{item.activitiesSubsidyBycompany,jdbcType=DECIMAL}
 				,#{item.foodDiscount,jdbcType=DECIMAL}
 				,#{item.specialOffer,jdbcType=DECIMAL}
+				,#{item.bookedTime,#{jdbcType=TIMESTAMP}
+				,#{item.consigneeName,#{jdbcType=VARCHAR}
+				,#{item.consigneePhones,#{jdbcType=VARCHAR}
+				,#{item.activeTime,#{jdbcType=TIMESTAMP}
+				,#{item.activeTotal,#{jdbcType=DECIMAL}
+				,#{item.goodsName,#{jdbcType=VARCHAR}
+				,#{item.goodsQuality,#{jdbcType=VARCHAR}
+				,#{item.goodsId,#{jdbcType=VARCHAR}
+				,#{item.goodsPrice,#{jdbcType=DECIMAL}
+				,#{item.orderSaleRate,#{jdbcType=DECIMAL}
 		)
 		</foreach>
 	</insert>
@@ -319,6 +418,7 @@
 		,merchant_activities_subsidies = #{merchantActivitiesSubsidies,jdbcType=DECIMAL}
 		,merchant_subsidy_vouchers = #{merchantSubsidyVouchers,jdbcType=DECIMAL}
 		,merchant_dist_charge = #{merchantDistCharge,jdbcType=DECIMAL}
+		,order_dist_charge = #{orderDistCharge,jdbcType=DECIMAL}
 		,platform_dist_charge = #{platformDistCharge,jdbcType=DECIMAL}
 		,service_rate = #{serviceRate,jdbcType=VARCHAR}
 		,service_charge = #{serviceCharge,jdbcType=DECIMAL}
@@ -334,6 +434,16 @@
 		,activities_subsidy_bycompany = #{activitiesSubsidyBycompany,jdbcType=DECIMAL}
 		,food_discount = #{foodDiscount,jdbcType=DECIMAL}
 		,special_offer = #{specialOffer,jdbcType=DECIMAL}
+		,booked_time = #{bookedTime,#{jdbcType=TIMESTAMP}
+		,consignee_name= #{consigneeName,#{jdbcType=VARCHAR}
+		,consignee_phones = #{consigneePhones,#{jdbcType=VARCHAR}
+		,active_time = #{activeTime,#{jdbcType=TIMESTAMP}
+		,active_total = #{activeTotal,#{jdbcType=DECIMAL}
+		,goods_name = #{goodsName,#{jdbcType=VARCHAR}
+		,goods_quality= #{goodsQuality,#{jdbcType=VARCHAR}
+		,goods_id = #{goodsId,#{jdbcType=VARCHAR}
+		,goods_price = #{goodsPrice,#{jdbcType=DECIMAL}
+		,order_sale_rate = #{orderSaleRate,#{jdbcType=DECIMAL}
 	where id = #{id,jdbcType=VARCHAR}
 	</update>
 </mapper>
