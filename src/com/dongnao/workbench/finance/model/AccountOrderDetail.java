@@ -81,6 +81,10 @@ public class AccountOrderDetail extends Model{
 	                 * 餐盒费
 	                 **/
 				   			private BigDecimal mealFee;
+				   	/**
+	                 * 产品销售金额
+	                 **/
+				   			private BigDecimal productSaleAmount;
 		   		
 		            /**
 	                 * 赠品补贴
@@ -164,7 +168,139 @@ public class AccountOrderDetail extends Model{
 	                 **/
 		   			private BigDecimal specialOffer;
 				
-		  			/**
+		   			
+		   		 /**
+	                 * 预定时间
+	                 **/
+					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
+						private Timestamp bookedTime;
+		
+		            /**
+	                 * 客户名称
+	                 **/
+				   			private String consigneeName;
+		   		
+		            /**
+	                 * 客户手机号
+	                 **/
+				   			private String consigneePhones;
+		   		
+		            /**
+	                 * 活动时间
+	                 **/
+					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
+							private Timestamp activeTime;
+		
+		            /**
+	                 * 活动优惠
+	                 **/
+				   			private BigDecimal activeTotal;
+		   		
+		            /**
+	                 * 菜品名称
+	                 **/
+				   			private String goodsName;
+		   		
+		            /**
+	                 * 菜品数量
+	                 **/
+				   			private String goodsQuality;
+		   		
+		            /**
+	                 * 菜品id
+	                 **/
+				   			private String goodsId;
+		   		
+		            /**
+	                 * 菜品价格
+	                 **/
+				   			private String goodsPrice;
+		   		
+		            /**
+	                 * 结算比例
+	                 **/
+				   			private BigDecimal orderSaleRate;
+		  			public Timestamp getBookedTime() {
+						return bookedTime;
+					}
+
+					public void setBookedTime(Timestamp bookedTime) {
+						this.bookedTime = bookedTime;
+					}
+
+					public String getConsigneeName() {
+						return consigneeName;
+					}
+
+					public void setConsigneeName(String consigneeName) {
+						this.consigneeName = consigneeName;
+					}
+
+					public String getConsigneePhones() {
+						return consigneePhones;
+					}
+
+					public void setConsigneePhones(String consigneePhones) {
+						this.consigneePhones = consigneePhones;
+					}
+
+					public Timestamp getActiveTime() {
+						return activeTime;
+					}
+
+					public void setActiveTime(Timestamp activeTime) {
+						this.activeTime = activeTime;
+					}
+
+					public BigDecimal getActiveTotal() {
+						return activeTotal;
+					}
+
+					public void setActiveTotal(BigDecimal activeTotal) {
+						this.activeTotal = activeTotal;
+					}
+
+					public String getGoodsName() {
+						return goodsName;
+					}
+
+					public void setGoodsName(String goodsName) {
+						this.goodsName = goodsName;
+					}
+
+					public String getGoodsQuality() {
+						return goodsQuality;
+					}
+
+					public void setGoodsQuality(String goodsQuality) {
+						this.goodsQuality = goodsQuality;
+					}
+
+					public String getGoodsId() {
+						return goodsId;
+					}
+
+					public void setGoodsId(String goodsId) {
+						this.goodsId = goodsId;
+					}
+
+					public String getGoodsPrice() {
+						return goodsPrice;
+					}
+
+					public void setGoodsPrice(String goodsPrice) {
+						this.goodsPrice = goodsPrice;
+					}
+
+					public BigDecimal getOrderSaleRate() {
+						return orderSaleRate;
+					}
+
+					public void setOrderSaleRate(BigDecimal orderSaleRate) {
+						this.orderSaleRate = orderSaleRate;
+					}
+
+					/**
 			 * 获取 账单ID
 			 * @return String this.id
 			 */
@@ -643,6 +779,14 @@ public class AccountOrderDetail extends Model{
 
 			public void setSpecialOffer(BigDecimal specialOffer) {
 				this.specialOffer = specialOffer;
+			}
+
+			public BigDecimal getProductSaleAmount() {
+				return productSaleAmount;
+			}
+
+			public void setProductSaleAmount(BigDecimal productSaleAmount) {
+				this.productSaleAmount = productSaleAmount;
 			}
 
 		   		

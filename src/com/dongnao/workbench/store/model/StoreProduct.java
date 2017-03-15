@@ -2,6 +2,8 @@ package com.dongnao.workbench.store.model;
 
 import java.util.Date;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import com.dongnao.workbench.common.bean.Model;
 /**
@@ -65,9 +67,89 @@ public class StoreProduct extends Model{
 	                 **/
 				   			private String productStatus;
 		   		
-	
+			   		 /**
+	                 * 店铺产品折扣
+	                 **/
+				   			private String merchantDiscount;
+				   		
+		            /**
+	                 * 折扣时间起
+	                 **/
+					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
+							private Timestamp merchantDiscountBegin;
 				
-		  			public String getOwnerUserId() {
+				            /**
+			                 * 折扣时间止
+			                 **/
+							@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
+					private Timestamp merchantDiscountEnd;
+				
+				            /**
+			                 * 签订特价结算金额
+			                 **/
+				   			private String specialOffer;
+				   		
+				            /**
+			                 * 签订特价结算起
+			                 **/
+							@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
+					private Timestamp specialOfferBegin;
+				
+				            /**
+			                 * 签订特价结算止
+			                 **/
+							@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
+					private Timestamp specialOfferEnd;
+				
+							public String getMerchantDiscount() {
+								return merchantDiscount;
+							}
+
+							public void setMerchantDiscount(String merchantDiscount) {
+								this.merchantDiscount = merchantDiscount;
+							}
+
+							public Timestamp getMerchantDiscountBegin() {
+								return merchantDiscountBegin;
+							}
+
+							public void setMerchantDiscountBegin(Timestamp merchantDiscountBegin) {
+								this.merchantDiscountBegin = merchantDiscountBegin;
+							}
+
+							public Timestamp getMerchantDiscountEnd() {
+								return merchantDiscountEnd;
+							}
+
+							public void setMerchantDiscountEnd(Timestamp merchantDiscountEnd) {
+								this.merchantDiscountEnd = merchantDiscountEnd;
+							}
+
+							public String getSpecialOffer() {
+								return specialOffer;
+							}
+
+							public void setSpecialOffer(String specialOffer) {
+								this.specialOffer = specialOffer;
+							}
+
+							public Timestamp getSpecialOfferBegin() {
+								return specialOfferBegin;
+							}
+
+							public void setSpecialOfferBegin(Timestamp specialOfferBegin) {
+								this.specialOfferBegin = specialOfferBegin;
+							}
+
+							public Timestamp getSpecialOfferEnd() {
+								return specialOfferEnd;
+							}
+
+							public void setSpecialOfferEnd(Timestamp specialOfferEnd) {
+								this.specialOfferEnd = specialOfferEnd;
+							}
+
+					public String getOwnerUserId() {
 						return ownerUserId;
 					}
 

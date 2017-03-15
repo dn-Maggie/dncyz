@@ -12,6 +12,12 @@
 		<result column="PRODUCT_UNIT_PRICE" property="productUnitPrice" jdbcType="DOUBLE" />
 		<result column="PRODUCT_STOCKS" property="productStocks" jdbcType="INTEGER" />
 		<result column="PRODUCT_STATUS" property="productStatus" jdbcType="CHAR" />
+		<result column="merchant_discount" property="merchantDiscount" jdbcType="DECIMAL" />
+		<result column="merchant_discount_begin" property="merchantDiscountBegin" jdbcType="TIMESTAMP" />
+		<result column="merchant_discount_end" property="merchantDiscountEnd" jdbcType="TIMESTAMP" />
+		<result column="special_offer" property="specialOffer" jdbcType="DECIMAL" />
+		<result column="special_offer_begin" property="specialOfferBegin" jdbcType="TIMESTAMP" />
+		<result column="special_offer_end" property="specialOfferEnd" jdbcType="TIMESTAMP" />
 	</resultMap>
 	<sql id="Base_Column_List">
 	 	store_product_id
@@ -24,6 +30,12 @@
 		,PRODUCT_UNIT_PRICE
 		,PRODUCT_STOCKS
 		,PRODUCT_STATUS
+		,merchant_discount
+		,merchant_discount_begin
+		,merchant_discount_end
+		,special_offer
+		,special_offer_begin
+		,special_offer_end
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -63,6 +75,12 @@
 			) as productUnitPrice
 			,sp.PRODUCT_STOCKS
 			,sp.PRODUCT_STATUS
+			,sp.merchant_discount
+			,sp.merchant_discount_begin
+			,sp.merchant_discount_end
+			,sp.special_offer
+			,sp.special_offer_begin
+			,sp.special_offer_end
 		from store_product as sp
 		left join dn_product as p on p.PRODUCT_ID = sp.product_id
 		left join dn_store as s on s.STORE_ID = sp.store_id
@@ -107,6 +125,12 @@
 			) as productUnitPrice
 			,sp.PRODUCT_STOCKS
 			,sp.PRODUCT_STATUS
+			,sp.merchant_discount
+			,sp.merchant_discount_begin
+			,sp.merchant_discount_end
+			,sp.special_offer
+			,sp.special_offer_begin
+			,sp.special_offer_end
 		from store_product as sp
 		left join dn_product as p on p.PRODUCT_ID = sp.product_id
 		left join dn_store as s on s.STORE_ID = sp.store_id
@@ -172,10 +196,16 @@
 		,#{productUnitPrice,jdbcType=DOUBLE}
 		,#{productStocks,jdbcType=INTEGER}
 		,#{productStatus,jdbcType=CHAR}
+		,#{merchantDiscount,jdbcType=DECIMAL}
+		,#{merchantDiscountBegin,jdbcType=TIMESTAMP}
+		,#{merchantDiscountEnd,jdbcType=TIMESTAMP}
+		,#{specialOffer,jdbcType=DECIMAL}
+		,#{specialOfferBegin,jdbcType=TIMESTAMP}
+		,#{specialOfferEnd,jdbcType=TIMESTAMP}
 					)
 	</insert>
 	
-	<update id="update" parameterType="com.dongnao.workbench.store.model.StoreProduct">
+	<update id="update" parameterType="com.dongnao.workbench.store.model.StoreProduct">，
 		update store_product  set
 			store_product_id= #{storeProductId,jdbcType=VARCHAR}
 			,store_id = #{storeId,jdbcType=CHAR}
@@ -187,6 +217,12 @@
 			,PRODUCT_UNIT_PRICE = #{productUnitPrice,jdbcType=DOUBLE}
 			,PRODUCT_STOCKS = #{productStocks,jdbcType=INTEGER}
 			,PRODUCT_STATUS = #{productStatus,jdbcType=CHAR}
+			,merchant_discount = #{merchantDiscount,jdbcType=DECIMAL}
+			,merchant_discount_begin = #{merchantDiscountBegin,jdbcType=TIMESTAMP}
+			,merchant_discount_end = #{merchantDiscountEnd,jdbcType=TIMESTAMP}
+			,special_offer = #{specialOffer,jdbcType=DECIMAL}
+			,special_offer_begin = #{specialOfferBegin,jdbcType=TIMESTAMP}
+			,special_offer_end = #{specialOfferEnd,jdbcType=TIMESTAMP}
 		where store_product_id = #{storeProductId,jdbcType=VARCHAR}
 	</update>
 </mapper>

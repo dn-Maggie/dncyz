@@ -1,0 +1,42 @@
+{url: "<m:url value='/accountOperateIncome/listOperaData.do'/>",colModel:[
+						{name : "id",hidden : true,key : true,label:"主键",index : "id"},
+						{name : "storeName",label:"商户名称",index : "store_name"},	
+						{name : "createDate",label:"日期",index : "create_date"},		
+						
+                        {name : "invalidNum",label:"无效单",index : "invalid_num"},				
+        				{name : "validNum",label:"有效单",index : "valid_num"},	 
+        				
+        				{name : "orginPrice",label:"菜品原价",index : "orgin_price"},	
+        				{name : "orderDistributionCharge",label:"订单上收取客户配送费",index : "order_distribution_charge"},	
+        				
+        				{name : "id",label:"菜品份数",index : "discount_price"},				
+        				{name : "id",label:"底价",index : "after_discount_price"},				
+        				{name : "id",label:"其他底价",index : "actual_price"},				
+        				
+        				{name : "discountPrice",label:"菜品折扣",index : "discount_price"},				
+        				{name : "afterDiscountPrice",label:"折扣菜金额",index : "after_discount_price"},				
+        				{name : "actualPrice",label:"结算特价",index : "actual_price"},				
+        							
+        				{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge"},		
+        				{name : "platformDistributionCharge",label:"平台收取客户配送费",index : "platform_distribution_charge"},						
+        				
+        				{name : "platformActivitiesCharge",label:"平台补贴线上活动费",index : "platform_activities_charge"},
+        				
+        				{name : "cyzActivitiesCharge",label:"公司扣除平台补贴自营销费用",index : "cyz_activities_charge"},	
+        				
+        				{name : "cyzDistributionCharge",label:"公司收取配送费",index : "cyz_distribution_charge"},				
+        			
+        				{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount"},				
+        				{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable"},	
+        				{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable"},				
+        				{name : "cyzAllIncome",label:"公司收入",index : "cyz_all_income"},	
+        				{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit"},				
+        				{name : "saleGrossProfitRate",label:"毛利率",index : "sale_gross_profit_rate"},	
+        				{name : "distributionActualPayment",label:"自配送实际支付金额",index : "distribution_actual_payment"},
+        				{name : "remark",label:"备注",index : "remark"},
+        				{name : "platformType",label:"平台类型",index : "platform_type",
+        					formatter:function(cellvalue, options, rowObject){
+        		 				 if (cellvalue=='elm') {return '饿了么';}
+        		 				 else if (cellvalue=='meituan'){return '美团';}
+        		 				 else if (cellvalue=='baidu'){return '百度';}
+        				}},]}

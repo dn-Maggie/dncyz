@@ -17,6 +17,7 @@
 			<result column="order_no" property="orderNo" jdbcType="VARCHAR" />
 			<result column="prices" property="prices" jdbcType="DECIMAL" />
 			<result column="meal_fee" property="mealFee" jdbcType="DECIMAL" />
+			<result column="product_sale_amount" property="productSaleAmount" jdbcType="DECIMAL" />
 			<result column="gift_allowance" property="giftAllowance" jdbcType="DECIMAL" />
 			<result column="merchant_activities_subsidies" property="merchantActivitiesSubsidies" jdbcType="DECIMAL" />
 			<result column="merchant_subsidy_vouchers" property="merchantSubsidyVouchers" jdbcType="DECIMAL" />
@@ -45,7 +46,7 @@
 			<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
 			<result column="goods_quality" property="goodsQuality" jdbcType="VARCHAR" />
 			<result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
-			<result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+			<result column="goods_price" property="goodsPrice" jdbcType="VARCHAR" />
 			<result column="order_sale_rate" property="orderSaleRate" jdbcType="DECIMAL" />
 	</resultMap>
 	<sql id="Base_Column_List">
@@ -64,6 +65,7 @@
 		order_no,
 		prices,
 		meal_fee,
+		product_sale_amount,
 		gift_allowance,
 		merchant_activities_subsidies,
 		merchant_subsidy_vouchers,
@@ -120,6 +122,7 @@
 			order_no,
 			prices,
 			meal_fee,
+			product_sale_amount,
 			gift_allowance,
 			merchant_activities_subsidies,
 			merchant_subsidy_vouchers,
@@ -264,6 +267,7 @@
 				,#{orderNo,jdbcType=VARCHAR}
 				,#{prices,jdbcType=DECIMAL}
 				,#{mealFee,jdbcType=DECIMAL}
+				,#{productSaleAmount,jdbcType=DECIMAL}
 				,#{giftAllowance,jdbcType=DECIMAL}
 				,#{merchantActivitiesSubsidies,jdbcType=DECIMAL}
 				,#{merchantSubsidyVouchers,jdbcType=DECIMAL}
@@ -292,7 +296,7 @@
 				,#{goodsName,#{jdbcType=VARCHAR}
 				,#{goodsQuality,#{jdbcType=VARCHAR}
 				,#{goodsId,#{jdbcType=VARCHAR}
-				,#{goodsPrice,#{jdbcType=DECIMAL}
+				,#{goodsPrice,#{jdbcType=VARCHAR}
 				,#{orderSaleRate,#{jdbcType=DECIMAL}
 			)
 	</insert>
@@ -314,6 +318,7 @@
 				,order_no
 				,prices
 				,meal_fee
+				,product_sale_amount
 				,gift_allowance
 				,merchant_activities_subsidies
 				,merchant_subsidy_vouchers
@@ -362,6 +367,7 @@
 				,#{item.orderNo,jdbcType=VARCHAR}
 				,#{item.prices,jdbcType=DECIMAL}
 				,#{item.mealFee,jdbcType=DECIMAL}
+				,#{item.productSaleAmount,jdbcType=DECIMAL}
 				,#{item.giftAllowance,jdbcType=DECIMAL}
 				,#{item.merchantActivitiesSubsidies,jdbcType=DECIMAL}
 				,#{item.merchantSubsidyVouchers,jdbcType=DECIMAL}
@@ -390,7 +396,7 @@
 				,#{item.goodsName,#{jdbcType=VARCHAR}
 				,#{item.goodsQuality,#{jdbcType=VARCHAR}
 				,#{item.goodsId,#{jdbcType=VARCHAR}
-				,#{item.goodsPrice,#{jdbcType=DECIMAL}
+				,#{item.goodsPrice,#{jdbcType=VARCHAR}
 				,#{item.orderSaleRate,#{jdbcType=DECIMAL}
 		)
 		</foreach>
@@ -414,6 +420,7 @@
 		,order_no = #{orderNo,jdbcType=VARCHAR}
 		,prices = #{prices,jdbcType=DECIMAL}
 		,meal_fee = #{mealFee,jdbcType=DECIMAL}
+		,product_sale_amount = #{productSaleAmount,jdbcType=DECIMAL}
 		,gift_allowance = #{giftAllowance,jdbcType=DECIMAL}
 		,merchant_activities_subsidies = #{merchantActivitiesSubsidies,jdbcType=DECIMAL}
 		,merchant_subsidy_vouchers = #{merchantSubsidyVouchers,jdbcType=DECIMAL}
@@ -442,7 +449,7 @@
 		,goods_name = #{goodsName,#{jdbcType=VARCHAR}
 		,goods_quality= #{goodsQuality,#{jdbcType=VARCHAR}
 		,goods_id = #{goodsId,#{jdbcType=VARCHAR}
-		,goods_price = #{goodsPrice,#{jdbcType=DECIMAL}
+		,goods_price = #{goodsPrice,#{jdbcType=VARCHAR}
 		,order_sale_rate = #{orderSaleRate,#{jdbcType=DECIMAL}
 	where id = #{id,jdbcType=VARCHAR}
 	</update>
