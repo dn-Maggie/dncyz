@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,21 +12,28 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.basic.service.UserInfoService;
 import com.dongnao.workbench.common.Constant;
 import com.dongnao.workbench.common.bean.ResultMessage;
+import com.dongnao.workbench.common.bean.respMess;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.MD5Encryption;
 import com.dongnao.workbench.common.util.StringUtil;
 import com.dongnao.workbench.common.util.Utils;
+import com.dongnao.workbench.store.model.Store;
+import com.dongnao.workbench.store.service.StoreService;
 import com.dongnao.workbench.system.model.Module;
 import com.dongnao.workbench.system.service.DictInfoService;
 import com.dongnao.workbench.system.service.ModuleService;
+
+import net.sf.json.JSONObject;
 
 
 /**
@@ -38,7 +46,8 @@ import com.dongnao.workbench.system.service.ModuleService;
 @Controller
 @RequestMapping("/")
 public class MainController {
-
+	@Resource
+    private StoreService storeService;
 	private UserInfoService userInfoService;
 	/**
 	 * 设置service
@@ -226,6 +235,7 @@ public class MainController {
 		rm.setData(userInfo);
 		rm.setJsessionid(request.getSession().getId());
 		AjaxUtils.sendAjaxForObjectStr(response, rm);
+		
 	}
 
 	/**
@@ -325,7 +335,38 @@ public class MainController {
 		m.addObject("serviceId", serviceId);
 		return m;
 	}
-	public static void main(String[] args) {
-		System.out.println(MD5Encryption.MD5("admin"));
+	/**
+	 * 登陆成功返回所有shopId
+	 * 
+	 * @return storeList
+	 */
+	@RequestMapping("/getShopId")
+	public void getShopId(HttpServletRequest request,
+			HttpServletResponse response) {
+		String userName = StringUtils.defaultIfEmpty(
+				request.getParameter("userName"), StringUtils.EMPTY);
+		String password = StringUtils.defaultIfEmpty(
+				request.getParameter("password"), StringUtils.EMPTY);
+		// 根据用户SID获取用户实体
+		UserInfo userInfo = userInfoService.getByUserAccount(userName);
+		password = MD5Encryption.MD5(password);
+		
+		boolean b = userInfo.getPassword().equals(password);
+		respMess rm = new respMess();
+		if(b){
+			Store store = new Store();
+			store.setOwnerUserId(userInfo.getId());
+			List<Store> list = storeService.listByCondition(store);
+			rm.setRespMsg("成功");
+			rm.setRespCode("0000");
+			rm.setResult(list);
+			AjaxUtils.sendAjaxForObjectStr(response, rm);
+		}else{
+			rm.setRespMsg("失败");
+			rm.setRespCode("9999");
+			rm.setResult(null);
+			AjaxUtils.sendAjaxForObjectStr(response, rm);
+		}
+		
 	}
 }

@@ -81,6 +81,10 @@ public class AccountOrderDetail extends Model{
 	                 * 餐盒费
 	                 **/
 				   			private BigDecimal mealFee;
+		   			/**
+	                 * 原价
+	                 **/
+				   			private BigDecimal totalPrice;
 				   	/**
 	                 * 产品销售金额
 	                 **/
@@ -787,6 +791,14 @@ public class AccountOrderDetail extends Model{
 
 			public void setProductSaleAmount(BigDecimal productSaleAmount) {
 				this.productSaleAmount = productSaleAmount;
+			}
+
+			public BigDecimal getTotalPrice() {
+				return totalPrice;
+			}
+
+			public void setTotalPrice(BigDecimal totalPrice) {
+				this.totalPrice = totalPrice;
 			}
 
 		   		

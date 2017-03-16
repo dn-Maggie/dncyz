@@ -158,78 +158,42 @@ var platformAccountModel = {
 						{name : "orderType",label:"订单类型",index : "order_type",hidden:true},				
 						{name : "orderTime",label:"订单时点",index : "order_time"},	
 						{name : "orderNo",label:"订单编号",index : "order_no"},		
-						{name : "prices",label:"原价",index : "prices",calculate:"prices+mealFee",
-							formatter : function(value, options, rData){
-					          return value+rData['mealFee'];
-			       		}},				
+						{name : "prices",label:"菜价",index : "prices",hidden:true},				
 						{name : "mealFee",label:"餐盒费",index : "meal_fee",hidden:true},		
-        				{name : "activitiesSubsidyBymerchant",label:"菜品折扣",index:"activities_subsidy_bymerchant"},				
+						{name : "totalPrice",label:"原价",index : "total_price",calculate:"rData['mealFee'] + rData['prices']",editable:true,
+							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
+						{name : "activitiesSubsidyBymerchant",label:"菜品折扣",index:"activities_subsidy_bymerchant"},				
         				{name : "foodDiscount",label:"折扣菜金额",index:"food_discount"},				
         				{name : "specialOffer",label:"结算特价",index:"special_offer"},				
         				{name : "orderDistCharge",label:"订单上收取客户配送费",index : "order_dist_charge"},				
            				{name : "platformDistCharge",label:"平台收取客户配送费",index : "platform_dist_charge"},				
            				{name : "merchantDistCharge",label:"公司收取客户配送费",index : "merchant_dist_charge"},				
-           				{name : "activitiesSubsidyBycompany",label:"公司承担线上活动费",index : "activities_subsidy_bycompany",calculate:"merchantActivitiesSubsidies-activitiesSubsidyBymerchant",},	
+           				{name : "activitiesSubsidyBycompany",label:"公司承担线上活动费",index : "activities_subsidy_bycompany",calculate:"rData['merchantActivitiesSubsidies']-rData['activitiesSubsidyBymerchant']",editable:true,
+           					formatter : function(value, options, rData){return eval(options.colModel.calculate);}},	
            				{name : "platformActivitiesSubsidies",label:"平台承担线上活动费",index : "platform_activities_subsidies"},
            				{name : "serviceCharge",label:"平台服务费",index : "service_charge"},	
            				{name : "serviceRate",label:"平台服务费费率",index : "service_rate",hidden:true},	
-           				{name : "productSaleAmount",label:"产品销售金额",calculate:"prices-activitiesSubsidyBymerchant",
-           					formatter : function(value, options, rData){
-           						console.log(options.colModel.calculate);
-           						var productSaleAmount = rData['prices']+rData['mealFee']-rData['activitiesSubsidyBymerchant'];
-  					          return productSaleAmount;
-  			       		}},				
-           				{name : "settlementAmount",label:"应收平台结算金额",index : "settlement_amount",calculate:"productSaleAmount+merchantDistCharge-merchantActivitiesSubsidies-serviceCharge"},				
-           				{name : "seventypProductSaleAmount",label:"70%结算金额",index : "seventyP_product_sale_amount",calculate:"(productSaleAmount-specialOffer?specialOffer:foodDiscount)*70%",
-           					formatter : function(value, options, rData){
-           							var productSaleAmount = rData['prices']+rData['mealFee']-rData['activitiesSubsidyBymerchant'];
-           							var specialOffer= rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount'];
-           							var seventypProductSaleAmount = (productSaleAmount-specialOffer)*0.7;
-           							return seventypProductSaleAmount;
-    			       		}},				
-           				{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable",calculate:"(productSaleAmount-specialOffer?specialOffer:foodDiscount)*70%+activitiesSubsidyBymerchant",
-   			       			formatter : function(value, options, rData){
-   			       				var productSaleAmount = rData['prices']+rData['mealFee']-rData['activitiesSubsidyBymerchant'];
-   			       				var specialOffer= rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount'];
-   			       				var amountPayable = (productSaleAmount-specialOffer)*0.7+rData['activitiesSubsidyBymerchant'];
-     					          return amountPayable;
-      			       		}},				
-           				{name : "cyzServiceCharge",label:"公司收取店铺服务费",index : "cyz_service_charge",calculate:"productSaleAmount*(1-0.7)",
-      			       		formatter : function(value, options, rData){
-			       				var productSaleAmount = rData['prices']+rData['mealFee']-rData['activitiesSubsidyBymerchant'];
-  					         	var cyzServiceCharge = productSaleAmount*(1-0.7);
-			       				return cyzServiceCharge;
-  			       		}},				
+           				{name : "productSaleAmount",label:"产品销售金额",calculate:"rData['price']+rData['mealFee']-rData['activitiesSubsidyBymerchant']",editable:true,
+           					formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
+           				{name : "settlementAmount",label:"应收平台结算金额",index : "settlement_amount"},				
+           				{name : "seventypProductSaleAmount",label:"70%结算金额",index : "seventyP_product_sale_amount",calculate:"(rData['price']+rData['mealFee']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.7",editable:true,
+           					formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
+           				{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable",calculate:"(rData['price']+rData['mealFee']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.7+rData['activitiesSubsidyBymerchant']",editable:true,
+   			       			formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
+           				{name : "cyzServiceCharge",label:"公司收取店铺服务费",index : "cyz_service_charge",calculate:"rData['price']+rData['mealFee']-rData['activitiesSubsidyBymerchant']*(1-0.7)",editable:true,
+      			       		formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
            				{name : "distributionActualPayment",label:"自配送实际支付金额",index : "distribution_actual_payment"},
-           				{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit",calculate:"产品销售金额-应付店铺结算金额-公司承担线上活动费-平台服务费",
-           					formatter : function(value, options, rData){
-			       				var productSaleAmount = rData['prices']+rData['mealFee']-rData['activitiesSubsidyBymerchant'];
-			       				var specialOffer= rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount'];
-			       				var amountPayable = (productSaleAmount-specialOffer)*0.7+rData['activitiesSubsidyBymerchant'];
-			       				var saleGrossProfit = productSaleAmount-amountPayable-rData['activitiesSubsidyBycompany']-rData['serviceCharge'];
-  					          return saleGrossProfit;
-  			       		}},				
-           				{name : "saleGrossProfitRate",label:"毛利率",index : "sale_gross_profit_rate",calculate:"saleGrossProfit/cyzServiceCharge",
-  			       			formatter : function(value, options, rData){
-			       				var productSaleAmount = rData['prices']+rData['mealFee']-rData['activitiesSubsidyBymerchant'];
-			       				var specialOffer= rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount'];
-			       				var amountPayable = (productSaleAmount-specialOffer)*0.7+rData['activitiesSubsidyBymerchant'];
-			       				var saleGrossProfit = productSaleAmount-amountPayable-rData['activitiesSubsidyBycompany']-rData['serviceCharge'];
-			       				var cyzServiceCharge = productSaleAmount*(1-0.7);
-			       				var saleGrossProfitRate = saleGrossProfit/cyzServiceCharge
-			       				return saleGrossProfitRate;
-			       		}},	
+           				{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit",calculate:"rData['price']+rData['mealFee']-rData['activitiesSubsidyBymerchant']*(1-0.7)",editable:true,
+           					formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
+           				{name : "saleGrossProfitRate",label:"毛利率",index : "sale_gross_profit_rate",calculate:"rData['price']+rData['mealFee']-rData['activitiesSubsidyBymerchant']*(1-0.7)",editable:true,
+  			       			formatter : function(value, options, rData){return eval(options.colModel.calculate);}},	
 						{name : "merchantActivitiesSubsidies",label:"商户承担活动补贴",index : "merchant_activities_subsidies",hidden:true},		
 						{name : "distributionMode",label:"配送方式",index : "distribution_mode",hidden:true},	
 						{name : "merchantSubsidyVouchers",label:"商户承担代金券补贴",index : "merchant_subsidy_vouchers",hidden:true},	
 						{name : "platformSubsidyVouchers",label:"平台承担代金券补贴",index : "platform_subsidy_vouchers",hidden:true},
 						{name : "remark",label:"备注",index : "remark"},		
-						{name : "platformType",label:"平台类型",index : "platform_type",
-							formatter:function(cellvalue, options, rowObject){
-				 				 if (cellvalue=='elm') {return '饿了么';}
-				 				 else if (cellvalue=='meituan'){return '美团';}
-				 				 else if (cellvalue=='baidu'){return '百度';}
-						}},
+						{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",editable:true,
+							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
 			           	]};
 		$(function(){
 			initGrid("platformAccount");
@@ -247,8 +211,8 @@ var platformAccountModel = {
 				$(this).html("");
 		});
 			
-			
-		var $headers = $(".ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr");
+		//右键快速配置
+		/* var $headers = $(".ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr");
 		function __genHeadMenu(){
 			var $menu = $("<div class='header-context-menu'><ul class='headers'></ul></div>");
 			var $headers = $menu.find(".headers");
@@ -272,103 +236,31 @@ var platformAccountModel = {
 			var top = $(this).offset().top;
 			$contextMenu.show().offset({top:top,left:left});
 			return false;
-		});
+		}); */
     });
 	//初始化grid
 	function initGrid(ways){
- 		switch (ways) {
- 		//底价运营表
-		case 'basePrice':
-			gridObj = new biz.grid({
-		        id:"#basePrice",
-		        url: basePriceModel.url,
-		       	sortname:"create_time",
-		       	sortorder:"asc",
-		       	pager: '#basePriceprowed',
-		        colModel:basePriceModel.colModel,
-		        footerrow:true,
-				serializeGridData:function(postData){//添加查询条件值
-					var obj = getQueryCondition();
-					$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
-					return obj;
-				},
-			 	datatype: "json",/*数据类型，设置为json数据，默认为json*/
-		        emptyrecords: "无记录可显示",
-		        rowList:[10,15,50,100],//每页显示记录数
-				rowNum:15,//默认显示15条
-				/* gridComplete:completeGrid  */
-		      });
-			break;
-		//销售额比例抽佣运营表
-		case 'salesRate':
-			gridObj = new biz.grid({
-		        id:"#salesRate",
-		        url: salesRateModel.url,
-		       	sortname:"create_time",
-		       	sortorder:"asc",
-		       	pager: '#salesRateprowed',
-		        colModel:salesRateModel.colModel,
-		        footerrow:true,
-				serializeGridData:function(postData){//添加查询条件值
-					var obj = getQueryCondition();
-					$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
-					return obj;
-				},
-			 	datatype: "json",/*数据类型，设置为json数据，默认为json*/
-		        emptyrecords: "无记录可显示",
-		        rowList:[10,15,50,100],//每页显示记录数
-				rowNum:15,//默认显示15条
-				/* gridComplete:completeGrid */
-		      });
-			break;
-		//深运营表
-		case 'deepOperation':
-			gridObj = new biz.grid({
-		        id:"#deepOperation",
-		        url: deepOperationModel.url,
-		       	sortname:"create_time",
-		       	sortorder:"asc",
-		       	pager: '#deepOperationprowed',
-		        colModel:deepOperationModel.colModel,
-		        footerrow:true,
-				serializeGridData:function(postData){//添加查询条件值
-					var obj = getQueryCondition();
-					$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
-					return obj;
-				},
-			 	datatype: "json",/*数据类型，设置为json数据，默认为json*/
-		        emptyrecords: "无记录可显示",
-		        rowList:[10,15,50,100],//每页显示记录数
-				rowNum:15,//默认显示15条
-				/* gridComplete:completeGrid */
-		      });
-			break;
-		//平台到账抽佣运营表
-		case 'platformAccount':
-			gridObj = new biz.grid({
-		        id:"#platformAccount",
-		        url: platformAccountModel.url,
-		       	sortname:"create_date",
-		       	sortorder:"asc",
-		       	pager: '#platformAccountprowed',
-		        colModel:platformAccountModel.colModel,
-		        footerrow:true,
-				serializeGridData:function(postData){//添加查询条件值
-					var obj = getQueryCondition();
-					$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
-					return obj;
-				},
-			 	datatype: "json",/*数据类型，设置为json数据，默认为json*/
-		        emptyrecords: "无记录可显示",
-		        rowList:[10,15,50,100],//每页显示记录数
-				rowNum:15,//默认显示15条
-				/* gridComplete:completeGrid */
-		      });
-			$("#platformAccount").setColProp('calculate');
-			break;
-		default:
-			break;
-		}
+		console.log(JSON.parse(localStorage.getItem(ways+"Model"))[8].formatter);
+		gridObj = new biz.grid({
+	        id:"#"+ways,
+	        url: eval(ways+"Model.url"),
+	       	sortname:"create_date",
+	       	sortorder:"asc",
+	       	pager: "#"+ways+"prowed",
+	        colModel:localStorage.getItem(ways+"Model")?JSON.parse(localStorage.getItem(ways+"Model")):eval(ways+"Model.colModel"),
+	        footerrow:true,
+			serializeGridData:function(postData){//添加查询条件值
+				var obj = getQueryCondition();
+				$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
+				return obj;
+			},
+		 	datatype: "json",/*数据类型，设置为json数据，默认为json*/
+	        emptyrecords: "无记录可显示",
+	        rowList:[10,15,50,100],//每页显示记录数
+			rowNum:15,//默认显示15条
+			gridComplete:completeGrid  
+	      });
+		$("#"+ways).setColProp('calculate');
 	}
 	
 	
@@ -376,81 +268,12 @@ var platformAccountModel = {
 	function loadConfigGrid(ways,colModel){
 		$(".listtable_box").html("");
 		$(".listtable_box").html('<table id="'+ways+'" ></table><div id='+ways+'"prowed"></div>');
-		switch (ways) {
-		//底价运营表
-		case 'basePrice':
 		gridObj = new biz.grid({
-	        id:"#basePrice",
-	        url: basePriceModel.url,
-	       	sortname:"create_time",
-	       	sortorder:"asc",
-	       	pager: '#basePriceprowed',
-	        colModel:colModel,
-	        footerrow:true,
-			serializeGridData:function(postData){//添加查询条件值
-				var obj = getQueryCondition();
-				$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
-				return obj;
-			},
-		 	datatype: "json",/*数据类型，设置为json数据，默认为json*/
-	        emptyrecords: "无记录可显示",
-	        rowList:[10,15,50,100],//每页显示记录数
-			rowNum:15,//默认显示15条
-			/* gridComplete:completeGrid  */
-	      });
-		break;
-	//销售额比例抽佣运营表
-	case 'salesRate':
-		gridObj = new biz.grid({
-	        id:"#salesRate",
-	        url: salesRateModel.url,
-	       	sortname:"create_time",
-	       	sortorder:"asc",
-	       	pager: '#salesRateprowed',
-	        colModel:colModel,
-	        footerrow:true,
-			serializeGridData:function(postData){//添加查询条件值
-				var obj = getQueryCondition();
-				$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
-				return obj;
-			},
-		 	datatype: "json",/*数据类型，设置为json数据，默认为json*/
-	        emptyrecords: "无记录可显示",
-	        rowList:[10,15,50,100],//每页显示记录数
-			rowNum:15,//默认显示15条
-			/* gridComplete:completeGrid */
-	      });
-		break;
-	//深运营表
-	case 'deepOperation':
-		gridObj = new biz.grid({
-	        id:"#deepOperation",
-	        url: deepOperationModel.url,
-	       	sortname:"create_time",
-	       	sortorder:"asc",
-	       	pager: '#deepOperationprowed',
-	        colModel:colModel,
-	        footerrow:true,
-			serializeGridData:function(postData){//添加查询条件值
-				var obj = getQueryCondition();
-				$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
-				return obj;
-			},
-		 	datatype: "json",/*数据类型，设置为json数据，默认为json*/
-	        emptyrecords: "无记录可显示",
-	        rowList:[10,15,50,100],//每页显示记录数
-			rowNum:15,//默认显示15条
-			/* gridComplete:completeGrid */
-	      });
-		break;
-	//平台到账抽佣运营表
-	case 'platformAccount':
-		gridObj = new biz.grid({
-	        id:"#platformAccount",
-	        url: platformAccountModel.url,
+	        id:"#"+ways,
+	        url: eval(ways+"Model.url"),
 	       	sortname:"create_date",
 	       	sortorder:"asc",
-	       	pager: '#platformAccountprowed',
+	       	pager: '#'+ways+'prowed',
 	        colModel:colModel,
 	        footerrow:true,
 			serializeGridData:function(postData){//添加查询条件值
@@ -462,23 +285,21 @@ var platformAccountModel = {
 	        emptyrecords: "无记录可显示",
 	        rowList:[10,15,50,100],//每页显示记录数
 			rowNum:15,//默认显示15条
-			/* gridComplete:completeGrid */
+			gridComplete:completeGrid 
 	      });
-		$("#platformAccount").setColProp('calculate');
-		break;
-	default:
-		break;
+		//console.log(colModel[8].formatter);
+		$("#"+ways).setColProp('calculate');
+		$("#"+ways).setColProp('editable');
 	}
-}
 	//配置的弹出框
 	var config_iframe_dialog;
 	function configGrid(tableName,tableId){
 			var url="<m:url value='/accountOperateIncome/toConfigGridTitle.do'/>";
 			config_iframe_dialog = new biz.dialog({
-				id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+				id:$('<div id="addwindow_iframe" ></div>').html('<iframe id="iframeAdd"  class="'+tableId+'" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 				modal: true,
-				width: $(window).width()*0.6,
-				height: 500,
+				width: $(window).width()*0.9,
+				height: 600,
 				title: tableName+"表头配置"
 			});
 			config_iframe_dialog.open();
@@ -492,8 +313,8 @@ var platformAccountModel = {
     	$(".ui-jqgrid-sdiv").show();
     	$(this).footerData("set",{
     		"rn":"合计",
-    		"orginPrice":$(this).getCol("orginPrice",false,"sum").toFixed(2),
-    		"discountPrice":$(this).getCol("discountPrice",false,"sum").toFixed(2),
+    		"totalPrice":$(this).getCol("totalPrice",false,"sum").toFixed(2),
+    		/* "discountPrice":$(this).getCol("discountPrice",false,"sum").toFixed(2),
     		"afterDiscountPrice":$(this).getCol("afterDiscountPrice",false,"sum").toFixed(2),
     		"actualPrice":$(this).getCol("actualPrice",false,"sum").toFixed(2),
     		"cyzDistributionCharge":$(this).getCol("cyzDistributionCharge",false,"sum").toFixed(2),
@@ -506,7 +327,7 @@ var platformAccountModel = {
     		"amountPayable":$(this).getCol("amountPayable",false,"sum").toFixed(2),
     		"cyzServiceCharge":$(this).getCol("cyzServiceCharge",false,"sum").toFixed(2),
     		"saleGrossProfit":$(this).getCol("saleGrossProfit",false,"sum").toFixed(2)
-    		}); //将合计值显示出来
+    		 */}); //将合计值显示出来
 		}
 	//查看的弹出框
 	var show_iframe_dialog;
@@ -564,7 +385,7 @@ var platformAccountModel = {
     
     //配置表头
     function configTitle(tableName,tableId){
-    	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id')
+    	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
     	var tableName = $('.tableTab.checked').find('span').text();
     	configGrid(tableName,tableId);
     }

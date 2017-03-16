@@ -79,6 +79,7 @@
 			<list>
 				<value>/error.jsp</value>
 				<value>/login.do</value>
+				<value>/getShopId.do</value>
 				<value>/logout.do</value>
 				<value>/tologin.do</value>
 				<value>/order/testOrder.do</value>

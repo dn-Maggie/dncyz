@@ -17,6 +17,7 @@
 			<result column="order_no" property="orderNo" jdbcType="VARCHAR" />
 			<result column="prices" property="prices" jdbcType="DECIMAL" />
 			<result column="meal_fee" property="mealFee" jdbcType="DECIMAL" />
+			<result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
 			<result column="product_sale_amount" property="productSaleAmount" jdbcType="DECIMAL" />
 			<result column="gift_allowance" property="giftAllowance" jdbcType="DECIMAL" />
 			<result column="merchant_activities_subsidies" property="merchantActivitiesSubsidies" jdbcType="DECIMAL" />
@@ -65,6 +66,7 @@
 		order_no,
 		prices,
 		meal_fee,
+		total_price,
 		product_sale_amount,
 		gift_allowance,
 		merchant_activities_subsidies,
@@ -122,6 +124,7 @@
 			order_no,
 			prices,
 			meal_fee,
+			total_price,
 			product_sale_amount,
 			gift_allowance,
 			merchant_activities_subsidies,
@@ -267,6 +270,7 @@
 				,#{orderNo,jdbcType=VARCHAR}
 				,#{prices,jdbcType=DECIMAL}
 				,#{mealFee,jdbcType=DECIMAL}
+				,#{totalPrice,jdbcType=DECIMAL}
 				,#{productSaleAmount,jdbcType=DECIMAL}
 				,#{giftAllowance,jdbcType=DECIMAL}
 				,#{merchantActivitiesSubsidies,jdbcType=DECIMAL}
@@ -318,6 +322,7 @@
 				,order_no
 				,prices
 				,meal_fee
+				,total_price
 				,product_sale_amount
 				,gift_allowance
 				,merchant_activities_subsidies
@@ -367,6 +372,7 @@
 				,#{item.orderNo,jdbcType=VARCHAR}
 				,#{item.prices,jdbcType=DECIMAL}
 				,#{item.mealFee,jdbcType=DECIMAL}
+				,#{item.totalPrice,jdbcType=DECIMAL}
 				,#{item.productSaleAmount,jdbcType=DECIMAL}
 				,#{item.giftAllowance,jdbcType=DECIMAL}
 				,#{item.merchantActivitiesSubsidies,jdbcType=DECIMAL}
@@ -420,6 +426,7 @@
 		,order_no = #{orderNo,jdbcType=VARCHAR}
 		,prices = #{prices,jdbcType=DECIMAL}
 		,meal_fee = #{mealFee,jdbcType=DECIMAL}
+		,total_price = #{totalPrice,jdbcType=DECIMAL}
 		,product_sale_amount = #{productSaleAmount,jdbcType=DECIMAL}
 		,gift_allowance = #{giftAllowance,jdbcType=DECIMAL}
 		,merchant_activities_subsidies = #{merchantActivitiesSubsidies,jdbcType=DECIMAL}
