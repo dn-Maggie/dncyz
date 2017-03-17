@@ -292,15 +292,15 @@
 				od.create_date AS create_date,
 				od.order_time AS create_time,
 				(od.prices + od.meal_fee) AS orgin_price,
-				-(od.activities_subsidy_bymerchant) AS discount_price,
+				od.activities_subsidy_bymerchant AS discount_price,
 				od.food_discount AS after_discount_price,
 				od.special_offer AS actual_price,
 				od.platform_dist_charge AS order_distribution_charge,
 				od.platform_dist_charge AS platform_distribution_charge,
 				od.merchant_dist_charge AS cyz_distribution_charge, 
-				(-od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) AS cyz_activities_charge, 
+				(od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) AS cyz_activities_charge, 
 				od.platform_activities_subsidies AS platform_activities_charge,
-				-od.service_charge AS platform_service_charge,
+				od.service_charge AS platform_service_charge,
 				(CASE WHEN od.remark like "%扣单%" THEN 
 				-(od.prices + od.meal_fee - od.activities_subsidy_bymerchant)
 				ELSE 
@@ -312,7 +312,7 @@
 				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount AS amount_payable, 
 				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.3 AS cyz_service_charge,
 				'待确认' AS distribution_actual_payment,
-				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant) - (-od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) + od.service_charge -
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant) - (od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) - od.service_charge -
 				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount) AS sale_gross_profit,
 				od.store_name,
 				od.remark,
@@ -452,15 +452,15 @@
 				od.order_time AS create_time,
 				od.order_no AS order_no,
 				(od.prices + od.meal_fee) AS orgin_price,
-				-(od.activities_subsidy_bymerchant) AS discount_price,
+				od.activities_subsidy_bymerchant AS discount_price,
 				od.food_discount AS after_discount_price,
 				od.special_offer AS actual_price,
 				od.order_dist_charge AS order_distribution_charge,
 				od.platform_dist_charge AS platform_distribution_charge,
 				od.merchant_dist_charge AS cyz_distribution_charge, 
-				(-od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) AS cyz_activities_charge, 
+				(od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) AS cyz_activities_charge, 
 				od.platform_activities_subsidies AS platform_activities_charge,
-				-od.service_charge AS platform_service_charge,
+				od.service_charge AS platform_service_charge,
 				(CASE WHEN od.remark like "%扣单%" THEN 
 				-(od.prices + od.meal_fee - od.activities_subsidy_bymerchant)
 				ELSE 
@@ -472,9 +472,9 @@
 				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount AS amount_payable, 
 				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.3 AS cyz_service_charge,
 				'待确认' AS distribution_actual_payment,
-				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant) - (-od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) + od.service_charge -
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant) - (od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) - od.service_charge -
 				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount) AS sale_gross_profit,
-				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant) - (-od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) + od.service_charge -
+				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant) - (od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) - od.service_charge -
 				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount))/ 
 				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.3)
 				AS sale_gross_profit_rate,
