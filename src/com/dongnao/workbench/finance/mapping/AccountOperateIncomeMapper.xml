@@ -41,12 +41,29 @@
 		<result column="create_date" property="createDate" jdbcType="DATE" />
 		<result column="allinvalid_num" property="allinvalidNum" jdbcType="INTEGER" />
 		<result column="allvalid_num" property="allvalidNum" jdbcType="INTEGER" />
+	
+		<result column="allorgin_price" property="allorginPrice" jdbcType="DECIMAL" />
+		<result column="allorder_distribution_charge" property="allorderDistributionCharge" jdbcType="DECIMAL" />
+		
+		<result column="allgoods_quality" property="allgoodsQuality" jdbcType="INTEGER" />
+		<result column="allbase_price" property="allbasePrice" jdbcType="DECIMAL" />
+		<result column="allother_base_price" property="allotherBasePrice" jdbcType="DECIMAL" />
+		
+		<result column="allplatform_service_charge" property="allplatformServiceCharge" jdbcType="DECIMAL" />
+		<result column="allplatform_dist_charge" property="allplatformDistCharge" jdbcType="DECIMAL" />
+		
+		<result column="allplatform_activities_charge" property="allplatformActivitiesCharge" jdbcType="DECIMAL" />
+		
 		<result column="allproduct_sale_amount" property="allproductSaleAmount" jdbcType="DECIMAL" />
+		
+		<result column="allcyz_activities_charge" property="allcyzActivitiesCharge" jdbcType="DECIMAL" />
+		<result column="allcyz_distribution_charge" property="allcyzDistributionCharge" jdbcType="DECIMAL" />
+		
 		<result column="allamount_receivable" property="allamountReceivable" jdbcType="DECIMAL" />
 		<result column="allamount_payable" property="allamountPayable" jdbcType="DECIMAL" />
 		<result column="allcyz_service_charge" property="allcyzServiceCharge" jdbcType="DECIMAL" />
 		<result column="allsale_gross_profit" property="allsaleGrossProfit" jdbcType="DECIMAL" />
-		<result column="allcyz_distribution_charge" property="allcyzDistributionCharge" jdbcType="DECIMAL" />
+		
 		<result column="platform_type" property="platformType" jdbcType="VARCHAR" />
 		<result column="store_id" property="storeId" jdbcType="VARCHAR" />
 		<result column="store_name" property="storeName" jdbcType="VARCHAR" />
@@ -279,6 +296,19 @@
 			create_date,
 			COUNT(*)-sum(is_invalid) as allvalid_num,
 			sum(is_invalid) as allinvalid_num,
+			sum(orgin_price) as allorgin_price,
+			sum(order_distribution_charge) as allorder_distribution_charge,
+			
+			sum(goods_quality) as allgoods_quality,
+			sum(orgin_price) as allbase_price,
+			sum(orgin_price) as allother_base_price,
+			
+			sum(platform_service_charge) as allplatform_service_charge,
+			sum(platform_distribution_charge) as allplatform_dist_charge,
+			
+			sum(platform_activities_charge) as allplatform_activities_charge,
+			sum(cyz_activities_charge) as allcyz_activities_charge,
+			
 			SUM(operIncome.product_sale_amount) as allproduct_sale_amount,
 			SUM(operIncome.amount_receivable) as allamount_receivable,
 			SUM(operIncome.amount_payable) as allamount_payable,
@@ -288,6 +318,8 @@
 		 from
 			(SELECT
 				od.id,
+				od.goods_price,
+				od.goods_quality,
 				od.is_invalid,
 				od.create_date AS create_date,
 				od.order_time AS create_time,
@@ -295,7 +327,7 @@
 				od.activities_subsidy_bymerchant AS discount_price,
 				od.food_discount AS after_discount_price,
 				od.special_offer AS actual_price,
-				od.platform_dist_charge AS order_distribution_charge,
+				od.order_dist_charge AS order_distribution_charge,
 				od.platform_dist_charge AS platform_distribution_charge,
 				od.merchant_dist_charge AS cyz_distribution_charge, 
 				(od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) AS cyz_activities_charge, 

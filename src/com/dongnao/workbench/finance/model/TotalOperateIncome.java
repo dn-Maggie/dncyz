@@ -30,7 +30,16 @@ public class TotalOperateIncome extends Model{
 	                 * 有效单
 	                 **/
 				   			private Integer allvalidNum;
-		   		
+				   			private BigDecimal allorginPrice;
+				   			private BigDecimal allorderDistributionCharge;
+				   			private Integer allgoodsQuality;
+				   			private BigDecimal allbasePrice;
+				   			private BigDecimal allotherBasePrice;
+				   			private BigDecimal allplatformServiceCharge;
+				   			private BigDecimal allplatformDistCharge;
+				   			private BigDecimal allplatformActivitiesCharge;
+				   			private BigDecimal allcyzActivitiesCharge;
+				   			private BigDecimal allcyzDistributionCharge;
 		            /**
 	                 * 产品销售金额
 	                 **/
@@ -60,7 +69,6 @@ public class TotalOperateIncome extends Model{
 		            /**
 	                 * 自配送实际支付金额
 	                 **/
-				   			private String allcyzDistributionCharge;
 				   			private String platformType;
 		   		
 				   			private String storeId;
@@ -131,14 +139,6 @@ public class TotalOperateIncome extends Model{
 								this.allsaleGrossProfit = allsaleGrossProfit;
 							}
 
-							public String getAllcyzDistributionCharge() {
-								return allcyzDistributionCharge;
-							}
-
-							public void setAllcyzDistributionCharge(String allcyzDistributionCharge) {
-								this.allcyzDistributionCharge = allcyzDistributionCharge;
-							}
-
 							public String getPlatformType() {
 								return platformType;
 							}
@@ -169,6 +169,87 @@ public class TotalOperateIncome extends Model{
 
 							public void setStoreName(String storeName) {
 								this.storeName = storeName;
+							}
+
+							public BigDecimal getAllorginPrice() {
+								return allorginPrice;
+							}
+
+							public void setAllorginPrice(BigDecimal allorginPrice) {
+								this.allorginPrice = allorginPrice;
+							}
+
+							public BigDecimal getAllorderDistributionCharge() {
+								return allorderDistributionCharge;
+							}
+
+							public void setAllorderDistributionCharge(BigDecimal allorderDistributionCharge) {
+								this.allorderDistributionCharge = allorderDistributionCharge;
+							}
+
+
+							public BigDecimal getAllbasePrice() {
+								return allbasePrice;
+							}
+
+							public void setAllbasePrice(BigDecimal allbasePrice) {
+								this.allbasePrice = allbasePrice;
+							}
+
+							public BigDecimal getAllotherBasePrice() {
+								return allotherBasePrice;
+							}
+
+							public void setAllotherBasePrice(BigDecimal allotherBasePrice) {
+								this.allotherBasePrice = allotherBasePrice;
+							}
+
+							public BigDecimal getAllplatformServiceCharge() {
+								return allplatformServiceCharge;
+							}
+
+							public void setAllplatformServiceCharge(BigDecimal allplatformServiceCharge) {
+								this.allplatformServiceCharge = allplatformServiceCharge;
+							}
+
+							public BigDecimal getAllplatformDistCharge() {
+								return allplatformDistCharge;
+							}
+
+							public void setAllplatformDistCharge(BigDecimal allplatformDistCharge) {
+								this.allplatformDistCharge = allplatformDistCharge;
+							}
+
+							public BigDecimal getAllplatformActivitiesCharge() {
+								return allplatformActivitiesCharge;
+							}
+
+							public void setAllplatformActivitiesCharge(BigDecimal allplatformActivitiesCharge) {
+								this.allplatformActivitiesCharge = allplatformActivitiesCharge;
+							}
+
+							public BigDecimal getAllcyzActivitiesCharge() {
+								return allcyzActivitiesCharge;
+							}
+
+							public void setAllcyzActivitiesCharge(BigDecimal allcyzActivitiesCharge) {
+								this.allcyzActivitiesCharge = allcyzActivitiesCharge;
+							}
+
+							public BigDecimal getAllcyzDistributionCharge() {
+								return allcyzDistributionCharge;
+							}
+
+							public void setAllcyzDistributionCharge(BigDecimal allcyzDistributionCharge) {
+								this.allcyzDistributionCharge = allcyzDistributionCharge;
+							}
+
+							public Integer getAllgoodsQuality() {
+								return allgoodsQuality;
+							}
+
+							public void setAllgoodsQuality(Integer allgoodsQuality) {
+								this.allgoodsQuality = allgoodsQuality;
 							}
 
 							

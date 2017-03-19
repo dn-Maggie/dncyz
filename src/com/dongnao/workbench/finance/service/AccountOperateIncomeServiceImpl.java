@@ -87,4 +87,6 @@ public class AccountOperateIncomeServiceImpl implements AccountOperateIncomeServ
 	public List<TotalOperateIncome> listAllFromOrderDetail(AccountOrderDetail accountOrderDetail) {
 		return accountOperateIncomeMapper.listAllFromOrderDetail(accountOrderDetail);
 	}
+
+	
 }

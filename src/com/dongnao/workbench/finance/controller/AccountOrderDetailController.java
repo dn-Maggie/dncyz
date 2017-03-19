@@ -175,7 +175,16 @@ public class AccountOrderDetailController{
 				response,accountOrderDetailService.update(accountOrderDetail));	
 	}
 	
-	
+	/**
+	 * 菜品数量表明细
+	 */
+	@RequestMapping("/listGoods")
+	public void listGoods(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		accountOrderDetail.setPage(page);	
+		List<AccountOrderDetail> list = accountOrderDetailService.listGoodsFromOrderDetail(accountOrderDetail);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
 	 /**
      * 读取Excel的内容，第一维数组存储的是一行中格列的值，二维数组存储的是多少个行
      * @param file 读取数据的源Excel

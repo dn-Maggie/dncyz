@@ -50,4 +50,9 @@ public interface AccountOrderDetailService  {
 	 * 批量插入订单详细方法
 	 */
 	public int addOrderDetail(List<AccountOrderDetail> orderDetailList);
+	
+	/**
+	 * 根据订单计算出菜品数量表
+	 */
+	public List<AccountOrderDetail> listGoodsFromOrderDetail(AccountOrderDetail accountOrderDetail);
 }

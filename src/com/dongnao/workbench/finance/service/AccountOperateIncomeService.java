@@ -59,4 +59,5 @@ public interface AccountOperateIncomeService  {
 	 * 根据订单计算出运营数据合计
 	 */
 	public List<TotalOperateIncome> listAllFromOrderDetail(AccountOrderDetail accountOrderDetail) ;
+	
 }

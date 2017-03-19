@@ -48,7 +48,7 @@
 		,M.MODULE_CODE
 		,M.CREATOR_ID
 		,M.RESOURCE_ID
-		from SYS_RO_MODULE M
+		from sys_ro_module M
 		where ID = #{id,jdbcType=VARCHAR}
 	</select>
 
@@ -68,7 +68,7 @@
 		,M.MODULE_CODE
 		,M.CREATOR_ID
 		,M.RESOURCE_ID
-		from SYS_RO_MODULE M
+		from sys_ro_module M
 		where 1=1
 		<if test="moduleMemo != null and '' != moduleMemo">
 			and M.MODULE_MEMO = #{moduleMemo,jdbcType=VARCHAR}

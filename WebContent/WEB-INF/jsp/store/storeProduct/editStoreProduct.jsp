@@ -228,6 +228,56 @@ function drawForm(rowData) {
 				</td>
 			</tr>
 			<tr>
+				<td class="inputLabelTd">菜品折扣：</td>
+				<td class="inputTd">
+					<input id="edit_merchantDiscount" name="merchantDiscount" type="text" class="text number" value="${storeProduct.merchantDiscount}"/>
+				</td>
+				<td class="inputLabelTd">签订特价结算金额：</td>
+				<td class="inputTd">
+					<input id="edit_specialOffer" name="specialOffer" type="text" class="text number" value="${storeProduct.specialOffer}"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="inputLabelTd">菜品折扣时间起：</td>
+				<td class="inputTd">
+					<div class="input-group">
+						<input class="date-picker text" name="merchantDiscountBegin" id="edit_merchantDiscountBegin" type="text" data-date-format="yyyy-mm-dd" />
+						<span>
+							<i class="icon-calendar bigger-110"></i>
+						</span>
+					</div>
+				</td>
+				<td class="inputLabelTd">菜品折扣时间止：</td>
+				<td class="inputTd">
+					<div class="input-group">
+						<input class="date-picker text" name="merchantDiscountEnd" id="edit_merchantDiscountEnd" type="text" data-date-format="yyyy-mm-dd" />
+						<span>
+							<i class="icon-calendar bigger-110"></i>
+						</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="inputLabelTd">签订特价结算时间起：</td>
+				<td class="inputTd">
+					<div class="input-group">
+						<input class="date-picker text" name="specialOfferBegin" id="edit_specialOfferBegin" type="text" data-date-format="yyyy-mm-dd" />
+						<span>
+							<i class="icon-calendar bigger-110"></i>
+						</span>
+					</div>
+				</td>
+				<td class="inputLabelTd">签订特价结算时间止：</td>
+				<td class="inputTd">
+					<div class="input-group">
+						<input class="date-picker text" name="specialOfferEnd" id="edit_specialOfferEnd" type="text" data-date-format="yyyy-mm-dd" />
+						<span>
+							<i class="icon-calendar bigger-110"></i>
+						</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
 				<td class="inputTd" colspan="4" style="text-align:center;">
 					<input id="submit" type="button" class="ti_bottom" value="保存"/>
 				</td>

@@ -18,6 +18,9 @@
 		z-index:999;
 		display:none;
 	}
+	.ui-jqgrid-sortable{
+		font-weight:normal;
+	}
 	.header-context-menu .headers{
 		padding:0;
 		margin:0;
@@ -42,80 +45,100 @@
 <script type="text/javascript">
 var gridObj = {};
 //底价运营表表头         
-var basePriceModel = {url: "<m:url value='/accountOperateIncome/listOperaData.do'/>",colModel:[
-						{name : "id",hidden : true,key : true,label:"主键",index : "id"},
+var basePriceModel = {url: "<m:url value='/accountOperateIncome/listAllFromOrderDetail.do'/>",
+						colModel:[
 						{name : "storeName",label:"商户名称",index : "store_name"},	
 						{name : "createDate",label:"日期",index : "create_date"},		
 						
-                        {name : "invalidNum",label:"无效单",index : "invalid_num"},				
-        				{name : "validNum",label:"有效单",index : "valid_num"},	 
+                        {name : "allinvalidNum",label:"无效单"},				
+        				{name : "allvalidNum",label:"有效单"},	 
         				
-        				{name : "orginPrice",label:"菜品原价",index : "orgin_price"},	
-        				{name : "orderDistributionCharge",label:"订单上收取客户配送费",index : "order_distribution_charge"},	
+        				{name : "allorginPrice",label:"菜品原价",index : "allorgin_price"},	
+        				{name : "allorderDistributionCharge",label:"订单上收取客户配送费",index : "allorder_distribution_charge"},	
         				
-        				{name : "id",label:"菜品份数",index : "discount_price"},				
-        				{name : "id",label:"底价",index : "after_discount_price"},				
-        				{name : "id",label:"其他底价",index : "actual_price"},				
-        				
-        				{name : "discountPrice",label:"菜品折扣",index : "discount_price"},				
-        				{name : "afterDiscountPrice",label:"折扣菜金额",index : "after_discount_price"},				
-        				{name : "actualPrice",label:"结算特价",index : "actual_price"},				
+        				{name : "allgoodsQuality",label:"菜品份数"},				
+        				{name : "allbasePrice",label:"底价",index : "allbase_price"},				
+        				{name : "allotherBasePrice",label:"其他底价",index : "allother_base_price"},				
         							
-        				{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge"},		
-        				{name : "platformDistributionCharge",label:"平台收取客户配送费",index : "platform_distribution_charge"},						
+        				{name : "allplatformServiceCharge",label:"平台服务费"},		
+        				{name : "allplatformDistCharge",label:"平台收取客户配送费"},						
         				
-        				{name : "platformActivitiesCharge",label:"平台补贴线上活动费",index : "platform_activities_charge"},
+        				{name : "allplatformActivitiesCharge",label:"平台补贴线上活动费"},
         				
-        				{name : "cyzActivitiesCharge",label:"公司扣除平台补贴自营销费用",index : "cyz_activities_charge"},	
+        				{name : "allcyzActivitiesCharge",label:"公司扣除平台补贴自营销费用"},	
         				
-        				{name : "cyzDistributionCharge",label:"公司收取配送费",index : "cyz_distribution_charge"},				
+        				{name : "allcyzDistributionCharge",label:"公司收取配送费"},				
         			
-        				{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount"},				
-        				{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable"},	
-        				{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable"},				
-        				{name : "cyzAllIncome",label:"公司收入",index : "cyz_all_income"},	
-        				{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit"},				
-        				{name : "saleGrossProfitRate",label:"毛利率",index : "sale_gross_profit_rate"},	
+        				{name : "",label:"产品销售金额"},				
+        				{name : "",label:"应收平台结算金额"},	
+        				{name : "",label:"应付店铺结算金额"},				
+        				{name : "",label:"公司收入"},	
+        				{name : "",label:"销售毛利"},				
+        				{name : "",label:"毛利率"},	
         				{name : "distributionActualPayment",label:"自配送实际支付金额",index : "distribution_actual_payment"},
         				{name : "remark",label:"备注",index : "remark"},
-        				{name : "platformType",label:"平台类型",index : "platform_type",
-        					formatter:function(cellvalue, options, rowObject){
-        		 				 if (cellvalue=='elm') {return '饿了么';}
-        		 				 else if (cellvalue=='meituan'){return '美团';}
-        		 				 else if (cellvalue=='baidu'){return '百度';}
-        				}},]};
+        				{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",editable:true,
+							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
+				       	]};
+//菜品数量表表头
+var goodsQuantityModel = {url: "<m:url value='/accountOrderDetail/listGoods.do'/>",
+						colModel:[
+						{name : "storeName",label:"商户名称",index : "store_name"},	
+						{name : "createDate",label:"日期",index : "create_date"},		
+						{name : "goodsName",label:"商品名称"},	
+						{name : "goodsQuality",label:"销售量"},	
+						{name : "goodsPrice",label:"结算单价"},	
+						{name : "",label:"销售额",calculate:"rData['goodsQuality'] * rData['goodsPrice']",editable:true,
+							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},	
+        				{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",editable:true,
+							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
+				       	]};
 //销售额比例抽佣运营表表头         
-var salesRateModel = {url: "<m:url value='/accountOperateIncome/listOperaData.do'/>",colModel:[
-                        {name : "id",hidden : true,key : true,label:"主键",index : "id"},
-         				{name : "storeName",label:"商户名称",index : "store_name"},	
-        				{name : "createDate",label:"日期",index : "create_date"},				
-        				{name : "createTime",label:"订单时点",index : "create_time"},				
-        				{name : "orderNo",label:"订单编号",index : "order_no"},				
-        				{name : "orginPrice",label:"原价",index : "orgin_price"},				
-        				{name : "discountPrice",label:"菜品折扣",index : "discount_price"},				
-        				{name : "afterDiscountPrice",label:"折扣菜金额",index : "after_discount_price"},				
-        				{name : "actualPrice",label:"结算特价",index : "actual_price"},				
-        				{name : "orderDistributionCharge",label:"订单上收取客户配送费",index : "order_distribution_charge"},				
-        				{name : "platformDistributionCharge",label:"平台收取客户配送费",index : "platform_distribution_charge"},				
-        				{name : "cyzDistributionCharge",label:"公司收取客户配送费",index : "cyz_distribution_charge"},				
-        				{name : "cyzActivitiesCharge",label:"公司承担线上活动费",index : "cyz_activities_charge"},	
-        				{name : "platformActivitiesCharge",label:"平台承担线上活动费",index : "platform_activities_charge"},
-        				{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge"},		
-        				{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount"},				
-        				{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable"},				
-        				{name : "seventypProductSaleAmount",label:"70%结算金额",index : "seventyP_product_sale_amount"},				
-        				{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable"},				
-        				{name : "cyzServiceCharge",label:"公司收取店铺服务费",index : "cyz_service_charge"},				
-        				{name : "distributionActualPayment",label:"自配送实际支付金额",index : "distribution_actual_payment"},
-        				{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit"},				
-        				{name : "saleGrossProfitRate",label:"毛利率",index : "sale_gross_profit_rate"},	
-        				{name : "remark",label:"备注",index : "remark"},
-        				{name : "platformType",label:"平台类型",index : "platform_type",
-        					formatter:function(cellvalue, options, rowObject){
-        		 				 if (cellvalue=='elm') {return '饿了么';}
-        		 				 else if (cellvalue=='meituan'){return '美团';}
-        		 				 else if (cellvalue=='baidu'){return '百度';}
-        				}},]};
+var salesRateModel = {url: "<m:url value='/accountOrderDetail/listAccountOrderDetail.do'/>",
+		colModel:[
+						{name : "id",hidden : true,key : true,label:"账单ID",index : "id"},	
+						{name : "storeName",label:"商户名称",index : "store_name"},		
+						{name : "createDate",label:"日期",index : "create_date"},				
+						{name : "orderType",label:"订单类型",index : "order_type",hidden:true},				
+						{name : "orderTime",label:"订单时点",index : "order_time"},	
+						{name : "orderNo",label:"订单编号",index : "order_no"},		
+						{name : "prices",label:"菜价",index : "prices",hidden:true},				
+						{name : "mealFee",label:"餐盒费",index : "meal_fee",hidden:true},		
+						{name : "totalPrice",label:"原价",index : "total_price",calculate:"rData['mealFee'] + rData['prices']",editable:true,
+							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
+						{name : "activitiesSubsidyBymerchant",label:"菜品折扣",index:"activities_subsidy_bymerchant"},				
+		  				{name : "foodDiscount",label:"折扣菜金额",index:"food_discount"},				
+		  				{name : "specialOffer",label:"结算特价",index:"special_offer"},				
+		  				{name : "orderDistCharge",label:"订单上收取客户配送费",index : "order_dist_charge"},				
+	     				{name : "platformDistCharge",label:"平台收取客户配送费",index : "platform_dist_charge"},				
+	     				{name : "merchantDistCharge",label:"公司收取客户配送费",index : "merchant_dist_charge"},				
+	     				{name : "activitiesSubsidyBycompany",label:"公司承担线上活动费",index : "activities_subsidy_bycompany",calculate:"rData['merchantActivitiesSubsidies']-rData['activitiesSubsidyBymerchant']",editable:true,
+	     					formatter : function(value, options, rData){return eval(options.colModel.calculate);}},	
+	     				{name : "platformActivitiesSubsidies",label:"平台承担线上活动费",index : "platform_activities_subsidies"},
+	     				{name : "serviceCharge",label:"平台服务费",index : "service_charge"},	
+	     				{name : "serviceRate",label:"平台服务费费率",index : "service_rate",hidden:true},	
+	     				{name : "productSaleAmount",index:"product_sale_amount",label:"产品销售金额",calculate:"rData['mealFee'] + rData['prices'] - rData['activitiesSubsidyBymerchant']",editable:true,
+	     					formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
+	     				{name : "settlementAmount",label:"应收平台结算金额",index : "settlement_amount"},				
+	     				{name : "",label:"70%结算金额",calculate:"(rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.7",editable:true,
+	     					formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
+	     				{name : "",label:"应付店铺结算金额",calculate:"(rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.7+rData['activitiesSubsidyBymerchant']",editable:true,
+				       			formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
+	     				{name : "",label:"公司收取店铺服务费",calculate:"(rData['prices']+rData['mealFee']-rData['activitiesSubsidyBymerchant'])*(1-0.7)",editable:true,
+				       		formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
+	     				{name : "",label:"自配送实际支付金额",},
+	     				{name : "",label:"销售毛利",calculate:"rData['prices']+rData['mealFee']-((rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.7+rData['activitiesSubsidyBymerchant'])-(rData['merchantActivitiesSubsidies']-rData['activitiesSubsidyBymerchant'])-rData['serviceCharge']",editable:true,
+	     					formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
+	     				{name : "",label:"毛利率",calculate:"(rData['prices']+rData['mealFee']-((rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.7+rData['activitiesSubsidyBymerchant'])-(rData['merchantActivitiesSubsidies']-rData['activitiesSubsidyBymerchant'])-rData['serviceCharge'])/((rData['prices']+rData['mealFee']-rData['activitiesSubsidyBymerchant'])*(1-0.7))",editable:true,
+			       			formatter : function(value, options, rData){return eval(options.colModel.calculate);}},	
+						{name : "merchantActivitiesSubsidies",label:"商户承担活动补贴",index : "merchant_activities_subsidies",hidden:true},		
+						{name : "distributionMode",label:"配送方式",index : "distribution_mode",hidden:true},	
+						{name : "merchantSubsidyVouchers",label:"商户承担代金券补贴",index : "merchant_subsidy_vouchers",hidden:true},	
+						{name : "platformSubsidyVouchers",label:"平台承担代金券补贴",index : "platform_subsidy_vouchers",hidden:true},
+						{name : "remark",label:"备注",index : "remark"},		
+						{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",editable:true,
+							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
+			           	]};
 //深运营表表头         
 var deepOperationModel ={url: "<m:url value='/accountOrderDetail/listAccountOrderDetail.do'/>",
 						colModel:[
@@ -190,16 +213,16 @@ var platformAccountModel = {
            				{name : "productSaleAmount",index:"product_sale_amount",label:"产品销售金额",calculate:"rData['mealFee'] + rData['prices'] - rData['activitiesSubsidyBymerchant']",editable:true,
            					formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
            				{name : "settlementAmount",label:"应收平台结算金额",index : "settlement_amount"},				
-           				{name : "",label:"70%结算金额",calculate:"(rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.7",editable:true,
+           				{name : "",label:"95%结算金额",calculate:"(rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.95",editable:true,
            					formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
-           				{name : "",label:"应付店铺结算金额",calculate:"(rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.7+rData['activitiesSubsidyBymerchant']",editable:true,
+           				{name : "",label:"应付店铺结算金额",calculate:"(rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.95+rData['activitiesSubsidyBymerchant']",editable:true,
    			       			formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
-           				{name : "",label:"公司收取店铺服务费",calculate:"(rData['prices']+rData['mealFee']-rData['activitiesSubsidyBymerchant'])*(1-0.7)",editable:true,
+           				{name : "",label:"公司收取店铺服务费",calculate:"(rData['prices']+rData['mealFee']-rData['activitiesSubsidyBymerchant'])*(1-0.95)",editable:true,
       			       		formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
            				{name : "",label:"自配送实际支付金额",},
-           				{name : "",label:"销售毛利",calculate:"rData['prices']+rData['mealFee']-((rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.7+rData['activitiesSubsidyBymerchant'])-(rData['merchantActivitiesSubsidies']-rData['activitiesSubsidyBymerchant'])-rData['serviceCharge']",editable:true,
+           				{name : "",label:"销售毛利",calculate:"rData['prices']+rData['mealFee']-((rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.95+rData['activitiesSubsidyBymerchant'])-(rData['merchantActivitiesSubsidies']-rData['activitiesSubsidyBymerchant'])-rData['serviceCharge']",editable:true,
            					formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
-           				{name : "",label:"毛利率",calculate:"(rData['prices']+rData['mealFee']-((rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.7+rData['activitiesSubsidyBymerchant'])-(rData['merchantActivitiesSubsidies']-rData['activitiesSubsidyBymerchant'])-rData['serviceCharge'])/((rData['prices']+rData['mealFee']-rData['activitiesSubsidyBymerchant'])*(1-0.7))",editable:true,
+           				{name : "",label:"毛利率",calculate:"(rData['prices']+rData['mealFee']-((rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.95+rData['activitiesSubsidyBymerchant'])-(rData['merchantActivitiesSubsidies']-rData['activitiesSubsidyBymerchant'])-rData['serviceCharge'])/((rData['prices']+rData['mealFee']-rData['activitiesSubsidyBymerchant'])*(1-0.95))",editable:true,
   			       			formatter : function(value, options, rData){return eval(options.colModel.calculate);}},	
 						{name : "merchantActivitiesSubsidies",label:"商户承担活动补贴",index : "merchant_activities_subsidies",hidden:true},		
 						{name : "distributionMode",label:"配送方式",index : "distribution_mode",hidden:true},	
@@ -209,14 +232,14 @@ var platformAccountModel = {
 						{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",editable:true,
 							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
 			           	]};
-		$(function(){
+function cellFormat(value, options, rData){return eval("options.colModel.calculate");}	
+$(function(){
 			initGrid("platformAccount");
 			$(".tableTab").on('click',function(){
 				$(".tableTab").trigger("removeCheck");
 				$(this).addClass('checked');
 				$(".listtable_box").trigger("removeAll");
-				$(".listtable_box").html('<table  id="'+$(this).data("id")+'" ></table><div id='+$(this).data("id")+'"prowed"></div>');
-				alert($(this).data("id"));
+				$(".listtable_box").html('<table  id="'+$(this).data("id")+'" ></table><div id='+$(this).data("id")+'prowed></div>');
 				initGrid($(this).data("id"));
 			})
 			$(".tableTab").bind('removeCheck',function(){
@@ -252,9 +275,15 @@ var platformAccountModel = {
 			$contextMenu.show().offset({top:top,left:left});
 			return false;
 		}); */
+		
+		/* .replace(/serial/g, "formatter")
+		.replace(/serValue/g, 'function cellFormatter(value, options, rData){return eval($(".calcu:eq("+options.colModel.serial+")").val());}') */
     });
 	//初始化grid
 	function initGrid(ways){
+		/* console.log(JSON.parse(localStorage.getItem(ways+"Model"))); */
+		console.log(JSON.parse(localStorage.getItem(ways+"Model").replace(/serial/g, "formatter")
+				/* .replace(/serValue/g,cellFormat) */))
 		gridObj = new biz.grid({
 	        id:"#"+ways,
 	        url: eval(ways+"Model.url"),
@@ -273,12 +302,22 @@ var platformAccountModel = {
 			rowNum:15,//默认显示15条
 	      });
 		$("#"+ways).setColProp('calculate');
+		if(ways="basePrice"){
+			jQuery("#basePrice").jqGrid('setGroupHeaders', {
+			    useColSpanStyle: true, 
+			    groupHeaders:[
+				   {startColumnName: 'allinvalidNum', numberOfColumns:2, titleText: '每日单量'},
+				   {startColumnName: 'allgoodsQuality', numberOfColumns:3, titleText: '商家底价'},
+				   {startColumnName: 'allplatformServiceCharge', numberOfColumns:2, titleText: '平台收取'},
+			    ] 
+			  });
+		}
 	}
 	
 	//config grid
 	function loadConfigGrid(ways,colModel){
 		$(".listtable_box").html("");
-		$(".listtable_box").html('<table id="'+ways+'" ></table><div id='+ways+'"prowed"></div>');
+		$(".listtable_box").html('<table id="'+ways+'" ></table><div id="'+ways+'prowed"></div>');
 		gridObj = new biz.grid({
 	        id:"#"+ways,
 	        url: eval(ways+"Model.url"),
@@ -298,6 +337,16 @@ var platformAccountModel = {
 	      });
 		$("#"+ways).setColProp('calculate');
 		$("#"+ways).setColProp('editable');
+		if(ways="basePrice"){
+			jQuery("#basePrice").jqGrid('setGroupHeaders', {
+			    useColSpanStyle: true, 
+			    groupHeaders:[
+				   {startColumnName: 'allinvalidNum', numberOfColumns:2, titleText: '每日单量'},
+				   {startColumnName: 'allgoodsQuality', numberOfColumns:3, titleText: '商家底价'},
+				   {startColumnName: 'allplatformServiceCharge', numberOfColumns:2, titleText: '平台收取'},
+			    ] 
+			  });
+		}
 	}
 	//配置的弹出框
 	var config_iframe_dialog;
@@ -433,25 +482,31 @@ var platformAccountModel = {
 						</c:if>
 						<c:if test="${show}">
 						<li>
-							<a title="根据订单详细显示平台到账抽佣运营表" href="javascript:;" onclick="initGrid(this.data-id);" class="tableTab checked" data-id="platformAccount"> 
+							<a title="根据订单详细显示平台到账抽佣运营表" href="javascript:;" class="tableTab checked" data-id="platformAccount"> 
 								<i class="back_icon show_icon"> </i> 
 								<span>平台到账抽佣运营表</span>
 							</a>
 						</li>
 						<li>
-							<a title="根据订单详细显示底价运营表" href="javascript:;" onclick="initGrid(this.data-id);" class="tableTab" data-id="basePrice"> 
+							<a title="根据订单详细显示菜品数量表" href="javascript:;" class="tableTab" data-id="goodsQuantity"> 
+								<i class="back_icon show_icon"> </i> 
+								<span>菜品数量表</span>
+							</a>
+						</li>
+						<li>
+							<a title="根据订单详细显示底价运营表" href="javascript:;"  class="tableTab" data-id="basePrice"> 
 								<i class="back_icon show_icon"> </i> 
 								<span>底价运营表</span>
 							</a>
 						</li>
 						<li>
-							<a title="根据订单详细显示销售额比例抽佣运营表" href="javascript:;" onclick="initGrid(this.data-id);" class="tableTab" data-id="salesRate">   
+							<a title="根据订单详细显示销售额比例抽佣运营表" href="javascript:;" class="tableTab" data-id="salesRate">   
 								<i class="back_icon show_icon"> </i> 
 								<span>销售额比例抽佣运营表</span>
 							</a>
 						</li>
 						<li>
-							<a title="根据订单详细显示深运营表" href="javascript:;" onclick="initGrid(this.data-id);" class="tableTab" data-id="deepOperation"> 
+							<a title="根据订单详细显示深运营表" href="javascript:;"  class="tableTab" data-id="deepOperation"> 
 								<i class="back_icon show_icon"> </i> 
 								<span>深运营表</span>
 							</a>

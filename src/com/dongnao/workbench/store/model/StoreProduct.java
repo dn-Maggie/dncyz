@@ -93,61 +93,61 @@ public class StoreProduct extends Model{
 			                 * 签订特价结算起
 			                 **/
 							@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-					private Timestamp specialOfferBegin;
+							private Timestamp specialOfferBegin;
 				
 				            /**
 			                 * 签订特价结算止
 			                 **/
 							@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-					private Timestamp specialOfferEnd;
+							private Timestamp specialOfferEnd;
 				
-							public String getMerchantDiscount() {
-								return merchantDiscount;
-							}
+					public String getMerchantDiscount() {
+						return merchantDiscount;
+					}
 
-							public void setMerchantDiscount(String merchantDiscount) {
-								this.merchantDiscount = merchantDiscount;
-							}
+					public void setMerchantDiscount(String merchantDiscount) {
+						this.merchantDiscount = merchantDiscount;
+					}
 
-							public Timestamp getMerchantDiscountBegin() {
-								return merchantDiscountBegin;
-							}
+					public Timestamp getMerchantDiscountBegin() {
+						return merchantDiscountBegin;
+					}
 
-							public void setMerchantDiscountBegin(Timestamp merchantDiscountBegin) {
-								this.merchantDiscountBegin = merchantDiscountBegin;
-							}
+					public void setMerchantDiscountBegin(Timestamp merchantDiscountBegin) {
+						this.merchantDiscountBegin = merchantDiscountBegin;
+					}
 
-							public Timestamp getMerchantDiscountEnd() {
-								return merchantDiscountEnd;
-							}
+					public Timestamp getMerchantDiscountEnd() {
+						return merchantDiscountEnd;
+					}
 
-							public void setMerchantDiscountEnd(Timestamp merchantDiscountEnd) {
-								this.merchantDiscountEnd = merchantDiscountEnd;
-							}
+					public void setMerchantDiscountEnd(Timestamp merchantDiscountEnd) {
+						this.merchantDiscountEnd = merchantDiscountEnd;
+					}
 
-							public String getSpecialOffer() {
-								return specialOffer;
-							}
+					public String getSpecialOffer() {
+						return specialOffer;
+					}
 
-							public void setSpecialOffer(String specialOffer) {
-								this.specialOffer = specialOffer;
-							}
+					public void setSpecialOffer(String specialOffer) {
+						this.specialOffer = specialOffer;
+					}
 
-							public Timestamp getSpecialOfferBegin() {
-								return specialOfferBegin;
-							}
+					public Timestamp getSpecialOfferBegin() {
+						return specialOfferBegin;
+					}
 
-							public void setSpecialOfferBegin(Timestamp specialOfferBegin) {
-								this.specialOfferBegin = specialOfferBegin;
-							}
+					public void setSpecialOfferBegin(Timestamp specialOfferBegin) {
+						this.specialOfferBegin = specialOfferBegin;
+					}
 
-							public Timestamp getSpecialOfferEnd() {
-								return specialOfferEnd;
-							}
+					public Timestamp getSpecialOfferEnd() {
+						return specialOfferEnd;
+					}
 
-							public void setSpecialOfferEnd(Timestamp specialOfferEnd) {
-								this.specialOfferEnd = specialOfferEnd;
-							}
+					public void setSpecialOfferEnd(Timestamp specialOfferEnd) {
+						this.specialOfferEnd = specialOfferEnd;
+					}
 
 					public String getOwnerUserId() {
 						return ownerUserId;

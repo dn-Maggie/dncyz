@@ -74,8 +74,13 @@ public class AccountOrderDetailServiceImpl implements AccountOrderDetailService{
 	/**
 	 * 批量插入订单详细方法
 	 */
-	@Override
 	public int addOrderDetail(List<AccountOrderDetail> orderDetailList) {
 		return accountOrderDetailMapper.addOrderDetail(orderDetailList);
+	}
+	/**
+	 * 根据订单计算出菜品数量表
+	 */
+	public List<AccountOrderDetail> listGoodsFromOrderDetail(AccountOrderDetail accountOrderDetail) {
+		return accountOrderDetailMapper.listGoodsFromOrderDetail(accountOrderDetail);
 	}
 }

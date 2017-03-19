@@ -66,13 +66,7 @@
 				p.PRODUCT_IMAGE_PATH
 			END
 			) AS ProductImagePath
-			,(CASE
-				WHEN sp.PRODUCT_UNIT_PRICE IS NOT NULL THEN
-				sp.PRODUCT_UNIT_PRICE
-				ELSE
-				p.PRODUCT_UNIT_PRICE
-			END
-			) as productUnitPrice
+			,sp.PRODUCT_UNIT_PRICE
 			,sp.PRODUCT_STOCKS
 			,sp.PRODUCT_STATUS
 			,sp.merchant_discount
@@ -116,13 +110,7 @@
 				p.PRODUCT_IMAGE_PATH
 			END
 			) AS ProductImagePath
-			,(CASE
-				WHEN sp.PRODUCT_UNIT_PRICE IS NOT NULL THEN
-				sp.PRODUCT_UNIT_PRICE
-				ELSE
-				p.PRODUCT_UNIT_PRICE
-			END
-			) as productUnitPrice
+			,sp.PRODUCT_UNIT_PRICE
 			,sp.PRODUCT_STOCKS
 			,sp.PRODUCT_STATUS
 			,sp.merchant_discount

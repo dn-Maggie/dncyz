@@ -47,7 +47,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("accountOperateIncome")
 public class AccountOperateIncomeController{
-         @Resource
+    @Resource
 	private AccountOperateIncomeService accountOperateIncomeService;
  	/**
  	* 进入新增页面
@@ -102,7 +102,7 @@ public class AccountOperateIncomeController{
 	}
 	
 	/**
-	 * 进入列表页面
+	 * 进入运营明细列表页面
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/toListAccountOperateIncome")
@@ -111,6 +111,16 @@ public class AccountOperateIncomeController{
 		 return mv;
 	}
 	
+	
+	/**
+	 * 进入运营数据日报表列表页面
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toListAccountOperateIncomeByDate")
+	public ModelAndView toListByDate(){
+		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listAccountOperateIncomeByDate");
+		 return mv;
+	}
 	/**
 	 * 根据条件查找列表方法
 	 * @param accountOperateIncome AccountOperateIncome：实体对象（查询条件）
@@ -127,9 +137,9 @@ public class AccountOperateIncomeController{
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
+	
 	/**
-	 * 运营统计数据
-	 * @return ModelAndView
+	 * 运营统计数据(底价运营表明细)
 	 */
 	@RequestMapping("/listAllFromOrderDetail")
 	public void listAllFromOrderDetail(AccountOrderDetail accountOrderDetail,HttpServletRequest request,

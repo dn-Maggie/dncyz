@@ -17,7 +17,6 @@
 	cursor: pointer;
 	}
 .icon_del{
-	/* background:transparent; */
 	border:0;
 	outline:0;
 	color:#fff;
@@ -150,6 +149,9 @@ function orderIndex(){
 	}
 }
 
+function cellFormatter(value, options, rData){
+	return eval($(".calcu:eq("+options.colModel.serial+")").val());
+}
 //添加行
 function addTr(){
 	$('.trItem:last').after($("#colModel").html()
@@ -221,7 +223,7 @@ $(function() {
 		$(this).attr("checked",$(this).is(':checked')?true:false);
 	});
 	/*
-	** Usage - Click Events
+	** Usage - 计算器操作
 	*/
 	//选择项
 	$('.calc_use').on('click',function() {
@@ -237,7 +239,6 @@ $(function() {
 		$('#total').text(0);
 		$("#calcubox").css('display', 'none');
 	});
-
 	// 清除按钮
 	$('#calc_clear').on('click',function() {
 		$('#total').text(0);
@@ -246,7 +247,6 @@ $(function() {
 	$('#calc_neg').on('click',function() {
 		negText();
 	});
-	
 	// 回退按钮
 	$('#calc_back').on('click',function() {
 		if ( $('#total').text() !== '' && $('#total').text() !== '0' ) {
@@ -255,7 +255,6 @@ $(function() {
 			  $('#total').text('0');
 		 }
 	});
-
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
 		var jsonArr = [];
@@ -269,18 +268,14 @@ $(function() {
 			if(!$(".calcu:eq("+i+")").prop("disabled")){
 				jsonObj.editable=true;
 				jsonObj.calculate=$(".calcu:eq("+i+")").val();
-				jsonObj.formatter=(function(index){
-					return function(value, options, rData){
-						return eval($(".calcu:eq("+index+")").val());
-					}
-				})(i); 
+				jsonObj.serial = "serValue";
+				jsonObj.formatter=cellFormatter; 
 			}
 			jsonArr.push(jsonObj);
 		}
 		var $parent = window.parent;
 		var tableId = $parent.$('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
 		localStorage.setItem(tableId+"Model",JSON.stringify(jsonArr));
-		//console.log(jsonArr[8].formatter);
 		$parent.loadConfigGrid(tableId,jsonArr);
 		$parent.closeConfig();
 	});

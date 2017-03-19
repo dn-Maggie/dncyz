@@ -11,7 +11,7 @@ var storeProductGrid = {};
             id:"#storeProduct_rowed",/*html部分table id*/
             url: "<m:url value='/storeProduct/listStoreProduct.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
-           	sortname:"PRODUCT_STOCKS",
+           	sortname:"store_id",
            	sortorder:"asc",
            	autowidth:true,
 			shrinkToFit:true,
@@ -31,7 +31,13 @@ var storeProductGrid = {};
    					/* {name : "productImagePath",label:"产品图片地址",index : "PRODUCT_IMAGE_PATH"}, */				
    					{name : "productUnitPrice",label:"产品单价",index : "PRODUCT_UNIT_PRICE"},				
    					{name : "productStocks",label:"库存数量",index : "PRODUCT_STOCKS"},				
-   					{name : "productStatus",label:"产品状态",index : "PRODUCT_STATUS"}				
+   					{name : "productStatus",label:"产品状态",index : "PRODUCT_STATUS"},
+   					{name : "merchantDiscount",label:"菜品折扣",index : "merchant_discount"},	
+   					{name : "merchantDiscountBegin",label:"折扣时间起",index : "merchant_discount_begin"},	
+   					{name : "merchantDiscountEnd",label:"折扣时间止",index : "merchant_discount_end"},		
+   					{name : "specialoOffer",label:"签订特价结算金额",index : "special_offer"},			
+   					{name : "specialOfferBegin",label:"签订特价结算时间起",index : "special_offer_begin"},			
+   					{name : "specialOfferEnd",label:"签订特价结算时间止",index : "special_offer_end"}			
    	        ],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = {storeId:"${storeId}"};

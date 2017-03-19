@@ -44,5 +44,9 @@ public interface AccountOrderDetailMapper  {
 	public void update(AccountOrderDetail accountOrderDetail);
 
 	public int addOrderDetail(List<AccountOrderDetail> orderDetailList);
+	/**
+	 * 菜品数量表
+	 */	
+	public List<AccountOrderDetail> listGoodsFromOrderDetail(AccountOrderDetail accountOrderDetail);
 
 }

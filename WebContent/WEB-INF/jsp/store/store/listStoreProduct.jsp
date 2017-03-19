@@ -24,15 +24,18 @@ var gridObj = {};
    			colModel:[
    					{name : "storeProductId",hidden : true,key : true,label:"店铺产品ID",index : "store_product_id"},				
    					{name : "storeName",label:"店铺名称",index : "store_id"}, 				
-   					/* {name : "productClassId",label:"产品分类ID",index : "product_class_id"}, */				
    					{name : "productClassName",label:"产品类名",index : "product_class_name"},				
-   					/* {name : "productId",label:"产品ID",index : "product_id"}, */				
    					{name : "productName",label:"产品名称",index : "product_name"},				
-   					/* {name : "productImagePath",label:"产品图片地址",index : "PRODUCT_IMAGE_PATH"}, */				
    					{name : "productUnitPrice",label:"产品单价",index : "PRODUCT_UNIT_PRICE"},				
    					{name : "productStocks",label:"库存数量",index : "PRODUCT_STOCKS"},				
    					{name : "productStatus",label:"产品状态",index : "PRODUCT_STATUS"
-   						,formatter:GridColModelForMatter.productStatus}				
+   						,formatter:GridColModelForMatter.productStatus},
+					{name : "merchantDiscount",label:"菜品折扣",index : "merchant_discount"},	
+   					{name : "merchantDiscountBegin",label:"折扣时间起",index : "merchant_discount_begin"},	
+   					{name : "merchantDiscountEnd",label:"折扣时间止",index : "merchant_discount_end"},		
+   					{name : "specialoOffer",label:"签订特价结算金额",index : "special_offer"},			
+   					{name : "specialOfferBegin",label:"签订特价结算时间起",index : "special_offer_begin"},			
+   					{name : "specialOfferEnd",label:"签订特价结算时间止",index : "special_offer_end"}		
    	        ],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();

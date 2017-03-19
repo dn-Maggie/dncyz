@@ -4,83 +4,231 @@
 <head>
 <%@ include file="../../common/header.jsp"%>
 <%@ include file="../../common/ace.jsp"%>
+<style>
+	.ui-jqgrid-sortable{
+		font-weight:normal;
+	}
+</style>
 <title></title>
 <script type="text/javascript">
 var gridObj = {};
-	$(function(){
-  		gridObj = new biz.grid({
-            id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/accountOperateIncome/listAllFromOrderDetail.do'/>",/*grid初始化请求数据的远程地址*/
-            datatype: "json",/*数据类型，设置为json数据，默认为json*/
-           	sortname:"create_date",
-           	sortorder:"asc",
-           	footerrow:true,
-           	emptyrecords: "无记录可显示",
-           	pager: '#remote_prowed' /*分页栏id*/,
-     		rowList:[10,15,50,100],//每页显示记录数
-     		rownumbers:false,
-    		rowNum:31,//默认显示15条
-            colModel:[
-				{name : "storeName",label:"商户名称",index : "store_name"},	
-				{name : "createDate",label:"日期",index : "create_date"},				
-				{name : "allinvalidNum",label:"无效单",index : "allinvalid_num"},				
-				{name : "allvalidNum",label:"有效单",index : "allvalid_num"},			
-				{name : "allproductSaleAmount",label:"产品销售金额",index : "allproduct_sale_amount"},				
-				{name : "allamountReceivable",label:"应收平台结算金额",index : "allamount_receivable"},				
-				{name : "allamountPayable",label:"应付店铺结算金额",index : "allamount_payable"},				
-				{name : "allcyzServiceCharge",label:"公司收取店铺服务费",index : "allcyz_service_charge"},				
-				{name : "allsaleGrossProfit",label:"毛利",index : "allsale_gross_profit"},			
-				{name : "allcyzDistributionCharge",label:"自配送实际支付金额",index : "allcyz_distribution_charge"},
-           	],
-           	serializeGridData:function(postData){//添加查询条件值
-				var obj = getQueryCondition();
-    			$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
-    			return obj;
-    		},
-    		gridComplete:function(){
-		    	$(".ui-jqgrid-sdiv").show();
-		    	$(this).footerData("set",{
-		    		"rn":"合计",
-		    		"allinvalidNum":$(this).getCol("allinvalidNum",false,"sum"),
-		    		"allvalidNum":$(this).getCol("allvalidNum",false,"sum"),
-		    		"allproductSaleAmount":$(this).getCol("allproductSaleAmount",false,"sum").toFixed(2),
-		    		"allamountReceivable":$(this).getCol("allamountReceivable",false,"sum").toFixed(2),
-		    		"allamountPayable":$(this).getCol("allamountPayable",false,"sum").toFixed(2),
-		    		"allcyzServiceCharge":$(this).getCol("allcyzServiceCharge",false,"sum").toFixed(2),
-		    		"allsaleGrossProfit":$(this).getCol("allsaleGrossProfit",false,"sum").toFixed(2),
-		    		"allcyzDistributionCharge":$(this).getCol("allcyzDistributionCharge",false,"sum").toFixed(2)
-		    		}); //将合计值显示出来
-			}
-      });
+//浅运营汇总表表头         
+var simpleTotalModel = {url: "<m:url value='/accountOperateIncome/listAllFromOrderDetail.do'/>",
+						colModel:[
+						{name : "storeName",label:"商户名称",index : "store_name"},	
+						{name : "createDate",label:"日期",index : "create_date"},		
+						
+                        {name : "allinvalidNum",label:"无效单"},				
+        				{name : "allvalidNum",label:"有效单"},	 
+        				
+        				{name : "allorginPrice",label:"菜品原价",index : "allorgin_price"},	
+        				{name : "allorderDistributionCharge",label:"订单上收取客户配送费",index : "allorder_distribution_charge"},	
+        				
+        				{name : "allgoodsQuality",label:"菜品份数"},				
+        				{name : "allbasePrice",label:"底价",index : "allbase_price"},				
+        				{name : "allotherBasePrice",label:"其他底价",index : "allother_base_price"},				
+        							
+        				{name : "allplatformServiceCharge",label:"平台服务费"},		
+        				{name : "allplatformDistCharge",label:"平台收取客户配送费"},						
+        				
+        				{name : "allplatformActivitiesCharge",label:"平台补贴线上活动费"},
+        				
+        				{name : "allcyzActivitiesCharge",label:"公司扣除平台补贴自营销费用"},	
+        				
+        				{name : "allcyzDistributionCharge",label:"公司收取配送费"},				
+        			
+        				{name : "",label:"产品销售金额"},				
+        				{name : "",label:"应收平台结算金额"},	
+        				{name : "",label:"应付店铺结算金额"},				
+        				{name : "",label:"公司收入"},	
+        				{name : "",label:"销售毛利"},				
+        				{name : "",label:"毛利率"},	
+        				{name : "distributionActualPayment",label:"自配送实际支付金额",index : "distribution_actual_payment"},
+        				{name : "remark",label:"备注",index : "remark"},
+        				{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",editable:true,
+							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
+				       	]};
+//深运营汇总表表头
+var deepTotalModel = {url: "<m:url value='/accountOperateIncome/listAllFromOrderDetail.do'/>",
+					colModel:[
+					{name : "storeName",label:"商户名称",index : "store_name"},	
+					{name : "createDate",label:"日期",index : "create_date"},		
+						
+                  	{name : "allinvalidNum",label:"无效单"},				
+	 				{name : "allvalidNum",label:"有效单"},	 
+	 				
+	 				{name : "allorginPrice",label:"菜品原价",index : "allorgin_price"},	
+	 				{name : "allorderDistributionCharge",label:"订单上收取客户配送费",index : "allorder_distribution_charge"},	
+	 				
+	 				{name : "allgoodsQuality",label:"菜品份数"},				
+	 				{name : "allbasePrice",label:"底价",index : "allbase_price"},				
+	 				{name : "allotherBasePrice",label:"其他底价",index : "allother_base_price"},				
+	 							
+	 				{name : "allplatformServiceCharge",label:"平台服务费"},		
+	 				{name : "allplatformDistCharge",label:"平台收取客户配送费"},						
+	 				
+	 				{name : "allplatformActivitiesCharge",label:"平台补贴线上活动费"},
+	 				
+	 				{name : "allcyzActivitiesCharge",label:"公司扣除平台补贴自营销费用"},	
+	 				
+	 				{name : "allcyzDistributionCharge",label:"公司收取配送费"},				
+	 			
+	 				{name : "",label:"产品销售金额"},				
+	 				{name : "",label:"应收平台结算金额"},	
+	 				{name : "",label:"应付店铺结算金额"},				
+	 				{name : "",label:"公司收入"},	
+	 				{name : "",label:"销售毛利"},				
+	 				{name : "",label:"毛利率"},	
+	 				{name : "distributionActualPayment",label:"自配送实际支付金额",index : "distribution_actual_payment"},
+	 				{name : "remark",label:"备注",index : "remark"},
+	 				{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",editable:true,
+					formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
+			       	]};
+		$(function(){
+			initGrid("simpleTotal");
+			$(".tableTab").on('click',function(){
+				$(".tableTab").trigger("removeCheck");
+				$(this).addClass('checked');
+				$(".listtable_box").trigger("removeAll");
+				$(".listtable_box").html('<table  id="'+$(this).data("id")+'" ></table><div id='+$(this).data("id")+'prowed></div>');
+				initGrid($(this).data("id"));
+			})
+			$(".tableTab").bind('removeCheck',function(){
+				$(this).removeClass('checked');
+			})
+			$(".listtable_box").bind('removeAll',function(){
+				$(this).html("");
+		});
+			
     });
-  	
+	//初始化grid
+	function initGrid(ways){
+		gridObj = new biz.grid({
+	        id:"#"+ways,
+	        url: eval(ways+"Model.url"),
+	       	sortname:"create_date",
+	       	sortorder:"asc",
+	       	pager: "#"+ways+"prowed",
+	        colModel:localStorage.getItem(ways+"Model")?JSON.parse(localStorage.getItem(ways+"Model")):eval(ways+"Model.colModel"),
+			serializeGridData:function(postData){//添加查询条件值
+				var obj = getQueryCondition();
+				$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
+				return obj;
+			},
+		 	datatype: "json",/*数据类型，设置为json数据，默认为json*/
+	        emptyrecords: "无记录可显示",
+	        rowList:[10,15,50,100],//每页显示记录数
+			rowNum:15,//默认显示15条
+	      });
+		$("#"+ways).setColProp('calculate');
+		$("#"+ways).setColProp('editable');
+	}
+	
+	//config grid
+	function loadConfigGrid(ways,colModel){
+		$(".listtable_box").html("");
+		$(".listtable_box").html('<table id="'+ways+'" ></table><div id="'+ways+'prowed"></div>');
+		gridObj = new biz.grid({
+	        id:"#"+ways,
+	        url: eval(ways+"Model.url"),
+	       	sortname:"create_date",
+	       	sortorder:"asc",
+	       	pager: '#'+ways+'prowed',
+	        colModel:colModel,
+			serializeGridData:function(postData){//添加查询条件值
+				var obj = getQueryCondition();
+				$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
+				return obj;
+			},
+		 	datatype: "json",/*数据类型，设置为json数据，默认为json*/
+	        emptyrecords: "无记录可显示",
+	        rowList:[10,15,50,100],//每页显示记录数
+			rowNum:15,//默认显示15条
+	      });
+		$("#"+ways).setColProp('calculate');
+		$("#"+ways).setColProp('editable');
+	}
+	//配置的弹出框
+	var config_iframe_dialog;
+	function configGrid(tableName,tableId){
+			var url="<m:url value='/accountOperateIncome/toConfigGridTitle.do'/>";
+			config_iframe_dialog = new biz.dialog({
+				id:$('<div id="addwindow_iframe" ></div>').html('<iframe id="iframeAdd"  class="'+tableId+'" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+				modal: true,
+				width: $(window).width()*0.9,
+				height: 600,
+				title: tableName+"表头配置"
+			});
+			config_iframe_dialog.open();
+	  	}
+	//关闭配置页面，供子页面调用
+  	function closeConfig(){
+  		config_iframe_dialog.close();
+  	}
+	
+	//查看的弹出框
+	var show_iframe_dialog;
+    function show(){
+    	var key = ICSS.utils.getSelectRowData("id");
+		if(key.indexOf(",")>-1||key==""){
+			showMessage("请选择一条数据！");
+			return ;
+		}
+		var url="<m:url value='/accountOperateIncome/toShowAccountOperateIncome.do'/>?key="+key;
+		show_iframe_dialog = new biz.dialog({
+		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+			modal: true,
+			width: 800,
+			height: 235,
+				title: "运营数据详情"
+		});
+  		show_iframe_dialog.open();
+    }
+    
+    //关闭查看页面，供子页面调用
+    function closeShow(){
+    	show_iframe_dialog.close();
+    }
+    /**
+    * 获取查询条件值
+    */
+    function getQueryCondition(){
+       var obj = {};
+		jQuery.each($("#queryForm").serializeArray(),function(i,o){
+        	if(o.value){
+        		obj[o.name] = o.value;
+        	}
+        });
+		return obj;
+    }
     //查询Grid数据
     function doSearch(isStayCurrentPage){
     	if(!isStayCurrentPage)gridObj.setGridParam({"page":"1"});
     	gridObj.trigger('reloadGrid');
-    	doSearchmt(isStayCurrentPage);
     }
-    /**
-     * 获取查询条件值
-     */
-     function getQueryCondition(){
-        var obj = {};
- 		jQuery.each($("#queryForm").serializeArray(),function(i,o){
-         	if(o.value){
-         		obj[o.name] = o.value;
-         	}
-         });
- 		return obj;
-     }
     //重置查询表单
     function resetForm(formId){
 		document.getElementById(formId).reset();
 	}
-  //导出运营统计数据
+    
+    //导出运营明细数据
     function exportData(){
-    	ExpExcel.showWin(gridObj,baseUrl+"/accountOperateIncome/exportTotalExcel.do",'grid','queryForm');
+    	ExpExcel.showWin(gridObj,baseUrl+"/accountOperateIncome/exportDetailExcel.do",'grid','queryForm');
     }
-    </script>
+    
+    //配置表头
+    function configTitle(tableName,tableId){
+    	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
+    	var tableName = $('.tableTab.checked').find('span').text();
+    	configGrid(tableName,tableId);
+    }
+  	//获取表头	
+    function getColModel(){
+    	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id')
+    	var columnNames = $("#"+tableId).jqGrid('getGridParam','colModel');
+    	return columnNames;
+    }
+</script>
 </head>
 <body style="height:100%;">
 	<div class="main  choice_box">
@@ -108,13 +256,13 @@ var gridObj = {};
 					<i>至</i>
 					<div class="time_bg">
 						<div class="input-group bootstrap-timepicker">
-							<input class="timepicker text" name="propsMap['endTime']" type="text" />
+							<input class="timepicker text" name="propsMap['endTime']"   type="text" />
 						</div>
 					</div>
 					</li>	
-				<li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
-				 <option value="elm">饿了么</option><option value="meituan">美团</option>
-				</select><span>平台类型:</span></li><!--下拉 -->
+				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
+					 <option value="elm">饿了么</option><option value="meituan">美团</option>
+					</select><span>平台类型:</span></li><!--下拉 -->
 				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
 						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
 				</ul>
@@ -122,30 +270,46 @@ var gridObj = {};
 	    </form>
 		<div class="listplace">
 				<!--功能按钮begin-->
-				<div class="list_btn_bg fl" ><!--功能按钮 div-->
+				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
-						<c:if test="${manage}">
-						<li><a title="<m:message code="button.module.moduleRes"/>" href="javascript:"
-							onclick="moduleResMgt();"> <i class="back_icon resources_icon"></i> <span><m:message
-										code="button.module.moduleRes" /></span>
-						</a></li>
+						<c:if test="${configTitle}">
+							<li>
+								<a title="配置表头标题" href="javascript:;" onclick="configTitle();"> 
+									<i class="back_icon permissions_icon"> </i> 
+									<span>配置表头</span>
+								</a>
+							</li>
 						</c:if>
-						<c:if test="${exportData}">
+						<c:if test="${show}">
 						<li>
-							<a title="导出数据" href="javascript:;" onclick="exportData();"> 
-								<i class="back_icon import_icon"> </i> 
-								<span>导出数据</span>
+							<a title="根据订单详细显示浅运营汇总表" href="javascript:;" class="tableTab checked" data-id="simpleTotalModel"> 
+								<i class="back_icon show_icon"> </i> 
+								<span>浅运营汇总表</span>
 							</a>
 						</li>
+						<li>
+							<a title="根据订单详细显示深运营汇总表" href="javascript:;" class="tableTab" data-id="deepTotalModel"> 
+								<i class="back_icon show_icon"> </i> 
+								<span>深运营汇总表</span>
+							</a>
+						</li>
+						</c:if>
+						<c:if test="${exportData}">
+							<li>
+								<a title="根据订单详细导出运营详细数据" href="javascript:;" onclick="exportData();"> 
+									<i class="back_icon import_icon"> </i> 
+									<span>导出数据</span>
+								</a>
+							</li>
 						</c:if>
 					</ul>
 				</div>
 	
 			<!--功能按钮end-->
-				<div class="listtable_box" >
+				<div class="listtable_box">
 					<!--此处放表格-->
-						<table  id="remote_rowed" ></table>
-						<div  id="remote_prowed"></div>	
+					<table  id="platformAccount" ></table>
+					<div  id="platformAccountprowed"></div>	
 				</div>
 		</div>
 	</div>
