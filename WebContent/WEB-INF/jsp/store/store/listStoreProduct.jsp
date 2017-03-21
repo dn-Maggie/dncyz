@@ -33,7 +33,7 @@ var gridObj = {};
 					{name : "merchantDiscount",label:"菜品折扣",index : "merchant_discount"},	
    					{name : "merchantDiscountBegin",label:"折扣时间起",index : "merchant_discount_begin"},	
    					{name : "merchantDiscountEnd",label:"折扣时间止",index : "merchant_discount_end"},		
-   					{name : "specialoOffer",label:"签订特价结算金额",index : "special_offer"},			
+   					{name : "specialOffer",label:"签订特价结算金额",index : "special_offer"},			
    					{name : "specialOfferBegin",label:"签订特价结算时间起",index : "special_offer_begin"},			
    					{name : "specialOfferEnd",label:"签订特价结算时间止",index : "special_offer_end"}		
    	        ],

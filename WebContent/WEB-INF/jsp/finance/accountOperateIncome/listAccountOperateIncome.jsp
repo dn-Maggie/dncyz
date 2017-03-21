@@ -232,8 +232,8 @@ var platformAccountModel = {
 						{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",editable:true,
 							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
 			           	]};
-function cellFormat(value, options, rData){return eval("options.colModel.calculate");}	
-$(function(){
+	function cellFormat(value, options, rData){return eval("options.colModel.calculate");}	
+	$(function(){
 			initGrid("platformAccount");
 			$(".tableTab").on('click',function(){
 				$(".tableTab").trigger("removeCheck");
@@ -279,18 +279,26 @@ $(function(){
 		/* .replace(/serial/g, "formatter")
 		.replace(/serValue/g, 'function cellFormatter(value, options, rData){return eval($(".calcu:eq("+options.colModel.serial+")").val());}') */
     });
+    function cellFormat(value, options, rData){
+		return eval(options.colModel.calculate);
+	};
 	//初始化grid
 	function initGrid(ways){
-		/* console.log(JSON.parse(localStorage.getItem(ways+"Model"))); */
-		console.log(JSON.parse(localStorage.getItem(ways+"Model").replace(/serial/g, "formatter")
-				/* .replace(/serValue/g,cellFormat) */))
+		if(localStorage.getItem(ways+"Model")){
+			var localStorageModel= $.each(JSON.parse(localStorage.getItem(ways+"Model")), function(idx, obj) {
+				if(obj.serial){
+					obj.formatter=cellFormat;
+				}
+			    return obj;
+			});
+		}
 		gridObj = new biz.grid({
 	        id:"#"+ways,
 	        url: eval(ways+"Model.url"),
 	       	sortname:"create_date",
 	       	sortorder:"asc",
 	       	pager: "#"+ways+"prowed",
-	        colModel:localStorage.getItem(ways+"Model")?JSON.parse(localStorage.getItem(ways+"Model")):eval(ways+"Model.colModel"),
+	        colModel:localStorage.getItem(ways+"Model")?localStorageModel:eval(ways+"Model.colModel"),
 			serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
 				$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数

@@ -16,35 +16,21 @@ var gridObj = {};
 var simpleTotalModel = {url: "<m:url value='/accountOperateIncome/listAllFromOrderDetail.do'/>",
 						colModel:[
 						{name : "storeName",label:"商户名称",index : "store_name"},	
-						{name : "createDate",label:"日期",index : "create_date"},		
-						
-                        {name : "allinvalidNum",label:"无效单"},				
-        				{name : "allvalidNum",label:"有效单"},	 
-        				
-        				{name : "allorginPrice",label:"菜品原价",index : "allorgin_price"},	
-        				{name : "allorderDistributionCharge",label:"订单上收取客户配送费",index : "allorder_distribution_charge"},	
-        				
-        				{name : "allgoodsQuality",label:"菜品份数"},				
-        				{name : "allbasePrice",label:"底价",index : "allbase_price"},				
-        				{name : "allotherBasePrice",label:"其他底价",index : "allother_base_price"},				
-        							
-        				{name : "allplatformServiceCharge",label:"平台服务费"},		
-        				{name : "allplatformDistCharge",label:"平台收取客户配送费"},						
-        				
-        				{name : "allplatformActivitiesCharge",label:"平台补贴线上活动费"},
-        				
-        				{name : "allcyzActivitiesCharge",label:"公司扣除平台补贴自营销费用"},	
-        				
-        				{name : "allcyzDistributionCharge",label:"公司收取配送费"},				
-        			
-        				{name : "",label:"产品销售金额"},				
-        				{name : "",label:"应收平台结算金额"},	
-        				{name : "",label:"应付店铺结算金额"},				
-        				{name : "",label:"公司收入"},	
-        				{name : "",label:"销售毛利"},				
-        				{name : "",label:"毛利率"},	
-        				{name : "distributionActualPayment",label:"自配送实际支付金额",index : "distribution_actual_payment"},
-        				{name : "remark",label:"备注",index : "remark"},
+					{name : "createDate",label:"日期",index : "create_date"},		
+                  	{name : "allinvalidNum",label:"无效单"},				
+	 				{name : "allvalidNum",label:"有效单"},	 
+	 				{name : "allproductSaleAmount",label:"产品销售金额"},				
+	 				{name : "",label:"应收平台结算金额"},	
+	 				{name : "",label:"应付店铺结算金额"},				
+	 				{name : "",label:"公司收入"},	
+	 				{name : "",label:"销售毛利"},				
+	 				{name : "",label:"按12.5元/单自配送金额"},	
+	 				{name : "",label:"按12.5元/单自配送补差"},	
+	 				{name : "",label:"收取自配送金额"},
+	 				{name : "",label:"饿了吗平台补贴 "},
+	 				{name : "",label:"对外支付饿了吗平台补贴服务费"},
+	 				{name : "",label:"竞价费用+短信推广"},
+	 				{name : "",label:"实际运营毛利"},
         				{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",editable:true,
 							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
 				       	]};
@@ -53,34 +39,21 @@ var deepTotalModel = {url: "<m:url value='/accountOperateIncome/listAllFromOrder
 					colModel:[
 					{name : "storeName",label:"商户名称",index : "store_name"},	
 					{name : "createDate",label:"日期",index : "create_date"},		
-						
                   	{name : "allinvalidNum",label:"无效单"},				
 	 				{name : "allvalidNum",label:"有效单"},	 
-	 				
-	 				{name : "allorginPrice",label:"菜品原价",index : "allorgin_price"},	
-	 				{name : "allorderDistributionCharge",label:"订单上收取客户配送费",index : "allorder_distribution_charge"},	
-	 				
-	 				{name : "allgoodsQuality",label:"菜品份数"},				
-	 				{name : "allbasePrice",label:"底价",index : "allbase_price"},				
-	 				{name : "allotherBasePrice",label:"其他底价",index : "allother_base_price"},				
-	 							
-	 				{name : "allplatformServiceCharge",label:"平台服务费"},		
-	 				{name : "allplatformDistCharge",label:"平台收取客户配送费"},						
-	 				
-	 				{name : "allplatformActivitiesCharge",label:"平台补贴线上活动费"},
-	 				
-	 				{name : "allcyzActivitiesCharge",label:"公司扣除平台补贴自营销费用"},	
-	 				
-	 				{name : "allcyzDistributionCharge",label:"公司收取配送费"},				
-	 			
-	 				{name : "",label:"产品销售金额"},				
+	 				{name : "allproductSaleAmount",label:"产品销售金额"},				
 	 				{name : "",label:"应收平台结算金额"},	
 	 				{name : "",label:"应付店铺结算金额"},				
 	 				{name : "",label:"公司收入"},	
 	 				{name : "",label:"销售毛利"},				
-	 				{name : "",label:"毛利率"},	
-	 				{name : "distributionActualPayment",label:"自配送实际支付金额",index : "distribution_actual_payment"},
-	 				{name : "remark",label:"备注",index : "remark"},
+	 				{name : "",label:"按12.5元/单自配送金额"},	
+	 				{name : "",label:"按12.5元/单自配送补差"},	
+	 				{name : "",label:"收取自配送金额"},
+	 				{name : "",label:"饿了吗平台补贴 "},
+	 				{name : "",label:"对外支付饿了吗平台补贴服务费"},
+	 				{name : "",label:"竞价费用+短信推广"},
+	 				{name : "",label:"实际运营毛利"},
+	 				{name : "remark",label:"备注（运营开始/截止）",index : "remark"},
 	 				{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",editable:true,
 					formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
 			       	]};
@@ -261,7 +234,7 @@ var deepTotalModel = {url: "<m:url value='/accountOperateIncome/listAllFromOrder
 					</div>
 					</li>	
 				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
-					 <option value="elm">饿了么</option><option value="meituan">美团</option>
+					 <option value="elm">饿了么</option><option value="meituan">美团</option><option value="baidu">百度</option>
 					</select><span>平台类型:</span></li><!--下拉 -->
 				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
 						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
@@ -282,13 +255,13 @@ var deepTotalModel = {url: "<m:url value='/accountOperateIncome/listAllFromOrder
 						</c:if>
 						<c:if test="${show}">
 						<li>
-							<a title="根据订单详细显示浅运营汇总表" href="javascript:;" class="tableTab checked" data-id="simpleTotalModel"> 
+							<a title="根据订单详细显示浅运营汇总表" href="javascript:;" class="tableTab checked" data-id="simpleTotal"> 
 								<i class="back_icon show_icon"> </i> 
 								<span>浅运营汇总表</span>
 							</a>
 						</li>
 						<li>
-							<a title="根据订单详细显示深运营汇总表" href="javascript:;" class="tableTab" data-id="deepTotalModel"> 
+							<a title="根据订单详细显示深运营汇总表" href="javascript:;" class="tableTab" data-id="deepTotal"> 
 								<i class="back_icon show_icon"> </i> 
 								<span>深运营汇总表</span>
 							</a>
@@ -308,8 +281,8 @@ var deepTotalModel = {url: "<m:url value='/accountOperateIncome/listAllFromOrder
 			<!--功能按钮end-->
 				<div class="listtable_box">
 					<!--此处放表格-->
-					<table  id="platformAccount" ></table>
-					<div  id="platformAccountprowed"></div>	
+					<table  id="simpleTotal" ></table>
+					<div  id="simpleTotalprowed"></div>	
 				</div>
 		</div>
 	</div>

@@ -99,47 +99,19 @@
 </div>
 </div>
 </div>
-<div id="the-results">
-<ul id="results_list">
-	<li class="result" style="display: list-item;">
-		<span class="use"><a class="calc_use" href="#" data-val="prices">菜价</a></span>
-	</li>
-	<li class="result" style="display: list-item;">
-		<span class="use"><a class="calc_use" href="#" data-val="mealFee">餐盒费</a></span>
-	</li>
-	<li class="result" style="display: list-item;">
-		<span class="use"><a class="calc_use" href="#" data-val="activitiesSubsidyBymerchant">菜品折扣</a></span>
-	</li>
-	<li class="result" style="display: list-item;">
-		<span class="use"><a class="calc_use" href="#" data-val="foodDiscount">折扣菜金额</a></span>
-	</li>
-	<li class="result" style="display: list-item;">
-		<span class="use"><a class="calc_use" href="#" data-val="specialOffer">结算特价</a></span>
-	</li>
-	<li class="result" style="display: list-item;">
-		<span class="use"><a class="calc_use" href="#" data-val="orderDistCharge">订单上收取配送费</a></span>
-	</li>
-	<li class="result" style="display: list-item;">
-		<span class="use"><a class="calc_use" href="#" data-val="platformDistCharge">平台收取配送费</a></span>
-	</li>
-	<li class="result" style="display: list-item;">
-		<span class="use"><a class="calc_use" href="#" data-val="merchantDistCharge">运营收取配送费</a></span>
-	</li>
-	<li class="result" style="display: list-item;">
-		<span class="use"><a class="calc_use" href="#" data-val="merchantActivitiesSubsidies">商户承担活动补贴</a></span>
-	</li>
-	<li class="result" style="display: list-item;">
-		<span class="use"><a class="calc_use" href="#" data-val="platformActivitiesSubsidies">平台承担活动补贴</a></span>
-	</li>
-	<li class="result" style="display: list-item;">
-		<span class="use"><a class="calc_use" href="#" data-val="activitiesSubsidyBycompany">运营承担活动补贴</a></span>
-	</li>
-	<li class="result" style="display: list-item;">
-		<span class="use"><a class="calc_use" href="#" data-val="serviceCharge">平台服务费</a></span>
-	</li>
+	<div id="the-results">
+	<ul id="results_list">
 </ul>
 </div>
 </div>
+</script>
+
+<!-- 配置基础项目 -->
+<script type="text/template" id="calculateBasicModel">
+	<li class="result" style="display: list-item;">
+		<span class="use"><a class="calc_use" href="#" data-val="{{basicName}}">{{basicLabel}}</a></span>
+	</li>
+
 </script>
 <script type="text/javascript">
 //index排序
@@ -148,7 +120,6 @@ function orderIndex(){
 		$('.indexId:eq('+i+')').html(i+1);
 	}
 }
-
 function cellFormatter(value, options, rData){
 	return eval($(".calcu:eq("+options.colModel.serial+")").val());
 }
@@ -176,6 +147,18 @@ function delTr(Object){
 function calculateCreate(){
 	var $calculate = $('#calculateModel').html();
 	$("#calcubox").append($calculate);
+	var colModel = window.parent.getColModel();
+	var calculateBasic = [];
+	for(var i =0;i<colModel.length;i++){
+		var trTpl = $("#calculateBasicModel").html();//获取模板
+		if(!colModel[i].editable && !colModel[i].nocalcu && "|rn|cb|".indexOf("|"+colModel[i].name+"|")==-1){
+			calculateBasic.push(trTpl
+					   .replace('{{basicName}}',colModel[i].name)
+					   .replace('{{basicLabel}}', colModel[i].label)
+					);
+		}
+	}
+	$('#results_list').prepend(calculateBasic.join(''));
 };
 function calculateOpen(){
 	$("#calcubox").css('display', 'block');
@@ -215,7 +198,6 @@ function negText(){
 $(function() {
 	drawHtml();
 	calculateCreate();
-	
 	$(".calcu").bind('removeCheck',function(){
 		$(this).removeClass('checked');
 	});
@@ -268,7 +250,7 @@ $(function() {
 			if(!$(".calcu:eq("+i+")").prop("disabled")){
 				jsonObj.editable=true;
 				jsonObj.calculate=$(".calcu:eq("+i+")").val();
-				jsonObj.serial = "serValue";
+				jsonObj.serial = i;
 				jsonObj.formatter=cellFormatter; 
 			}
 			jsonArr.push(jsonObj);
@@ -286,12 +268,12 @@ function drawHtml(){
 	var htmlTemp = [];
 	for(var i =0;i<colModel.length;i++){
 		var trTpl = $("#colModel").html();//获取模板
-		if("rn|cb".indexOf(colModel[i].name)==-1){
+		if("|rn|cb|".indexOf("|"+colModel[i].name+"|")==-1){
 			htmlTemp.push(trTpl
 					   .replace(/{{index}}/g,i-1)
-					   .replace('{{colNameValue}}', colModel[i].label)
-					   .replace('{{colValueValue}}', colModel[i].name)
-					   .replace('{{colIndex}}', colModel[i].index)
+					   .replace('{{colNameValue}}', colModel[i].label?colModel[i].label:"")
+					   .replace('{{colValueValue}}', colModel[i].name?colModel[i].name:"")
+					   .replace('{{colIndex}}', colModel[i].index?colModel[i].index:"")
 					   .replace('{{colFormatValue}}',typeof(colModel[i].calculate)=='undefined'?'':colModel[i].calculate)
 					   .replace('{{hideFlag}}', colModel[i].hidden?"checked":"")
 					   .replace('{{calcuFlag}}',colModel[i].editable?'<i class="icon-columns blue" onclick="calcu(this)" style="cursor:pointer"></i>':'')

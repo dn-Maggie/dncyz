@@ -195,8 +195,7 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.store.model.StoreProduct">，
 		update store_product  set
-			store_product_id= #{storeProductId,jdbcType=VARCHAR}
-			,store_id = #{storeId,jdbcType=CHAR}
+			store_id = #{storeId,jdbcType=CHAR}
 			,product_class_id = #{productClassId,jdbcType=CHAR}
 			,product_class_name = #{productClassName,jdbcType=VARCHAR}
 			,product_id = #{productId,jdbcType=CHAR}

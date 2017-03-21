@@ -302,7 +302,6 @@
 			sum(goods_quality) as allgoods_quality,
 			sum(orgin_price) as allbase_price,
 			sum(orgin_price) as allother_base_price,
-			
 			sum(platform_service_charge) as allplatform_service_charge,
 			sum(platform_distribution_charge) as allplatform_dist_charge,
 			

@@ -22,12 +22,13 @@ var gridObj = {};
             colModel:[
 				{name : "storeName",label:"商户名称",index : "store_name"},	
 				{name : "createDate",label:"日期",index : "create_date"},				
-				{name : "validNum",label:"订单数",index : "valid_num"},				
-				{name : "orginPrice",label:"原价",index : "orgin_price"},				
-				{name : "discountPrice",label:"菜品折扣",index : "discount_price"},				
-				{name : "afterDiscountPrice",label:"折扣菜金额",index : "after_discount_price"},				
-				{name : "actualPrice",label:"原价菜金额",index : "actual_price"},				
-				{name : "amountPayable",label:"结算金额",index : "amount_payable"},				
+				{name : "",label:"折扣菜金额"},				
+				{name : "",label:"结算款"},				
+				{name : "",label:"70%结算"},		
+				{name : "",label:"特价菜结算"},		
+				{name : "",label:"调整金额"},		
+				{name : "",label:"实际结算"},		
+				{name : "",label:"备注"},		
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -38,12 +39,6 @@ var gridObj = {};
 		    	$(".ui-jqgrid-sdiv").show();
 		    	$(this).footerData("set",{
 		    		"rn":"合计",
-		    		"validNum":$(this).getCol("validNum",false,"sum"),
-		    		"orginPrice":$(this).getCol("orginPrice",false,"sum").toFixed(2),
-		    		"discountPrice":$(this).getCol("discountPrice",false,"sum").toFixed(2),
-		    		"afterDiscountPrice":$(this).getCol("afterDiscountPrice",false,"sum").toFixed(2),
-		    		"actualPrice":$(this).getCol("actualPrice",false,"sum").toFixed(2),
-		    		"amountPayable":$(this).getCol("amountPayable",false,"sum").toFixed(2),
 		    		}); //将合计值显示出来
 			}
       });

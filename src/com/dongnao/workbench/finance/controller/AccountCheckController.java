@@ -109,6 +109,15 @@ public class AccountCheckController{
 	public ModelAndView toListTotal(){
 		return new ModelAndView("WEB-INF/jsp/finance/accountCheck/listTotalAccountCheck");
 	}
+	
+	/**
+	 * 进入对账结算日列表页面
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toListAccountCheckByDate")
+	public ModelAndView toListByDate(){
+		return new ModelAndView("WEB-INF/jsp/finance/accountCheck/listAccountCheckByDate");
+	}
 	/**
 	 * 根据条件查找列表方法
 	 * @param accountCheck AccountCheck：实体对象（查询条件）
@@ -137,6 +146,21 @@ public class AccountCheckController{
 			HttpServletResponse response, Page page){
 		accountOrderDetail.setPage(page);	
 		List<AccountOperateIncome> list = accountCheckService.listTotalAccountCheck(accountOrderDetail);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	/**
+	 * 根据条件查找列表方法
+	 * @param accountCheck AccountCheck：实体对象（查询条件）
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse
+	 * @param page Page:分页对象
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/listAccountCheckByDate")
+	public void listByDate(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		accountOrderDetail.setPage(page);	
+		List<AccountOperateIncome> list = accountCheckService.listDetailAccountCheck(accountOrderDetail);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	/**
