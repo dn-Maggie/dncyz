@@ -105,10 +105,18 @@ public class AccountOrderDetail extends Model{
 	                 **/
 				   			private BigDecimal merchantSubsidyVouchers;
 		   		
+		   			/**
+	                 * 订单上收取配送费
+	                 **/
+				   			private BigDecimal orderDistCharge;
 		            /**
 	                 * 商户收取配送费
 	                 **/
 				   			private BigDecimal merchantDistCharge;
+		   			/**
+	                 * 自配送实际支付金额
+	                 **/
+				   			private BigDecimal actualMerchantDistCharge;
 		   			/**
 	                 * 平台收取配送费
 	                 **/
@@ -799,6 +807,22 @@ public class AccountOrderDetail extends Model{
 
 			public void setTotalPrice(BigDecimal totalPrice) {
 				this.totalPrice = totalPrice;
+			}
+
+			public BigDecimal getOrderDistCharge() {
+				return orderDistCharge;
+			}
+
+			public void setOrderDistCharge(BigDecimal orderDistCharge) {
+				this.orderDistCharge = orderDistCharge;
+			}
+
+			public BigDecimal getActualMerchantDistCharge() {
+				return actualMerchantDistCharge;
+			}
+
+			public void setActualMerchantDistCharge(BigDecimal actualMerchantDistCharge) {
+				this.actualMerchantDistCharge = actualMerchantDistCharge;
 			}
 
 		   		

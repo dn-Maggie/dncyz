@@ -34,9 +34,9 @@
 /*搜索区域*/
 .search{/* margin-bottom: 5px;padding-bottom: 5px; */display: table; z-index:8; width:100%; float:left; position:relative;}
 .border-bottom{ border-bottom:1px solid #dae1e5;}
-.search ul{ width:100%; float:left; display:inline-block;/* min-width: 1500px; */}
+.search ul{ width:100%; float:left; display:inline-block;margin:0}
 .search>ul>li{position:relative;float: left;margin-top: 8px;margin-bottom: 5px;margin-left: 10px;/* width: 200px; */height:28px;line-height: 28px;margin-right: 8px;color: #333;}
-.search li.date_area{width:300px;}
+.search li.date_area{/* width:300px; */}
 .search li.date_area div.time_bg{float:left}
 .search li.date_area div.time_bg input{width:70px}
 .search li.date_area i{padding:0px 5px;float:left}

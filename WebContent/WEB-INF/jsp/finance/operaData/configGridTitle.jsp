@@ -35,6 +35,8 @@
 	<td class="inputTd">
 		<input  type="text" class="text readname" value="{{colValueValue}}" readonly/>
 		<input name="colindex" type="hidden" class="colindex" value="{{colIndex}}"/>
+		<input name="isBasic" type="hidden" class="isBasic" value="{{isBasic}}"/>
+		<input name="editValue" type="hidden" class="editable" value="{{editValue}}"/>
 	</td>
 	<td >计算公式</td>
 	<td class="inputTd">
@@ -120,7 +122,11 @@ function orderIndex(){
 		$('.indexId:eq('+i+')').html(i+1);
 	}
 }
+var platformAccountorderSaleRate,deepOperationorderSaleRate,salesRateorderSaleRate;
 function cellFormatter(value, options, rData){
+	platformAccountorderSaleRate = $("input[value='orderSaleRate']").parents('tr').find('.calcu').val();
+	deepOperationorderSaleRate = $("input[value='orderSaleRate']").parents('tr').find('.calcu').val();
+	salesRateorderSaleRate = $("input[value='orderSaleRate']").parents('tr').find('.calcu').val(); 
 	return eval($(".calcu:eq("+options.colModel.serial+")").val());
 }
 //添加行
@@ -129,9 +135,11 @@ function addTr(){
 			   .replace(/{{index}}/g,Number($(".trItem:last").find('.indexId').html())+1)
 			   .replace('{{colNameValue}}', "")
 			   .replace('{{colIndex}}', "")
+			   .replace('{{isBasic}}', "")
 			   .replace('{{colValueValue}}', "")
 			   .replace('{{colFormatValue}}',"")
 			   .replace('{{hideFlag}}',"checked")
+			   .replace('{{editValue}}',"")
 			   .replace('{{calcuFlag}}','<i class="icon-columns blue" onclick="calcu(this)" style="cursor:pointer"></i>')
 			   )
 	};
@@ -151,7 +159,7 @@ function calculateCreate(){
 	var calculateBasic = [];
 	for(var i =0;i<colModel.length;i++){
 		var trTpl = $("#calculateBasicModel").html();//获取模板
-		if(!colModel[i].editable && !colModel[i].nocalcu && "|rn|cb|".indexOf("|"+colModel[i].name+"|")==-1){
+		if(colModel[i].isBasic && "|rn|cb|".indexOf("|"+colModel[i].name+"|")==-1){
 			calculateBasic.push(trTpl
 					   .replace('{{basicName}}',colModel[i].name)
 					   .replace('{{basicLabel}}', colModel[i].label)
@@ -245,10 +253,12 @@ $(function() {
 				 label:$(".colname:eq("+i+")").val(),
 			     name:$(".readname:eq("+i+")").val(),
 			     index:$(".colindex:eq("+i+")").val(),
-			     hidden:$(".ace-switch:eq("+i+")").is(':checked')
+			     isBasic:$(".isBasic:eq("+i+")").val(),
+			     hidden:$(".ace-switch:eq("+i+")").is(':checked'),
+			     editable:$(".editable:eq("+i+")").val()=="true"?true:false
 		     }
 			if(!$(".calcu:eq("+i+")").prop("disabled")){
-				jsonObj.editable=true;
+				jsonObj.editFlag=true;
 				jsonObj.calculate=$(".calcu:eq("+i+")").val();
 				jsonObj.serial = i;
 				jsonObj.formatter=cellFormatter; 
@@ -256,8 +266,10 @@ $(function() {
 			jsonArr.push(jsonObj);
 		}
 		var $parent = window.parent;
+		var orderSaleRate = $("input[value='orderSaleRate']").parents('tr').find('.calcu').val();
 		var tableId = $parent.$('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
 		localStorage.setItem(tableId+"Model",JSON.stringify(jsonArr));
+		localStorage.setItem(tableId+"orderSaleRate",orderSaleRate);
 		$parent.loadConfigGrid(tableId,jsonArr);
 		$parent.closeConfig();
 	});
@@ -274,13 +286,16 @@ function drawHtml(){
 					   .replace('{{colNameValue}}', colModel[i].label?colModel[i].label:"")
 					   .replace('{{colValueValue}}', colModel[i].name?colModel[i].name:"")
 					   .replace('{{colIndex}}', colModel[i].index?colModel[i].index:"")
+					   .replace('{{isBasic}}',colModel[i].isBasic?true:"")
 					   .replace('{{colFormatValue}}',typeof(colModel[i].calculate)=='undefined'?'':colModel[i].calculate)
 					   .replace('{{hideFlag}}', colModel[i].hidden?"checked":"")
-					   .replace('{{calcuFlag}}',colModel[i].editable?'<i class="icon-columns blue" onclick="calcu(this)" style="cursor:pointer"></i>':'')
-					   .replace(/{{editableFlag}}/g, colModel[i].editable?"":"disabled")
+					   .replace('{{editValue}}',colModel[i].editable?true:"")
+					   .replace('{{calcuFlag}}',colModel[i].editFlag?'<i class="icon-columns blue" onclick="calcu(this)" style="cursor:pointer"></i>':'')
+					   .replace(/{{editableFlag}}/g, colModel[i].editFlag?"":"disabled")
 					);
 		}
 	}
+	
 	$('#colModeltable').prepend(htmlTemp.join(''));
 }
 </script>

@@ -55,4 +55,9 @@ public interface AccountOrderDetailService  {
 	 * 根据订单计算出菜品数量表
 	 */
 	public List<AccountOrderDetail> listGoodsFromOrderDetail(AccountOrderDetail accountOrderDetail);
+	/**
+	 * 修改自配送实际支付金额方法
+	 * @param accountOrderDetail AccountOrderDetail 实体对象
+	 */	
+	public ResultMessage updateActualDistCharge(AccountOrderDetail accountOrderDetail);
 }

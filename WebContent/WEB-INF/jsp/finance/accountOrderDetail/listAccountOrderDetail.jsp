@@ -23,10 +23,8 @@ var gridObj = {};
 				{name : "id",hidden : true,key : true,label:"账单ID",index : "id"},	
 				{name : "storeName",label:"商户名称",index : "store_name"},		
 				{name : "createDate",label:"创建日期",index : "create_date"},				
-				/* {name : "storeELMId",label:"商户id",index : "store_ELM_id"},			
-				{name : "storeMTId",label:"商户id",index : "store_MT_id"},		 */
-				/* {name : "checkNo",label:"账单编号",index : "check_no"}, */				
-				{name : "orderType",label:"订单类型",index : "order_type"},				
+				{name : "orderType",label:"订单类型",index : "order_type"
+					,formatter:GridColModelForMatter.orderType},				
 				{name : "orderTime",label:"订单创建时间",index : "order_time"},				
 				{name : "overTime",label:"订单完成时间",index : "over_time"},				
 				{name : "orderNo",label:"订单号",index : "order_no"},				
@@ -244,7 +242,7 @@ var gridObj = {};
 					</div>
 					</li>		
 				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
-					 <option value="elm">饿了么</option><option value="meituan">美团</option>
+					 <option value="elm">饿了么</option><option value="meituan">美团</option><option value="baidu">百度</option>
 					</select><span>平台类型:</span></li><!--下拉 -->
 				 <li><select class="search_select" name="distributionMode" id="distributionMode"><option value="">---请选择---</option></select>
 				<span>配送方式:</span></li><!--下拉 -->
@@ -260,14 +258,14 @@ var gridObj = {};
 					<!-- <li><a title="下载模板" href="javascript:" onclick="downloadTemplate();">
 							<i class="icon_bg icon_download"></i> <span>下载模板</span>
 					</a></li> -->
-						<%-- <c:if test="${importData}">
+					 <c:if test="${importData}">
 							<li>
 								<a title="导入原始数据" href="javascript:;" onclick="importData();"> 
 									<i class="back_icon import_icon"> </i> 
 									<span>导入原始数据</span>
 								</a>
 							</li>
-						</c:if> --%>
+						</c:if> 
 						<c:if test="${exportData}">
 							<li>
 								<a title="导出数据" href="javascript:;" onclick="exportData();"> 

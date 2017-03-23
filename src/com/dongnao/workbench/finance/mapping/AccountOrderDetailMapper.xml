@@ -22,6 +22,7 @@
 			<result column="gift_allowance" property="giftAllowance" jdbcType="DECIMAL" />
 			<result column="merchant_activities_subsidies" property="merchantActivitiesSubsidies" jdbcType="DECIMAL" />
 			<result column="merchant_subsidy_vouchers" property="merchantSubsidyVouchers" jdbcType="DECIMAL" />
+			<result column="actual_merchant_dist_charge" property="actualMerchantDistCharge" jdbcType="DECIMAL" />
 			<result column="merchant_dist_charge" property="merchantDistCharge" jdbcType="DECIMAL" />
 			<result column="order_dist_charge" property="orderDistCharge" jdbcType="DECIMAL" />
 			<result column="platform_dist_charge" property="platformDistCharge" jdbcType="DECIMAL" />
@@ -71,6 +72,7 @@
 		gift_allowance,
 		merchant_activities_subsidies,
 		merchant_subsidy_vouchers,
+		actual_merchant_dist_charge,
 		merchant_dist_charge,
 		order_dist_charge,
 		platform_dist_charge,
@@ -109,125 +111,128 @@
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
 		select
-			id,
-			create_date,
-			store_id,
-			store_ELM_id,
-			store_MT_id,
-			store_BD_id,
-			store_name,
-			check_no,
-			order_type,
-			order_time,
-			over_time,
-			order_index,
-			order_no,
-			prices,
-			meal_fee,
-			total_price,
-			product_sale_amount,
-			gift_allowance,
-			merchant_activities_subsidies,
-			merchant_subsidy_vouchers,
-			merchant_dist_charge,
-			order_dist_charge,
-			platform_dist_charge,
-			service_rate,
-			service_charge,
-			refund_amount,
-			settlement_amount,
-			distribution_mode,
-			remark,
-			platform_activities_subsidies,
-			platform_subsidy_vouchers,
-			platform_type,
-			is_invalid,
-			activities_subsidy_bymerchant,
-			(merchant_activities_subsidies-activities_subsidy_bymerchant) as activities_subsidy_bycompany,
-			food_discount,
-			special_offer,
-			booked_time,
-			consignee_name,
-			consignee_phones,
-			active_time,
-			active_total,
-			goods_name,
-			goods_quality,
-			goods_id,
-			goods_price,
-			order_sale_rate
-		from account_order_detail
+			od.id,
+			od.create_date,
+			od.store_id,
+			od.store_ELM_id,
+			od.store_MT_id,
+			od.store_BD_id,
+			od.store_name,
+			od.check_no,
+			od.order_type,
+			od.order_time,
+			od.over_time,
+			od.order_index,
+			od.order_no,
+			od.prices,
+			od.meal_fee,
+			od.total_price,
+			od.product_sale_amount,
+			od.gift_allowance,
+			od.merchant_activities_subsidies,
+			od.merchant_subsidy_vouchers,
+			od.actual_merchant_dist_charge,
+			od.merchant_dist_charge,
+			od.order_dist_charge,
+			od.platform_dist_charge,
+			od.service_rate,
+			od.service_charge,
+			od.refund_amount,
+			od.settlement_amount,
+			od.distribution_mode,
+			od.remark,
+			od.platform_activities_subsidies,
+			od.platform_subsidy_vouchers,
+			od.platform_type,
+			od.is_invalid,
+			od.activities_subsidy_bymerchant,
+			(od.merchant_activities_subsidies-od.activities_subsidy_bymerchant) as activities_subsidy_bycompany,
+			od.food_discount,
+			sp.special_offer,
+			od.booked_time,
+			od.consignee_name,
+			od.consignee_phones,
+			od.active_time,
+			od.active_total,
+			od.goods_name,
+			od.goods_quality,
+			od.goods_id,
+			od.goods_price,
+			od.order_sale_rate
+		from account_order_detail as od 
+		LEFT JOIN dn_store as s on s.elm_id = od.store_ELM_id 
+		LEFT JOIN store_product as sp on sp.store_id = s.STORE_ID and FIND_IN_SET(sp.product_name,od.goods_name)>0
 		where 1=1
 		<if test="id != null and '' != id">  
-			and id = #{id,jdbcType=VARCHAR}
+			and od.id = #{id,jdbcType=VARCHAR}
 		</if>
 		<if test="createDate != null and '' != createDate">  
-			and create_date = #{createDate,jdbcType=DATE}
+			and od.create_date = #{createDate,jdbcType=DATE}
 		</if>
 		<if test="storeId != null and '' != storeId">  
-			and store_id = #{storeId,jdbcType=CHAR}
+			and od.store_id = #{storeId,jdbcType=CHAR}
 		</if>
 		<if test="storeName != null and '' != storeName">  
-			and store_name = #{storeName,jdbcType=VARCHAR}
+			and od.store_name = #{storeName,jdbcType=VARCHAR}
 		</if>
 		<if test="checkNo != null and '' != checkNo">  
-			and check_no = #{checkNo,jdbcType=VARCHAR}
+			and od.check_no = #{checkNo,jdbcType=VARCHAR}
 		</if>
 		<if test="orderType != null and '' != orderType">  
-			and order_type = #{orderType,jdbcType=VARCHAR}
+			and od.order_type = #{orderType,jdbcType=VARCHAR}
 		</if>
 		<if test="orderTime != null and '' != orderTime">  
-			and order_time = #{orderTime,jdbcType=TIMESTAMP}
+			and od.order_time = #{orderTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="isInvalid != null and '' != isInvalid">  
-			and is_invalid = #{isInvalid,jdbcType=TIMESTAMP}
+			and od.is_invalid = #{isInvalid,jdbcType=TIMESTAMP}
 		</if>
 		 <if test="null != propsMap.startDate and propsMap.startDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
+					and DATE_FORMAT(od.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
 				]]>
 			</if>
 			<if test="null != propsMap.endDate and propsMap.endDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
+					and DATE_FORMAT(od.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
 				]]>
 			</if> 
 			<if test="null != propsMap.startTime and propsMap.startTime != ''">
 				<![CDATA[
-					and DATE_FORMAT(order_time,'%h:%m"%s') >= DATE_FORMAT(#{propsMap.startTime,jdbcType=TIMESTAMP},'%h:%m:%s')
+					and DATE_FORMAT(od.order_time,'%h:%m"%s') >= DATE_FORMAT(#{propsMap.startTime,jdbcType=TIMESTAMP},'%h:%m:%s')
 				]]>
 			</if>
 			<if test="null != propsMap.endTime and propsMap.endTime != ''">
 				<![CDATA[
-					and DATE_FORMAT(order_time,'%h:%m:%s') <= DATE_FORMAT(#{propsMap.endTime,jdbcType=TIMESTAMP},'%h:%m:%s')
+					and DATE_FORMAT(od.order_time,'%h:%m:%s') <= DATE_FORMAT(#{propsMap.endTime,jdbcType=TIMESTAMP},'%h:%m:%s')
 				]]>
 			</if> 
 		<if test="overTime != null and '' != overTime">  
-			and over_time = #{overTime,jdbcType=TIMESTAMP}
+			and od.over_time = #{overTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="orderNo != null and '' != orderNo">  
-			and order_no = #{orderNo,jdbcType=VARCHAR}
+			and od.order_no = #{orderNo,jdbcType=VARCHAR}
 		</if>
 		<if test="prices != null and '' != prices">  
-			and prices = #{prices,jdbcType=DECIMAL}
+			and od.prices = #{prices,jdbcType=DECIMAL}
 		</if>
 		<if test="serviceRate != null and '' != serviceRate">  
-			and service_rate = #{serviceRate,jdbcType=VARCHAR}
+			and od.service_rate = #{serviceRate,jdbcType=VARCHAR}
 		</if>
 		<if test="serviceCharge != null and '' != serviceCharge">  
-			and service_charge = #{serviceCharge,jdbcType=DECIMAL}
+			and od.service_charge = #{serviceCharge,jdbcType=DECIMAL}
 		</if>
 		<if test="refundAmount != null and '' != refundAmount">  
-			and refund_amount = #{refundAmount,jdbcType=VARCHAR}
+			and od.refund_amount = #{refundAmount,jdbcType=VARCHAR}
 		</if>
 		<if test="distributionMode != null and '' != distributionMode">  
-			and distribution_mode = #{distributionMode,jdbcType=VARCHAR}
+			and od.distribution_mode = #{distributionMode,jdbcType=VARCHAR}
 		</if>
 		<if test="remark != null and '' != remark">  
-			and remark = #{remark,jdbcType=VARCHAR}
+			and od.remark = #{remark,jdbcType=VARCHAR}
 		</if>
 		<if test="platformType != null and '' != platformType">  
-			and platform_type = #{platformType,jdbcType=DECIMAL}
+			and od.platform_type = #{platformType,jdbcType=DECIMAL}
 		</if>
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
@@ -235,103 +240,114 @@
 	</select>
 	
 	<select id="listGoodsFromOrderDetail" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
-		select
-			id,
-			create_date,
-			store_id,
-			store_ELM_id,
-			store_MT_id,
-			store_BD_id,
-			store_name,
-			check_no,
-			order_type,
-			order_time,
-			over_time,
-			order_index,
-			order_no,
-			prices,
-			meal_fee,
-			total_price,
-			goods_name,
-			goods_quality,
-			goods_id,
-			goods_price
-		from account_order_detail
-		where 1=1
+		SELECT DISTINCT
+			tod.create_date,
+			tod.store_name,
+			tod.goods_name,
+			tod.goods_price as goods_price,
+			COUNT(*) as goods_quality,
+			tod.platform_type
+		FROM
+			(
+			SELECT
+				aod.id,
+				aod.create_date,
+				aod.store_id,
+				aod.store_ELM_id,
+				aod.store_MT_id,
+				aod.store_BD_id,
+				aod.store_name,
+				aod.check_no,
+				aod.order_type,
+				aod.order_time,
+				aod.over_time,
+				aod.order_index,
+				aod.order_no,
+				aod.prices,
+				aod.meal_fee,
+				aod.total_price,
+				aod.goods_name,
+				aod.goods_quality,
+				aod.goods_id,
+				aod.goods_price,
+				aod.platform_type 
+			FROM
+				account_order_detail AS aod
+			WHERE 1 = 1
 		<if test="id != null and '' != id">  
-			and id = #{id,jdbcType=VARCHAR}
+			and aod.id = #{id,jdbcType=VARCHAR}
 		</if>
 		<if test="createDate != null and '' != createDate">  
-			and create_date = #{createDate,jdbcType=DATE}
+			and aod.create_date = #{createDate,jdbcType=DATE}
 		</if>
 		<if test="storeId != null and '' != storeId">  
-			and store_id = #{storeId,jdbcType=CHAR}
+			and aod.store_id = #{storeId,jdbcType=CHAR}
 		</if>
 		<if test="storeName != null and '' != storeName">  
-			and store_name = #{storeName,jdbcType=VARCHAR}
+			and aod.store_name = #{storeName,jdbcType=VARCHAR}
 		</if>
 		<if test="checkNo != null and '' != checkNo">  
-			and check_no = #{checkNo,jdbcType=VARCHAR}
+			and aod.check_no = #{checkNo,jdbcType=VARCHAR}
 		</if>
 		<if test="orderType != null and '' != orderType">  
-			and order_type = #{orderType,jdbcType=VARCHAR}
+			and aod.order_type = #{orderType,jdbcType=VARCHAR}
 		</if>
 		<if test="orderTime != null and '' != orderTime">  
-			and order_time = #{orderTime,jdbcType=TIMESTAMP}
+			and aod.order_time = #{orderTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="isInvalid != null and '' != isInvalid">  
-			and is_invalid = #{isInvalid,jdbcType=TIMESTAMP}
+			and aod.is_invalid = #{isInvalid,jdbcType=TIMESTAMP}
 		</if>
 		 <if test="null != propsMap.startDate and propsMap.startDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
+					and DATE_FORMAT(aod.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
 				]]>
 			</if>
 			<if test="null != propsMap.endDate and propsMap.endDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
+					and DATE_FORMAT(aod.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
 				]]>
 			</if> 
 			<if test="null != propsMap.startTime and propsMap.startTime != ''">
 				<![CDATA[
-					and DATE_FORMAT(order_time,'%h:%m"%s') >= DATE_FORMAT(#{propsMap.startTime,jdbcType=TIMESTAMP},'%h:%m:%s')
+					and DATE_FORMAT(aod.order_time,'%h:%m"%s') >= DATE_FORMAT(#{propsMap.startTime,jdbcType=TIMESTAMP},'%h:%m:%s')
 				]]>
 			</if>
 			<if test="null != propsMap.endTime and propsMap.endTime != ''">
 				<![CDATA[
-					and DATE_FORMAT(order_time,'%h:%m:%s') <= DATE_FORMAT(#{propsMap.endTime,jdbcType=TIMESTAMP},'%h:%m:%s')
+					and DATE_FORMAT(aod.order_time,'%h:%m:%s') <= DATE_FORMAT(#{propsMap.endTime,jdbcType=TIMESTAMP},'%h:%m:%s')
 				]]>
 			</if> 
 		<if test="overTime != null and '' != overTime">  
-			and over_time = #{overTime,jdbcType=TIMESTAMP}
+			and aod.over_time = #{overTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="orderNo != null and '' != orderNo">  
-			and order_no = #{orderNo,jdbcType=VARCHAR}
+			and aod.order_no = #{orderNo,jdbcType=VARCHAR}
 		</if>
 		<if test="prices != null and '' != prices">  
-			and prices = #{prices,jdbcType=DECIMAL}
+			and aod.prices = #{prices,jdbcType=DECIMAL}
 		</if>
 		<if test="serviceRate != null and '' != serviceRate">  
-			and service_rate = #{serviceRate,jdbcType=VARCHAR}
+			and aod.service_rate = #{serviceRate,jdbcType=VARCHAR}
 		</if>
 		<if test="serviceCharge != null and '' != serviceCharge">  
-			and service_charge = #{serviceCharge,jdbcType=DECIMAL}
+			and aod.service_charge = #{serviceCharge,jdbcType=DECIMAL}
 		</if>
 		<if test="refundAmount != null and '' != refundAmount">  
-			and refund_amount = #{refundAmount,jdbcType=VARCHAR}
+			and aod.refund_amount = #{refundAmount,jdbcType=VARCHAR}
 		</if>
 		<if test="distributionMode != null and '' != distributionMode">  
-			and distribution_mode = #{distributionMode,jdbcType=VARCHAR}
+			and aod.distribution_mode = #{distributionMode,jdbcType=VARCHAR}
 		</if>
 		<if test="remark != null and '' != remark">  
-			and remark = #{remark,jdbcType=VARCHAR}
+			and aod.remark = #{remark,jdbcType=VARCHAR}
 		</if>
 		<if test="platformType != null and '' != platformType">  
-			and platform_type = #{platformType,jdbcType=DECIMAL}
+			and aod.platform_type = #{platformType,jdbcType=DECIMAL}
 		</if>
-		<if test="orderFields != null and '' != orderFields">  
-           	order by ${orderFields} ${order}
-       	</if>
+       	) as tod
+			GROUP BY tod.goods_name,tod.create_date
+			order by create_date
 	</select>
 	
 	
@@ -380,17 +396,17 @@
 				,#{activitiesSubsidyBymerchant,jdbcType=DECIMAL}
 				,#{activitiesSubsidyBycompany,jdbcType=DECIMAL}
 				,#{foodDiscount,jdbcType=DECIMAL}
-				,#{specialOffer,#{jdbcType=DECIMAL}
-				,#{bookedTime,#{jdbcType=TIMESTAMP}
-				,#{consigneeName,#{jdbcType=VARCHAR}
-				,#{consigneePhones,#{jdbcType=VARCHAR}
-				,#{activeTime,#{jdbcType=TIMESTAMP}
-				,#{activeTotal,#{jdbcType=DECIMAL}
-				,#{goodsName,#{jdbcType=VARCHAR}
-				,#{goodsQuality,#{jdbcType=VARCHAR}
-				,#{goodsId,#{jdbcType=VARCHAR}
-				,#{goodsPrice,#{jdbcType=VARCHAR}
-				,#{orderSaleRate,#{jdbcType=DECIMAL}
+				,#{specialOffer,jdbcType=DECIMAL}
+				,#{bookedTime,jdbcType=TIMESTAMP}
+				,#{consigneeName,jdbcType=VARCHAR}
+				,#{consigneePhones,jdbcType=VARCHAR}
+				,#{activeTime,jdbcType=TIMESTAMP}
+				,#{activeTotal,jdbcType=DECIMAL}
+				,#{goodsName,jdbcType=VARCHAR}
+				,#{goodsQuality,jdbcType=VARCHAR}
+				,#{goodsId,jdbcType=VARCHAR}
+				,#{goodsPrice,jdbcType=VARCHAR}
+				,#{orderSaleRate,jdbcType=DECIMAL}
 			)
 	</insert>
 	
@@ -416,6 +432,7 @@
 				,gift_allowance
 				,merchant_activities_subsidies
 				,merchant_subsidy_vouchers
+				,actual_merchant_dist_charge
 				,merchant_dist_charge
 				,order_dist_charge
 				,platform_dist_charge
@@ -466,6 +483,7 @@
 				,#{item.giftAllowance,jdbcType=DECIMAL}
 				,#{item.merchantActivitiesSubsidies,jdbcType=DECIMAL}
 				,#{item.merchantSubsidyVouchers,jdbcType=DECIMAL}
+				,#{item.actualMerchantDistCharge,jdbcType=DECIMAL}
 				,#{item.merchantDistCharge,jdbcType=DECIMAL}
 				,#{item.orderDistCharge,jdbcType=DECIMAL}
 				,#{item.platformDistCharge,jdbcType=DECIMAL}
@@ -483,16 +501,16 @@
 				,#{item.activitiesSubsidyBycompany,jdbcType=DECIMAL}
 				,#{item.foodDiscount,jdbcType=DECIMAL}
 				,#{item.specialOffer,jdbcType=DECIMAL}
-				,#{item.bookedTime,#{jdbcType=TIMESTAMP}
-				,#{item.consigneeName,#{jdbcType=VARCHAR}
-				,#{item.consigneePhones,#{jdbcType=VARCHAR}
-				,#{item.activeTime,#{jdbcType=TIMESTAMP}
-				,#{item.activeTotal,#{jdbcType=DECIMAL}
-				,#{item.goodsName,#{jdbcType=VARCHAR}
-				,#{item.goodsQuality,#{jdbcType=VARCHAR}
-				,#{item.goodsId,#{jdbcType=VARCHAR}
-				,#{item.goodsPrice,#{jdbcType=VARCHAR}
-				,#{item.orderSaleRate,#{jdbcType=DECIMAL}
+				,#{item.bookedTime,jdbcType=TIMESTAMP}
+				,#{item.consigneeName,jdbcType=VARCHAR}
+				,#{item.consigneePhones,jdbcType=VARCHAR}
+				,#{item.activeTime,jdbcType=TIMESTAMP}
+				,#{item.activeTotal,jdbcType=DECIMAL}
+				,#{item.goodsName,jdbcType=VARCHAR}
+				,#{item.goodsQuality,jdbcType=VARCHAR}
+				,#{item.goodsId,jdbcType=VARCHAR}
+				,#{item.goodsPrice,jdbcType=VARCHAR}
+				,#{item.orderSaleRate,jdbcType=DECIMAL}
 		)
 		</foreach>
 	</insert>
@@ -520,6 +538,7 @@
 		,gift_allowance = #{giftAllowance,jdbcType=DECIMAL}
 		,merchant_activities_subsidies = #{merchantActivitiesSubsidies,jdbcType=DECIMAL}
 		,merchant_subsidy_vouchers = #{merchantSubsidyVouchers,jdbcType=DECIMAL}
+		,actual_merchant_dist_charge = #{actualMerchantDistCharge,jdbcType=DECIMAL}
 		,merchant_dist_charge = #{merchantDistCharge,jdbcType=DECIMAL}
 		,order_dist_charge = #{orderDistCharge,jdbcType=DECIMAL}
 		,platform_dist_charge = #{platformDistCharge,jdbcType=DECIMAL}
@@ -537,16 +556,24 @@
 		,activities_subsidy_bycompany = #{activitiesSubsidyBycompany,jdbcType=DECIMAL}
 		,food_discount = #{foodDiscount,jdbcType=DECIMAL}
 		,special_offer = #{specialOffer,jdbcType=DECIMAL}
-		,booked_time = #{bookedTime,#{jdbcType=TIMESTAMP}
-		,consignee_name= #{consigneeName,#{jdbcType=VARCHAR}
-		,consignee_phones = #{consigneePhones,#{jdbcType=VARCHAR}
-		,active_time = #{activeTime,#{jdbcType=TIMESTAMP}
-		,active_total = #{activeTotal,#{jdbcType=DECIMAL}
-		,goods_name = #{goodsName,#{jdbcType=VARCHAR}
-		,goods_quality= #{goodsQuality,#{jdbcType=VARCHAR}
-		,goods_id = #{goodsId,#{jdbcType=VARCHAR}
-		,goods_price = #{goodsPrice,#{jdbcType=VARCHAR}
-		,order_sale_rate = #{orderSaleRate,#{jdbcType=DECIMAL}
+		,booked_time = #{bookedTime,jdbcType=TIMESTAMP}
+		,consignee_name= #{consigneeName,jdbcType=VARCHAR}
+		,consignee_phones = #{consigneePhones,jdbcType=VARCHAR}
+		,active_time = #{activeTime,jdbcType=TIMESTAMP}
+		,active_total = #{activeTotal,jdbcType=DECIMAL}
+		,goods_name = #{goodsName,jdbcType=VARCHAR}
+		,goods_quality= #{goodsQuality,jdbcType=VARCHAR}
+		,goods_id = #{goodsId,jdbcType=VARCHAR}
+		,goods_price = #{goodsPrice,jdbcType=VARCHAR}
+		,order_sale_rate = #{orderSaleRate,jdbcType=DECIMAL}
 	where id = #{id,jdbcType=VARCHAR}
 	</update>
+	
+	<update id="updateActualDistCharge" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
+		update account_order_detail  set
+			actual_merchant_dist_charge = #{actualMerchantDistCharge,jdbcType=DECIMAL}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	
 </mapper>

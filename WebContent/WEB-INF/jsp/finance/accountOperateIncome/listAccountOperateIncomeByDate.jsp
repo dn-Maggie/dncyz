@@ -5,47 +5,15 @@
 <%@ include file="../../common/header.jsp"%>
 <%@ include file="../../common/ace.jsp"%>
 <style>
-	.ui-th-column, .ui-jqgrid .ui-jqgrid-htable th.ui-th-column{
-		white-space:normal; 
-	}
-	.header-context-menu{
-		padding:10px;
-		border:1px solid #bbb;
-		background-color:#eee;
-		position:absolute;
-		top:0px;
-		left:0px;
-		z-index:999;
-		display:none;
-	}
 	.ui-jqgrid-sortable{
 		font-weight:normal;
-	}
-	.header-context-menu .headers{
-		padding:0;
-		margin:0;
-		list-style:none;
-	}
-	.header-context-menu .headers li:hover{
-		background-color:rgb(152, 152, 152);
-		color:#fff;
-	}
-	.header-context-menu .headers li label{
-		padding-left:10px;
-		width:100%;
-	}
-	.header-context-menu .headers li label b{
-		font-weight:normal;
-		margin-left:10px;
-		top:3px;
-		position:relative;
 	}
 </style>
 <title></title>
 <script type="text/javascript">
 var gridObj = {};
 //底价运营表表头         
-var basePriceModel =  {url: "<m:url value='/accountOperateIncome/listAllFromOrderDetail.do'/>",
+var basePriceModel =  {url: "<m:url value='/accountOperateIncome/listAccountOperateIncomeByDate.do'/>",
 						colModel:[
 						{name : "storeName",label:"商户名称",index : "store_name"},	
 						{name : "createDate",label:"日期",index : "create_date"},		
@@ -56,15 +24,15 @@ var basePriceModel =  {url: "<m:url value='/accountOperateIncome/listAllFromOrde
         				{name : "allamountPayable",label:"应付店铺结算金额"},				
         				{name : "allcyzServiceCharge",label:"公司收入"},	
         				{name : "allsaleGrossProfit",label:"毛利"},				
-        				{name : "allcyzDistributionCharge",label:"自配送实际支付金额"},
-        				{name : "allplatformActivitiesSubsidies",label:"平台承担线上活动费"},
-	       				{name : "allactivitiesSubsidyBycompany",label:"公司承担线上活动费"},
-	       				{name : "allserviceCharge",label:"平台服务费"},
-	       				{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",editable:true,
-							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
+        				{name : "allactualMerchantDistCharge",label:"自配送实际支付金额"},
+        				{name : "allplatformActivitiesCharge",label:"平台承担线上活动费"},
+	       				{name : "allcyzActivitiesCharge",label:"公司承担线上活动费"},
+	       				{name : "allplatformServiceCharge",label:"平台服务费"},
+	       				/* {name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?value!='baidu'?'未知':'百度':'美团':'饿了么';",editFlag:true,
+							formatter : function(value, options, rData){return eval(options.colModel.calculate);}}, */
 				       	]};
 //销售额比例抽佣运营表表头         
-var salesRateModel = {url: "<m:url value='/accountOperateIncome/listAllFromOrderDetail.do'/>",
+var salesRateModel = {url: "<m:url value='/accountOperateIncome/listAccountOperateIncomeByDate.do'/>",
 						colModel:[
 						{name : "storeName",label:"商户名称",index : "store_name"},	
 						{name : "createDate",label:"日期",index : "create_date"},		
@@ -75,16 +43,16 @@ var salesRateModel = {url: "<m:url value='/accountOperateIncome/listAllFromOrder
         				{name : "allamountPayable",label:"应付店铺结算金额"},				
         				{name : "allcyzServiceCharge",label:"公司收入"},	
         				{name : "allsaleGrossProfit",label:"毛利"},				
-        				{name : "allcyzDistributionCharge",label:"自配送实际支付金额"},
-        				{name : "allplatformActivitiesSubsidies",label:"平台承担线上活动费"},
-	       				{name : "allactivitiesSubsidyBycompany",label:"公司承担线上活动费"},
-	       				{name : "allserviceCharge",label:"平台服务费"},
-		  				{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",editable:true,
-								formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
+        				{name : "allactualMerchantDistCharge",label:"自配送实际支付金额"},
+        				{name : "allplatformActivitiesCharge",label:"平台承担线上活动费"},
+	       				{name : "allcyzActivitiesCharge",label:"公司承担线上活动费"},
+	       				{name : "allplatformServiceCharge",label:"平台服务费"},
+		  				/* {name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?value!='baidu'?'未知':'百度':'美团':'饿了么';",editFlag:true,
+								formatter : function(value, options, rData){return eval(options.colModel.calculate);}}, */
 				       	]};
 //平台到账抽佣运营表表头            		
 var platformAccountModel = {
-						url: "<m:url value='/accountOperateIncome/listAllFromOrderDetail.do'/>",
+						url: "<m:url value='/accountOperateIncome/listAccountOperateIncomeByDate.do'/>",
 						colModel:[
 						{name : "storeName",label:"商户名称",index : "store_name"},	
 						{name : "createDate",label:"日期",index : "create_date"},		
@@ -95,38 +63,34 @@ var platformAccountModel = {
         				{name : "allamountPayable",label:"应付店铺结算金额"},				
         				{name : "allcyzServiceCharge",label:"公司收入"},	
         				{name : "allsaleGrossProfit",label:"毛利"},				
-        				{name : "allcyzDistributionCharge",label:"自配送实际支付金额"},
-        				{name : "allplatformActivitiesSubsidies",label:"平台承担线上活动费"},
-	       				{name : "allactivitiesSubsidyBycompany",label:"公司承担线上活动费"},
-	       				{name : "allserviceCharge",label:"平台服务费"},
-        				{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",editable:true,
-							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
+        				{name : "allactualMerchantDistCharge",label:"自配送实际支付金额"},
+        				{name : "allplatformActivitiesCharge",label:"平台承担线上活动费"},
+	       				{name : "allcyzActivitiesCharge",label:"公司承担线上活动费"},
+	       				{name : "allplatformServiceCharge",label:"平台服务费"},
+        				/* {name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?value!='baidu'?'未知':'百度':'美团':'饿了么';",editFlag:true,
+							formatter : function(value, options, rData){return eval(options.colModel.calculate);}}, */
 				       	]};				      
 //深运营表表头         
-var deepOperationModel ={url: "<m:url value='/accountOrderDetail/listAccountOrderDetail.do'/>",
+var deepOperationModel ={url: "<m:url value='/accountOperateIncome/listAccountOperateIncomeByDate.do'/>",
 						colModel:[
 						{name : "storeName",label:"商户名称",index : "store_name"},		
 						{name : "createDate",label:"日期",index : "create_date"},		
 						{name : "allinvalidNum",label:"无效单"},				
 	        			{name : "allvalidNum",label:"有效单"},	
-						{name : "productSaleAmount",label:"产品销售金额",calculate:"rData['mealFee'] + rData['prices'] - rData['activitiesSubsidyBymerchant']",editable:true,
-							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
-						{name : "settlementAmount",label:"应收平台结算金额",index : "settlement_amount"},				
-						{name : "amountPayable",label:"品牌商家应收",index : "amount_payable",calculate:"(rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.7+rData['activitiesSubsidyBymerchant']",editable:true,
-			      			formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
-		      			{name : "",label:"运营应收",calculate:"(rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.7",editable:true,
-							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
-						{name : "",label:"运营实收",calculate:"rData['prices']+rData['mealFee']-((rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.7+rData['activitiesSubsidyBymerchant'])-(rData['merchantActivitiesSubsidies']-rData['activitiesSubsidyBymerchant'])-rData['serviceCharge']",editable:true,
-							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
-						{name : "",label:"运营收取客户配送费",calculate:"(rData['prices']+rData['mealFee']-rData['activitiesSubsidyBymerchant'])*(1-0.7)",editable:true,
-		       				formatter : function(value, options, rData){return eval(options.colModel.calculate);}},				
-	       				{name : "",label:"运营承担线上活动费"},				
-						{name : "",label:"工厂应收",calculate:"(rData['prices']+rData['mealFee']-((rData['mealFee']+rData['prices']-rData['activitiesSubsidyBymerchant']-(rData['specialOffer']>0?rData['specialOffer']:rData['foodDiscount']))*0.7+rData['activitiesSubsidyBymerchant'])-(rData['merchantActivitiesSubsidies']-rData['activitiesSubsidyBymerchant'])-rData['serviceCharge'])/((rData['prices']+rData['mealFee']-rData['activitiesSubsidyBymerchant'])*(1-0.7))",editable:true,
-			     			formatter : function(value, options, rData){return eval(options.colModel.calculate);}},	
-		     			{name : "",label:"平台承担线上活动费",},
-		     			{name : "",label:"平台服务费",},
-						{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",editable:true,
-							formatter : function(value, options, rData){return eval(options.colModel.calculate);}},
+						{name : "allproductSaleAmount",label:"产品销售金额"},				
+						{name : "allamountReceivable",label:"应收平台结算金额",index : "settlement_amount"},				
+						{name : "allamountPayable",label:"品牌商家应收"},				
+		      			{name : "allcyzServiceCharge",label:"运营应收",
+	       					formatter : function(value, options, rData){return (value*5/7).toFixed(3);}},				
+						{name : "allsaleGrossProfit",label:"运营实收"},				
+						{name : "allcyzDistributionCharge",label:"运营收取客户配送费"},				
+	       				{name : "allcyzActivitiesCharge",label:"运营承担线上活动费"},				
+						{name : "allcyzServiceCharge",label:"工厂应收",
+	       					formatter : function(value, options, rData){return (value*2/7).toFixed(3);}},	
+		     			{name : "allplatformActivitiesCharge",label:"平台承担线上活动费"},
+		     			{name : "allplatformServiceCharge",label:"平台服务费",},
+						/* {name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?value!='baidu'?'未知':'百度':'美团':'饿了么';",editFlag:true,
+							formatter : function(value, options, rData){return eval(options.colModel.calculate);}} */
 				       	]};
 
 		$(function(){
@@ -147,6 +111,8 @@ var deepOperationModel ={url: "<m:url value='/accountOrderDetail/listAccountOrde
     });
 	//初始化grid
 	function initGrid(ways){
+		$("#orderSaleRate").val(localStorage.getItem(ways+"orderSaleRate")?localStorage.getItem(ways+"orderSaleRate"):0.7);
+		debugger;
 		gridObj = new biz.grid({
 	        id:"#"+ways,
 	        autoScroll:false,   
@@ -168,17 +134,15 @@ var deepOperationModel ={url: "<m:url value='/accountOrderDetail/listAccountOrde
 			gridComplete:function(){//表格加载执行  
 			    $(this).closest(".ui-jqgrid-bdiv").css({ 'overflow-x' : 'hidden' });
 			 	$(".ui-jqgrid-sdiv").show();
-		    	$(this).footerData("set",{
-		    		"rn":"合计",
-		    		"allinvalidNum":$(this).getCol("allinvalidNum",false,"sum"),
-		    		"allvalidNum":$(this).getCol("allvalidNum",false,"sum"),
-		    		"allproductSaleAmount":$(this).getCol("allproductSaleAmount",false,"sum").toFixed(2),
-		    		"allamountReceivable":$(this).getCol("allamountReceivable",false,"sum").toFixed(2),
-		    		"allamountPayable":$(this).getCol("allamountPayable",false,"sum").toFixed(2), 
-		    		"allcyzServiceCharge":$(this).getCol("allcyzServiceCharge",false,"sum").toFixed(2), 
-		    		"allsaleGrossProfit":$(this).getCol("allsaleGrossProfit",false,"sum").toFixed(2), 
-		    	 	"allcyzDistributionCharge":$(this).getCol("allcyzDistributionCharge",false,"sum").toFixed(2) 
-		    		}); //将合计值显示出来
+			 	var footerCell = $(this).footerData();
+			 	var footerObj = {};
+			 	for(var i in footerCell){
+			 		footerObj[i]=isNaN($(this).getCol(i,false,"sum"))?0:$(this).getCol(i,false,"sum").toFixed(2);
+			 	}
+			 	footerObj['rn'] = "合";
+			 	footerObj['cb'] = "计";
+			 	footerObj['createDate'] = footerObj['storeName'] ="";
+		    	$(this).footerData("set",footerObj); //将合计值显示出来
 			}  
 	      });
 		$("#"+ways).setColProp('calculate');
@@ -238,7 +202,10 @@ var deepOperationModel ={url: "<m:url value='/accountOrderDetail/listAccountOrde
 		<form id="queryForm"><!-- 查询区 表单 -->
 			<div class="search border-bottom">
 				<ul>
-				<li><input type="text" name="storeName" id="storeName" class="search_choose"> <span>店铺名称:</span></li><!-- 输入框-->
+				<li>
+					<input type="hidden" name="orderSaleRate" id="orderSaleRate">
+					<input type="text" name="storeName" id="storeName" class="search_choose"> <span>店铺名称:</span>
+				</li><!-- 输入框-->
 				<li>
 					<div class="time_bg">
 					<input type="text" placeholder="截止日期"  class="search_time150 date-picker" name="propsMap['endDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
@@ -264,7 +231,7 @@ var deepOperationModel ={url: "<m:url value='/accountOrderDetail/listAccountOrde
 					</div>
 					</li>	
 				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
-					 <option value="elm">饿了么</option><option value="meituan">美团</option>
+					 <option value="elm">饿了么</option><option value="meituan">美团</option><option value="baidu">百度</option>
 					</select><span>平台类型:</span></li><!--下拉 -->
 				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
 						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->

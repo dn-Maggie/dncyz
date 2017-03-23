@@ -72,6 +72,15 @@ public class AccountOrderDetailServiceImpl implements AccountOrderDetailService{
 		return AjaxUtils.getSuccessMessage();
 	}
 	/**
+	 * 修改自配送实际支付金额方法
+	 * @param accountOrderDetail AccountOrderDetail 实体对象
+	 */	
+	public ResultMessage updateActualDistCharge(AccountOrderDetail accountOrderDetail){
+		accountOrderDetailMapper.updateActualDistCharge(accountOrderDetail);
+		return AjaxUtils.getSuccessMessage();
+	}
+	
+	/**
 	 * 批量插入订单详细方法
 	 */
 	public int addOrderDetail(List<AccountOrderDetail> orderDetailList) {

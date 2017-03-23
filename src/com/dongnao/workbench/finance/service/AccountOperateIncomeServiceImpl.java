@@ -84,9 +84,14 @@ public class AccountOperateIncomeServiceImpl implements AccountOperateIncomeServ
 	/**
 	 * 根据订单计算出运营数据合计
 	 */
-	public List<TotalOperateIncome> listAllFromOrderDetail(AccountOrderDetail accountOrderDetail) {
-		return accountOperateIncomeMapper.listAllFromOrderDetail(accountOrderDetail);
+	public List<TotalOperateIncome> listAllFromOrderDetailByDate(AccountOrderDetail accountOrderDetail) {
+		return accountOperateIncomeMapper.listAllFromOrderDetailByDate(accountOrderDetail);
 	}
-
+	/**
+	 * 根据订单计算出运营数据合计(店铺合计)
+	 */
+	public List<TotalOperateIncome> listAllFromOrderDetailByTotal(AccountOrderDetail accountOrderDetail) {
+		return accountOperateIncomeMapper.listAllFromOrderDetailByTotal(accountOrderDetail);
+	}
 	
 }

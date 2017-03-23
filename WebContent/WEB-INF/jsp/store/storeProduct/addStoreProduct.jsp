@@ -55,13 +55,12 @@ $(function() {
 				productStatus:$("#edit_productStatus").val(),
 				productUnitPrice:$("#edit_productUnitPrice").val(),
 				productStocks:$("#edit_productStocks").val(),
-				
 				merchantDiscount:$("#edit_merchantDiscount").val(),
-				merchantDiscountBegin:$("#edit_merchantDiscountBegin").val(),
-				merchantDiscountEnd:$("#edit_merchantDiscountEnd").val(),
+				/* merchantDiscountBegin:$("#edit_merchantDiscountBegin").val(),
+				merchantDiscountEnd:$("#edit_merchantDiscountEnd").val(), */
 				specialOffer:$("#edit_specialOffer").val(),
-				specialOfferBegin:$("#edit_specialOfferBegin").val(),
-				specialOfferEnd:$("#edit_specialOfferEnd").val(),
+				/* specialOfferBegin:$("#edit_specialOfferBegin").val(),
+				specialOfferEnd:$("#edit_specialOfferEnd").val() */
 			};
 		$.ajax({
 	 		   type: "post",
@@ -202,24 +201,24 @@ function drawForm(rowData) {
 			<tr>
 				<td class="inputLabelTd">产品单价：</td>
 				<td class="inputTd">
-					<input id="edit_productUnitPrice" name="productUnitPrice" type="text" class="text number" value="${storeProduct.productUnitPrice}"/>
+					<input id="edit_productUnitPrice" name="productUnitPrice" type="text" class="text number" />
 				</td>
 				<td class="inputLabelTd">库存数量：</td>
 				<td class="inputTd">
-					<input id="edit_productStocks" name="productStocks" type="text" class="text number" value="${storeProduct.productStocks}"/>
+					<input id="edit_productStocks" name="productStocks" type="text" class="text number" />
 				</td>
 			</tr>
 			<tr>
 				<td class="inputLabelTd">菜品折扣：</td>
 				<td class="inputTd">
-					<input id="edit_merchantDiscount" name="merchantDiscount" type="text" class="text number" value="${storeProduct.merchantDiscount}"/>
+					<input id="edit_merchantDiscount" name="merchantDiscount" type="text" class="text number" />
 				</td>
 				<td class="inputLabelTd">签订特价结算金额：</td>
 				<td class="inputTd">
-					<input id="edit_specialOffer" name="specialOffer" type="text" class="text number" value="${storeProduct.specialOffer}"/>
+					<input id="edit_specialOffer" name="specialOffer" type="text" class="text number"/>
 				</td>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<td class="inputLabelTd">菜品折扣时间起：</td>
 				<td class="inputTd">
 					<div class="input-group">
@@ -258,7 +257,7 @@ function drawForm(rowData) {
 						</span>
 					</div>
 				</td>
-			</tr>
+			</tr> -->
 			<tr>
 				<td class="inputTd" colspan="4" style="text-align:center;">
 					<input id="submit" type="button" class="ti_bottom" value="保存"/>

@@ -124,7 +124,7 @@ public class FormatEntity {
 					}
 				}
 				
-				// 如果类型是int，基本类型。add by zt
+				// 如果类型是int，基本类型
 				if (property.getPropertyType().equals(Integer.TYPE)) {
 					Method m = property.getReadMethod();
 					Integer val = (Integer) m.invoke(object);
@@ -133,7 +133,7 @@ public class FormatEntity {
 					}
 				}
 				
-				// 如果类型是BigDecimal，基本类型。add by zt
+				// 如果类型是BigDecimal，基本类型
 				if (property.getPropertyType().equals(BigDecimal.class)) {
 					Method m = property.getReadMethod();
 					BigDecimal val = (BigDecimal) m.invoke(object);

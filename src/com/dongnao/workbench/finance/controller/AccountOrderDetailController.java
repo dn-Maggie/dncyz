@@ -114,26 +114,6 @@ public class AccountOrderDetailController{
 		 return mv;
 	}
 	
-	/**
-	 * 进入运营数据
-	 * @return ModelAndView
-	 */
-	@RequestMapping("/toListOperaData")
-	public ModelAndView toListOperaData(){
-		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/operaData/listOperaData");
-		 return mv;
-	}
-	
-	/**
-	 * 进入运营统计数据
-	 * @return ModelAndView
-	 */
-	@RequestMapping("/toListAllFromOrderDetail")
-	public ModelAndView toListAllFromOrderDetail(){
-		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/operaData/listTotalOperaData");
-		 return mv;
-	}
-	
 	
 	/**
 	 * 根据条件查找订单详细
@@ -175,6 +155,17 @@ public class AccountOrderDetailController{
 				response,accountOrderDetailService.update(accountOrderDetail));	
 	}
 	
+	/**
+	 * 修改自配送实际支付金额方法
+	 * @param accountOrderDetail AccountOrderDetail：实体对象
+	 * @param response HttpServletResponse
+	 * @return: ajax输入json字符串
+	 */	
+	@RequestMapping("/updateAccountOrderDetailActualDistCharge")
+	public void updateAccountOrderDetailActualDistCharge(AccountOrderDetail accountOrderDetail,HttpServletRequest request,HttpServletResponse response){
+		AjaxUtils.sendAjaxForObjectStr(
+				response,accountOrderDetailService.updateActualDistCharge(accountOrderDetail));	
+	}
 	/**
 	 * 菜品数量表明细
 	 */

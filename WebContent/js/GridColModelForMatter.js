@@ -6,6 +6,15 @@ GridColModelForMatter = {
 		else
 			return "有";
 	},
+	// 订单类型状态
+	orderType : function(cellvalue, options, cellObject) {
+		switch (cellvalue) {
+		case "NORMAL":return "普通单";
+		case "BOOKING":return "预定单";
+		default:
+			return "";
+		}
+	},
 	// 是否状态
 	yesno : function(cellvalue, options, cellObject) {
 		switch (cellvalue) {

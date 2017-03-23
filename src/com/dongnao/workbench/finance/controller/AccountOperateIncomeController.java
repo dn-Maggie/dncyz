@@ -110,17 +110,6 @@ public class AccountOperateIncomeController{
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listAccountOperateIncome");
 		 return mv;
 	}
-	
-	
-	/**
-	 * 进入运营数据日报表列表页面
-	 * @return ModelAndView
-	 */
-	@RequestMapping("/toListAccountOperateIncomeByDate")
-	public ModelAndView toListByDate(){
-		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listAccountOperateIncomeByDate");
-		 return mv;
-	}
 	/**
 	 * 根据条件查找列表方法
 	 * @param accountOperateIncome AccountOperateIncome：实体对象（查询条件）
@@ -137,34 +126,46 @@ public class AccountOperateIncomeController{
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
-	
 	/**
-	 * 运营统计数据(底价运营表明细)
+	 * 进入运营数据日报表列表页面
+	 * @return ModelAndView
 	 */
-	@RequestMapping("/listAllFromOrderDetail")
+	@RequestMapping("/toListAccountOperateIncomeByDate")
+	public ModelAndView toListByDate(){
+		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listAccountOperateIncomeByDate");
+		 return mv;
+	}
+	/**
+	 * 运营统计数据(运营日报表)
+	 */
+	@RequestMapping("/listAccountOperateIncomeByDate")
 	public void listAllFromOrderDetail(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		accountOrderDetail.setPage(page);	
-		List<TotalOperateIncome> list = accountOperateIncomeService.listAllFromOrderDetail(accountOrderDetail);
+		List<TotalOperateIncome> list = accountOperateIncomeService.listAllFromOrderDetailByDate(accountOrderDetail);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	/**
+	 * 进入运营汇总数据
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toListAccountOperateIncomeByTotal")
+	public ModelAndView toListAllFromOrderDetail(){
+		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listAccountOperateIncomeByTotal");
+		 return mv;
 	}
 	
 	/**
-	 * 根据条件查找运营数据
-	 * @param accountOrderDetail AccountOrderDetail：实体对象（查询条件）
-	 * @param request HttpServletRequest
-	 * @param response HttpServletResponse
-	 * @param page Page:分页对象
-	 * @return: ajax输入json字符串
+	 * 运营汇总数据
+	 * @return ModelAndView
 	 */
-	@RequestMapping("/listOperaData")
-	public void listOperaData(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
+	@RequestMapping("/ListAccountOperateIncomeByTotal")
+	public void ListAccountOperateIncomeByTotal(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		accountOrderDetail.setPage(page);	
-		List<AccountOperateIncome> list = accountOperateIncomeService.listByConditionFromOrderDetail(accountOrderDetail);
+		List<TotalOperateIncome> list = accountOperateIncomeService.listAllFromOrderDetailByTotal(accountOrderDetail);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
-	
 	/**
 	 * 进入修改页面方法
 	 * @param key String：实体id
@@ -290,11 +291,10 @@ public class AccountOperateIncomeController{
 		if (expType == 1) {
 			accountOrderDetail.setPage(page);
 		}
-		List<TotalOperateIncome> list = accountOperateIncomeService.listAllFromOrderDetail(accountOrderDetail);
+		List<TotalOperateIncome> list = accountOperateIncomeService.listAllFromOrderDetailByDate(accountOrderDetail);
 		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
 				"运营统计列表", "运营统计列表");
 	}
-	
 	
 	/**
 	 * 配置表头

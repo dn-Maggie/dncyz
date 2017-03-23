@@ -62,21 +62,21 @@
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-						 	id
-							,account_time
-							,elm_settlement
-							,baidu_settlement
-							,meituan_settlement
-							,total_settlement
-							,elm_cost
-							,baidu_cost
-							,meituan_cost
-							,actual_settlement
-							,remark
-							,store_id
-							,store_name
-						</sql>
-	
+	 	id
+		,account_time
+		,elm_settlement
+		,baidu_settlement
+		,meituan_settlement
+		,total_settlement
+		,elm_cost
+		,baidu_cost
+		,meituan_cost
+		,actual_settlement
+		,remark
+		,store_id
+		,store_name
+	</sql>
+
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 			ac.id
@@ -110,31 +110,61 @@
 			 from
 				(SELECT
 				od.id,
+				od.goods_price,
+				od.goods_quality,
 				od.is_invalid,
 				od.create_date AS create_date,
 				od.order_time AS create_time,
-				od.order_no AS order_no,
 				(od.prices + od.meal_fee) AS orgin_price,
-				-(od.activities_subsidy_bymerchant) AS discount_price,
+				od.activities_subsidy_bymerchant AS discount_price,
 				od.food_discount AS after_discount_price,
-				od.special_offer AS actual_price,
+				sp.special_offer AS actual_price,
+				od.order_dist_charge AS order_distribution_charge,
+				od.platform_dist_charge AS platform_distribution_charge,
+				od.actual_merchant_dist_charge,
+				od.merchant_dist_charge AS cyz_distribution_charge, 
+				(od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) AS cyz_activities_charge, 
+				od.platform_activities_subsidies AS platform_activities_charge,
+				od.service_charge AS platform_service_charge,
+				(CASE WHEN od.remark like "%扣单%" THEN 
+				-(od.prices + od.meal_fee - od.activities_subsidy_bymerchant)
+				ELSE 
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant)
+				END)
+				 AS product_sale_amount,    
 				od.settlement_amount AS amount_receivable, 
-				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount)* 0.7 AS seventyP_product_sale_amount,
-				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount AS amount_payable, 
-				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.3 AS cyz_service_charge,
-				'待确认' AS distribution_actual_payment,
-				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant) - (-od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) + od.service_charge -
-				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount) AS sale_gross_profit,
-				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant) - (-od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) + od.service_charge -
-				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount))/ 
-				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.3)
-				AS sale_gross_profit_rate,
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount)* 
+				<if test="orderSaleRate != null and '' != orderSaleRate">  
+					#{orderSaleRate,jdbcType=DECIMAL}
+				</if>
+				 AS seventyP_product_sale_amount,
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 
+				<if test="orderSaleRate != null and '' != orderSaleRate">  
+					#{orderSaleRate,jdbcType=DECIMAL}
+				</if>
+				 + od.food_discount AS amount_payable, 
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * (1-
+				<if test="orderSaleRate != null and '' != orderSaleRate">  
+					#{orderSaleRate,jdbcType=DECIMAL}
+				</if>) AS cyz_service_charge,
+				od.distribution_actual_payment AS distribution_actual_payment,
+				od.prices+od.meal_fee
+				-((od.prices+od.meal_fee-od.activities_subsidy_bymerchant-(case when od.special_offer>0 then od.special_offer else od.food_discount end))*
+				<if test="orderSaleRate != null and '' != orderSaleRate">  
+					#{orderSaleRate,jdbcType=DECIMAL}
+				</if> + od.activities_subsidy_bymerchant)
+				-(od.merchant_activities_subsidies-od.activities_subsidy_bymerchant)
+				-od.service_charge AS sale_gross_profit,
 				od.store_name,
 				od.remark,
 				od.platform_type,
-				(CASE WHEN od.platform_type = "meituan" THEN od.store_MT_id WHEN od.platform_type like "elm" THEN od.store_ELM_id END) as store_id
+				od.store_ELM_id,
+				od.store_MT_id,
+				od.store_BD_id
 		 	FROM
 				account_order_detail AS od
+			 LEFT JOIN dn_store as s on s.elm_id = od.store_ELM_id 
+			 LEFT JOIN store_product as sp on sp.store_id = s.STORE_ID and FIND_IN_SET(sp.product_name,od.goods_name)>0
 			where 1=1
 			AND od.is_invalid= '0'
 			<if test="createDate != null and '' != createDate">  
@@ -227,32 +257,62 @@
 	<select id="listDetailAccountCheck" resultMap="OperateIncomeResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
 		SELECT
 				od.id,
+				od.goods_price,
+				od.goods_quality,
+				od.is_invalid,
 				od.create_date AS create_date,
 				od.order_time AS create_time,
-				od.order_no AS order_no,
 				(od.prices + od.meal_fee) AS orgin_price,
-				-(od.activities_subsidy_bymerchant) AS discount_price,
+				od.activities_subsidy_bymerchant AS discount_price,
 				od.food_discount AS after_discount_price,
-				od.special_offer AS actual_price,
+				sp.special_offer AS actual_price,
+				od.order_dist_charge AS order_distribution_charge,
+				od.platform_dist_charge AS platform_distribution_charge,
+				od.actual_merchant_dist_charge,
+				od.merchant_dist_charge AS cyz_distribution_charge, 
+				(od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) AS cyz_activities_charge, 
+				od.platform_activities_subsidies AS platform_activities_charge,
+				od.service_charge AS platform_service_charge,
+				(CASE WHEN od.remark like "%扣单%" THEN 
+				-(od.prices + od.meal_fee - od.activities_subsidy_bymerchant)
+				ELSE 
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant)
+				END)
+				 AS product_sale_amount,    
 				od.settlement_amount AS amount_receivable, 
-				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount)* 0.7 AS seventyP_product_sale_amount,
-				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount AS amount_payable, 
-				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.3 AS cyz_service_charge,
-				'待确认' AS distribution_actual_payment,
-				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant) - (-od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) + od.service_charge -
-				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount) AS sale_gross_profit,
-				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant) - (-od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) + od.service_charge -
-				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.7 + od.food_discount))/ 
-				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 0.3)
-				AS sale_gross_profit_rate,
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount)* 
+				<if test="orderSaleRate != null and '' != orderSaleRate">  
+					#{orderSaleRate,jdbcType=DECIMAL}
+				</if>
+				 AS seventyP_product_sale_amount,
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 
+				<if test="orderSaleRate != null and '' != orderSaleRate">  
+					#{orderSaleRate,jdbcType=DECIMAL}
+				</if>
+				 + od.food_discount AS amount_payable, 
+				(od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * (1-
+				<if test="orderSaleRate != null and '' != orderSaleRate">  
+					#{orderSaleRate,jdbcType=DECIMAL}
+				</if>) AS cyz_service_charge,
+				od.distribution_actual_payment AS distribution_actual_payment,
+				od.prices+od.meal_fee
+				-((od.prices+od.meal_fee-od.activities_subsidy_bymerchant-(case when od.special_offer>0 then od.special_offer else od.food_discount end))*
+				<if test="orderSaleRate != null and '' != orderSaleRate">  
+					#{orderSaleRate,jdbcType=DECIMAL}
+				</if> + od.activities_subsidy_bymerchant)
+				-(od.merchant_activities_subsidies-od.activities_subsidy_bymerchant)
+				-od.service_charge AS sale_gross_profit,
 				od.store_name,
 				od.remark,
 				od.platform_type,
-				(CASE WHEN od.platform_type = "meituan" THEN od.store_MT_id WHEN od.platform_type like "elm" THEN od.store_ELM_id END) as store_id
+				od.store_ELM_id,
+				od.store_MT_id,
+				od.store_BD_id
 		 	FROM
 				account_order_detail AS od
+			 LEFT JOIN dn_store as s on s.elm_id = od.store_ELM_id 
+			 LEFT JOIN store_product as sp on sp.store_id = s.STORE_ID and FIND_IN_SET(sp.product_name,od.goods_name)>0
 			where 1=1
-			AND od.is_invalid= '0'
 			<if test="createDate != null and '' != createDate">  
 				and od.create_date = #{createDate,jdbcType=DATE}
 			</if>

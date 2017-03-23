@@ -60,15 +60,16 @@ public class TotalOperateIncome extends Model{
 	                 **/
 				   			private String allcyzServiceCharge;
 		   		
-		   		
+				   			
 		            /**
 	                 * 销售毛利
 	                 **/
 				   			private String allsaleGrossProfit;
 		   		
-		            /**
-	                 * 自配送实际支付金额
-	                 **/
+			            /**
+		                 * 自配送实际支付金额
+		                 **/
+				   			private String  allactualMerchantDistCharge;
 				   			private String platformType;
 		   		
 				   			private String storeId;
@@ -250,6 +251,14 @@ public class TotalOperateIncome extends Model{
 
 							public void setAllgoodsQuality(Integer allgoodsQuality) {
 								this.allgoodsQuality = allgoodsQuality;
+							}
+
+							public String getAllactualMerchantDistCharge() {
+								return allactualMerchantDistCharge;
+							}
+
+							public void setAllactualMerchantDistCharge(String allactualMerchantDistCharge) {
+								this.allactualMerchantDistCharge = allactualMerchantDistCharge;
 							}
 
 							

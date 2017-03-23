@@ -48,8 +48,14 @@ public interface AccountOperateIncomeMapper  {
 	 * 根据订单详细表得到运营数据方法
 	 */
 	public List<AccountOperateIncome> listByConditionFromOrderDetail(AccountOrderDetail accountOrderDetail);
-
-	public List<TotalOperateIncome> listAllFromOrderDetail(AccountOrderDetail accountOrderDetail);
+	/**
+	 * 根据订单计算出运营数据合计(运营日)
+	 */
+	public List<TotalOperateIncome> listAllFromOrderDetailByDate(AccountOrderDetail accountOrderDetail);
+	/**
+	 * 根据订单计算出运营数据合计(店铺合计)
+	 */
+	public List<TotalOperateIncome> listAllFromOrderDetailByTotal(AccountOrderDetail accountOrderDetail);
 
 	public int addOperaDetail(ArrayList<AccountOperateIncome> operateIncomeList);
 }

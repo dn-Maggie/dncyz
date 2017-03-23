@@ -106,8 +106,14 @@
 	    border: 0; 
 	    text-align: center;
 	}
-	.th[aria-selected=true] .ui-jqgrid-sortable {
+	.th[aria-selected=true] .ui-jqgrid-sortable,.ui-icon,th[aria-selected=true] .ui-jqgrid-sortable {
 	    color: #f47115;
+	}
+	.ui-th-column, .ui-jqgrid .ui-jqgrid-htable th.ui-th-column{
+		white-space:normal; 
+	}
+	.ui-jqgrid-sortable{
+		font-weight:normal;
 	}
 </style>
 <script src="<%=request.getContextPath() %>/js/ace-common.js"></script>

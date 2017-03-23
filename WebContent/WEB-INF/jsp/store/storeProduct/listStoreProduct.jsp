@@ -33,11 +33,11 @@ var storeProductGrid = {};
    					{name : "productStocks",label:"库存数量",index : "PRODUCT_STOCKS"},				
    					{name : "productStatus",label:"产品状态",index : "PRODUCT_STATUS"},
    					{name : "merchantDiscount",label:"菜品折扣",index : "merchant_discount"},	
-   					{name : "merchantDiscountBegin",label:"折扣时间起",index : "merchant_discount_begin"},	
-   					{name : "merchantDiscountEnd",label:"折扣时间止",index : "merchant_discount_end"},		
+   				/* 	{name : "merchantDiscountBegin",label:"折扣时间起",index : "merchant_discount_begin"},	
+   					{name : "merchantDiscountEnd",label:"折扣时间止",index : "merchant_discount_end"},		 */
    					{name : "specialoOffer",label:"签订特价结算金额",index : "special_offer"},			
-   					{name : "specialOfferBegin",label:"签订特价结算时间起",index : "special_offer_begin"},			
-   					{name : "specialOfferEnd",label:"签订特价结算时间止",index : "special_offer_end"}			
+   					/* {name : "specialOfferBegin",label:"签订特价结算时间起",index : "special_offer_begin"},			
+   					{name : "specialOfferEnd",label:"签订特价结算时间止",index : "special_offer_end"}		 */	
    	        ],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = {storeId:"${storeId}"};

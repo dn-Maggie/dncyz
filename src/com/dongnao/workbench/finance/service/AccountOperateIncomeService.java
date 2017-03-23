@@ -56,8 +56,12 @@ public interface AccountOperateIncomeService  {
 	 */
 	public List<AccountOperateIncome> listByConditionFromOrderDetail(AccountOrderDetail accountOrderDetail);
 	/**
-	 * 根据订单计算出运营数据合计
+	 * 根据订单计算出运营数据合计（运营日）
 	 */
-	public List<TotalOperateIncome> listAllFromOrderDetail(AccountOrderDetail accountOrderDetail) ;
+	public List<TotalOperateIncome> listAllFromOrderDetailByDate(AccountOrderDetail accountOrderDetail) ;
+	/**
+	 * 根据订单计算出运营数据合计（店铺合计）
+	 */
+	public List<TotalOperateIncome> listAllFromOrderDetailByTotal(AccountOrderDetail accountOrderDetail) ;
 	
 }

@@ -332,12 +332,8 @@ public class StoreProduct extends Model{
 			public void setProductStocks(Integer productStocks){
 				this.productStocks = productStocks;
 			}
-		  		
-		
-		
-			
 						
-		  			/**
+  			/**
 			 * 获取 产品状态
 			 * @return String this.productStatus
 			 */

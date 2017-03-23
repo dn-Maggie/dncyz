@@ -8,34 +8,39 @@
 <script type="text/javascript">
 var gridObj = {};
 //绑商家卡对账表表头    
+var boundMerchantorderSaleRate = localStorage.getItem("boundMerchantorderSaleRate")?localStorage.getItem("boundMerchantorderSaleRate"):0.7;
 var boundMerchantModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/>",
-					 colModel:[
-						{name : "storeName",label:"商户名称",index : "store_name"},	
-						{name : "createDate",label:"日期",index : "create_date"},				
-						{name : "createTime",label:"订单时点",index : "create_time"},				
-						{name : "orderNo",label:"订单号",index : "order_no"},				
-						{name : "orginPrice",label:"原价",index : "orgin_price"},				
-						{name : "discountPrice",label:"菜品折扣",index : "discount_price"},				
-						{name : "afterDiscountPrice",label:"折扣菜金额",index : "after_discount_price"},	
-						{name : "",label:"特价结算"},
-						{name : "actualPrice",label:"原价菜金额",index : "actual_price"},				
-						{name : "amountPayable",label:"结算金额",index : "amount_payable"}
-		           	]};
+					 	colModel:[
+							{name : "storeName",label:"商户名称",index : "store_name"},	
+							{name : "createDate",label:"日期",index : "create_date"},				
+							{name : "createTime",label:"订单时点",index : "create_time"},				
+							{name : "orderNo",label:"订单号",index : "order_no"},				
+							{name : "orginPrice",label:"原价",index : "orgin_price"},				
+							{name : "discountPrice",label:"菜品折扣",index : "discount_price"},				
+							{name : "afterDiscountPrice",label:"折扣菜金额",index : "after_discount_price"},	
+							{name : "",label:"特价结算"},
+							{name : "actualPrice",label:"原价菜金额",index : "actual_price"},				
+							{name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",hidden:true,editFlag:true,calculate:"0.7",
+	           					formatter : function(value, options, rData){boundMerchantorderSaleRate = options.colModel.calculate;return eval(options.colModel.calculate);}},
+							{name : "amountPayable",label:"结算金额",index : "amount_payable"}
+		           		]};
 //绑公司卡对账表表头         
+var boundCompanyorderSaleRate = localStorage.getItem("boundCompanyorderSaleRate")?localStorage.getItem("boundCompanyorderSaleRate"):0.7;
 var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/>",
-					colModel:[
-						{name : "storeName",label:"商户名称",index : "store_name"},	
-						{name : "createDate",label:"日期",index : "create_date"},				
-						{name : "createTime",label:"订单时点",index : "create_time"},				
-						{name : "orderNo",label:"订单号",index : "order_no"},				
-						{name : "orginPrice",label:"原价",index : "orgin_price"},				
-						{name : "discountPrice",label:"菜品折扣",index : "discount_price"},				
-						{name : "afterDiscountPrice",label:"折扣菜金额",index : "after_discount_price"},	
-						{name : "",label:"特价结算"},
-						{name : "actualPrice",label:"原价菜金额",index : "actual_price"},				
-						{name : "amountPayable",label:"结算金额",index : "amount_payable"}
-		           	]};
-function cellFormat(value, options, rData){return eval("options.colModel.calculate");}	
+						colModel:[
+							{name : "storeName",label:"商户名称",index : "store_name"},	
+							{name : "createDate",label:"日期",index : "create_date"},				
+							{name : "createTime",label:"订单时点",index : "create_time"},				
+							{name : "orderNo",label:"订单号",index : "order_no"},				
+							{name : "orginPrice",label:"原价",index : "orgin_price"},				
+							{name : "discountPrice",label:"菜品折扣",index : "discount_price"},				
+							{name : "afterDiscountPrice",label:"折扣菜金额",index : "after_discount_price"},	
+							{name : "",label:"特价结算"},
+							{name : "actualPrice",label:"原价菜金额",index : "actual_price"},				
+							{name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",hidden:true,editFlag:true,calculate:"0.7",
+	           					formatter : function(value, options, rData){boundCompanyorderSaleRate = options.colModel.calculate;return eval(options.colModel.calculate);}},
+							{name : "amountPayable",label:"结算金额",index : "amount_payable"}
+		           		]};
 $(function(){
 			initGrid("boundMerchant");
 			$(".tableTab").on('click',function(){
@@ -58,6 +63,7 @@ $(function(){
 	};
 	//初始化grid
 	function initGrid(ways){
+		$("#orderSaleRate").val(localStorage.getItem(ways+"orderSaleRate")?localStorage.getItem(ways+"orderSaleRate"):0.7);
 		if(localStorage.getItem(ways+"Model")){
 			var localStorageModel= $.each(JSON.parse(localStorage.getItem(ways+"Model")), function(idx, obj) {
 				if(obj.serial){
@@ -108,7 +114,7 @@ $(function(){
 			rowNum:15,//默认显示15条
 	      });
 		$("#"+ways).setColProp('calculate');
-		$("#"+ways).setColProp('editable');
+		$("#"+ways).setColProp('editFlag');
 	}
 	//配置的弹出框
 	var config_iframe_dialog;
@@ -197,7 +203,10 @@ $(function(){
 		<form id="queryForm"><!-- 查询区 表单 -->
 			<div class="search border-bottom">
 				<ul>
-				<li><input type="text" name="storeName" id="storeName" class="search_choose"> <span>店铺名称:</span></li><!-- 输入框-->
+				<li>
+					<input type="hidden" name="orderSaleRate" id="orderSaleRate">
+					<input type="text" name="storeName" id="storeName" class="search_choose"> 
+					<span>店铺名称:</span></li><!-- 输入框-->
 				<li>
 					<div class="time_bg">
 					<input type="text" placeholder="截止日期"  class="search_time150 date-picker" name="propsMap['endDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
