@@ -31,6 +31,7 @@ public class TotalOperateIncome extends Model{
 	                 **/
 				   			private Integer allvalidNum;
 				   			private BigDecimal allorginPrice;
+				   			private BigDecimal distPrice;
 				   			private BigDecimal allorderDistributionCharge;
 				   			private Integer allgoodsQuality;
 				   			private BigDecimal allbasePrice;
@@ -69,7 +70,7 @@ public class TotalOperateIncome extends Model{
 			            /**
 		                 * 自配送实际支付金额
 		                 **/
-				   			private String  allactualMerchantDistCharge;
+				   			private BigDecimal  allactualMerchantDistCharge;
 				   			private String platformType;
 		   		
 				   			private String storeId;
@@ -253,12 +254,20 @@ public class TotalOperateIncome extends Model{
 								this.allgoodsQuality = allgoodsQuality;
 							}
 
-							public String getAllactualMerchantDistCharge() {
+							public BigDecimal getAllactualMerchantDistCharge() {
 								return allactualMerchantDistCharge;
 							}
 
-							public void setAllactualMerchantDistCharge(String allactualMerchantDistCharge) {
+							public void setAllactualMerchantDistCharge(BigDecimal allactualMerchantDistCharge) {
 								this.allactualMerchantDistCharge = allactualMerchantDistCharge;
+							}
+
+							public BigDecimal getDistPrice() {
+								return distPrice;
+							}
+
+							public void setDistPrice(BigDecimal distPrice) {
+								this.distPrice = distPrice;
 							}
 
 							

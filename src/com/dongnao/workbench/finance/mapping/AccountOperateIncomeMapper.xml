@@ -64,6 +64,7 @@
 		<result column="allcyz_service_charge" property="allcyzServiceCharge" jdbcType="DECIMAL" />
 		<result column="allsale_gross_profit" property="allsaleGrossProfit" jdbcType="DECIMAL" />
 		<result column="allactual_merchant_dist_charge" property="allactualMerchantDistCharge" jdbcType="DECIMAL" />
+		<result column="dist_price" property="distPrice" jdbcType="DECIMAL" />
 		<result column="platform_type" property="platformType" jdbcType="VARCHAR" />
 		<result column="store_id" property="storeId" jdbcType="VARCHAR" />
 		<result column="store_name" property="storeName" jdbcType="VARCHAR" />
@@ -476,7 +477,7 @@
 			
 			sum(goods_quality) as allgoods_quality,
 			sum(actual_price) as allbase_price,
-			<!-- sum(orgin_price) as allother_base_price, -->
+			(CASE WHEN WORK_TIME_BEGIN>'20:00:00' then 12.5 ELSE 7.5 END) as distPrice,
 			sum(platform_service_charge) as allplatform_service_charge,
 			sum(platform_distribution_charge) as allplatform_dist_charge,
 			
@@ -539,13 +540,7 @@
 				</if> + od.activities_subsidy_bymerchant)
 				-(od.merchant_activities_subsidies-od.activities_subsidy_bymerchant)
 				-od.service_charge AS sale_gross_profit,
-				
-				<!-- (od.prices + od.meal_fee - od.activities_subsidy_bymerchant) - (od.merchant_activities_subsidies - od.activities_subsidy_bymerchant) - od.service_charge -
-				((od.prices + od.meal_fee - od.activities_subsidy_bymerchant - od.food_discount) * 
-				<if test="orderSaleRate != null and '' != orderSaleRate">  
-					#{orderSaleRate,jdbcType=DECIMAL}
-				</if>
-				+ od.food_discount) AS sale_gross_profit, -->
+				s.WORK_TIME_BEGIN as WORK_TIME_BEGIN,
 				od.store_name,
 				od.remark,
 				od.platform_type,

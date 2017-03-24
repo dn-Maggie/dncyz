@@ -571,7 +571,13 @@
 	
 	<update id="updateActualDistCharge" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
 		update account_order_detail  set
-			actual_merchant_dist_charge = #{actualMerchantDistCharge,jdbcType=DECIMAL}
+				id= #{id,jdbcType=VARCHAR}
+			<if test="actualMerchantDistCharge != null and '' != actualMerchantDistCharge">  
+				,actual_merchant_dist_charge = #{actualMerchantDistCharge,jdbcType=DECIMAL}
+			</if>
+			<if test="remark != null and '' != remark">  
+				,remark = #{remark,jdbcType=VARCHAR}
+			</if>
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
 	

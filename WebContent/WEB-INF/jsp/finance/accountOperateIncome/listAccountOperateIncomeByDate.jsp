@@ -28,8 +28,6 @@ var basePriceModel =  {url: "<m:url value='/accountOperateIncome/listAccountOper
         				{name : "allplatformActivitiesCharge",label:"平台承担线上活动费"},
 	       				{name : "allcyzActivitiesCharge",label:"公司承担线上活动费"},
 	       				{name : "allplatformServiceCharge",label:"平台服务费"},
-	       				/* {name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?value!='baidu'?'未知':'百度':'美团':'饿了么';",editFlag:true,
-							formatter : function(value, options, rData){return eval(options.colModel.calculate);}}, */
 				       	]};
 //销售额比例抽佣运营表表头         
 var salesRateModel = {url: "<m:url value='/accountOperateIncome/listAccountOperateIncomeByDate.do'/>",
@@ -47,8 +45,6 @@ var salesRateModel = {url: "<m:url value='/accountOperateIncome/listAccountOpera
         				{name : "allplatformActivitiesCharge",label:"平台承担线上活动费"},
 	       				{name : "allcyzActivitiesCharge",label:"公司承担线上活动费"},
 	       				{name : "allplatformServiceCharge",label:"平台服务费"},
-		  				/* {name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?value!='baidu'?'未知':'百度':'美团':'饿了么';",editFlag:true,
-								formatter : function(value, options, rData){return eval(options.colModel.calculate);}}, */
 				       	]};
 //平台到账抽佣运营表表头            		
 var platformAccountModel = {
@@ -67,8 +63,6 @@ var platformAccountModel = {
         				{name : "allplatformActivitiesCharge",label:"平台承担线上活动费"},
 	       				{name : "allcyzActivitiesCharge",label:"公司承担线上活动费"},
 	       				{name : "allplatformServiceCharge",label:"平台服务费"},
-        				/* {name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?value!='baidu'?'未知':'百度':'美团':'饿了么';",editFlag:true,
-							formatter : function(value, options, rData){return eval(options.colModel.calculate);}}, */
 				       	]};				      
 //深运营表表头         
 var deepOperationModel ={url: "<m:url value='/accountOperateIncome/listAccountOperateIncomeByDate.do'/>",
@@ -89,8 +83,6 @@ var deepOperationModel ={url: "<m:url value='/accountOperateIncome/listAccountOp
 	       					formatter : function(value, options, rData){return (value*2/7).toFixed(3);}},	
 		     			{name : "allplatformActivitiesCharge",label:"平台承担线上活动费"},
 		     			{name : "allplatformServiceCharge",label:"平台服务费",},
-						/* {name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?value!='baidu'?'未知':'百度':'美团':'饿了么';",editFlag:true,
-							formatter : function(value, options, rData){return eval(options.colModel.calculate);}} */
 				       	]};
 
 		$(function(){

@@ -122,12 +122,13 @@ function orderIndex(){
 		$('.indexId:eq('+i+')').html(i+1);
 	}
 }
-var platformAccountorderSaleRate,deepOperationorderSaleRate,salesRateorderSaleRate;
+var platformAccountorderSaleRate,deepOperationorderSaleRate,salesRateorderSaleRate,distPrice;
 function cellFormatter(value, options, rData){
-	platformAccountorderSaleRate = $("input[value='orderSaleRate']").parents('tr').find('.calcu').val();
-	deepOperationorderSaleRate = $("input[value='orderSaleRate']").parents('tr').find('.calcu').val();
-	salesRateorderSaleRate = $("input[value='orderSaleRate']").parents('tr').find('.calcu').val(); 
-	return eval($(".calcu:eq("+options.colModel.serial+")").val());
+	if(rData.raw){
+		return value;
+	}else{
+		return eval($(".calcu:eq("+options.colModel.serial+")").val());
+	}
 }
 //添加行
 function addTr(){
@@ -247,6 +248,10 @@ $(function() {
 	});
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
+		distPrice = $("input[value='distPrice']").parents('tr').find('.calcu').val();
+		platformAccountorderSaleRate = $("input[value='orderSaleRate']").parents('tr').find('.calcu').val();
+		deepOperationorderSaleRate = $("input[value='orderSaleRate']").parents('tr').find('.calcu').val();
+		salesRateorderSaleRate = $("input[value='orderSaleRate']").parents('tr').find('.calcu').val(); 
 		var jsonArr = [];
 		for(var i = 0;i<$(".trItem").size();i++){
 			var jsonObj ={
@@ -270,6 +275,7 @@ $(function() {
 		var tableId = $parent.$('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
 		localStorage.setItem(tableId+"Model",JSON.stringify(jsonArr));
 		localStorage.setItem(tableId+"orderSaleRate",orderSaleRate);
+		localStorage.setItem("distPrice",distPrice);
 		$parent.loadConfigGrid(tableId,jsonArr);
 		$parent.closeConfig();
 	});
