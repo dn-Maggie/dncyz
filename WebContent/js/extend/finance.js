@@ -26,11 +26,6 @@ Finance = {
     	var tableName = $('.tableTab.checked').find('span').text();
     	Finance.configGrid(tableName,tableId);
     },
-    initGrid:function(ways){
-    	
-    	
-    	
-    },
     getQueryCondition:function(){
         var obj = {};
  		jQuery.each($("#queryForm").serializeArray(),function(i,o){
@@ -40,15 +35,32 @@ Finance = {
          });
  		return obj;
      },
-    createGrid :function(ways,localStorageModel){ 
+    createGrid :function(ways,localStorageModel,gridCompleteCount,editCell,editURL){ 
     	return new biz.grid({
 	        id:"#"+ways,
 	        url: eval(ways+"Model.url"),
 	       	sortname:"create_date",
 	       	sortorder:"asc",
-	       	footerrow:true,
+	       	footerrow:gridCompleteCount,
+	       	cellEdit:editCell,
+	       	afterEditCell: function (id,name,val,iRow,iCol){
+	        },
+           	afterSaveCell : function(rowid,name,val,iRow,iCol) {
+           		if(editCell){
+           			var paramDatas = {};
+	           		paramDatas[name] = val;
+	           		paramDatas.id = rowid;
+	           		$ .ajax({
+	           			type: "post",
+	    				url: baseUrl+editURL,
+	    				data: paramDatas,
+						cache:false,
+	    				dataType:"json"
+	    			});
+           		}
+          	},
 	       	pager: "#"+ways+"prowed",
-	        colModel:localStorage.getItem(ways+"Model")?localStorageModel:eval(ways+"Model.colModel"),
+	        colModel:localStorageModel?localStorageModel:eval(ways+"Model.colModel"),
 			serializeGridData:function(postData){//添加查询条件值
 				var obj = Finance.getQueryCondition();
 				$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
@@ -60,32 +72,51 @@ Finance = {
 			rowNum:15,//默认显示15条
 			gridComplete:function(){//表格加载执行  
 			    $(this).closest(".ui-jqgrid-bdiv").css({ 'overflow-x' : 'hidden' });
-			 	$(".ui-jqgrid-sdiv").show();
-			 	var footerCell = $(this).footerData();
-			 	var footerObj = {};
-			 	for(var i in footerCell){
-			 		footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(3):0;
+			 	if(gridCompleteCount){
+			 		 $(".ui-jqgrid-sdiv").show();
+					 	var footerCell = $(this).footerData();
+					 	var footerObj = {};
+					 	for(var i in footerCell){
+					 		footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(3):0;
+					 	}
+					 	footerObj['raw'] = true;
+					 	footerObj['rn'] = "合";
+					 	footerObj['cb'] = "计";
+					 	footerObj['createDate'] = footerObj['storeName'] ="";
+				    	$(this).footerData("set",footerObj); //将合计值显示出来
 			 	}
-			 	footerObj['raw'] = true;
-			 	footerObj['rn'] = "合";
-			 	footerObj['cb'] = "计";
-			 	footerObj['createDate'] = footerObj['storeName'] ="";
-		    	$(this).footerData("set",footerObj); //将合计值显示出来
 			}
     	});
     },
-    loadConfigGrid :function(ways,colModel){ 
+    loadConfigGrid :function(ways,colModel,gridCompleteCount,editCell,editURL){ 
     	return new biz.grid({
 	        id:"#"+ways,
 	        url: eval(ways+"Model.url"),
 	       	sortname:"create_date",
 	       	sortorder:"asc",
-	       	footerrow:true,
+	       	footerrow:gridCompleteCount,
+	       	cellEdit:editCell,
+	       	afterEditCell: function (id,name,val,iRow,iCol){
+	        },
+           	afterSaveCell : function(rowid,name,val,iRow,iCol) {
+           		if(editCell){
+           			var paramDatas = {};
+	           		paramDatas[name] = val;
+	           		paramDatas.id = rowid;
+	           		$ .ajax({
+	           			type: "post",
+	    				url: baseUrl+editURL,
+	    				data: paramDatas,
+						cache:false,
+	    				dataType:"json"
+	    			});
+           		}
+          	},
 	       	pager: '#'+ways+'prowed',
 	        colModel:colModel,
 	        serializeGridData:function(postData){//添加查询条件值
 				var obj = Finance.getQueryCondition();
-				$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
+		$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
 				return obj;
 			},
 		 	datatype: "json",/*数据类型，设置为json数据，默认为json*/
@@ -94,17 +125,19 @@ Finance = {
 			rowNum:15,//默认显示15条
 			gridComplete:function(){//表格加载执行  
 			    $(this).closest(".ui-jqgrid-bdiv").css({ 'overflow-x' : 'hidden' });
-			 	$(".ui-jqgrid-sdiv").show();
-			 	var footerCell = $(this).footerData();
-			 	var footerObj = {};
-			 	for(var i in footerCell){
-			 		footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(3):0;
-			 	}
-			 	footerObj['raw'] = true;
-			 	footerObj['rn'] = "合";
-			 	footerObj['cb'] = "计";
-			 	footerObj['createDate'] = footerObj['storeName'] ="";
-		    	$(this).footerData("set",footerObj); //将合计值显示出来
+			    if(gridCompleteCount){
+				 	$(".ui-jqgrid-sdiv").show();
+				 	var footerCell = $(this).footerData();
+				 	var footerObj = {};
+				 	for(var i in footerCell){
+				 		footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(3):0;
+				 	}
+				 	footerObj['raw'] = true;
+				 	footerObj['rn'] = "合";
+				 	footerObj['cb'] = "计";
+				 	footerObj['createDate'] = footerObj['storeName'] ="";
+			    	$(this).footerData("set",footerObj); //将合计值显示出来
+			    }
 			}
       	});
     },

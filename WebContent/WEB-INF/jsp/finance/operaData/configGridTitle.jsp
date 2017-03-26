@@ -113,7 +113,6 @@
 	<li class="result" style="display: list-item;">
 		<span class="use"><a class="calc_use" href="#" data-val="{{basicName}}">{{basicLabel}}</a></span>
 	</li>
-
 </script>
 <script type="text/javascript">
 //index排序
@@ -249,9 +248,9 @@ $(function() {
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
 		distPrice = $("input[value='distPrice']").parents('tr').find('.calcu').val();
-		platformAccountorderSaleRate = $("input[value='orderSaleRate']").parents('tr').find('.calcu').val();
+		/* platformAccountorderSaleRate = $("input[value='orderSaleRate']").parents('tr').find('.calcu').val();
 		deepOperationorderSaleRate = $("input[value='orderSaleRate']").parents('tr').find('.calcu').val();
-		salesRateorderSaleRate = $("input[value='orderSaleRate']").parents('tr').find('.calcu').val(); 
+		salesRateorderSaleRate = $("input[value='orderSaleRate']").parents('tr').find('.calcu').val();  */
 		var jsonArr = [];
 		for(var i = 0;i<$(".trItem").size();i++){
 			var jsonObj ={
@@ -275,7 +274,7 @@ $(function() {
 		var tableId = $parent.$('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
 		localStorage.setItem(tableId+"Model",JSON.stringify(jsonArr));
 		localStorage.setItem(tableId+"orderSaleRate",orderSaleRate);
-		localStorage.setItem("distPrice",distPrice);
+		if($("input[value='distPrice']")){localStorage.setItem("distPrice",distPrice);}
 		$parent.loadConfigGrid(tableId,jsonArr);
 		$parent.closeConfig();
 	});

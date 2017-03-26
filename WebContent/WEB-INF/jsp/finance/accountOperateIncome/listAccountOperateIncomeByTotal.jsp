@@ -25,7 +25,7 @@ function cellFormat(value, options, rData){
 //浅运营汇总表表头         
 var distPrice = 12.5;
 var simpleTotalorderSaleRate = localStorage.getItem("simpleTotalorderSaleRate")?localStorage.getItem("simpleTotalorderSaleRate"):0.7;
-var simpleTotalModel = {url: "<m:url value='/accountOperateIncome/ListAccountOperateIncomeByTotal.do'/>",
+var simpleTotalModel = {url: "<m:url value='/accountOperateIncome/ListAccountOperateIncomeByTotal.do'/>?orderSaleRate"+simpleTotalorderSaleRate,
 					colModel:[
 					{name : "storeName",label:"商户名称",index : "store_name"},	
 					{name : "createDate",label:"日期",index : "create_date"},		
@@ -36,24 +36,24 @@ var simpleTotalModel = {url: "<m:url value='/accountOperateIncome/ListAccountOpe
 	 				{name : "allamountPayable",label:"应付店铺结算金额",isBasic:true},				
 	 				{name : "allcyzServiceCharge",label:"公司收入",isBasic:true},	
 	 				{name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",hidden:true,editFlag:true,calculate:"0.7",isBasic:true,
-       					formatter : function(value, options, rData){simpleTotalorderSaleRate = options.colModel.calculate;return eval(options.colModel.calculate);}},
+       					formatter : cellFormat},
      				{name : "allsaleGrossProfit",label:"销售毛利",isBasic:true},				
      				{name : "distPrice",label:"自配送金额单价",hidden:true,},
      				{name : "distAll",label:"自配送金额",editFlag:true,calculate:"rData['distPrice']*rData['allvalidNum']",
     					formatter : cellFormat},
 	 				{name : "distDiff",label:"自配送补差",editFlag:true,calculate:"rData['distPrice']*rData['allvalidNum']-rData['allactualMerchantDistCharge']",
        					formatter : cellFormat},
-	 				{name : "allactualMerchantDistCharge",label:"实际收取自配送金额",isBasic:true},
+	 				{name : "allactualMerchantDistCharge",label:"实际收取自配送金额",isBasic:true,editable:true},
 	 				{name : "allplatformActivitiesCharge",label:"饿了吗平台补贴 ",isBasic:true},
 	 				{name : "serviceAll",label:"对外支付饿了么平台补贴服务费",editFlag:true,calculate:"0.4*rData['allplatformActivitiesCharge']",
        					formatter : cellFormat},
 	 				{name : "profitAll",label:"实际运营毛利",editFlag:true,calculate:"rData['allsaleGrossProfit']-(rData['distPrice']*rData['allvalidNum']-rData['allactualMerchantDistCharge'])-(0.4*rData['allplatformActivitiesCharge'])",
     					formatter : cellFormat},
-   					{name : "otherAll",label:"竞价费用+短信推广"},
+   					{name : "otherAll",label:"竞价费用+短信推广",editable:true},
 			       	]};
 //深运营汇总表表头
 var deepTotalorderSaleRate = localStorage.getItem("deepTotalorderSaleRate")?localStorage.getItem("deepTotalorderSaleRate"):0.65;
-var deepTotalModel = {url: "<m:url value='/accountOperateIncome/ListAccountOperateIncomeByTotal.do'/>",
+var deepTotalModel = {url: "<m:url value='/accountOperateIncome/ListAccountOperateIncomeByTotal.do'/>?orderSaleRate"+deepTotalorderSaleRate,
 					colModel:[
 					{name : "storeName",label:"商户名称",index : "store_name"},	
 					{name : "createDate",label:"日期",index : "create_date"},		
@@ -64,20 +64,20 @@ var deepTotalModel = {url: "<m:url value='/accountOperateIncome/ListAccountOpera
 	 				{name : "allamountPayable",label:"应付店铺结算金额",isBasic:true},				
 	 				{name : "allcyzServiceCharge",label:"公司收入",isBasic:true},	
 	 				{name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",hidden:true,editFlag:true,calculate:"0.7",isBasic:true,
-       					formatter : function(value, options, rData){simpleTotalorderSaleRate = options.colModel.calculate;return eval(options.colModel.calculate);}},
+       					formatter : cellFormat},
      				{name : "allsaleGrossProfit",label:"销售毛利",isBasic:true},				
      				{name : "distPrice",label:"自配送金额单价",hidden:true,},
      				{name : "distAll",label:"自配送金额",editFlag:true,calculate:"rData['distPrice']*rData['allvalidNum']",
     					formatter : cellFormat},
 	 				{name : "distDiff",label:"自配送补差",editFlag:true,calculate:"rData['distPrice']*rData['allvalidNum']-rData['allactualMerchantDistCharge']",
        					formatter : cellFormat},
-	 				{name : "allactualMerchantDistCharge",label:"实际收取自配送金额",isBasic:true},
+	 				{name : "allactualMerchantDistCharge",label:"实际收取自配送金额",isBasic:true,editable:true},
 	 				{name : "allplatformActivitiesCharge",label:"饿了吗平台补贴 ",isBasic:true},
-	 				{name : "",label:"对外支付饿了么平台补贴服务费",editFlag:true,calculate:"0.4*rData['allplatformActivitiesCharge']",
+	 				{name : "serviceAll",label:"对外支付饿了么平台补贴服务费",editFlag:true,calculate:"0.4*rData['allplatformActivitiesCharge']",
        					formatter : cellFormat},
-	 				{name : "",label:"实际运营毛利",editFlag:true,calculate:"rData['allsaleGrossProfit']-(rData['distPrice']*rData['allvalidNum']-rData['allactualMerchantDistCharge'])-(0.4*rData['allplatformActivitiesCharge'])",
+	 				{name : "profitAll",label:"实际运营毛利",editFlag:true,calculate:"rData['allsaleGrossProfit']-(rData['distPrice']*rData['allvalidNum']-rData['allactualMerchantDistCharge'])-(0.4*rData['allplatformActivitiesCharge'])",
     					formatter : cellFormat},
-   					{name : "",label:"竞价费用+短信推广"},
+   					{name : "otherAll",label:"竞价费用+短信推广",editable:true},
 			       	]};
 		$(function(){
 			initGrid("simpleTotal");
@@ -94,7 +94,7 @@ var deepTotalModel = {url: "<m:url value='/accountOperateIncome/ListAccountOpera
 			    return obj;
 			});
 		}
-		gridObj = Finance.createGrid(ways,localStorageModel);
+		gridObj = Finance.createGrid(ways,localStorageModel,true,true,"/accountOperaTotal/updateAccountOperaTotal.do");
 		$("#"+ways).setColProp('calculate');
 		$("#"+ways).setColProp('isBasic');
 		$("#"+ways).setColProp('editFlag');
@@ -104,6 +104,7 @@ var deepTotalModel = {url: "<m:url value='/accountOperateIncome/ListAccountOpera
 	function loadConfigGrid(ways,colModel){
 		$(".listtable_box").html("");
 		$(".listtable_box").html('<table id="'+ways+'" ></table><div id="'+ways+'prowed"></div>');
+		$("#orderSaleRate").val(localStorage.getItem(ways+"orderSaleRate")?localStorage.getItem(ways+"orderSaleRate"):0.7);
 		gridObj = Finance.loadConfigGrid(ways,colModel);
 		$("#"+ways).setColProp('calculate');
 		$("#"+ways).setColProp('isBasic');
@@ -112,44 +113,7 @@ var deepTotalModel = {url: "<m:url value='/accountOperateIncome/ListAccountOpera
 	//配置的弹出框
 	var config_iframe_dialog ;
 	//关闭配置页面，供子页面调用
-  	function closeConfig(){
-  		config_iframe_dialog.close();
-  	}
-	
-	//查看的弹出框
-	var show_iframe_dialog;
-	
-    function show(){
-    	var key = ICSS.utils.getSelectRowData("id");
-		if(key.indexOf(",")>-1||key==""){
-			showMessage("请选择一条数据！");
-			return ;
-		}
-		var url="<m:url value='/accountOperateIncome/toShowAccountOperateIncome.do'/>?key="+key;
-		show_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: 800,
-			height: 235,
-				title: "运营数据详情"
-		});
-  		show_iframe_dialog.open();
-    }
-    
-    //关闭查看页面，供子页面调用
-    function closeShow(){
-    	show_iframe_dialog.close();
-    }
-    //查询Grid数据
-   /*  function doSearch(isStayCurrentPage){
-    	if(!isStayCurrentPage)gridObj.setGridParam({"page":"1"});
-    	gridObj.trigger('reloadGrid');
-    } */
-    //重置查询表单
-   /*  function resetForm(formId){
-		document.getElementById(formId).reset();
-	} */
-    
+  	function closeConfig(){config_iframe_dialog.close();}
     //导出运营明细数据
     function exportData(){
     	ExpExcel.showWin(gridObj,baseUrl+"/accountOperateIncome/exportDetailExcel.do",'grid','queryForm');
@@ -211,7 +175,7 @@ var deepTotalModel = {url: "<m:url value='/accountOperateIncome/ListAccountOpera
 					<ul>
 						<c:if test="${configTitle}">
 							<li>
-								<a title="配置表头标题" href="javascript:;" onclick=Finance.configTitle()> 
+								<a title="配置表头标题" href="javascript:;" onclick="Finance.configTitle()"> 
 									<i class="back_icon permissions_icon"> </i> 
 									<span>配置表头</span>
 								</a>

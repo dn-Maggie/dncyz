@@ -4,6 +4,8 @@
 <head>
 <%@ include file="../../common/header.jsp"%>
 <%@ include file="../../common/ace.jsp"%>
+<script src="<%=request.getContextPath() %>/js/extend/finance.js"></script>
+<script src="<%=request.getContextPath() %>/js/extend/list.js"></script>
 <style>
 	.ui-jqgrid-sortable{
 		font-weight:normal;
@@ -87,101 +89,13 @@ var deepOperationModel ={url: "<m:url value='/accountOperateIncome/listAccountOp
 
 		$(function(){
 			initGrid("platformAccount");
-			$(".tableTab").on('click',function(){
-				$(".tableTab").trigger("removeCheck");
-				$(this).addClass('checked');
-				$(".listtable_box").trigger("removeAll");
-				$(".listtable_box").html('<table  id="'+$(this).data("id")+'" ></table><div id='+$(this).data("id")+'prowed></div>');
-				initGrid($(this).data("id"));
-			})
-			$(".tableTab").bind('removeCheck',function(){
-				$(this).removeClass('checked');
-			})
-			$(".listtable_box").bind('removeAll',function(){
-				$(this).html("");
-		});
+			Finance.changeTabMenu();
     });
 	//初始化grid
 	function initGrid(ways){
 		$("#orderSaleRate").val(localStorage.getItem(ways+"orderSaleRate")?localStorage.getItem(ways+"orderSaleRate"):0.7);
-		debugger;
-		gridObj = new biz.grid({
-	        id:"#"+ways,
-	        autoScroll:false,   
-	        footerrow:true,
-	        url: eval(ways+"Model.url"),
-	       	sortname:"create_date",
-	       	sortorder:"asc",
-	       	pager: "#"+ways+"prowed",
-	        colModel:eval(ways+"Model.colModel"),
-			serializeGridData:function(postData){//添加查询条件值
-				var obj = getQueryCondition();
-				$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
-				return obj;
-			},
-		 	datatype: "json",/*数据类型，设置为json数据，默认为json*/
-	        emptyrecords: "无记录可显示",
-	        rowList:[10,15,50,100],//每页显示记录数
-			rowNum:15,//默认显示15条
-			gridComplete:function(){//表格加载执行  
-			    $(this).closest(".ui-jqgrid-bdiv").css({ 'overflow-x' : 'hidden' });
-			 	$(".ui-jqgrid-sdiv").show();
-			 	var footerCell = $(this).footerData();
-			 	var footerObj = {};
-			 	for(var i in footerCell){
-			 		footerObj[i]=isNaN($(this).getCol(i,false,"sum"))?0:$(this).getCol(i,false,"sum").toFixed(2);
-			 	}
-			 	footerObj['rn'] = "合";
-			 	footerObj['cb'] = "计";
-			 	footerObj['createDate'] = footerObj['storeName'] ="";
-		    	$(this).footerData("set",footerObj); //将合计值显示出来
-			}  
-	      });
+		gridObj = Finance.createGrid(ways,null,true,false);
 		$("#"+ways).setColProp('calculate');
-	}
-	//查看的弹出框
-	var show_iframe_dialog;
-    function show(){
-    	var key = ICSS.utils.getSelectRowData("id");
-		if(key.indexOf(",")>-1||key==""){
-			showMessage("请选择一条数据！");
-			return ;
-		}
-		var url="<m:url value='/accountOperateIncome/toShowAccountOperateIncome.do'/>?key="+key;
-		show_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: 800,
-			height: 235,
-				title: "运营数据详情"
-		});
-  		show_iframe_dialog.open();
-    }
-    
-    //关闭查看页面，供子页面调用
-    function closeShow(){
-    	show_iframe_dialog.close();
-    }
-    /**
-    * 获取查询条件值
-    */
-    function getQueryCondition(){
-       var obj = {};
-		jQuery.each($("#queryForm").serializeArray(),function(i,o){
-        	if(o.value){
-        		obj[o.name] = o.value;
-        	}
-        });
-		return obj;
-    }
-    //查询Grid数据
-    function doSearch(isStayCurrentPage){
-    	if(!isStayCurrentPage)gridObj.setGridParam({"page":"1"});
-    	gridObj.trigger('reloadGrid');
-    }
-    //重置查询表单
-    function resetForm(formId){
-		document.getElementById(formId).reset();
 	}
     //导出运营明细数据
     function exportData(){
@@ -225,8 +139,8 @@ var deepOperationModel ={url: "<m:url value='/accountOperateIncome/listAccountOp
 				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
 					 <option value="elm">饿了么</option><option value="meituan">美团</option><option value="baidu">百度</option>
 					</select><span>平台类型:</span></li><!--下拉 -->
-				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
-						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
+				<li><input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置"><!-- 重置 -->
+						<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridObj);" value="查询"></li><!-- 查询-->
 				</ul>
 		   </div>
 	    </form>

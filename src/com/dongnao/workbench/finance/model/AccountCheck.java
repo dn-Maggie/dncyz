@@ -16,13 +16,13 @@ public class AccountCheck extends Model{
 		            /**
 	                 * 主键
 	                 **/
-				   			private String id;
+			   				private String id;
 		   		
 		            /**
 	                 * 结算日期
 	                 **/
 					@DateTimeFormat(pattern="yyyy-MM-dd") 
-						private Date accountTime;
+							private Date accountTime;
 		
 		            /**
 	                 * 饿了吗结算款

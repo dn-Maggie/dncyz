@@ -41,24 +41,17 @@
 		<result column="create_date" property="createDate" jdbcType="DATE" />
 		<result column="allinvalid_num" property="allinvalidNum" jdbcType="INTEGER" />
 		<result column="allvalid_num" property="allvalidNum" jdbcType="INTEGER" />
-	
 		<result column="allorgin_price" property="allorginPrice" jdbcType="DECIMAL" />
 		<result column="allorder_distribution_charge" property="allorderDistributionCharge" jdbcType="DECIMAL" />
-		
 		<result column="allgoods_quality" property="allgoodsQuality" jdbcType="INTEGER" />
 		<result column="allbase_price" property="allbasePrice" jdbcType="DECIMAL" />
 		<result column="allother_base_price" property="allotherBasePrice" jdbcType="DECIMAL" />
-		
 		<result column="allplatform_service_charge" property="allplatformServiceCharge" jdbcType="DECIMAL" />
 		<result column="allplatform_dist_charge" property="allplatformDistCharge" jdbcType="DECIMAL" />
-		
 		<result column="allplatform_activities_charge" property="allplatformActivitiesCharge" jdbcType="DECIMAL" />
-		
 		<result column="allproduct_sale_amount" property="allproductSaleAmount" jdbcType="DECIMAL" />
-		
 		<result column="allcyz_activities_charge" property="allcyzActivitiesCharge" jdbcType="DECIMAL" />
 		<result column="allcyz_distribution_charge" property="allcyzDistributionCharge" jdbcType="DECIMAL" />
-		
 		<result column="allamount_receivable" property="allamountReceivable" jdbcType="DECIMAL" />
 		<result column="allamount_payable" property="allamountPayable" jdbcType="DECIMAL" />
 		<result column="allcyz_service_charge" property="allcyzServiceCharge" jdbcType="DECIMAL" />
@@ -493,7 +486,9 @@
 			SUM(operIncome.cyz_distribution_charge) as allcyz_distribution_charge
 		 from
 			(SELECT
-				od.id,
+				<if test="id != null and '' != id">  
+					#{id,jdbcType=VARCHAR}
+				</if>
 				od.goods_price,
 				od.goods_quality,
 				od.is_invalid,

@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.finance.dao.AccountOperaTotalMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.finance.model.AccountOperaTotal">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="store_id" property="storeId" jdbcType="VARCHAR" />
+		<result column="store_name" property="storeName" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="allinvalid_num" property="allinvalidNum" jdbcType="INTEGER" />
+		<result column="allvalid_num" property="allvalidNum" jdbcType="INTEGER" />
+		<result column="allorgin_price" property="allorginPrice" jdbcType="VARCHAR" />
+		<result column="allorder_distribution_charge" property="allorderDistributionCharge" jdbcType="VARCHAR" />
+		<result column="allplatform_dist_charge" property="allplatformDistCharge" jdbcType="VARCHAR" />
+		<result column="allcyz_distribution_charge" property="allcyzDistributionCharge" jdbcType="VARCHAR" />
+		<result column="allproduct_sale_amount" property="allproductSaleAmount" jdbcType="VARCHAR" />
+		<result column="allamount_receivable" property="allamountReceivable" jdbcType="VARCHAR" />
+		<result column="allamount_payable" property="allamountPayable" jdbcType="VARCHAR" />
+		<result column="allcyz_service_charge" property="allcyzServiceCharge" jdbcType="VARCHAR" />
+		<result column="allcyz_service_charge_industry_part" property="allcyzServiceChargeIndustryPart" jdbcType="VARCHAR" />
+		<result column="allcyz_service_charge_opera_part" property="allcyzServiceChargeOperaPart" jdbcType="VARCHAR" />
+		<result column="order_sale_rate" property="orderSaleRate" jdbcType="VARCHAR" />
+		<result column="allsale_gross_profit" property="allsaleGrossProfit" jdbcType="VARCHAR" />
+		<result column="dist_price" property="distPrice" jdbcType="VARCHAR" />
+		<result column="dist_all" property="distAll" jdbcType="VARCHAR" />
+		<result column="dist_diff" property="distDiff" jdbcType="VARCHAR" />
+		<result column="allactual_merchant_dist_charge" property="allactualMerchantDistCharge" jdbcType="VARCHAR" />
+		<result column="allplatform_activities_charge" property="allplatformActivitiesCharge" jdbcType="VARCHAR" />
+		<result column="allplatform_service_charge" property="allplatformServiceCharge" jdbcType="VARCHAR" />
+		<result column="service_all" property="serviceAll" jdbcType="VARCHAR" />
+		<result column="profit_all" property="profitAll" jdbcType="VARCHAR" />
+		<result column="other_all" property="otherAll" jdbcType="VARCHAR" />
+		<result column="allcyz_activities_charge" property="allcyzActivitiesCharge" jdbcType="VARCHAR" />
+		<result column="allgoods_quality" property="allgoodsQuality" jdbcType="VARCHAR" />
+		<result column="allbase_price" property="allbasePrice" jdbcType="VARCHAR" />
+		<result column="allother_base_price" property="allotherBasePrice" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="platform_type" property="platformType" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	 	id
+		,store_name
+		,create_date
+		,allinvalid_num
+		,allvalid_num
+		,allorgin_price
+		,allorder_distribution_charge
+		,allplatform_dist_charge
+		,allcyz_distribution_charge
+		,allproduct_sale_amount
+		,allamount_receivable
+		,allamount_payable
+		,allcyz_service_charge
+		,allcyz_service_charge_industry_part
+		,allcyz_service_charge_opera_part
+		,order_sale_rate
+		,allsale_gross_profit
+		,dist_price
+		,dist_all
+		,dist_diff
+		,allactual_merchant_dist_charge
+		,allplatform_activities_charge
+		,allplatform_service_charge
+		,service_all
+		,profit_all
+		,other_all
+		,allcyz_activities_charge
+		,allgoods_quality
+		,allbase_price
+		,allother_base_price
+		,remark
+		,platform_type
+	</sql>
+	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from account_opera_total
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOperaTotal">
+		select
+		<include refid="Base_Column_List" />
+		from account_opera_total
+		where 1=1
+		<if test="id != null and '' != id">  
+			and id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="storeName != null and '' != storeName">  
+			and store_name like CONCAT('%',#{storeName,jdbcType=VARCHAR},'%') 
+		</if>
+		<if test="null != propsMap.startDate and propsMap.startDate != ''">
+				<![CDATA[
+					and DATE_FORMAT(create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
+				]]>
+			</if>
+			<if test="null != propsMap.endDate and propsMap.endDate != ''">
+				<![CDATA[
+					and DATE_FORMAT(create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
+				]]>
+			</if> 
+		<if test="allinvalidNum != null and '' != allinvalidNum">  
+			and allinvalid_num = #{allinvalidNum,jdbcType=INTEGER}
+		</if>
+		<if test="allvalidNum != null and '' != allvalidNum">  
+			and allvalid_num = #{allvalidNum,jdbcType=INTEGER}
+		</if>
+		<if test="allorginPrice != null and '' != allorginPrice">  
+			and allorgin_price = #{allorginPrice,jdbcType=VARCHAR}
+		</if>
+		<if test="allorderDistributionCharge != null and '' != allorderDistributionCharge">  
+			and allorder_distribution_charge = #{allorderDistributionCharge,jdbcType=VARCHAR}
+		</if>
+		<if test="allplatformDistCharge != null and '' != allplatformDistCharge">  
+			and allplatform_dist_charge = #{allplatformDistCharge,jdbcType=VARCHAR}
+		</if>
+		<if test="allcyzDistributionCharge != null and '' != allcyzDistributionCharge">  
+			and allcyz_distribution_charge = #{allcyzDistributionCharge,jdbcType=VARCHAR}
+		</if>
+		<if test="allproductSaleAmount != null and '' != allproductSaleAmount">  
+			and allproduct_sale_amount = #{allproductSaleAmount,jdbcType=VARCHAR}
+		</if>
+		<if test="allamountReceivable != null and '' != allamountReceivable">  
+			and allamount_receivable = #{allamountReceivable,jdbcType=VARCHAR}
+		</if>
+		<if test="allamountPayable != null and '' != allamountPayable">  
+			and allamount_payable = #{allamountPayable,jdbcType=VARCHAR}
+		</if>
+		<if test="allcyzServiceCharge != null and '' != allcyzServiceCharge">  
+			and allcyz_service_charge = #{allcyzServiceCharge,jdbcType=VARCHAR}
+		</if>
+		<if test="allcyzServiceChargeIndustryPart != null and '' != allcyzServiceChargeIndustryPart">  
+			and allcyz_service_charge_industry_part = #{allcyzServiceChargeIndustryPart,jdbcType=VARCHAR}
+		</if>
+		<if test="allcyzServiceChargeOperaPart != null and '' != allcyzServiceChargeOperaPart">  
+			and allcyz_service_charge_opera_part = #{allcyzServiceChargeOperaPart,jdbcType=VARCHAR}
+		</if>
+		<if test="orderSaleRate != null and '' != orderSaleRate">  
+			and order_sale_rate = #{orderSaleRate,jdbcType=VARCHAR}
+		</if>
+		<if test="allsaleGrossProfit != null and '' != allsaleGrossProfit">  
+			and allsale_gross_profit = #{allsaleGrossProfit,jdbcType=VARCHAR}
+		</if>
+		<if test="distPrice != null and '' != distPrice">  
+			and dist_price = #{distPrice,jdbcType=VARCHAR}
+		</if>
+		<if test="distAll != null and '' != distAll">  
+			and dist_all = #{distAll,jdbcType=VARCHAR}
+		</if>
+		<if test="distDiff != null and '' != distDiff">  
+			and dist_diff = #{distDiff,jdbcType=VARCHAR}
+		</if>
+		<if test="allactualMerchantDistCharge != null and '' != allactualMerchantDistCharge">  
+			and allactual_merchant_dist_charge = #{allactualMerchantDistCharge,jdbcType=VARCHAR}
+		</if>
+		<if test="allplatformActivitiesCharge != null and '' != allplatformActivitiesCharge">  
+			and allplatform_activities_charge = #{allplatformActivitiesCharge,jdbcType=VARCHAR}
+		</if>
+		<if test="allplatformServiceCharge != null and '' != allplatformServiceCharge">  
+			and allplatform_service_charge = #{allplatformServiceCharge,jdbcType=VARCHAR}
+		</if>
+		<if test="serviceAll != null and '' != serviceAll">  
+			and service_all = #{serviceAll,jdbcType=VARCHAR}
+		</if>
+		<if test="profitAll != null and '' != profitAll">  
+			and profit_all = #{profitAll,jdbcType=VARCHAR}
+		</if>
+		<if test="otherAll != null and '' != otherAll">  
+			and other_all = #{otherAll,jdbcType=VARCHAR}
+		</if>
+		<if test="allcyzActivitiesCharge != null and '' != allcyzActivitiesCharge">  
+			and allcyz_activities_charge = #{allcyzActivitiesCharge,jdbcType=VARCHAR}
+		</if>
+		<if test="allgoodsQuality != null and '' != allgoodsQuality">  
+			and allgoods_quality = #{allgoodsQuality,jdbcType=VARCHAR}
+		</if>
+		<if test="allbasePrice != null and '' != allbasePrice">  
+			and allbase_price = #{allbasePrice,jdbcType=VARCHAR}
+		</if>
+		<if test="allotherBasePrice != null and '' != allotherBasePrice">  
+			and allother_base_price = #{allotherBasePrice,jdbcType=VARCHAR}
+		</if>
+		<if test="remark != null and '' != remark">  
+			and remark = #{remark,jdbcType=VARCHAR}
+		</if>
+		<if test="platformType != null and '' != platformType">  
+			and platform_type = #{platformType,jdbcType=VARCHAR}
+		</if>
+		<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+       	</if>
+	</select>
+	
+	<delete id="deleteByKey" parameterType="java.lang.String">
+		delete from account_opera_total
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.finance.model.AccountOperaTotal">
+		insert into account_opera_total (
+		<include refid="Base_Column_List" />
+		)values (
+			#{id,jdbcType=VARCHAR}
+			,#{storeName,jdbcType=VARCHAR}
+			,#{createDate,jdbcType=TIMESTAMP}
+			,#{allinvalidNum,jdbcType=INTEGER}
+			,#{allvalidNum,jdbcType=INTEGER}
+			,#{allorginPrice,jdbcType=VARCHAR}
+			,#{allorderDistributionCharge,jdbcType=VARCHAR}
+			,#{allplatformDistCharge,jdbcType=VARCHAR}
+			,#{allcyzDistributionCharge,jdbcType=VARCHAR}
+			,#{allproductSaleAmount,jdbcType=VARCHAR}
+			,#{allamountReceivable,jdbcType=VARCHAR}
+			,#{allamountPayable,jdbcType=VARCHAR}
+			,#{allcyzServiceCharge,jdbcType=VARCHAR}
+			,#{allcyzServiceChargeIndustryPart,jdbcType=VARCHAR}
+			,#{allcyzServiceChargeOperaPart,jdbcType=VARCHAR}
+			,#{orderSaleRate,jdbcType=VARCHAR}
+			,#{allsaleGrossProfit,jdbcType=VARCHAR}
+			,#{distPrice,jdbcType=VARCHAR}
+			,#{distAll,jdbcType=VARCHAR}
+			,#{distDiff,jdbcType=VARCHAR}
+			,#{allactualMerchantDistCharge,jdbcType=VARCHAR}
+			,#{allplatformActivitiesCharge,jdbcType=VARCHAR}
+			,#{allplatformServiceCharge,jdbcType=VARCHAR}
+			,#{serviceAll,jdbcType=VARCHAR}
+			,#{profitAll,jdbcType=VARCHAR}
+			,#{otherAll,jdbcType=VARCHAR}
+			,#{allcyzActivitiesCharge,jdbcType=VARCHAR}
+			,#{allgoodsQuality,jdbcType=VARCHAR}
+			,#{allbasePrice,jdbcType=VARCHAR}
+			,#{allotherBasePrice,jdbcType=VARCHAR}
+			,#{remark,jdbcType=VARCHAR}
+			,#{platformType,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<insert id="addByOperaDetail" parameterType="com.dongnao.workbench.finance.model.AccountOperaTotal">
+		INSERT INTO account_opera_total (
+			id,
+			store_id,
+			store_name,
+			create_date,
+			allinvalid_num,
+			allvalid_num,
+			allgoods_quality,
+			allorgin_price,
+			allorder_distribution_charge,
+			allplatform_dist_charge,
+			allcyz_distribution_charge,
+			allproduct_sale_amount,
+			allamount_receivable,
+			allamount_payable,
+			allcyz_service_charge,
+			allcyz_service_charge_industry_part,
+			allcyz_service_charge_opera_part,
+			order_sale_rate,
+			allsale_gross_profit,
+			dist_price,
+			dist_all,
+			dist_diff,
+			allactual_merchant_dist_charge,
+			allplatform_activities_charge,
+			allplatform_service_charge,
+			allcyz_activities_charge,
+			allbase_price,
+			remark,
+			platform_type
+		)(
+			SELECT
+				CONCAT(od.order_time,id),
+				od.store_id,
+				od.store_name,
+				od.create_date AS create_date,
+				sum(od.is_invalid) AS allinvalid_num,
+				COUNT(*) - sum(od.is_invalid) AS allvalid_num,
+				sum(od.goods_quality) AS allgoods_quality,
+				sum(od.prices) + sum(od.meal_fee) AS allorgin_price,
+				sum(od.order_dist_charge) AS allorder_distribution_charge,
+				sum(od.platform_dist_charge) AS allplatform_dist_charge,
+				sum(od.merchant_dist_charge) AS allcyz_distribution_charge,
+				(
+					CASE
+					WHEN od.remark LIKE "%扣单%" THEN
+						- sum(od.prices) + sum(od.meal_fee) - sum(od.activities_subsidy_bymerchant)
+					ELSE
+						sum(od.prices) + sum(od.meal_fee) - sum(od.activities_subsidy_bymerchant)
+					END
+				) AS allproduct_sale_amount,
+				sum(od.settlement_amount) AS allamount_receivable,
+				(sum(od.prices) + sum(od.meal_fee) - sum(od.activities_subsidy_bymerchant) - sum(od.food_discount)) * 
+				<if test="orderSaleRate != null and '' != orderSaleRate">  
+					#{orderSaleRate,jdbcType=VARCHAR}
+				</if> + sum(od.food_discount) AS allamount_payable,
+				(sum(od.prices) + sum(od.meal_fee) - sum(od.activities_subsidy_bymerchant) - sum(od.food_discount)) * (1 - 
+				<if test="orderSaleRate != null and '' != orderSaleRate">  
+					#{orderSaleRate,jdbcType=VARCHAR}
+				</if>) AS allcyz_service_charge,
+				(sum(od.prices) + sum(od.meal_fee) - sum(od.activities_subsidy_bymerchant) - sum(od.food_discount)) * (1 - 
+				<if test="orderSaleRate != null and '' != orderSaleRate">  
+					#{orderSaleRate,jdbcType=VARCHAR}
+				</if>) * 5/7 AS allcyz_service_charge_opera_part,
+				(sum(od.prices) + sum(od.meal_fee) - sum(od.activities_subsidy_bymerchant) - sum(od.food_discount)) * (1 - 
+				<if test="orderSaleRate != null and '' != orderSaleRate">  
+					#{orderSaleRate,jdbcType=VARCHAR}
+				</if>) * 2/7 AS allcyz_service_charge_industry_part,
+				<if test="orderSaleRate != null and '' != orderSaleRate">  
+					#{orderSaleRate,jdbcType=VARCHAR}
+				</if> AS order_sale_rate,
+				sum(od.prices) + sum(od.meal_fee) - ((sum(od.prices) + sum(od.meal_fee) - sum(od.activities_subsidy_bymerchant) -
+						(	
+							CASE	WHEN od.special_offer > 0 THEN sum(od.special_offer)
+							ELSE sum(od.food_discount) END
+						)
+					) * 
+				<if test="orderSaleRate != null and '' != orderSaleRate">  
+					#{orderSaleRate,jdbcType=VARCHAR}
+				</if> + sum(od.activities_subsidy_bymerchant)
+				) - (sum(od.merchant_activities_subsidies) - sum(od.activities_subsidy_bymerchant)) - sum(od.service_charge) AS allsale_gross_profit,
+				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5
+					ELSE 7.5 END ) AS dist_price,
+				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5 
+					ELSE 7.5 END ) * (COUNT(*) - sum(od.is_invalid)) AS dist_all,
+				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5
+					ELSE 7.5 END) * (COUNT(*) - sum(od.is_invalid)) - sum(od.actual_merchant_dist_charge) AS dist_diff,
+				sum(od.actual_merchant_dist_charge) AS allactual_merchant_dist_charge,
+				sum(od.platform_activities_subsidies) AS allplatform_activities_charge,
+				sum(od.service_charge) AS allplatform_service_charge,
+				sum(od.merchant_activities_subsidies) - sum(od.activities_subsidy_bymerchant) AS allcyz_activities_charge,
+				sum(sp.special_offer) AS allbase_price,
+				od.remark,
+				od.platform_type
+			FROM
+				account_order_detail AS od
+			LEFT JOIN dn_store AS s ON s.elm_id = od.store_ELM_id
+			LEFT JOIN store_product AS sp ON sp.store_id = s.STORE_ID
+			AND FIND_IN_SET(
+				sp.product_name,
+				od.goods_name
+			) > 0
+			WHERE
+				1 = 1
+			GROUP BY
+				store_name
+		)
+	</insert>
+	
+	
+	<update id="update" parameterType="com.dongnao.workbench.finance.model.AccountOperaTotal">
+		update account_opera_total  set
+			id= #{id,jdbcType=VARCHAR}
+			<if test="storeName != null and '' != storeName">  
+			,store_name = #{storeName,jdbcType=VARCHAR}
+			</if>
+			<if test="createDate != null and '' != createDate">  
+			,create_date = #{createDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="allinvalidNum != null and '' != allinvalidNum">  
+			,allinvalid_num = #{allinvalidNum,jdbcType=INTEGER}
+			</if>
+			<if test="allvalidNum != null and '' != allvalidNum">  
+			,allvalid_num = #{allvalidNum,jdbcType=INTEGER}
+			</if>
+			<if test="allorginPrice != null and '' != allorginPrice">  
+			,allorgin_price = #{allorginPrice,jdbcType=VARCHAR}
+			</if>
+			<if test="allorderDistributionCharge != null and '' != allorderDistributionCharge">  
+			,allorder_distribution_charge = #{allorderDistributionCharge,jdbcType=VARCHAR}
+			</if>
+			<if test="allplatformDistCharge != null and '' != allplatformDistCharge">  
+			,allplatform_dist_charge = #{allplatformDistCharge,jdbcType=VARCHAR}
+			</if>
+			<if test="allcyzDistributionCharge != null and '' != allcyzDistributionCharge">  
+			,allcyz_distribution_charge = #{allcyzDistributionCharge,jdbcType=VARCHAR}
+			</if>
+			<if test="allproductSaleAmount != null and '' != allproductSaleAmount">  
+			,allproduct_sale_amount = #{allproductSaleAmount,jdbcType=VARCHAR}
+			</if>
+			<if test="allamountReceivable != null and '' != allamountReceivable">  
+			,allamount_receivable = #{allamountReceivable,jdbcType=VARCHAR}
+			</if>
+			<if test="allamountPayable != null and '' != allamountPayable">  
+			,allamount_payable = #{allamountPayable,jdbcType=VARCHAR}
+			</if>
+			<if test="allcyzServiceCharge != null and '' != allcyzServiceCharge">  
+			,allcyz_service_charge = #{allcyzServiceCharge,jdbcType=VARCHAR}
+			</if>
+			<if test="allcyzServiceChargeIndustryPart != null and '' != allcyzServiceChargeIndustryPart">  
+			,allcyz_service_charge_industry_part = #{allcyzServiceChargeIndustryPart,jdbcType=VARCHAR}
+			</if>
+			<if test="allcyzServiceChargeOperaPart != null and '' != allcyzServiceChargeOperaPart">  
+			,allcyz_service_charge_opera_part = #{allcyzServiceChargeOperaPart,jdbcType=VARCHAR}
+			</if>
+			<if test="orderSaleRate != null and '' != orderSaleRate">  
+			,order_sale_rate = #{orderSaleRate,jdbcType=VARCHAR}
+			</if>
+			<if test="allsaleGrossProfit != null and '' != allsaleGrossProfit">  
+			,allsale_gross_profit = #{allsaleGrossProfit,jdbcType=VARCHAR}
+			</if>
+			<if test="distPrice != null and '' != distPrice">  
+			,dist_price = #{distPrice,jdbcType=VARCHAR}
+			</if>
+			<if test="distAll != null and '' != distAll">  
+			,dist_all = #{distAll,jdbcType=VARCHAR}
+			</if>
+			<if test="distDiff != null and '' != distDiff">  
+			,dist_diff = #{distDiff,jdbcType=VARCHAR}
+			</if>
+			<if test="allactualMerchantDistCharge != null and '' != allactualMerchantDistCharge">  
+			,allactual_merchant_dist_charge = #{allactualMerchantDistCharge,jdbcType=VARCHAR}
+			</if>
+			<if test="allplatformActivitiesCharge != null and '' != allplatformActivitiesCharge">  
+			,allplatform_activities_charge = #{allplatformActivitiesCharge,jdbcType=VARCHAR}
+			</if>
+			<if test="allplatformServiceCharge != null and '' != allplatformServiceCharge">  
+			,allplatform_service_charge = #{allplatformServiceCharge,jdbcType=VARCHAR}
+			</if>
+			<if test="serviceAll != null and '' != serviceAll">  
+			,service_all = #{serviceAll,jdbcType=VARCHAR}
+			</if>
+			<if test="profitAll != null and '' != profitAll">  
+			,profit_all = #{profitAll,jdbcType=VARCHAR}
+			</if>
+			<if test="otherAll != null and '' != otherAll">  
+			,other_all = #{otherAll,jdbcType=VARCHAR}
+			</if>
+			<if test="allcyzActivitiesCharge != null and '' != allcyzActivitiesCharge">  
+			,allcyz_activities_charge = #{allcyzActivitiesCharge,jdbcType=VARCHAR}
+			</if>
+			<if test="allgoodsQuality != null and '' != allgoodsQuality">  
+			,allgoods_quality = #{allgoodsQuality,jdbcType=VARCHAR}
+			</if>
+			<if test="allbasePrice != null and '' != allbasePrice">  
+			,allbase_price = #{allbasePrice,jdbcType=VARCHAR}
+			</if>
+			<if test="allotherBasePrice != null and '' != allotherBasePrice">  
+			,allother_base_price = #{allotherBasePrice,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and '' != remark">  
+			,remark = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="platformType != null and '' != platformType">  
+			,platform_type = #{platformType,jdbcType=VARCHAR}
+			</if>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

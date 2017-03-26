@@ -23,9 +23,11 @@ import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.common.util.StringUtil;
+import com.dongnao.workbench.finance.model.AccountOperaTotal;
 import com.dongnao.workbench.finance.model.AccountOperateIncome;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.model.TotalOperateIncome;
+import com.dongnao.workbench.finance.service.AccountOperaTotalService;
 import com.dongnao.workbench.finance.service.AccountOperateIncomeService;
 import com.dongnao.workbench.finance.service.AccountOrderDetailService;
 
@@ -49,6 +51,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class AccountOperateIncomeController{
     @Resource
 	private AccountOperateIncomeService accountOperateIncomeService;
+    @Resource
+	private AccountOperaTotalService accountOperaTotalService;
+	 
  	/**
  	* 进入新增页面
  	* @return ModelAndView 返回到新增页面
@@ -160,12 +165,13 @@ public class AccountOperateIncomeController{
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/ListAccountOperateIncomeByTotal")
-	public void ListAccountOperateIncomeByTotal(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
+	public void ListAccountOperateIncomeByTotal(AccountOperaTotal accountOperaTotal,HttpServletRequest request,
 			HttpServletResponse response, Page page){
-		accountOrderDetail.setPage(page);	
-		List<TotalOperateIncome> list = accountOperateIncomeService.listAllFromOrderDetailByTotal(accountOrderDetail);
+		accountOperaTotal.setPage(page);	
+		List<AccountOperaTotal> list = accountOperaTotalService.listByCondition(accountOperaTotal);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
+	
 	/**
 	 * 进入修改页面方法
 	 * @param key String：实体id
