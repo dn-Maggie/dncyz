@@ -5,7 +5,6 @@
 <%@ include file="../../common/header.jsp"%>
 <%@ include file="../../common/ace.jsp"%>
 <script src="<%=request.getContextPath() %>/js/extend/finance.js"></script>
-<script src="<%=request.getContextPath() %>/js/extend/list.js"></script>
 <style>
 	.ui-jqgrid-sortable{
 		font-weight:normal;

@@ -1,21 +1,118 @@
+  //新增的弹出框
+var add_iframe_dialog;
+//修改的弹出框
+var edit_iframe_dialog;
+//查看的弹出框
+var show_iframe_dialog;
 List = {
-	show:function(){
-		var key = ICSS.utils.getSelectRowData("id");
+		createGrid :function(url,colModel,sortname,gridCompleteCount){ 
+	    	return new biz.grid({
+		        id:"#remote_rowed",
+		        url: url,
+		    	datatype: "json",
+		       	sortname:sortname,
+		       	sortorder:"asc",
+		       	footerrow:gridCompleteCount,
+		       	pager: "remote_prowed",
+		        colModel:colModel,
+				serializeGridData:function(postData){//添加查询条件值
+					var obj = List.getQueryCondition();
+					$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
+					return obj;
+				},
+		        emptyrecords: "无记录可显示",
+		        rowList:[10,15,50,100],//每页显示记录数
+				rowNum:15,//默认显示15条
+				gridComplete:function(){//表格加载执行  
+				    $(this).closest(".ui-jqgrid-bdiv").css({ 'overflow-x' : 'hidden' });
+				 	if(gridCompleteCount){
+				 		$(".ui-jqgrid-sdiv").show();
+					 	var footerCell = $(this).footerData();
+					 	var footerObj = {};
+					 	for(var i in footerCell){
+					 		footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(3):0;
+					 	}
+					 	footerObj['raw'] = true;
+					 	footerObj['rn'] = "合";
+					 	footerObj['cb'] = "计";
+				    	$(this).footerData("set",footerObj); //将合计值显示出来
+				 	}
+				}
+	    	});
+	    },
+	add:function(url,title){
+		var url=url;
+		add_iframe_dialog = new biz.dialog({
+			id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+			modal: true,
+			width: $(window).width()*0.6,
+			height: $(window).height()*0.8,
+			title: title
+		});
+		add_iframe_dialog.open();
+	},
+	closeAdd:function(){
+		add_iframe_dialog.close();
+	},
+	edit:function(key,url,title){
+		var key = key;
 		if(key.indexOf(",")>-1||key==""){
 			showMessage("请选择一条数据！");
 			return ;
 		}
-		var url="<m:url value='/accountOperateIncome/toShowAccountOperateIncome.do'/>?key="+key;
+		var url=url+"?key="+key;
+		edit_iframe_dialog = new biz.dialog({
+		 	id:$('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+			modal: true,
+			width: $(window).width()*0.6,
+			height: $(window).height()*0.8,
+			title: title
+		});
+  		edit_iframe_dialog.open();
+	},
+	closeEdit:function(){
+		edit_iframe_dialog.close();
+	},
+	show:function(key,url,title){
+		var key = key;
+		if(key.indexOf(",")>-1||key==""){
+			showMessage("请选择一条数据！");
+			return ;
+		}
+		var url=url+"?key="+key;
 		show_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: 800,
-			height: 235,
-				title: "运营数据详情"
+			width: $(window).width()*0.6,
+			height: $(window).height()*0.8,
+			title:title
 		});
   		show_iframe_dialog.open();
 	},
-	 /**获取查询条件值*/
+	closeShow:function(){
+		show_iframe_dialog.close();
+	},
+    batchDelete:function(id,url){
+    	var ids = id;
+    	if(ids==""){
+    		showMessage("请至少选择一条数据！");
+    		return ;
+    	}else{
+    		new biz.alert({type:"confirm",message:I18N.msg_del_confirm,title:I18N.promp,callback:function(result){
+    			if(result){
+    				$ .ajax({
+        				url: url+"?key="+ids,
+        				cache:false,
+        				success: function(data, textStatus, jqXHR){
+        					List.doSearch();
+    						showInfo("删除成功",3000);
+        				}
+        			});
+    			}
+    		}}) ;   
+    	}
+    },
+    /**获取查询条件值*/
 	getQueryCondition:function (){
        var obj = {};
 		jQuery.each($("#queryForm").serializeArray(),function(i,o){

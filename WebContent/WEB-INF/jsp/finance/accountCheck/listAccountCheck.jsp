@@ -5,7 +5,6 @@
 <%@ include file="../../common/header.jsp"%>
 <%@ include file="../../common/ace.jsp"%>
 <script src="<%=request.getContextPath() %>/js/extend/finance.js"></script>
-<script src="<%=request.getContextPath() %>/js/extend/list.js"></script>
 <title></title>
 <script type="text/javascript">
 var gridObj = {};

@@ -5,7 +5,6 @@
 <%@ include file="../../common/header.jsp"%>
 <%@ include file="../../common/ace.jsp"%>
 <script src="<%=request.getContextPath() %>/js/extend/finance.js"></script>
-<script src="<%=request.getContextPath() %>/js/extend/list.js"></script>
 <script type="text/javascript">
 var gridObj = {};
 var orderDetailModel = {
@@ -40,7 +39,7 @@ var orderDetailModel = {
 			 				 else if (cellvalue=='meituan'){return '美团';}
 			 				 else if (cellvalue=='baidu'){return '百度';}
 					}},
-	           	],};
+	           	]};
 	$(function(){
 		initGrid("orderDetail");
         
@@ -48,8 +47,7 @@ var orderDetailModel = {
 	function initGrid(ways){
 		gridObj = Finance.createGrid(ways,orderDetail.colModel,true,false);
 	}
- 
-
+	
     //新增的弹出框
 	var add_iframe_dialog;
 	//修改的弹出框

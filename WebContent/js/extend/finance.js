@@ -52,7 +52,7 @@ Finance = {
 	           		paramDatas.id = rowid;
 	           		$ .ajax({
 	           			type: "post",
-	    				url: baseUrl+editURL,
+	    				url: editURL,
 	    				data: paramDatas,
 						cache:false,
 	    				dataType:"json"

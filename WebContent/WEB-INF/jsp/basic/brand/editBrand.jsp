@@ -19,8 +19,8 @@ $(function() {
 				success : function(d) {
 					if(d.status){
 						showMessage(d.message,"","",function(){
-							window.parent.closeEdit();
-				     		window.parent.doSearch();
+							List.closeEdit();
+				     		List.doSearch();
 						});
 					}else{
 						showMessage(d.message);

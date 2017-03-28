@@ -29,7 +29,7 @@
 -->
 </style>
 <script type="text/javascript">
-  baseUrl="<%=request.getContextPath() %>";
+  baseUrl="<%=request.getContextPath()%>";
 </script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/lib/biz.jquery.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/excelExport.js"></script>
@@ -49,9 +49,9 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/tiledCombobox.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/bizLib/placeholder.js"></script>
 
-
 <script src="<%=request.getContextPath() %>/js/gameco/jquery.collapse.js"></script>
 <script src="<%=request.getContextPath() %>/modulejs/common.js"></script>
+<script src="<%=request.getContextPath() %>/js/extend/list.js"></script>
 <style>
 .ui-pg-selbox {
 	font-size: 14px;

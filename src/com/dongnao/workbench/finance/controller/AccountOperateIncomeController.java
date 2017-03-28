@@ -54,57 +54,7 @@ public class AccountOperateIncomeController{
     @Resource
 	private AccountOperaTotalService accountOperaTotalService;
 	 
- 	/**
- 	* 进入新增页面
- 	* @return ModelAndView 返回到新增页面
- 	*/
- 	@RequestMapping("/toAddAccountOperateIncome")
-	public ModelAndView toAdd(){
-		ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/addAccountOperateIncome");
-		return mv;
-	}
 	
-	/**
-	 * 进入查看页面方法
-	 * @param key String：实体id
-	 * @return ModelAndView: 查询实体
-	 */	
-	@RequestMapping("/toShowAccountOperateIncome")
-	public ModelAndView toShow(String key){
-		AccountOperateIncome entity = accountOperateIncomeService.getByPrimaryKey(key);
-		Map<String,String> accountOperateIncome = FormatEntity.getObjectValue(entity);
-		return new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/showAccountOperateIncome","accountOperateIncome",accountOperateIncome );
-	}
-	
-	/**
-	 * 新增方法
-	 * @param response HttpServletResponse
-	 * @param accountOperateIncome AccountOperateIncome:实体类
-	 * @return: ajax输入json字符串
-	 */
-	@RequestMapping("/addAccountOperateIncome")
-	public void add(AccountOperateIncome accountOperateIncome,HttpServletRequest request,HttpServletResponse response){
-	accountOperateIncome.setId(Utils.generateUniqueID());
-	AjaxUtils.sendAjaxForObjectStr(
-				response,accountOperateIncomeService.add(accountOperateIncome));		
-	}
-	
-	/**
-	 * 删除方法
-	 * @param response HttpServletResponse
-	 * @param key String:多个由“，”分割开的id字符串
-	 * @return: ajax输入json字符串
-	 */
-	@RequestMapping("/deleteAccountOperateIncome")
-	public void deleteByKey(String key,HttpServletResponse response){
-		String[] str = key.split(",");
-		for(int i=0;i<str.length;i++){
-			accountOperateIncomeService.deleteByKey(str[i]);
-		}
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("msg", "成功");
-		AjaxUtils.sendAjaxForMap(response, map);
-	}
 	
 	/**
 	 * 进入运营明细列表页面
