@@ -54,4 +54,13 @@ public interface AccountCheckService  {
 	 * 根据订单计算出财务数据合计
 	 */
 	public List<AccountOperateIncome> listTotalAccountCheck(AccountOrderDetail accountOrderDetail) ;
+
+	
+	public void deleteDateByKey(AccountCheck accountCheck);
+
+	public void addByCheckDetail(AccountCheck accountCheck);
+
+	public void deleteTotalByKey(AccountCheck accountCheck);
+
+	public void addTotalByCheckDetail(AccountCheck accountCheck);
 }

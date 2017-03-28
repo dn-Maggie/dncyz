@@ -4,6 +4,8 @@
 <head>
 <%@ include file="../../common/header.jsp"%>
 <%@ include file="../../common/ace.jsp"%>
+<script src="<%=request.getContextPath() %>/js/extend/finance.js"></script>
+<script src="<%=request.getContextPath() %>/js/extend/list.js"></script>
 <title></title>
 <script type="text/javascript">
 var gridObj = {};
@@ -18,7 +20,7 @@ var boundMerchantModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'
 							{name : "orginPrice",label:"原价",index : "orgin_price"},				
 							{name : "discountPrice",label:"菜品折扣",index : "discount_price"},				
 							{name : "afterDiscountPrice",label:"折扣菜金额",index : "after_discount_price"},	
-							{name : "",label:"特价结算"},
+							{name : "specialOffer",label:"特价结算"},
 							{name : "actualPrice",label:"原价菜金额",index : "actual_price"},				
 							{name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",hidden:true,editFlag:true,calculate:"0.7",
 	           					formatter : function(value, options, rData){boundMerchantorderSaleRate = options.colModel.calculate;return eval(options.colModel.calculate);}},
@@ -41,22 +43,9 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
 	           					formatter : function(value, options, rData){boundCompanyorderSaleRate = options.colModel.calculate;return eval(options.colModel.calculate);}},
 							{name : "amountPayable",label:"结算金额",index : "amount_payable"}
 		           		]};
-$(function(){
-			initGrid("boundMerchant");
-			$(".tableTab").on('click',function(){
-				$(".tableTab").trigger("removeCheck");
-				$(this).addClass('checked');
-				$(".listtable_box").trigger("removeAll");
-				$(".listtable_box").html('<table  id="'+$(this).data("id")+'" ></table><div id='+$(this).data("id")+'prowed></div>');
-				initGrid($(this).data("id"));
-			})
-			$(".tableTab").bind('removeCheck',function(){
-				$(this).removeClass('checked');
-			})
-			$(".listtable_box").bind('removeAll',function(){
-				$(this).html("");
-		});
-			
+	$(function(){
+		initGrid("boundMerchant");
+		Finance.changeTabMenu();
     });
     function cellFormat(value, options, rData){
 		return eval(options.colModel.calculate);
@@ -72,123 +61,44 @@ $(function(){
 			    return obj;
 			});
 		}
-		gridObj = new biz.grid({
-	        id:"#"+ways,
-	        url: eval(ways+"Model.url"),
-	       	sortname:"create_date",
-	       	sortorder:"asc",
-	       	pager: "#"+ways+"prowed",
-	        colModel:localStorage.getItem(ways+"Model")?localStorageModel:eval(ways+"Model.colModel"),
-			serializeGridData:function(postData){//添加查询条件值
-				var obj = getQueryCondition();
-				$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
-				return obj;
-			},
-		 	datatype: "json",/*数据类型，设置为json数据，默认为json*/
-	        emptyrecords: "无记录可显示",
-	        rowList:[10,15,50,100],//每页显示记录数
-			rowNum:15,//默认显示15条
-	      });
+		gridObj = Finance.createGrid(ways,localStorageModel,false,false);
 		$("#"+ways).setColProp('calculate');
+		$("#"+ways).setColProp('editFlag');
 	}
 	
 	//config grid
 	function loadConfigGrid(ways,colModel){
 		$(".listtable_box").html("");
 		$(".listtable_box").html('<table id="'+ways+'" ></table><div id="'+ways+'prowed"></div>');
-		gridObj = new biz.grid({
-	        id:"#"+ways,
-	        url: eval(ways+"Model.url"),
-	       	sortname:"create_date",
-	       	sortorder:"asc",
-	       	pager: '#'+ways+'prowed',
-	        colModel:colModel,
-			serializeGridData:function(postData){//添加查询条件值
-				var obj = getQueryCondition();
-				$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
-				return obj;
-			},
-		 	datatype: "json",/*数据类型，设置为json数据，默认为json*/
-	        emptyrecords: "无记录可显示",
-	        rowList:[10,15,50,100],//每页显示记录数
-			rowNum:15,//默认显示15条
-	      });
+		$("#orderSaleRate").val(localStorage.getItem(ways+"orderSaleRate")?localStorage.getItem(ways+"orderSaleRate"):0.7);
+		gridObj = Finance.loadConfigGrid(ways,colModel,false,false);
 		$("#"+ways).setColProp('calculate');
 		$("#"+ways).setColProp('editFlag');
 	}
 	//配置的弹出框
 	var config_iframe_dialog;
-	function configGrid(tableName,tableId){
-			var url="<m:url value='/accountOperateIncome/toConfigGridTitle.do'/>";
-			config_iframe_dialog = new biz.dialog({
-				id:$('<div id="addwindow_iframe" ></div>').html('<iframe id="iframeAdd"  class="'+tableId+'" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-				modal: true,
-				width: $(window).width()*0.9,
-				height: 600,
-				title: tableName+"表头配置"
-			});
-			config_iframe_dialog.open();
-	  	}
 	//关闭配置页面，供子页面调用
   	function closeConfig(){
   		config_iframe_dialog.close();
   	}
 	
-	//查看的弹出框
-	var show_iframe_dialog;
-    function show(){
-    	var key = ICSS.utils.getSelectRowData("id");
-		if(key.indexOf(",")>-1||key==""){
-			showMessage("请选择一条数据！");
-			return ;
-		}
-		var url="<m:url value='/accountOperateIncome/toShowAccountOperateIncome.do'/>?key="+key;
-		show_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: 800,
-			height: 235,
-				title: "运营数据详情"
-		});
-  		show_iframe_dialog.open();
-    }
-    
-    //关闭查看页面，供子页面调用
-    function closeShow(){
-    	show_iframe_dialog.close();
-    }
-    /**
-    * 获取查询条件值
-    */
-    function getQueryCondition(){
-       var obj = {};
-		jQuery.each($("#queryForm").serializeArray(),function(i,o){
-        	if(o.value){
-        		obj[o.name] = o.value;
-        	}
-        });
-		return obj;
-    }
-    //查询Grid数据
-    function doSearch(isStayCurrentPage){
-    	if(!isStayCurrentPage)gridObj.setGridParam({"page":"1"});
-    	gridObj.trigger('reloadGrid');
-    }
-    //重置查询表单
-    function resetForm(formId){
-		document.getElementById(formId).reset();
-	}
-    
     //导出运营明细数据
     function exportData(){
     	ExpExcel.showWin(gridObj,baseUrl+"/accountCheck/exportDetailExcel.do",'grid','queryForm');
     }
     
-    //配置表头
-    function configTitle(tableName,tableId){
+  //生成运营汇总表
+    function genTotal(){
     	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
-    	var tableName = $('.tableTab.checked').find('span').text();
-    	configGrid(tableName,tableId);
+    	var orderSaleRate = eval(tableId+"orderSaleRate");
+   		$ .ajax({
+   			type: "post",
+   			data:{orderSaleRate:orderSaleRate,
+   					id:tableId},
+			url: baseUrl+"/accountCheck/addByCheckDetail.do",
+			cache:false,
+			dataType:"json"
+		});
     }
   	//获取表头	
     function getColModel(){
@@ -234,8 +144,8 @@ $(function(){
 				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
 					 <option value="elm">饿了么</option><option value="meituan">美团</option>
 					</select><span>平台类型:</span></li><!--下拉 -->
-				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
-						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
+				<li><input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置"><!-- 重置 -->
+						<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridObj);" value="查询"></li><!-- 查询-->
 				</ul>
 		   </div>
 	    </form>
@@ -245,7 +155,7 @@ $(function(){
 					<ul>
 						<c:if test="${configTitle}">
 							<li>
-								<a title="配置表头标题" href="javascript:;" onclick="configTitle();"> 
+								<a title="配置表头标题" href="javascript:;" onclick="Finance.configTitle()"> 
 									<i class="back_icon permissions_icon"> </i> 
 									<span>配置表头</span>
 								</a>
@@ -282,6 +192,7 @@ $(function(){
 					<table  id="boundMerchant" ></table>
 					<div  id="boundMerchantprowed"></div>	
 				</div>
+				<div><input type="button" value= "确定并生成对账汇总信息" onclick="genTotal();" class="btn"></div>
 		</div>
 	</div>
 </body>

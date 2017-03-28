@@ -142,7 +142,7 @@ Finance = {
       	});
     },
     configGrid:function(tableName,tableId){
-    	var url=baseUrl+"/accountOperateIncome/toConfigGridTitle.do";
+    	var url=baseUrl+"/config/toConfigGridTitle.do";
 		config_iframe_dialog = new biz.dialog({
 			id:$('<div id="addwindow_iframe" ></div>').html('<iframe id="iframeAdd"  class="'+tableId+'" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,

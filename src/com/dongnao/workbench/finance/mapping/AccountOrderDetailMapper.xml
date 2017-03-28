@@ -15,9 +15,8 @@
 			<result column="over_time" property="overTime" jdbcType="TIMESTAMP" />
 			<result column="order_index" property="orderIndex" jdbcType="VARCHAR" />
 			<result column="order_no" property="orderNo" jdbcType="VARCHAR" />
-			<result column="prices" property="prices" jdbcType="DECIMAL" />
+			<result column="orgin_price" property="orginPrice" jdbcType="DECIMAL" />
 			<result column="meal_fee" property="mealFee" jdbcType="DECIMAL" />
-			<result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
 			<result column="product_sale_amount" property="productSaleAmount" jdbcType="DECIMAL" />
 			<result column="gift_allowance" property="giftAllowance" jdbcType="DECIMAL" />
 			<result column="merchant_activities_subsidies" property="merchantActivitiesSubsidies" jdbcType="DECIMAL" />
@@ -65,9 +64,8 @@
 		over_time,
 		order_index,
 		order_no,
-		prices,
+		orgin_price,
 		meal_fee,
-		total_price,
 		product_sale_amount,
 		gift_allowance,
 		merchant_activities_subsidies,
@@ -124,9 +122,8 @@
 			od.over_time,
 			od.order_index,
 			od.order_no,
-			od.prices,
+			od.orgin_price,
 			od.meal_fee,
-			od.total_price,
 			od.product_sale_amount,
 			od.gift_allowance,
 			od.merchant_activities_subsidies,
@@ -213,8 +210,8 @@
 		<if test="orderNo != null and '' != orderNo">  
 			and od.order_no = #{orderNo,jdbcType=VARCHAR}
 		</if>
-		<if test="prices != null and '' != prices">  
-			and od.prices = #{prices,jdbcType=DECIMAL}
+		<if test="orginPrice != null and '' != orginPrice">  
+			and od.orgin_price = #{orginPrice,jdbcType=DECIMAL}
 		</if>
 		<if test="serviceRate != null and '' != serviceRate">  
 			and od.service_rate = #{serviceRate,jdbcType=VARCHAR}
@@ -263,9 +260,8 @@
 				aod.over_time,
 				aod.order_index,
 				aod.order_no,
-				aod.prices,
+				aod.orgin_price,
 				aod.meal_fee,
-				aod.total_price,
 				aod.goods_name,
 				aod.goods_quality,
 				aod.goods_id,
@@ -324,8 +320,8 @@
 		<if test="orderNo != null and '' != orderNo">  
 			and aod.order_no = #{orderNo,jdbcType=VARCHAR}
 		</if>
-		<if test="prices != null and '' != prices">  
-			and aod.prices = #{prices,jdbcType=DECIMAL}
+		<if test="orginPrice != null and '' != orginPrice">  
+			and aod.orgin_price = #{orginPrice,jdbcType=DECIMAL}
 		</if>
 		<if test="serviceRate != null and '' != serviceRate">  
 			and aod.service_rate = #{serviceRate,jdbcType=VARCHAR}
@@ -373,9 +369,8 @@
 				,#{overTime,jdbcType=TIMESTAMP}
 				,#{orderIndex,jdbcType=VARCHAR}
 				,#{orderNo,jdbcType=VARCHAR}
-				,#{prices,jdbcType=DECIMAL}
+				,#{orginPrice,jdbcType=DECIMAL}
 				,#{mealFee,jdbcType=DECIMAL}
-				,#{totalPrice,jdbcType=DECIMAL}
 				,#{productSaleAmount,jdbcType=DECIMAL}
 				,#{giftAllowance,jdbcType=DECIMAL}
 				,#{merchantActivitiesSubsidies,jdbcType=DECIMAL}
@@ -425,9 +420,8 @@
 				,over_time
 				,order_index
 				,order_no
-				,prices
+				,orgin_price
 				,meal_fee
-				,total_price
 				,product_sale_amount
 				,gift_allowance
 				,merchant_activities_subsidies
@@ -476,9 +470,8 @@
 				,#{item.overTime,jdbcType=TIMESTAMP}
 				,#{item.orderIndex,jdbcType=VARCHAR}
 				,#{item.orderNo,jdbcType=VARCHAR}
-				,#{item.prices,jdbcType=DECIMAL}
+				,#{item.orginPrice,jdbcType=DECIMAL}
 				,#{item.mealFee,jdbcType=DECIMAL}
-				,#{item.totalPrice,jdbcType=DECIMAL}
 				,#{item.productSaleAmount,jdbcType=DECIMAL}
 				,#{item.giftAllowance,jdbcType=DECIMAL}
 				,#{item.merchantActivitiesSubsidies,jdbcType=DECIMAL}
@@ -531,9 +524,8 @@
 		,over_time = #{overTime,jdbcType=TIMESTAMP}
 		,order_index = #{orderIndex,jdbcType=VARCHAR}
 		,order_no = #{orderNo,jdbcType=VARCHAR}
-		,prices = #{prices,jdbcType=DECIMAL}
+		,orgin_price = #{orginPrice,jdbcType=DECIMAL}
 		,meal_fee = #{mealFee,jdbcType=DECIMAL}
-		,total_price = #{totalPrice,jdbcType=DECIMAL}
 		,product_sale_amount = #{productSaleAmount,jdbcType=DECIMAL}
 		,gift_allowance = #{giftAllowance,jdbcType=DECIMAL}
 		,merchant_activities_subsidies = #{merchantActivitiesSubsidies,jdbcType=DECIMAL}
@@ -568,7 +560,6 @@
 		,order_sale_rate = #{orderSaleRate,jdbcType=DECIMAL}
 	where id = #{id,jdbcType=VARCHAR}
 	</update>
-	
 	<update id="updateActualDistCharge" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
 		update account_order_detail  set
 				id= #{id,jdbcType=VARCHAR}
@@ -580,6 +571,4 @@
 			</if>
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
-	
-	
 </mapper>

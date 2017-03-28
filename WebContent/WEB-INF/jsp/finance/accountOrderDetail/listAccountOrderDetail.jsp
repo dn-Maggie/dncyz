@@ -4,74 +4,50 @@
 <head>
 <%@ include file="../../common/header.jsp"%>
 <%@ include file="../../common/ace.jsp"%>
-<title></title>
+<script src="<%=request.getContextPath() %>/js/extend/finance.js"></script>
+<script src="<%=request.getContextPath() %>/js/extend/list.js"></script>
 <script type="text/javascript">
 var gridObj = {};
+var orderDetailModel = {
+		url: "<m:url value='/accountOrderDetail/listAccountOrderDetail.do'/>",
+		colModel:[
+					{name : "id",hidden : true,key : true,label:"账单ID",index : "id"},	
+					{name : "storeName",label:"商户名称",index : "store_name"},		
+					{name : "createDate",label:"创建日期",index : "create_date"},				
+					{name : "orderType",label:"订单类型",index : "order_type"
+						,formatter:GridColModelForMatter.orderType},				
+					{name : "orderTime",label:"订单创建时间",index : "order_time"},				
+					{name : "overTime",label:"订单完成时间",index : "over_time"},				
+					{name : "orderNo",label:"订单号",index : "order_no"},				
+					{name : "orginPrice",label:"菜价",index : "orginPrice"},				
+					{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
+					{name : "giftAllowance",label:"赠品补贴",index : "gift_allowance"},				
+					{name : "merchantActivitiesSubsidies",label:"商户承担活动补贴",index : "merchant_activities_subsidies"},		
+					{name : "platformActivitiesSubsidies",label:"平台承担活动补贴",index : "platform_activities_subsidies"},	
+					{name : "distributionMode",label:"配送方式",index : "distribution_mode"},	
+					{name : "merchantDistCharge",label:"商户收取配送费",index : "merchant_dist_charge"},			
+					{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge"},	
+					{name : "merchantSubsidyVouchers",label:"商户承担代金券补贴",index : "merchant_subsidy_vouchers"},	
+					{name : "platformSubsidyVouchers",label:"平台承担代金券补贴",index : "platform_subsidy_vouchers"},
+					/* {name : "serviceRate",label:"服务费费率",index : "service_rate"},	 */			
+					{name : "serviceCharge",label:"服务费",index : "service_charge"},				
+					/* {name : "refundAmount",label:"用户申请退单金额",index : "refund_amount"}, */				
+					{name : "settlementAmount",label:"结算金额",index : "settlement_amount"},				
+					{name : "remark",label:"备注",index : "remark"},		
+					{name : "platformType",label:"平台类型",index : "platform_type",
+						formatter:function(cellvalue, options, rowObject){
+			 				 if (cellvalue=='elm') {return '饿了么';}
+			 				 else if (cellvalue=='meituan'){return '美团';}
+			 				 else if (cellvalue=='baidu'){return '百度';}
+					}},
+	           	],};
 	$(function(){
-  		gridObj = new biz.grid({
-            id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/accountOrderDetail/listAccountOrderDetail.do'/>",/*grid初始化请求数据的远程地址*/
-            datatype: "json",/*数据类型，设置为json数据，默认为json*/
-            footerrow:true,
-           	sortname:"create_date",
-           	sortorder:"asc",
-           	emptyrecords: "无记录可显示",
-           	pager: '#remote_prowed' /*分页栏id*/,
-     		rowList:[10,15,50,100],//每页显示记录数
-    		rowNum:15,//默认显示15条
-            colModel:[
-				{name : "id",hidden : true,key : true,label:"账单ID",index : "id"},	
-				{name : "storeName",label:"商户名称",index : "store_name"},		
-				{name : "createDate",label:"创建日期",index : "create_date"},				
-				{name : "orderType",label:"订单类型",index : "order_type"
-					,formatter:GridColModelForMatter.orderType},				
-				{name : "orderTime",label:"订单创建时间",index : "order_time"},				
-				{name : "overTime",label:"订单完成时间",index : "over_time"},				
-				{name : "orderNo",label:"订单号",index : "order_no"},				
-				{name : "prices",label:"菜价",index : "prices"},				
-				{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
-				{name : "giftAllowance",label:"赠品补贴",index : "gift_allowance"},				
-				{name : "merchantActivitiesSubsidies",label:"商户承担活动补贴",index : "merchant_activities_subsidies"},		
-				{name : "platformActivitiesSubsidies",label:"平台承担活动补贴",index : "platform_activities_subsidies"},	
-				{name : "distributionMode",label:"配送方式",index : "distribution_mode"},	
-				{name : "merchantDistCharge",label:"商户收取配送费",index : "merchant_dist_charge"},			
-				{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge"},	
-				{name : "merchantSubsidyVouchers",label:"商户承担代金券补贴",index : "merchant_subsidy_vouchers"},	
-				{name : "platformSubsidyVouchers",label:"平台承担代金券补贴",index : "platform_subsidy_vouchers"},
-				/* {name : "serviceRate",label:"服务费费率",index : "service_rate"},	 */			
-				{name : "serviceCharge",label:"服务费",index : "service_charge"},				
-				/* {name : "refundAmount",label:"用户申请退单金额",index : "refund_amount"}, */				
-				{name : "settlementAmount",label:"结算金额",index : "settlement_amount"},				
-				{name : "remark",label:"备注",index : "remark"},		
-				{name : "platformType",label:"平台类型",index : "platform_type",
-					formatter:function(cellvalue, options, rowObject){
-		 				 if (cellvalue=='elm') {return '饿了么';}
-		 				 else if (cellvalue=='meituan'){return '美团';}
-		 				 else if (cellvalue=='baidu'){return '百度';}
-				}},
-           	],
-           	serializeGridData:function(postData){//添加查询条件值
-				var obj = getQueryCondition();
-    			$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
-    			return obj;
-    		},
-    		gridComplete:function(){
-    		    	$(".ui-jqgrid-sdiv").show();
-    		    	$(this).footerData("set",{
-    		    		"rn":"合计",
-    		    		"prices":$(this).getCol("prices",false,"sum").toFixed(2),
-    		    		"mealFee":$(this).getCol("mealFee",false,"sum").toFixed(2),
-    		    		"giftAllowance":$(this).getCol("giftAllowance",false,"sum").toFixed(2),
-    		    		"merchantActivitiesSubsidies":$(this).getCol("merchantActivitiesSubsidies",false,"sum").toFixed(2),
-    		    		"platformActivitiesSubsidies":$(this).getCol("platformActivitiesSubsidies",false,"sum").toFixed(2),
-    		    		"serviceCharge":$(this).getCol("serviceCharge",false,"sum").toFixed(2),
-    		    		"settlementAmount":$(this).getCol("settlementAmount",false,"sum").toFixed(2),
-    		    		}); //将合计值显示出来
-    		}
-      });
+		initGrid("orderDetail");
         
     });
-
+	function initGrid(ways){
+		gridObj = Finance.createGrid(ways,orderDetail.colModel,true,false);
+	}
  
 
     //新增的弹出框
@@ -142,28 +118,6 @@ var gridObj = {};
     function closeShow(){
     	show_iframe_dialog.close();
     }
-    /**
-    * 获取查询条件值
-    */
-    function getQueryCondition(){
-       var obj = {};
-		jQuery.each($("#queryForm").serializeArray(),function(i,o){
-        	if(o.value){
-        		obj[o.name] = o.value;
-        	}
-        });
-		return obj;
-    }
-    //查询Grid数据
-    function doSearch(isStayCurrentPage){
-    	if(!isStayCurrentPage)gridObj.setGridParam({"page":"1"});
-    	gridObj.trigger('reloadGrid');
-    }
-    //重置查询表单
-    function resetForm(formId){
-		document.getElementById(formId).reset();
-	}
-    
     //删除
     function batchDelete(){
     	var ids = ICSS.utils.getSelectRowData("id");
@@ -206,6 +160,19 @@ var gridObj = {};
 		$("#downloadform").attr("action", "<%=request.getContextPath()%>/download/fileDownload");
 		fid.submit();
 	}
+	//生成运营汇总表
+    function genTotal(ways){
+    	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
+    	var orderSaleRate = eval(tableId+"orderSaleRate");
+   		$ .ajax({
+   			type: "post",
+   			data:{orderSaleRate:orderSaleRate,
+   					id:tableId},
+			url: baseUrl+"/accountOperaTotal/addByOperaDetail.do",
+			cache:false,
+			dataType:"json"
+		});
+    }
     </script>
 </head>
 <body style="height:100%;">
@@ -246,8 +213,8 @@ var gridObj = {};
 					</select><span>平台类型:</span></li><!--下拉 -->
 				 <li><select class="search_select" name="distributionMode" id="distributionMode"><option value="">---请选择---</option></select>
 				<span>配送方式:</span></li><!--下拉 -->
-				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
-						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
+				<li><input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置"><!-- 重置 -->
+						<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridObj);" value="查询"></li><!-- 查询-->
 				</ul>
 		   </div>
 	    </form>
@@ -255,9 +222,9 @@ var gridObj = {};
 				<!--功能按钮begin-->
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
-					<!-- <li><a title="下载模板" href="javascript:" onclick="downloadTemplate();">
+					<li><a title="下载模板" href="javascript:" onclick="downloadTemplate();">
 							<i class="icon_bg icon_download"></i> <span>下载模板</span>
-					</a></li> -->
+					</a></li>
 					 <c:if test="${importData}">
 							<li>
 								<a title="导入原始数据" href="javascript:;" onclick="importData();"> 
@@ -297,8 +264,14 @@ var gridObj = {};
 				<!--功能按钮end-->
 				<div class="listtable_box">
 					<!--此处放表格-->
-				<table  id="remote_rowed" ></table>
-				<div  id="remote_prowed"></div>		
+					<table  id="orderDetail" ></table>
+					<div  id="orderDetailprowed"></div>		
+				</div>
+				<div>
+					<input type="button" value= "生成底价运营表" onclick="genTotal('basePrice');" class="btn">
+					<input type="button" value= "生成深运营运营表" onclick="genTotal('deepOpera');" class="btn">
+					<input type="button" value= "生成销售额比例抽佣运营表" onclick="genTotal('saleRate');" class="btn">
+					<input type="button" value= "生成平台到款抽佣运营表" onclick="genTotal('platformAccount');" class="btn">
 				</div>
 		</div>
 	</div>

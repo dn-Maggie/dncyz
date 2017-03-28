@@ -56,6 +56,7 @@ public class AccountOperateIncome extends Model{
 	                 * 实际结算折扣菜金额
 	                 **/
 				   			private BigDecimal actualPrice;
+				   			private BigDecimal specialOffer;
 		   		
 		            /**
 	                 * 订单上收取客户配送费
@@ -842,6 +843,14 @@ public class AccountOperateIncome extends Model{
 
 			public void setRemark(String remark) {
 				this.remark = remark;
+			}
+
+			public BigDecimal getSpecialOffer() {
+				return specialOffer;
+			}
+
+			public void setSpecialOffer(BigDecimal specialOffer) {
+				this.specialOffer = specialOffer;
 			}
 		   		
 		

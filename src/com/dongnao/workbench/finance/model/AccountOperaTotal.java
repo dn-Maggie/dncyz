@@ -2,6 +2,8 @@ package com.dongnao.workbench.finance.model;
 
 import java.util.Date;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import com.dongnao.workbench.common.bean.Model;
 /**
@@ -22,7 +24,6 @@ public class AccountOperaTotal extends Model{
 	                 * 商户名称
 	                 **/	private String storeId;
 				   			private String storeName;
-		   		
 		            /**
 	                 * 日期
 	                 **/
@@ -814,8 +815,7 @@ public class AccountOperaTotal extends Model{
 			public void setStoreId(String storeId) {
 				this.storeId = storeId;
 			}
-		   		
-		
+
 		
 			
 			}

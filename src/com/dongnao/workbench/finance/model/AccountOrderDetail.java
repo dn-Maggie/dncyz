@@ -18,11 +18,11 @@ public class AccountOrderDetail extends Model{
 		            /**
 	                 * 账单ID
 	                 **/
-				   			private String id;
-				   			/**
-			                 * 是否为有效单
-			                 **/
-				   			private String isInvalid;
+		   			private String id;
+		   			/**
+	                 * 是否为有效单
+	                 **/
+		   			private String isInvalid;
 		   		
 		            /**
 	                 * 创建日期
@@ -32,13 +32,12 @@ public class AccountOrderDetail extends Model{
 		
 
 					/**
-	                 * 
-	                 **/
-				   			private String storeId;
-				   			private String storeELMId;
-				   			private String storeMTId;
-				   			private String storeBDId;
-				   			private String storeName;
+	                 */
+			   			private String storeId;
+			   			private String storeELMId;
+			   			private String storeMTId;
+			   			private String storeBDId;
+			   			private String storeName;
 		   		
 		            /**
 	                 * 账单编号
@@ -75,7 +74,7 @@ public class AccountOrderDetail extends Model{
 		            /**
 	                 * 菜价
 	                 **/
-				   			private BigDecimal prices;
+				   			private BigDecimal orginPrice;
 		   		
 		            /**
 	                 * 餐盒费
@@ -172,7 +171,7 @@ public class AccountOrderDetail extends Model{
 	                 **/
 		   			private BigDecimal activitiesSubsidyBycompany;
 		   			/**
-	                 * 折扣后菜价
+	                 * 折扣菜价
 	                 **/
 		   			private BigDecimal foodDiscount;
 		   			/**
@@ -481,16 +480,16 @@ public class AccountOrderDetail extends Model{
 			 * 获取 菜价
 			 * @return String this.prices
 			 */
-			public BigDecimal getPrices(){
-				return this.prices;
+			public BigDecimal getOrginPrice(){
+				return this.orginPrice;
 			}
 			
 			/**
 			 * 设置 菜价
 			 * @param String prices 
 			 */
-			public void setPrices(BigDecimal prices){
-				this.prices = prices;
+			public void setOrginPrice(BigDecimal orginPrice){
+				this.orginPrice = orginPrice;
 			}
 		   		
 		
@@ -824,6 +823,7 @@ public class AccountOrderDetail extends Model{
 			public void setActualMerchantDistCharge(BigDecimal actualMerchantDistCharge) {
 				this.actualMerchantDistCharge = actualMerchantDistCharge;
 			}
+
 
 		   		
 		

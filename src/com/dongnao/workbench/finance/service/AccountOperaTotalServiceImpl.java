@@ -43,19 +43,32 @@ public class AccountOperaTotalServiceImpl implements AccountOperaTotalService{
 	 * 删除运营合计方法
 	 * @param key String 多个由“，”分割开的id字符串
 	 */
-	public void deleteByKey(String key){
-		accountOperaTotalMapper.deleteByKey(key);
+	public void deleteByKey(AccountOperaTotal accountOperaTotal){
+		accountOperaTotalMapper.deleteByKey(accountOperaTotal);
 	}
-	
+	/**
+	 * 删除运营合计方法
+	 * @param key String 多个由“，”分割开的id字符串
+	 */
+	public void deleteTotalByKey(AccountOperaTotal accountOperaTotal){
+		accountOperaTotalMapper.deleteTotalByKey(accountOperaTotal);
+	}
 	/**
 	 * 根据条件查找运营合计列表方法
 	 * @param accountOperaTotal AccountOperaTotal 实体对象（查询条件）
 	 * @return List<AccountOperaTotal> 实体对象的list
 	 */
-	public List<AccountOperaTotal> listByCondition(AccountOperaTotal accountOperaTotal){
-		return accountOperaTotalMapper.listByCondition(accountOperaTotal);
+	public List<AccountOperaTotal> listByTotal(AccountOperaTotal accountOperaTotal){
+		return accountOperaTotalMapper.listByTotal(accountOperaTotal);
 	}
-	
+	/**
+	 * 根据条件查找运营合计列表方法
+	 * @param accountOperaTotal AccountOperaTotal 实体对象（查询条件）
+	 * @return List<AccountOperaTotal> 实体对象的list
+	 */
+	public List<AccountOperaTotal> listByDate(AccountOperaTotal accountOperaTotal){
+		return accountOperaTotalMapper.listByDate(accountOperaTotal);
+	}
 	/**
 	 * 修改运营合计方法
 	 * @param accountOperaTotal AccountOperaTotal 实体对象
@@ -65,9 +78,28 @@ public class AccountOperaTotalServiceImpl implements AccountOperaTotalService{
 		return AjaxUtils.getSuccessMessage();
 	}
 	/**
+	 * 修改运营合计方法
+	 * @param accountOperaTotal AccountOperaTotal 实体对象
+	 */	
+	public ResultMessage updateTotal(AccountOperaTotal accountOperaTotal){
+		accountOperaTotalMapper.updateTotal(accountOperaTotal);
+		return AjaxUtils.getSuccessMessage();
+	}
+	/**
 	 * 批量新增运营合计方法
 	 */	
 	public int addByOperaDetail(AccountOperaTotal accountOperaTotal){
 		return accountOperaTotalMapper.addByOperaDetail(accountOperaTotal);
+	};
+	/**
+	 * 批量新增运营合计方法
+	 * @return 
+	 */	
+	public int addTotalByOperaDetail(AccountOperaTotal accountOperaTotal){
+		return accountOperaTotalMapper.addTotalByOperaDetail(accountOperaTotal);
+	}
+
+	public int addTotalByOperaDate(AccountOperaTotal accountOperaTotal) {
+		return accountOperaTotalMapper.addTotalByOperaDate(accountOperaTotal);
 	};
 }

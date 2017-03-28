@@ -78,4 +78,20 @@ public class AccountCheckServiceImpl implements AccountCheckService{
 	public List<AccountOperateIncome> listTotalAccountCheck(AccountOrderDetail accountOrderDetail) {
 		return accountCheckMapper.listTotalAccountCheck(accountOrderDetail);
 	}
+
+	public void deleteDateByKey(AccountCheck accountCheck) {
+		accountCheckMapper.deleteDateByKey(accountCheck);		
+	}
+
+	public void addByCheckDetail(AccountCheck accountCheck) {
+		accountCheckMapper.addByCheckDetail(accountCheck);		
+	}
+
+	public void deleteTotalByKey(AccountCheck accountCheck) {
+		accountCheckMapper.deleteTotalByKey(accountCheck);		
+	}
+
+	public void addTotalByCheckDetail(AccountCheck accountCheck) {
+		accountCheckMapper.addTotalByCheckDetail(accountCheck);		
+	}
 }

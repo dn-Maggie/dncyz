@@ -63,8 +63,8 @@ public class AccountOperaTotalController{
 	 */
 	@RequestMapping("/addAccountOperaTotal")
 	public void add(AccountOperaTotal accountOperaTotal,HttpServletRequest request,HttpServletResponse response){
-	accountOperaTotal.setId(Utils.generateUniqueID());
-	AjaxUtils.sendAjaxForObjectStr(
+		accountOperaTotal.setId(Utils.generateUniqueID());
+		AjaxUtils.sendAjaxForObjectStr(
 				response,accountOperaTotalService.add(accountOperaTotal));		
 	}
 	
@@ -76,26 +76,12 @@ public class AccountOperaTotalController{
 	 */
 	@RequestMapping("/addByOperaDetail")
 	public void addByOperaDetail(AccountOperaTotal accountOperaTotal,HttpServletRequest request,HttpServletResponse response){
-		accountOperaTotal.setId(Utils.generateUniqueID());
-		accountOperaTotalService.addByOperaDetail(accountOperaTotal);		
+		accountOperaTotalService.deleteByKey(accountOperaTotal);
+		accountOperaTotalService.addByOperaDetail(accountOperaTotal);	
+		accountOperaTotalService.deleteTotalByKey(accountOperaTotal);
+		accountOperaTotalService.addTotalByOperaDetail(accountOperaTotal);
 	}
 	
-	/**
-	 * 删除方法
-	 * @param response HttpServletResponse
-	 * @param key String:多个由“，”分割开的id字符串
-	 * @return: ajax输入json字符串
-	 */
-	@RequestMapping("/deleteAccountOperaTotal")
-	public void deleteByKey(String key,HttpServletResponse response){
-		String[] str = key.split(",");
-		for(int i=0;i<str.length;i++){
-			accountOperaTotalService.deleteByKey(str[i]);
-		}
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("msg", "成功");
-		AjaxUtils.sendAjaxForMap(response, map);
-	}
 	
 	/**
 	 * 进入列表页面
@@ -107,6 +93,23 @@ public class AccountOperaTotalController{
 		 return mv;
 	}
 	
+	
+	/**
+	 * 根据条件查找列表方法
+	 * @param accountOperaTotal AccountOperaTotal：实体对象（查询条件）
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse
+	 * @param page Page:分页对象
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/listAccountOperaDate")
+	public void listByDate(AccountOperaTotal accountOperaTotal,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		accountOperaTotal.setPage(page);	
+		List<AccountOperaTotal> list = accountOperaTotalService.listByDate(accountOperaTotal);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	
 	/**
 	 * 根据条件查找列表方法
 	 * @param accountOperaTotal AccountOperaTotal：实体对象（查询条件）
@@ -116,10 +119,10 @@ public class AccountOperaTotalController{
 	 * @return: ajax输入json字符串
 	 */
 	@RequestMapping("/listAccountOperaTotal")
-	public void listByCondition(AccountOperaTotal accountOperaTotal,HttpServletRequest request,
+	public void listByTotal(AccountOperaTotal accountOperaTotal,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		accountOperaTotal.setPage(page);	
-		List<AccountOperaTotal> list = accountOperaTotalService.listByCondition(accountOperaTotal);
+		List<AccountOperaTotal> list = accountOperaTotalService.listByTotal(accountOperaTotal);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
@@ -142,10 +145,24 @@ public class AccountOperaTotalController{
 	 * @param response HttpServletResponse
 	 * @return: ajax输入json字符串
 	 */	
-	@RequestMapping("/updateAccountOperaTotal")
+	@RequestMapping("/updateAccountOperaDate")
 	public void update(AccountOperaTotal accountOperaTotal,HttpServletRequest request,HttpServletResponse response){
+		accountOperaTotalService.update(accountOperaTotal);	
+		accountOperaTotalService.deleteTotalByKey(null);
 		AjaxUtils.sendAjaxForObjectStr(
-				response,accountOperaTotalService.update(accountOperaTotal));	
+				response,accountOperaTotalService.addTotalByOperaDate(accountOperaTotal));
+	}
+	
+	/**
+	 * 修改方法
+	 * @param accountOperaTotal AccountOperaTotal：实体对象
+	 * @param response HttpServletResponse
+	 * @return: ajax输入json字符串
+	 */	
+	@RequestMapping("/updateAccountOperaTotal")
+	public void updateTotal(AccountOperaTotal accountOperaTotal,HttpServletRequest request,HttpServletResponse response){
+		AjaxUtils.sendAjaxForObjectStr(
+				response,accountOperaTotalService.updateTotal(accountOperaTotal));	
 	}
 	
 }

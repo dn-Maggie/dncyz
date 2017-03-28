@@ -14,6 +14,7 @@ import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.finance.model.AccountCheck;
+import com.dongnao.workbench.finance.model.AccountOperaTotal;
 import com.dongnao.workbench.finance.model.AccountOperateIncome;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.model.TotalOperateIncome;
@@ -75,6 +76,19 @@ public class AccountCheckController{
 				response,accountCheckService.add(accountCheck));		
 	}
 	
+	/**
+	 * 批量新增方法
+	 * @param response HttpServletResponse
+	 * @param accountOperaTotal AccountOperaTotal:实体类
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/addByCheckDetail")
+	public void addByOperaDetail(AccountCheck accountCheck,HttpServletRequest request,HttpServletResponse response){
+		accountCheckService.deleteDateByKey(accountCheck);
+		accountCheckService.addByCheckDetail(accountCheck);	
+		accountCheckService.deleteTotalByKey(accountCheck);
+		accountCheckService.addTotalByCheckDetail(accountCheck);
+	}
 	/**
 	 * 删除方法
 	 * @param response HttpServletResponse

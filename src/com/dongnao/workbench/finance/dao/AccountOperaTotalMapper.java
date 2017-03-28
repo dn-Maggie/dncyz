@@ -18,9 +18,9 @@ public interface AccountOperaTotalMapper  {
 	
 	/**
 	 * 删除运营合计方法
-	 * @param key String:多个由“，”分割开的id字符串
+	 * @param accountOperaTotal String:多个由“，”分割开的id字符串
 	 */
-	void deleteByKey(String key);
+	void deleteByKey(AccountOperaTotal accountOperaTotal);
 	
 	/**
 	 * 根据主键查找运营合计实体方法
@@ -28,13 +28,6 @@ public interface AccountOperaTotalMapper  {
 	 * @return AccountOperaTotal: 实体
 	 */
 	public AccountOperaTotal getByPrimaryKey(String key);
-	
-	/**
-	 * 根据条件查找运营合计列表方法
-	 * @param AccountOperaTotal accountOperaTotal：实体对象（查询条件）
-	 * @return List<AccountOperaTotal>: 实体对象的list
-	 */
-	public List<AccountOperaTotal>  listByCondition(AccountOperaTotal accountOperaTotal);
 	
 	/**
 	 * 修改运营合计方法
@@ -46,4 +39,18 @@ public interface AccountOperaTotalMapper  {
 	 * @return 
 	 */	
 	int addByOperaDetail(AccountOperaTotal accountOperaTotal);
+
+	int addTotalByOperaDetail(AccountOperaTotal accountOperaTotal);
+
+	void deleteTotalByKey(AccountOperaTotal accountOperaTotal);
+
+	void updateTotal(AccountOperaTotal accountOperaTotal);
+
+	int addTotalByOperaDate(AccountOperaTotal accountOperaTotal);
+
+	List<AccountOperaTotal> listByTotal(AccountOperaTotal accountOperaTotal);
+
+	List<AccountOperaTotal> listByDate(AccountOperaTotal accountOperaTotal);
+
+
 }

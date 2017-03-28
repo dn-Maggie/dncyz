@@ -25,9 +25,11 @@ import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.common.util.StringUtil;
+import com.dongnao.workbench.finance.model.AccountOperaTotal;
 import com.dongnao.workbench.finance.model.AccountOperateIncome;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.model.TotalOperateIncome;
+import com.dongnao.workbench.finance.service.AccountOperaTotalService;
 import com.dongnao.workbench.finance.service.AccountOrderDetailService;
 import com.dongnao.workbench.staticAnalysis.model.DemandAnalysis;
 
@@ -51,7 +53,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class AccountOrderDetailController{
          @Resource
 	private AccountOrderDetailService accountOrderDetailService;
-	 
+     	@Resource
+    	private AccountOperaTotalService accountOperaTotalService;
+    	
  	/**
  	* 进入新增页面
  	* @return ModelAndView 返回到新增页面
@@ -165,6 +169,9 @@ public class AccountOrderDetailController{
 	public void updateAccountOrderDetailActualDistCharge(AccountOrderDetail accountOrderDetail,HttpServletRequest request,HttpServletResponse response){
 		AjaxUtils.sendAjaxForObjectStr(
 				response,accountOrderDetailService.updateActualDistCharge(accountOrderDetail));	
+		AccountOperaTotal accountOperaTotal = new AccountOperaTotal();
+		accountOperaTotalService.deleteByKey(accountOperaTotal);
+		accountOperaTotalService.deleteTotalByKey(accountOperaTotal);
 	}
 	/**
 	 * 菜品数量表明细
@@ -211,7 +218,7 @@ public class AccountOrderDetailController{
 				orderDetail.setOverTime(new Timestamp(DateUtil.parseStringToyyyyMMddHHmmss(StringUtil.valueOf(lo.get(6))).getTime()));
 				orderDetail.setOrderIndex(StringUtil.valueOf(lo.get(7)));
 				orderDetail.setOrderNo(StringUtil.valueOf(lo.get(8)));
-				orderDetail.setPrices(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(9))));
+				orderDetail.setOrginPrice(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(9))));
 				orderDetail.setMealFee(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(10))));
 				orderDetail.setGiftAllowance(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(11))));
 				orderDetail.setMerchantActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(12))));//商户承担活动补贴(总额)
@@ -274,7 +281,7 @@ public class AccountOrderDetailController{
 				orderDetail.setOverTime(lo.get(29).toString().length()==0?new Timestamp(0):new Timestamp(DateUtil.parseStringToyyyyMMddHHmmss(StringUtil.valueOf(lo.get(29))).getTime())); //订单完成时间
 				orderDetail.setOrderIndex("");//美团数据无接单序号
 				orderDetail.setOrderNo(StringUtil.valueOf(lo.get(0)));
-				orderDetail.setPrices(
+				orderDetail.setOrginPrice(
 						StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(10))).subtract(
 								StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(15))).add(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(27))))
 								)); //菜品原价= 订单总金额-(配送费+餐盒费）
@@ -348,7 +355,7 @@ public class AccountOrderDetailController{
 				orderDetail.setOverTime(lo.get(29).toString().length()==0?new Timestamp(0):new Timestamp(DateUtil.parseStringToyyyyMMddHHmmss(StringUtil.valueOf(lo.get(29))).getTime())); //订单完成时间
 				orderDetail.setOrderIndex(StringUtil.valueOf(lo.get(7)));
 				orderDetail.setOrderNo(StringUtil.valueOf(lo.get(8)));
-				orderDetail.setPrices(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(9))));
+				orderDetail.setOrginPrice(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(9))));
 				orderDetail.setMealFee(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(10))));
 				orderDetail.setGiftAllowance(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(11))));
 				/*orderDetail.setActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(12))));

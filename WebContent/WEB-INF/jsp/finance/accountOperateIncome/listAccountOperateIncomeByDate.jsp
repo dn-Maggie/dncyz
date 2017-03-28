@@ -15,7 +15,7 @@
 <script type="text/javascript">
 var gridObj = {};
 //底价运营表表头         
-var basePriceModel =  {url: "<m:url value='/accountOperateIncome/listAccountOperateIncomeByDate.do'/>",
+var basePriceModel =  {url: "<m:url value='/accountOperateIncome/listAccountOperateIncomeByDate.do'/>?orderSaleRate="+0.7,
 						colModel:[
 						{name : "storeName",label:"商户名称",index : "store_name"},	
 						{name : "createDate",label:"日期",index : "create_date"},		
@@ -32,7 +32,7 @@ var basePriceModel =  {url: "<m:url value='/accountOperateIncome/listAccountOper
 	       				{name : "allplatformServiceCharge",label:"平台服务费"},
 				       	]};
 //销售额比例抽佣运营表表头         
-var salesRateModel = {url: "<m:url value='/accountOperateIncome/listAccountOperateIncomeByDate.do'/>",
+var salesRateModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaDate.do'/>",
 						colModel:[
 						{name : "storeName",label:"商户名称",index : "store_name"},	
 						{name : "createDate",label:"日期",index : "create_date"},		
@@ -50,7 +50,7 @@ var salesRateModel = {url: "<m:url value='/accountOperateIncome/listAccountOpera
 				       	]};
 //平台到账抽佣运营表表头            		
 var platformAccountModel = {
-						url: "<m:url value='/accountOperateIncome/listAccountOperateIncomeByDate.do'/>",
+						url: "<m:url value='/accountOperaTotal/listAccountOperaDate.do'/>",
 						colModel:[
 						{name : "storeName",label:"商户名称",index : "store_name"},	
 						{name : "createDate",label:"日期",index : "create_date"},		
@@ -67,7 +67,7 @@ var platformAccountModel = {
 	       				{name : "allplatformServiceCharge",label:"平台服务费"},
 				       	]};				      
 //深运营表表头         
-var deepOperationModel ={url: "<m:url value='/accountOperateIncome/listAccountOperateIncomeByDate.do'/>",
+var deepOperationModel ={url: "<m:url value='/accountOperaTotal/listAccountOperaDate.do'/>",
 						colModel:[
 						{name : "storeName",label:"商户名称",index : "store_name"},		
 						{name : "createDate",label:"日期",index : "create_date"},		
@@ -93,7 +93,7 @@ var deepOperationModel ={url: "<m:url value='/accountOperateIncome/listAccountOp
     });
 	//初始化grid
 	function initGrid(ways){
-		$("#orderSaleRate").val(localStorage.getItem(ways+"orderSaleRate")?localStorage.getItem(ways+"orderSaleRate"):0.7);
+		$("#edit_id").val(ways);
 		gridObj = Finance.createGrid(ways,null,true,false);
 		$("#"+ways).setColProp('calculate');
 	}
@@ -109,7 +109,7 @@ var deepOperationModel ={url: "<m:url value='/accountOperateIncome/listAccountOp
 			<div class="search border-bottom">
 				<ul>
 				<li>
-					<input type="hidden" name="orderSaleRate" id="orderSaleRate">
+					<input type="hidden" name="id" id="edit_id">
 					<input type="text" name="storeName" id="storeName" class="search_choose"> <span>店铺名称:</span>
 				</li><!-- 输入框-->
 				<li>

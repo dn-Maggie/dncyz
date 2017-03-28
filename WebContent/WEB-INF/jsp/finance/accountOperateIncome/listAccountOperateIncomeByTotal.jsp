@@ -25,7 +25,7 @@ function cellFormat(value, options, rData){
 //浅运营汇总表表头         
 var distPrice = 12.5;
 var simpleTotalorderSaleRate = localStorage.getItem("simpleTotalorderSaleRate")?localStorage.getItem("simpleTotalorderSaleRate"):0.7;
-var simpleTotalModel = {url: "<m:url value='/accountOperateIncome/ListAccountOperateIncomeByTotal.do'/>?orderSaleRate"+simpleTotalorderSaleRate,
+var simpleTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTotal.do'/>",
 					colModel:[
 					{name : "storeName",label:"商户名称",index : "store_name"},	
 					{name : "createDate",label:"日期",index : "create_date"},		
@@ -53,7 +53,7 @@ var simpleTotalModel = {url: "<m:url value='/accountOperateIncome/ListAccountOpe
 			       	]};
 //深运营汇总表表头
 var deepTotalorderSaleRate = localStorage.getItem("deepTotalorderSaleRate")?localStorage.getItem("deepTotalorderSaleRate"):0.65;
-var deepTotalModel = {url: "<m:url value='/accountOperateIncome/ListAccountOperateIncomeByTotal.do'/>?orderSaleRate"+deepTotalorderSaleRate,
+var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTotal.do'/>",
 					colModel:[
 					{name : "storeName",label:"商户名称",index : "store_name"},	
 					{name : "createDate",label:"日期",index : "create_date"},		
@@ -85,7 +85,6 @@ var deepTotalModel = {url: "<m:url value='/accountOperateIncome/ListAccountOpera
     	});
 	//初始化grid
 	function initGrid(ways){
-		$("#orderSaleRate").val(localStorage.getItem(ways+"orderSaleRate")?localStorage.getItem(ways+"orderSaleRate"):0.7);
 		if(localStorage.getItem(ways+"Model")){
 			var localStorageModel= $.each(JSON.parse(localStorage.getItem(ways+"Model")), function(idx, obj) {
 				if(obj.serial){
@@ -131,7 +130,7 @@ var deepTotalModel = {url: "<m:url value='/accountOperateIncome/ListAccountOpera
 			<div class="search border-bottom">
 				<ul>
 				<li>
-					<input type="hidden" name="orderSaleRate" id="orderSaleRate">
+					<input type="hidden" name="id" id="edit_id" value="platformAccount">
 					<input type="text" name="storeName" id="storeName" class="search_choose"> <span>店铺名称:</span>
 				</li><!-- 输入框-->
 				<li>

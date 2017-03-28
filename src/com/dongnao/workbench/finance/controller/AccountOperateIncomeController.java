@@ -168,7 +168,7 @@ public class AccountOperateIncomeController{
 	public void ListAccountOperateIncomeByTotal(AccountOperaTotal accountOperaTotal,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		accountOperaTotal.setPage(page);	
-		List<AccountOperaTotal> list = accountOperaTotalService.listByCondition(accountOperaTotal);
+		List<AccountOperaTotal> list = accountOperaTotalService.listByTotal(accountOperaTotal);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
@@ -302,13 +302,6 @@ public class AccountOperateIncomeController{
 				"运营统计列表", "运营统计列表");
 	}
 	
-	/**
-	 * 配置表头
-	 */
-	@RequestMapping("/toConfigGridTitle")
-	public ModelAndView toConfigGridTitle(){
-		ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/operaData/configGridTitle");
-		return mv;
-	}
+	
 	
 }

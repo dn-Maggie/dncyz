@@ -22,7 +22,12 @@ public interface AccountOperaTotalService  {
 	 * 删除运营合计方法
 	 * @param key:多个由“，”分割开的id字符串
 	 */
-	public void deleteByKey(String key);
+	public void deleteByKey(AccountOperaTotal accountOperaTotal);
+	/**
+	 * 删除运营合计方法
+	 * @param key:多个由“，”分割开的id字符串
+	 */
+	public void deleteTotalByKey(AccountOperaTotal accountOperaTotal);
 	
 	/**
 	 * 根据主键查找运营合计实体方法
@@ -30,22 +35,35 @@ public interface AccountOperaTotalService  {
 	 * @return accountOperaTotal AccountOperaTotal 实体对象
 	 */
 	public AccountOperaTotal getByPrimaryKey(String key);
-	
-	/**
-	 * 根据条件查找运营合计列表方法
-	 * @param accountOperaTotal AccountOperaTotal 实体对象（查询条件）
-	 * @return: 实体对象的list
-	 */
-	public List<AccountOperaTotal> listByCondition(AccountOperaTotal accountOperaTotal);
-	
 	/**
 	 * 修改运营合计方法
 	 * @param accountOperaTotal AccountOperaTotal 实体对象
 	 */	
 	public ResultMessage update(AccountOperaTotal accountOperaTotal);
 	/**
-	 * 批量新增运营合计方法
+	 * 批量新增运营日数据方法
 	 * @return 
 	 */	
 	public int addByOperaDetail(AccountOperaTotal accountOperaTotal);
+	/**
+	 * 批量新增运营合计方法
+	 * @return 
+	 */	
+	public int addTotalByOperaDetail(AccountOperaTotal accountOperaTotal);
+
+	public ResultMessage updateTotal(AccountOperaTotal accountOperaTotal);
+
+	public int addTotalByOperaDate(AccountOperaTotal accountOperaTotal);
+	/**
+	 * 根据条件查找运营合计列表方法
+	 * @param accountOperaTotal AccountOperaTotal 实体对象（查询条件）
+	 * @return: 实体对象的list
+	 */
+	public List<AccountOperaTotal> listByDate(AccountOperaTotal accountOperaTotal);
+	/**
+	 * 根据条件查找运营合计列表方法
+	 * @param accountOperaTotal AccountOperaTotal 实体对象（查询条件）
+	 * @return: 实体对象的list
+	 */
+	public List<AccountOperaTotal> listByTotal(AccountOperaTotal accountOperaTotal);
 }

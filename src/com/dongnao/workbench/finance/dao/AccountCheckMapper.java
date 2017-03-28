@@ -47,4 +47,12 @@ public interface AccountCheckMapper  {
 	public List<AccountOperateIncome> listTotalAccountCheck(AccountOrderDetail accountOrderDetail);
 
 	public List<AccountOperateIncome> listDetailAccountCheck(AccountOrderDetail accountOrderDetail);
+
+	void deleteDateByKey(AccountCheck accountCheck);
+
+	void deleteTotalByKey(AccountCheck accountCheck);
+
+	void addByCheckDetail(AccountCheck accountCheck);
+
+	void addTotalByCheckDetail(AccountCheck accountCheck);
 }
