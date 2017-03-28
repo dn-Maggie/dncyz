@@ -1,9 +1,53 @@
-  //新增的弹出框
-var add_iframe_dialog;
+Add={
+		create:function(url,title){
+			if(!add_iframe_dialog)add_iframe_dialog = new biz.dialog({
+				id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+				modal: true,
+				width: $(window).width()*0.6,
+				height: $(window).height()*0.8,
+				title: title
+			});
+			return add_iframe_dialog;
+		},
+};
 //修改的弹出框
-var edit_iframe_dialog;
+Edit ={
+		create:function(key,url,title){
+			var key = key;
+			if(key.indexOf(",")>-1||key==""){
+				showMessage("请选择一条数据！");
+				return ;
+			}
+			var url=url+"?key="+key;
+			if(!edit_iframe_dialog)edit_iframe_dialog = new biz.dialog({
+			 	id:$('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+				modal: true,
+				width: $(window).width()*0.6,
+				height: $(window).height()*0.8,
+				title: title
+			});
+			return edit_iframe_dialog;
+		},
+} ;
 //查看的弹出框
-var show_iframe_dialog;
+Show = {
+		create:function(key,url,title){
+			var key = key;
+			if(key.indexOf(",")>-1||key==""){
+				showMessage("请选择一条数据！");
+				return ;
+			}
+			var url=url+"?key="+key;
+			if(!show_iframe_dialog)show_iframe_dialog = new biz.dialog({
+			 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+				modal: true,
+				width: $(window).width()*0.6,
+				height: $(window).height()*0.8,
+				title:title
+			});
+	  		return show_iframe_dialog;
+		},
+};
 List = {
 		createGrid :function(url,colModel,sortname,gridCompleteCount){ 
 	    	return new biz.grid({
@@ -40,59 +84,13 @@ List = {
 				}
 	    	});
 	    },
-	add:function(url,title){
-		var url=url;
-		add_iframe_dialog = new biz.dialog({
-			id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: $(window).width()*0.6,
-			height: $(window).height()*0.8,
-			title: title
-		});
-		add_iframe_dialog.open();
-	},
-	closeAdd:function(){
-		add_iframe_dialog.close();
-	},
-	edit:function(key,url,title){
-		var key = key;
-		if(key.indexOf(",")>-1||key==""){
-			showMessage("请选择一条数据！");
-			return ;
-		}
-		var url=url+"?key="+key;
-		edit_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: $(window).width()*0.6,
-			height: $(window).height()*0.8,
-			title: title
-		});
-  		edit_iframe_dialog.open();
-	},
-	closeEdit:function(){
-		edit_iframe_dialog.close();
-	},
-	show:function(key,url,title){
-		var key = key;
-		if(key.indexOf(",")>-1||key==""){
-			showMessage("请选择一条数据！");
-			return ;
-		}
-		var url=url+"?key="+key;
-		show_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: $(window).width()*0.6,
-			height: $(window).height()*0.8,
-			title:title
-		});
-  		show_iframe_dialog.open();
-	},
-	closeShow:function(){
-		show_iframe_dialog.close();
-	},
-    batchDelete:function(id,url){
+	    openDialog:function(dialog){
+	    	dialog.open();
+	    },
+	    closeDialog:function(dialog){
+	    	dialog.close();
+	    },
+	    batchDelete:function(id,url){
     	var ids = id;
     	if(ids==""){
     		showMessage("请至少选择一条数据！");
@@ -123,8 +121,7 @@ List = {
 		return obj;
     },
 	doSearch: function (gridObj){
-    	gridObj.setGridParam({"page":"1"});
-    	gridObj.trigger('reloadGrid');
+		if(gridObj){gridObj.setGridParam({"page":"1"});gridObj.trigger('reloadGrid');}
     },
     resetForm:  function(formId){
 		document.getElementById(formId).reset();

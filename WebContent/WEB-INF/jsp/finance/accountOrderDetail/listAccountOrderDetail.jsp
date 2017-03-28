@@ -56,103 +56,54 @@ var orderDetailModel = {
 	var show_iframe_dialog;
   	
   	function add(){
-  	//xin zeng iframe 弹出框
-		var url="<m:url value='/accountOrderDetail/toAddAccountOrderDetail.do'/>";
-		add_iframe_dialog = new biz.dialog({
-			id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: 800,
-			height: 235,
-			title: "订单明细增加"
-		});
-		add_iframe_dialog.open();
+  		var url = baseUrl+'/accountOrderDetail/toAddAccountOrderDetail.do';
+		var title = "订单明细增加";
+		add_iframe_dialog = Add.create(url, title);
+		List.openDialog(add_iframe_dialog);
   	}
-  	
-  	//关闭新增页面，供子页面调用
-  	function closeAdd(){
-		add_iframe_dialog.close();
-  	}
-  	
+	function closeAdd(){
+		List.closeDialog(add_iframe_dialog);
+	}
     function edit(){
 		var key = ICSS.utils.getSelectRowData("id");
-		if(key.indexOf(",")>-1||key==""){
-			showMessage("请选择一条数据！");
-			return ;
-		}
-		var url="<m:url value='/accountOrderDetail/toEditAccountOrderDetail.do'/>?key="+key;
-		edit_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: 800,
-			height: 235,
-			title: "订单明细编辑"
-		});
-  		edit_iframe_dialog.open();
+		var url=baseUrl+'/accountOrderDetail/toEditAccountOrderDetail.do';
+		var title = "订单明细编辑";
+		edit_iframe_dialog = Edit.create(key, url, title);
+		List.openDialog(edit_iframe_dialog);
     }
-    
     //关闭编辑页面，供子页面调用
     function closeEdit(){
-    	edit_iframe_dialog.close();
+    	List.closeDialog(edit_iframe_dialog);
     }
-    
     function show(){
     	var key = ICSS.utils.getSelectRowData("id");
-		if(key.indexOf(",")>-1||key==""){
-			showMessage("请选择一条数据！");
-			return ;
-		}
-		var url="<m:url value='/accountOrderDetail/toShowAccountOrderDetail.do'/>?key="+key;
-		show_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: 800,
-			height: 235,
-				title: "订单明细详情"
-		});
-  		show_iframe_dialog.open();
+		var url = baseUrl+'/accountOrderDetail/toShowAccountOrderDetail.do';
+		var title = "餐饮品牌详细";
+		show_iframe_dialog = Show.create(key, url, title);
+		List.openDialog(show_iframe_dialog);
     }
-    
     //关闭查看页面，供子页面调用
     function closeShow(){
-    	show_iframe_dialog.close();
+    	List.closeDialog(show_iframe_dialog);
     }
     //删除
     function batchDelete(){
     	var ids = ICSS.utils.getSelectRowData("id");
-    	if(ids==""){
-    		showMessage("请至少选择一条数据！");
-    		return ;
-    	}else{
-    		new biz.alert({type:"confirm",message:I18N.msg_del_confirm,title:I18N.promp,callback:function(result){
-    			if(result){
-    				$ .ajax({
-        				url: "<m:url value='/accountOrderDetail/deleteAccountOrderDetail.do'/>?key="+ids,
-        				cache:false,
-        				success: function(data, textStatus, jqXHR){
-        					doSearch();
-    						showInfo("删除成功",3000);
-        				}
-        			});
-    			}
-    		}}) ;   
-    	}
+		var url = baseUrl+'/accountOrderDetail/deleteAccountOrderDetail.do';
+		List.batchDelete(id, url);
     }
     //导入excel数据
 	function importData(){
 		ExpExcel.showImportWin();
 	}
-
     //下载模板
     function downloadTemplate(){
     	ExpExcel.showDownloadWin();
     }
-
  	//导出订单详细数据
-
  	function exportData(){
  		ExpExcel.showWin(gridObj,baseUrl+"/accountOrderDetail/exportExcel.do",'grid','queryForm');
  	}
- 	
 	function executeDownload(){
 		var fid = $("#downloadform");
 		$("#downloadform").attr("action", "<%=request.getContextPath()%>/download/fileDownload");
@@ -166,7 +117,7 @@ var orderDetailModel = {
    			type: "post",
    			data:{orderSaleRate:orderSaleRate,
    					id:tableId},
-			url: baseUrl+"/accountOperaTotal/addByOperaDetail.do",
+			url: baseUrl+"/accountOperaTotal/addByOrderDetail.do?type="+ways,
 			cache:false,
 			dataType:"json"
 		});

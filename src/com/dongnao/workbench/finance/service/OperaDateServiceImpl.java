@@ -2,6 +2,7 @@ package com.dongnao.workbench.finance.service;
 import javax.annotation.Resource;
 import java.util.List;
 import com.dongnao.workbench.finance.dao.OperaDateMapper;
+import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.model.OperaDate;
 import com.dongnao.workbench.finance.service.OperaDateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +64,13 @@ public class OperaDateServiceImpl implements OperaDateService{
 	public ResultMessage update(OperaDate operaDate){
 		operaDateMapper.update(operaDate);
 		return AjaxUtils.getSuccessMessage();
+	}
+
+	public void deleteOperaDateByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		operaDateMapper.deleteOperaDateByOrderDetail(accountOrderDetail);
+	}
+
+	public void addOperaDateByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		operaDateMapper.addOperaDateByOrderDetail(accountOrderDetail);
 	}
 }

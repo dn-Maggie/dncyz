@@ -31,16 +31,30 @@ var Model = {
 	$(function(){
   		gridObj = List.createGrid(Model.url,Model.colModel,"BRAND_ID", false);
     });
+	  //新增的弹出框  
+	var add_iframe_dialog = null;
+	//修改的弹出框
+	var edit_iframe_dialog = null;
+	//查看的弹出框
+	var show_iframe_dialog = null;
 	function add(){
 		var url = baseUrl+'/brand/toAddBrand.do';
 		var title = "餐饮品牌增加";
-		List.add(url,title);
+		add_iframe_dialog = Add.create(url, title);
+		List.openDialog(add_iframe_dialog);
+	}
+	function closeAdd(){
+		List.closeDialog(add_iframe_dialog);
 	}
 	function edit(){
 		var key = ICSS.utils.getSelectRowData('brandId');
 		var url = baseUrl+'/brand/toEditBrand.do';
 		var title = "餐饮品牌编辑";
-		List.edit(key, url, title);
+		edit_iframe_dialog = Edit.create(key, url, title);
+		List.openDialog(edit_iframe_dialog);
+	}
+	function closeEdit(){
+		List.closeDialog(edit_iframe_dialog);
 	}
 	function batchDelete(){
 		var id = ICSS.utils.getSelectRowData('brandId');
@@ -51,7 +65,11 @@ var Model = {
 		var key = ICSS.utils.getSelectRowData('brandId');
 		var url = baseUrl+'/brand/toShowBrand.do';
 		var title = "餐饮品牌详细";
-		List.show(key, url, title);
+		show_iframe_dialog = Show.create(key, url, title);
+		List.openDialog(show_iframe_dialog);
+	}
+	function closeShow(){
+		List.closeDialog(show_iframe_dialog);
 	}
     </script>
 </head>

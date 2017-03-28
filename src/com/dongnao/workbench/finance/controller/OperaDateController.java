@@ -11,6 +11,8 @@ import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
+import com.dongnao.workbench.finance.model.AccountOperaTotal;
+import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.model.OperaDate;
 import com.dongnao.workbench.finance.service.OperaDateService;
 
@@ -136,4 +138,15 @@ public class OperaDateController{
 				response,operaDateService.update(operaDate));	
 	}
 	
+	/**
+	 * 批量新增方法
+	 * @param response HttpServletResponse
+	 * @param accountOperaTotal AccountOperaTotal:实体类
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/addByOrderDetail")
+	public void addByOperaDetail(AccountOrderDetail accountOrderDetail,HttpServletRequest request,HttpServletResponse response){
+		operaDateService.deleteOperaDateByOrderDetail(accountOrderDetail);
+		operaDateService.addOperaDateByOrderDetail(accountOrderDetail);
+	}
 }

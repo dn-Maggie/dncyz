@@ -1,6 +1,8 @@
 package com.dongnao.workbench.finance.dao;
 
 import java.util.List;
+
+import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.model.OperaDate;
 /**
  * 描述：运营日明细模块dao接口，提供数据库操作方法
@@ -41,4 +43,8 @@ public interface OperaDateMapper  {
 	 * @param operaDate OperaDate：实体对象
 	 */	
 	public void update(OperaDate operaDate);
+
+	void deleteOperaDateByOrderDetail(AccountOrderDetail accountOrderDetail);
+
+	void addOperaDateByOrderDetail(AccountOrderDetail accountOrderDetail);
 }

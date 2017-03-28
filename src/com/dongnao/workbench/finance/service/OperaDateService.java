@@ -2,6 +2,7 @@ package com.dongnao.workbench.finance.service;
 
 import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
+import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.model.OperaDate;
 
 /**
@@ -43,4 +44,8 @@ public interface OperaDateService  {
 	 * @param operaDate OperaDate 实体对象
 	 */	
 	public ResultMessage update(OperaDate operaDate);
+
+	public void deleteOperaDateByOrderDetail(AccountOrderDetail accountOrderDetail);
+
+	public void addOperaDateByOrderDetail(AccountOrderDetail accountOrderDetail);
 }

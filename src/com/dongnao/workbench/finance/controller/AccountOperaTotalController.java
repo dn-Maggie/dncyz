@@ -74,7 +74,7 @@ public class AccountOperaTotalController{
 	 * @param accountOperaTotal AccountOperaTotal:实体类
 	 * @return: ajax输入json字符串
 	 */
-	@RequestMapping("/addByOperaDetail")
+	@RequestMapping("/addByOrderDetail")
 	public void addByOperaDetail(AccountOperaTotal accountOperaTotal,HttpServletRequest request,HttpServletResponse response){
 		accountOperaTotalService.deleteByKey(accountOperaTotal);
 		accountOperaTotalService.addByOperaDetail(accountOperaTotal);	
