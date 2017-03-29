@@ -3,86 +3,86 @@
 <mapper namespace="com.dongnao.workbench.finance.dao.OperaDateMapper">
 	<resultMap id="BaseResultMap" type="com.dongnao.workbench.finance.model.OperaDate">
 		<id column="id" property="id" jdbcType="VARCHAR" />
-															<result column="store_id" property="storeId" jdbcType="VARCHAR" />
-													<result column="store_name" property="storeName" jdbcType="VARCHAR" />
-													<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
-													<result column="invalid_num" property="invalidNum" jdbcType="INTEGER" />
-													<result column="valid_num" property="validNum" jdbcType="INTEGER" />
-													<result column="goods_quality" property="goodsQuality" jdbcType="VARCHAR" />
-													<result column="orgin_price" property="orginPrice" jdbcType="VARCHAR" />
-													<result column="meal_fee" property="mealFee" jdbcType="VARCHAR" />
-													<result column="special_orgin" property="specialOrgin" jdbcType="VARCHAR" />
-													<result column="special_offer" property="specialOffer" jdbcType="VARCHAR" />
-													<result column="activities_subsidy_bymerchant" property="activitiesSubsidyBymerchant" jdbcType="VARCHAR" />
-													<result column="order_dist_charge" property="orderDistCharge" jdbcType="VARCHAR" />
-													<result column="platform_dist_charge" property="platformDistCharge" jdbcType="VARCHAR" />
-													<result column="cyz_dist_charge" property="cyzDistCharge" jdbcType="VARCHAR" />
-													<result column="activities_subsidy_bycompany" property="activitiesSubsidyBycompany" jdbcType="VARCHAR" />
-													<result column="platform_activities_charge" property="platformActivitiesCharge" jdbcType="VARCHAR" />
-													<result column="platform_service_charge" property="platformServiceCharge" jdbcType="VARCHAR" />
-													<result column="product_sale_amount" property="productSaleAmount" jdbcType="VARCHAR" />
-													<result column="amount_receivable" property="amountReceivable" jdbcType="VARCHAR" />
-													<result column="order_sale_rate" property="orderSaleRate" jdbcType="VARCHAR" />
-													<result column="amount_rate_payable" property="amountRatePayable" jdbcType="VARCHAR" />
-													<result column="amount_payable" property="amountPayable" jdbcType="VARCHAR" />
-													<result column="cyz_service_charge" property="cyzServiceCharge" jdbcType="VARCHAR" />
-													<result column="cyz_service_charge_industry_part" property="cyzServiceChargeIndustryPart" jdbcType="VARCHAR" />
-													<result column="cyz_service_charge_opera_part" property="cyzServiceChargeOperaPart" jdbcType="VARCHAR" />
-													<result column="actual_merchant_dist_charge" property="actualMerchantDistCharge" jdbcType="VARCHAR" />
-													<result column="sale_gross_profit" property="saleGrossProfit" jdbcType="VARCHAR" />
-													<result column="sale_gross_profit_rate" property="saleGrossProfitRate" jdbcType="VARCHAR" />
-													<result column="dist_price" property="distPrice" jdbcType="VARCHAR" />
-													<result column="dist_all" property="distAll" jdbcType="VARCHAR" />
-													<result column="dist_diff" property="distDiff" jdbcType="VARCHAR" />
-													<result column="service_all" property="serviceAll" jdbcType="VARCHAR" />
-													<result column="profit_all" property="profitAll" jdbcType="VARCHAR" />
-													<result column="other_all" property="otherAll" jdbcType="VARCHAR" />
-													<result column="allbase_price" property="allbasePrice" jdbcType="VARCHAR" />
-													<result column="allother_base_price" property="allotherBasePrice" jdbcType="VARCHAR" />
-													<result column="remark" property="remark" jdbcType="VARCHAR" />
-													<result column="platform_type" property="platformType" jdbcType="VARCHAR" />
-									</resultMap>
+		<result column="store_id" property="storeId" jdbcType="VARCHAR" />
+		<result column="store_name" property="storeName" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="invalid_num" property="invalidNum" jdbcType="INTEGER" />
+		<result column="valid_num" property="validNum" jdbcType="INTEGER" />
+		<result column="goods_quality" property="goodsQuality" jdbcType="VARCHAR" />
+		<result column="orgin_price" property="orginPrice" jdbcType="VARCHAR" />
+		<result column="meal_fee" property="mealFee" jdbcType="VARCHAR" />
+		<result column="special_orgin" property="specialOrgin" jdbcType="VARCHAR" />
+		<result column="special_offer" property="specialOffer" jdbcType="VARCHAR" />
+		<result column="activities_subsidy_bymerchant" property="activitiesSubsidyBymerchant" jdbcType="VARCHAR" />
+		<result column="order_dist_charge" property="orderDistCharge" jdbcType="VARCHAR" />
+		<result column="platform_dist_charge" property="platformDistCharge" jdbcType="VARCHAR" />
+		<result column="cyz_dist_charge" property="cyzDistCharge" jdbcType="VARCHAR" />
+		<result column="activities_subsidy_bycompany" property="activitiesSubsidyBycompany" jdbcType="VARCHAR" />
+		<result column="platform_activities_charge" property="platformActivitiesCharge" jdbcType="VARCHAR" />
+		<result column="platform_service_charge" property="platformServiceCharge" jdbcType="VARCHAR" />
+		<result column="product_sale_amount" property="productSaleAmount" jdbcType="VARCHAR" />
+		<result column="amount_receivable" property="amountReceivable" jdbcType="VARCHAR" />
+		<result column="order_sale_rate" property="orderSaleRate" jdbcType="VARCHAR" />
+		<result column="amount_rate_payable" property="amountRatePayable" jdbcType="VARCHAR" />
+		<result column="amount_payable" property="amountPayable" jdbcType="VARCHAR" />
+		<result column="cyz_service_charge" property="cyzServiceCharge" jdbcType="VARCHAR" />
+		<result column="cyz_service_charge_industry_part" property="cyzServiceChargeIndustryPart" jdbcType="VARCHAR" />
+		<result column="cyz_service_charge_opera_part" property="cyzServiceChargeOperaPart" jdbcType="VARCHAR" />
+		<result column="actual_merchant_dist_charge" property="actualMerchantDistCharge" jdbcType="VARCHAR" />
+		<result column="sale_gross_profit" property="saleGrossProfit" jdbcType="VARCHAR" />
+		<result column="sale_gross_profit_rate" property="saleGrossProfitRate" jdbcType="VARCHAR" />
+		<result column="dist_price" property="distPrice" jdbcType="VARCHAR" />
+		<result column="dist_all" property="distAll" jdbcType="VARCHAR" />
+		<result column="dist_diff" property="distDiff" jdbcType="VARCHAR" />
+		<result column="service_all" property="serviceAll" jdbcType="VARCHAR" />
+		<result column="profit_all" property="profitAll" jdbcType="VARCHAR" />
+		<result column="other_all" property="otherAll" jdbcType="VARCHAR" />
+		<result column="allbase_price" property="allbasePrice" jdbcType="VARCHAR" />
+		<result column="allother_base_price" property="allotherBasePrice" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="platform_type" property="platformType" jdbcType="VARCHAR" />
+	</resultMap>
 	<sql id="Base_Column_List">
-						 	id
-										,store_id
-										,store_name
-										,create_date
-										,invalid_num
-										,valid_num
-										,goods_quality
-										,orgin_price
-										,meal_fee
-										,special_orgin
-										,special_offer
-										,activities_subsidy_bymerchant
-										,order_dist_charge
-										,platform_dist_charge
-										,cyz_dist_charge
-										,activities_subsidy_bycompany
-										,platform_activities_charge
-										,platform_service_charge
-										,product_sale_amount
-										,amount_receivable
-										,order_sale_rate
-										,amount_rate_payable
-										,amount_payable
-										,cyz_service_charge
-										,cyz_service_charge_industry_part
-										,cyz_service_charge_opera_part
-										,actual_merchant_dist_charge
-										,sale_gross_profit
-										,sale_gross_profit_rate
-										,dist_price
-										,dist_all
-										,dist_diff
-										,service_all
-										,profit_all
-										,other_all
-										,allbase_price
-										,allother_base_price
-										,remark
-										,platform_type
-						</sql>
+	 	id
+		,store_id
+		,store_name
+		,create_date
+		,invalid_num
+		,valid_num
+		,goods_quality
+		,orgin_price
+		,meal_fee
+		,special_orgin
+		,special_offer
+		,activities_subsidy_bymerchant
+		,order_dist_charge
+		,platform_dist_charge
+		,cyz_dist_charge
+		,activities_subsidy_bycompany
+		,platform_activities_charge
+		,platform_service_charge
+		,product_sale_amount
+		,amount_receivable
+		,order_sale_rate
+		,amount_rate_payable
+		,amount_payable
+		,cyz_service_charge
+		,cyz_service_charge_industry_part
+		,cyz_service_charge_opera_part
+		,actual_merchant_dist_charge
+		,sale_gross_profit
+		,sale_gross_profit_rate
+		,dist_price
+		,dist_all
+		,dist_diff
+		,service_all
+		,profit_all
+		,other_all
+		,allbase_price
+		,allother_base_price
+		,remark
+		,platform_type
+	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
@@ -223,93 +223,178 @@
 		where id = #{id,jdbcType=VARCHAR}
 	</delete>
 	
+	<insert id="addBasePriceByOrderDetail" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
+		insert into opera_date_base_price (
+		<include refid="Base_Column_List" />
+		)(
+			SELECT
+				CONCAT(od.create_date,od.store_name) as id,
+				od.store_id as store_id,
+				od.store_name as store_name,
+				od.create_date as create_date,
+				sum(od.is_invalid) AS invalid_num,
+				COUNT(*) - sum(od.is_invalid) AS valid_num,
+				sum(od.goods_quality) AS goods_quality,
+				sum(od.orgin_price) as orgin_price,
+				sum(od.meal_fee) as meal_fee,
+				sum(sp.PRODUCT_UNIT_PRICE) as special_orgin,
+				sum(sp.special_offer) as special_offer,
+				sum(od.activities_subsidy_bymerchant) as activities_subsidy_bymerchant,
+				sum(od.order_dist_charge) as order_dist_charge,
+				sum(od.platform_dist_charge) as platform_dist_charge,
+				sum(od.merchant_dist_charge) as cyz_dist_charge,
+				sum(od.merchant_activities_subsidies) - sum(od.activities_subsidy_bymerchant) as activities_subsidy_bycompany,
+				sum(od.platform_activities_subsidies) AS platform_activities_charge,
+				sum(od.service_charge) as platform_service_charge,
+				sum(od.orgin_price)+ sum(od.meal_fee) as product_sale_amount,
+				sum(od.orgin_price)+ sum(od.meal_fee)+ sum(od.order_dist_charge)-sum(od.service_charge)-sum(od.platform_dist_charge)-
+				(sum(od.merchant_activities_subsidies) - sum(od.activities_subsidy_bymerchant))+sum(od.merchant_dist_charge) AS	amount_receivable,
+				0 as order_sale_rate,
+				0 as amount_rate_payable,
+				sum(sp.special_offer) + 0 as amount_payable,
+				sum(od.orgin_price)+sum(od.meal_fee)-(sum(sp.special_offer) + 0) as cyz_service_charge,
+				0 as cyz_service_charge_industry_part,
+				0 as cyz_service_charge_opera_part,
+				sum(od.actual_merchant_dist_charge) AS actual_merchant_dist_charge,
+				sum(od.orgin_price)+sum(od.meal_fee)+ sum(od.order_dist_charge)-sum(od.service_charge)-sum(od.platform_dist_charge)-
+				(sum(od.merchant_activities_subsidies) - sum(od.activities_subsidy_bymerchant))+sum(od.merchant_dist_charge)- (sum(sp.special_offer) + 0) 
+				as sale_gross_profit,
+				(sum(od.orgin_price)+sum(od.meal_fee)+ sum(od.order_dist_charge)-sum(od.service_charge)-sum(od.platform_dist_charge)-
+				(sum(od.merchant_activities_subsidies) - sum(od.activities_subsidy_bymerchant))+sum(od.merchant_dist_charge)- (sum(sp.special_offer) + 0))/
+				(sum(od.orgin_price)+sum(od.meal_fee)-(sum(sp.special_offer) + 0))
+				as sale_gross_profit_rate,
+				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5
+					ELSE 7.5 END ) AS dist_price,
+				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5 
+					ELSE 7.5 END ) * (COUNT(*) - sum(od.is_invalid)) AS dist_all,
+				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5
+					ELSE 7.5 END) * (COUNT(*) - sum(od.is_invalid)) - sum(od.actual_merchant_dist_charge) AS dist_diff,
+				sum(od.platform_activities_subsidies) *0.4 as service_all,
+				0 as profit_all,
+				0 AS other_all,
+				sum(sp.special_offer) as allbase_price,
+				0 as allother_base_price, 
+				od.remark,
+				od.platform_type
+			FROM
+				account_order_detail AS od
+			LEFT JOIN dn_store AS s ON s.elm_id = od.store_ELM_id
+			LEFT JOIN store_product AS sp ON sp.store_id = s.STORE_ID
+			AND FIND_IN_SET(
+				sp.product_name,
+				od.goods_name
+			) > 0
+			WHERE
+				1 = 1
+			<if test="null != propsMap.startDate and propsMap.startDate != ''">
+				<![CDATA[
+				and DATE_FORMAT(od.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
+				]]>
+			</if>
+			<if test="null != propsMap.endDate and propsMap.endDate != ''">
+				<![CDATA[
+				and DATE_FORMAT(od.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
+				]]>
+			</if> 
+			<if test="storeId != null and '' != storeId">  
+				and od.store_id = #{storeId,jdbcType=CHAR}
+			</if>
+			<if test="storeName != null and '' != storeName">  
+				and od.store_name = #{storeName,jdbcType=VARCHAR}
+			</if>
+			GROUP BY
+				create_date,store_name
+		)
+	</insert>
+	
 	<insert id="add" parameterType="com.dongnao.workbench.finance.model.OperaDate">
 		insert into opera_date_base_price (
 		<include refid="Base_Column_List" />
 		)values (
-										#{id,jdbcType=VARCHAR}
-														,#{storeId,jdbcType=VARCHAR}
-														,#{storeName,jdbcType=VARCHAR}
-														,#{createDate,jdbcType=TIMESTAMP}
-														,#{invalidNum,jdbcType=INTEGER}
-														,#{validNum,jdbcType=INTEGER}
-														,#{goodsQuality,jdbcType=VARCHAR}
-														,#{orginPrice,jdbcType=VARCHAR}
-														,#{mealFee,jdbcType=VARCHAR}
-														,#{specialOrgin,jdbcType=VARCHAR}
-														,#{specialOffer,jdbcType=VARCHAR}
-														,#{activitiesSubsidyBymerchant,jdbcType=VARCHAR}
-														,#{orderDistCharge,jdbcType=VARCHAR}
-														,#{platformDistCharge,jdbcType=VARCHAR}
-														,#{cyzDistCharge,jdbcType=VARCHAR}
-														,#{activitiesSubsidyBycompany,jdbcType=VARCHAR}
-														,#{platformActivitiesCharge,jdbcType=VARCHAR}
-														,#{platformServiceCharge,jdbcType=VARCHAR}
-														,#{productSaleAmount,jdbcType=VARCHAR}
-														,#{amountReceivable,jdbcType=VARCHAR}
-														,#{orderSaleRate,jdbcType=VARCHAR}
-														,#{amountRatePayable,jdbcType=VARCHAR}
-														,#{amountPayable,jdbcType=VARCHAR}
-														,#{cyzServiceCharge,jdbcType=VARCHAR}
-														,#{cyzServiceChargeIndustryPart,jdbcType=VARCHAR}
-														,#{cyzServiceChargeOperaPart,jdbcType=VARCHAR}
-														,#{actualMerchantDistCharge,jdbcType=VARCHAR}
-														,#{saleGrossProfit,jdbcType=VARCHAR}
-														,#{saleGrossProfitRate,jdbcType=VARCHAR}
-														,#{distPrice,jdbcType=VARCHAR}
-														,#{distAll,jdbcType=VARCHAR}
-														,#{distDiff,jdbcType=VARCHAR}
-														,#{serviceAll,jdbcType=VARCHAR}
-														,#{profitAll,jdbcType=VARCHAR}
-														,#{otherAll,jdbcType=VARCHAR}
-														,#{allbasePrice,jdbcType=VARCHAR}
-														,#{allotherBasePrice,jdbcType=VARCHAR}
-														,#{remark,jdbcType=VARCHAR}
-														,#{platformType,jdbcType=VARCHAR}
-									)
+			#{id,jdbcType=VARCHAR}
+			,#{storeId,jdbcType=VARCHAR}
+			,#{storeName,jdbcType=VARCHAR}
+			,#{createDate,jdbcType=TIMESTAMP}
+			,#{invalidNum,jdbcType=INTEGER}
+			,#{validNum,jdbcType=INTEGER}
+			,#{goodsQuality,jdbcType=VARCHAR}
+			,#{orginPrice,jdbcType=VARCHAR}
+			,#{mealFee,jdbcType=VARCHAR}
+			,#{specialOrgin,jdbcType=VARCHAR}
+			,#{specialOffer,jdbcType=VARCHAR}
+			,#{activitiesSubsidyBymerchant,jdbcType=VARCHAR}
+			,#{orderDistCharge,jdbcType=VARCHAR}
+			,#{platformDistCharge,jdbcType=VARCHAR}
+			,#{cyzDistCharge,jdbcType=VARCHAR}
+			,#{activitiesSubsidyBycompany,jdbcType=VARCHAR}
+			,#{platformActivitiesCharge,jdbcType=VARCHAR}
+			,#{platformServiceCharge,jdbcType=VARCHAR}
+			,#{productSaleAmount,jdbcType=VARCHAR}
+			,#{amountReceivable,jdbcType=VARCHAR}
+			,#{orderSaleRate,jdbcType=VARCHAR}
+			,#{amountRatePayable,jdbcType=VARCHAR}
+			,#{amountPayable,jdbcType=VARCHAR}
+			,#{cyzServiceCharge,jdbcType=VARCHAR}
+			,#{cyzServiceChargeIndustryPart,jdbcType=VARCHAR}
+			,#{cyzServiceChargeOperaPart,jdbcType=VARCHAR}
+			,#{actualMerchantDistCharge,jdbcType=VARCHAR}
+			,#{saleGrossProfit,jdbcType=VARCHAR}
+			,#{saleGrossProfitRate,jdbcType=VARCHAR}
+			,#{distPrice,jdbcType=VARCHAR}
+			,#{distAll,jdbcType=VARCHAR}
+			,#{distDiff,jdbcType=VARCHAR}
+			,#{serviceAll,jdbcType=VARCHAR}
+			,#{profitAll,jdbcType=VARCHAR}
+			,#{otherAll,jdbcType=VARCHAR}
+			,#{allbasePrice,jdbcType=VARCHAR}
+			,#{allotherBasePrice,jdbcType=VARCHAR}
+			,#{remark,jdbcType=VARCHAR}
+			,#{platformType,jdbcType=VARCHAR}
+		)
 	</insert>
+	
 	
 	<update id="update" parameterType="com.dongnao.workbench.finance.model.OperaDate">
 		update opera_date_base_price  set
 		id= #{id,jdbcType=VARCHAR}
-											,store_id = #{storeId,jdbcType=VARCHAR}
-											,store_name = #{storeName,jdbcType=VARCHAR}
-											,create_date = #{createDate,jdbcType=TIMESTAMP}
-											,invalid_num = #{invalidNum,jdbcType=INTEGER}
-											,valid_num = #{validNum,jdbcType=INTEGER}
-											,goods_quality = #{goodsQuality,jdbcType=VARCHAR}
-											,orgin_price = #{orginPrice,jdbcType=VARCHAR}
-											,meal_fee = #{mealFee,jdbcType=VARCHAR}
-											,special_orgin = #{specialOrgin,jdbcType=VARCHAR}
-											,special_offer = #{specialOffer,jdbcType=VARCHAR}
-											,activities_subsidy_bymerchant = #{activitiesSubsidyBymerchant,jdbcType=VARCHAR}
-											,order_dist_charge = #{orderDistCharge,jdbcType=VARCHAR}
-											,platform_dist_charge = #{platformDistCharge,jdbcType=VARCHAR}
-											,cyz_dist_charge = #{cyzDistCharge,jdbcType=VARCHAR}
-											,activities_subsidy_bycompany = #{activitiesSubsidyBycompany,jdbcType=VARCHAR}
-											,platform_activities_charge = #{platformActivitiesCharge,jdbcType=VARCHAR}
-											,platform_service_charge = #{platformServiceCharge,jdbcType=VARCHAR}
-											,product_sale_amount = #{productSaleAmount,jdbcType=VARCHAR}
-											,amount_receivable = #{amountReceivable,jdbcType=VARCHAR}
-											,order_sale_rate = #{orderSaleRate,jdbcType=VARCHAR}
-											,amount_rate_payable = #{amountRatePayable,jdbcType=VARCHAR}
-											,amount_payable = #{amountPayable,jdbcType=VARCHAR}
-											,cyz_service_charge = #{cyzServiceCharge,jdbcType=VARCHAR}
-											,cyz_service_charge_industry_part = #{cyzServiceChargeIndustryPart,jdbcType=VARCHAR}
-											,cyz_service_charge_opera_part = #{cyzServiceChargeOperaPart,jdbcType=VARCHAR}
-											,actual_merchant_dist_charge = #{actualMerchantDistCharge,jdbcType=VARCHAR}
-											,sale_gross_profit = #{saleGrossProfit,jdbcType=VARCHAR}
-											,sale_gross_profit_rate = #{saleGrossProfitRate,jdbcType=VARCHAR}
-											,dist_price = #{distPrice,jdbcType=VARCHAR}
-											,dist_all = #{distAll,jdbcType=VARCHAR}
-											,dist_diff = #{distDiff,jdbcType=VARCHAR}
-											,service_all = #{serviceAll,jdbcType=VARCHAR}
-											,profit_all = #{profitAll,jdbcType=VARCHAR}
-											,other_all = #{otherAll,jdbcType=VARCHAR}
-											,allbase_price = #{allbasePrice,jdbcType=VARCHAR}
-											,allother_base_price = #{allotherBasePrice,jdbcType=VARCHAR}
-											,remark = #{remark,jdbcType=VARCHAR}
-											,platform_type = #{platformType,jdbcType=VARCHAR}
-							where id = #{id,jdbcType=VARCHAR}
+		,store_id = #{storeId,jdbcType=VARCHAR}
+		,store_name = #{storeName,jdbcType=VARCHAR}
+		,create_date = #{createDate,jdbcType=TIMESTAMP}
+		,invalid_num = #{invalidNum,jdbcType=INTEGER}
+		,valid_num = #{validNum,jdbcType=INTEGER}
+		,goods_quality = #{goodsQuality,jdbcType=VARCHAR}
+		,orgin_price = #{orginPrice,jdbcType=VARCHAR}
+		,meal_fee = #{mealFee,jdbcType=VARCHAR}
+		,special_orgin = #{specialOrgin,jdbcType=VARCHAR}
+		,special_offer = #{specialOffer,jdbcType=VARCHAR}
+		,activities_subsidy_bymerchant = #{activitiesSubsidyBymerchant,jdbcType=VARCHAR}
+		,order_dist_charge = #{orderDistCharge,jdbcType=VARCHAR}
+		,platform_dist_charge = #{platformDistCharge,jdbcType=VARCHAR}
+		,cyz_dist_charge = #{cyzDistCharge,jdbcType=VARCHAR}
+		,activities_subsidy_bycompany = #{activitiesSubsidyBycompany,jdbcType=VARCHAR}
+		,platform_activities_charge = #{platformActivitiesCharge,jdbcType=VARCHAR}
+		,platform_service_charge = #{platformServiceCharge,jdbcType=VARCHAR}
+		,product_sale_amount = #{productSaleAmount,jdbcType=VARCHAR}
+		,amount_receivable = #{amountReceivable,jdbcType=VARCHAR}
+		,order_sale_rate = #{orderSaleRate,jdbcType=VARCHAR}
+		,amount_rate_payable = #{amountRatePayable,jdbcType=VARCHAR}
+		,amount_payable = #{amountPayable,jdbcType=VARCHAR}
+		,cyz_service_charge = #{cyzServiceCharge,jdbcType=VARCHAR}
+		,cyz_service_charge_industry_part = #{cyzServiceChargeIndustryPart,jdbcType=VARCHAR}
+		,cyz_service_charge_opera_part = #{cyzServiceChargeOperaPart,jdbcType=VARCHAR}
+		,actual_merchant_dist_charge = #{actualMerchantDistCharge,jdbcType=VARCHAR}
+		,sale_gross_profit = #{saleGrossProfit,jdbcType=VARCHAR}
+		,sale_gross_profit_rate = #{saleGrossProfitRate,jdbcType=VARCHAR}
+		,dist_price = #{distPrice,jdbcType=VARCHAR}
+		,dist_all = #{distAll,jdbcType=VARCHAR}
+		,dist_diff = #{distDiff,jdbcType=VARCHAR}
+		,service_all = #{serviceAll,jdbcType=VARCHAR}
+		,profit_all = #{profitAll,jdbcType=VARCHAR}
+		,other_all = #{otherAll,jdbcType=VARCHAR}
+		,allbase_price = #{allbasePrice,jdbcType=VARCHAR}
+		,allother_base_price = #{allotherBasePrice,jdbcType=VARCHAR}
+		,remark = #{remark,jdbcType=VARCHAR}
+		,platform_type = #{platformType,jdbcType=VARCHAR}
+	where id = #{id,jdbcType=VARCHAR}
 	</update>
 </mapper>

@@ -32,11 +32,11 @@ var Model = {
   		gridObj = List.createGrid(Model.url,Model.colModel,"BRAND_ID", false);
     });
 	  //新增的弹出框  
-	var add_iframe_dialog = null;
+	var add_iframe_dialog;
 	//修改的弹出框
-	var edit_iframe_dialog = null;
+	var edit_iframe_dialog;
 	//查看的弹出框
-	var show_iframe_dialog = null;
+	var show_iframe_dialog;
 	function add(){
 		var url = baseUrl+'/brand/toAddBrand.do';
 		var title = "餐饮品牌增加";

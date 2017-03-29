@@ -128,7 +128,7 @@ var mrSelectGrid = {};
   				type: "POST",
   				success: function(data, textStatus, jqXHR){
   					window.parent.closeMrSelect();
-  		     		window.parent.doSearch();
+  		     		List.doSearch(window.parent.gridObj);
   				}
   			});
   		});

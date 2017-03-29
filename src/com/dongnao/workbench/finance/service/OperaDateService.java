@@ -45,7 +45,15 @@ public interface OperaDateService  {
 	 */	
 	public ResultMessage update(OperaDate operaDate);
 
-	public void deleteOperaDateByOrderDetail(AccountOrderDetail accountOrderDetail);
-
-	public void addOperaDateByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public void deleteBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public void addBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
+	
+	public void deleteDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public void addDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
+	
+	public void deleteSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public void addSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
+	
+	public void deletePlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public void addPlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
 }

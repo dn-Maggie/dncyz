@@ -44,7 +44,15 @@ public interface OperaDateMapper  {
 	 */	
 	public void update(OperaDate operaDate);
 
-	void deleteOperaDateByOrderDetail(AccountOrderDetail accountOrderDetail);
+	void deleteBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
+	void addBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
 
-	void addOperaDateByOrderDetail(AccountOrderDetail accountOrderDetail);
+	void deleteDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
+	void addDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
+
+	void deleteSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
+	void addSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
+
+	void deletePlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
+	void addPlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
 }

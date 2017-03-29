@@ -436,7 +436,7 @@
 				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5
 					ELSE 7.5 END ) AS dist_price,
 				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5 
-					ELSE 7.5 END ) * (COUNT(*) - sum(od.is_invalid)) AS dist_,
+					ELSE 7.5 END ) * (COUNT(*) - sum(od.is_invalid)) AS dist_all,
 				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5
 					ELSE 7.5 END) * (COUNT(*) - sum(od.is_invalid)) - sum(od.actual_merchant_dist_charge) AS dist_diff,
 				sum(od.actual_merchant_dist_charge) AS actual_merchant_dist_charge,

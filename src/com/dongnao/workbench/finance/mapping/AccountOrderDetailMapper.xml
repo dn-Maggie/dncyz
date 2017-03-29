@@ -185,15 +185,15 @@
 			and od.is_invalid = #{isInvalid,jdbcType=TIMESTAMP}
 		</if>
 		 <if test="null != propsMap.startDate and propsMap.startDate != ''">
-				<![CDATA[
-					and DATE_FORMAT(od.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
-				]]>
-			</if>
-			<if test="null != propsMap.endDate and propsMap.endDate != ''">
-				<![CDATA[
-					and DATE_FORMAT(od.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
-				]]>
-			</if> 
+			<![CDATA[
+				and DATE_FORMAT(od.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
+			]]>
+		</if>
+		<if test="null != propsMap.endDate and propsMap.endDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(od.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
+			]]>
+		</if> 
 			<if test="null != propsMap.startTime and propsMap.startTime != ''">
 				<![CDATA[
 					and DATE_FORMAT(od.order_time,'%h:%m"%s') >= DATE_FORMAT(#{propsMap.startTime,jdbcType=TIMESTAMP},'%h:%m:%s')

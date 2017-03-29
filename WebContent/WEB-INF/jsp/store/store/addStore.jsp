@@ -89,7 +89,7 @@ $(function() {
 				if(d.status){
 					showMessage(d.message,"","",function(){
 						window.parent.closeAdd();
-			     		window.parent.doSearch();
+			     		List.doSearch(window.parent.gridObj);
 					});
 				}else{
 					showMessage(d.message);

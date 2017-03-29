@@ -23,7 +23,7 @@ $(function() {
 					if(d.status){
 						showMessage("操作成功","","",function(){
 							window.parent.closeAdd();
-				     		window.parent.doSearch();
+							List.doSearch(window.parent.gridObj);
 						});
 					}else{
 						showMessage("操作失败");

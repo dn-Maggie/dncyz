@@ -19,7 +19,7 @@ $(function() {
 					if(d.status){
 						showMessage(d.message,"","",function(){
 							window.parent.closeEdit();
-				     		window.parent.doSearch();
+							List.doSearch(window.parent.gridObj);
 						});
 					}else{
 						showMessage(d.message);

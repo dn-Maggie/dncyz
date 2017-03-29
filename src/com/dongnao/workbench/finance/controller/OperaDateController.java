@@ -145,8 +145,27 @@ public class OperaDateController{
 	 * @return: ajax输入json字符串
 	 */
 	@RequestMapping("/addByOrderDetail")
-	public void addByOperaDetail(AccountOrderDetail accountOrderDetail,HttpServletRequest request,HttpServletResponse response){
-		operaDateService.deleteOperaDateByOrderDetail(accountOrderDetail);
-		operaDateService.addOperaDateByOrderDetail(accountOrderDetail);
+	public void addByOperaDetail(AccountOrderDetail accountOrderDetail,String type,HttpServletRequest request,HttpServletResponse response){
+		switch (type) {
+		case "basePrice":
+			operaDateService.deleteBasePriceByOrderDetail(accountOrderDetail);
+			operaDateService.addBasePriceByOrderDetail(accountOrderDetail);
+			break;
+		case "deepOpera":
+			operaDateService.deleteDeepOperaByOrderDetail(accountOrderDetail);
+			operaDateService.addDeepOperaByOrderDetail(accountOrderDetail);
+			break;
+		case "saleRate":
+			operaDateService.deleteSaleRateByOrderDetail(accountOrderDetail);
+			operaDateService.addSaleRateByOrderDetail(accountOrderDetail);
+			break;
+		case "platformAccount":
+			operaDateService.deletePlatformAccountByOrderDetail(accountOrderDetail);
+			operaDateService.addPlatformAccountByOrderDetail(accountOrderDetail);
+			break;
+		default:
+			break;
+		}
+		
 	}
 }

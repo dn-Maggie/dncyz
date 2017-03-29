@@ -19,7 +19,7 @@ $(function() {
 				var d = $ .parseJSON(data);
 				showMessage(d.msg,"","",function(){
 					window.parent.closeAdd();
-		     		window.parent.doSearch();
+		     		List.doSearch(window.parent.gridObj);
 				});
 			}
 		};

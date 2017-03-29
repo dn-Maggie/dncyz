@@ -111,13 +111,9 @@ var orderDetailModel = {
 	}
 	//生成运营汇总表
     function genTotal(ways){
-    	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
-    	var orderSaleRate = eval(tableId+"orderSaleRate");
    		$ .ajax({
    			type: "post",
-   			data:{orderSaleRate:orderSaleRate,
-   					id:tableId},
-			url: baseUrl+"/accountOperaTotal/addByOrderDetail.do?type="+ways,
+			url: baseUrl+"/operaDate/addByOrderDetail.do?type="+ways,
 			cache:false,
 			dataType:"json"
 		});

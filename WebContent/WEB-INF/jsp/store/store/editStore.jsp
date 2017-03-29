@@ -54,7 +54,7 @@ $(function() {
 					 		   success:function(d){
 					 			  showMessage(d.message,"","",function(){
 					 			  	window.parent.closeEdit();
-						     		window.parent.doSearch();
+						     		List.doSearch(window.parent.gridObj);
 									});
 					 		   },
 					           error: function() {

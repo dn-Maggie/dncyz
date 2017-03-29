@@ -66,11 +66,36 @@ public class OperaDateServiceImpl implements OperaDateService{
 		return AjaxUtils.getSuccessMessage();
 	}
 
-	public void deleteOperaDateByOrderDetail(AccountOrderDetail accountOrderDetail) {
-		operaDateMapper.deleteOperaDateByOrderDetail(accountOrderDetail);
+
+	public void deleteBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		operaDateMapper.deleteBasePriceByOrderDetail(accountOrderDetail);
+		
+	}
+	public void addBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		operaDateMapper.addBasePriceByOrderDetail(accountOrderDetail);
 	}
 
-	public void addOperaDateByOrderDetail(AccountOrderDetail accountOrderDetail) {
-		operaDateMapper.addOperaDateByOrderDetail(accountOrderDetail);
+	public void deleteDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		operaDateMapper.deleteDeepOperaByOrderDetail(accountOrderDetail);
+	}
+	public void addDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		operaDateMapper.addDeepOperaByOrderDetail(accountOrderDetail);		
+	}
+
+	public void deleteSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		operaDateMapper.deleteSaleRateByOrderDetail(accountOrderDetail);		
+	}
+	public void addSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		operaDateMapper.addSaleRateByOrderDetail(accountOrderDetail);
+		
+	}
+
+	public void deletePlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		operaDateMapper.deletePlatformAccountByOrderDetail(accountOrderDetail);
+		
+	}
+	public void addPlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		operaDateMapper.addPlatformAccountByOrderDetail(accountOrderDetail);
+		
 	}
 }
