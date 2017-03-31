@@ -135,25 +135,23 @@ public class AccountOperaTotalController{
 	 * @param accountOperaTotal AccountOperaTotal：实体对象
 	 * @param response HttpServletResponse
 	 * @return: ajax输入json字符串
-	 */	
-	@RequestMapping("/updateAccountOperaDate")
-	public void update(AccountOperaTotal accountOperaTotal,HttpServletRequest request,HttpServletResponse response){
-		/*accountOperaTotalService.update(accountOperaTotal);	
-		accountOperaTotalService.deleteTotalByKey(null);
-		AjaxUtils.sendAjaxForObjectStr(
-				response,accountOperaTotalService.addTotalByOperaDate(accountOperaTotal));*/
-	}
-	
-	/**
-	 * 修改方法
-	 * @param accountOperaTotal AccountOperaTotal：实体对象
-	 * @param response HttpServletResponse
-	 * @return: ajax输入json字符串
+	 * */
 	@RequestMapping("/updateAccountOperaTotal")
-	public void updateTotal(AccountOperaTotal accountOperaTotal,HttpServletRequest request,HttpServletResponse response){
-		AjaxUtils.sendAjaxForObjectStr(
-				response,accountOperaTotalService.updateTotal(accountOperaTotal));	
-	} */	
+	public void updateTotal(AccountOperaTotal accountOperaTotal,String type,HttpServletRequest request,HttpServletResponse response){
+		switch (type) {
+		case "simpleTotal":
+			AjaxUtils.sendAjaxForObjectStr(
+					response,accountOperaTotalService.updateSimpleTotal(accountOperaTotal));	
+			break;
+		case "deepTotal":
+			AjaxUtils.sendAjaxForObjectStr(
+					response,accountOperaTotalService.updateDeepTotal(accountOperaTotal));	
+			break;
+		default:
+			break;
+		}
+		
+	} 
 	
 	/**
 	 * 根据条件查找列表方法

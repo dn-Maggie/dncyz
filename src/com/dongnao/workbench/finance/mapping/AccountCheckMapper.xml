@@ -105,12 +105,12 @@
 			orderDetail.create_date,
 			orderDetail.order_time as create_time,
 			orderDetail.order_no,
-			orderDetail.prices + orderDetail.meal_fee as orgin_price,
+			orderDetail.orgin_price + orderDetail.meal_fee as orgin_price,
 			orderDetail.activities_subsidy_bymerchant as discount_price,
 			orderDetail.food_discount as after_discount_price,
 			orderDetail.special_offer as special_offer,
-			orderDetail.prices + orderDetail.meal_fee - orderDetail.activities_subsidy_bymerchant- orderDetail.food_discount as actual_price,
-			(orderDetail.prices +orderDetail.meal_fee - orderDetail.activities_subsidy_bymerchant- orderDetail.food_discount)*
+			orderDetail.orgin_price + orderDetail.meal_fee - orderDetail.activities_subsidy_bymerchant- orderDetail.food_discount as actual_price,
+			(orderDetail.orgin_price +orderDetail.meal_fee - orderDetail.activities_subsidy_bymerchant- orderDetail.food_discount)*
 			<if test="orderSaleRate != null and '' != orderSaleRate">  
 				#{orderSaleRate,jdbcType=DECIMAL}
 			</if>
@@ -131,7 +131,7 @@
 					od.over_time,
 					od.order_index,
 					od.order_no,
-					od.prices,
+					od.orgin_price,
 					od.meal_fee,
 					od.product_sale_amount,
 					od.gift_allowance,
@@ -219,8 +219,8 @@
 				<if test="orderNo != null and '' != orderNo">  
 					and od.order_no = #{orderNo,jdbcType=VARCHAR}
 				</if>
-				<if test="prices != null and '' != prices">  
-					and od.prices = #{prices,jdbcType=DECIMAL}
+				<if test="orginPrice != null and '' != orginPrice">  
+					and od.orgin_price = #{orginPrice,jdbcType=DECIMAL}
 				</if>
 				<if test="serviceRate != null and '' != serviceRate">  
 					and od.service_rate = #{serviceRate,jdbcType=VARCHAR}
@@ -362,13 +362,13 @@
 			od.create_date,
 			od.order_time as create_time,
 			od.order_no,
-			od.prices + od.meal_fee as orgin_price,
+			od.orgin_price + od.meal_fee as orgin_price,
 			od.activities_subsidy_bymerchant as discount_price,
 			od.food_discount as after_discount_price,
 			sp.special_offer as special_offer,
-			od.prices + od.meal_fee - od.activities_subsidy_bymerchant- od.food_discount as actual_price,
+			od.orgin_price + od.meal_fee - od.activities_subsidy_bymerchant- od.food_discount as actual_price,
 			#{orderSaleRate,jdbcType=DECIMAL} as order_sale_rate,
-			(od.prices +od.meal_fee - od.activities_subsidy_bymerchant- od.food_discount)*
+			(od.orgin_price +od.meal_fee - od.activities_subsidy_bymerchant- od.food_discount)*
 			<if test="orderSaleRate != null and '' != orderSaleRate">  
 				#{orderSaleRate,jdbcType=DECIMAL}
 			</if>

@@ -478,7 +478,7 @@ public class AccountOrderDetail extends Model{
 						
 		  			/**
 			 * 获取 菜价
-			 * @return String this.prices
+			 * @return String this.orginPrice
 			 */
 			public BigDecimal getOrginPrice(){
 				return this.orginPrice;
@@ -486,7 +486,7 @@ public class AccountOrderDetail extends Model{
 			
 			/**
 			 * 设置 菜价
-			 * @param String prices 
+			 * @param String orginPrice 
 			 */
 			public void setOrginPrice(BigDecimal orginPrice){
 				this.orginPrice = orginPrice;

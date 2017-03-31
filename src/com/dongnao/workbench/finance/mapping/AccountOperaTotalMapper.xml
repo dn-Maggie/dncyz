@@ -55,21 +55,21 @@
 			store_id,
 			store_name,
 			create_date,
-			sum(invalid_num),
-			sum(valid_num),
-			sum(product_sale_amount),
-			sum(amount_receivable),
-			sum(amount_payable),
-			sum(cyz_service_charge),
-			sum(sale_gross_profit),
-			sum(dist_price),
-			sum(dist_all),
-			sum(dist_diff),
-			sum(actual_merchant_dist_charge),
-			sum(platform_activities_charge),
-			sum(service_all),
-			sum(other_all),
-			sum(profit_all),
+			sum(invalid_num) as invalid_num,
+			sum(valid_num) as valid_num,
+			sum(product_sale_amount) as product_sale_amount,
+			sum(amount_receivable) as amount_receivable,
+			sum(amount_payable) as amount_payable,
+			sum(cyz_service_charge) as cyz_service_charge,
+			sum(sale_gross_profit) as sale_gross_profit,
+			sum(dist_price) as dist_price,
+			sum(dist_all) as dist_all,
+			sum(dist_diff) as dist_diff,
+			sum(actual_merchant_dist_charge) as actual_merchant_dist_charge,
+			sum(platform_activities_charge) as platform_activities_charge,
+			sum(service_all) as service_all,
+			sum(other_all) as other_all,
+			sum(profit_all) as profit_all,
 			remark,
 			platform_type
 		from account_opera_simple_total
@@ -140,7 +140,9 @@
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
        	</if>
-       	GROUP BY store_name
+       	<if test="storeName != null and '' != storeName">  
+       		GROUP BY store_name
+       	</if>
 	</select>
 	<!--查看深运营表 -->
 	<select id="listDeepTotalByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOperaTotal">
@@ -149,21 +151,21 @@
 			store_id,
 			store_name,
 			create_date,
-			sum(invalid_num),
-			sum(valid_num),
-			sum(product_sale_amount),
-			sum(amount_receivable),
-			sum(amount_payable),
-			sum(cyz_service_charge),
-			sum(sale_gross_profit),
-			sum(dist_price),
-			sum(dist_all),
-			sum(dist_diff),
-			sum(actual_merchant_dist_charge),
-			sum(platform_activities_charge),
-			sum(service_all),
-			sum(other_all),
-			sum(profit_all),
+			sum(invalid_num) as invalid_num,
+			sum(valid_num) as valid_num,
+			sum(product_sale_amount) as product_sale_amount,
+			sum(amount_receivable) as amount_receivable,
+			sum(amount_payable) as amount_payable,
+			sum(cyz_service_charge) as cyz_service_charge,
+			sum(sale_gross_profit) as sale_gross_profit,
+			sum(dist_price) as dist_price,
+			sum(dist_all) as dist_all,
+			sum(dist_diff) as dist_diff,
+			sum(actual_merchant_dist_charge) as actual_merchant_dist_charge,
+			sum(platform_activities_charge) as platform_activities_charge,
+			sum(service_all) as service_all,
+			sum(other_all) as other_all,
+			sum(profit_all) as profit_all,
 			remark,
 			platform_type
 		from account_opera_deep_total
@@ -234,7 +236,9 @@
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
        	</if>
-       	GROUP BY store_name
+        <if test="storeName != null and '' != storeName">  
+       		GROUP BY store_name
+       	</if>
 	</select>
 	
 	

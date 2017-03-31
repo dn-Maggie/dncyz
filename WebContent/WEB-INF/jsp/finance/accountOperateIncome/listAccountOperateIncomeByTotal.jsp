@@ -17,15 +17,15 @@ var gridObj = {};
 function cellFormat(value, options, rData){
 	if(rData.raw){
 		return value;
-	}else{
+	}else if(options.colModel.calculate.indexOf("rData")>0){
 		return eval(options.colModel.calculate);
-	}
+	}return value;
 };
 //浅运营汇总表表头         
 var distPrice = 12.5;
-var simpleTotalorderSaleRate = localStorage.getItem("simpleTotalorderSaleRate")?localStorage.getItem("simpleTotalorderSaleRate"):0.7;
-var simpleTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTotal.do'/>",
+var simpleTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTotal.do'/>?type=simpleTotal",
 					colModel:[
+					{name : "id",hidden : true,key : true,label:"主键",index : "id"},	
 					{name : "storeName",label:"商户名称",index : "store_name"},	
 					{name : "createDate",label:"日期",index : "create_date"},		
                   	{name : "invalidNum",label:"无效单",isBasic:true},				
@@ -36,22 +36,22 @@ var simpleTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaT
 	 				{name : "cyzServiceCharge",label:"公司收入",isBasic:true},	
      				{name : "saleGrossProfit",label:"销售毛利",isBasic:true},				
      				{name : "distPrice",label:"自配送金额单价",hidden:true,},
-     				{name : "distAll",label:"自配送金额",editFlag:true,calculate:"rData['distPrice']*rData['allvalidNum']",
+     				{name : "distAll",label:"自配送金额",editFlag:true,calculate:"rData['distPrice']*rData['validNum']",
     					formatter : cellFormat},
-	 				{name : "distDiff",label:"自配送补差",editFlag:true,calculate:"rData['distPrice']*rData['allvalidNum']-rData['allactualMerchantDistCharge']",
+	 				{name : "distDiff",label:"自配送补差",editFlag:true,calculate:"rData['distPrice']*rData['validNum']-rData['actualMerchantDistCharge']",
        					formatter : cellFormat},
 	 				{name : "actualMerchantDistCharge",label:"实际收取自配送金额",isBasic:true,editable:true},
 	 				{name : "platformActivitiesCharge",label:"饿了吗平台补贴 ",isBasic:true},
-	 				{name : "serviceAll",label:"对外支付饿了么平台补贴服务费",editFlag:true,calculate:"0.4*rData['allplatformActivitiesCharge']",
+	 				{name : "serviceAll",label:"对外支付饿了么平台补贴服务费",editFlag:true,calculate:"0.4*rData['platformActivitiesCharge']",
        					formatter : cellFormat},
-	 				{name : "profitAll",label:"实际运营毛利",editFlag:true,calculate:"rData['allsaleGrossProfit']-(rData['distPrice']*rData['allvalidNum']-rData['allactualMerchantDistCharge'])-(0.4*rData['allplatformActivitiesCharge'])",
+	 				{name : "profitAll",label:"实际运营毛利",editFlag:true,calculate:"rData['saleGrossProfit']-(rData['distPrice']*rData['validNum']-rData['actualMerchantDistCharge'])-(0.4*rData['platformActivitiesCharge'])",
     					formatter : cellFormat},
    					{name : "otherAll",label:"竞价费用+短信推广",editable:true},
 			       	]};
 //深运营汇总表表头
-var deepTotalorderSaleRate = localStorage.getItem("deepTotalorderSaleRate")?localStorage.getItem("deepTotalorderSaleRate"):0.65;
-var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTotal.do'/>",
+var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTotal.do'/>?type=deepTotal",
 					colModel:[
+					{name : "id",hidden : true,key : true,label:"主键",index : "id"},	
 					{name : "storeName",label:"商户名称",index : "store_name"},	
 					{name : "createDate",label:"日期",index : "create_date"},		
 					{name : "invalidNum",label:"无效单",isBasic:true},				
@@ -62,15 +62,15 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 					{name : "cyzServiceCharge",label:"公司收入",isBasic:true},	
 					{name : "saleGrossProfit",label:"销售毛利",isBasic:true},				
 					{name : "distPrice",label:"自配送金额单价",hidden:true,},
-					{name : "distAll",label:"自配送金额",editFlag:true,calculate:"rData['distPrice']*rData['allvalidNum']",
+					{name : "distAll",label:"自配送金额",editFlag:true,calculate:"rData['distPrice']*rData['validNum']",
 					formatter : cellFormat},
-					{name : "distDiff",label:"自配送补差",editFlag:true,calculate:"rData['distPrice']*rData['allvalidNum']-rData['allactualMerchantDistCharge']",
+					{name : "distDiff",label:"自配送补差",editFlag:true,calculate:"rData['distPrice']*rData['validNum']-rData['actualMerchantDistCharge']",
 						formatter : cellFormat},
 					{name : "actualMerchantDistCharge",label:"实际收取自配送金额",isBasic:true,editable:true},
 					{name : "platformActivitiesCharge",label:"饿了吗平台补贴 ",isBasic:true},
-					{name : "serviceAll",label:"对外支付饿了么平台补贴服务费",editFlag:true,calculate:"0.4*rData['allplatformActivitiesCharge']",
+					{name : "serviceAll",label:"对外支付饿了么平台补贴服务费",editFlag:true,calculate:"0.4*rData['platformActivitiesCharge']",
 						formatter : cellFormat},
-					{name : "profitAll",label:"实际运营毛利",editFlag:true,calculate:"rData['allsaleGrossProfit']-(rData['distPrice']*rData['allvalidNum']-rData['allactualMerchantDistCharge'])-(0.4*rData['allplatformActivitiesCharge'])",
+					{name : "profitAll",label:"实际运营毛利",editFlag:true,calculate:"rData['saleGrossProfit']-(rData['distPrice']*rData['validNum']-rData['actualMerchantDistCharge'])-(0.4*rData['platformActivitiesCharge'])",
 					formatter : cellFormat},
 					{name : "otherAll",label:"竞价费用+短信推广",editable:true},
 			       	]};
@@ -125,7 +125,6 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 			<div class="search border-bottom">
 				<ul>
 				<li>
-					<input type="hidden" name="id" id="edit_id" value="platformAccount">
 					<input type="text" name="storeName" id="storeName" class="search_choose"> <span>店铺名称:</span>
 				</li><!-- 输入框-->
 				<li>
