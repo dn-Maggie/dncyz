@@ -22,8 +22,10 @@ public interface OperaDateMapper  {
 	 * 删除运营日明细方法
 	 * @param key String:多个由“，”分割开的id字符串
 	 */
-	void deleteByKey(String key);
-	
+	void deleteBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
+	void deleteDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
+	void deleteSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
+	void deletePlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
 	/**
 	 * 根据主键查找运营日明细实体方法
 	 * @param key String：实体主键（查询条件）
@@ -36,23 +38,25 @@ public interface OperaDateMapper  {
 	 * @param OperaDate operaDate：实体对象（查询条件）
 	 * @return List<OperaDate>: 实体对象的list
 	 */
-	public List<OperaDate>  listByCondition(OperaDate operaDate);
+	public List<OperaDate>  listBasePriceByCondition(OperaDate operaDate);
+	public List<OperaDate>  listPlatformAccountByCondition(OperaDate operaDate);
+	public List<OperaDate>  listSaleRateByCondition(OperaDate operaDate);
+	public List<OperaDate>  listDeepOperaByCondition(OperaDate operaDate);
 	
 	/**
 	 * 修改运营日明细方法
 	 * @param operaDate OperaDate：实体对象
 	 */	
-	public void update(OperaDate operaDate);
-
-	void deleteBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public void updateBasePrice(OperaDate operaDate);
+	public void updatePlatformAccount(OperaDate operaDate);
+	public void updateSaleRate(OperaDate operaDate);
+	public void updateDeepOpera(OperaDate operaDate);
+	/**
+	 * 根据订单详细生成底价抽佣运营表
+	 * @param accountOrderDetail AccountOrderDetail：实体对象
+	 */	
 	void addBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
-
-	void deleteDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
 	void addDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
-
-	void deleteSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
 	void addSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
-
-	void deletePlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
 	void addPlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
 }

@@ -3,6 +3,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import com.dongnao.workbench.finance.dao.AccountOperaTotalMapper;
 import com.dongnao.workbench.finance.model.AccountOperaTotal;
+import com.dongnao.workbench.finance.model.OperaDate;
 import com.dongnao.workbench.finance.service.AccountOperaTotalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,8 @@ import com.dongnao.workbench.common.util.AjaxUtils;
  */
 @Service("accountOperaTotalService")
 public class AccountOperaTotalServiceImpl implements AccountOperaTotalService{
-        @Resource
+    @Resource
 	private AccountOperaTotalMapper accountOperaTotalMapper;
-	
  
 	/**
 	 * 新增运营合计方法
@@ -28,6 +28,12 @@ public class AccountOperaTotalServiceImpl implements AccountOperaTotalService{
 	public ResultMessage add(AccountOperaTotal accountOperaTotal){
 		accountOperaTotalMapper.add(accountOperaTotal);
 		return AjaxUtils.getSuccessMessage();
+	}
+	public void addSimpleTotalByOperaDate(OperaDate operaDate) {
+		accountOperaTotalMapper.addSimpleTotalByOperaDate(operaDate);
+	}
+	public void addDeepTotalByOperaDate(OperaDate operaDate) {
+		accountOperaTotalMapper.addDeepTotalByOperaDate(operaDate);
 	}
 	
 	/**
@@ -46,43 +52,37 @@ public class AccountOperaTotalServiceImpl implements AccountOperaTotalService{
 	public void deleteByKey(AccountOperaTotal accountOperaTotal){
 		accountOperaTotalMapper.deleteByKey(accountOperaTotal);
 	}
-	/**
-	 * 删除运营合计方法
-	 * @param key String 多个由“，”分割开的id字符串
-	 */
-	public void deleteTotalByKey(AccountOperaTotal accountOperaTotal){
-		accountOperaTotalMapper.deleteTotalByKey(accountOperaTotal);
+	public void deleteSimpleTotalByOperaDate(OperaDate operaDate) {
+		accountOperaTotalMapper.deleteSimpleTotalByOperaDate(operaDate);
+	}
+	public void deleteDeepTotalByOperaDate(OperaDate operaDate) {
+		accountOperaTotalMapper.deleteDeepTotalByOperaDate(operaDate);
 	}
 	/**
 	 * 根据条件查找运营合计列表方法
 	 * @param accountOperaTotal AccountOperaTotal 实体对象（查询条件）
 	 * @return List<AccountOperaTotal> 实体对象的list
 	 */
-	public List<AccountOperaTotal> listByTotal(AccountOperaTotal accountOperaTotal){
-		return accountOperaTotalMapper.listByTotal(accountOperaTotal);
+	public List<AccountOperaTotal> listDeepTotalByCondition(AccountOperaTotal accountOperaTotal){
+		return accountOperaTotalMapper.listDeepTotalByCondition(accountOperaTotal);
 	}
-	/**
-	 * 根据条件查找运营合计列表方法
-	 * @param accountOperaTotal AccountOperaTotal 实体对象（查询条件）
-	 * @return List<AccountOperaTotal> 实体对象的list
-	 */
-	public List<AccountOperaTotal> listByDate(AccountOperaTotal accountOperaTotal){
-		return accountOperaTotalMapper.listByDate(accountOperaTotal);
+	public List<AccountOperaTotal> listSimpleTotalByCondition(AccountOperaTotal accountOperaTotal){
+		return accountOperaTotalMapper.listSimpleTotalByCondition(accountOperaTotal);
 	}
 	/**
 	 * 修改运营合计方法
 	 * @param accountOperaTotal AccountOperaTotal 实体对象
 	 */	
-	public ResultMessage update(AccountOperaTotal accountOperaTotal){
-		accountOperaTotalMapper.update(accountOperaTotal);
+	public ResultMessage updateDeepTotal(AccountOperaTotal accountOperaTotal){
+		accountOperaTotalMapper.updateDeepTotal(accountOperaTotal);
 		return AjaxUtils.getSuccessMessage();
 	}
 	/**
 	 * 修改运营合计方法
 	 * @param accountOperaTotal AccountOperaTotal 实体对象
 	 */	
-	public ResultMessage updateTotal(AccountOperaTotal accountOperaTotal){
-		accountOperaTotalMapper.updateTotal(accountOperaTotal);
+	public ResultMessage updateSimpleTotal(AccountOperaTotal accountOperaTotal){
+		accountOperaTotalMapper.updateSimpleTotal(accountOperaTotal);
 		return AjaxUtils.getSuccessMessage();
 	}
 	/**
@@ -90,16 +90,5 @@ public class AccountOperaTotalServiceImpl implements AccountOperaTotalService{
 	 */	
 	public int addByOperaDetail(AccountOperaTotal accountOperaTotal){
 		return accountOperaTotalMapper.addByOperaDetail(accountOperaTotal);
-	};
-	/**
-	 * 批量新增运营合计方法
-	 * @return 
-	 */	
-	public int addTotalByOperaDetail(AccountOperaTotal accountOperaTotal){
-		return accountOperaTotalMapper.addTotalByOperaDetail(accountOperaTotal);
-	}
-
-	public int addTotalByOperaDate(AccountOperaTotal accountOperaTotal) {
-		return accountOperaTotalMapper.addTotalByOperaDate(accountOperaTotal);
 	};
 }

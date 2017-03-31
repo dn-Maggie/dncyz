@@ -14,6 +14,7 @@ import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.finance.model.AccountOperaTotal;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.model.OperaDate;
+import com.dongnao.workbench.finance.service.AccountOperaTotalService;
 import com.dongnao.workbench.finance.service.OperaDateService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("operaDate")
 public class OperaDateController{
-         @Resource
+    @Resource
 	private OperaDateService operaDateService;
+    @Resource
+ 	private AccountOperaTotalService accountOperaTotalService;
 	 
  	/**
  	* 进入新增页面
@@ -77,10 +80,22 @@ public class OperaDateController{
 	 * @return: ajax输入json字符串
 	 */
 	@RequestMapping("/deleteOperaDate")
-	public void deleteByKey(String key,HttpServletResponse response){
-		String[] str = key.split(",");
-		for(int i=0;i<str.length;i++){
-			operaDateService.deleteByKey(str[i]);
+	public void deleteByKey(AccountOrderDetail accountOrderDetail,String type,HttpServletResponse response){
+		switch (type) {
+		case "basePrice":
+			operaDateService.deleteBasePriceByOrderDetail(accountOrderDetail);
+			break;
+		case "deepOpera":
+			operaDateService.deleteDeepOperaByOrderDetail(accountOrderDetail);
+			break;
+		case "saleRate":
+			operaDateService.deleteSaleRateByOrderDetail(accountOrderDetail);
+			break;
+		case "platformAccount":
+			operaDateService.deletePlatformAccountByOrderDetail(accountOrderDetail);
+			break;
+		default:
+			break;
 		}
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("msg", "成功");
@@ -106,10 +121,26 @@ public class OperaDateController{
 	 * @return: ajax输入json字符串
 	 */
 	@RequestMapping("/listOperaDate")
-	public void listByCondition(OperaDate operaDate,HttpServletRequest request,
+	public void listByCondition(OperaDate operaDate,String type,HttpServletRequest request,
 			HttpServletResponse response, Page page){
-		operaDate.setPage(page);	
-		List<OperaDate> list = operaDateService.listByCondition(operaDate);
+		operaDate.setPage(page);
+		List<OperaDate> list = null;
+		switch (type) {
+		case "basePrice":
+			list = operaDateService.listBasePriceByCondition(operaDate);
+			break;
+		case "deepOpera":
+			list = operaDateService.listDeepOperaByCondition(operaDate);
+			break;
+		case "saleRate":
+			list = operaDateService.listSaleRateByCondition(operaDate);
+			break;
+		case "platformAccount":
+			list = operaDateService.listPlatformAccountByCondition(operaDate);
+			break;
+		default:
+			break;
+		}
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
@@ -122,7 +153,6 @@ public class OperaDateController{
 	public ModelAndView toEdit(String key){
 		OperaDate entity = operaDateService.getByPrimaryKey(key);
 		Map<String,String> operaDate = FormatEntity.getObjectValue(entity);
-		
 		return new ModelAndView("WEB-INF/jsp/finance/operaDate/editOperaDate","operaDate",operaDate );
 	}
 	
@@ -133,9 +163,24 @@ public class OperaDateController{
 	 * @return: ajax输入json字符串
 	 */	
 	@RequestMapping("/updateOperaDate")
-	public void update(OperaDate operaDate,HttpServletRequest request,HttpServletResponse response){
-		AjaxUtils.sendAjaxForObjectStr(
-				response,operaDateService.update(operaDate));	
+	public void update(OperaDate operaDate,String type,HttpServletRequest request,HttpServletResponse response){
+		switch (type) {
+		case "basePrice":
+			AjaxUtils.sendAjaxForObjectStr(response,operaDateService.updateBasePrice(operaDate));	
+			break;
+		case "deepOpera":
+			AjaxUtils.sendAjaxForObjectStr(response,operaDateService.updateDeepOpera(operaDate));	
+			break;
+		case "saleRate":
+			AjaxUtils.sendAjaxForObjectStr(response,operaDateService.updateSaleRate(operaDate));	
+			break;
+		case "platformAccount":
+			AjaxUtils.sendAjaxForObjectStr(response,operaDateService.updatePlatformAccount(operaDate));	
+			break;
+		default:
+			break;
+		}
+		
 	}
 	
 	/**
@@ -146,26 +191,36 @@ public class OperaDateController{
 	 */
 	@RequestMapping("/addByOrderDetail")
 	public void addByOperaDetail(AccountOrderDetail accountOrderDetail,String type,HttpServletRequest request,HttpServletResponse response){
+		if(accountOrderDetail.getStoreName()==null)accountOrderDetail.setStoreName("");
+		OperaDate operaDate = new OperaDate();
+		operaDate.setStoreName(accountOrderDetail.getStoreName());
 		switch (type) {
 		case "basePrice":
 			operaDateService.deleteBasePriceByOrderDetail(accountOrderDetail);
 			operaDateService.addBasePriceByOrderDetail(accountOrderDetail);
+			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
+			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
 			break;
 		case "deepOpera":
 			operaDateService.deleteDeepOperaByOrderDetail(accountOrderDetail);
 			operaDateService.addDeepOperaByOrderDetail(accountOrderDetail);
+			accountOperaTotalService.deleteDeepTotalByOperaDate(operaDate);
+			accountOperaTotalService.addDeepTotalByOperaDate(operaDate);
 			break;
 		case "saleRate":
 			operaDateService.deleteSaleRateByOrderDetail(accountOrderDetail);
 			operaDateService.addSaleRateByOrderDetail(accountOrderDetail);
+			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
+			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
 			break;
 		case "platformAccount":
 			operaDateService.deletePlatformAccountByOrderDetail(accountOrderDetail);
 			operaDateService.addPlatformAccountByOrderDetail(accountOrderDetail);
+			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
+			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
 			break;
 		default:
 			break;
 		}
-		
 	}
 }

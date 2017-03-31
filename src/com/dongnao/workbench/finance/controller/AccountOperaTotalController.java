@@ -17,6 +17,7 @@ import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.finance.model.AccountOperaTotal;
+import com.dongnao.workbench.finance.model.OperaDate;
 import com.dongnao.workbench.finance.service.AccountOperaTotalService;
 
 
@@ -74,12 +75,33 @@ public class AccountOperaTotalController{
 	 * @param accountOperaTotal AccountOperaTotal:实体类
 	 * @return: ajax输入json字符串
 	 */
-	@RequestMapping("/addByOrderDetail")
-	public void addByOperaDetail(AccountOperaTotal accountOperaTotal,HttpServletRequest request,HttpServletResponse response){
-		accountOperaTotalService.deleteByKey(accountOperaTotal);
+	@RequestMapping("/addTotalByOperaDetail")
+	public void addByOperaDetail(OperaDate operaDate,String type,HttpServletRequest request,HttpServletResponse response){
+		if(operaDate.getStoreName()==null)operaDate.setStoreName("");
+		switch (type) {
+		case "basePrice":
+			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
+			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
+			break;
+		case "deepOpera":
+			accountOperaTotalService.deleteDeepTotalByOperaDate(operaDate);
+			accountOperaTotalService.addDeepTotalByOperaDate(operaDate);
+			break;
+		case "saleRate":
+			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
+			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
+			break;
+		case "platformAccount":
+			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
+			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
+			break;
+		default:
+			break;
+		}
+		/*accountOperaTotalService.deleteByKey(accountOperaTotal);
 		accountOperaTotalService.addByOperaDetail(accountOperaTotal);	
 		accountOperaTotalService.deleteTotalByKey(accountOperaTotal);
-		accountOperaTotalService.addTotalByOperaDetail(accountOperaTotal);
+		accountOperaTotalService.addTotalByOperaDetail(accountOperaTotal);*/
 	}
 	
 	
@@ -94,37 +116,6 @@ public class AccountOperaTotalController{
 	}
 	
 	
-	/**
-	 * 根据条件查找列表方法
-	 * @param accountOperaTotal AccountOperaTotal：实体对象（查询条件）
-	 * @param request HttpServletRequest
-	 * @param response HttpServletResponse
-	 * @param page Page:分页对象
-	 * @return: ajax输入json字符串
-	 */
-	@RequestMapping("/listAccountOperaDate")
-	public void listByDate(AccountOperaTotal accountOperaTotal,HttpServletRequest request,
-			HttpServletResponse response, Page page){
-		accountOperaTotal.setPage(page);	
-		List<AccountOperaTotal> list = accountOperaTotalService.listByDate(accountOperaTotal);
-		AjaxUtils.sendAjaxForPage(request, response, page, list);
-	}
-	
-	/**
-	 * 根据条件查找列表方法
-	 * @param accountOperaTotal AccountOperaTotal：实体对象（查询条件）
-	 * @param request HttpServletRequest
-	 * @param response HttpServletResponse
-	 * @param page Page:分页对象
-	 * @return: ajax输入json字符串
-	 */
-	@RequestMapping("/listAccountOperaTotal")
-	public void listByTotal(AccountOperaTotal accountOperaTotal,HttpServletRequest request,
-			HttpServletResponse response, Page page){
-		accountOperaTotal.setPage(page);	
-		List<AccountOperaTotal> list = accountOperaTotalService.listByTotal(accountOperaTotal);
-		AjaxUtils.sendAjaxForPage(request, response, page, list);
-	}
 	
 	/**
 	 * 进入修改页面方法
@@ -147,10 +138,10 @@ public class AccountOperaTotalController{
 	 */	
 	@RequestMapping("/updateAccountOperaDate")
 	public void update(AccountOperaTotal accountOperaTotal,HttpServletRequest request,HttpServletResponse response){
-		accountOperaTotalService.update(accountOperaTotal);	
+		/*accountOperaTotalService.update(accountOperaTotal);	
 		accountOperaTotalService.deleteTotalByKey(null);
 		AjaxUtils.sendAjaxForObjectStr(
-				response,accountOperaTotalService.addTotalByOperaDate(accountOperaTotal));
+				response,accountOperaTotalService.addTotalByOperaDate(accountOperaTotal));*/
 	}
 	
 	/**
@@ -158,11 +149,35 @@ public class AccountOperaTotalController{
 	 * @param accountOperaTotal AccountOperaTotal：实体对象
 	 * @param response HttpServletResponse
 	 * @return: ajax输入json字符串
-	 */	
 	@RequestMapping("/updateAccountOperaTotal")
 	public void updateTotal(AccountOperaTotal accountOperaTotal,HttpServletRequest request,HttpServletResponse response){
 		AjaxUtils.sendAjaxForObjectStr(
 				response,accountOperaTotalService.updateTotal(accountOperaTotal));	
-	}
+	} */	
 	
+	/**
+	 * 根据条件查找列表方法
+	 * @param operaDate OperaDate：实体对象（查询条件）
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse
+	 * @param page Page:分页对象
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/listAccountOperaTotal")
+	public void listByCondition(AccountOperaTotal accountOperaTotal,String type,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		accountOperaTotal.setPage(page);
+		List<AccountOperaTotal> list = null;
+		switch (type) {
+		case "simpleTotal":
+			list = accountOperaTotalService.listSimpleTotalByCondition(accountOperaTotal);
+			break;
+		case "deepTotal":
+			list = accountOperaTotalService.listDeepTotalByCondition(accountOperaTotal);
+			break;
+		default:
+			break;
+		}
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
 }

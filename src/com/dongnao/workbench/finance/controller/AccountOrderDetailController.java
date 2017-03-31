@@ -171,7 +171,6 @@ public class AccountOrderDetailController{
 				response,accountOrderDetailService.updateActualDistCharge(accountOrderDetail));	
 		AccountOperaTotal accountOperaTotal = new AccountOperaTotal();
 		accountOperaTotalService.deleteByKey(accountOperaTotal);
-		accountOperaTotalService.deleteTotalByKey(accountOperaTotal);
 	}
 	/**
 	 * 菜品数量表明细
@@ -208,7 +207,7 @@ public class AccountOrderDetailController{
             List<Object> lo = listob.get(i);  
             AccountOrderDetail orderDetail = new AccountOrderDetail();  
             try{
-            	orderDetail.setId(Utils.generateUniqueID());
+//            	orderDetail.setId(Utils.generateUniqueID());
 				orderDetail.setCreateDate(DateUtil.parseStringToyyyyMMdd(StringUtil.valueOf(lo.get(0))));
 				orderDetail.setStoreELMId(StringUtil.valueOf(lo.get(1)));
 				orderDetail.setStoreName(StringUtil.valueOf(lo.get(2)));

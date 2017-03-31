@@ -20,19 +20,22 @@ var orderDetailModel = {
 					{name : "orderNo",label:"订单号",index : "order_no"},				
 					{name : "orginPrice",label:"菜价",index : "orginPrice"},				
 					{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
-					{name : "giftAllowance",label:"赠品补贴",index : "gift_allowance"},				
-					{name : "merchantActivitiesSubsidies",label:"商户承担活动补贴",index : "merchant_activities_subsidies"},		
-					{name : "platformActivitiesSubsidies",label:"平台承担活动补贴",index : "platform_activities_subsidies"},	
+					/* {name : "giftAllowance",label:"赠品补贴",index : "gift_allowance"}, */	
+					{name : "activitiesSubsidyBymerchant",label:"实际菜品折扣",index : "activities_subsidy_bymerchant",editable:true},				
+					{name : "specialOffer",label:"结算菜特价",index : "special_offer"},			
 					{name : "distributionMode",label:"配送方式",index : "distribution_mode"},	
-					{name : "merchantDistCharge",label:"商户收取配送费",index : "merchant_dist_charge"},			
-					{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge"},	
-					{name : "merchantSubsidyVouchers",label:"商户承担代金券补贴",index : "merchant_subsidy_vouchers"},	
-					{name : "platformSubsidyVouchers",label:"平台承担代金券补贴",index : "platform_subsidy_vouchers"},
+					{name : "orderDistCharge",label:"订单取配送费",index : "order_dist_charge",editable:true},
+					{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge",editable:true},
+					{name : "merchantDistCharge",label:"公司收取配送费",index : "merchant_dist_charge",editable:true},			
+					{name : "merchantActivitiesSubsidies",label:"商户承担活动补贴",index : "merchant_activities_subsidies",editable:true},		
+					{name : "platformActivitiesSubsidies",label:"平台承担活动补贴",index : "platform_activities_subsidies",editable:true},	
+					/* {name : "merchantSubsidyVouchers",label:"商户承担代金券补贴",index : "merchant_subsidy_vouchers"},	
+					{name : "platformSubsidyVouchers",label:"平台承担代金券补贴",index : "platform_subsidy_vouchers"}, */
 					/* {name : "serviceRate",label:"服务费费率",index : "service_rate"},	 */			
 					{name : "serviceCharge",label:"服务费",index : "service_charge"},				
 					/* {name : "refundAmount",label:"用户申请退单金额",index : "refund_amount"}, */				
 					{name : "settlementAmount",label:"结算金额",index : "settlement_amount"},				
-					{name : "remark",label:"备注",index : "remark"},		
+					{name : "remark",label:"备注",index : "remark",editable:true},		
 					{name : "platformType",label:"平台类型",index : "platform_type",
 						formatter:function(cellvalue, options, rowObject){
 			 				 if (cellvalue=='elm') {return '饿了么';}
@@ -45,7 +48,7 @@ var orderDetailModel = {
         
     });
 	function initGrid(ways){
-		gridObj = Finance.createGrid(ways,orderDetail.colModel,true,false);
+		gridObj = Finance.createGrid(ways,orderDetail.colModel,true,true,baseUrl+"/accountOrderDetail/updateAccountOrderDetail.do");
 	}
 	
     //新增的弹出框
@@ -113,6 +116,7 @@ var orderDetailModel = {
     function genTotal(ways){
    		$ .ajax({
    			type: "post",
+   			data:Finance.getQueryCondition(),
 			url: baseUrl+"/operaDate/addByOrderDetail.do?type="+ways,
 			cache:false,
 			dataType:"json"
@@ -128,7 +132,7 @@ var orderDetailModel = {
 				<ul>
 				<li><span>关键字：</span>
 				<input type="text" name="storeName" id="storeName" class="search_choose" placeholder="商户名称">
-				<input type="hidden" name="isInvalid" value="0"></li><!-- 输入框-->
+				<!--<input type="hidden" name="isInvalid" value="0"></li>-->
 				<li>
 					<div class="time_bg">
 					<input type="text" placeholder="截止日期"  class="search_time150 date-picker" name="propsMap['endDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->

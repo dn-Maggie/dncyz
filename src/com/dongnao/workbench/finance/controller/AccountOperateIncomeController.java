@@ -82,12 +82,12 @@ public class AccountOperateIncomeController{
 	}
 	
 	/**
-	 * 进入运营数据日报表列表页面
+	 * 进入运营数据菜品分析
 	 * @return ModelAndView
 	 */
-	@RequestMapping("/toListAccountOperateIncomeByDate")
+	@RequestMapping("/toListGoods")
 	public ModelAndView toListByDate(){
-		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listAccountOperateIncomeByDate");
+		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listGoods");
 		 return mv;
 	}
 	/**
@@ -113,14 +113,14 @@ public class AccountOperateIncomeController{
 	/**
 	 * 运营汇总数据
 	 * @return ModelAndView
-	 */
+	 
 	@RequestMapping("/ListAccountOperateIncomeByTotal")
 	public void ListAccountOperateIncomeByTotal(AccountOperaTotal accountOperaTotal,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		accountOperaTotal.setPage(page);	
 		List<AccountOperaTotal> list = accountOperaTotalService.listByTotal(accountOperaTotal);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
-	}
+	}*/
 	
 	/**
 	 * 进入修改页面方法

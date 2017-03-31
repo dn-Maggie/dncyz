@@ -77,12 +77,16 @@ Finance = {
 					 	var footerCell = $(this).footerData();
 					 	var footerObj = {};
 					 	for(var i in footerCell){
-					 		footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(3):0;
+					 		if(!/rn$|cb$|Time$|Date$|Name$|Type$|remark$|Mode$|No$|id$/.test(i)){
+					 			footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(2):0;
+					 		}
+					 		if(/Num$/.test(i)){
+					 			footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum"):0;
+					 		}
 					 	}
 					 	footerObj['raw'] = true;
 					 	footerObj['rn'] = "合";
 					 	footerObj['cb'] = "计";
-					 	footerObj['createDate'] = footerObj['storeName'] ="";
 				    	$(this).footerData("set",footerObj); //将合计值显示出来
 			 	}
 			}
@@ -130,12 +134,16 @@ Finance = {
 				 	var footerCell = $(this).footerData();
 				 	var footerObj = {};
 				 	for(var i in footerCell){
-				 		footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(3):0;
+				 		if(!/rn$|cb$|Time$|Date$|Name$|Type$|remark$|Mode$|No$|id$/.test(i)){
+				 			footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(2):0;
+				 		}
+				 		if(/Num$/.test(i)){
+				 			footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum"):0;
+				 		}
 				 	}
 				 	footerObj['raw'] = true;
 				 	footerObj['rn'] = "合";
 				 	footerObj['cb'] = "计";
-				 	footerObj['createDate'] = footerObj['storeName'] ="";
 			    	$(this).footerData("set",footerObj); //将合计值显示出来
 			    }
 			}

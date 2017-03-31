@@ -170,7 +170,7 @@
 			and od.store_id = #{storeId,jdbcType=CHAR}
 		</if>
 		<if test="storeName != null and '' != storeName">  
-			and od.store_name = #{storeName,jdbcType=VARCHAR}
+			and od.store_name like CONCAT('%',#{storeName,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="checkNo != null and '' != checkNo">  
 			and od.check_no = #{checkNo,jdbcType=VARCHAR}
@@ -235,7 +235,7 @@
            	order by ${orderFields} ${order}
        	</if>
 	</select>
-	
+	<!-- 菜品价格表 -->
 	<select id="listGoodsFromOrderDetail" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
 		SELECT DISTINCT
 			tod.create_date,
@@ -404,7 +404,7 @@
 				,#{orderSaleRate,jdbcType=DECIMAL}
 			)
 	</insert>
-	
+	<!-- 模板导入，批量增加 -->
 	<insert id="addOrderDetail" parameterType="java.util.List">
 		insert into account_order_detail (
 				id
@@ -512,12 +512,77 @@
 	<update id="update" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
 		update account_order_detail  set
 		id= #{id,jdbcType=VARCHAR}
-		,create_date = #{createDate,jdbcType=DATE}
-		,store_id = #{storeId,jdbcType=CHAR}
-		,store_ELM_id = #{storeELMId,jdbcType=CHAR}
-		,store_MT_id = #{storeMTId,jdbcType=CHAR}
-		,store_BD_id = #{storeBDId,jdbcType=CHAR}
-		,store_name = #{storeId,jdbcType=VARCHAR}
+		<if test="createDate != null and '' != createDate">  
+			,create_date = #{createDate,jdbcType=DATE}
+		</if>
+		<if test="storeId != null and '' != storeId">  
+			,store_id = #{storeId,jdbcType=CHAR}
+		</if>
+		<if test="storeName != null and '' != storeName">  
+			,store_name = #{storeId,jdbcType=VARCHAR}
+		</if>
+		<if test="checkNo != null and '' != checkNo">  
+			,check_no = #{checkNo,jdbcType=VARCHAR}
+		</if>
+		<if test="orderType != null and '' != orderType">  
+			,order_type = #{orderType,jdbcType=VARCHAR}
+		</if>
+		<if test="orderTime != null and '' != orderTime">  
+			,order_time = #{orderTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="isInvalid != null and '' != isInvalid">  
+			,is_invalid = #{isInvalid,jdbcType=TIMESTAMP}
+		</if>
+		<if test="overTime != null and '' != overTime">  
+			,over_time = #{overTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="orderNo != null and '' != orderNo">  
+			,order_no = #{orderNo,jdbcType=VARCHAR}
+		</if>
+		<if test="orginPrice != null and '' != orginPrice">  
+			,orgin_price = #{orginPrice,jdbcType=DECIMAL}
+		</if>
+		<if test="serviceRate != null and '' != serviceRate">  
+			,service_rate = #{serviceRate,jdbcType=VARCHAR}
+		</if>
+		<if test="serviceCharge != null and '' != serviceCharge">  
+			,service_charge = #{serviceCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="refundAmount != null and '' != refundAmount">  
+			,refund_amount = #{refundAmount,jdbcType=VARCHAR}
+		</if>
+		<if test="distributionMode != null and '' != distributionMode">  
+			,distribution_mode = #{distributionMode,jdbcType=VARCHAR}
+		</if>
+		<if test="remark != null and '' != remark">  
+			,remark = #{remark,jdbcType=VARCHAR}
+		</if>
+		<if test="giftAllowance != null and '' != giftAllowance">  
+			,gift_allowance = #{giftAllowance,jdbcType=VARCHAR}
+		</if>
+		<if test="refundAmount != null and '' != refundAmount">  
+			,refund_amount = #{refundAmount,jdbcType=VARCHAR}
+		</if>
+		<if test="merchantActivitiesSubsidies != null and '' != merchantActivitiesSubsidies">  
+			,merchant_activities_subsidies = #{merchantActivitiesSubsidies,jdbcType=DECIMAL}
+		</if>
+		<if test="platformActivitiesSubsidies != null and '' != platformActivitiesSubsidies">  
+			,platform_activities_subsidies = #{platformActivitiesSubsidies,jdbcType=DECIMAL}
+		</if>
+		<if test="merchantDistCharge != null and '' != merchantDistCharge">  
+			,merchant_dist_charge = #{merchantDistCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="orderDistCharge != null and '' != orderDistCharge">  
+			,order_dist_charge = #{orderDistCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="platformDistCharge != null and '' != platformDistCharge">  
+			,platform_dist_charge = #{platformDistCharge,jdbcType=DECIMAL}
+		</if>
+		<if test="activitiesSubsidyBymerchant != null and '' != activitiesSubsidyBymerchant"> 
+		,activities_subsidy_bymerchant = #{activitiesSubsidyBymerchant,jdbcType=DECIMAL}
+		</if>
+		
+		<!-- 
 		,check_no = #{checkNo,jdbcType=VARCHAR}
 		,order_type = #{orderType,jdbcType=VARCHAR}
 		,order_time = #{orderTime,jdbcType=TIMESTAMP}
@@ -528,23 +593,18 @@
 		,meal_fee = #{mealFee,jdbcType=DECIMAL}
 		,product_sale_amount = #{productSaleAmount,jdbcType=DECIMAL}
 		,gift_allowance = #{giftAllowance,jdbcType=DECIMAL}
-		,merchant_activities_subsidies = #{merchantActivitiesSubsidies,jdbcType=DECIMAL}
+		
 		,merchant_subsidy_vouchers = #{merchantSubsidyVouchers,jdbcType=DECIMAL}
 		,actual_merchant_dist_charge = #{actualMerchantDistCharge,jdbcType=DECIMAL}
-		,merchant_dist_charge = #{merchantDistCharge,jdbcType=DECIMAL}
-		,order_dist_charge = #{orderDistCharge,jdbcType=DECIMAL}
-		,platform_dist_charge = #{platformDistCharge,jdbcType=DECIMAL}
 		,service_rate = #{serviceRate,jdbcType=VARCHAR}
 		,service_charge = #{serviceCharge,jdbcType=DECIMAL}
 		,refund_amount = #{refundAmount,jdbcType=VARCHAR}
 		,settlement_amount = #{settlementAmount,jdbcType=DECIMAL}
 		,distribution_mode = #{distributionMode,jdbcType=VARCHAR}
 		,remark = #{remark,jdbcType=VARCHAR}
-		,platform_activities_subsidies = #{platformActivitiesSubsidies,jdbcType=DECIMAL}
 		,platform_subsidy_vouchers = #{platformSubsidyVouchers,jdbcType=DECIMAL}
 		,platform_type = #{platformType,jdbcType=VARCHAR}
 		,is_invalid = #{isInvalid,jdbcType=VARCHAR}
-		,activities_subsidy_bymerchant = #{activitiesSubsidyBymerchant,jdbcType=DECIMAL}
 		,activities_subsidy_bycompany = #{activitiesSubsidyBycompany,jdbcType=DECIMAL}
 		,food_discount = #{foodDiscount,jdbcType=DECIMAL}
 		,special_offer = #{specialOffer,jdbcType=DECIMAL}
@@ -557,7 +617,7 @@
 		,goods_quality= #{goodsQuality,jdbcType=VARCHAR}
 		,goods_id = #{goodsId,jdbcType=VARCHAR}
 		,goods_price = #{goodsPrice,jdbcType=VARCHAR}
-		,order_sale_rate = #{orderSaleRate,jdbcType=DECIMAL}
+		,order_sale_rate = #{orderSaleRate,jdbcType=DECIMAL} -->
 	where id = #{id,jdbcType=VARCHAR}
 	</update>
 	<update id="updateActualDistCharge" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">

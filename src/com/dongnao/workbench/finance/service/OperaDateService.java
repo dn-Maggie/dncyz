@@ -14,17 +14,23 @@ import com.dongnao.workbench.finance.model.OperaDate;
 public interface OperaDateService  {
 
 	/**
-	 * 新增运营日明细方法
+	 * 根据订单明细新增运营日明细方法
 	 * @param operaDate OperaDate:实体类
 	 */
 	public ResultMessage add(OperaDate operaDate);
-	
+	public void addBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public void addDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public void addSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public void addPlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
 	/**
 	 * 删除运营日明细方法
 	 * @param key:多个由“，”分割开的id字符串
 	 */
-	public void deleteByKey(String key);
-	
+	public void deleteBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public void deleteDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public void deleteSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public void deletePlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
+
 	/**
 	 * 根据主键查找运营日明细实体方法
 	 * @param key String：实体主键
@@ -37,23 +43,19 @@ public interface OperaDateService  {
 	 * @param operaDate OperaDate 实体对象（查询条件）
 	 * @return: 实体对象的list
 	 */
-	public List<OperaDate> listByCondition(OperaDate operaDate);
-	
+	public List<OperaDate> listBasePriceByCondition(OperaDate operaDate);
+	public List<OperaDate> listDeepOperaByCondition(OperaDate operaDate);
+	public List<OperaDate> listSaleRateByCondition(OperaDate operaDate);
+	public List<OperaDate> listPlatformAccountByCondition(OperaDate operaDate);
 	/**
 	 * 修改运营日明细方法
 	 * @param operaDate OperaDate 实体对象
 	 */	
-	public ResultMessage update(OperaDate operaDate);
+	public ResultMessage updateBasePrice(OperaDate operaDate);
+	public ResultMessage updateDeepOpera(OperaDate operaDate);
+	public ResultMessage updateSaleRate(OperaDate operaDate);
+	public ResultMessage updatePlatformAccount(OperaDate operaDate);
 
-	public void deleteBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
-	public void addBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
 	
-	public void deleteDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
-	public void addDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
-	
-	public void deleteSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
-	public void addSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
-	
-	public void deletePlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
-	public void addPlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
+
 }
