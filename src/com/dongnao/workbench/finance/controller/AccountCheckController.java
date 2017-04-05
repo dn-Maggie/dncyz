@@ -37,10 +37,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("accountCheck")
 public class AccountCheckController{
-         @Resource
-	private AccountCheckService accountCheckService;
-         @Resource
-     	private AccountOrderDetailService accountOrderDetailService;
+    @Resource
+    private AccountCheckService accountCheckService;
+    @Resource
+    private AccountOrderDetailService accountOrderDetailService;
 	 
  	/**
  	* 进入新增页面
@@ -49,61 +49,6 @@ public class AccountCheckController{
  	@RequestMapping("/toAddAccountCheck")
 	public ModelAndView toAdd(){
 		return new ModelAndView("WEB-INF/jsp/finance/accountCheck/addAccountCheck");
-	}
-	
-	/**
-	 * 进入查看页面方法
-	 * @param key String：实体id
-	 * @return ModelAndView: 查询实体
-	 */	
-	@RequestMapping("/toShowAccountCheck")
-	public ModelAndView toShow(String key){
-		AccountCheck entity = accountCheckService.getByPrimaryKey(key);
-		Map<String,String> accountCheck = FormatEntity.getObjectValue(entity);
-		return new ModelAndView("WEB-INF/jsp/finance/accountCheck/showAccountCheck","accountCheck",accountCheck );
-	}
-	
-	/**
-	 * 新增方法
-	 * @param response HttpServletResponse
-	 * @param accountCheck AccountCheck:实体类
-	 * @return: ajax输入json字符串
-	 */
-	@RequestMapping("/addAccountCheck")
-	public void add(AccountCheck accountCheck,HttpServletRequest request,HttpServletResponse response){
-	accountCheck.setId(Utils.generateUniqueID());
-	AjaxUtils.sendAjaxForObjectStr(
-				response,accountCheckService.add(accountCheck));		
-	}
-	
-	/**
-	 * 批量新增方法
-	 * @param response HttpServletResponse
-	 * @param accountOperaTotal AccountOperaTotal:实体类
-	 * @return: ajax输入json字符串
-	 */
-	@RequestMapping("/addByCheckDetail")
-	public void addByOperaDetail(AccountCheck accountCheck,HttpServletRequest request,HttpServletResponse response){
-		accountCheckService.deleteDateByKey(accountCheck);
-		accountCheckService.addByCheckDetail(accountCheck);	
-		accountCheckService.deleteTotalByKey(accountCheck);
-		accountCheckService.addTotalByCheckDetail(accountCheck);
-	}
-	/**
-	 * 删除方法
-	 * @param response HttpServletResponse
-	 * @param key String:多个由“，”分割开的id字符串
-	 * @return: ajax输入json字符串
-	 */
-	@RequestMapping("/deleteAccountCheck")
-	public void deleteByKey(String key,HttpServletResponse response){
-		String[] str = key.split(",");
-		for(int i=0;i<str.length;i++){
-			accountCheckService.deleteByKey(str[i]);
-		}
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("msg", "成功");
-		AjaxUtils.sendAjaxForMap(response, map);
 	}
 	
 	/**
@@ -121,17 +66,9 @@ public class AccountCheckController{
 	 */
 	@RequestMapping("/toListTotalAccountCheck")
 	public ModelAndView toListTotal(){
-		return new ModelAndView("WEB-INF/jsp/finance/accountCheck/listTotalAccountCheck");
+		return new ModelAndView("WEB-INF/jsp/finance/accountCheck/listAccountCheckByTotal");
 	}
 	
-	/**
-	 * 进入对账结算日列表页面
-	 * @return ModelAndView
-	 */
-	@RequestMapping("/toListAccountCheckByDate")
-	public ModelAndView toListByDate(){
-		return new ModelAndView("WEB-INF/jsp/finance/accountCheck/listAccountCheckByDate");
-	}
 	/**
 	 * 根据条件查找列表方法
 	 * @param accountCheck AccountCheck：实体对象（查询条件）
@@ -141,10 +78,20 @@ public class AccountCheckController{
 	 * @return: ajax输入json字符串
 	 */
 	@RequestMapping("/listAccountCheck")
-	public void listByCondition(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
+	public void listByCondition(AccountOrderDetail accountOrderDetail,String type,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		accountOrderDetail.setPage(page);	
-		List<AccountOperateIncome> list = accountCheckService.listDetailAccountCheck(accountOrderDetail);
+		List<AccountOperateIncome> list =  null;
+		switch (type) {
+		case "boundMerchant":
+			list = accountCheckService.listDetailAccountCheckByBoundMerchant(accountOrderDetail);
+			break;
+		case "boundCompany":
+			list = accountCheckService.listDetailAccountCheckByBoundCompany(accountOrderDetail);
+			break;
+		default:
+			break;
+		}
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	/**
@@ -158,48 +105,20 @@ public class AccountCheckController{
 	@RequestMapping("/listTotalAccountCheck")
 	public void listTotalAccountCheck(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
 			HttpServletResponse response, Page page){
-		accountOrderDetail.setPage(page);	
+		accountOrderDetail.setPage(page);
 		List<AccountOperateIncome> list = accountCheckService.listTotalAccountCheck(accountOrderDetail);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
-	/**
-	 * 根据条件查找列表方法
-	 * @param accountCheck AccountCheck：实体对象（查询条件）
-	 * @param request HttpServletRequest
-	 * @param response HttpServletResponse
-	 * @param page Page:分页对象
-	 * @return: ajax输入json字符串
-	 */
-	@RequestMapping("/listAccountCheckByDate")
-	public void listByDate(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
-			HttpServletResponse response, Page page){
-		accountOrderDetail.setPage(page);	
-		List<AccountOperateIncome> list = accountCheckService.listDetailAccountCheck(accountOrderDetail);
-		AjaxUtils.sendAjaxForPage(request, response, page, list);
-	}
-	/**
-	 * 进入修改页面方法
-	 * @param key String：实体id
-	 * @return ModelAndView: 查询实体
-	 */	
-	@RequestMapping("/toEditAccountCheck")
-	public ModelAndView toEdit(String key){
-		AccountCheck entity = accountCheckService.getByPrimaryKey(key);
-		Map<String,String> accountCheck = FormatEntity.getObjectValue(entity);
-		
-		return new ModelAndView("WEB-INF/jsp/finance/accountCheck/editAccountCheck","accountCheck",accountCheck );
-	}
-	
 	/**
 	 * 修改方法
 	 * @param accountCheck AccountCheck：实体对象
 	 * @param response HttpServletResponse
 	 * @return: ajax输入json字符串
 	 */	
-	@RequestMapping("/updateAccountCheck")
+	@RequestMapping("/updateAccountCheckTotal")
 	public void update(AccountCheck accountCheck,HttpServletRequest request,HttpServletResponse response){
 		AjaxUtils.sendAjaxForObjectStr(
-				response,accountCheckService.update(accountCheck));	
+				response,accountCheckService.updateTotal(accountCheck));	
 	}
 	//导出对账明细方法
 	@RequestMapping("/exportDetailExcel")
@@ -210,7 +129,7 @@ public class AccountCheckController{
 		if (expType == 1) {
 			accountOrderDetail.setPage(page);
 		}
-		List<AccountOperateIncome> list = accountCheckService.listDetailAccountCheck(accountOrderDetail);
+		List<AccountOperateIncome> list = accountCheckService.listDetailAccountCheckByBoundMerchant(accountOrderDetail);
 		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
 				"对账明细列表", "对账明细列表");
 	}

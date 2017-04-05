@@ -163,7 +163,6 @@ public class MainController {
 		userInfo.setLastLoginTime(DateUtil.nowSqlTimestamp());
 		userInfoService.updateLastLoginInfo(userInfo);
 		return new ModelAndView("redirect:/index.do");
-
 	}
 
 	/**

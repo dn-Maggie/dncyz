@@ -11,48 +11,14 @@ import com.dongnao.workbench.finance.model.AccountOrderDetail;
  * @version 1.0 2017-02-23
  */
 public interface AccountCheckMapper  {
-
-	/**
-	 * 新增财务对账方法
-	 * @param accountCheck AccountCheck:实体类
-	 */
-	void add(AccountCheck accountCheck);
-	
-	/**
-	 * 删除财务对账方法
-	 * @param key String:多个由“，”分割开的id字符串
-	 */
-	void deleteByKey(String key);
-	
-	/**
-	 * 根据主键查找财务对账实体方法
-	 * @param key String：实体主键（查询条件）
-	 * @return AccountCheck: 实体
-	 */
-	public AccountCheck getByPrimaryKey(String key);
-	
-	/**
-	 * 根据条件查找财务对账列表方法
-	 * @param AccountCheck accountCheck：实体对象（查询条件）
-	 * @return List<AccountCheck>: 实体对象的list
-	 */
-	public List<AccountCheck>  listByCondition(AccountCheck accountCheck);
-	
 	/**
 	 * 修改财务对账方法
 	 * @param accountCheck AccountCheck：实体对象
 	 */	
-	public void update(AccountCheck accountCheck);
+	public void updateTotal(AccountCheck accountCheck);
 
 	public List<AccountOperateIncome> listTotalAccountCheck(AccountOrderDetail accountOrderDetail);
+	public List<AccountOperateIncome> listDetailAccountCheckByBoundMerchant(AccountOrderDetail accountOrderDetail);
+	public List<AccountOperateIncome> listDetailAccountCheckByBoundCompany(AccountOrderDetail accountOrderDetail);
 
-	public List<AccountOperateIncome> listDetailAccountCheck(AccountOrderDetail accountOrderDetail);
-
-	void deleteDateByKey(AccountCheck accountCheck);
-
-	void deleteTotalByKey(AccountCheck accountCheck);
-
-	void addByCheckDetail(AccountCheck accountCheck);
-
-	void addTotalByCheckDetail(AccountCheck accountCheck);
 }

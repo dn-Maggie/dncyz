@@ -16,6 +16,7 @@ function cellFormat(value, options, rData){
 		return eval(options.colModel.calculate);
 	}return value;
 };
+//汇总运营表头
 var totalColModel = [{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
 						{name : "storeName",label:"商户名称",index : "store_name"},				
 						{name : "createDate",label:"日期",index : "create_date"},				

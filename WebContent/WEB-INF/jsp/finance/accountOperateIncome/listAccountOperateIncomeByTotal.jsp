@@ -88,7 +88,7 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 			    return obj;
 			});
 		}
-		gridObj = Finance.createGrid(ways,localStorageModel,true,true,"/accountOperaTotal/updateAccountOperaTotal.do");
+		gridObj = Finance.createGrid(ways,localStorageModel,true,true,baseUrl+"/accountOperaTotal/updateAccountOperaTotal.do?type="+ways);
 		$("#"+ways).setColProp('calculate');
 		$("#"+ways).setColProp('isBasic');
 		$("#"+ways).setColProp('editFlag');

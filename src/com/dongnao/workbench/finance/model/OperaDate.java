@@ -68,6 +68,11 @@ public class OperaDate extends Model{
 	                 * 特价菜结算
 	                 **/
 				   			private String specialOffer;
+				   			
+			   		 /**
+	                 * 原价菜金额
+	                 **/
+				   			private String actualPrice;
 		   		
 		            /**
 	                 * 实际菜品折扣
@@ -980,6 +985,14 @@ public class OperaDate extends Model{
 			 */
 			public void setPlatformType(String platformType){
 				this.platformType = platformType;
+			}
+
+			public String getActualPrice() {
+				return actualPrice;
+			}
+
+			public void setActualPrice(String actualPrice) {
+				this.actualPrice = actualPrice;
 			}
 		   		
 		

@@ -15,16 +15,16 @@ public interface AccountOperaTotalMapper  {
 	 * 新增运营合计方法
 	 * @param accountOperaTotal AccountOperaTotal:实体类
 	 */
-	void add(AccountOperaTotal accountOperaTotal);
-	void addSimpleTotalByOperaDate(OperaDate operaDate);
-	void addDeepTotalByOperaDate(OperaDate operaDate);
+	public void add(AccountOperaTotal accountOperaTotal);
+	public void addSimpleTotalByOperaDate(OperaDate operaDate);
+	public void addDeepTotalByOperaDate(OperaDate operaDate);
 	/**
 	 * 删除运营合计方法
 	 * @param accountOperaTotal String:多个由“，”分割开的id字符串
 	 */
-	void deleteByKey(AccountOperaTotal accountOperaTotal);
-	void deleteSimpleTotalByOperaDate(OperaDate operaDate);
-	void deleteDeepTotalByOperaDate(OperaDate operaDate);
+	public void deleteByKey(AccountOperaTotal accountOperaTotal);
+	public void deleteSimpleTotalByOperaDate(OperaDate operaDate);
+	public void deleteDeepTotalByOperaDate(OperaDate operaDate);
 	/**
 	 * 根据主键查找运营合计实体方法
 	 * @param key String：实体主键（查询条件）
@@ -47,12 +47,12 @@ public interface AccountOperaTotalMapper  {
 	 * 批量新增运营合计方法
 	 * @return 
 	 */	
-	int addByOperaDetail(AccountOperaTotal accountOperaTotal);
+	public int addByOperaDetail(AccountOperaTotal accountOperaTotal);
 
-	List<AccountOperaTotal> listDeepTotalByCondition(AccountOperaTotal accountOperaTotal);
-	List<AccountOperaTotal> listSimpleTotalByCondition(AccountOperaTotal accountOperaTotal);
-	void updateSimpleTotal(AccountOperaTotal accountOperaTotal);
-	void updateDeepTotal(AccountOperaTotal accountOperaTotal);
+	public List<AccountOperaTotal> listDeepTotalByCondition(AccountOperaTotal accountOperaTotal);
+	public List<AccountOperaTotal> listSimpleTotalByCondition(AccountOperaTotal accountOperaTotal);
+	public void updateSimpleTotal(AccountOperaTotal accountOperaTotal);
+	public void updateDeepTotal(AccountOperaTotal accountOperaTotal);
 	
 
 

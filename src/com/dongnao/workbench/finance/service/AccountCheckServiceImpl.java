@@ -21,56 +21,13 @@ import com.dongnao.workbench.common.util.AjaxUtils;
 public class AccountCheckServiceImpl implements AccountCheckService{
     @Resource
 	private AccountCheckMapper accountCheckMapper;
-	
- 
-	/**
-	 * 新增财务对账方法
-	 * @param accountCheck:实体类
-	 */	
-	public ResultMessage add(AccountCheck accountCheck){
-		accountCheckMapper.add(accountCheck);
-		return AjaxUtils.getSuccessMessage();
-	}
-	
-	/**
-	 * 根据主键查找财务对账实体方法
-	 * @param key String 实体主键
-	 * @return AccountCheck 实体对象
-	 */
-	public AccountCheck getByPrimaryKey(String key){
-		return accountCheckMapper.getByPrimaryKey(key);
-	}
-	
-	/**
-	 * 删除财务对账方法
-	 * @param key String 多个由“，”分割开的id字符串
-	 */
-	public void deleteByKey(String key){
-		accountCheckMapper.deleteByKey(key);
-	}
-	
-	/**
-	 * 根据条件查找财务对账列表方法
-	 * @param accountCheck AccountCheck 实体对象（查询条件）
-	 * @return List<AccountCheck> 实体对象的list
-	 */
-	public List<AccountCheck> listByCondition(AccountCheck accountCheck){
-		return accountCheckMapper.listByCondition(accountCheck);
-	}
-	
 	/**
 	 * 修改财务对账方法
 	 * @param accountCheck AccountCheck 实体对象
 	 */	
-	public ResultMessage update(AccountCheck accountCheck){
-		accountCheckMapper.update(accountCheck);
+	public ResultMessage updateTotal(AccountCheck accountCheck){
+		accountCheckMapper.updateTotal(accountCheck);
 		return AjaxUtils.getSuccessMessage();
-	}
-	/**
-	 * 根据订单计算出财务数据详细
-	 */
-	public List<AccountOperateIncome> listDetailAccountCheck(AccountOrderDetail accountOrderDetail) {
-		return accountCheckMapper.listDetailAccountCheck(accountOrderDetail);
 	}
 	/**
 	 * 根据订单计算出财务数据合计
@@ -78,20 +35,11 @@ public class AccountCheckServiceImpl implements AccountCheckService{
 	public List<AccountOperateIncome> listTotalAccountCheck(AccountOrderDetail accountOrderDetail) {
 		return accountCheckMapper.listTotalAccountCheck(accountOrderDetail);
 	}
-
-	public void deleteDateByKey(AccountCheck accountCheck) {
-		accountCheckMapper.deleteDateByKey(accountCheck);		
+	public List<AccountOperateIncome> listDetailAccountCheckByBoundMerchant(AccountOrderDetail accountOrderDetail) {
+		return accountCheckMapper.listDetailAccountCheckByBoundMerchant(accountOrderDetail);
+	}
+	public List<AccountOperateIncome> listDetailAccountCheckByBoundCompany(AccountOrderDetail accountOrderDetail) {
+		return accountCheckMapper.listDetailAccountCheckByBoundCompany(accountOrderDetail);
 	}
 
-	public void addByCheckDetail(AccountCheck accountCheck) {
-		accountCheckMapper.addByCheckDetail(accountCheck);		
-	}
-
-	public void deleteTotalByKey(AccountCheck accountCheck) {
-		accountCheckMapper.deleteTotalByKey(accountCheck);		
-	}
-
-	public void addTotalByCheckDetail(AccountCheck accountCheck) {
-		accountCheckMapper.addTotalByCheckDetail(accountCheck);		
-	}
 }

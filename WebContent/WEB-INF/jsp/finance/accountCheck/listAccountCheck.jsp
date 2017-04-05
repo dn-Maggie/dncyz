@@ -8,50 +8,60 @@
 <title></title>
 <script type="text/javascript">
 var gridObj = {};
+//汇总对账表头
+var totalColModel = [{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
+						{name : "storeName",label:"商户名称",index : "store_name"},				
+						{name : "createDate",label:"日期",index : "create_date"},				
+						{name : "validNum",label:"订单数",index : "valid_num"},	
+						{name : "specialOffer",label:"特价菜结算",index : "special_offer"},
+						{name : "actualPrice",label:"原价菜金额",index : "actual_price",editFlag:true,calculate:"rData['orginPrice']+rData['mealFee']-rData['specialOrgin']",
+	     					formatter : cellFormat},				
+						{name : "amountPayable",label:"结算金额",index : "amount_payable"}
+                     ];
 //绑商家卡对账表表头    
-var boundMerchantorderSaleRate = localStorage.getItem("boundMerchantorderSaleRate")?localStorage.getItem("boundMerchantorderSaleRate"):0.7;
-var boundMerchantModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/>",
-					 	colModel:[
+var boundMerchantModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/>?type=boundMerchant",
+					 		colModel:[
 							{name : "storeName",label:"商户名称",index : "store_name"},	
 							{name : "createDate",label:"日期",index : "create_date"},				
-							{name : "createTime",label:"订单时点",index : "create_time"},				
-							{name : "orderNo",label:"订单号",index : "order_no"},				
+							{name : "invalidNum",label:"无效单量",index : "invalid_num"},		
+							{name : "validNum",label:"有效单量",index : "valid_num"},	
 							{name : "orginPrice",label:"原价",index : "orgin_price"},				
-							{name : "discountPrice",label:"菜品折扣",index : "discount_price"},				
-							{name : "afterDiscountPrice",label:"折扣菜金额",index : "after_discount_price"},	
-							{name : "specialOffer",label:"特价结算"},
-							{name : "actualPrice",label:"原价菜金额",index : "actual_price"},				
-							{name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",hidden:true,editFlag:true,calculate:"0.7",
-	           					formatter : function(value, options, rData){boundMerchantorderSaleRate = options.colModel.calculate;return eval(options.colModel.calculate);}},
+							{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
+							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin"},	
+							{name : "specialOffer",label:"特价菜结算",index : "special_offer"},
+							{name : "actualPrice",label:"原价菜金额",index : "actual_price",editFlag:true,calculate:"rData['orginPrice']+rData['mealFee']-rData['specialOrgin']",
+		     					formatter : cellFormat},				
 							{name : "amountPayable",label:"结算金额",index : "amount_payable"}
 		           		]};
 //绑公司卡对账表表头         
-var boundCompanyorderSaleRate = localStorage.getItem("boundCompanyorderSaleRate")?localStorage.getItem("boundCompanyorderSaleRate"):0.7;
-var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/>",
+var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/>?type=boundCompany",
 						colModel:[
 							{name : "storeName",label:"商户名称",index : "store_name"},	
 							{name : "createDate",label:"日期",index : "create_date"},				
-							{name : "createTime",label:"订单时点",index : "create_time"},				
-							{name : "orderNo",label:"订单号",index : "order_no"},				
+							{name : "invalidNum",label:"无效单量",index : "invalid_num"},		
+							{name : "validNum",label:"有效单量",index : "valid_num"},	
 							{name : "orginPrice",label:"原价",index : "orgin_price"},				
-							{name : "discountPrice",label:"菜品折扣",index : "discount_price"},				
-							{name : "afterDiscountPrice",label:"折扣菜金额",index : "after_discount_price"},	
-							{name : "",label:"特价结算"},
-							{name : "actualPrice",label:"原价菜金额",index : "actual_price"},				
-							{name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",hidden:true,editFlag:true,calculate:"0.7",
-	           					formatter : function(value, options, rData){boundCompanyorderSaleRate = options.colModel.calculate;return eval(options.colModel.calculate);}},
+							{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
+							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin"},	
+							{name : "specialOffer",label:"特价菜结算",index : "special_offer"},
+							{name : "actualPrice",label:"原价菜金额",index : "actual_price",editFlag:true,calculate:"rData['orginPrice']+rData['mealFee']-rData['specialOrgin']",
+		     					formatter : cellFormat},				
 							{name : "amountPayable",label:"结算金额",index : "amount_payable"}
 		           		]};
 	$(function(){
 		initGrid("boundMerchant");
 		Finance.changeTabMenu();
     });
-    function cellFormat(value, options, rData){
-		return eval(options.colModel.calculate);
+	//格式化cell
+	function cellFormat(value, options, rData){
+		if(rData.raw){
+			return value;
+		}else if(options.colModel.calculate.indexOf("rData")>0){
+			return eval(options.colModel.calculate);
+		}return value;
 	};
 	//初始化grid
 	function initGrid(ways){
-		$("#orderSaleRate").val(localStorage.getItem(ways+"orderSaleRate")?localStorage.getItem(ways+"orderSaleRate"):0.7);
 		if(localStorage.getItem(ways+"Model")){
 			var localStorageModel= $.each(JSON.parse(localStorage.getItem(ways+"Model")), function(idx, obj) {
 				if(obj.serial){
@@ -60,7 +70,7 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
 			    return obj;
 			});
 		}
-		gridObj = Finance.createGrid(ways,localStorageModel,false,false);
+		gridObj = Finance.createGrid(ways,localStorageModel,true,false);
 		$("#"+ways).setColProp('calculate');
 		$("#"+ways).setColProp('editFlag');
 	}
@@ -69,8 +79,7 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
 	function loadConfigGrid(ways,colModel){
 		$(".listtable_box").html("");
 		$(".listtable_box").html('<table id="'+ways+'" ></table><div id="'+ways+'prowed"></div>');
-		$("#orderSaleRate").val(localStorage.getItem(ways+"orderSaleRate")?localStorage.getItem(ways+"orderSaleRate"):0.7);
-		gridObj = Finance.loadConfigGrid(ways,colModel,false,false);
+		gridObj = Finance.loadConfigGrid(ways,colModel,true,false);
 		$("#"+ways).setColProp('calculate');
 		$("#"+ways).setColProp('editFlag');
 	}
@@ -89,7 +98,6 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
   //生成运营汇总表
     function genTotal(){
     	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
-    	var orderSaleRate = eval(tableId+"orderSaleRate");
    		$ .ajax({
    			type: "post",
    			data:{orderSaleRate:orderSaleRate,
@@ -105,6 +113,11 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
     	var columnNames = $("#"+tableId).jqGrid('getGridParam','colModel');
     	return columnNames;
     }
+  //查看汇总信息
+  	function changeTotal(){
+  		var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id')
+  		loadConfigGrid(tableId, totalColModel);
+ 	}
 </script>
 </head>
 <body style="height:100%;">
@@ -113,7 +126,6 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
 			<div class="search border-bottom">
 				<ul>
 				<li>
-					<input type="hidden" name="orderSaleRate" id="orderSaleRate">
 					<input type="text" name="storeName" id="storeName" class="search_choose"> 
 					<span>店铺名称:</span></li><!-- 输入框-->
 				<li>
@@ -126,20 +138,6 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
 					<i class="search_time_ico2" ></i>
 					</div>
 				</li>
-				<li class="date_area">
-					<span>创建时间:</span>
-						<div class="time_bg">
-						<div class="input-group bootstrap-timepicker">
-							<input class="timepicker text" name="propsMap['startTime']" type="text" />
-						</div>
-						</div>
-					<i>至</i>
-					<div class="time_bg">
-						<div class="input-group bootstrap-timepicker">
-							<input class="timepicker text" name="propsMap['endTime']"   type="text" />
-						</div>
-					</div>
-					</li>	
 				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
 					 <option value="elm">饿了么</option><option value="meituan">美团</option>
 					</select><span>平台类型:</span></li><!--下拉 -->
@@ -191,7 +189,7 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
 					<table  id="boundMerchant" ></table>
 					<div  id="boundMerchantprowed"></div>	
 				</div>
-				<div><input type="button" value= "确定并生成对账汇总信息" onclick="genTotal();" class="btn"></div>
+				<div><input type="button" value= "查看汇总信息" onclick="changeTotal();" class="btn"></div>
 		</div>
 	</div>
 </body>

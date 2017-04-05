@@ -286,7 +286,7 @@
 			<include refid="Base_Column_List" />
 		)(
 			SELECT
-				id,
+				CONCAT(create_date,store_name) as id,
 				store_id,
 				store_name,
 				create_date,
@@ -317,7 +317,7 @@
 			)
 			UNION(		
 			SELECT
-				id,
+				CONCAT(create_date,store_name) as id,
 				store_id,
 				store_name,
 				create_date,
@@ -348,7 +348,7 @@
 			)
 			UNION(
 			SELECT
-				id,
+				CONCAT(create_date,store_name) as id,
 				store_id,
 				store_name,
 				create_date,
@@ -384,7 +384,7 @@
 		<include refid="Base_Column_List" />
 		)(
 			SELECT
-				id,
+				CONCAT(create_date,store_name) as id,
 				store_id,
 				store_name,
 				create_date,
@@ -431,18 +431,6 @@
 			<if test="validNum != null and '' != validNum">  
 			,valid_num = #{validNum,jdbcType=INTEGER}
 			</if>
-			<if test="orginPrice != null and '' != orginPrice">  
-			,orgin_price = #{orginPrice,jdbcType=VARCHAR}
-			</if>
-			<if test="orderDistributionCharge != null and '' != orderDistributionCharge">  
-			,order_distribution_charge = #{orderDistributionCharge,jdbcType=VARCHAR}
-			</if>
-			<if test="platformDistCharge != null and '' != platformDistCharge">  
-			,platform_dist_charge = #{platformDistCharge,jdbcType=VARCHAR}
-			</if>
-			<if test="cyzDistributionCharge != null and '' != cyzDistributionCharge">  
-			,cyz_distribution_charge = #{cyzDistributionCharge,jdbcType=VARCHAR}
-			</if>
 			<if test="productSaleAmount != null and '' != productSaleAmount">  
 			,product_sale_amount = #{productSaleAmount,jdbcType=VARCHAR}
 			</if>
@@ -473,9 +461,6 @@
 			<if test="platformActivitiesCharge != null and '' != platformActivitiesCharge">  
 			,platform_activities_charge = #{platformActivitiesCharge,jdbcType=VARCHAR}
 			</if>
-			<if test="platformServiceCharge != null and '' != platformServiceCharge">  
-			,platform_service_charge = #{platformServiceCharge,jdbcType=VARCHAR}
-			</if>
 			<if test="serviceAll != null and '' != serviceAll">  
 			,service_all = #{serviceAll,jdbcType=VARCHAR}
 			</if>
@@ -484,18 +469,6 @@
 			</if>
 			<if test="otherAll != null and '' != otherAll">  
 			,other_all = #{otherAll,jdbcType=VARCHAR}
-			</if>
-			<if test="cyzActivitiesCharge != null and '' != cyzActivitiesCharge">  
-			,cyz_activities_charge = #{cyzActivitiesCharge,jdbcType=VARCHAR}
-			</if>
-			<if test="goodsQuality != null and '' != goodsQuality">  
-			,goods_quality = #{goodsQuality,jdbcType=VARCHAR}
-			</if>
-			<if test="basePrice != null and '' != basePrice">  
-			,base_price = #{basePrice,jdbcType=VARCHAR}
-			</if>
-			<if test="otherBasePrice != null and '' != otherBasePrice">  
-			,other_base_price = #{otherBasePrice,jdbcType=VARCHAR}
 			</if>
 			<if test="remark != null and '' != remark">  
 			,remark = #{remark,jdbcType=VARCHAR}
@@ -507,7 +480,7 @@
 	</update>
 	<!-- 修改深运营表 -->
 	<update id="updateDeepTotal" parameterType="com.dongnao.workbench.finance.model.AccountOperaTotal">
-		update account_opera_deep_total  set
+		update account_opera_deep_total set
 			id= #{id,jdbcType=VARCHAR}
 			<if test="storeName != null and '' != storeName">  
 			,store_name = #{storeName,jdbcType=VARCHAR}
@@ -539,8 +512,8 @@
 			<if test="distPrice != null and '' != distPrice">  
 			,dist_price = #{distPrice,jdbcType=VARCHAR}
 			</if>
-			<if test="dist != null and '' != dist">  
-			,dist_ = #{dist,jdbcType=VARCHAR}
+			<if test="distAll != null and '' != distAll">  
+			,dist_all = #{distAll,jdbcType=VARCHAR}
 			</if>
 			<if test="distDiff != null and '' != distDiff">  
 			,dist_diff = #{distDiff,jdbcType=VARCHAR}
@@ -551,20 +524,14 @@
 			<if test="platformActivitiesCharge != null and '' != platformActivitiesCharge">  
 			,platform_activities_charge = #{platformActivitiesCharge,jdbcType=VARCHAR}
 			</if>
-			<if test="platformServiceCharge != null and '' != platformServiceCharge">  
-			,platform_service_charge = #{platformServiceCharge,jdbcType=VARCHAR}
+			<if test="serviceAll != null and '' != serviceAll">  
+			,service_all = #{serviceAll,jdbcType=VARCHAR}
 			</if>
-			<if test="service != null and '' != service">  
-			,service_ = #{service,jdbcType=VARCHAR}
+			<if test="profitAll != null and '' != profitAll">  
+			,profit_all = #{profitAll,jdbcType=VARCHAR}
 			</if>
-			<if test="profit != null and '' != profit">  
-			,profit_ = #{profit,jdbcType=VARCHAR}
-			</if>
-			<if test="other != null and '' != other">  
-			,other_ = #{other,jdbcType=VARCHAR}
-			</if>
-			<if test="cyzActivitiesCharge != null and '' != cyzActivitiesCharge">  
-			,cyz_activities_charge = #{cyzActivitiesCharge,jdbcType=VARCHAR}
+			<if test="otherAll != null and '' != otherAll">  
+			,other_all = #{otherAll,jdbcType=VARCHAR}
 			</if>
 			<if test="remark != null and '' != remark">  
 			,remark = #{remark,jdbcType=VARCHAR}

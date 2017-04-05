@@ -13,54 +13,15 @@ import com.dongnao.workbench.finance.model.AccountOrderDetail;
  * @version 1.0 2017-02-23
  */
 public interface AccountCheckService  {
-
 	/**
-	 * 新增财务对账方法
-	 * @param accountCheck AccountCheck:实体类
-	 */
-	public ResultMessage add(AccountCheck accountCheck);
-	
-	/**
-	 * 删除财务对账方法
-	 * @param key:多个由“，”分割开的id字符串
-	 */
-	public void deleteByKey(String key);
-	
-	/**
-	 * 根据主键查找财务对账实体方法
-	 * @param key String：实体主键
-	 * @return accountCheck AccountCheck 实体对象
-	 */
-	public AccountCheck getByPrimaryKey(String key);
-	
-	/**
-	 * 根据条件查找财务对账列表方法
-	 * @param accountCheck AccountCheck 实体对象（查询条件）
-	 * @return: 实体对象的list
-	 */
-	public List<AccountCheck> listByCondition(AccountCheck accountCheck);
-	
-	/**
-	 * 修改财务对账方法
+	 * 修改财务对账汇总方法
 	 * @param accountCheck AccountCheck 实体对象
 	 */	
-	public ResultMessage update(AccountCheck accountCheck);
-
+	public ResultMessage updateTotal(AccountCheck accountCheck);
 	/**
-	 * 根据订单计算出财务数据详细
+	 * 根据运营数据计算出财务数据
 	 */
-	public List<AccountOperateIncome> listDetailAccountCheck(AccountOrderDetail accountOrderDetail) ;
-	/**
-	 * 根据订单计算出财务数据合计
-	 */
-	public List<AccountOperateIncome> listTotalAccountCheck(AccountOrderDetail accountOrderDetail) ;
-
-	
-	public void deleteDateByKey(AccountCheck accountCheck);
-
-	public void addByCheckDetail(AccountCheck accountCheck);
-
-	public void deleteTotalByKey(AccountCheck accountCheck);
-
-	public void addTotalByCheckDetail(AccountCheck accountCheck);
+	public List<AccountOperateIncome> listDetailAccountCheckByBoundMerchant(AccountOrderDetail accountOrderDetail) ;
+	public List<AccountOperateIncome> listDetailAccountCheckByBoundCompany(AccountOrderDetail accountOrderDetail) ;
+	public List<AccountOperateIncome> listTotalAccountCheck(AccountOrderDetail accountOrderDetail);
 }

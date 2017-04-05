@@ -197,23 +197,35 @@ public class OperaDateController{
 		switch (type) {
 		case "basePrice":
 			operaDateService.deleteBasePriceByOrderDetail(accountOrderDetail);
+			operaDateService.deleteDeepOperaByOrderDetail(accountOrderDetail);
+			operaDateService.deleteSaleRateByOrderDetail(accountOrderDetail);
+			operaDateService.deletePlatformAccountByOrderDetail(accountOrderDetail);
 			operaDateService.addBasePriceByOrderDetail(accountOrderDetail);
 			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
 			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
 			break;
 		case "deepOpera":
+			operaDateService.deleteBasePriceByOrderDetail(accountOrderDetail);
 			operaDateService.deleteDeepOperaByOrderDetail(accountOrderDetail);
+			operaDateService.deleteSaleRateByOrderDetail(accountOrderDetail);
+			operaDateService.deletePlatformAccountByOrderDetail(accountOrderDetail);
 			operaDateService.addDeepOperaByOrderDetail(accountOrderDetail);
 			accountOperaTotalService.deleteDeepTotalByOperaDate(operaDate);
 			accountOperaTotalService.addDeepTotalByOperaDate(operaDate);
 			break;
 		case "saleRate":
+			operaDateService.deleteBasePriceByOrderDetail(accountOrderDetail);
+			operaDateService.deleteDeepOperaByOrderDetail(accountOrderDetail);
 			operaDateService.deleteSaleRateByOrderDetail(accountOrderDetail);
+			operaDateService.deletePlatformAccountByOrderDetail(accountOrderDetail);
 			operaDateService.addSaleRateByOrderDetail(accountOrderDetail);
 			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
 			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
 			break;
 		case "platformAccount":
+			operaDateService.deleteBasePriceByOrderDetail(accountOrderDetail);
+			operaDateService.deleteDeepOperaByOrderDetail(accountOrderDetail);
+			operaDateService.deleteSaleRateByOrderDetail(accountOrderDetail);
 			operaDateService.deletePlatformAccountByOrderDetail(accountOrderDetail);
 			operaDateService.addPlatformAccountByOrderDetail(accountOrderDetail);
 			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);

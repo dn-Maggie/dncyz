@@ -731,6 +731,7 @@
 			FROM
 				account_order_detail AS od
 			LEFT JOIN dn_store AS s ON s.elm_id = od.store_ELM_id
+				OR s.meituan_id = od.store_MT_id or s.baidu_id=od.store_BD_id
 			LEFT JOIN store_product AS sp ON sp.store_id = s.STORE_ID
 			AND FIND_IN_SET(
 				sp.product_name,
@@ -787,8 +788,8 @@
 				-sum(od.platform_dist_charge)+sum(od.merchant_dist_charge)-sum(od.service_charge)-
 				(sum(od.merchant_activities_subsidies) - sum(od.activities_subsidy_bymerchant)) AS amount_receivable,
 				0.7 as order_sale_rate,
-				0.7*(sum(od.orgin_price)+ sum(od.meal_fee)-sum(sp.PRODUCT_UNIT_PRICE)) as amount_rate_payable,
-				0.7*(sum(od.orgin_price)+ sum(od.meal_fee)-sum(sp.PRODUCT_UNIT_PRICE))+sum(sp.special_offer) as amount_payable,
+				0.7*(sum(od.orgin_price)-sum(sp.PRODUCT_UNIT_PRICE))+ sum(od.meal_fee) as amount_rate_payable,
+				0.7*(sum(od.orgin_price)-sum(sp.PRODUCT_UNIT_PRICE))+ sum(od.meal_fee)+sum(sp.special_offer) as amount_payable,
 				0.3*(sum(od.orgin_price)+ sum(od.meal_fee)-sum(sp.PRODUCT_UNIT_PRICE)) as cyz_service_charge,
 				0 as cyz_service_charge_industry_part,
 				0 as cyz_service_charge_opera_part,
@@ -817,6 +818,7 @@
 			FROM
 				account_order_detail AS od
 			LEFT JOIN dn_store AS s ON s.elm_id = od.store_ELM_id
+				OR s.meituan_id = od.store_MT_id or s.baidu_id=od.store_BD_id
 			LEFT JOIN store_product AS sp ON sp.store_id = s.STORE_ID
 			AND FIND_IN_SET(
 				sp.product_name,
@@ -916,6 +918,7 @@
 			FROM
 				account_order_detail AS od
 			LEFT JOIN dn_store AS s ON s.elm_id = od.store_ELM_id
+				OR s.meituan_id = od.store_MT_id or s.baidu_id=od.store_BD_id
 			LEFT JOIN store_product AS sp ON sp.store_id = s.STORE_ID
 			AND FIND_IN_SET(
 				sp.product_name,
@@ -1000,6 +1003,7 @@
 			FROM
 				account_order_detail AS od
 			LEFT JOIN dn_store AS s ON s.elm_id = od.store_ELM_id
+				OR s.meituan_id = od.store_MT_id or s.baidu_id=od.store_BD_id
 			LEFT JOIN store_product AS sp ON sp.store_id = s.STORE_ID
 			AND FIND_IN_SET(
 				sp.product_name,
