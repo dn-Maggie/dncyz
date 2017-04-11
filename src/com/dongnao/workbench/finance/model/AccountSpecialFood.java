@@ -1,0 +1,288 @@
+package com.dongnao.workbench.finance.model;
+
+import java.util.Date;
+import java.math.BigDecimal;
+import org.springframework.format.annotation.DateTimeFormat;
+import com.dongnao.workbench.common.bean.Model;
+/**
+ * 描述：特价菜结算明细模块实体类，负责页面与后台数据传输功能
+ *
+ * @author maggie
+ * @version 1.0 2017-04-10
+ */
+public class AccountSpecialFood extends Model{
+	
+	
+		            /**
+	                 * 主键
+	                 **/
+				   			private Integer id;
+		   		
+		            /**
+	                 * 
+	                 **/
+				   			private String storeId;
+		   		
+		            /**
+	                 * 
+	                 **/
+				   			private String storeName;
+		   		
+		            /**
+	                 * 特价菜品
+	                 **/
+				   			private String specialOfferFoodName;
+		   		
+		            /**
+	                 * 日期
+	                 **/
+					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
+			private Date createDate;
+		
+		            /**
+	                 * 销量
+	                 **/
+				   			private Integer saleNum;
+		   		
+		            /**
+	                 * 原单价
+	                 **/
+				   			private String orginPrice;
+		   		
+		            /**
+	                 * 结算单价
+	                 **/
+				   			private String settlementPrice;
+		   		
+		            /**
+	                 * 特价菜原价
+	                 **/
+				   			private String specialOfferOrginPrice;
+		   		
+		            /**
+	                 * 特价菜结算
+	                 **/
+				   			private String specialOfferSettlement;
+		   		
+		            /**
+	                 * 平台类型
+	                 **/
+				   			private String platformType;
+		   		
+	
+				
+		  			/**
+			 * 获取 主键
+			 * @return Integer this.id
+			 */
+			public Integer getId(){
+				return this.id;
+			}
+			
+			/**
+			 * 设置 主键
+			 * @param BigDecimal id 
+			 */
+			public void setId(Integer id){
+				this.id = id;
+			}
+		  		
+		
+		
+			
+						
+		  			/**
+			 * 获取 
+			 * @return String this.storeId
+			 */
+			public String getStoreId(){
+				return this.storeId;
+			}
+			
+			/**
+			 * 设置 
+			 * @param String storeId 
+			 */
+			public void setStoreId(String storeId){
+				this.storeId = storeId;
+			}
+		   		
+		
+		
+			
+						
+		  			/**
+			 * 获取 
+			 * @return String this.storeName
+			 */
+			public String getStoreName(){
+				return this.storeName;
+			}
+			
+			/**
+			 * 设置 
+			 * @param String storeName 
+			 */
+			public void setStoreName(String storeName){
+				this.storeName = storeName;
+			}
+		   		
+		
+		
+			
+						
+		  			/**
+			 * 获取 特价菜品
+			 * @return String this.specialOfferFoodName
+			 */
+			public String getSpecialOfferFoodName(){
+				return this.specialOfferFoodName;
+			}
+			
+			/**
+			 * 设置 特价菜品
+			 * @param String specialOfferFoodName 
+			 */
+			public void setSpecialOfferFoodName(String specialOfferFoodName){
+				this.specialOfferFoodName = specialOfferFoodName;
+			}
+		   		
+		
+		
+			
+								/**
+			 * 获取 日期
+			 * @return Date this.createDate
+			 */
+			public Date getCreateDate(){
+				return this.createDate;
+			}
+			
+			/**
+			 * 设置 日期
+			 * @param Date createDate 
+			 */
+			public void setCreateDate(Date createDate){
+				this.createDate = createDate;
+			}
+						
+		  			/**
+			 * 获取 销量
+			 * @return Integer this.saleNum
+			 */
+			public Integer getSaleNum(){
+				return this.saleNum;
+			}
+			
+			/**
+			 * 设置 销量
+			 * @param BigDecimal saleNum 
+			 */
+			public void setSaleNum(Integer saleNum){
+				this.saleNum = saleNum;
+			}
+		  		
+		
+		
+			
+						
+		  			/**
+			 * 获取 原单价
+			 * @return String this.orginPrice
+			 */
+			public String getOrginPrice(){
+				return this.orginPrice;
+			}
+			
+			/**
+			 * 设置 原单价
+			 * @param String orginPrice 
+			 */
+			public void setOrginPrice(String orginPrice){
+				this.orginPrice = orginPrice;
+			}
+		   		
+		
+		
+			
+						
+		  			/**
+			 * 获取 结算单价
+			 * @return String this.settlementPrice
+			 */
+			public String getSettlementPrice(){
+				return this.settlementPrice;
+			}
+			
+			/**
+			 * 设置 结算单价
+			 * @param String settlementPrice 
+			 */
+			public void setSettlementPrice(String settlementPrice){
+				this.settlementPrice = settlementPrice;
+			}
+		   		
+		
+		
+			
+						
+		  			/**
+			 * 获取 特价菜原价
+			 * @return String this.specialOfferOrginPrice
+			 */
+			public String getSpecialOfferOrginPrice(){
+				return this.specialOfferOrginPrice;
+			}
+			
+			/**
+			 * 设置 特价菜原价
+			 * @param String specialOfferOrginPrice 
+			 */
+			public void setSpecialOfferOrginPrice(String specialOfferOrginPrice){
+				this.specialOfferOrginPrice = specialOfferOrginPrice;
+			}
+		   		
+		
+		
+			
+						
+		  			/**
+			 * 获取 特价菜结算
+			 * @return String this.specialOfferSettlement
+			 */
+			public String getSpecialOfferSettlement(){
+				return this.specialOfferSettlement;
+			}
+			
+			/**
+			 * 设置 特价菜结算
+			 * @param String specialOfferSettlement 
+			 */
+			public void setSpecialOfferSettlement(String specialOfferSettlement){
+				this.specialOfferSettlement = specialOfferSettlement;
+			}
+		   		
+		
+		
+			
+						
+		  			/**
+			 * 获取 平台类型
+			 * @return String this.platformType
+			 */
+			public String getPlatformType(){
+				return this.platformType;
+			}
+			
+			/**
+			 * 设置 平台类型
+			 * @param String platformType 
+			 */
+			public void setPlatformType(String platformType){
+				this.platformType = platformType;
+			}
+		   		
+		
+		
+			
+			}

@@ -7,6 +7,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dongnao.workbench.common.bean.ResultMessage;
+import com.dongnao.workbench.common.excel.ExcelExpUtils;
+import com.dongnao.workbench.common.excel.ExpParamBean;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
@@ -16,6 +19,8 @@ import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.model.OperaDate;
 import com.dongnao.workbench.finance.service.AccountOperaTotalService;
 import com.dongnao.workbench.finance.service.OperaDateService;
+import com.dongnao.workbench.store.model.Store;
+import com.dongnao.workbench.store.service.StoreService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,40 +42,50 @@ public class OperaDateController{
 	private OperaDateService operaDateService;
     @Resource
  	private AccountOperaTotalService accountOperaTotalService;
-	 
- 	/**
- 	* 进入新增页面
- 	* @return ModelAndView 返回到新增页面
- 	*/
- 	@RequestMapping("/toAddOperaDate")
-	public ModelAndView toAdd(){
-		ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/operaDate/addOperaDate");
-		return mv;
-	}
-	
+    @Resource
+	private StoreService storeService;
+
 	/**
-	 * 进入查看页面方法
-	 * @param key String：实体id
-	 * @return ModelAndView: 查询实体
-	 */	
-	@RequestMapping("/toShowOperaDate")
-	public ModelAndView toShow(String key){
-		OperaDate entity = operaDateService.getByPrimaryKey(key);
-		Map<String,String> operaDate = FormatEntity.getObjectValue(entity);
-		return new ModelAndView("WEB-INF/jsp/finance/operaDate/showOperaDate","operaDate",operaDate );
-	}
-	
-	/**
-	 * 新增方法
-	 * @param response HttpServletResponse
-	 * @param operaDate OperaDate:实体类
-	 * @return: ajax输入json字符串
+	 * 进入运营数据菜品分析
+	 * @return ModelAndView
 	 */
-	@RequestMapping("/addOperaDate")
-	public void add(OperaDate operaDate,HttpServletRequest request,HttpServletResponse response){
-	operaDate.setId(Utils.generateUniqueID());
-	AjaxUtils.sendAjaxForObjectStr(
-				response,operaDateService.add(operaDate));		
+	@RequestMapping("/toListGoods")
+	public ModelAndView toListByDate(HttpServletRequest request){
+		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listGoods");
+		 Store store = new Store();
+	 		if(!Utils.isSuperAdmin(request)){
+	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+			}
+			mv.addObject("store",storeService.listByCondition(store));
+		 return mv;
+	}
+	/**
+	 * 进入运营明细列表页面
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toListAccountOperateIncome")
+	public ModelAndView toList(HttpServletRequest request){
+		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listAccountOperateIncome");
+		 Store store = new Store();
+	 		if(!Utils.isSuperAdmin(request)){
+	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+			}
+			mv.addObject("store",storeService.listByCondition(store));
+		 return mv;
+	}
+	/**
+	 * 进入运营汇总数据
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toListOperateIncomeByTotal")
+	public ModelAndView toListAllFromOrderDetail(HttpServletRequest request){
+		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listAccountOperateIncomeByTotal");
+		 Store store = new Store();
+	 		if(!Utils.isSuperAdmin(request)){
+	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+			}
+			mv.addObject("store",storeService.listByCondition(store));
+		 return mv;
 	}
 	
 	/**
@@ -102,15 +117,6 @@ public class OperaDateController{
 		AjaxUtils.sendAjaxForMap(response, map);
 	}
 	
-	/**
-	 * 进入列表页面
-	 * @return ModelAndView
-	 */
-	@RequestMapping("/toListOperaDate")
-	public ModelAndView toList(){
-		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/operaDate/listOperaDate");
-		 return mv;
-	}
 	
 	/**
 	 * 根据条件查找列表方法
@@ -142,18 +148,6 @@ public class OperaDateController{
 			break;
 		}
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
-	}
-	
-	/**
-	 * 进入修改页面方法
-	 * @param key String：实体id
-	 * @return ModelAndView: 查询实体
-	 */	
-	@RequestMapping("/toEditOperaDate")
-	public ModelAndView toEdit(String key){
-		OperaDate entity = operaDateService.getByPrimaryKey(key);
-		Map<String,String> operaDate = FormatEntity.getObjectValue(entity);
-		return new ModelAndView("WEB-INF/jsp/finance/operaDate/editOperaDate","operaDate",operaDate );
 	}
 	
 	/**
@@ -194,45 +188,127 @@ public class OperaDateController{
 		if(accountOrderDetail.getStoreName()==null)accountOrderDetail.setStoreName("");
 		OperaDate operaDate = new OperaDate();
 		operaDate.setStoreName(accountOrderDetail.getStoreName());
+		ResultMessage rs = new ResultMessage();
 		switch (type) {
 		case "basePrice":
+			try
+			{
 			operaDateService.deleteBasePriceByOrderDetail(accountOrderDetail);
 			operaDateService.deleteDeepOperaByOrderDetail(accountOrderDetail);
 			operaDateService.deleteSaleRateByOrderDetail(accountOrderDetail);
 			operaDateService.deletePlatformAccountByOrderDetail(accountOrderDetail);
-			operaDateService.addBasePriceByOrderDetail(accountOrderDetail);
-			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
-			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
+			if(operaDateService.addBasePriceByOrderDetail(accountOrderDetail)>0) {
+				rs.setMessage("生成运营表成功");
+				accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
+				accountOperaTotalService.deleteDeepTotalByOperaDate(operaDate);
+				accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
+				}
+			}catch(Exception e){
+				rs.setMessage("生成运营表或对账表时出错");
+				AjaxUtils.sendAjaxForObjectStr(response,rs);
+			}
 			break;
 		case "deepOpera":
+			try
+			{
 			operaDateService.deleteBasePriceByOrderDetail(accountOrderDetail);
 			operaDateService.deleteDeepOperaByOrderDetail(accountOrderDetail);
 			operaDateService.deleteSaleRateByOrderDetail(accountOrderDetail);
 			operaDateService.deletePlatformAccountByOrderDetail(accountOrderDetail);
-			operaDateService.addDeepOperaByOrderDetail(accountOrderDetail);
-			accountOperaTotalService.deleteDeepTotalByOperaDate(operaDate);
-			accountOperaTotalService.addDeepTotalByOperaDate(operaDate);
+			if(operaDateService.addDeepOperaByOrderDetail(accountOrderDetail)>0){
+				rs.setMessage("生成运营表成功");
+				accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
+				accountOperaTotalService.deleteDeepTotalByOperaDate(operaDate);
+				accountOperaTotalService.addDeepTotalByOperaDate(operaDate);
+				}
+			}catch(Exception e){
+				rs.setMessage("生成运营表或对账表时出错");
+				AjaxUtils.sendAjaxForObjectStr(response,rs);
+			}
 			break;
 		case "saleRate":
+			try
+			{
 			operaDateService.deleteBasePriceByOrderDetail(accountOrderDetail);
 			operaDateService.deleteDeepOperaByOrderDetail(accountOrderDetail);
 			operaDateService.deleteSaleRateByOrderDetail(accountOrderDetail);
 			operaDateService.deletePlatformAccountByOrderDetail(accountOrderDetail);
-			operaDateService.addSaleRateByOrderDetail(accountOrderDetail);
-			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
-			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
+			if(operaDateService.addSaleRateByOrderDetail(accountOrderDetail)>0){
+				rs.setMessage("生成运营表成功");
+				accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
+				accountOperaTotalService.deleteDeepTotalByOperaDate(operaDate);
+				accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
+				}
+			}catch(Exception e){
+				rs.setMessage("生成运营表或对账表时出错");
+				AjaxUtils.sendAjaxForObjectStr(response,rs);
+			}
 			break;
 		case "platformAccount":
+			try
+			{
 			operaDateService.deleteBasePriceByOrderDetail(accountOrderDetail);
 			operaDateService.deleteDeepOperaByOrderDetail(accountOrderDetail);
 			operaDateService.deleteSaleRateByOrderDetail(accountOrderDetail);
 			operaDateService.deletePlatformAccountByOrderDetail(accountOrderDetail);
-			operaDateService.addPlatformAccountByOrderDetail(accountOrderDetail);
-			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
-			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
+			if(operaDateService.addPlatformAccountByOrderDetail(accountOrderDetail)>0){
+				rs.setMessage("生成运营表成功");
+				accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
+				accountOperaTotalService.deleteDeepTotalByOperaDate(operaDate);
+				accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
+				}
+			}catch(Exception e){
+				rs.setMessage("生成运营表或对账表时出错");
+				AjaxUtils.sendAjaxForObjectStr(response,rs);
+			}
 			break;
 		default:
 			break;
+		}
+		AjaxUtils.sendAjaxForObjectStr(response,rs);
+	}
+	//导出数据方法
+	@RequestMapping("/exportExcel")
+	public void exportExcel(OperaDate operaDate, ExpParamBean epb,
+			HttpServletRequest request, HttpServletResponse response, Page page)
+			throws Exception {		
+		int expType = Integer.parseInt(request.getParameter("expType"));
+		if (expType == 1) {
+			operaDate.setPage(page);
+		}
+		List<OperaDate> list = null;
+		try{
+			String gridId = request.getParameter("gridId");
+			String filename = "";
+			String title = "";
+				switch (gridId) {
+				case "#deepOpera":
+					list = operaDateService.listDeepOperaByCondition(operaDate);
+					filename = "深运营表";
+					title = "深运营表";
+					break;
+				case "#basePrice":
+					list = operaDateService.listBasePriceByCondition(operaDate);
+					filename = "底价运营表";
+					title = "底价运营表";
+					break;
+				case "#saleRate":
+					list = operaDateService.listSaleRateByCondition(operaDate);
+					filename = "销售额比例抽佣运营表";
+					title = "销售额比例抽佣运营表";
+					break;
+				case "#platformAccount":
+					list = operaDateService.listPlatformAccountByCondition(operaDate);	
+					filename = "平台到账抽佣运营表";
+					title = "平台到账抽佣运营表";
+					break;
+				default:
+					break;
+				}
+				ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
+						filename, title);
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 }

@@ -6,7 +6,6 @@
 <%@ include file="../../common/ace.jsp"%>
 <style>
 	.ace-file-input{width:180px;position: relative;height: 38px; line-height: 38px; margin:0; display:inline-block;float:left;}
-	.upload{margin-left: 15px;}
 </style>
 <script src="<%=request.getContextPath() %>/static/js/fuelux/fuelux.wizard.min.js"></script>
 <script src="<%=request.getContextPath() %>/static/js/jquery.validate.min.js"></script>
@@ -28,7 +27,7 @@ $(function() {
 	});
 	$('#fuelux-wizard').ace_wizard().on('change' , function(e, info){
 		//首次保存第一页基础资料
-		if(info.step == 1 && info.direction == "next" && $('#edit_storeId').val().length==0) {
+		if(info.step == 1 && info.direction == "next" && $('#edit_storeId').val().length==0 &&$('#edit_storeName').val().length>0) {
 			 var options = {
 				url : "<m:url value='/store/addStore.do'/>",
 				type : "post",
@@ -183,6 +182,13 @@ $(function() {
 									</c:forEach>
 								</select>
 							</td>
+							<td class="inputLabelTd">绑卡类型：</td>
+							<td class="inputTd">
+								<select class="search_select" name="boundType" id="edit_boundType">
+									<option value="1">绑商家卡</option>
+									<option value="2">绑公司卡</option>
+								</select>
+							</td>
 						</tr>
 						<tr>
 							<td class="inputLabelTd">店铺名称：</td>
@@ -318,29 +324,19 @@ $(function() {
 							<td class="inputTd">
 								<input id="edit_elmId" name="elmId" type="text" class="text" value="${store.elmId}"/>
 							</td>
-							<td class="inputLabelTd">饿了么平台佣金率(%)：</td>
-							<td class="inputTd">
-								<input id="edit_elmRate" name="elmRate" type="text" class="text rate" value="${store.elmRate}"/>
-							</td>
-						</tr>
-						<tr>
-							<td class="inputLabelTd">美团平台商铺ID：</td>
+							<td class="inputLabelTd">美团平台商铺账号：</td>
 							<td class="inputTd">
 								<input id="edit_meituanId" name="meituanId" type="text" class="text" value="${store.meituanId}"/>
 							</td>
-							<td class="inputLabelTd">美团平台佣金率(%)：</td>
-							<td class="inputTd">
-								<input id="edit_meituanRate" name="meituanRate" type="text" class="text rate" value="${store.meituanRate}"/>
-							</td>
 						</tr>
 						<tr>
-							<td class="inputLabelTd">百度平台商铺ID：</td>
+							<td class="inputLabelTd">百度平台商铺账号：</td>
 							<td class="inputTd">
 								<input id="edit_baiduId" name="baiduId" type="text" class="text" value="${store.baiduId}"/>
 							</td>
-							<td class="inputLabelTd">百度平台佣金率(%)：</td>
+							<td class="inputLabelTd">百度平台商铺密码：</td>
 							<td class="inputTd">
-								<input id="edit_baiduRate" name="baiduRate" type="text" class="text rate" value="${store.baiduRate}"/>
+								<input id="edit_baidupwd" name="baidupwd" type="text" class="text" value="${store.baidupwd}"/>
 							</td>
 						</tr>
 					</table>

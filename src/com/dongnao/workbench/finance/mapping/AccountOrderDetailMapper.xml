@@ -49,6 +49,7 @@
 			<result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
 			<result column="goods_price" property="goodsPrice" jdbcType="VARCHAR" />
 			<result column="order_sale_rate" property="orderSaleRate" jdbcType="DECIMAL" />
+			<result column="target_addr" property="targetAddr" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 	 	id,
@@ -97,7 +98,8 @@
 		goods_quality,
 		goods_id,
 		goods_price,
-		order_sale_rate
+		order_sale_rate,
+		target_addr
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -145,7 +147,7 @@
 			od.activities_subsidy_bymerchant,
 			(od.merchant_activities_subsidies-od.activities_subsidy_bymerchant) as activities_subsidy_bycompany,
 			od.food_discount,
-			sp.special_offer,
+			sso.special_offer_food_price as special_offer,
 			od.booked_time,
 			od.consignee_name,
 			od.consignee_phones,
@@ -155,16 +157,13 @@
 			od.goods_quality,
 			od.goods_id,
 			od.goods_price,
-			od.order_sale_rate
-		from account_order_detail as od 
-		LEFT JOIN dn_store as s on s.elm_id = od.store_ELM_id 
-		LEFT JOIN store_product as sp on sp.store_id = s.STORE_ID and FIND_IN_SET(sp.product_name,od.goods_name)>0
+			od.order_sale_rate,
+			od.target_addr
+			from account_order_detail as od 
+			LEFT JOIN store_special_offer as sso on sso.store_name = od.store_name and FIND_IN_SET(sso.special_offer_food_name,od.goods_name)>0
 		where 1=1
 		<if test="id != null and '' != id">  
 			and od.id = #{id,jdbcType=VARCHAR}
-		</if>
-		<if test="createDate != null and '' != createDate">  
-			and od.create_date = #{createDate,jdbcType=DATE}
 		</if>
 		<if test="storeId != null and '' != storeId">  
 			and od.store_id = #{storeId,jdbcType=CHAR}
@@ -272,9 +271,6 @@
 			WHERE 1 = 1
 		<if test="id != null and '' != id">  
 			and aod.id = #{id,jdbcType=VARCHAR}
-		</if>
-		<if test="createDate != null and '' != createDate">  
-			and aod.create_date = #{createDate,jdbcType=DATE}
 		</if>
 		<if test="storeId != null and '' != storeId">  
 			and aod.store_id = #{storeId,jdbcType=CHAR}
@@ -402,6 +398,7 @@
 				,#{goodsId,jdbcType=VARCHAR}
 				,#{goodsPrice,jdbcType=VARCHAR}
 				,#{orderSaleRate,jdbcType=DECIMAL}
+				,#{targetAddr,jdbcType=VARCHAR}
 			)
 	</insert>
 	<!-- 模板导入，批量增加 -->
@@ -454,6 +451,7 @@
 				,goods_id
 				,goods_price
 				,order_sale_rate
+				,target_addr
 		)values
 		<foreach collection="list" item="item" index="index" separator="," >
 		 (
@@ -504,6 +502,7 @@
 				,#{item.goodsId,jdbcType=VARCHAR}
 				,#{item.goodsPrice,jdbcType=VARCHAR}
 				,#{item.orderSaleRate,jdbcType=DECIMAL}
+				,#{item.targetAddr,jdbcType=VARCHAR}
 		)
 		</foreach>
 	</insert>
@@ -512,9 +511,6 @@
 	<update id="update" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
 		update account_order_detail  set
 		id= #{id,jdbcType=VARCHAR}
-		<if test="createDate != null and '' != createDate">  
-			,create_date = #{createDate,jdbcType=DATE}
-		</if>
 		<if test="storeId != null and '' != storeId">  
 			,store_id = #{storeId,jdbcType=CHAR}
 		</if>
@@ -579,7 +575,7 @@
 			,platform_dist_charge = #{platformDistCharge,jdbcType=DECIMAL}
 		</if>
 		<if test="activitiesSubsidyBymerchant != null and '' != activitiesSubsidyBymerchant"> 
-		,activities_subsidy_bymerchant = #{activitiesSubsidyBymerchant,jdbcType=DECIMAL}
+			,activities_subsidy_bymerchant = #{activitiesSubsidyBymerchant,jdbcType=DECIMAL}
 		</if>
 		
 		<!-- 

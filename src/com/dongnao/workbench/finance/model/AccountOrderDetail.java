@@ -31,8 +31,9 @@ public class AccountOrderDetail extends Model{
 					private Date createDate;
 		
 
-					/**
-	                 */
+					/** 配送地址
+	                 */	private String targetAddr;
+						
 			   			private String storeId;
 			   			private String storeELMId;
 			   			private String storeMTId;
@@ -178,6 +179,10 @@ public class AccountOrderDetail extends Model{
 	                 * 特价结算
 	                 **/
 		   			private BigDecimal specialOffer;
+		   			/**
+	                 * 特价结算原价
+	                 **/
+		   			private BigDecimal specialOrgin;
 				
 		   			
 		   		 /**
@@ -792,6 +797,14 @@ public class AccountOrderDetail extends Model{
 				this.specialOffer = specialOffer;
 			}
 
+			public BigDecimal getSpecialOrgin() {
+				return specialOrgin;
+			}
+
+			public void setSpecialOrgin(BigDecimal specialOrgin) {
+				this.specialOrgin = specialOrgin;
+			}
+
 			public BigDecimal getProductSaleAmount() {
 				return productSaleAmount;
 			}
@@ -822,6 +835,14 @@ public class AccountOrderDetail extends Model{
 
 			public void setActualMerchantDistCharge(BigDecimal actualMerchantDistCharge) {
 				this.actualMerchantDistCharge = actualMerchantDistCharge;
+			}
+
+			public String getTargetAddr() {
+				return targetAddr;
+			}
+
+			public void setTargetAddr(String targetAddr) {
+				this.targetAddr = targetAddr;
 			}
 
 

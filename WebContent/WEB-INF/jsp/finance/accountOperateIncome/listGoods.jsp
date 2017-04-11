@@ -19,7 +19,7 @@ function cellFormat(value, options, rData){
 //菜品数量表表头
 var goodsQuantityModel = {url: "<m:url value='/accountOrderDetail/listGoods.do'/>",
 						colModel:[
-						{name : "storeName",label:"商户名称",index : "store_name"},	
+						/* {name : "storeName",label:"商户名称",index : "store_name"}, */	
 						{name : "createDate",label:"日期",index : "create_date"},		
 						{name : "goodsName",label:"商品名称"},	
 						{name : "goodsQuality",label:"销售量",isBasic:true},	
@@ -63,10 +63,6 @@ var goodsQuantityModel = {url: "<m:url value='/accountOrderDetail/listGoods.do'/
   	function closeConfig(){
   		config_iframe_dialog.close();
   	}
-    //导出运营明细数据
-    function exportData(){
-    	ExpExcel.showWin(gridObj,baseUrl+"/accountOperateIncome/exportDetailExcel.do",'grid','queryForm');
-    }
  	//生成运营汇总表
     function genTotal(){
     	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
@@ -93,9 +89,13 @@ var goodsQuantityModel = {url: "<m:url value='/accountOrderDetail/listGoods.do'/
 		<form id="queryForm"><!-- 查询区 表单 -->
 			<div class="search border-bottom">
 				<ul>
-				<li>	
-					<input type="text" name="storeName" id="storeName" class="search_choose"> <span>店铺名称:</span>
-				</li><!-- 输入框-->
+				<li><span>商户名称：</span>
+				<select class="search_select choose_select" name="storeName" id="storeName">
+						<c:forEach var="store" items="${store}">
+							<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
+			             </c:forEach>
+				</select>
+				</li>
 				<li>
 					<div class="time_bg">
 					<input type="text" placeholder="截止日期"  class="search_time150 date-picker" name="propsMap['endDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
@@ -106,21 +106,7 @@ var goodsQuantityModel = {url: "<m:url value='/accountOrderDetail/listGoods.do'/
 					<i class="search_time_ico2" ></i>
 					</div>
 				</li>
-				<li class="date_area">
-					<span>创建时间:</span>
-						<div class="time_bg">
-						<div class="input-group bootstrap-timepicker">
-							<input class="timepicker text" name="propsMap['startTime']" type="text" />
-						</div>
-						</div>
-					<i>至</i>
-					<div class="time_bg">
-						<div class="input-group bootstrap-timepicker">
-							<input class="timepicker text" name="propsMap['endTime']"   type="text" />
-						</div>
-					</div>
-					</li>	
-				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
+				 <li><select class="search_select" name="platformType" id="platformType"><option value=""></option>
 					 <option value="elm">饿了么</option><option value="meituan">美团</option><option value="baidu">百度</option>
 					</select><span>平台类型:</span></li><!--下拉 -->
 				<li><input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置"><!-- 重置 -->

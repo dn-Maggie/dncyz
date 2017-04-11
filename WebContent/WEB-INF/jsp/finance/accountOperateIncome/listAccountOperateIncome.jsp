@@ -18,7 +18,7 @@ function cellFormat(value, options, rData){
 };
 //汇总运营表头
 var totalColModel = [{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
-						{name : "storeName",label:"商户名称",index : "store_name"},				
+						/* {name : "storeName",label:"商户名称",index : "store_name"}, */				
 						{name : "createDate",label:"日期",index : "create_date"},				
 						{name : "invalidNum",label:"无效单",index : "invalid_num"},				
 						{name : "validNum",label:"有效单",index : "valid_num"},
@@ -33,7 +33,7 @@ var totalColModel = [{name : "id",hidden : true,key : true,label:"主键",index 
 var basePriceModel = {url: "<m:url value='/operaDate/listOperaDate.do'/>?type=basePrice",
 				 colModel:[
 						{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
-						{name : "storeName",label:"商户名称",index : "store_name"},				
+						/* {name : "storeName",label:"商户名称",index : "store_name"}, */				
 						{name : "createDate",label:"日期",index : "create_date"},				
 						{name : "invalidNum",label:"无效单",index : "invalid_num"},				
 						{name : "validNum",label:"有效单",index : "valid_num"},				
@@ -41,7 +41,7 @@ var basePriceModel = {url: "<m:url value='/operaDate/listOperaDate.do'/>?type=ba
 						{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
 						{name : "goodsQuality",label:"菜品份数",index : "goods_quality"},//菜品数量表中的销售量总和	
 						{name : "allbasePrice",label:"底价",index : "allbase_price"},//菜品数量表中的销售额总和				
-						{name : "allotherBasePrice",label:"其他底价",index : "allother_base_price"},				
+						{name : "allotherBasePrice",label:"其他底价",index : "allother_base_price",isBasic:true,editable:true},				
 						{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge"},				
 						{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge"},				
 						{name : "platformActivitiesCharge",label:"平台补贴线上活动费",index : "platform_activities_charge"},				
@@ -53,22 +53,22 @@ var basePriceModel = {url: "<m:url value='/operaDate/listOperaDate.do'/>?type=ba
 						{name : "cyzServiceCharge",label:"公司收入",index : "cyz_service_charge"},				
 						{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit"},				
 						{name : "saleGrossProfitRate",label:"毛利率",index : "sale_gross_profit_rate"},				
-						{name : "actualMerchantDistCharge",label:"自配送实际支付金额",index : "actual_merchant_dist_charge"},				
-						{name : "remark",label:"备注",index : "remark"},				
+						{name : "actualMerchantDistCharge",label:"自配送实际支付金额",index : "actual_merchant_dist_charge",editable:true},				
+						{name : "remark",label:"备注",index : "remark",editable:true},				
 						{name : "platformType",label:"平台类型",index : "platform_type"}				
 		           	],};
 //销售额比例抽佣运营表表头         
 var saleRateModel = {url: "<m:url value='/operaDate/listOperaDate.do'/>?type=saleRate",
 					 colModel:[
 						{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
-						{name : "storeName",label:"商户名称",index : "store_name"},				
+						/* {name : "storeName",label:"商户名称",index : "store_name"}, */				
 						{name : "createDate",label:"日期",index : "create_date"},				
 						{name : "invalidNum",label:"无效单",index : "invalid_num"},				
 						{name : "validNum",label:"有效单",index : "valid_num"},				
 						{name : "orginPrice",label:"原价",index : "orgin_price"},				
 						{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
-						{name : "specialOrgin",label:"特价菜原价",index : "special_orgin"},				
-						{name : "specialOffer",label:"特价菜结算",index : "special_offer"},				
+						{name : "specialOrgin",label:"特价菜原价",index : "special_orgin",isBasic:true,editable:true},				
+						{name : "specialOffer",label:"特价菜结算",index : "special_offer",isBasic:true,editable:true},				
 						{name : "activitiesSubsidyBymerchant",label:"实际菜品折扣",index : "activities_subsidy_bymerchant"},				
 						{name : "orderDistCharge",label:"订单上收取客户配送费",index : "order_dist_charge"},				
 						{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge"},				
@@ -82,24 +82,24 @@ var saleRateModel = {url: "<m:url value='/operaDate/listOperaDate.do'/>?type=sal
 						{name : "amountRatePayable",label:"70%结算金额",index : "amount_rate_payable"},				
 						{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable"},				
 						{name : "cyzServiceCharge",label:"公司收取店铺服务费",index : "cyz_service_charge"},				
-						{name : "actualMerchantDistCharge",label:"自配送实际支付金额",index : "actual_merchant_dist_charge"},				
+						{name : "actualMerchantDistCharge",label:"自配送实际支付金额",index : "actual_merchant_dist_charge",editable:true},				
 						{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit"},				
 						{name : "saleGrossProfitRate",label:"毛利率",index : "sale_gross_profit_rate"},				
-						{name : "remark",label:"备注",index : "remark"},				
+						{name : "remark",label:"备注",index : "remark",editable:true},				
 						{name : "platformType",label:"平台类型",index : "platform_type"}			
 			           	],};
 //深运营表表头     
 var deepOperaModel ={url: "<m:url value='/operaDate/listOperaDate.do'/>?type=deepOpera",
 				 	colModel:[
 							{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
-							{name : "storeName",label:"商户名称",index : "store_name"},				
+							/* {name : "storeName",label:"商户名称",index : "store_name"}, */				
 							{name : "createDate",label:"日期",index : "create_date"},				
 							{name : "invalidNum",label:"无效单",index : "invalid_num"},				
 							{name : "validNum",label:"有效单",index : "valid_num"},				
-							{name : "orginPrice",label:"原价",index : "orgin_price"},				
-							{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
-							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin"},				
-							{name : "specialOffer",label:"特价菜结算",index : "special_offer"},				
+							{name : "orginPrice",label:"原价",index : "orgin_price",isBasic:true},				
+							{name : "mealFee",label:"餐盒费",index : "meal_fee",isBasic:true},				
+							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin",isBasic:true,editable:true},				
+							{name : "specialOffer",label:"特价菜结算",index : "special_offer",isBasic:true,editable:true},				
 							{name : "activitiesSubsidyBymerchant",label:"实际菜品折扣",index : "activities_subsidy_bymerchant"},				
 							{name : "orderDistCharge",label:"订单上收取客户配送费",index : "order_dist_charge"},				
 							{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge"},				
@@ -113,11 +113,11 @@ var deepOperaModel ={url: "<m:url value='/operaDate/listOperaDate.do'/>?type=dee
 							{name : "amountRatePayable",label:"品牌商家应收",index : "amount_rate_payable"},		
 							{name : "cyzServiceChargeOperaPart",label:"运营应收",index : "cyz_service_charge_opera_part"},	
 							{name : "distAll",label:"应付配送费",index : "dist_all"},	
-							{name : "actualMerchantDistCharge",label:"自配送实际支付金额",index : "actual_merchant_dist_charge"},			
+							{name : "actualMerchantDistCharge",label:"自配送实际支付金额",index : "actual_merchant_dist_charge",editable:true},			
 							{name : "distDiff",label:"自配送实际支付差额",index : "dist_diff"},		
 							{name : "saleGrossProfit",label:"运营实收",index : "sale_gross_profit"},			
 							{name : "cyzServiceChargeIndustryPart",label:"工厂应收",index : "cyz_service_charge_industry_part"},		
-							{name : "remark",label:"备注",index : "remark"},				
+							{name : "remark",label:"备注",index : "remark",editable:true},				
 							{name : "platformType",label:"平台类型",index : "platform_type"}				
 			           	],};
 //平台到账抽佣运营表表头            		
@@ -125,7 +125,7 @@ var platformAccountModel = {
 						url: "<m:url value='/operaDate/listOperaDate.do'/>?type=platformAccount",
 						colModel:[
 							{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
-							{name : "storeName",label:"商户名称",index : "store_name"},				
+							/* {name : "storeName",label:"商户名称",index : "store_name"}, */				
 							{name : "createDate",label:"日期",index : "create_date"},				
 							{name : "invalidNum",label:"无效单",index : "invalid_num"},				
 							{name : "validNum",label:"有效单",index : "valid_num"},				
@@ -209,20 +209,8 @@ var platformAccountModel = {
   	}
     //导出运营明细数据
     function exportData(){
-    	ExpExcel.showWin(gridObj,baseUrl+"/accountOperateIncome/exportDetailExcel.do",'grid','queryForm');
-    }
- 	//生成运营汇总表
-    function genTotal(){
-    	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
-    	var orderSaleRate = eval(tableId+"orderSaleRate");
-   		$ .ajax({
-   			type: "post",
-   			data:{orderSaleRate:orderSaleRate,
-   					id:tableId},
-			url: baseUrl+"/accountOperaTotal/addTotalByOperaDetail.do?type="+tableId,
-			cache:false,
-			dataType:"json"
-		});
+    	debugger;
+    	ExpExcel.showWin(gridObj,baseUrl+"/operaDate/exportExcel.do",'grid',gridObj.id);
     }
   	//获取表头	
     function getColModel(){
@@ -242,9 +230,13 @@ var platformAccountModel = {
 		<form id="queryForm"><!-- 查询区 表单 -->
 			<div class="search border-bottom">
 				<ul>
-				<li>	
-					<input type="text" name="storeName" id="storeName" class="search_choose"> <span>店铺名称:</span>
-				</li><!-- 输入框-->
+				<li><span>商户名称：</span>
+				<select class="search_select choose_select" name="storeName" id="storeName">
+						<c:forEach var="store" items="${store}">
+							<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
+			             </c:forEach>
+				</select>
+				</li>
 				<li>
 					<div class="time_bg">
 					<input type="text" placeholder="截止日期"  class="search_time150 date-picker" name="propsMap['endDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
@@ -289,6 +281,14 @@ var platformAccountModel = {
 								</a>
 							</li>
 						</c:if>
+						<c:if test="${exportData}">
+							<li>
+								<a title="根据订单详细导出运营详细数据" href="javascript:;" onclick="exportData();"> 
+									<i class="back_icon import_icon"> </i> 
+									<span>导出数据</span>
+								</a>
+							</li>
+						</c:if>
 						<c:if test="${show}">
 						<li>
 							<a title="根据订单详细显示平台到账抽佣运营表" href="javascript:;" class="tableTab checked" data-id="platformAccount"> 
@@ -314,16 +314,13 @@ var platformAccountModel = {
 								<span>深运营表</span>
 							</a>
 						</li>
+						<li>
+							<a href="javascript:;" class="btn" onclick="changeTotal();">
+								<span>查看汇总信息</span>
+							</a>
+						</li>
+						</c:if>
 						
-						</c:if>
-						<c:if test="${exportData}">
-							<li>
-								<a title="根据订单详细导出运营详细数据" href="javascript:;" onclick="exportData();"> 
-									<i class="back_icon import_icon"> </i> 
-									<span>导出数据</span>
-								</a>
-							</li>
-						</c:if>
 					</ul>
 				</div>
 	
@@ -333,8 +330,6 @@ var platformAccountModel = {
 					<table  id="platformAccount" ></table>
 					<div  id="platformAccountprowed"></div>	
 				</div>
-				<!-- <div><input type="button" value= "查看汇总信息" onclick="genTotal();" class="btn"></div> -->
-				<div><input type="button" value= "查看汇总信息" onclick="changeTotal();" class="btn"></div>
 		</div>
 	</div>
 </body>

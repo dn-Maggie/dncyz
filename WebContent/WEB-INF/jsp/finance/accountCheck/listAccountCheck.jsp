@@ -10,7 +10,7 @@
 var gridObj = {};
 //汇总对账表头
 var totalColModel = [{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
-						{name : "storeName",label:"商户名称",index : "store_name"},				
+						/* {name : "storeName",label:"商户名称",index : "store_name"}, */				
 						{name : "createDate",label:"日期",index : "create_date"},				
 						{name : "validNum",label:"订单数",index : "valid_num"},	
 						{name : "specialOffer",label:"特价菜结算",index : "special_offer"},
@@ -21,7 +21,7 @@ var totalColModel = [{name : "id",hidden : true,key : true,label:"主键",index 
 //绑商家卡对账表表头    
 var boundMerchantModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/>?type=boundMerchant",
 					 		colModel:[
-							{name : "storeName",label:"商户名称",index : "store_name"},	
+							/* {name : "storeName",label:"商户名称",index : "store_name"}, */	
 							{name : "createDate",label:"日期",index : "create_date"},				
 							{name : "invalidNum",label:"无效单量",index : "invalid_num"},		
 							{name : "validNum",label:"有效单量",index : "valid_num"},	
@@ -36,7 +36,7 @@ var boundMerchantModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'
 //绑公司卡对账表表头         
 var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/>?type=boundCompany",
 						colModel:[
-							{name : "storeName",label:"商户名称",index : "store_name"},	
+							/* {name : "storeName",label:"商户名称",index : "store_name"}, */	
 							{name : "createDate",label:"日期",index : "create_date"},				
 							{name : "invalidNum",label:"无效单量",index : "invalid_num"},		
 							{name : "validNum",label:"有效单量",index : "valid_num"},	
@@ -92,21 +92,9 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
 	
     //导出运营明细数据
     function exportData(){
-    	ExpExcel.showWin(gridObj,baseUrl+"/accountCheck/exportDetailExcel.do",'grid','queryForm');
+    	ExpExcel.showWin(gridObj,baseUrl+"/accountCheck/exportExcel.do",'grid',gridObj.id);
     }
     
-  //生成运营汇总表
-    function genTotal(){
-    	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
-   		$ .ajax({
-   			type: "post",
-   			data:{orderSaleRate:orderSaleRate,
-   					id:tableId},
-			url: baseUrl+"/accountCheck/addByCheckDetail.do",
-			cache:false,
-			dataType:"json"
-		});
-    }
   	//获取表头	
     function getColModel(){
     	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id')
@@ -125,9 +113,13 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
 		<form id="queryForm"><!-- 查询区 表单 -->
 			<div class="search border-bottom">
 				<ul>
-				<li>
-					<input type="text" name="storeName" id="storeName" class="search_choose"> 
-					<span>店铺名称:</span></li><!-- 输入框-->
+				<li><span>商户名称：</span>
+					<select class="search_select choose_select" name="storeName" id="storeName">
+							<c:forEach var="store" items="${store}">
+								<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
+				             </c:forEach>
+					</select>
+				</li>
 				<li>
 					<div class="time_bg">
 					<input type="text" placeholder="截止日期"  class="search_time150 date-picker" name="propsMap['endDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
@@ -160,7 +152,7 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
 						</c:if>
 						<c:if test="${show}">
 						<li>
-							<a title="根据订单详细显示绑商家卡对账表" href="javascript:;" class="tableTab" data-id=boundMerchant>   
+							<a title="根据订单详细显示绑商家卡对账表" href="javascript:;" class="tableTab checked" data-id=boundMerchant>   
 								<i class="back_icon show_icon"> </i> 
 								<span>绑商家卡对账表</span>
 							</a>

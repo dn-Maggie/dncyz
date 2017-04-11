@@ -22,6 +22,7 @@ public class Store extends Model{
 	                 * 店铺ID(主键)
 	                 **/
 				   			private String storeId;
+				   			private String boundType;
 		   		
 		            /**
 	                 * 店铺名称
@@ -135,6 +136,7 @@ public class Store extends Model{
 	                 * 百度平台佣金率
 	                 **/
 				   			private String baiduId;
+				   			private String baidupwd;
 				   			private String baiduRate;
 		   		
 		            /**
@@ -701,6 +703,22 @@ public class Store extends Model{
 
 			public void setUserGroup(String userGroup) {
 				this.userGroup = userGroup;
+			}
+
+			public String getBoundType() {
+				return boundType;
+			}
+
+			public void setBoundType(String boundType) {
+				this.boundType = boundType;
+			}
+
+			public String getBaidupwd() {
+				return baidupwd;
+			}
+
+			public void setBaidupwd(String baidupwd) {
+				this.baidupwd = baidupwd;
 			}
 		   		
 		

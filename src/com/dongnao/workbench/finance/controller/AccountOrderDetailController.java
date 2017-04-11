@@ -3,18 +3,23 @@ package com.dongnao.workbench.finance.controller;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dongnao.workbench.common.excel.ExcelExpUtils;
 import com.dongnao.workbench.common.excel.ExpParamBean;
@@ -22,23 +27,15 @@ import com.dongnao.workbench.common.excel.ImportExcelUtil;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.DateUtil;
-import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.common.util.StringUtil;
+import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.finance.model.AccountOperaTotal;
-import com.dongnao.workbench.finance.model.AccountOperateIncome;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
-import com.dongnao.workbench.finance.model.TotalOperateIncome;
 import com.dongnao.workbench.finance.service.AccountOperaTotalService;
 import com.dongnao.workbench.finance.service.AccountOrderDetailService;
-import com.dongnao.workbench.staticAnalysis.model.DemandAnalysis;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
+import com.dongnao.workbench.store.model.Store;
+import com.dongnao.workbench.store.service.StoreService;
 
 
 /**
@@ -51,33 +48,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("accountOrderDetail")
 public class AccountOrderDetailController{
-         @Resource
-	private AccountOrderDetailService accountOrderDetailService;
+        @Resource
+        private AccountOrderDetailService accountOrderDetailService;
      	@Resource
     	private AccountOperaTotalService accountOperaTotalService;
+     	@Resource
+    	private StoreService storeService;
     	
- 	/**
- 	* 进入新增页面
- 	* @return ModelAndView 返回到新增页面
- 	*/
- 	@RequestMapping("/toAddAccountOrderDetail")
-	public ModelAndView toAdd(){
-		ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOrderDetail/addAccountOrderDetail");
-		return mv;
-	}
-	
-	/**
-	 * 进入查看页面方法
-	 * @param key String：实体id
-	 * @return ModelAndView: 查询实体
-	 */	
-	@RequestMapping("/toShowAccountOrderDetail")
-	public ModelAndView toShow(String key){
-		AccountOrderDetail entity = accountOrderDetailService.getByPrimaryKey(key);
-		Map<String,String> accountOrderDetail = FormatEntity.getObjectValue(entity);
-		return new ModelAndView("WEB-INF/jsp/finance/accountOrderDetail/showAccountOrderDetail","accountOrderDetail",accountOrderDetail );
-	}
-	
 	/**
 	 * 新增方法
 	 * @param response HttpServletResponse
@@ -113,8 +90,13 @@ public class AccountOrderDetailController{
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/toListAccountOrderDetail")
-	public ModelAndView toList(){
+	public ModelAndView toList(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOrderDetail/listAccountOrderDetail");
+		 Store store = new Store();
+	 		if(!Utils.isSuperAdmin(request)){
+	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+ 			}
+ 			mv.addObject("store",storeService.listByCondition(store));
 		 return mv;
 	}
 	
@@ -164,14 +146,14 @@ public class AccountOrderDetailController{
 	 * @param accountOrderDetail AccountOrderDetail：实体对象
 	 * @param response HttpServletResponse
 	 * @return: ajax输入json字符串
-	 */	
+	
 	@RequestMapping("/updateAccountOrderDetailActualDistCharge")
 	public void updateAccountOrderDetailActualDistCharge(AccountOrderDetail accountOrderDetail,HttpServletRequest request,HttpServletResponse response){
 		AjaxUtils.sendAjaxForObjectStr(
 				response,accountOrderDetailService.updateActualDistCharge(accountOrderDetail));	
 		AccountOperaTotal accountOperaTotal = new AccountOperaTotal();
 		accountOperaTotalService.deleteByKey(accountOperaTotal);
-	}
+	} */	
 	/**
 	 * 菜品数量表明细
 	 */
@@ -393,6 +375,6 @@ public class AccountOrderDetailController{
 		}
 		List<AccountOrderDetail> list = accountOrderDetailService.listByCondition(accountOrderDetail);
 		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
-				epb.getFieldlist().get(0)+"订单明细列表", "订单明细列表");
+				"订单明细列表", "订单明细列表");
 	}
 }

@@ -1,18 +1,15 @@
 package com.dongnao.workbench.finance.service;
-import javax.annotation.Resource;
 import java.util.List;
 
-import com.dongnao.workbench.finance.dao.AccountCheckMapper;
-import com.dongnao.workbench.finance.dao.AccountOperateIncomeMapper;
-import com.dongnao.workbench.finance.dao.AccountOrderDetailMapper;
-import com.dongnao.workbench.finance.model.AccountOperateIncome;
-import com.dongnao.workbench.finance.model.AccountOrderDetail;
-import com.dongnao.workbench.finance.model.TotalOperateIncome;
-import com.dongnao.workbench.finance.service.AccountOrderDetailService;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.finance.dao.AccountCheckMapper;
+import com.dongnao.workbench.finance.dao.AccountOrderDetailMapper;
+import com.dongnao.workbench.finance.model.AccountOrderDetail;
  
 /**
  * 描述：订单明细模块service接口实现类，实现service接口方法
@@ -24,8 +21,6 @@ import com.dongnao.workbench.common.util.AjaxUtils;
 public class AccountOrderDetailServiceImpl implements AccountOrderDetailService{
         @Resource
         private AccountOrderDetailMapper accountOrderDetailMapper;
-        @Resource
-    	private AccountOperateIncomeMapper accountOperateIncomeMapper;
         @Resource
     	private AccountCheckMapper accountCheckMapper;
 	/**

@@ -9,10 +9,10 @@
 <script type="text/javascript">
 var checkModel = {url: "<m:url value='/accountCheck/listTotalAccountCheck.do'/>",
 				  colModel:[
-					{name : "storeName",label:"商户名称",index : "store_name"},	
+					/* {name : "storeName",label:"商户名称",index : "store_name"}, */	
 					{name : "createDate",label:"日期",index : "create_date"},				
-					{name : "elmspecialOffer",label:"折扣菜金额"},				
-					{name : "elmactualPrice",label:"饿了么结算款"},	
+					{name : "elmspecialOffer",label:"折扣菜金额"},	//特价菜结算			
+					{name : "elmactualPrice",label:"饿了么结算款"},	//原价菜金额
 					{name : "bdspecialOffer",label:"折扣菜金额"},				
 					{name : "bdactualPrice",label:"百度结算款"},
 					{name : "mtspecialOffer",label:"折扣菜金额"},				
@@ -23,21 +23,15 @@ var checkModel = {url: "<m:url value='/accountCheck/listTotalAccountCheck.do'/>"
 					{name : "",label:"调整金额"},		
 					{name : "",label:"实际结算"},		
 					{name : "",label:"备注"},		
+					{name : "elmRecieve",label:"饿了么平台到账"},	
+					{name : "bdRecieve",label:"百度平台到账"},
+					{name : "mtRecieve",label:"美团平台到账"},
+					{name : "specialOffer",label:"其他（线下支付、商米扣款）"},	
+					{name : "elmSettlement",label:"饿了么结算金额"},	
+					{name : "bdSettlement",label:"百度结算金额"},
+					{name : "mtSettlement",label:"美团结算金额"},
+					{name : "specialOffer",label:"合计"},		
 	           		]}
-var adjustModel = {url: "<m:url value='/accountCheck/listTotalAccountCheck.do'/>",
-		  colModel:[
-			{name : "actualPrice",label:"饿了么平台到账"},	
-			{name : "actualPrice",label:"百度平台到账"},
-			{name : "actualPrice",label:"美团平台到账"},
-			{name : "specialOffer",label:"其他（线下支付、商米扣款）"},		
-     		]}
-var paymentByPlatformModel = {url: "<m:url value='/accountCheck/listTotalAccountCheck.do'/>",
-		  colModel:[
-			{name : "actualPrice",label:"饿了么结算金额"},	
-			{name : "actualPrice",label:"百度结算金额"},
-			{name : "actualPrice",label:"美团结算金额"},
-			{name : "specialOffer",label:"合计"},		
-     		]}
 var gridObj = {};
 	$(function(){
 		initGrid("check");
@@ -45,11 +39,11 @@ var gridObj = {};
     });
   	//导出财务总数据
  	function exportData(){
- 		ExpExcel.showWin(gridObj,baseUrl+"/accountCheck/exportTotalExcel.do",'grid','queryForm');
+ 		ExpExcel.showWin(gridObj,baseUrl+"/accountCheck/exportExcel.do",'grid',gridObj.id);
  	}
  	//初始化grid
 	function initGrid(ways){
-		gridObj = Finance.createGrid(ways,eval(ways+"Model.colModel"),false,false);
+		gridObj = Finance.createGrid(ways,eval(ways+"Model.colModel"),false,true);
 		$("#"+ways).setColProp('calculate');
 		$("#"+ways).setColProp('editFlag');
 		if(ways="check"){
@@ -59,6 +53,8 @@ var gridObj = {};
 			   {startColumnName: 'elmspecialOffer', numberOfColumns:2, titleText: '饿了么'},
 			   {startColumnName: 'bdspecialOffer', numberOfColumns:2, titleText: '百度'},
 			   {startColumnName: 'mtspecialOffer', numberOfColumns:2, titleText: '美团'},
+			   {startColumnName: 'elmRecieve', numberOfColumns:4, titleText: '调整金额'},
+			   {startColumnName: 'elmSettlement', numberOfColumns:4, titleText: '各平台商家结算金额'},
 		    ]
 		  });
 		}
@@ -72,8 +68,13 @@ var gridObj = {};
 		<form id="queryForm"><!-- 查询区 表单 -->
 			<div class="search border-bottom">
 				<ul>
-				<li><span>关键字：</span>
-				<input type="text" name="storeName" id="storeName" class="search_choose" placeholder="商户名称">
+				<li><span>商户名称：</span>
+					<select class="search_select choose_select" name="storeName" id="storeName">
+						<c:forEach var="store" items="${store}">
+							<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
+			            </c:forEach>
+					</select>
+				</li>
 				<li>
 					<div class="time_bg">
 					<input type="text" placeholder="截止日期"  class="search_time150 date-picker" name="propsMap['endDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
@@ -93,44 +94,23 @@ var gridObj = {};
 		   </div>
 	    </form>
 		<div class="listplace">
-				<!--功能按钮begin-->
-				<div class="list_btn_bg fl"><!--功能按钮 div-->
-					<ul>
+			<!--功能按钮begin-->
+			<div class="list_btn_bg fl"><!--功能按钮 div-->
+				<ul>
 						<li>
-							<a title="对账结算表" href="javascript:;" class="tableTab" data-id="check">   
-								<i class="back_icon show_icon"> </i> 
-								<span>对账结算</span>
+							<a title="导出数据" href="javascript:;" onclick="exportData();"> 
+								<i class="back_icon import_icon"> </i> 
+								<span>导出数据</span>
 							</a>
 						</li>
-						<li>
-							<a title="调整金额（绑商家卡时产生数据）" href="javascript:;"  class="tableTab" data-id="adjust"> 
-								<i class="back_icon show_icon"> </i> 
-								<span>调整金额</span>
-							</a>
-						</li>
-						<li>
-							<a title="各平台商家结算金额（70%结算+特价菜结算））" href="javascript:;"  class="tableTab" data-id="paymentByPlatform"> 
-								<i class="back_icon show_icon"> </i> 
-								<span>各平台商家结算金额</span>
-							</a>
-						</li>
-						<c:if test="${exportData}">
-							<li>
-								<a title="导出数据" href="javascript:;" onclick="exportData();"> 
-									<i class="back_icon import_icon"> </i> 
-									<span>导出数据</span>
-								</a>
-							</li>
-						</c:if>
-					</ul>
-				</div>
-	
+				</ul>
+			</div>
 			<!--功能按钮end-->
-				<div class="listtable_box">
-					<!--此处放表格-->
-				<table  id="check"></table>
-				<div  id="checkprowed"></div>		
-				</div>
+			<div class="listtable_box">
+				<!--此处放表格-->
+			<table  id="check"></table>
+			<div  id="checkprowed"></div>		
+			</div>
 		</div>
 	</div>
 </body>

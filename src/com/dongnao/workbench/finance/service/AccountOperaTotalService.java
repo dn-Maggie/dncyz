@@ -18,23 +18,15 @@ public interface AccountOperaTotalService  {
 	 * 新增运营合计方法
 	 * @param accountOperaTotal AccountOperaTotal:实体类
 	 */
-	public ResultMessage add(AccountOperaTotal accountOperaTotal);
-	public void addSimpleTotalByOperaDate(OperaDate operaDate);
-	public void addDeepTotalByOperaDate(OperaDate operaDate);
+	public int addSimpleTotalByOperaDate(OperaDate operaDate);
+	public int addDeepTotalByOperaDate(OperaDate operaDate);
 	/**
 	 * 删除运营合计方法
 	 * @param key:多个由“，”分割开的id字符串
 	 */
-	public void deleteByKey(AccountOperaTotal accountOperaTotal);
-	public void deleteSimpleTotalByOperaDate(OperaDate operaDate);
-	public void deleteDeepTotalByOperaDate(OperaDate operaDate);
+	public int deleteSimpleTotalByOperaDate(OperaDate operaDate);
+	public int deleteDeepTotalByOperaDate(OperaDate operaDate);
 
-	/**
-	 * 根据主键查找运营合计实体方法
-	 * @param key String：实体主键
-	 * @return accountOperaTotal AccountOperaTotal 实体对象
-	 */
-	public AccountOperaTotal getByPrimaryKey(String key);
 	/**
 	 * 修改运营合计方法
 	 * @param accountOperaTotal AccountOperaTotal 实体对象
@@ -47,11 +39,6 @@ public interface AccountOperaTotalService  {
 	 * @return: 实体对象的list
 	 */
 	public List<AccountOperaTotal> listSimpleTotalByCondition(AccountOperaTotal accountOperaTotal);
-	/**
-	 * 根据条件查找运营合计列表方法
-	 * @param accountOperaTotal AccountOperaTotal 实体对象（查询条件）
-	 * @return: 实体对象的list
-	 */
 	public List<AccountOperaTotal> listDeepTotalByCondition(AccountOperaTotal accountOperaTotal);
 	
 	

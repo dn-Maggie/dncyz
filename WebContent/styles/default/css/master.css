@@ -43,7 +43,7 @@
 .search .w200{width: 210px;}
 .search_choose {width: 120px;height: 28px;line-height:28px; border: 1px solid #ddd;color: #666;padding-left: 5px;outline: none;float: right;}
 select.search_choose{height:30px;width:127px;}
-.search li span{ float:left; width:67px;text-overflow:ellipsis; overflow:hidden;white-space: nowrap; text-align:right; margin-right:4px;}
+.search li span{ float:left; /* width:67px; */text-overflow:ellipsis; overflow:hidden;white-space: nowrap; text-align:right; margin-right:4px;}
 .reset_btn{
 	float: right;
 	width: 92px;
@@ -162,13 +162,13 @@ select.search_choose{height:30px;width:127px;}
 /*列表区*/
 .listplace{ position:relative; margin: 0 10px; z-index:6; }
 .list_btn_bg{ position:relative; /*margin-bottom:5px; padding-left:10px;*/ padding-right:10px;margin-top: 5px;}
-.list_btn_bg ul{ display:inline-block; float:left;margin-left:10px;}
+.list_btn_bg ul{ display:inline-block; float:left;margin-left:0px; margin-bottom: 0;}
 .list_btn_bg ul li{ float:left; margin-right:10px;}
 .list_btn_bg ul li a{ display:inline-block; background: #ffffff; padding:3px 10px;border: 1px solid #dddddd; color:#333; border-radius:2px; -webkit-border-radius:2px;-o-border-radius:2px; -moz-border-radius:2px; overflow:hidden;}
 .list_btn_bg ul li a:hover,
 .list_btn_bg ul li a.checked{
 	background-color: #f47115;
-	border: 1px solid #f47115;
+	/* border: 1px solid #f47115; */
 	color: #FFF;border-radius:2px; 
 	-webkit-border-radius:2px;
 	-o-border-radius:2px; 

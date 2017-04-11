@@ -6,7 +6,6 @@
 <%@ include file="../../common/ace.jsp"%>
 <style>
 	.ace-file-input{width:180px;position: relative;height: 38px; line-height: 38px; margin:0; display:none;float:left;}
-	.upload{margin-left: 15px;}
 </style>
 <script src="<%=request.getContextPath() %>/static/js/fuelux/fuelux.wizard.min.js"></script>
 <script src="<%=request.getContextPath() %>/static/js/jquery.validate.min.js"></script>
@@ -160,6 +159,13 @@ $(function() {
 									<c:forEach items="${user}" var="user">
 										<option value="${user.id}" <c:if test="${user.id==store.ownerUserId}">selected</c:if>><c:out value="${user.userAccount}"></c:out></option>
 									</c:forEach>
+								</select>
+							</td>
+							<td class="inputLabelTd">绑卡类型：</td>
+							<td class="inputTd">
+								<select class="search_select" name="boundType" id="edit_boundType">
+									<option value="1" <c:if test="${store.boundType==1}">selected</c:if>>绑商家卡</option>
+									<option value="2" <c:if test="${store.boundType==2}">selected</c:if>>绑公司卡</option>
 								</select>
 							</td>
 						</tr>

@@ -66,8 +66,9 @@
 			FROM
 				opera_date_base_price AS odb
 			LEFT JOIN dn_store AS s ON s.elm_id = odb.store_id
-			OR s.meituan_id = odb.store_id
-			OR s.baidu_id = odb.store_id
+				OR s.meituan_id = odb.store_id
+				OR s.baidu_id = odb.store_id
+				OR s.store_name = odb.store_name
 			WHERE
 				s.bound_type = '1'
 				<if test="platformType != null and '' != platformType">  
@@ -76,10 +77,10 @@
 				<if test="storeName != null and '' != storeName">  
 					and odb.store_name like CONCAT('%',#{storeName,jdbcType=VARCHAR},'%')
 				</if>
-				 <if test="null != propsMap.startDate and propsMap.startDate != ''">
-				<![CDATA[
-					and DATE_FORMAT(odb.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
-				]]>
+				<if test="null != propsMap.startDate and propsMap.startDate != ''">
+					<![CDATA[
+						and DATE_FORMAT(odb.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
+					]]>
 				</if>
 				<if test="null != propsMap.endDate and propsMap.endDate != ''">
 					<![CDATA[
@@ -111,6 +112,7 @@
 				LEFT JOIN dn_store AS s ON s.elm_id = odp.store_id
 				OR s.meituan_id = odp.store_id
 				OR s.baidu_id = odp.store_id
+				OR s.store_name = odp.store_name
 				WHERE
 					s.bound_type = '1'
 				<if test="platformType != null and '' != platformType">  
@@ -154,6 +156,7 @@
 				LEFT JOIN dn_store AS s ON s.elm_id = ods.store_id
 				OR s.meituan_id = ods.store_id
 				OR s.baidu_id = ods.store_id
+				OR s.store_name = ods.store_name
 				WHERE
 					s.bound_type = '1'
 				<if test="platformType != null and '' != platformType">  
@@ -197,6 +200,7 @@
 				LEFT JOIN dn_store AS s ON s.elm_id = odd.store_id
 				OR s.meituan_id = odd.store_id
 				OR s.baidu_id = odd.store_id
+				OR s.store_name = odd.store_name
 				WHERE
 					s.bound_type = '1'
 				<if test="platformType != null and '' != platformType">  
@@ -242,6 +246,7 @@
 			LEFT JOIN dn_store AS s ON s.elm_id = odb.store_id
 			OR s.meituan_id = odb.store_id
 			OR s.baidu_id = odb.store_id
+			OR s.store_name = odb.store_name
 			WHERE
 				s.bound_type = '2'
 				<if test="platformType != null and '' != platformType">  
@@ -285,6 +290,7 @@
 				LEFT JOIN dn_store AS s ON s.elm_id = odp.store_id
 				OR s.meituan_id = odp.store_id
 				OR s.baidu_id = odp.store_id
+				OR s.store_name = odp.store_name
 				WHERE
 					s.bound_type = '2'
 				<if test="platformType != null and '' != platformType">  
@@ -328,6 +334,7 @@
 				LEFT JOIN dn_store AS s ON s.elm_id = ods.store_id
 				OR s.meituan_id = ods.store_id
 				OR s.baidu_id = ods.store_id
+				OR s.store_name = ods.store_name
 				WHERE
 					s.bound_type = '2'
 				<if test="platformType != null and '' != platformType">  
@@ -371,6 +378,7 @@
 				LEFT JOIN dn_store AS s ON s.elm_id = odd.store_id
 				OR s.meituan_id = odd.store_id
 				OR s.baidu_id = odd.store_id
+				OR s.store_name = odd.store_name
 				WHERE
 					s.bound_type = '2'
 				<if test="platformType != null and '' != platformType">  
@@ -460,6 +468,7 @@
 				LEFT JOIN dn_store AS s ON s.elm_id = odp.store_id
 				OR s.meituan_id = odp.store_id
 				OR s.baidu_id = odp.store_id
+				OR s.store_name = odp.store_name
 				WHERE
 					1=1
 				<if test="platformType != null and '' != platformType">  
@@ -503,6 +512,7 @@
 				LEFT JOIN dn_store AS s ON s.elm_id = ods.store_id
 				OR s.meituan_id = ods.store_id
 				OR s.baidu_id = ods.store_id
+				OR s.store_name = ods.store_name
 				WHERE
 					1=1
 				<if test="platformType != null and '' != platformType">  
@@ -546,6 +556,7 @@
 				LEFT JOIN dn_store AS s ON s.elm_id = odd.store_id
 				OR s.meituan_id = odd.store_id
 				OR s.baidu_id = odd.store_id
+				OR s.store_name = odd.store_name
 				WHERE
 					1=1
 				<if test="platformType != null and '' != platformType">  

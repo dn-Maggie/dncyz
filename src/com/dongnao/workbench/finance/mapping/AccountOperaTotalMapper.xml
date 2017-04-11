@@ -83,9 +83,16 @@
 		<if test="storeName != null and '' != storeName">  
 			and store_name = #{storeName,jdbcType=VARCHAR}
 		</if>
-		<if test="createDate != null and '' != createDate">  
-			and create_date = #{createDate,jdbcType=TIMESTAMP}
+		<if test="null != propsMap.startDate and propsMap.startDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
+			]]>
 		</if>
+		<if test="null != propsMap.endDate and propsMap.endDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
+			]]>
+		</if> 
 		<if test="invalidNum != null and '' != invalidNum">  
 			and invalid_num = #{invalidNum,jdbcType=INTEGER}
 		</if>
@@ -140,9 +147,9 @@
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
        	</if>
-       	<if test="storeName != null and '' != storeName">  
+       	<!-- if test="storeName != null and '' != storeName">  
        		GROUP BY store_name
-       	</if>
+       	</if-->
 	</select>
 	<!--查看深运营表 -->
 	<select id="listDeepTotalByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOperaTotal">
@@ -168,79 +175,106 @@
 			sum(profit_all) as profit_all,
 			remark,
 			platform_type
-		from account_opera_deep_total
-		where 1=1
-		<if test="id != null and '' != id">  
-			and id = #{id,jdbcType=VARCHAR}
-		</if>
-		<if test="storeId != null and '' != storeId">  
-			and store_id = #{storeId,jdbcType=VARCHAR}
-		</if>
-		<if test="storeName != null and '' != storeName">  
-			and store_name = #{storeName,jdbcType=VARCHAR}
-		</if>
-		<if test="createDate != null and '' != createDate">  
-			and create_date = #{createDate,jdbcType=TIMESTAMP}
-		</if>
-		<if test="invalidNum != null and '' != invalidNum">  
-			and invalid_num = #{invalidNum,jdbcType=INTEGER}
-		</if>
-		<if test="validNum != null and '' != validNum">  
-			and valid_num = #{validNum,jdbcType=INTEGER}
-		</if>
-		<if test="productSaleAmount != null and '' != productSaleAmount">  
-			and product_sale_amount = #{productSaleAmount,jdbcType=VARCHAR}
-		</if>
-		<if test="amountReceivable != null and '' != amountReceivable">  
-			and amount_receivable = #{amountReceivable,jdbcType=VARCHAR}
-		</if>
-		<if test="amountPayable != null and '' != amountPayable">  
-			and amount_payable = #{amountPayable,jdbcType=VARCHAR}
-		</if>
-		<if test="cyzServiceCharge != null and '' != cyzServiceCharge">  
-			and cyz_service_charge = #{cyzServiceCharge,jdbcType=VARCHAR}
-		</if>
-		<if test="saleGrossProfit != null and '' != saleGrossProfit">  
-			and sale_gross_profit = #{saleGrossProfit,jdbcType=VARCHAR}
-		</if>
-		<if test="distPrice != null and '' != distPrice">  
-			and dist_price = #{distPrice,jdbcType=VARCHAR}
-		</if>
-		<if test="distAll != null and '' != distAll">  
-			and dist_all = #{distAll,jdbcType=VARCHAR}
-		</if>
-		<if test="distDiff != null and '' != distDiff">  
-			and dist_diff = #{distDiff,jdbcType=VARCHAR}
-		</if>
-		<if test="actualMerchantDistCharge != null and '' != actualMerchantDistCharge">  
-			and actual_merchant_dist_charge = #{actualMerchantDistCharge,jdbcType=VARCHAR}
-		</if>
-		<if test="platformActivitiesCharge != null and '' != platformActivitiesCharge">  
-			and platform_activities_charge = #{platformActivitiesCharge,jdbcType=VARCHAR}
-		</if>
-		<if test="serviceAll != null and '' != serviceAll">  
-			and service_all = #{serviceAll,jdbcType=VARCHAR}
-		</if>
-		<if test="otherAll != null and '' != otherAll">  
-			and other_all = #{otherAll,jdbcType=VARCHAR}
-		</if>
-		<if test="profitAll != null and '' != profitAll">  
-			and profit_all = #{profitAll,jdbcType=VARCHAR}
-		</if>
-		<if test="remark != null and '' != remark">  
-			and remark = #{remark,jdbcType=VARCHAR}
-		</if>
-		<if test="platformType != null and '' != platformType">  
-			and platform_type = #{platformType,jdbcType=VARCHAR}
-		</if>
-		<if test="orderFields != null and '' != orderFields">  
-           	order by ${orderFields} ${order}
-       	</if>
-        <if test="storeName != null and '' != storeName">  
-       		GROUP BY store_name
-       	</if>
+		from 
+			(select 
+					id,
+					store_id,
+					store_name,
+					create_date,
+					invalid_num,
+					valid_num,
+					product_sale_amount,
+					amount_receivable,
+					amount_payable,
+					cyz_service_charge,
+					sale_gross_profit,
+					dist_price,
+					dist_all,
+					dist_diff,
+					actual_merchant_dist_charge,
+					platform_activities_charge,
+					service_all,
+					other_all,
+					profit_all,
+					remark,
+					platform_type
+				from account_opera_deep_total
+			where 1=1
+			<if test="id != null and '' != id">  
+				and id = #{id,jdbcType=VARCHAR}
+			</if>
+			<if test="storeId != null and '' != storeId">  
+				and store_id = #{storeId,jdbcType=VARCHAR}
+			</if>
+			<if test="storeName != null and '' != storeName">  
+				and store_name = #{storeName,jdbcType=VARCHAR}
+			</if>
+			<if test="null != propsMap.startDate and propsMap.startDate != ''">
+				<![CDATA[
+					and DATE_FORMAT(create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
+				]]>
+			</if>
+			<if test="null != propsMap.endDate and propsMap.endDate != ''">
+				<![CDATA[
+					and DATE_FORMAT(create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
+				]]>
+			</if> 
+			<if test="invalidNum != null and '' != invalidNum">  
+				and invalid_num = #{invalidNum,jdbcType=INTEGER}
+			</if>
+			<if test="validNum != null and '' != validNum">  
+				and valid_num = #{validNum,jdbcType=INTEGER}
+			</if>
+			<if test="productSaleAmount != null and '' != productSaleAmount">  
+				and product_sale_amount = #{productSaleAmount,jdbcType=VARCHAR}
+			</if>
+			<if test="amountReceivable != null and '' != amountReceivable">  
+				and amount_receivable = #{amountReceivable,jdbcType=VARCHAR}
+			</if>
+			<if test="amountPayable != null and '' != amountPayable">  
+				and amount_payable = #{amountPayable,jdbcType=VARCHAR}
+			</if>
+			<if test="cyzServiceCharge != null and '' != cyzServiceCharge">  
+				and cyz_service_charge = #{cyzServiceCharge,jdbcType=VARCHAR}
+			</if>
+			<if test="saleGrossProfit != null and '' != saleGrossProfit">  
+				and sale_gross_profit = #{saleGrossProfit,jdbcType=VARCHAR}
+			</if>
+			<if test="distPrice != null and '' != distPrice">  
+				and dist_price = #{distPrice,jdbcType=VARCHAR}
+			</if>
+			<if test="distAll != null and '' != distAll">  
+				and dist_all = #{distAll,jdbcType=VARCHAR}
+			</if>
+			<if test="distDiff != null and '' != distDiff">  
+				and dist_diff = #{distDiff,jdbcType=VARCHAR}
+			</if>
+			<if test="actualMerchantDistCharge != null and '' != actualMerchantDistCharge">  
+				and actual_merchant_dist_charge = #{actualMerchantDistCharge,jdbcType=VARCHAR}
+			</if>
+			<if test="platformActivitiesCharge != null and '' != platformActivitiesCharge">  
+				and platform_activities_charge = #{platformActivitiesCharge,jdbcType=VARCHAR}
+			</if>
+			<if test="serviceAll != null and '' != serviceAll">  
+				and service_all = #{serviceAll,jdbcType=VARCHAR}
+			</if>
+			<if test="otherAll != null and '' != otherAll">  
+				and other_all = #{otherAll,jdbcType=VARCHAR}
+			</if>
+			<if test="profitAll != null and '' != profitAll">  
+				and profit_all = #{profitAll,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and '' != remark">  
+				and remark = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="platformType != null and '' != platformType">  
+				and platform_type = #{platformType,jdbcType=VARCHAR}
+			</if>
+			<if test="orderFields != null and '' != orderFields">  
+	           	order by ${orderFields} ${order}
+	       	</if>
+				)as deepByDate
 	</select>
-	
 	
 	<!--删除浅运营数据 -->	
 	<delete id="deleteSimpleTotalByOperaDate" parameterType="com.dongnao.workbench.finance.model.OperaDate">
@@ -310,7 +344,7 @@
 			FROM
 				opera_date_base_price
 			WHERE
-				1 = 1
+				store_name = #{storeName,jdbcType=VARCHAR}
 			GROUP BY
 				store_name,
 				create_date
@@ -341,7 +375,7 @@
 			FROM
 				opera_date_platform_account
 			WHERE
-				1 = 1
+				store_name = #{storeName,jdbcType=VARCHAR}
 			GROUP BY
 				store_name,
 				create_date
@@ -372,7 +406,7 @@
 			FROM
 				opera_date_sale_rate
 			WHERE
-				1 = 1
+				store_name = #{storeName,jdbcType=VARCHAR}
 			GROUP BY
 				store_name,
 				create_date
@@ -406,9 +440,9 @@
 				remark,
 				platform_type
 			FROM
-				opera_date_sale_rate
+				opera_date_deep_opera
 			WHERE
-				1 = 1
+				store_name = #{storeName,jdbcType=VARCHAR}
 			GROUP BY
 				store_name,
 				create_date
@@ -421,9 +455,6 @@
 			id= #{id,jdbcType=VARCHAR}
 			<if test="storeName != null and '' != storeName">  
 			,store_name = #{storeName,jdbcType=VARCHAR}
-			</if>
-			<if test="createDate != null and '' != createDate">  
-			,create_date = #{createDate,jdbcType=TIMESTAMP}
 			</if>
 			<if test="invalidNum != null and '' != invalidNum">  
 			,invalid_num = #{invalidNum,jdbcType=INTEGER}
@@ -484,9 +515,6 @@
 			id= #{id,jdbcType=VARCHAR}
 			<if test="storeName != null and '' != storeName">  
 			,store_name = #{storeName,jdbcType=VARCHAR}
-			</if>
-			<if test="createDate != null and '' != createDate">  
-			,create_date = #{createDate,jdbcType=TIMESTAMP}
 			</if>
 			<if test="invalidNum != null and '' != invalidNum">  
 			,invalid_num = #{invalidNum,jdbcType=INTEGER}

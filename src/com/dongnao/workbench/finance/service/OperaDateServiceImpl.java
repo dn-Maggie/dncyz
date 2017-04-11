@@ -30,17 +30,17 @@ public class OperaDateServiceImpl implements OperaDateService{
 		operaDateMapper.add(operaDate);
 		return AjaxUtils.getSuccessMessage();
 	}
-	public void addDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail) {
-		operaDateMapper.addDeepOperaByOrderDetail(accountOrderDetail);		
+	public int addDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		return operaDateMapper.addDeepOperaByOrderDetail(accountOrderDetail);		
 	}
-	public void addBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail) {
-		operaDateMapper.addBasePriceByOrderDetail(accountOrderDetail);
+	public int addBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		return operaDateMapper.addBasePriceByOrderDetail(accountOrderDetail);
 	}
-	public void addSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail) {
-		operaDateMapper.addSaleRateByOrderDetail(accountOrderDetail);
+	public int addSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		return operaDateMapper.addSaleRateByOrderDetail(accountOrderDetail);
 	}
-	public void addPlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail) {
-		operaDateMapper.addPlatformAccountByOrderDetail(accountOrderDetail);
+	public int addPlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		return operaDateMapper.addPlatformAccountByOrderDetail(accountOrderDetail);
 	}
 	
 	/**
@@ -56,17 +56,17 @@ public class OperaDateServiceImpl implements OperaDateService{
 	 * 删除运营日明细方法
 	 * @param key String 多个由“，”分割开的id字符串
 	 */
-	public void deleteBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail) {
-		operaDateMapper.deleteBasePriceByOrderDetail(accountOrderDetail);
+	public int deleteBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		return operaDateMapper.deleteBasePriceByOrderDetail(accountOrderDetail);
 	}
-	public void deleteDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail) {
-		operaDateMapper.deleteDeepOperaByOrderDetail(accountOrderDetail);
+	public int deleteDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		return operaDateMapper.deleteDeepOperaByOrderDetail(accountOrderDetail);
 	}
-	public void deleteSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail) {
-		operaDateMapper.deleteSaleRateByOrderDetail(accountOrderDetail);		
+	public int deleteSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		return operaDateMapper.deleteSaleRateByOrderDetail(accountOrderDetail);
 	}
-	public void deletePlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail) {
-		operaDateMapper.deletePlatformAccountByOrderDetail(accountOrderDetail);
+	public int deletePlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail) {
+		return operaDateMapper.deletePlatformAccountByOrderDetail(accountOrderDetail);
 	}
 	
 	/**

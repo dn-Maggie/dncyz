@@ -22,11 +22,10 @@ function cellFormat(value, options, rData){
 	}return value;
 };
 //浅运营汇总表表头         
-var distPrice = 12.5;
 var simpleTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTotal.do'/>?type=simpleTotal",
 					colModel:[
 					{name : "id",hidden : true,key : true,label:"主键",index : "id"},	
-					{name : "storeName",label:"商户名称",index : "store_name"},	
+					/* {name : "storeName",label:"商户名称",index : "store_name"}, */	
 					{name : "createDate",label:"日期",index : "create_date"},		
                   	{name : "invalidNum",label:"无效单",isBasic:true},				
 	 				{name : "validNum",label:"有效单",isBasic:true},	 
@@ -52,7 +51,7 @@ var simpleTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaT
 var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTotal.do'/>?type=deepTotal",
 					colModel:[
 					{name : "id",hidden : true,key : true,label:"主键",index : "id"},	
-					{name : "storeName",label:"商户名称",index : "store_name"},	
+					/* {name : "storeName",label:"商户名称",index : "store_name"}, */	
 					{name : "createDate",label:"日期",index : "create_date"},		
 					{name : "invalidNum",label:"无效单",isBasic:true},				
 					{name : "validNum",label:"有效单",isBasic:true},	 
@@ -62,8 +61,8 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 					{name : "cyzServiceCharge",label:"公司收入",isBasic:true},	
 					{name : "saleGrossProfit",label:"销售毛利",isBasic:true},				
 					{name : "distPrice",label:"自配送金额单价",hidden:true,},
-					{name : "distAll",label:"自配送金额",editFlag:true,calculate:"rData['distPrice']*rData['validNum']",
-					formatter : cellFormat},
+					{name : "distAll",label:"自配送金额",editFlag:true,
+						calculate:"rData['distPrice']*rData['validNum']",formatter : cellFormat},
 					{name : "distDiff",label:"自配送补差",editFlag:true,calculate:"rData['distPrice']*rData['validNum']-rData['actualMerchantDistCharge']",
 						formatter : cellFormat},
 					{name : "actualMerchantDistCharge",label:"实际收取自配送金额",isBasic:true,editable:true},
@@ -93,7 +92,6 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 		$("#"+ways).setColProp('isBasic');
 		$("#"+ways).setColProp('editFlag');
 	}
-	
 	//config grid
 	function loadConfigGrid(ways,colModel){
 		$(".listtable_box").html("");
@@ -110,7 +108,7 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
   	function closeConfig(){config_iframe_dialog.close();}
     //导出运营明细数据
     function exportData(){
-    	ExpExcel.showWin(gridObj,baseUrl+"/accountOperateIncome/exportDetailExcel.do",'grid','queryForm');
+    	ExpExcel.showWin(gridObj,baseUrl+"/accountOperaTotal/exportExcel.do",'grid',gridObj.id);
     }
     function getColModel(){
     	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id')
@@ -124,41 +122,45 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 		<form id="queryForm"><!-- 查询区 表单 -->
 			<div class="search border-bottom">
 				<ul>
-				<li>
-					<input type="text" name="storeName" id="storeName" class="search_choose"> <span>店铺名称:</span>
-				</li><!-- 输入框-->
-				<li>
-					<div class="time_bg">
-					<input type="text" placeholder="截止日期"  class="search_time150 date-picker" name="propsMap['endDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
-					<i class="search_time_ico2" ></i>
-					</div>
-					<div class="time_bg">
-					<input type="text" placeholder="起始日期" class="search_time150 date-picker" name="propsMap['startDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
-					<i class="search_time_ico2" ></i>
-					</div>
-				</li>
-				<li class="date_area">
-					<span>创建时间:</span>
+					<li>
+						<span>商户名称：</span>
+						<select class="search_select choose_select" name="storeName" id="storeName">
+						<c:forEach var="store" items="${store}">
+							<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
+			            </c:forEach>
+						</select>
+					</li>
+					<li>
 						<div class="time_bg">
-						<div class="input-group bootstrap-timepicker">
-							<input class="timepicker text" name="propsMap['startTime']" type="text" />
+							<input type="text" placeholder="截止日期"  class="search_time150 date-picker" name="propsMap['endDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
+							<i class="search_time_ico2" ></i>
 						</div>
+						<div class="time_bg">
+							<input type="text" placeholder="起始日期" class="search_time150 date-picker" name="propsMap['startDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
+							<i class="search_time_ico2" ></i>
 						</div>
-					<i>至</i>
-					<div class="time_bg">
-						<div class="input-group bootstrap-timepicker">
-							<input class="timepicker text" name="propsMap['endTime']"   type="text" />
-						</div>
-					</div>
-					</li>	
-				<li><select class="search_select" name="distributionMode" id="distributionMode"><option value="">---请选择---</option>
-					 <option value="elm">自配送</option><option value="meituan">平台专送</option>
-					</select><span>配送方式:</span></li><!--下拉 -->
-				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
-					 <option value="elm">饿了么</option><option value="meituan">美团</option><option value="baidu">百度</option>
-					</select><span>平台类型:</span></li><!--下拉 -->
-				<li><input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置"><!-- 重置 -->
-						<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridObj);" value="查询"></li><!-- 查询-->
+					</li>
+					<li>
+					 	<select class="search_select" name="platformType" id="platformType">
+					 		<option value="">---请选择---</option>
+						 	<option value="elm">饿了么</option>
+						 	<option value="meituan">美团</option>
+						 	<option value="baidu">百度</option>
+						</select>
+						<span>平台类型:</span>
+					 </li>
+					  <li>
+					 	<select class="search_select" name="distributionMode" id="distributionMode">
+					 		<option value="">---请选择---</option>
+					 		<option value="">商家自配</option>
+						 	<option value="">平台专配</option>
+					 	</select>
+						<span>配送方式:</span>
+					 </li>
+					<li>
+						<input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置"><!-- 重置 -->
+						<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridObj);" value="查询">
+					</li><!-- 查询-->
 				</ul>
 		   </div>
 	    </form>
@@ -198,12 +200,11 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 						</c:if>
 					</ul>
 				</div>
-	
-			<!--功能按钮end-->
+				<!--功能按钮end-->
 				<div class="listtable_box">
 					<!--此处放表格-->
 					<table  id="simpleTotal" ></table>
-					<div  id="simpleTotalprowed"></div>	
+					<div id="simpleTotalprowed"></div>	
 				</div>
 		</div>
 	</div>

@@ -6,6 +6,13 @@ GridColModelForMatter = {
 		else
 			return "有";
 	},
+	// 是否分前缀
+	fontAddressFlag : function(cellvalue, options, cellObject) {
+		if (cellvalue == "1")
+			return "是";
+		else
+			return "否";
+	},
 	// 订单类型状态
 	orderType : function(cellvalue, options, cellObject) {
 		switch (cellvalue) {

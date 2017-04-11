@@ -3,6 +3,7 @@
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
+<%@ include file="../../common/ace.jsp"%>
 <title></title>
 <script type="text/javascript">
 var gridObj = {};
@@ -187,10 +188,14 @@ var gridObj = {};
 		<form id="queryForm"><!-- 查询区 表单 -->
 			 <div class="search border-bottom">
 				<ul>
-				<li>
-					<span>关键字:</span>
-					<input type="text" name="storeName" id="storeName" class="search_choose" placeholder="店铺名称">
-					</li>
+				<li><span>商户名称：</span>
+					<select class="search_select choose_select" name="storeName" id="storeName">
+						<c:if test="${isAdmin}"><option value = "">  </option></c:if>
+						<c:forEach var="store" items="${store}">
+							<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
+		             	</c:forEach>
+					</select>
+				</li>
 				<li><input type="text" name="storeOwnerName" id="storeOwnerName" class="search_choose" placeholder="店长姓名">
 				</li>
 				<li>	<input type="text" name="storeAddress" id="storeAddress" class="search_choose" placeholder="店铺地址">

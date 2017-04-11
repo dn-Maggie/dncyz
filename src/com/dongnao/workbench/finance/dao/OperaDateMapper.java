@@ -22,10 +22,10 @@ public interface OperaDateMapper  {
 	 * 删除运营日明细方法
 	 * @param key String:多个由“，”分割开的id字符串
 	 */
-	void deleteBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
-	void deleteDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
-	void deleteSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
-	void deletePlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
+	int deleteBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
+	int deleteDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
+	int deleteSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
+	int deletePlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
 	/**
 	 * 根据主键查找运营日明细实体方法
 	 * @param key String：实体主键（查询条件）
@@ -55,8 +55,8 @@ public interface OperaDateMapper  {
 	 * 根据订单详细生成底价抽佣运营表
 	 * @param accountOrderDetail AccountOrderDetail：实体对象
 	 */	
-	void addBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
-	void addDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
-	void addSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
-	void addPlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
+	int addBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
+	int addDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
+	int addSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
+	int addPlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
 }

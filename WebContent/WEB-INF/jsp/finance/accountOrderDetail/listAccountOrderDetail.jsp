@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<!DOCTYPE HTML  >
+<!DOCTYPE HTML>
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
@@ -11,7 +11,7 @@ var orderDetailModel = {
 		url: "<m:url value='/accountOrderDetail/listAccountOrderDetail.do'/>",
 		colModel:[
 					{name : "id",hidden : true,key : true,label:"账单ID",index : "id"},	
-					{name : "storeName",label:"商户名称",index : "store_name"},		
+					/* {name : "storeName",label:"商户名称",index : "store_name"}, */		
 					{name : "createDate",label:"创建日期",index : "create_date"},				
 					{name : "orderType",label:"订单类型",index : "order_type"
 						,formatter:GridColModelForMatter.orderType},				
@@ -45,8 +45,12 @@ var orderDetailModel = {
 	           	]};
 	$(function(){
 		initGrid("orderDetail");
-        
     });
+	function executeDownload(){
+		var fid = $("#downloadform");
+		$("#downloadform").attr("action", "<%=request.getContextPath()%>/download/fileDownload");
+		fid.submit();
+	}
 	function initGrid(ways){
 		gridObj = Finance.createGrid(ways,orderDetail.colModel,true,true,baseUrl+"/accountOrderDetail/updateAccountOrderDetail.do");
 	}
@@ -107,11 +111,6 @@ var orderDetailModel = {
  	function exportData(){
  		ExpExcel.showWin(gridObj,baseUrl+"/accountOrderDetail/exportExcel.do",'grid','queryForm');
  	}
-	function executeDownload(){
-		var fid = $("#downloadform");
-		$("#downloadform").attr("action", "<%=request.getContextPath()%>/download/fileDownload");
-		fid.submit();
-	}
 	//生成运营汇总表
     function genTotal(ways){
    		$ .ajax({
@@ -119,7 +118,10 @@ var orderDetailModel = {
    			data:Finance.getQueryCondition(),
 			url: baseUrl+"/operaDate/addByOrderDetail.do?type="+ways,
 			cache:false,
-			dataType:"json"
+			dataType:"json",
+			success : function(response) {
+				showMessage(response.message,"提示", 2000);
+			}
 		});
     }
     </script>
@@ -130,26 +132,30 @@ var orderDetailModel = {
 		<form id="queryForm"><!-- 查询区 表单 -->
 			<div class="search border-bottom">
 				<ul>
-				<li><span>关键字：</span>
-				<input type="text" name="storeName" id="storeName" class="search_choose" placeholder="商户名称">
-				<!--<input type="hidden" name="isInvalid" value="0"></li>-->
+				<li><span>商户名称：</span>
+					<select class="search_select choose_select" name="storeName" id="storeName">
+						<c:forEach var="store" items="${store}">
+							<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
+		             	</c:forEach>
+					</select>
+				</li>
 				<li>
 					<div class="time_bg">
-					<input type="text" placeholder="截止日期"  class="search_time150 date-picker" name="propsMap['endDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
-					<i class="search_time_ico2" ></i>
+						<input type="text" placeholder="截止日期"  class="search_time150 date-picker" name="propsMap['endDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
+						<i class="search_time_ico2" ></i>
 					</div>
 					<div class="time_bg">
-					<input type="text" placeholder="起始日期" class="search_time150 date-picker" name="propsMap['startDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
-					<i class="search_time_ico2" ></i>
+						<input type="text" placeholder="起始日期" class="search_time150 date-picker" name="propsMap['startDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
+						<i class="search_time_ico2" ></i>
 					</div>
 				</li>
 				<li class="date_area">
 					<span>创建时间:</span>
-						<div class="time_bg">
+					<div class="time_bg">
 						<div class="input-group bootstrap-timepicker">
 							<input class="timepicker text" name="propsMap['startTime']" type="text" />
 						</div>
-						</div>
+					</div>
 					<i>至</i>
 					<div class="time_bg">
 						<div class="input-group bootstrap-timepicker">
@@ -157,13 +163,26 @@ var orderDetailModel = {
 						</div>
 					</div>
 					</li>		
-				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
-					 <option value="elm">饿了么</option><option value="meituan">美团</option><option value="baidu">百度</option>
-					</select><span>平台类型:</span></li><!--下拉 -->
-				 <li><select class="search_select" name="distributionMode" id="distributionMode"><option value="">---请选择---</option></select>
-				<span>配送方式:</span></li><!--下拉 -->
-				<li><input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置"><!-- 重置 -->
-						<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridObj);" value="查询"></li><!-- 查询-->
+				 <li>
+				 	<select class="search_select" name="platformType" id="platformType">
+				 		<option value="">---请选择---</option>
+					 	<option value="elm">饿了么</option>
+					 	<option value="meituan">美团</option>
+					 	<option value="baidu">百度</option>
+					</select>
+					<span>平台类型:</span>
+				 </li>
+				  <li>
+				 	<select class="search_select" name="distributionMode" id="distributionMode">
+				 		<option value="">---请选择---</option>
+				 		<option value="">商家自配</option>
+					 	<option value="">平台专配</option>
+				 	</select>
+					<span>配送方式:</span>
+				 </li>
+				 <li>
+					<input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置"><!-- 重置 -->
+					<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridObj);" value="查询"></li><!-- 查询-->
 				</ul>
 		   </div>
 	    </form>
@@ -171,42 +190,54 @@ var orderDetailModel = {
 				<!--功能按钮begin-->
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
-					<li><a title="下载模板" href="javascript:" onclick="downloadTemplate();">
-							<i class="icon_bg icon_download"></i> <span>下载模板</span>
-					</a></li>
+					<li>
+						<a title="下载模板" href="javascript:" onclick="downloadTemplate();">
+						<i class="icon_bg icon_download"></i> <span>下载模板</span>
+						</a>
+					</li>
 					 <c:if test="${importData}">
-							<li>
-								<a title="导入原始数据" href="javascript:;" onclick="importData();"> 
-									<i class="back_icon import_icon"> </i> 
-									<span>导入原始数据</span>
-								</a>
-							</li>
-						</c:if> 
-						<c:if test="${exportData}">
-							<li>
-								<a title="导出数据" href="javascript:;" onclick="exportData();"> 
-									<i class="back_icon import_icon"> </i> 
-									<span>导出数据</span>
-								</a>
-							</li>
-						</c:if>
-						<c:if test="${edit}">
-							<li><a title="<m:message code="button.edit"/>" href="javascript:;"
-								onclick="edit();"><i class="icon_bg icon_edit"></i> <span><m:message
-											code="button.edit" /></span> </a></li>
-						</c:if>
-						<c:if test="${delete}">
-							<li><a title="<m:message code="button.delete"/>" href="javascript:;"
-								onclick="batchDelete();"> <i class="icon_bg icon_del"></i> <span><m:message
-											code="button.delete" /></span>
-							</a></li>
-						</c:if>
-						<c:if test="${manage}">
-						<li><a title="<m:message code="button.module.moduleRes"/>" href="javascript:"
-							onclick="moduleResMgt();"> <i class="back_icon resources_icon"></i> <span><m:message
-										code="button.module.moduleRes" /></span>
-						</a></li>
-						</c:if>
+						<li>
+							<a title="导入原始数据" href="javascript:;" onclick="importData();"> 
+								<i class="back_icon import_icon"> </i> 
+								<span>导入原始数据</span>
+							</a>
+						</li>
+					</c:if> 
+					<c:if test="${exportData}">
+						<li>
+							<a title="导出数据" href="javascript:;" onclick="exportData();"> 
+								<i class="back_icon import_icon"> </i> 
+								<span>导出数据</span>
+							</a>
+						</li>
+					</c:if>
+					<c:if test="${delete}">
+						<li>
+							<a title="<m:message code="button.delete"/>" href="javascript:;"
+								onclick="batchDelete();"> <i class="icon_bg icon_del"></i> <span><m:message code="button.delete" /></span>
+							</a>
+						</li>
+					</c:if>
+					<li>
+						<a href="javascript:;" class="btn" onclick="genTotal('basePrice');">
+							<span>生成底价运营表</span>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;" class="btn" onclick="genTotal('deepOpera');">
+							<span>生成深运营运营表</span>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;" class="btn" onclick="genTotal('saleRate');">
+							<span>生成销售额比例抽佣运营表</span>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;" class="btn" onclick="genTotal('platformAccount');">
+							<span>生成平台到款抽佣运营表</span>
+						</a>
+					</li>
 					</ul>
 				</div>
 	
@@ -215,12 +246,6 @@ var orderDetailModel = {
 					<!--此处放表格-->
 					<table  id="orderDetail" ></table>
 					<div  id="orderDetailprowed"></div>		
-				</div>
-				<div>
-					<input type="button" value= "生成底价运营表" onclick="genTotal('basePrice');" class="btn">
-					<input type="button" value= "生成深运营运营表" onclick="genTotal('deepOpera');" class="btn">
-					<input type="button" value= "生成销售额比例抽佣运营表" onclick="genTotal('saleRate');" class="btn">
-					<input type="button" value= "生成平台到款抽佣运营表" onclick="genTotal('platformAccount');" class="btn">
 				</div>
 		</div>
 	</div>

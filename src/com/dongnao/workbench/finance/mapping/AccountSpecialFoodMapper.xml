@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.finance.dao.AccountSpecialFoodMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.finance.model.AccountSpecialFood">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="store_id" property="storeId" jdbcType="VARCHAR" />
+		<result column="store_name" property="storeName" jdbcType="VARCHAR" />
+		<result column="special_offer_food_name" property="specialOfferFoodName" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="sale_num" property="saleNum" jdbcType="INTEGER" />
+		<result column="orgin_price" property="orginPrice" jdbcType="DECIMAL" />
+		<result column="settlement_price" property="settlementPrice" jdbcType="DECIMAL" />
+		<result column="special_offer_orgin_price" property="specialOfferOrginPrice" jdbcType="DECIMAL" />
+		<result column="special_offer_settlement" property="specialOfferSettlement" jdbcType="DECIMAL" />
+		<result column="platform_type" property="platformType" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	 	id
+		,store_id
+		,store_name
+		,special_offer_food_name
+		,create_date
+		,sale_num
+		,orgin_price
+		,settlement_price
+		,special_offer_orgin_price
+		,special_offer_settlement
+		,platform_type
+	</sql>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountSpecialFood">
+		select
+		<include refid="Base_Column_List" />
+		from account_special_food
+		where 1=1
+		<if test="id != null and '' != id">  
+			and id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="storeId != null and '' != storeId">  
+			and store_id = #{storeId,jdbcType=VARCHAR}
+		</if>
+		<if test="storeName != null and '' != storeName">  
+			and store_name = #{storeName,jdbcType=VARCHAR}
+		</if>
+		<if test="specialOfferFoodName != null and '' != specialOfferFoodName">  
+			and special_offer_food_name = #{specialOfferFoodName,jdbcType=VARCHAR}
+		</if>
+		<if test="createDate != null and '' != createDate">  
+			and create_date = #{createDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="saleNum != null and '' != saleNum">  
+			and sale_num = #{saleNum,jdbcType=INTEGER}
+		</if>
+		<if test="orginPrice != null and '' != orginPrice">  
+			and orgin_price = #{orginPrice,jdbcType=DECIMAL}
+		</if>
+		<if test="settlementPrice != null and '' != settlementPrice">  
+			and settlement_price = #{settlementPrice,jdbcType=DECIMAL}
+		</if>
+		<if test="specialOfferOrginPrice != null and '' != specialOfferOrginPrice">  
+			and special_offer_orgin_price = #{specialOfferOrginPrice,jdbcType=DECIMAL}
+		</if>
+		<if test="specialOfferSettlement != null and '' != specialOfferSettlement">  
+			and special_offer_settlement = #{specialOfferSettlement,jdbcType=DECIMAL}
+		</if>
+		<if test="platformType != null and '' != platformType">  
+			and platform_type = #{platformType,jdbcType=VARCHAR}
+		</if>
+				<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+         	</if>
+	</select>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.finance.model.AccountSpecialFood">
+		insert into account_special_food (
+		<include refid="Base_Column_List" />
+		)values (
+			#{id,jdbcType=INTEGER}
+			,#{storeId,jdbcType=VARCHAR}
+			,#{storeName,jdbcType=VARCHAR}
+			,#{specialOfferFoodName,jdbcType=VARCHAR}
+			,#{createDate,jdbcType=TIMESTAMP}
+			,#{saleNum,jdbcType=INTEGER}
+			,#{orginPrice,jdbcType=DECIMAL}
+			,#{settlementPrice,jdbcType=DECIMAL}
+			,#{specialOfferOrginPrice,jdbcType=DECIMAL}
+			,#{specialOfferSettlement,jdbcType=DECIMAL}
+			,#{platformType,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.dongnao.workbench.finance.model.AccountSpecialFood">
+		update account_special_food  set
+		id= #{id,jdbcType=INTEGER}
+		,store_id = #{storeId,jdbcType=VARCHAR}
+		,store_name = #{storeName,jdbcType=VARCHAR}
+		,special_offer_food_name = #{specialOfferFoodName,jdbcType=VARCHAR}
+		,create_date = #{createDate,jdbcType=TIMESTAMP}
+		,sale_num = #{saleNum,jdbcType=INTEGER}
+		,orgin_price = #{orginPrice,jdbcType=DECIMAL}
+		,settlement_price = #{settlementPrice,jdbcType=DECIMAL}
+		,special_offer_orgin_price = #{specialOfferOrginPrice,jdbcType=DECIMAL}
+		,special_offer_settlement = #{specialOfferSettlement,jdbcType=DECIMAL}
+		,platform_type = #{platformType,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

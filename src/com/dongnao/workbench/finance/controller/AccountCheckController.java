@@ -1,30 +1,27 @@
 package com.dongnao.workbench.finance.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dongnao.workbench.common.excel.ExcelExpUtils;
 import com.dongnao.workbench.common.excel.ExpParamBean;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
-import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.finance.model.AccountCheck;
-import com.dongnao.workbench.finance.model.AccountOperaTotal;
 import com.dongnao.workbench.finance.model.AccountOperateIncome;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
-import com.dongnao.workbench.finance.model.TotalOperateIncome;
 import com.dongnao.workbench.finance.service.AccountCheckService;
 import com.dongnao.workbench.finance.service.AccountOrderDetailService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import com.dongnao.workbench.store.model.Store;
+import com.dongnao.workbench.store.service.StoreService;
 
 
 /**
@@ -41,23 +38,21 @@ public class AccountCheckController{
     private AccountCheckService accountCheckService;
     @Resource
     private AccountOrderDetailService accountOrderDetailService;
-	 
- 	/**
- 	* 进入新增页面
- 	* @return ModelAndView 返回到新增页面
- 	*/
- 	@RequestMapping("/toAddAccountCheck")
-	public ModelAndView toAdd(){
-		return new ModelAndView("WEB-INF/jsp/finance/accountCheck/addAccountCheck");
-	}
-	
+    @Resource
+	private StoreService storeService;
 	/**
 	 * 进入明细列表页面
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/toListAccountCheck")
-	public ModelAndView toList(){
-		return new ModelAndView("WEB-INF/jsp/finance/accountCheck/listAccountCheck");
+	public ModelAndView toList(HttpServletRequest request){
+		ModelAndView mv =  new ModelAndView("WEB-INF/jsp/finance/accountCheck/listAccountCheck");
+		Store store = new Store();
+ 		if(!Utils.isSuperAdmin(request)){
+ 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+		}
+ 		mv.addObject("store",storeService.listByCondition(store));
+ 		return mv;
 	}
 	
 	/**
@@ -65,8 +60,14 @@ public class AccountCheckController{
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/toListTotalAccountCheck")
-	public ModelAndView toListTotal(){
-		return new ModelAndView("WEB-INF/jsp/finance/accountCheck/listAccountCheckByTotal");
+	public ModelAndView toListTotal(HttpServletRequest request){
+		ModelAndView mv =  new ModelAndView("WEB-INF/jsp/finance/accountCheck/listAccountCheckByTotal");
+		Store store = new Store();
+ 		if(!Utils.isSuperAdmin(request)){
+ 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+		}
+ 		mv.addObject("store",storeService.listByCondition(store));
+ 		return mv;
 	}
 	
 	/**
@@ -121,7 +122,7 @@ public class AccountCheckController{
 				response,accountCheckService.updateTotal(accountCheck));	
 	}
 	//导出对账明细方法
-	@RequestMapping("/exportDetailExcel")
+	@RequestMapping("/exportExcel")
 	public void exportDetailExcel(AccountOrderDetail accountOrderDetail, ExpParamBean epb,
 			HttpServletRequest request, HttpServletResponse response, Page page)
 			throws Exception {		
@@ -129,21 +130,34 @@ public class AccountCheckController{
 		if (expType == 1) {
 			accountOrderDetail.setPage(page);
 		}
-		List<AccountOperateIncome> list = accountCheckService.listDetailAccountCheckByBoundMerchant(accountOrderDetail);
-		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
-				"对账明细列表", "对账明细列表");
-	}
-	//导出对账统计方法
-	@RequestMapping("/exportTotalExcel")
-	public void exportTotalExcel(AccountOrderDetail accountOrderDetail, ExpParamBean epb,
-			HttpServletRequest request, HttpServletResponse response, Page page)
-			throws Exception {		
-		int expType = Integer.parseInt(request.getParameter("expType"));
-		if (expType == 1) {
-			accountOrderDetail.setPage(page);
+		List<AccountOperateIncome> list = null;
+		try{
+			String gridId = request.getParameter("gridId");
+			String filename = "";
+			String title = "";
+				switch (gridId) {
+				case "#check":
+					list =  accountCheckService.listTotalAccountCheck(accountOrderDetail);
+					filename = "对账汇总表";
+					title = "对账汇总表";
+					break;
+				case "#boundMerchant":
+					list = accountCheckService.listDetailAccountCheckByBoundMerchant(accountOrderDetail);
+					filename = "绑商家卡对账表";
+					title = "绑商家卡对账表";
+					break;
+				case "#boundCompany":
+					list = accountCheckService.listDetailAccountCheckByBoundCompany(accountOrderDetail);
+					filename = "绑公司卡对账表";
+					title = "绑公司卡对账表";
+					break;
+				default:
+					break;
+				}
+				ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
+						filename, title);
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-		List<AccountOperateIncome> list = accountCheckService.listTotalAccountCheck(accountOrderDetail);
-		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
-				"对账统计列表", "对账统计列表");
 	}
 }

@@ -27,6 +27,7 @@
 					<result column="meituan_id" property="meituanId" jdbcType="VARCHAR" />
 					<result column="MEITUAN_RATE" property="meituanRate" jdbcType="DOUBLE" />
 					<result column="baidu_id" property="baiduId" jdbcType="VARCHAR" />
+					<result column="baidu_pwd" property="baidupwd" jdbcType="VARCHAR" />
 					<result column="BAIDU_RATE" property="baiduRate" jdbcType="DOUBLE" />
 					<result column="registrant" property="registrant" jdbcType="VARCHAR" />
 					<result column="regist_date" property="registDate" jdbcType="DATE" />
@@ -41,6 +42,7 @@
 					<result column="corporate_withidcard_front" property="corporateWithidcardFront" jdbcType="VARCHAR" />
 					<result column="corporate_withidcard_back" property="corporateWithidcardBack" jdbcType="VARCHAR" />
 					<result column="owner_userId" property="ownerUserId" jdbcType="VARCHAR" />
+					<result column="bound_type" property="boundType" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		 	 STORE_ID
@@ -68,6 +70,7 @@
 			,meituan_id
 			,MEITUAN_RATE
 			,baidu_id
+			,baidu_pwd
 			,BAIDU_RATE
 			,registrant
 			,regist_date
@@ -82,6 +85,7 @@
 			,corporate_withidcard_front
 			,corporate_withidcard_back
 			,owner_userId
+			,bound_type
 		</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -112,6 +116,7 @@
 			,s.meituan_id
 			,s.MEITUAN_RATE
 			,s.baidu_id
+			,s.baidu_pwd
 			,s.BAIDU_RATE
 			,s.registrant
 			,s.regist_date
@@ -126,6 +131,7 @@
 			,s.corporate_withidcard_front
 			,s.corporate_withidcard_back
 			,s.owner_userId
+			,s.bound_type
 		from dn_store as s
 		left join dn_brand as b on b.BRAND_ID = s.BRAND_ID
 		where s.STORE_ID = #{storeId,jdbcType=CHAR}
@@ -251,6 +257,7 @@
 			,s.meituan_id
 			,s.MEITUAN_RATE
 			,s.baidu_id
+			,s.baidu_pwd
 			,s.BAIDU_RATE
 			,s.registrant
 			,s.regist_date
@@ -265,6 +272,7 @@
 			,s.corporate_withidcard_front
 			,s.corporate_withidcard_back
 			,s.owner_userId
+			,s.bound_type
 		FROM
 			(
 			SELECT
@@ -293,6 +301,7 @@
 			,meituan_id
 			,MEITUAN_RATE
 			,baidu_id
+			,baidu_pwd
 			,BAIDU_RATE
 			,registrant
 			,regist_date
@@ -307,6 +316,7 @@
 			,corporate_withidcard_front
 			,corporate_withidcard_back
 			,owner_userId
+			,bound_type
 		FROM
 			`basic_user_info` AS ui
 		LEFT JOIN dn_store AS ds ON ui.id = ds.owner_userId
@@ -398,6 +408,7 @@
 			,#{meituanId,jdbcType=VARCHAR}
 			,#{meituanRate,jdbcType=DOUBLE}
 			,#{baiduId,jdbcType=VARCHAR}
+			,#{baidupwd,jdbcType=VARCHAR}
 			,#{baiduRate,jdbcType=DOUBLE}
 			,#{registrant,jdbcType=VARCHAR}
 			,#{registDate,jdbcType=DATE}
@@ -412,6 +423,7 @@
 			,#{corporateWithidcardFront,jdbcType=VARCHAR}
 			,#{corporateWithidcardBack,jdbcType=VARCHAR}
 			,#{ownerUserId,jdbcType=VARCHAR}
+			,#{boundType,jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -430,9 +442,6 @@
 			,OPERATE_DATE = #{operateDate,jdbcType=DATE}
 			,SETTLEMENT_METHOD = #{settlementMethod,jdbcType=CHAR}
 			,STORE_TEL = #{storeTel,jdbcType=VARCHAR}
-			<!-- ,REAL_IMAGE_PATH_1 = #{realImagePath1,jdbcType=VARCHAR}
-			,REAL_IMAGE_PATH_2 = #{realImagePath2,jdbcType=VARCHAR}
-			,REAL_IMAGE_PATH_3 = #{realImagePath3,jdbcType=VARCHAR} -->
 			,AVERAGE_SALES = #{averageSales,jdbcType=DOUBLE}
 			,ELM_SALE = #{elmSale,jdbcType=DOUBLE}
 			,MEITUAN_SALE = #{meituanSale,jdbcType=DOUBLE}
@@ -442,20 +451,12 @@
 			,meituan_id = #{meituanId,jdbcType=VARCHAR}
 			,MEITUAN_RATE = #{meituanRate,jdbcType=DOUBLE}
 			,baidu_id = #{baiduId,jdbcType=VARCHAR}
+			,baidu_pwd = #{baidupwd,jdbcType=VARCHAR}
 			,BAIDU_RATE = #{baiduRate,jdbcType=DOUBLE}
 			,registrant = #{registrant,jdbcType=VARCHAR}
 			,regist_date = #{registDate,jdbcType=DATE}
-			<!-- ,business_license_img = #{businessLicenseImg,jdbcType=VARCHAR}
-			,health_license_img = #{healthLicenseImg,jdbcType=VARCHAR}
-			,menu_img = #{menuImg,jdbcType=VARCHAR}
-			,corporate_idcard_front = #{corporateIdcardFront,jdbcType=VARCHAR}
-			,corporate_idcard_back = #{corporateIdcardBack,jdbcType=VARCHAR}
-			,canteen_img = #{canteenImg,jdbcType=VARCHAR}
-			,kitchen_img = #{kitchenImg,jdbcType=VARCHAR}
-			,door_img = #{doorImg,jdbcType=VARCHAR}
-			,corporate_withidcard_front = #{corporateWithidcardFront,jdbcType=VARCHAR}
-			,corporate_withidcard_back = #{corporateWithidcardBack,jdbcType=VARCHAR} -->
 			,owner_userId = #{ownerUserId,jdbcType=VARCHAR}
+			,bound_type = #{boundType,jdbcType=VARCHAR}
 		where STORE_ID = #{storeId,jdbcType=CHAR}
 	</update>
 	

@@ -129,6 +129,7 @@ ExpExcel = {
 		htmlTmp += '<input type="hidden" id="pageSize" name="pageSize"/>';
 		htmlTmp += '<input type="hidden" id="orderFields" name="orderFields"/>';
 		htmlTmp += '<input type="hidden" id="order" name="order"/>';
+		htmlTmp += '<input type="hidden" id="gridId" name="gridId"/>';
 		htmlTmp += '<div style="height:100px;margin-left:44px; margin-top:16px;"><div style="height:32px; line-height:32px;"><input type="radio" checked="checked" name="expType" value="1" />导出当前页数据</div>';
 		htmlTmp += '<div style="height:32px; line-height:32px;"><input type="radio" name="expType" value="2" />导出全部数据</div></div>';
 		htmlTmp += '<div style="float:left;margin-left:46px;"><input type="button" id="cancel" class="search_btn4" value="取消">';
@@ -172,10 +173,11 @@ ExpExcel = {
 		} else {
 			expExcelForm.attr("action", expUrl);
 			var columns = gridObj.jqGrid('getGridParam', 'colModel');
-			var queryPostDatas = getQueryCondition();
+			var queryPostDatas = Finance.getQueryCondition();
 			$.each(queryPostDatas, function(k, v) {
 				$(ExpExcel.createHidden(k, v)).appendTo(expExcelForm);
 			});
+			$("#gridId").val(queryForm);
 			$('#orderFields').val(gridObj.jqGrid('getGridParam', 'sortname'));
 			$('#order').val(gridObj.jqGrid('getGridParam', 'sortorder'));
 			var page = gridObj.jqGrid('getGridParam', 'page');

@@ -120,7 +120,7 @@ Finance = {
 	        colModel:colModel,
 	        serializeGridData:function(postData){//添加查询条件值
 				var obj = Finance.getQueryCondition();
-		$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
+				$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
 				return obj;
 			},
 		 	datatype: "json",/*数据类型，设置为json数据，默认为json*/

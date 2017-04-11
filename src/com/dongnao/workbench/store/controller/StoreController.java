@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dongnao.workbench.basic.model.Brand;
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.basic.service.BrandService;
 import com.dongnao.workbench.basic.service.UserInfoService;
@@ -54,7 +55,7 @@ public class StoreController{
  	@RequestMapping("/toAddStore")
 	public ModelAndView toAdd(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/store/addStore");
-		mv.addObject("brand", brandService.listByCondition(null));
+		mv.addObject("brand", brandService.listByCondition(new Brand()));
 		UserInfo userInfo = new UserInfo();
 		if(!Utils.isSuperAdmin(request)){userInfo.setId(Utils.getLoginUserInfoId(request));}
 		mv.addObject("user", userInfoService.listByCondition(userInfo));
@@ -85,7 +86,7 @@ public class StoreController{
 		if(!Utils.isSuperAdmin(request))
  		{userInfo.setId(Utils.getLoginUserInfoId(request));}
 		mv.addObject("user", userInfoService.listByCondition(userInfo));
-		mv.addObject("brand", brandService.listByCondition(null));
+		mv.addObject("brand", brandService.listByCondition(new Brand()));
 		return mv;
 	}
 	
@@ -126,6 +127,12 @@ public class StoreController{
 	@RequestMapping("/toListStore")
 	public ModelAndView toList(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/store/listStore");
+		 	Store store = new Store();
+	 		if(!Utils.isSuperAdmin(request)){
+	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+			}
+			mv.addObject("store",storeService.listByCondition(store));
+			mv.addObject("isAdmin",Utils.isSuperAdmin(request));
 		 return mv;
 	}
 	
@@ -185,7 +192,7 @@ public class StoreController{
 		if(!Utils.isSuperAdmin(request))
  		{userInfo.setId(Utils.getLoginUserInfoId(request));}
 		mv.addObject("user", userInfoService.listByCondition(userInfo));
-		mv.addObject("brand", brandService.listByCondition(null));
+		mv.addObject("brand", brandService.listByCondition(new Brand()));
 		return mv;
 	}
 	

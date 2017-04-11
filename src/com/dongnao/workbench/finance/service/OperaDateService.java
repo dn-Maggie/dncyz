@@ -18,18 +18,18 @@ public interface OperaDateService  {
 	 * @param operaDate OperaDate:实体类
 	 */
 	public ResultMessage add(OperaDate operaDate);
-	public void addBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
-	public void addDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
-	public void addSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
-	public void addPlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public int addBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public int addDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public int addSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public int addPlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
 	/**
 	 * 删除运营日明细方法
 	 * @param key:多个由“，”分割开的id字符串
 	 */
-	public void deleteBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
-	public void deleteDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
-	public void deleteSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
-	public void deletePlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public int deleteBasePriceByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public int deleteDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public int deleteSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
+	public int deletePlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
 
 	/**
 	 * 根据主键查找运营日明细实体方法
