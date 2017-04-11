@@ -36,8 +36,8 @@ public class AccountSpecialFood extends Model{
 		            /**
 	                 * 日期
 	                 **/
-					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-			private Date createDate;
+					@DateTimeFormat(pattern="yyyy-MM-dd") 
+						private Date createDate;
 		
 		            /**
 	                 * 销量

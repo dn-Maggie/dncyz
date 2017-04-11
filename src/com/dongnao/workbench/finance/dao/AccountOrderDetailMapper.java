@@ -3,6 +3,7 @@ package com.dongnao.workbench.finance.dao;
 import java.util.List;
 
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
+import com.dongnao.workbench.finance.model.AccountSaleGoods;
 /**
  * 描述：订单明细模块dao接口，提供数据库操作方法
  *
@@ -47,7 +48,7 @@ public interface AccountOrderDetailMapper  {
 	/**
 	 * 菜品数量表
 	 */	
-	public List<AccountOrderDetail> listGoodsFromOrderDetail(AccountOrderDetail accountOrderDetail);
+	public List<AccountSaleGoods> listGoodsFromOrderDetail(AccountOrderDetail accountOrderDetail);
 	/**
 	 * 修改自配送实际支付金额方法
 	 * @param accountOrderDetail AccountOrderDetail：实体对象

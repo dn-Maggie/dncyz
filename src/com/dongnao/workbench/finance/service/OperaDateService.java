@@ -3,6 +3,8 @@ package com.dongnao.workbench.finance.service;
 import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
+import com.dongnao.workbench.finance.model.AccountSaleGoods;
+import com.dongnao.workbench.finance.model.AccountSpecialFood;
 import com.dongnao.workbench.finance.model.OperaDate;
 
 /**
@@ -47,6 +49,8 @@ public interface OperaDateService  {
 	public List<OperaDate> listDeepOperaByCondition(OperaDate operaDate);
 	public List<OperaDate> listSaleRateByCondition(OperaDate operaDate);
 	public List<OperaDate> listPlatformAccountByCondition(OperaDate operaDate);
+	/*特价菜明细*/
+	public List<AccountSpecialFood> listSpecialFood(AccountSpecialFood accountSpecialFood);
 	/**
 	 * 修改运营日明细方法
 	 * @param operaDate OperaDate 实体对象
@@ -55,6 +59,7 @@ public interface OperaDateService  {
 	public ResultMessage updateDeepOpera(OperaDate operaDate);
 	public ResultMessage updateSaleRate(OperaDate operaDate);
 	public ResultMessage updatePlatformAccount(OperaDate operaDate);
+	
 
 	
 

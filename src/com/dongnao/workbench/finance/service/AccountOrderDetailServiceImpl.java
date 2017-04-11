@@ -10,6 +10,7 @@ import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.finance.dao.AccountCheckMapper;
 import com.dongnao.workbench.finance.dao.AccountOrderDetailMapper;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
+import com.dongnao.workbench.finance.model.AccountSaleGoods;
  
 /**
  * 描述：订单明细模块service接口实现类，实现service接口方法
@@ -84,7 +85,7 @@ public class AccountOrderDetailServiceImpl implements AccountOrderDetailService{
 	/**
 	 * 根据订单计算出菜品数量表
 	 */
-	public List<AccountOrderDetail> listGoodsFromOrderDetail(AccountOrderDetail accountOrderDetail) {
+	public List<AccountSaleGoods> listGoodsFromOrderDetail(AccountOrderDetail accountOrderDetail) {
 		return accountOrderDetailMapper.listGoodsFromOrderDetail(accountOrderDetail);
 	}
 }

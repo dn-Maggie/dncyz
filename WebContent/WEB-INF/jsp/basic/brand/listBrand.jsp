@@ -74,7 +74,6 @@ var Model = {
     </script>
 </head>
 <body style="height:100%;">
-
 	<div class="main  choice_box">
 		<form id="queryForm"><!-- 查询区 表单 -->
 	    </form>

@@ -17,8 +17,9 @@ function cellFormat(value, options, rData){
 	}return value;
 };
 //菜品数量表表头
-var goodsQuantityModel = {url: "<m:url value='/accountOrderDetail/listGoods.do'/>",
+var goodsQuantityModel = {url: "<m:url value='/accountOrderDetail/listAccountSaleGoods.do'/>",
 						colModel:[
+						{name : "id",hidden : true,key : true,label:"主键",index : "id"},						
 						/* {name : "storeName",label:"商户名称",index : "store_name"}, */	
 						{name : "createDate",label:"日期",index : "create_date"},		
 						{name : "goodsName",label:"商品名称"},	
@@ -26,8 +27,8 @@ var goodsQuantityModel = {url: "<m:url value='/accountOrderDetail/listGoods.do'/
 						{name : "goodsPrice",label:"结算单价",isBasic:true},	
 						{name : "",label:"销售额",calculate:"rData['goodsQuality'] * rData['goodsPrice']",editFlag:true,
 							formatter : cellFormat},	
-        				{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",editFlag:true,
-							formatter : cellFormat},
+        				{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",
+							},
 				       	]};
 	$(function(){
 			initGrid("goodsQuantity");

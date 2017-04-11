@@ -3,9 +3,14 @@ package com.dongnao.workbench.finance.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.excel.ExcelExpUtils;
@@ -13,19 +18,13 @@ import com.dongnao.workbench.common.excel.ExpParamBean;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
-import com.dongnao.workbench.common.util.FormatEntity;
-import com.dongnao.workbench.finance.model.AccountOperaTotal;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
+import com.dongnao.workbench.finance.model.AccountSpecialFood;
 import com.dongnao.workbench.finance.model.OperaDate;
 import com.dongnao.workbench.finance.service.AccountOperaTotalService;
 import com.dongnao.workbench.finance.service.OperaDateService;
 import com.dongnao.workbench.store.model.Store;
 import com.dongnao.workbench.store.service.StoreService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 
 /**
@@ -59,6 +58,30 @@ public class OperaDateController{
 			mv.addObject("store",storeService.listByCondition(store));
 		 return mv;
 	}
+	/**
+	 * 进入特价菜品表明细
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toListSpecialFood")
+	public ModelAndView toListSpecialFood(HttpServletRequest request){
+		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listAccountSpecialFood");
+		 Store store = new Store();
+	 		if(!Utils.isSuperAdmin(request)){
+	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+			}
+			mv.addObject("store",storeService.listByCondition(store));
+		 return mv;
+	}
+	/**
+	 * 特价菜品表明细
+	 */
+	@RequestMapping("/listSpecialFood")
+	public void listSpecialFood(AccountSpecialFood accountSpecialFood,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		accountSpecialFood.setPage(page);	
+		List<AccountSpecialFood> list = operaDateService.listSpecialFood(accountSpecialFood);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}	
 	/**
 	 * 进入运营明细列表页面
 	 * @return ModelAndView

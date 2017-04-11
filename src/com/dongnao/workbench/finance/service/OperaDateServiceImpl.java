@@ -3,6 +3,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import com.dongnao.workbench.finance.dao.OperaDateMapper;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
+import com.dongnao.workbench.finance.model.AccountSpecialFood;
 import com.dongnao.workbench.finance.model.OperaDate;
 import com.dongnao.workbench.finance.service.OperaDateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +87,10 @@ public class OperaDateServiceImpl implements OperaDateService{
 	public List<OperaDate> listPlatformAccountByCondition(OperaDate operaDate) {
 		return operaDateMapper.listPlatformAccountByCondition(operaDate);
 	}
-	
+	@Override
+	public List<AccountSpecialFood> listSpecialFood(AccountSpecialFood accountSpecialFood) {
+		return operaDateMapper.listSpecialFood(accountSpecialFood);
+	}
 	/**
 	 * 修改运营日明细方法
 	 * @param operaDate OperaDate 实体对象

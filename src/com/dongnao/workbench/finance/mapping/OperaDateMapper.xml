@@ -42,14 +42,21 @@
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="platform_type" property="platformType" jdbcType="VARCHAR" />
 	</resultMap>
+	<resultMap id="SpecialFoodMap" type="com.dongnao.workbench.finance.model.AccountSpecialFood" >
+		<id jdbcType="VARCHAR" property="id" column="id"/>
+		<result jdbcType="VARCHAR" property="storeId" column="store_id"/>
+		<result jdbcType="VARCHAR" property="storeName" column="store_name"/>
+		<result jdbcType="VARCHAR" property="specialOfferFoodName" column="special_offer_food_name"/>
+		<result jdbcType="TIMESTAMP" property="createDate" column="create_date"/>
+		<result jdbcType="INTEGER" property="saleNum" column="sale_num"/>
+		<result jdbcType="DECIMAL" property="orginPrice" column="orgin_price"/>
+		<result jdbcType="DECIMAL" property="settlementPrice" column="settlement_price"/>
+		<result jdbcType="DECIMAL" property="specialOfferOrginPrice" column="special_offer_orgin_price"/>
+		<result jdbcType="DECIMAL" property="specialOfferSettlement" column="special_offer_settlement"/>
+		<result jdbcType="VARCHAR" property="platformType" column="platform_type"/>
+	</resultMap>
 	<sql id="Base_Column_List">
-	 	id
-		,store_id
-		,store_name
-		,create_date
-		,invalid_num
-		,valid_num
-		,goods_quality
+	 	id,store_id,store_name		,create_date		,invalid_num		,valid_num		,goods_quality
 		,orgin_price
 		,meal_fee
 		,special_orgin
@@ -83,12 +90,46 @@
 		,remark
 		,platform_type
 	</sql>
+	<sql id="Special_Food_List"> id ,store_id ,store_name ,special_offer_food_name ,create_date ,sale_num ,orgin_price ,settlement_price ,special_offer_orgin_price ,special_offer_settlement ,platform_type </sql>
 	<!--获取符合条件的底价抽佣运营数据 -->
 	<select id="getBasePriceByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
 		from opera_date_base_price
 		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 特价菜明细 -->
+	<select id="listSpecialFood" resultMap="SpecialFoodMap" parameterType="com.dongnao.workbench.finance.model.AccountSpecialFood">
+		select
+			asg.id as id,
+			asg.store_id as store_id,
+			asg.store_name as store_name,
+			asg.good_name as special_offer_food_name,
+			asg.good_unit_price as orgin_price,
+			asg.good_num as sale_num,
+			asg.platform_type,
+			sso.special_offer_food_price as settlement_price,
+			aod.create_date
+		from account_sale_goods as asg
+		JOIN store_special_offer as sso on asg.good_name = sso.special_offer_food_name and asg.store_name = sso.store_name
+		join account_order_detail as aod on aod.order_no = asg.order_no and asg.store_name = sso.store_name
+		where 1=1
+		<if test="storeName != null and '' != storeName">  
+			and asg.store_name = #{storeName,jdbcType=VARCHAR}
+		</if>
+		<if test="specialOfferFoodName != null and '' != specialOfferFoodName">  
+			and sso.special_offer_food_name = #{specialOfferFoodName,jdbcType=VARCHAR}
+		</if>
+		<if test="createDate != null and '' != createDate">  
+			and aod.create_date = #{createDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="platformType != null and '' != platformType">  
+			and aod.platform_type = #{platformType,jdbcType=VARCHAR}
+		</if>
+		<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+       	</if>
 	</select>
 	
 	<!--查看底价抽佣运营表 -->

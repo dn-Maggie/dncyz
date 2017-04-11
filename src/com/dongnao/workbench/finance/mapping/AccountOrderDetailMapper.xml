@@ -51,6 +51,16 @@
 			<result column="order_sale_rate" property="orderSaleRate" jdbcType="DECIMAL" />
 			<result column="target_addr" property="targetAddr" jdbcType="VARCHAR" />
 	</resultMap>
+	<resultMap id="GoodsMap" type="com.dongnao.workbench.finance.model.AccountSaleGoods" >
+		<id jdbcType="VARCHAR" property="id" column="id"/>
+		<result jdbcType="VARCHAR" property="storeId" column="store_id"/>
+		<result jdbcType="VARCHAR" property="storeName" column="store_name"/>
+		<result jdbcType="VARCHAR" property="orderNo" column="order_no"/>
+		<result jdbcType="VARCHAR" property="goodName" column="good_name"/>
+		<result jdbcType="DECIMAL" property="goodUnitPrice" column="good_unit_price"/>
+		<result jdbcType="INTEGER" property="goodNum" column="good_num"/>
+		<result jdbcType="VARCHAR" property="platformType" column="platform_type"/>
+	</resultMap>
 	<sql id="Base_Column_List">
 	 	id,
 		create_date,
@@ -101,7 +111,7 @@
 		order_sale_rate,
 		target_addr
 	</sql>
-	
+	<sql id="Goods_List"> id ,store_id ,store_name ,order_no ,good_name ,good_unit_price ,good_num ,platform_type </sql>
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
@@ -278,9 +288,6 @@
 		<if test="storeName != null and '' != storeName">  
 			and aod.store_name = #{storeName,jdbcType=VARCHAR}
 		</if>
-		<if test="checkNo != null and '' != checkNo">  
-			and aod.check_no = #{checkNo,jdbcType=VARCHAR}
-		</if>
 		<if test="orderType != null and '' != orderType">  
 			and aod.order_type = #{orderType,jdbcType=VARCHAR}
 		</if>
@@ -310,26 +317,8 @@
 					and DATE_FORMAT(aod.order_time,'%h:%m:%s') <= DATE_FORMAT(#{propsMap.endTime,jdbcType=TIMESTAMP},'%h:%m:%s')
 				]]>
 			</if> 
-		<if test="overTime != null and '' != overTime">  
-			and aod.over_time = #{overTime,jdbcType=TIMESTAMP}
-		</if>
 		<if test="orderNo != null and '' != orderNo">  
 			and aod.order_no = #{orderNo,jdbcType=VARCHAR}
-		</if>
-		<if test="orginPrice != null and '' != orginPrice">  
-			and aod.orgin_price = #{orginPrice,jdbcType=DECIMAL}
-		</if>
-		<if test="serviceRate != null and '' != serviceRate">  
-			and aod.service_rate = #{serviceRate,jdbcType=VARCHAR}
-		</if>
-		<if test="serviceCharge != null and '' != serviceCharge">  
-			and aod.service_charge = #{serviceCharge,jdbcType=DECIMAL}
-		</if>
-		<if test="refundAmount != null and '' != refundAmount">  
-			and aod.refund_amount = #{refundAmount,jdbcType=VARCHAR}
-		</if>
-		<if test="distributionMode != null and '' != distributionMode">  
-			and aod.distribution_mode = #{distributionMode,jdbcType=VARCHAR}
 		</if>
 		<if test="remark != null and '' != remark">  
 			and aod.remark = #{remark,jdbcType=VARCHAR}
@@ -341,7 +330,22 @@
 			GROUP BY tod.goods_name,tod.create_date
 			order by create_date
 	</select>
-	
+	<!-- 菜品数量表 -->
+	<select id="listGoods" parameterType="com.dongnao.workbench.finance.model.AccountSaleGoods" resultMap="BaseResultMap">
+		select 
+			<include refid="Goods_List"/>
+		from account_sale_goods 
+			where 1=1 
+		<if test="id != null and '' != id"> and id = #{id,jdbcType=INTEGER} </if>
+		<if test="storeId != null and '' != storeId"> and store_id = #{storeId,jdbcType=VARCHAR} </if>
+		<if test="storeName != null and '' != storeName"> and store_name = #{storeName,jdbcType=VARCHAR} </if>
+		<if test="orderNo != null and '' != orderNo"> and order_no = #{orderNo,jdbcType=VARCHAR} </if>
+		<if test="goodName != null and '' != goodName"> and good_name = #{goodName,jdbcType=VARCHAR} </if>
+		<if test="goodUnitPrice != null and '' != goodUnitPrice"> and good_unit_price = #{goodUnitPrice,jdbcType=DECIMAL} </if>
+		<if test="goodNum != null and '' != goodNum"> and good_num = #{goodNum,jdbcType=INTEGER} </if>
+		<if test="platformType != null and '' != platformType"> and platform_type = #{platformType,jdbcType=VARCHAR} </if>
+		<if test="orderFields != null and '' != orderFields"> order by ${orderFields} ${order} </if>
+	</select>
 	
 	<delete id="deleteByKey" parameterType="java.lang.String">
 		delete from account_order_detail
