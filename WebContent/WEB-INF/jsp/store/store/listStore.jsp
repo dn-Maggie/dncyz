@@ -39,6 +39,7 @@ var Model = {
 	var show_iframe_dialog;
   	
   	function add(){
+  		var add_iframe_dialog;
 		var url="<m:url value='/store/toAddStore.do'/>";
 		var title = "店铺增加";
 		add_iframe_dialog = Add.create(url, title);

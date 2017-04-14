@@ -62,6 +62,13 @@ $(function() {
 									</c:forEach>
 								</select>
 							</td>
+							<td class="inputLabelTd"><span class="required">*</span>绑卡类型：</td>
+							<td class="inputTd">
+								<select class="search_select" name="boundType" id="edit_boundType">
+									<option value="1" <c:if test="${store.boundType==1}">selected</c:if>>绑商家卡</option>
+									<option value="2" <c:if test="${store.boundType==2}">selected</c:if>>绑公司卡</option>
+								</select>
+							</td>
 						</tr>
 						<tr>
 							<td class="inputLabelTd">店铺名称：</td>

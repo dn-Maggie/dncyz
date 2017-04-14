@@ -442,35 +442,93 @@
 	<update id="update" parameterType="com.dongnao.workbench.store.model.Store">
 		update dn_store  set
 			STORE_ID= #{storeId,jdbcType=CHAR}
+			<if test="storeName != null and '' != storeName">  
 			,STORE_NAME = #{storeName,jdbcType=VARCHAR}
+			</if>
+			<if test="brandId != null and '' != brandId">  
 			,BRAND_ID = #{brandId,jdbcType=CHAR}
+			</if>
+			<if test="storeAddress != null and '' != storeAddress"> 
 			,STORE_ADDRESS = #{storeAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="workTimeBegin != null and '' != workTimeBegin">  
 			,WORK_TIME_BEGIN = #{workTimeBegin,jdbcType=TIME}
+			</if>
+			<if test="workTimeEnd != null and '' != workTimeEnd">  
 			,WORK_TIME_END = #{workTimeEnd,jdbcType=TIME}
+			</if>
+			<if test="storeOwnerName != null and '' != storeOwnerName">  
 			,STORE_OWNER_NAME = #{storeOwnerName,jdbcType=VARCHAR}
+			</if>
+			<if test="storeOwnerTel != null and '' != storeOwnerTel">  
 			,STORE_OWNER_TEL = #{storeOwnerTel,jdbcType=VARCHAR}
+			</if>
+			<if test="proInvoiceFlag != null and '' != proInvoiceFlag">  
 			,PRO_INVOICE_FLAG = #{proInvoiceFlag,jdbcType=CHAR}
+			</if>
+			<if test="remark != null and '' != remark">  
 			,REMARK = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="operateDate != null and '' != operateDate">  
 			,OPERATE_DATE = #{operateDate,jdbcType=DATE}
+			</if>
+			<if test="settlementMethod != null and '' != settlementMethod">  
 			,SETTLEMENT_METHOD = #{settlementMethod,jdbcType=CHAR}
+			</if>
+			<if test="storeTel != null and '' != storeTel">  
 			,STORE_TEL = #{storeTel,jdbcType=VARCHAR}
+			</if>
+			<if test="averageSales != null and '' != averageSales">  
 			,AVERAGE_SALES = #{averageSales,jdbcType=DOUBLE}
+			</if>
+			<if test="elmSale != null and '' != elmSale">  
 			,ELM_SALE = #{elmSale,jdbcType=DOUBLE}
+			</if>
+			<if test="meituanSale != null and '' != meituanSale">  
 			,MEITUAN_SALE = #{meituanSale,jdbcType=DOUBLE}
+			</if>
+			<if test="baiduSale != null and '' != baiduSale">  
 			,BAIDU_SALE = #{baiduSale,jdbcType=DOUBLE}
+			</if>
+			<if test="elmId != null and '' != elmId">  
 			,elm_id = #{elmId,jdbcType=VARCHAR}
+			</if>
+			<if test="elmRate != null and '' != elmRate">  
 			,ELM_RATE = #{elmRate,jdbcType=DOUBLE}
+			</if>
+			<if test="meituanId != null and '' != meituanId">  
 			,meituan_id = #{meituanId,jdbcType=VARCHAR}
+			</if>
+			<if test="meituanRate != null and '' != meituanRate">  
 			,MEITUAN_RATE = #{meituanRate,jdbcType=DOUBLE}
+			</if>
+			<if test="baiduId != null and '' != baiduId">  
 			,baidu_id = #{baiduId,jdbcType=VARCHAR}
+			</if>
+			<if test="baidupwd != null and '' != baidupwd">  
 			,baidu_pwd = #{baidupwd,jdbcType=VARCHAR}
+			</if>
+			<if test="baiduRate != null and '' != baiduRate">  
 			,BAIDU_RATE = #{baiduRate,jdbcType=DOUBLE}
+			</if>
+			<if test="registrant != null and '' != registrant">  
 			,registrant = #{registrant,jdbcType=VARCHAR}
+			</if>
+			<if test="registDate != null and '' != registDate">  
 			,regist_date = #{registDate,jdbcType=DATE}
+			</if>
+			<if test="ownerUserId != null and '' != ownerUserId">  
 			,owner_userId = #{ownerUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="boundType != null and '' != boundType">  
 			,bound_type = #{boundType,jdbcType=VARCHAR}
+			</if>
+			<if test="storeType != null and '' != storeType">  
 			,store_type = #{storeType,jdbcType=VARCHAR}
+			</if>
+			<if test="storeDistMode != null and '' != storeDistMode">  
 			,store_dist_mode = #{storeDistMode,jdbcType=VARCHAR}
+			</if>
 		where STORE_ID = #{storeId,jdbcType=CHAR}
 	</update>
 	

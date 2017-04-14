@@ -1,6 +1,6 @@
 Add={
 		create:function(url,title){
-			if(!add_iframe_dialog)add_iframe_dialog = new biz.dialog({
+			add_iframe_dialog = new biz.dialog({
 				id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 				modal: true,
 				width: $(window).width()*0.6,
@@ -19,7 +19,7 @@ Edit ={
 				return ;
 			}
 			var url=url+"?key="+key;
-			if(!edit_iframe_dialog)edit_iframe_dialog = new biz.dialog({
+			edit_iframe_dialog = new biz.dialog({
 			 	id:$('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 				modal: true,
 				width: $(window).width()*0.6,
