@@ -31,8 +31,8 @@ public class OperaDate extends Model{
 		            /**
 	                 * 日期
 	                 **/
-					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-			private Date createDate;
+					@DateTimeFormat(pattern="yyyy-MM-dd") 
+							private Date createDate;
 		
 		            /**
 	                 * 无效单
@@ -214,8 +214,25 @@ public class OperaDate extends Model{
 	                 **/
 				   			private String platformType;
 		   		
-	
-				
+				   			/*折扣菜金额*/
+				   			private String elmSpecialOffer;
+				   			private String bdSpecialOffer;
+				   			private String mtSpecialOffer;
+				   			/*原价菜金额结算款*/
+				   			private String elmActualPrice;
+				   			private String bdActualPrice;
+				   			private String mtActualPrice;
+				   			/*平台到账调整额*/
+				   			private String elmRecieveAdjust;
+				   			private String bdRecieveAdjust;
+				   			private String mtRecieveAdjust;
+				   			/*结算金额*/
+				   			private String elmSettlement;
+				   			private String bdSettlement;
+				   			private String mtSettlement;
+				   			private String settlement;
+				   			
+				   			
 		  			/**
 			 * 获取 主键
 			 * @return String this.id
@@ -993,6 +1010,110 @@ public class OperaDate extends Model{
 
 			public void setActualPrice(String actualPrice) {
 				this.actualPrice = actualPrice;
+			}
+
+			public String getElmSpecialOffer() {
+				return elmSpecialOffer;
+			}
+
+			public void setElmSpecialOffer(String elmSpecialOffer) {
+				this.elmSpecialOffer = elmSpecialOffer;
+			}
+
+			public String getBdSpecialOffer() {
+				return bdSpecialOffer;
+			}
+
+			public void setBdSpecialOffer(String bdSpecialOffer) {
+				this.bdSpecialOffer = bdSpecialOffer;
+			}
+
+			public String getMtSpecialOffer() {
+				return mtSpecialOffer;
+			}
+
+			public void setMtSpecialOffer(String mtSpecialOffer) {
+				this.mtSpecialOffer = mtSpecialOffer;
+			}
+
+			public String getElmActualPrice() {
+				return elmActualPrice;
+			}
+
+			public void setElmActualPrice(String elmActualPrice) {
+				this.elmActualPrice = elmActualPrice;
+			}
+
+			public String getBdActualPrice() {
+				return bdActualPrice;
+			}
+
+			public void setBdActualPrice(String bdActualPrice) {
+				this.bdActualPrice = bdActualPrice;
+			}
+
+			public String getMtActualPrice() {
+				return mtActualPrice;
+			}
+
+			public void setMtActualPrice(String mtActualPrice) {
+				this.mtActualPrice = mtActualPrice;
+			}
+
+			public String getElmRecieveAdjust() {
+				return elmRecieveAdjust;
+			}
+
+			public void setElmRecieveAdjust(String elmRecieveAdjust) {
+				this.elmRecieveAdjust = elmRecieveAdjust;
+			}
+
+			public String getBdRecieveAdjust() {
+				return bdRecieveAdjust;
+			}
+
+			public void setBdRecieveAdjust(String bdRecieveAdjust) {
+				this.bdRecieveAdjust = bdRecieveAdjust;
+			}
+
+			public String getMtRecieveAdjust() {
+				return mtRecieveAdjust;
+			}
+
+			public void setMtRecieveAdjust(String mtRecieveAdjust) {
+				this.mtRecieveAdjust = mtRecieveAdjust;
+			}
+
+			public String getElmSettlement() {
+				return elmSettlement;
+			}
+
+			public void setElmSettlement(String elmSettlement) {
+				this.elmSettlement = elmSettlement;
+			}
+
+			public String getBdSettlement() {
+				return bdSettlement;
+			}
+
+			public void setBdSettlement(String bdSettlement) {
+				this.bdSettlement = bdSettlement;
+			}
+
+			public String getMtSettlement() {
+				return mtSettlement;
+			}
+
+			public void setMtSettlement(String mtSettlement) {
+				this.mtSettlement = mtSettlement;
+			}
+
+			public String getSettlement() {
+				return settlement;
+			}
+
+			public void setSettlement(String settlement) {
+				this.settlement = settlement;
 			}
 		   		
 		

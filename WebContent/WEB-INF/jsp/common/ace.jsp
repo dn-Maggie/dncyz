@@ -71,6 +71,10 @@
 <script src="<%=request.getContextPath() %>/static/js/ace.min.js"></script>
 <!-- script src="<%=request.getContextPath() %>/static/js/jquery.ui.touch-punch.min.js"></script-->
 
+
+<!-- 其他scripts -->
+<script src="<%=request.getContextPath() %>/js/extend/accounting.min.js"></script>
+
 <style type="text/css">
 	 .table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td{
 		vertical-align: middle;

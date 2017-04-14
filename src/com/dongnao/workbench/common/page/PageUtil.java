@@ -2,6 +2,7 @@ package com.dongnao.workbench.common.page;
 
 import java.io.StringWriter;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -15,6 +16,8 @@ import java.util.Map.Entry;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
+import net.sf.json.processors.DefaultValueProcessor;
+import net.sf.json.processors.JsonValueProcessor;
 import net.sf.json.util.CycleDetectionStrategy;
 
 import org.codehaus.jackson.JsonGenerator;
@@ -99,6 +102,12 @@ public class PageUtil {
 		config.registerJsonValueProcessor(java.sql.Timestamp.class, new DateJsonValueProcessor(Constants.DATE_TIME_FORMATE));  
 		config.registerJsonValueProcessor(java.util.Date.class, new DateJsonValueProcessor(Constants.DATE_FORMATE));  
 		config.registerJsonValueProcessor(java.sql.Time.class, new DateJsonValueProcessor(Constants.TIME_FORMATE));
+		config.registerDefaultValueProcessor(java.math.BigDecimal.class, new DefaultValueProcessor() {
+			@Override
+			public Object getDefaultValue(Class arg) {
+				return new BigDecimal(0).setScale(2, BigDecimal.ROUND_HALF_UP); 
+			}
+		});
 		JSONArray jsonArray=JSONArray.fromObject(page.getResult(),config);
 		stringbuffer.append(jsonArray);
 		/**采用JSON解析结果集内容---end */
@@ -145,16 +154,7 @@ public class PageUtil {
 	public static String toJson4Entity(Entity entity, boolean booleanObject,
 			String columns) {
 		if (booleanObject){
-			if (StringUtil.isBlank(columns)){
-				return entity.toJson();
-			}else{
-				//return entity.toJson(columns);
-			}
-		}
-		if (StringUtil.isBlank(columns)){
-			//return entity.toJsonAsArray();
-		}else{
-			//return entity.toJsonAsArray(columns);
+			if (StringUtil.isBlank(columns))return entity.toJson();
 		}
 		return null;
 	}
@@ -310,7 +310,9 @@ public class PageUtil {
 					Constants.TIME_FORMATE);
 
 			stringbuffer.append(simpledateformat.format(obj));
-		} 
+		}else if (obj instanceof BigDecimal) {
+			stringbuffer.append((new BigDecimal((char[]) obj).setScale(0, BigDecimal.ROUND_HALF_UP)));
+		}
 		else {
 			stringbuffer.append(replaceSpecChar(obj));
 		}

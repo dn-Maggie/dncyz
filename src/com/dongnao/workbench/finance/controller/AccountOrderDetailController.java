@@ -94,11 +94,14 @@ public class AccountOrderDetailController{
 	public ModelAndView toList(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOrderDetail/listAccountOrderDetail");
 		 Store store = new Store();
+			boolean isAdmin = true;
 	 		if(!Utils.isSuperAdmin(request)){
 	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
- 			}
- 			mv.addObject("store",storeService.listByCondition(store));
-		 return mv;
+	 			isAdmin = false;
+			}
+			mv.addObject("store",storeService.listByCondition(store));
+			mv.addObject("isAdmin",isAdmin);
+	 		return mv;
 	}
 	
 	
@@ -162,7 +165,7 @@ public class AccountOrderDetailController{
 	public void listGoods(AccountOrderDetail accountOrderDetail,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		accountOrderDetail.setPage(page);	
-		List<AccountSaleGoods> list = accountOrderDetailService.listGoodsFromOrderDetail(accountOrderDetail);
+		List<AccountSaleGoods> list = accountOrderDetailService.listGoods(accountOrderDetail);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}	
 	 /**
@@ -202,7 +205,7 @@ public class AccountOrderDetailController{
 				orderDetail.setOrderNo(StringUtil.valueOf(lo.get(8)));
 				orderDetail.setOrginPrice(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(9))));
 				orderDetail.setMealFee(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(10))));
-				orderDetail.setGiftAllowance(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(11))));
+				orderDetail.setActualPrice(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(11))));
 				orderDetail.setMerchantActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(12))));//商户承担活动补贴(总额)
 				orderDetail.setActivitiesSubsidyBymerchant(lo.get(23).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(23))));//商户承担活动补贴(菜品折扣部分)
 				orderDetail.setFoodDiscount(lo.get(25).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(25))));//折扣后菜价
@@ -268,7 +271,7 @@ public class AccountOrderDetailController{
 								StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(15))).add(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(27))))
 								)); //菜品原价= 订单总金额-(配送费+餐盒费）
 				orderDetail.setMealFee(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(27))));//餐盒费
-				orderDetail.setGiftAllowance(new BigDecimal(0)); //赠品补贴
+				orderDetail.setActualPrice(new BigDecimal(0)); //赠品补贴
 				
 				orderDetail.setMerchantActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf("-"+lo.get(13))));//商户承担活动补贴(总额)
 				orderDetail.setActivitiesSubsidyBymerchant(lo.get(33).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(33))));//商户承担活动补贴(菜品折扣部分)
@@ -339,7 +342,7 @@ public class AccountOrderDetailController{
 				orderDetail.setOrderNo(StringUtil.valueOf(lo.get(8)));
 				orderDetail.setOrginPrice(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(9))));
 				orderDetail.setMealFee(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(10))));
-				orderDetail.setGiftAllowance(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(11))));
+				orderDetail.setActualPrice(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(11))));
 				/*orderDetail.setActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(12))));
 				orderDetail.setSubsidyVouchers(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(13))));
 				orderDetail.setMerchantCharge(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(14))));

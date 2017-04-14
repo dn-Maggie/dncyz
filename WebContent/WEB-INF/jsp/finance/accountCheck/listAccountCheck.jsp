@@ -10,56 +10,45 @@
 var gridObj = {};
 //汇总对账表头
 var totalColModel = [{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
-						/* {name : "storeName",label:"商户名称",index : "store_name"}, */				
+                     	{name : "storeName",label:"店铺名称",index : "store_name"},				
 						{name : "createDate",label:"日期",index : "create_date"},				
 						{name : "validNum",label:"订单数",index : "valid_num"},	
-						{name : "specialOffer",label:"特价菜结算",index : "special_offer"},
-						{name : "actualPrice",label:"原价菜金额",index : "actual_price",editFlag:true,calculate:"rData['orginPrice']+rData['mealFee']-rData['specialOrgin']",
-	     					formatter : cellFormat},				
-						{name : "amountPayable",label:"结算金额",index : "amount_payable"}
+						{name : "specialOffer",label:"特价菜结算",index : "special_offer",formatter:Finance.formatAccountting},
+						{name : "actualPrice",label:"原价菜金额",index : "actual_price",formatter:Finance.formatAccountting},				
+						{name : "amountPayable",label:"结算金额",index : "amount_payable",formatter:Finance.formatAccountting}
                      ];
 //绑商家卡对账表表头    
 var boundMerchantModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/>?type=boundMerchant",
 					 		colModel:[
-							/* {name : "storeName",label:"商户名称",index : "store_name"}, */	
+							{name : "storeName",label:"店铺名称",index : "store_name"},
 							{name : "createDate",label:"日期",index : "create_date"},				
 							{name : "invalidNum",label:"无效单量",index : "invalid_num"},		
 							{name : "validNum",label:"有效单量",index : "valid_num"},	
-							{name : "orginPrice",label:"原价",index : "orgin_price"},				
-							{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
-							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin"},	
-							{name : "specialOffer",label:"特价菜结算",index : "special_offer"},
-							{name : "actualPrice",label:"原价菜金额",index : "actual_price",editFlag:true,calculate:"rData['orginPrice']+rData['mealFee']-rData['specialOrgin']",
-		     					formatter : cellFormat},				
-							{name : "amountPayable",label:"结算金额",index : "amount_payable"}
+							{name : "orginPrice",label:"原价",index : "orgin_price",formatter:Finance.formatAccountting},				
+							{name : "mealFee",label:"餐盒费",index : "meal_fee",formatter:Finance.formatAccountting},				
+							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin",formatter:Finance.formatAccountting},	
+							{name : "specialOffer",label:"特价菜结算",index : "special_offer",formatter:Finance.formatAccountting},
+							{name : "actualPrice",label:"原价菜金额",index : "actual_price",formatter:Finance.formatAccountting},				
+							{name : "amountPayable",label:"结算金额",index : "amount_payable",formatter:Finance.formatAccountting}
 		           		]};
 //绑公司卡对账表表头         
 var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/>?type=boundCompany",
 						colModel:[
-							/* {name : "storeName",label:"商户名称",index : "store_name"}, */	
+							{name : "storeName",label:"店铺名称",index : "store_name"},
 							{name : "createDate",label:"日期",index : "create_date"},				
 							{name : "invalidNum",label:"无效单量",index : "invalid_num"},		
 							{name : "validNum",label:"有效单量",index : "valid_num"},	
-							{name : "orginPrice",label:"原价",index : "orgin_price"},				
-							{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
-							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin"},	
-							{name : "specialOffer",label:"特价菜结算",index : "special_offer"},
-							{name : "actualPrice",label:"原价菜金额",index : "actual_price",editFlag:true,calculate:"rData['orginPrice']+rData['mealFee']-rData['specialOrgin']",
-		     					formatter : cellFormat},				
-							{name : "amountPayable",label:"结算金额",index : "amount_payable"}
+							{name : "orginPrice",label:"原价",index : "orgin_price",formatter:Finance.formatAccountting},				
+							{name : "mealFee",label:"餐盒费",index : "meal_fee",formatter:Finance.formatAccountting},				
+							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin",formatter:Finance.formatAccountting},	
+							{name : "specialOffer",label:"特价菜结算",index : "special_offer",formatter:Finance.formatAccountting},
+							{name : "actualPrice",label:"原价菜金额",index : "actual_price",formatter:Finance.formatAccountting},				
+							{name : "amountPayable",label:"结算金额",index : "amount_payable",formatter:Finance.formatAccountting}
 		           		]};
 	$(function(){
 		initGrid("boundMerchant");
 		Finance.changeTabMenu();
     });
-	//格式化cell
-	function cellFormat(value, options, rData){
-		if(rData.raw){
-			return value;
-		}else if(options.colModel.calculate.indexOf("rData")>0){
-			return eval(options.colModel.calculate);
-		}return value;
-	};
 	//初始化grid
 	function initGrid(ways){
 		if(localStorage.getItem(ways+"Model")){
@@ -115,9 +104,10 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
 				<ul>
 				<li><span>商户名称：</span>
 					<select class="search_select choose_select" name="storeName" id="storeName">
-							<c:forEach var="store" items="${store}">
-								<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
-				             </c:forEach>
+						<c:if test="${isAdmin}"><option value = "">所有店铺</option></c:if>
+						<c:forEach var="store" items="${store}">
+							<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
+			             </c:forEach>
 					</select>
 				</li>
 				<li>
@@ -130,8 +120,8 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
 					<i class="search_time_ico2" ></i>
 					</div>
 				</li>
-				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
-					 <option value="elm">饿了么</option><option value="meituan">美团</option>
+				<li><select class="search_select" name="platformType" id="platformType"><option value="">所有平台</option>
+					 <option value="elm">饿了么</option><option value="mt">美团</option><option value="bdwm">百度</option>
 					</select><span>平台类型:</span></li><!--下拉 -->
 				<li><input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置"><!-- 重置 -->
 						<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridObj);" value="查询"></li><!-- 查询-->
@@ -143,12 +133,12 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
 						<c:if test="${configTitle}">
-							<li>
+							<!-- li>
 								<a title="配置表头标题" href="javascript:;" onclick="Finance.configTitle()"> 
 									<i class="back_icon permissions_icon"> </i> 
 									<span>配置表头</span>
 								</a>
-							</li>
+							</li-->
 						</c:if>
 						<c:if test="${show}">
 						<li>

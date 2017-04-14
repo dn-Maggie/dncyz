@@ -8,81 +8,28 @@
 <title></title>
 <script type="text/javascript">
 var gridObj = {};
-//格式化cell
-function cellFormat(value, options, rData){
-	if(rData.raw){
-		return value;
-	}else if(options.colModel.calculate.indexOf("rData")>0){
-		return eval(options.colModel.calculate);
-	}return value;
-};
 //菜品数量表表头
-var goodsQuantityModel = {url: "<m:url value='/accountOrderDetail/listAccountSaleGoods.do'/>",
+var goodsModel = {url: "<m:url value='/accountOrderDetail/listAccountSaleGoods.do'/>",
 						colModel:[
 						{name : "id",hidden : true,key : true,label:"主键",index : "id"},						
-						/* {name : "storeName",label:"商户名称",index : "store_name"}, */	
+						{name : "storeName",label:"商户名称",index : "store_name"}, 
 						{name : "createDate",label:"日期",index : "create_date"},		
-						{name : "goodsName",label:"商品名称"},	
-						{name : "goodsQuality",label:"销售量",isBasic:true},	
-						{name : "goodsPrice",label:"结算单价",isBasic:true},	
-						{name : "",label:"销售额",calculate:"rData['goodsQuality'] * rData['goodsPrice']",editFlag:true,
-							formatter : cellFormat},	
-        				{name : "platformType",label:"平台类型",index : "platform_type",calculate:"value!='elm'?value!='meituan'?'百度':'美团':'饿了么';",
-							},
+						{name : "goodName",label:"菜品名称",index : "good_name"},	
+						{name : "goodNum",label:"销售数量",index : "good_num"},		
+						{name : "goodUnitPrice",label:"结算单价",index : "good_unit_price",formatter:Finance.formatAccountting},	
+						{name:"goodsPrice",label:"销售额",formatter:Finance.formatAccountting},
+						{name : "platformType",label:"平台类型",index : "platform_type",formatter:GridColModelForMatter.platformType},
 				       	]};
 	$(function(){
-			initGrid("goodsQuantity");
+		initGrid("goods");
     });
 	//初始化grid
 	function initGrid(ways){
-		if(localStorage.getItem(ways+"Model")){
-			var localStorageModel= $.each(JSON.parse(localStorage.getItem(ways+"Model")), function(idx, obj) {
-				if(obj.serial){
-					obj.formatter=cellFormat;
-				}
-			    return obj;
-			});
-		}
-		gridObj = Finance.createGrid(ways,localStorageModel,false,false);
-		$("#"+ways).setColProp('calculate');
-		$("#"+ways).setColProp('isBasic');
-		$("#"+ways).setColProp('editFlag');
+		gridObj = Finance.createGrid(ways,goodsModel.colModel,true,false);
 	}
-	
-	//config grid
-	function loadConfigGrid(ways,colModel){
-		$(".listtable_box").html("");
-		$(".listtable_box").html('<table id="'+ways+'" ></table><div id="'+ways+'prowed"></div>');
-		gridObj = Finance.loadConfigGrid(ways,colModel,false,false);
-		$("#"+ways).setColProp('calculate');
-		$("#"+ways).setColProp('isBasic');
-		$("#"+ways).setColProp('editFlag');
+	function exportData(){
+		ExpExcel.showWin(gridObj,baseUrl+"/operaDate/exportExcel.do",'grid',gridObj.id);
 	}
-	//配置的弹出框
-	var config_iframe_dialog;
-	//关闭配置页面，供子页面调用
-  	function closeConfig(){
-  		config_iframe_dialog.close();
-  	}
- 	//生成运营汇总表
-    function genTotal(){
-    	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
-    	var orderSaleRate = eval(tableId+"orderSaleRate");
-   		$ .ajax({
-   			type: "post",
-   			data:{orderSaleRate:orderSaleRate,
-   					id:tableId},
-			url: baseUrl+"/accountOperaTotal/addTotalByOperaDetail.do?type="+tableId,
-			cache:false,
-			dataType:"json"
-		});
-    }
-  	//获取表头	
-    function getColModel(){
-    	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id')
-    	var columnNames = $("#"+tableId).jqGrid('getGridParam','colModel');
-    	return columnNames;
-    }
 </script>
 </head>
 <body style="height:100%;">
@@ -92,9 +39,10 @@ var goodsQuantityModel = {url: "<m:url value='/accountOrderDetail/listAccountSal
 				<ul>
 				<li><span>商户名称：</span>
 				<select class="search_select choose_select" name="storeName" id="storeName">
-						<c:forEach var="store" items="${store}">
-							<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
-			             </c:forEach>
+					<c:if test="${isAdmin}"><option value = "">所有店铺</option></c:if>
+					<c:forEach var="store" items="${store}">
+						<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
+		             </c:forEach>
 				</select>
 				</li>
 				<li>
@@ -108,7 +56,7 @@ var goodsQuantityModel = {url: "<m:url value='/accountOrderDetail/listAccountSal
 					</div>
 				</li>
 				 <li><select class="search_select" name="platformType" id="platformType"><option value=""></option>
-					 <option value="elm">饿了么</option><option value="meituan">美团</option><option value="baidu">百度</option>
+					 <option value="elm">饿了么</option><option value="mt">美团</option><option value="bdwm">百度</option>
 					</select><span>平台类型:</span></li><!--下拉 -->
 				<li><input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置"><!-- 重置 -->
 						<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridObj);" value="查询"></li><!-- 查询-->
@@ -132,8 +80,8 @@ var goodsQuantityModel = {url: "<m:url value='/accountOrderDetail/listAccountSal
 			<!--功能按钮end-->
 				<div class="listtable_box">
 					<!--此处放表格-->
-					<table  id="goodsQuantity" ></table>
-					<div  id="goodsQuantityprowed"></div>	
+					<table  id="goods" ></table>
+					<div  id="goodsprowed"></div>	
 				</div>
 		</div>
 	</div>

@@ -10295,7 +10295,7 @@ function isIdCardNo(num) {
             
             switch( type ) {
                 case 'alert':
-                    $("#popup_message").after('<div id="popup_panel" style="text-align: right;"><button  value="' + $.alerts.okButton + '" id="popup_ok" /></div>');
+                    $("#popup_message").after('<div id="popup_panel" style="text-align: right;"><input type="button" value="' + $.alerts.okButton + '" id="popup_ok" /></div>');
                 
                     $("#popup_ok").button({ label:I18N.confirm}).click( function() {
                         if($.alerts.time){
@@ -10310,7 +10310,7 @@ function isIdCardNo(num) {
                     });
                 break;
                 case 'confirm':
-                    $("#popup_message").after('<div id="popup_panel" style="text-align: right;"><button value="' + $.alerts.okButton + '" id="popup_ok" /> <button value="' + $.alerts.cancelButton + '" id="popup_cancel" /></div>');
+                    $("#popup_message").after('<div id="popup_panel" style="text-align: right;"><input type="button" value="' + $.alerts.okButton + '" id="popup_ok" /><input type="button" value="' + $.alerts.cancelButton + '" id="popup_ok" /></div>');
                     $("#popup_ok").button({ label:I18N.confirm}).click( function() {
                         $.alerts._hide();
                         if( callback ) callback(true);
@@ -10326,7 +10326,7 @@ function isIdCardNo(num) {
                     });
                 break;
                 case 'prompt':
-                    $("#popup_message").append('<br /><input type="text" size="30" id="popup_prompt" />').after('<div id="popup_panel"><button value="' + $.alerts.okButton + '" id="popup_ok" /> <button value="' + $.alerts.cancelButton + '" id="popup_cancel" /></div>');
+                    $("#popup_message").append('<br /><input type="text" size="30" id="popup_prompt" />').after('<div id="popup_panel"><input type="button" value="' + $.alerts.okButton + '" id="popup_ok" /> <input type="button" value="' + $.alerts.cancelButton + '" id="popup_ok" /></div>');
                     //$("#popup_prompt").width( $("#popup_message").width() );
                     $("#popup_ok").button({ label:I18N.confirm}).click( function() {
                         var val = $("#popup_prompt").val();

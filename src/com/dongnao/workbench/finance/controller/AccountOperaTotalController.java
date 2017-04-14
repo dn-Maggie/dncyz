@@ -82,11 +82,14 @@ public class AccountOperaTotalController{
 	public ModelAndView toList(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperaTotal/listAccountOperaTotal");
 		 Store store = new Store();
+			boolean isAdmin = true;
 	 		if(!Utils.isSuperAdmin(request)){
 	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+	 			isAdmin = false;
 			}
-		mv.addObject("store",storeService.listByCondition(store));
-		 return mv;
+			mv.addObject("store",storeService.listByCondition(store));
+			mv.addObject("isAdmin",isAdmin);
+	 		return mv;
 	}
 	
 	

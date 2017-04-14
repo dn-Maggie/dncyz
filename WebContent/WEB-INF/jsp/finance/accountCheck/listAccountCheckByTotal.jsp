@@ -9,28 +9,28 @@
 <script type="text/javascript">
 var checkModel = {url: "<m:url value='/accountCheck/listTotalAccountCheck.do'/>",
 				  colModel:[
-					/* {name : "storeName",label:"商户名称",index : "store_name"}, */	
+					{name : "storeName",label:"店铺名称",index : "store_name"},
 					{name : "createDate",label:"日期",index : "create_date"},				
-					{name : "elmspecialOffer",label:"折扣菜金额"},	//特价菜结算			
-					{name : "elmactualPrice",label:"饿了么结算款"},	//原价菜金额
-					{name : "bdspecialOffer",label:"折扣菜金额"},				
-					{name : "bdactualPrice",label:"百度结算款"},
-					{name : "mtspecialOffer",label:"折扣菜金额"},				
-					{name : "mtactualPrice",label:"美团结算款"},
-					{name : "",label:"三平台小计"},		
-					{name : "",label:"70%结算"},		
-					{name : "",label:"特价菜结算"},		
-					{name : "",label:"调整金额"},		
-					{name : "",label:"实际结算"},		
-					{name : "",label:"备注"},		
-					{name : "elmRecieve",label:"饿了么平台到账"},	
-					{name : "bdRecieve",label:"百度平台到账"},
-					{name : "mtRecieve",label:"美团平台到账"},
-					{name : "specialOffer",label:"其他（线下支付、商米扣款）"},	
-					{name : "elmSettlement",label:"饿了么结算金额"},	
-					{name : "bdSettlement",label:"百度结算金额"},
-					{name : "mtSettlement",label:"美团结算金额"},
-					{name : "specialOffer",label:"合计"},		
+					{name : "elmSpecialOffer",label:"饿了么折扣菜金额",formatter:Finance.formatAccountting},	//特价菜结算			
+					{name : "elmActualPrice",label:"饿了么结算款",formatter:Finance.formatAccountting},	//原价菜金额
+					{name : "bdSpecialOffer",label:"百度折扣菜金额",formatter:Finance.formatAccountting},				
+					{name : "bdActualPrice",label:"百度结算款",formatter:Finance.formatAccountting},
+					{name : "mtSpecialOffer",label:"美团折扣菜金额",formatter:Finance.formatAccountting},				
+					{name : "mtActualPrice",label:"美团结算款",formatter:Finance.formatAccountting},
+					{name : "actualPrice",label:"三平台小计",formatter:Finance.formatAccountting},	//三平台结算款合计	
+					{name : "amountRatePayable",label:"70%结算",formatter:Finance.formatAccountting},		//三平台结算款合计*70%
+					{name : "specialOffer",label:"特价菜结算",formatter:Finance.formatAccountting},	//三平台折扣菜金额合计
+					{name : "orderSaleRate",label:"调整金额",formatter:Finance.formatAccountting},		//？
+					{name : "allotherBasePrice",label:"实际结算",formatter:Finance.formatAccountting},		//70%结算+特价结算
+					{name : "remark",label:"备注"},		
+					{name : "elmRecieveAdjust",label:"饿了么平台到账",formatter:Finance.formatAccountting},	//？
+					{name : "bdRecieveAdjust",label:"百度平台到账",formatter:Finance.formatAccountting},//？
+					{name : "mtRecieveAdjust",label:"美团平台到账",formatter:Finance.formatAccountting},//？
+					{name : "otherAll",label:"其他（线下支付、商米扣款）",formatter:Finance.formatAccountting},	 
+					{name : "elmSettlement",label:"饿了么结算金额",formatter:Finance.formatAccountting},	//饿了么折扣菜+结算款*70%
+					{name : "bdSettlement",label:"百度结算金额",formatter:Finance.formatAccountting},
+					{name : "mtSettlement",label:"美团结算金额",formatter:Finance.formatAccountting},
+					{name : "settlement",label:"合计",formatter:Finance.formatAccountting},		
 	           		]}
 var gridObj = {};
 	$(function(){
@@ -50,10 +50,8 @@ var gridObj = {};
 			jQuery("#check").jqGrid('setGroupHeaders', {
 		    useColSpanStyle: true, 
 		    groupHeaders:[
-			   {startColumnName: 'elmspecialOffer', numberOfColumns:2, titleText: '饿了么'},
-			   {startColumnName: 'bdspecialOffer', numberOfColumns:2, titleText: '百度'},
-			   {startColumnName: 'mtspecialOffer', numberOfColumns:2, titleText: '美团'},
-			   {startColumnName: 'elmRecieve', numberOfColumns:4, titleText: '调整金额'},
+			   {startColumnName: 'elmSpecialOffer', numberOfColumns:6, titleText: '对账结算表'},
+			   {startColumnName: 'elmRecieveAdjust', numberOfColumns:2, titleText: '调整金额'},
 			   {startColumnName: 'elmSettlement', numberOfColumns:4, titleText: '各平台商家结算金额'},
 		    ]
 		  });
@@ -70,6 +68,7 @@ var gridObj = {};
 				<ul>
 				<li><span>商户名称：</span>
 					<select class="search_select choose_select" name="storeName" id="storeName">
+						<c:if test="${isAdmin}"><option value = "">所有店铺</option></c:if>
 						<c:forEach var="store" items="${store}">
 							<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
 			            </c:forEach>
@@ -85,11 +84,11 @@ var gridObj = {};
 					<i class="search_time_ico2" ></i>
 					</div>
 				</li>
-				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
-					 <option value="elm">饿了么</option><option value="meituan">美团</option>
+				<li><select class="search_select" name="platformType" id="platformType"><option value="">所有平台</option>
+					 <option value="elm">饿了么</option><option value="mt">美团</option><option value="bdwm">百度</option>
 					</select><span>平台类型:</span></li><!--下拉 -->
-				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
-					<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
+				<li><input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置"><!-- 重置 -->
+					<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridObj);" value="查询"></li><!-- 查询-->
 				</ul>
 		   </div>
 	    </form>

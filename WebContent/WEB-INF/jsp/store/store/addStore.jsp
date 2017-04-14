@@ -174,7 +174,7 @@ $(function() {
 					 <input type="hidden" id="edit_storeId" name="storeId" type="text" value="${store.storeId}"/>
 					 <table class="table">
 					 	<tr>	
-					 		<td class="inputLabelTd">关联店铺账号：</td>
+					 		<td class="inputLabelTd"><span class="required">*</span>关联店铺账号：</td>
 							<td class="inputTd">
 								<select class="search_select" name="ownerUserId" id="edit_ownerUserId">
 									<c:forEach items="${user}" var="user">
@@ -182,7 +182,7 @@ $(function() {
 									</c:forEach>
 								</select>
 							</td>
-							<td class="inputLabelTd">绑卡类型：</td>
+							<td class="inputLabelTd"><span class="required">*</span>绑卡类型：</td>
 							<td class="inputTd">
 								<select class="search_select" name="boundType" id="edit_boundType">
 									<option value="1">绑商家卡</option>
@@ -191,7 +191,7 @@ $(function() {
 							</td>
 						</tr>
 						<tr>
-							<td class="inputLabelTd">店铺名称：</td>
+							<td class="inputLabelTd"><span class="required">*</span>店铺名称：</td>
 							<td class="inputTd">
 								<input id="edit_storeName" name="storeName" type="text" class="text" value="${store.storeName}"/>
 							</td>
@@ -219,7 +219,29 @@ $(function() {
 							</td>
 						</tr>
 						<tr>
-							<td class="inputLabelTd">营业时间起：</td>
+							<td class="inputLabelTd"><span class="required">*</span>配送方式：</td>
+							<td class="inputTd">
+								<input id="edit_storeDistMode" name="storeDistMode" type="text" class="text" value="${store.storeDistMode}" list="distModeList"/>
+								<datalist id="distModeList">
+									<option value="自配送"></option>
+									<option value="自配送（饿了么、百度）"></option>
+									<option value="自配送（饿了么、美团）"></option>
+									<option value="专送"></option>
+									<option value="专送（美团）"></option>
+								</datalist>
+							</td>
+							<td class="inputLabelTd"><span class="required">*</span>店铺类型：</td>
+							<td class="inputTd">
+								<input id="edit_storeType" name="storeType" type="text" class="text" value="${store.storeType}" list="storeTypeList"/>
+								<datalist id="storeTypeList">
+									<option value="夜宵"></option>
+									<option value="正餐"></option>
+									<option value="沙拉类"></option>
+								</datalist>
+							</td>
+						</tr>
+						<tr>
+							<td class="inputLabelTd"><span class="required">*</span>营业时间起：</td>
 							<td class="inputTd">
 								<div class="input-group bootstrap-timepicker">
 									<input class="timepicker text" name="workTimeBegin" id="edit_workTimeBegin" type="text" />
@@ -228,7 +250,7 @@ $(function() {
 									</span>
 								</div>
 							</td>
-							<td class="inputLabelTd">营业时间止：</td>
+							<td class="inputLabelTd"><span class="required">*</span>营业时间止：</td>
 							<td class="inputTd">
 								<div class="input-group bootstrap-timepicker">
 									<input class="timepicker text" name="workTimeEnd" id="edit_workTimeEnd" type="text" />
@@ -320,21 +342,21 @@ $(function() {
 							</td>
 						</tr>
 						<tr>
-							<td class="inputLabelTd">饿了么平台商铺ID：</td>
+							<td class="inputLabelTd"><span class="required">*</span>饿了么平台商铺ID：</td>
 							<td class="inputTd">
 								<input id="edit_elmId" name="elmId" type="text" class="text" value="${store.elmId}"/>
 							</td>
-							<td class="inputLabelTd">美团平台商铺账号：</td>
+							<td class="inputLabelTd"><span class="required">*</span>美团平台商铺账号：</td>
 							<td class="inputTd">
 								<input id="edit_meituanId" name="meituanId" type="text" class="text" value="${store.meituanId}"/>
 							</td>
 						</tr>
 						<tr>
-							<td class="inputLabelTd">百度平台商铺账号：</td>
+							<td class="inputLabelTd"><span class="required">*</span>百度平台商铺账号：</td>
 							<td class="inputTd">
 								<input id="edit_baiduId" name="baiduId" type="text" class="text" value="${store.baiduId}"/>
 							</td>
-							<td class="inputLabelTd">百度平台商铺密码：</td>
+							<td class="inputLabelTd"><span class="required">*</span>百度平台商铺密码：</td>
 							<td class="inputTd">
 								<input id="edit_baidupwd" name="baidupwd" type="text" class="text" value="${store.baidupwd}"/>
 							</td>

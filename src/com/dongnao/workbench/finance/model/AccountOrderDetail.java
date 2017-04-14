@@ -28,7 +28,7 @@ public class AccountOrderDetail extends Model{
 	                 * 创建日期
 	                 **/
 					@DateTimeFormat(pattern="yyyy-MM-dd") 
-					private Date createDate;
+						private Date createDate;
 		
 
 					/** 配送地址
@@ -91,9 +91,9 @@ public class AccountOrderDetail extends Model{
 				   			private BigDecimal productSaleAmount;
 		   		
 		            /**
-	                 * 赠品补贴
+	                 * 原价菜金额
 	                 **/
-				   			private BigDecimal giftAllowance;
+				   			private BigDecimal actualPrice;
 		   		
 		            /**
 	                 * 商户承担活动补贴
@@ -525,16 +525,16 @@ public class AccountOrderDetail extends Model{
 			 * 获取 赠品补贴
 			 * @return String this.giftAllowance
 			 */
-			public BigDecimal getGiftAllowance(){
-				return this.giftAllowance;
+			public BigDecimal getActualPrice(){
+				return this.actualPrice;
 			}
 			
 			/**
 			 * 设置 赠品补贴
 			 * @param String giftAllowance 
 			 */
-			public void setGiftAllowance(BigDecimal giftAllowance){
-				this.giftAllowance = giftAllowance;
+			public void setActualPrice(BigDecimal actualPrice){
+				this.actualPrice = actualPrice;
 			}
 		   		
 		

@@ -1,17 +1,28 @@
 GridColModelForMatter = {
 	// 计划附件状态
 	fjFlag : function(cellvalue, options, cellObject) {
+		debugger;
 		if (cellvalue == "0")
 			return "无";
 		else
 			return "有";
 	},
+	// 平台类型
+	platformType : function(cellvalue, options, cellObject) {
+		switch (cellvalue) {
+		case "bdwm":return "百度外卖";
+		case "elm":return "饿了么";
+		case "mt":return "美团";
+		default:
+			return "";
+		}
+	},
 	// 是否分前缀
 	fontAddressFlag : function(cellvalue, options, cellObject) {
 		if (cellvalue == "1")
-			return "是";
+			return "否（模糊查询）";
 		else
-			return "否";
+			return "是（精准匹配）";
 	},
 	// 订单类型状态
 	orderType : function(cellvalue, options, cellObject) {
@@ -25,10 +36,10 @@ GridColModelForMatter = {
 	// 是否状态
 	yesno : function(cellvalue, options, cellObject) {
 		switch (cellvalue) {
-		case "0":return "否";
-		case "1":return "是";
+		case "0":return "<i value='3' class='state_icons icon_nochange'>";
+		case "1":return "<i value='0' class='state_icons icon_enabled'>";
 		default:
-			return "否";
+			return "<i value='0' class='state_icons icon_nochange'>";
 		}
 	},
 	// 产品状态

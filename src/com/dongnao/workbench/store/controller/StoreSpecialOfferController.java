@@ -44,12 +44,15 @@ public class StoreSpecialOfferController{
  	@RequestMapping("/toAddStoreSpecialOffer")
 	public ModelAndView toAdd(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/storeSpecialOffer/addStoreSpecialOffer");
-		 Store store = new Store();
-	 		if(!Utils.isSuperAdmin(request)){
-	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
-			}
-	 		mv.addObject("store",storeService.listByCondition(store));
-		return mv;
+		Store store = new Store();
+		boolean isAdmin = true;
+ 		if(!Utils.isSuperAdmin(request)){
+ 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+ 			isAdmin = false;
+		}
+		mv.addObject("store",storeService.listByCondition(store));
+		mv.addObject("isAdmin",isAdmin);
+ 		return mv;
 	}
 	
 	/**
@@ -102,11 +105,14 @@ public class StoreSpecialOfferController{
 	public ModelAndView toList(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/storeSpecialOffer/listStoreSpecialOffer");
 		 Store store = new Store();
+			boolean isAdmin = true;
 	 		if(!Utils.isSuperAdmin(request)){
 	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+	 			isAdmin = false;
 			}
-	 		mv.addObject("store",storeService.listByCondition(store));
-		 return mv;
+			mv.addObject("store",storeService.listByCondition(store));
+			mv.addObject("isAdmin",isAdmin);
+	 		return mv;
 	}
 	
 	/**

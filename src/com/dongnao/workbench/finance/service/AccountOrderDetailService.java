@@ -53,7 +53,7 @@ public interface AccountOrderDetailService  {
 	/**
 	 * 根据订单计算出菜品数量表
 	 */
-	public List<AccountSaleGoods> listGoodsFromOrderDetail(AccountOrderDetail accountOrderDetail);
+	public List<AccountSaleGoods> listGoods(AccountOrderDetail accountOrderDetail);
 	/**
 	 * 修改自配送实际支付金额方法
 	 * @param accountOrderDetail AccountOrderDetail 实体对象

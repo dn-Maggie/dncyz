@@ -25,8 +25,14 @@ public class AccountSaleGoods extends Model{
 		   		
 		            /**
 	                 * 店铺名称
-	                 **/
+	                 **/	
+	                 
 				   			private String storeName;
+		   			/**
+	                 * 日期
+	                 **/
+					@DateTimeFormat(pattern="yyyy-MM-dd") 
+							private Date createDate;
 		   		
 		            /**
 	                 * 订单编号
@@ -47,7 +53,7 @@ public class AccountSaleGoods extends Model{
 	                 * 销售数量
 	                 **/
 				   			private Integer goodNum;
-		   		
+				   			private String goodsPrice;
 		            /**
 	                 * 平台类型
 	                 **/
@@ -209,6 +215,22 @@ public class AccountSaleGoods extends Model{
 			 */
 			public void setPlatformType(String platformType){
 				this.platformType = platformType;
+			}
+
+			public String getGoodsPrice() {
+				return goodsPrice;
+			}
+
+			public void setGoodsPrice(String goodsPrice) {
+				this.goodsPrice = goodsPrice;
+			}
+
+			public Date getCreateDate() {
+				return createDate;
+			}
+
+			public void setCreateDate(Date createDate) {
+				this.createDate = createDate;
 			}
 		   		
 		

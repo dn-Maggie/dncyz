@@ -85,7 +85,7 @@ public class AccountOrderDetailServiceImpl implements AccountOrderDetailService{
 	/**
 	 * 根据订单计算出菜品数量表
 	 */
-	public List<AccountSaleGoods> listGoodsFromOrderDetail(AccountOrderDetail accountOrderDetail) {
-		return accountOrderDetailMapper.listGoodsFromOrderDetail(accountOrderDetail);
+	public List<AccountSaleGoods> listGoods(AccountOrderDetail accountOrderDetail) {
+		return accountOrderDetailMapper.listGoods(accountOrderDetail);
 	}
 }

@@ -43,6 +43,8 @@
 					<result column="corporate_withidcard_back" property="corporateWithidcardBack" jdbcType="VARCHAR" />
 					<result column="owner_userId" property="ownerUserId" jdbcType="VARCHAR" />
 					<result column="bound_type" property="boundType" jdbcType="VARCHAR" />
+					<result column="store_type" property="storeType" jdbcType="VARCHAR" />
+					<result column="store_dist_mode" property="storeDistMode" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		 	 STORE_ID
@@ -86,6 +88,8 @@
 			,corporate_withidcard_back
 			,owner_userId
 			,bound_type
+			,store_type
+			,store_dist_mode
 		</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -132,6 +136,8 @@
 			,s.corporate_withidcard_back
 			,s.owner_userId
 			,s.bound_type
+			,s.store_type
+			,s.store_dist_mode
 		from dn_store as s
 		left join dn_brand as b on b.BRAND_ID = s.BRAND_ID
 		where s.STORE_ID = #{storeId,jdbcType=CHAR}
@@ -273,6 +279,8 @@
 			,s.corporate_withidcard_back
 			,s.owner_userId
 			,s.bound_type
+			,s.store_type
+			,s.store_dist_mode
 		FROM
 			(
 			SELECT
@@ -317,6 +325,8 @@
 			,corporate_withidcard_back
 			,owner_userId
 			,bound_type
+			,store_type
+			,store_dist_mode
 		FROM
 			`basic_user_info` AS ui
 		LEFT JOIN dn_store AS ds ON ui.id = ds.owner_userId
@@ -424,6 +434,8 @@
 			,#{corporateWithidcardBack,jdbcType=VARCHAR}
 			,#{ownerUserId,jdbcType=VARCHAR}
 			,#{boundType,jdbcType=VARCHAR}
+			,#{storeType,jdbcType=VARCHAR}
+			,#{storeDistMode,jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -457,6 +469,8 @@
 			,regist_date = #{registDate,jdbcType=DATE}
 			,owner_userId = #{ownerUserId,jdbcType=VARCHAR}
 			,bound_type = #{boundType,jdbcType=VARCHAR}
+			,store_type = #{storeType,jdbcType=VARCHAR}
+			,store_dist_mode = #{storeDistMode,jdbcType=VARCHAR}
 		where STORE_ID = #{storeId,jdbcType=CHAR}
 	</update>
 	

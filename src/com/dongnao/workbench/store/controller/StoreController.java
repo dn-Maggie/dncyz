@@ -128,11 +128,13 @@ public class StoreController{
 	public ModelAndView toList(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/store/listStore");
 		 	Store store = new Store();
+		 	boolean isAdmin = true;
 	 		if(!Utils.isSuperAdmin(request)){
 	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+	 			isAdmin = false;
 			}
 			mv.addObject("store",storeService.listByCondition(store));
-			mv.addObject("isAdmin",Utils.isSuperAdmin(request));
+			mv.addObject("isAdmin",isAdmin);
 		 return mv;
 	}
 	

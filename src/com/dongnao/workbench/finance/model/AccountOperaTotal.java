@@ -26,13 +26,16 @@ public class AccountOperaTotal extends Model{
 	
     /**
      * 商户名称
-     **/
+     **/	
+   			private String brandName;
    			private String storeName;
+   			private String storeType;
+   			private String storeDistMode;
 	
     /**
      * 日期
      **/
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
+	@DateTimeFormat(pattern="yyyy-MM-dd") 
 		private Date createDate;
 
     /**
@@ -522,6 +525,30 @@ public class AccountOperaTotal extends Model{
 		*/
 		public void setPlatformType(String platformType){
 		this.platformType = platformType;
+		}
+
+		public String getBrandName() {
+			return brandName;
+		}
+
+		public void setBrandName(String brandName) {
+			this.brandName = brandName;
+		}
+
+		public String getStoreType() {
+			return storeType;
+		}
+
+		public void setStoreType(String storeType) {
+			this.storeType = storeType;
+		}
+
+		public String getStoreDistMode() {
+			return storeDistMode;
+		}
+
+		public void setStoreDistMode(String storeDistMode) {
+			this.storeDistMode = storeDistMode;
 		}
 
 	}

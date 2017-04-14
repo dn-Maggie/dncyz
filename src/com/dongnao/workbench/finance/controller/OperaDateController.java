@@ -19,9 +19,11 @@ import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
+import com.dongnao.workbench.finance.model.AccountSaleGoods;
 import com.dongnao.workbench.finance.model.AccountSpecialFood;
 import com.dongnao.workbench.finance.model.OperaDate;
 import com.dongnao.workbench.finance.service.AccountOperaTotalService;
+import com.dongnao.workbench.finance.service.AccountOrderDetailService;
 import com.dongnao.workbench.finance.service.OperaDateService;
 import com.dongnao.workbench.store.model.Store;
 import com.dongnao.workbench.store.service.StoreService;
@@ -43,7 +45,8 @@ public class OperaDateController{
  	private AccountOperaTotalService accountOperaTotalService;
     @Resource
 	private StoreService storeService;
-
+    @Resource
+    private AccountOrderDetailService accountOrderDetailService;
 	/**
 	 * 进入运营数据菜品分析
 	 * @return ModelAndView
@@ -52,11 +55,14 @@ public class OperaDateController{
 	public ModelAndView toListByDate(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listGoods");
 		 Store store = new Store();
+			boolean isAdmin = true;
 	 		if(!Utils.isSuperAdmin(request)){
 	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+	 			isAdmin = false;
 			}
 			mv.addObject("store",storeService.listByCondition(store));
-		 return mv;
+			mv.addObject("isAdmin",isAdmin);
+	 		return mv;
 	}
 	/**
 	 * 进入特价菜品表明细
@@ -66,11 +72,14 @@ public class OperaDateController{
 	public ModelAndView toListSpecialFood(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listAccountSpecialFood");
 		 Store store = new Store();
+			boolean isAdmin = true;
 	 		if(!Utils.isSuperAdmin(request)){
 	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+	 			isAdmin = false;
 			}
 			mv.addObject("store",storeService.listByCondition(store));
-		 return mv;
+			mv.addObject("isAdmin",isAdmin);
+	 		return mv;
 	}
 	/**
 	 * 特价菜品表明细
@@ -90,11 +99,14 @@ public class OperaDateController{
 	public ModelAndView toList(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listAccountOperateIncome");
 		 Store store = new Store();
+			boolean isAdmin = true;
 	 		if(!Utils.isSuperAdmin(request)){
 	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+	 			isAdmin = false;
 			}
 			mv.addObject("store",storeService.listByCondition(store));
-		 return mv;
+			mv.addObject("isAdmin",isAdmin);
+	 		return mv;
 	}
 	/**
 	 * 进入运营汇总数据
@@ -104,11 +116,14 @@ public class OperaDateController{
 	public ModelAndView toListAllFromOrderDetail(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listAccountOperateIncomeByTotal");
 		 Store store = new Store();
+			boolean isAdmin = true;
 	 		if(!Utils.isSuperAdmin(request)){
 	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+	 			isAdmin = false;
 			}
 			mv.addObject("store",storeService.listByCondition(store));
-		 return mv;
+			mv.addObject("isAdmin",isAdmin);
+	 		return mv;
 	}
 	
 	/**
@@ -305,6 +320,26 @@ public class OperaDateController{
 			String filename = "";
 			String title = "";
 				switch (gridId) {
+				case "#special":
+					AccountSpecialFood accountSpecialFood = new AccountSpecialFood();
+					accountSpecialFood.setStoreName(operaDate.getStoreName());
+					List<AccountSpecialFood> specialList = operaDateService.listSpecialFood(accountSpecialFood);
+					filename = "特价菜结算表";
+					title = "特价菜结算表";
+					ExcelExpUtils.exportListToExcel(specialList, response, epb.getFieldlist(),
+							filename, title);
+					return;
+					
+				case "#goods":
+					AccountOrderDetail accountOrderDetail = new AccountOrderDetail();
+					accountOrderDetail.setStoreName(operaDate.getStoreName());
+					List<AccountSaleGoods> goodsList = accountOrderDetailService.listGoods(accountOrderDetail);
+					filename = "菜品数量表";
+					title = "菜品数量表";
+					ExcelExpUtils.exportListToExcel(goodsList, response, epb.getFieldlist(),
+							filename, title);
+					return;
+					
 				case "#deepOpera":
 					list = operaDateService.listDeepOperaByCondition(operaDate);
 					filename = "深运营表";

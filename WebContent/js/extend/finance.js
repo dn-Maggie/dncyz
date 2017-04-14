@@ -41,6 +41,7 @@ Finance = {
 	        url: eval(ways+"Model.url"),
 	       	sortname:"create_date",
 	       	sortorder:"asc",
+	       	rownumbers:false,
 	       	footerrow:gridCompleteCount,
 	       	cellEdit:editCell,
 	       	afterEditCell: function (id,name,val,iRow,iCol){
@@ -85,8 +86,7 @@ Finance = {
 					 		}
 					 	}
 					 	footerObj['raw'] = true;
-					 	footerObj['rn'] = "合";
-					 	footerObj['cb'] = "计";
+					 	footerObj['cb'] = "合";
 				    	$(this).footerData("set",footerObj); //将合计值显示出来
 			 	}
 			}
@@ -98,6 +98,7 @@ Finance = {
 	        url: eval(ways+"Model.url"),
 	       	sortname:"create_date",
 	       	sortorder:"asc",
+	       	rownumbers:false,
 	       	footerrow:gridCompleteCount,
 	       	cellEdit:editCell,
 	       	afterEditCell: function (id,name,val,iRow,iCol){
@@ -142,8 +143,7 @@ Finance = {
 				 		}
 				 	}
 				 	footerObj['raw'] = true;
-				 	footerObj['rn'] = "合";
-				 	footerObj['cb'] = "计";
+				 	footerObj['cb'] = "合";
 			    	$(this).footerData("set",footerObj); //将合计值显示出来
 			    }
 			}
@@ -160,4 +160,7 @@ Finance = {
 		});
 		config_iframe_dialog.open();
   	},
+  	formatAccountting:function(cellValue,options,rowObject){
+  		return accounting.formatMoney(cellValue,"",2).replace(".00","");
+  	}
 }

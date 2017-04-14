@@ -11,7 +11,7 @@ var orderDetailModel = {
 		url: "<m:url value='/accountOrderDetail/listAccountOrderDetail.do'/>",
 		colModel:[
 					{name : "id",hidden : true,key : true,label:"账单ID",index : "id"},	
-					/* {name : "storeName",label:"商户名称",index : "store_name"}, */		
+					{name : "storeName",label:"店铺名称",index : "store_name"},
 					{name : "createDate",label:"创建日期",index : "create_date"},				
 					{name : "orderType",label:"订单类型",index : "order_type"
 						,formatter:GridColModelForMatter.orderType},				
@@ -22,7 +22,7 @@ var orderDetailModel = {
 					{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
 					/* {name : "giftAllowance",label:"赠品补贴",index : "gift_allowance"}, */	
 					{name : "activitiesSubsidyBymerchant",label:"实际菜品折扣",index : "activities_subsidy_bymerchant",editable:true},				
-					{name : "specialOffer",label:"结算菜特价",index : "special_offer"},			
+					{name : "specialOffer",label:"结算菜特价",index : "special_offer",editable:true},			
 					{name : "distributionMode",label:"配送方式",index : "distribution_mode"},	
 					{name : "orderDistCharge",label:"订单取配送费",index : "order_dist_charge",editable:true},
 					{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge",editable:true},
@@ -36,16 +36,12 @@ var orderDetailModel = {
 					/* {name : "refundAmount",label:"用户申请退单金额",index : "refund_amount"}, */				
 					{name : "settlementAmount",label:"结算金额",index : "settlement_amount"},				
 					{name : "remark",label:"备注",index : "remark",editable:true},		
-					{name : "platformType",label:"平台类型",index : "platform_type",
-						formatter:function(cellvalue, options, rowObject){
-			 				 if (cellvalue=='elm') {return '饿了么';}
-			 				 else if (cellvalue=='meituan'){return '美团';}
-			 				 else if (cellvalue=='baidu'){return '百度';}
-					}},
+					{name : "platformType",label:"平台类型",index : "platform_type",formatter:GridColModelForMatter.platformType},
 	           	]};
 	$(function(){
 		initGrid("orderDetail");
     });
+	//下载模板
 	function executeDownload(){
 		var fid = $("#downloadform");
 		$("#downloadform").attr("action", "<%=request.getContextPath()%>/download/fileDownload");
@@ -85,7 +81,7 @@ var orderDetailModel = {
     function show(){
     	var key = ICSS.utils.getSelectRowData("id");
 		var url = baseUrl+'/accountOrderDetail/toShowAccountOrderDetail.do';
-		var title = "餐饮品牌详细";
+		var title = "订单明细详细";
 		show_iframe_dialog = Show.create(key, url, title);
 		List.openDialog(show_iframe_dialog);
     }
@@ -113,6 +109,8 @@ var orderDetailModel = {
  	}
 	//生成运营汇总表
     function genTotal(ways){
+		showInfo("正在处理，请稍后...");
+		debugger;
    		$ .ajax({
    			type: "post",
    			data:Finance.getQueryCondition(),
@@ -164,17 +162,15 @@ var orderDetailModel = {
 					</div>
 					</li>		
 				 <li>
-				 	<select class="search_select" name="platformType" id="platformType">
-				 		<option value="">---请选择---</option>
-					 	<option value="elm">饿了么</option>
-					 	<option value="meituan">美团</option>
-					 	<option value="baidu">百度</option>
-					</select>
+				 	<li>
+				 		<select class="search_select" name="platformType" id="platformType"><option value="">所有平台</option>
+							<option value="elm">饿了么</option><option value="mt">美团</option><option value="bdwm">百度</option>
+						</select>
 					<span>平台类型:</span>
 				 </li>
 				  <li>
 				 	<select class="search_select" name="distributionMode" id="distributionMode">
-				 		<option value="">---请选择---</option>
+				 		<option value=""></option>
 				 		<option value="">商家自配</option>
 					 	<option value="">平台专配</option>
 				 	</select>

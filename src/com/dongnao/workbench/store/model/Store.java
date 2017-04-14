@@ -28,7 +28,8 @@ public class Store extends Model{
 	                 * 店铺名称
 	                 **/
 				   			private String storeName;
-		   		
+				   			private String storeType;
+				   			private String storeDistMode;
 		            /**
 	                 * 所属品牌ID
 	                 **/
@@ -226,12 +227,23 @@ public class Store extends Model{
 					public void setStoreId(String storeId){
 						this.storeId = storeId;
 					}
-		   		
-		
-		
-			
-						
-		  			/**
+			public String getStoreType() {
+						return storeType;
+					}
+
+					public void setStoreType(String storeType) {
+						this.storeType = storeType;
+					}
+
+					public String getStoreDistMode() {
+						return storeDistMode;
+					}
+
+					public void setStoreDistMode(String storeDistMode) {
+						this.storeDistMode = storeDistMode;
+					}
+
+			/**
 			 * 获取 店铺名称
 			 * @return String this.storeName
 			 */

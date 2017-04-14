@@ -337,38 +337,4 @@ public class ExcelExpUtils {
 		}
 	}
 
-	public static void main(String args[]) {
-		List list = new ArrayList();
-		Map map = new HashMap();
-		map.put("ID", "111111111111111");
-		map.put("NAME", "真是碉堡了");
-		list.add(map);
-		List<List<ExpFieldBean>> headers = new ArrayList();
-		List<ExpFieldBean> header = new ArrayList<ExpFieldBean>();
-		ExpFieldBean id = new ExpFieldBean();
-		id.setLabel("StartDate");
-		id.setWidth(200);
-		id.setName("id");
-		id.setDateFormat("yyyy-MM-dd");
-		header.add(id);
-		ExpFieldBean name = new ExpFieldBean();
-		name.setLabel("Remark");
-		name.setWidth(400);
-		name.setName("name");
-		header.add(name);
-		headers.add(header);
-		try {
-			File fileWrite = new File("D:\\test23.xls");
-			fileWrite.createNewFile();
-			OutputStream out = new FileOutputStream(fileWrite);
-			ExcelWriteReadBean eu = new ExcelWriteReadBean(out);
-			ExcelExpUtils.createExcle(headers, list, out, "测试测试");
-			eu.importEnd();
-			out.flush();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
 }

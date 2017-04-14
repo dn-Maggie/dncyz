@@ -32,9 +32,7 @@
 						<li style="width: 560px; float: left;">
 							<span>关键字:</span> 
 							<input id="userAccount" type="text" placeholder="帐号" class="search_choose100" value="" name="userAccount" autocomplete="off">
-							<input id="fullName" type="text" placeholder="姓名" class="search_choose100" value="" name="fullName" autocomplete="off"> 
-							<input id="mobilePhone" type="text" placeholder="手机号码" class="search_choose100" value="" name="mobilePhone" autocomplete="off"> 
-							<input id="idCard" type="text" placeholder="身份证" class="search_choose100" value="" name="idCard" autocomplete="off">
+							<input id="fullName" type="text" placeholder="姓名（店铺名称）" class="search_choose100" value="" name="fullName" autocomplete="off"> 
 						</li>
 						<li class="w200">
 							<input type="reset" value="重置" onClick="resetForm('queryForm')" class="reset_btn"><!-- 重置 --> 
@@ -87,19 +85,16 @@
 <script type="text/javascript">
 var gridObj = {};
 var groupId, groupName,groupTree;
-
 //新增的弹出框
 var add_iframe_dialog;
 //修改的弹出框
 var edit_iframe_dialog;
 //查看的弹出框
 var show_iframe_dialog;
-
 $(function() {
 	initGroupTree();
 	initUserTable();
 });
-
 function initUserTable(){
 	gridObj = new biz.grid({
 		id : "#remote_rowed",/* html部分table id */
@@ -163,8 +158,6 @@ function getQueryCondition() {
     });
 	return obj;
 }
-
-
 function add() {
 	var nodes = groupTree.getSelectedNodes();
 	if(nodes.length != 1){

@@ -11,146 +11,146 @@ var gridObj = {};
 //格式化cell
 function cellFormat(value, options, rData){
 	if(rData.raw){
-		return value;
+		return accounting.formatMoney(value,"",2).replace(".00","");
 	}else if(options.colModel.calculate.indexOf("rData")>0){
-		return eval(options.colModel.calculate);
-	}return value;
+		return accounting.formatMoney(eval(options.colModel.calculate),"",2).replace(".00","");
+	}return accounting.formatMoney(value,"",2).replace(".00","");
 };
 //汇总运营表头
 var totalColModel = [{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
-						/* {name : "storeName",label:"商户名称",index : "store_name"}, */				
+                     	{name : "storeName",label:"店铺名称",index : "store_name"},		
 						{name : "createDate",label:"日期",index : "create_date"},				
 						{name : "invalidNum",label:"无效单",index : "invalid_num"},				
 						{name : "validNum",label:"有效单",index : "valid_num"},
-						{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount"},				
-						{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable"},				
-						{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable"},				
-						{name : "cyzServiceCharge",label:"公司收入",index : "cyz_service_charge"},				
-						{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit"},	
-						{name : "actualMerchantDistCharge",label:"自配送实际支付金额",index : "actual_merchant_dist_charge"},		
+						{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount",formatter:Finance.formatAccountting},				
+						{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable",formatter:Finance.formatAccountting},				
+						{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable",formatter:Finance.formatAccountting},				
+						{name : "cyzServiceCharge",label:"公司收入",index : "cyz_service_charge",formatter:Finance.formatAccountting},				
+						{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit",formatter:Finance.formatAccountting},	
+						{name : "actualMerchantDistCharge",label:"自配送实际支付金额",index : "actual_merchant_dist_charge",formatter:Finance.formatAccountting},		
                      ];
 //底价运营表表头     
 var basePriceModel = {url: "<m:url value='/operaDate/listOperaDate.do'/>?type=basePrice",
 				 colModel:[
 						{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
-						/* {name : "storeName",label:"商户名称",index : "store_name"}, */				
+						 {name : "storeName",label:"商户名称",index : "store_name"}, 				
 						{name : "createDate",label:"日期",index : "create_date"},				
 						{name : "invalidNum",label:"无效单",index : "invalid_num"},				
 						{name : "validNum",label:"有效单",index : "valid_num"},				
-						{name : "orginPrice",label:"菜品原价",index : "orgin_price"},				
-						{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
-						{name : "goodsQuality",label:"菜品份数",index : "goods_quality"},//菜品数量表中的销售量总和	
-						{name : "allbasePrice",label:"底价",index : "allbase_price"},//菜品数量表中的销售额总和				
-						{name : "allotherBasePrice",label:"其他底价",index : "allother_base_price",isBasic:true,editable:true},				
-						{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge"},				
-						{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge"},				
-						{name : "platformActivitiesCharge",label:"平台补贴线上活动费",index : "platform_activities_charge"},				
-						{name : "activitiesSubsidyBycompany",label:"公司扣除平台补贴自营销费用",index : "activities_subsidy_bycompany"},				
-						{name : "cyzDistCharge",label:"公司收取配送费",index : "cyz_dist_charge"},				
-						{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount"},				
-						{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable"},				
-						{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable"},				
-						{name : "cyzServiceCharge",label:"公司收入",index : "cyz_service_charge"},				
-						{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit"},				
-						{name : "saleGrossProfitRate",label:"毛利率",index : "sale_gross_profit_rate"},				
-						{name : "actualMerchantDistCharge",label:"自配送实际支付金额",index : "actual_merchant_dist_charge",editable:true},				
+						{name : "orginPrice",label:"菜品原价",index : "orgin_price",formatter:Finance.formatAccountting},				
+						{name : "mealFee",label:"餐盒费",index : "meal_fee",formatter:Finance.formatAccountting},				
+						{name : "goodsQuality",label:"菜品份数",index : "goods_quality",formatter:Finance.formatAccountting},//菜品数量表中的销售量总和	
+						{name : "allbasePrice",label:"底价",index : "allbase_price",formatter:Finance.formatAccountting},//菜品数量表中的销售额总和				
+						{name : "allotherBasePrice",label:"其他底价",index : "allother_base_price",isBasic:true,editable:true,formatter:Finance.formatAccountting},				
+						{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge",formatter:Finance.formatAccountting},				
+						{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge",formatter:Finance.formatAccountting},				
+						{name : "platformActivitiesCharge",label:"平台补贴线上活动费",index : "platform_activities_charge",formatter:Finance.formatAccountting},				
+						{name : "activitiesSubsidyBycompany",label:"公司扣除平台补贴自营销费用",index : "activities_subsidy_bycompany",formatter:Finance.formatAccountting},				
+						{name : "cyzDistCharge",label:"公司收取配送费",index : "cyz_dist_charge",formatter:Finance.formatAccountting},				
+						{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount",formatter:Finance.formatAccountting},				
+						{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable",formatter:Finance.formatAccountting},				
+						{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable",formatter:Finance.formatAccountting},				
+						{name : "cyzServiceCharge",label:"公司收入",index : "cyz_service_charge",formatter:Finance.formatAccountting},				
+						{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit",formatter:Finance.formatAccountting},				
+						{name : "saleGrossProfitRate",label:"毛利率",index : "sale_gross_profit_rate",formatter:Finance.formatAccountting},				
+						{name : "actualMerchantDistCharge",label:"自配送实际支付金额",index : "actual_merchant_dist_charge",editable:true,formatter:Finance.formatAccountting},				
 						{name : "remark",label:"备注",index : "remark",editable:true},				
-						{name : "platformType",label:"平台类型",index : "platform_type"}				
+						{name : "platformType",label:"平台类型",index : "platform_type",formatter:GridColModelForMatter.platformType},    
 		           	],};
 //销售额比例抽佣运营表表头         
 var saleRateModel = {url: "<m:url value='/operaDate/listOperaDate.do'/>?type=saleRate",
 					 colModel:[
 						{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
-						/* {name : "storeName",label:"商户名称",index : "store_name"}, */				
+						 {name : "storeName",label:"商户名称",index : "store_name"}, 				
 						{name : "createDate",label:"日期",index : "create_date"},				
 						{name : "invalidNum",label:"无效单",index : "invalid_num"},				
 						{name : "validNum",label:"有效单",index : "valid_num"},				
-						{name : "orginPrice",label:"原价",index : "orgin_price"},				
-						{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
-						{name : "specialOrgin",label:"特价菜原价",index : "special_orgin",isBasic:true,editable:true},				
-						{name : "specialOffer",label:"特价菜结算",index : "special_offer",isBasic:true,editable:true},				
-						{name : "activitiesSubsidyBymerchant",label:"实际菜品折扣",index : "activities_subsidy_bymerchant"},				
-						{name : "orderDistCharge",label:"订单上收取客户配送费",index : "order_dist_charge"},				
-						{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge"},				
-						{name : "cyzDistCharge",label:"公司收取配送费",index : "cyz_dist_charge"},				
-						{name : "activitiesSubsidyBycompany",label:"公司承担线上活动费",index : "activities_subsidy_bycompany"},				
-						{name : "platformActivitiesCharge",label:"平台承担线上活动费",index : "platform_activities_charge"},				
-						{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge"},				
-						{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount"},				
-						{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable"},				
+						{name : "orginPrice",label:"原价",index : "orgin_price",formatter:Finance.formatAccountting},				
+						{name : "mealFee",label:"餐盒费",index : "meal_fee",formatter:Finance.formatAccountting},				
+						{name : "specialOrgin",label:"特价菜原价",index : "special_orgin",isBasic:true,editable:true,formatter:Finance.formatAccountting},				
+						{name : "specialOffer",label:"特价菜结算",index : "special_offer",isBasic:true,editable:true,formatter:Finance.formatAccountting},				
+						{name : "activitiesSubsidyBymerchant",label:"实际菜品折扣",index : "activities_subsidy_bymerchant",formatter:Finance.formatAccountting},				
+						{name : "orderDistCharge",label:"订单上收取客户配送费",index : "order_dist_charge",formatter:Finance.formatAccountting},				
+						{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge",formatter:Finance.formatAccountting},				
+						{name : "cyzDistCharge",label:"公司收取配送费",index : "cyz_dist_charge",formatter:Finance.formatAccountting},				
+						{name : "activitiesSubsidyBycompany",label:"公司承担线上活动费",index : "activities_subsidy_bycompany",formatter:Finance.formatAccountting},				
+						{name : "platformActivitiesCharge",label:"平台承担线上活动费",index : "platform_activities_charge",formatter:Finance.formatAccountting},				
+						{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge",formatter:Finance.formatAccountting},				
+						{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount",formatter:Finance.formatAccountting},				
+						{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable",formatter:Finance.formatAccountting},				
 						{name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",hidden:true},		
 						{name : "amountRatePayable",label:"70%结算金额",index : "amount_rate_payable"},				
-						{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable"},				
-						{name : "cyzServiceCharge",label:"公司收取店铺服务费",index : "cyz_service_charge"},				
+						{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable",formatter:Finance.formatAccountting},				
+						{name : "cyzServiceCharge",label:"公司收取店铺服务费",index : "cyz_service_charge",formatter:Finance.formatAccountting},				
 						{name : "actualMerchantDistCharge",label:"自配送实际支付金额",index : "actual_merchant_dist_charge",editable:true},				
-						{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit"},				
-						{name : "saleGrossProfitRate",label:"毛利率",index : "sale_gross_profit_rate"},				
-						{name : "remark",label:"备注",index : "remark",editable:true},				
-						{name : "platformType",label:"平台类型",index : "platform_type"}			
+						{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit",formatter:Finance.formatAccountting},				
+						{name : "saleGrossProfitRate",label:"毛利率",index : "sale_gross_profit_rate",formatter:Finance.formatAccountting},			
+						{name : "remark",label:"备注",index : "remark",editable:true,formatter:Finance.formatAccountting},				
+						{name : "platformType",label:"平台类型",index : "platform_type",formatter:GridColModelForMatter.platformType},    
 			           	],};
 //深运营表表头     
 var deepOperaModel ={url: "<m:url value='/operaDate/listOperaDate.do'/>?type=deepOpera",
 				 	colModel:[
 							{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
-							/* {name : "storeName",label:"商户名称",index : "store_name"}, */				
+							 {name : "storeName",label:"商户名称",index : "store_name"}, 				
 							{name : "createDate",label:"日期",index : "create_date"},				
 							{name : "invalidNum",label:"无效单",index : "invalid_num"},				
 							{name : "validNum",label:"有效单",index : "valid_num"},				
-							{name : "orginPrice",label:"原价",index : "orgin_price",isBasic:true},				
-							{name : "mealFee",label:"餐盒费",index : "meal_fee",isBasic:true},				
-							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin",isBasic:true,editable:true},				
+							{name : "orginPrice",label:"原价",index : "orgin_price",isBasic:true,formatter:Finance.formatAccountting},				
+							{name : "mealFee",label:"餐盒费",index : "meal_fee",isBasic:true,formatter:Finance.formatAccountting},				
+							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin",isBasic:true,editable:true,formatter:Finance.formatAccountting},				
 							{name : "specialOffer",label:"特价菜结算",index : "special_offer",isBasic:true,editable:true},				
-							{name : "activitiesSubsidyBymerchant",label:"实际菜品折扣",index : "activities_subsidy_bymerchant"},				
-							{name : "orderDistCharge",label:"订单上收取客户配送费",index : "order_dist_charge"},				
-							{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge"},				
-							{name : "cyzDistCharge",label:"公司收取配送费",index : "cyz_dist_charge"},				
-							{name : "activitiesSubsidyBycompany",label:"公司承担线上活动费",index : "activities_subsidy_bycompany"},				
-							{name : "platformActivitiesCharge",label:"平台承担线上活动费",index : "platform_activities_charge"},				
-							{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge"},				
-							{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount"},				
-							{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable"},	
-							{name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",hidden:true},	
-							{name : "amountRatePayable",label:"品牌商家应收",index : "amount_rate_payable"},		
-							{name : "cyzServiceChargeOperaPart",label:"运营应收",index : "cyz_service_charge_opera_part"},	
-							{name : "distAll",label:"应付配送费",index : "dist_all"},	
+							{name : "activitiesSubsidyBymerchant",label:"实际菜品折扣",index : "activities_subsidy_bymerchant",formatter:Finance.formatAccountting},				
+							{name : "orderDistCharge",label:"订单上收取客户配送费",index : "order_dist_charge",formatter:Finance.formatAccountting},				
+							{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge",formatter:Finance.formatAccountting},				
+							{name : "cyzDistCharge",label:"公司收取配送费",index : "cyz_dist_charge",formatter:Finance.formatAccountting},				
+							{name : "activitiesSubsidyBycompany",label:"公司承担线上活动费",index : "activities_subsidy_bycompany",formatter:Finance.formatAccountting},				
+							{name : "platformActivitiesCharge",label:"平台承担线上活动费",index : "platform_activities_charge",formatter:Finance.formatAccountting},				
+							{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge",formatter:Finance.formatAccountting},				
+							{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount",formatter:Finance.formatAccountting},				
+							{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable",formatter:Finance.formatAccountting},	
+							{name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",hidden:true,formatter:Finance.formatAccountting},	
+							{name : "amountRatePayable",label:"品牌商家应收",index : "amount_rate_payable",formatter:Finance.formatAccountting},		
+							{name : "cyzServiceChargeOperaPart",label:"运营应收",index : "cyz_service_charge_opera_part",formatter:Finance.formatAccountting},	
+							{name : "distAll",label:"应付配送费",index : "dist_all",formatter:Finance.formatAccountting},	
 							{name : "actualMerchantDistCharge",label:"自配送实际支付金额",index : "actual_merchant_dist_charge",editable:true},			
-							{name : "distDiff",label:"自配送实际支付差额",index : "dist_diff"},		
-							{name : "saleGrossProfit",label:"运营实收",index : "sale_gross_profit"},			
-							{name : "cyzServiceChargeIndustryPart",label:"工厂应收",index : "cyz_service_charge_industry_part"},		
+							{name : "distDiff",label:"自配送实际支付差额",index : "dist_diff",formatter:Finance.formatAccountting},		
+							{name : "saleGrossProfit",label:"运营实收",index : "sale_gross_profit",formatter:Finance.formatAccountting},			
+							{name : "cyzServiceChargeIndustryPart",label:"工厂应收",index : "cyz_service_charge_industry_part",formatter:Finance.formatAccountting},		
 							{name : "remark",label:"备注",index : "remark",editable:true},				
-							{name : "platformType",label:"平台类型",index : "platform_type"}				
+							{name : "platformType",label:"平台类型",index : "platform_type",formatter:GridColModelForMatter.platformType},    
 			           	],};
 //平台到账抽佣运营表表头            		
 var platformAccountModel = {
 						url: "<m:url value='/operaDate/listOperaDate.do'/>?type=platformAccount",
 						colModel:[
 							{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
-							/* {name : "storeName",label:"商户名称",index : "store_name"}, */				
+							 {name : "storeName",label:"商户名称",index : "store_name"}, 				
 							{name : "createDate",label:"日期",index : "create_date"},				
 							{name : "invalidNum",label:"无效单",index : "invalid_num"},				
 							{name : "validNum",label:"有效单",index : "valid_num"},				
-							{name : "orginPrice",label:"原价",index : "orgin_price",isBasic:true,},				
-							{name : "mealFee",label:"餐盒费",index : "meal_fee",isBasic:true},				
-							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin",isBasic:true,editable:true},				
-							{name : "specialOffer",label:"特价菜结算",index : "special_offer",isBasic:true,editable:true},				
-							{name : "activitiesSubsidyBymerchant",label:"实际菜品折扣",index : "activities_subsidy_bymerchant",isBasic:true},				
-							{name : "orderDistCharge",label:"订单上收取客户配送费",index : "order_dist_charge",isBasic:true},				
-							{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge",isBasic:true},				
-							{name : "cyzDistCharge",label:"公司收取配送费",index : "cyz_dist_charge",isBasic:true},				
-							{name : "activitiesSubsidyBycompany",label:"公司承担线上活动费",index : "activities_subsidy_bycompany",isBasic:true},				
-							{name : "platformActivitiesCharge",label:"平台承担线上活动费",index : "platform_activities_charge",isBasic:true},				
-							{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge",isBasic:true},				
-							{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount",editFlag:true},				
-							{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable",editFlag:true},				
+							{name : "orginPrice",label:"原价",index : "orgin_price",isBasic:true,formatter:Finance.formatAccountting},				
+							{name : "mealFee",label:"餐盒费",index : "meal_fee",isBasic:true,formatter:Finance.formatAccountting},				
+							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin",isBasic:true,editable:true,formatter:Finance.formatAccountting},				
+							{name : "specialOffer",label:"特价菜结算",index : "special_offer",isBasic:true,editable:true,formatter:Finance.formatAccountting},				
+							{name : "activitiesSubsidyBymerchant",label:"实际菜品折扣",index : "activities_subsidy_bymerchant",isBasic:true,formatter:Finance.formatAccountting},				
+							{name : "orderDistCharge",label:"订单上收取客户配送费",index : "order_dist_charge",isBasic:true,formatter:Finance.formatAccountting},				
+							{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge",isBasic:true,formatter:Finance.formatAccountting},				
+							{name : "cyzDistCharge",label:"公司收取配送费",index : "cyz_dist_charge",isBasic:true,formatter:Finance.formatAccountting},				
+							{name : "activitiesSubsidyBycompany",label:"公司承担线上活动费",index : "activities_subsidy_bycompany",isBasic:true,formatter:Finance.formatAccountting},				
+							{name : "platformActivitiesCharge",label:"平台承担线上活动费",index : "platform_activities_charge",isBasic:true,formatter:Finance.formatAccountting},				
+							{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge",isBasic:true,formatter:Finance.formatAccountting},				
+							{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount",editFlag:true,formatter:Finance.formatAccountting},				
+							{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable",editFlag:true,formatter:Finance.formatAccountting},				
 							{name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",hidden:true,calculate:"0.95",editFlag:true},				
-							{name : "amountRatePayable",label:"95%结算金额",index : "amount_rate_payable",editFlag:true},				
-							{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable",editFlag:true},				
-							{name : "cyzServiceCharge",label:"公司收取店铺服务费",index : "cyz_service_charge",editFlag:true},				
-							{name : "actualMerchantDistCharge",label:"自配送实际支付金额",index : "actual_merchant_dist_charge",editable:true},				
-							{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit",editFlag:true},				
-							{name : "saleGrossProfitRate",label:"毛利率",index : "sale_gross_profit_rate",editFlag:true},				
-							{name : "remark",label:"备注",index : "remark",editable:true},				
-							{name : "platformType",label:"平台类型",index : "platform_type"}				
+							{name : "amountRatePayable",label:"95%结算金额",index : "amount_rate_payable",editFlag:true,formatter:Finance.formatAccountting},				
+							{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable",editFlag:true,formatter:Finance.formatAccountting},				
+							{name : "cyzServiceCharge",label:"公司收取店铺服务费",index : "cyz_service_charge",editFlag:true,formatter:Finance.formatAccountting},				
+							{name : "actualMerchantDistCharge",label:"自配送实际支付金额",index : "actual_merchant_dist_charge",editable:true,formatter:Finance.formatAccountting},				
+							{name : "saleGrossProfit",label:"销售毛利",index : "sale_gross_profit",editFlag:true,formatter:Finance.formatAccountting},				
+							{name : "saleGrossProfitRate",label:"毛利率",index : "sale_gross_profit_rate",editFlag:true,formatter:Finance.formatAccountting},				
+							{name : "remark",label:"备注",index : "remark",editable:true,formatter:Finance.formatAccountting},				
+							{name : "platformType",label:"平台类型",index : "platform_type",formatter:GridColModelForMatter.platformType,formatter:Finance.formatAccountting},    		
 			           	],};
 	$(function(){
 			initGrid("platformAccount");
@@ -232,9 +232,10 @@ var platformAccountModel = {
 				<ul>
 				<li><span>商户名称：</span>
 				<select class="search_select choose_select" name="storeName" id="storeName">
-						<c:forEach var="store" items="${store}">
-							<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
-			             </c:forEach>
+					<c:if test="${isAdmin}"><option value = "">所有店铺</option></c:if>
+					<c:forEach var="store" items="${store}">
+						<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
+		            </c:forEach>
 				</select>
 				</li>
 				<li>
@@ -261,8 +262,8 @@ var platformAccountModel = {
 						</div>
 					</div>
 					</li>	
-				 <li><select class="search_select" name="platformType" id="platformType"><option value="">---请选择---</option>
-					 <option value="elm">饿了么</option><option value="meituan">美团</option><option value="baidu">百度</option>
+				<li><select class="search_select" name="platformType" id="platformType"><option value="">所有平台</option>
+					 <option value="elm">饿了么</option><option value="mt">美团</option><option value="bdwm">百度</option>
 					</select><span>平台类型:</span></li><!--下拉 -->
 				<li><input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置"><!-- 重置 -->
 						<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridObj);" value="查询"></li><!-- 查询-->
@@ -274,12 +275,12 @@ var platformAccountModel = {
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
 						<c:if test="${configTitle}">
-							<li>
+							<!-- li>
 								<a title="配置表头标题" href="javascript:;" onclick="Finance.configTitle()"> 
 									<i class="back_icon permissions_icon"> </i> 
 									<span>配置表头</span>
 								</a>
-							</li>
+							</li-->
 						</c:if>
 						<c:if test="${exportData}">
 							<li>

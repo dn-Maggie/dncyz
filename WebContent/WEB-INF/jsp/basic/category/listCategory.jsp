@@ -22,6 +22,7 @@ var Model = {
    	var edit_iframe_dialog;
 	//查看的弹出框
 	var show_iframe_dialog;
+	
   	function add(){
   		var url = baseUrl+'/category/toAddCategory.do';
 		var title = "品类增加";

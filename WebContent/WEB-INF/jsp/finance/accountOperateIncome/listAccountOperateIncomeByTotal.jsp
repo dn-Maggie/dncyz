@@ -16,62 +16,60 @@ var gridObj = {};
 //格式化cell
 function cellFormat(value, options, rData){
 	if(rData.raw){
-		return value;
+		return accounting.formatMoney(value,"",2).replace(".00","");
 	}else if(options.colModel.calculate.indexOf("rData")>0){
-		return eval(options.colModel.calculate);
-	}return value;
+		return accounting.formatMoney(eval(options.colModel.calculate),"",2).replace(".00","");
+	}return accounting.formatMoney(value,"",2).replace(".00","");
 };
 //浅运营汇总表表头         
 var simpleTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTotal.do'/>?type=simpleTotal",
 					colModel:[
 					{name : "id",hidden : true,key : true,label:"主键",index : "id"},	
-					/* {name : "storeName",label:"商户名称",index : "store_name"}, */	
-					{name : "createDate",label:"日期",index : "create_date"},		
+					{name : "brandName",label:"品牌"},
+					{name : "storeName",label:"商户名称",index : "store_name"},
+					{name : "storeType",label:"店铺类型",index : "store_type"}, 	
+					{name : "storeDistMode",label:"配送方式型"}, 
+					/* {name : "createDate",label:"日期",index : "create_date"}, */		
                   	{name : "invalidNum",label:"无效单",isBasic:true},				
 	 				{name : "validNum",label:"有效单",isBasic:true},	 
-	 				{name : "productSaleAmount",label:"产品销售金额",isBasic:true},				
-	 				{name : "amountReceivable",label:"应收平台结算金额",isBasic:true},	
-	 				{name : "amountPayable",label:"应付店铺结算金额",isBasic:true},				
-	 				{name : "cyzServiceCharge",label:"公司收入",isBasic:true},	
-     				{name : "saleGrossProfit",label:"销售毛利",isBasic:true},				
-     				{name : "distPrice",label:"自配送金额单价",hidden:true,},
-     				{name : "distAll",label:"自配送金额",editFlag:true,calculate:"rData['distPrice']*rData['validNum']",
-    					formatter : cellFormat},
-	 				{name : "distDiff",label:"自配送补差",editFlag:true,calculate:"rData['distPrice']*rData['validNum']-rData['actualMerchantDistCharge']",
-       					formatter : cellFormat},
-	 				{name : "actualMerchantDistCharge",label:"实际收取自配送金额",isBasic:true,editable:true},
-	 				{name : "platformActivitiesCharge",label:"饿了吗平台补贴 ",isBasic:true},
-	 				{name : "serviceAll",label:"对外支付饿了么平台补贴服务费",editFlag:true,calculate:"0.4*rData['platformActivitiesCharge']",
-       					formatter : cellFormat},
-	 				{name : "profitAll",label:"实际运营毛利",editFlag:true,calculate:"rData['saleGrossProfit']-(rData['distPrice']*rData['validNum']-rData['actualMerchantDistCharge'])-(0.4*rData['platformActivitiesCharge'])",
-    					formatter : cellFormat},
+	 				{name : "productSaleAmount",label:"产品销售金额",isBasic:true,formatter:Finance.formatAccountting},				
+	 				{name : "amountReceivable",label:"应收平台结算金额",isBasic:true,formatter:Finance.formatAccountting},	
+	 				{name : "amountPayable",label:"应付店铺结算金额",isBasic:true,formatter:Finance.formatAccountting},				
+	 				{name : "cyzServiceCharge",label:"公司收入",isBasic:true,formatter:Finance.formatAccountting},	
+     				{name : "saleGrossProfit",label:"销售毛利",isBasic:true,formatter:Finance.formatAccountting},				
+     				{name : "distPrice",label:"自配送金额单价",hidden:true,formatter:Finance.formatAccountting},
+     				{name : "distAll",label:"自配送金额",editFlag:true,formatter : Finance.formatAccountting},
+	 				{name : "distDiff",label:"自配送补差",editFlag:true,formatter : Finance.formatAccountting},
+	 				{name : "actualMerchantDistCharge",label:"实际收取自配送金额",isBasic:true,editable:true,formatter:Finance.formatAccountting},
+	 				{name : "platformActivitiesCharge",label:"饿了吗平台补贴 ",isBasic:true,formatter:Finance.formatAccountting},
+	 				{name : "serviceAll",label:"对外支付饿了么平台补贴服务费",editFlag:true, formatter : Finance.formatAccountting},
+	 				{name : "profitAll",label:"实际运营毛利",editFlag:true,formatter : Finance.formatAccountting},
    					{name : "otherAll",label:"竞价费用+短信推广",editable:true},
 			       	]};
 //深运营汇总表表头
 var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTotal.do'/>?type=deepTotal",
 					colModel:[
 					{name : "id",hidden : true,key : true,label:"主键",index : "id"},	
-					/* {name : "storeName",label:"商户名称",index : "store_name"}, */	
-					{name : "createDate",label:"日期",index : "create_date"},		
+					{name : "brandName",label:"品牌"},
+					{name : "storeName",label:"商户名称",index : "store_name"},
+					{name : "storeType",label:"店铺类型",index : "store_type"}, 	
+					{name : "storeDistMode",label:"配送方式型"}, 	
+					/* {name : "createDate",label:"日期",index : "create_date"}, */		
 					{name : "invalidNum",label:"无效单",isBasic:true},				
 					{name : "validNum",label:"有效单",isBasic:true},	 
-					{name : "productSaleAmount",label:"产品销售金额",isBasic:true},				
-					{name : "amountReceivable",label:"应收平台结算金额",isBasic:true},	
-					{name : "amountPayable",label:"应付店铺结算金额",isBasic:true},				
-					{name : "cyzServiceCharge",label:"公司收入",isBasic:true},	
-					{name : "saleGrossProfit",label:"销售毛利",isBasic:true},				
-					{name : "distPrice",label:"自配送金额单价",hidden:true,},
-					{name : "distAll",label:"自配送金额",editFlag:true,
-						calculate:"rData['distPrice']*rData['validNum']",formatter : cellFormat},
-					{name : "distDiff",label:"自配送补差",editFlag:true,calculate:"rData['distPrice']*rData['validNum']-rData['actualMerchantDistCharge']",
-						formatter : cellFormat},
-					{name : "actualMerchantDistCharge",label:"实际收取自配送金额",isBasic:true,editable:true},
-					{name : "platformActivitiesCharge",label:"饿了吗平台补贴 ",isBasic:true},
-					{name : "serviceAll",label:"对外支付饿了么平台补贴服务费",editFlag:true,calculate:"0.4*rData['platformActivitiesCharge']",
-						formatter : cellFormat},
-					{name : "profitAll",label:"实际运营毛利",editFlag:true,calculate:"rData['saleGrossProfit']-(rData['distPrice']*rData['validNum']-rData['actualMerchantDistCharge'])-(0.4*rData['platformActivitiesCharge'])",
-					formatter : cellFormat},
-					{name : "otherAll",label:"竞价费用+短信推广",editable:true},
+					{name : "productSaleAmount",label:"产品销售金额",isBasic:true,formatter:Finance.formatAccountting},				
+	 				{name : "amountReceivable",label:"应收平台结算金额",isBasic:true,formatter:Finance.formatAccountting},	
+	 				{name : "amountPayable",label:"应付店铺结算金额",isBasic:true,formatter:Finance.formatAccountting},				
+	 				{name : "cyzServiceCharge",label:"公司收入",isBasic:true,formatter:Finance.formatAccountting},	
+     				{name : "saleGrossProfit",label:"销售毛利",isBasic:true,formatter:Finance.formatAccountting},				
+     				{name : "distPrice",label:"自配送金额单价",hidden:true,formatter:Finance.formatAccountting},
+     				{name : "distAll",label:"自配送金额",editFlag:true,formatter : Finance.formatAccountting},
+	 				{name : "distDiff",label:"自配送补差",editFlag:true,formatter : Finance.formatAccountting},
+	 				{name : "actualMerchantDistCharge",label:"实际收取自配送金额",isBasic:true,editable:true,formatter:Finance.formatAccountting},
+	 				{name : "platformActivitiesCharge",label:"饿了吗平台补贴 ",isBasic:true,formatter:Finance.formatAccountting},
+	 				{name : "serviceAll",label:"对外支付饿了么平台补贴服务费",editFlag:true, formatter : Finance.formatAccountting},
+	 				{name : "profitAll",label:"实际运营毛利",editFlag:true,formatter : Finance.formatAccountting},
+   					{name : "otherAll",label:"竞价费用+短信推广",editable:true},
 			       	]};
 		$(function(){
 			initGrid("simpleTotal");
@@ -91,6 +89,12 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 		$("#"+ways).setColProp('calculate');
 		$("#"+ways).setColProp('isBasic');
 		$("#"+ways).setColProp('editFlag');
+		jQuery("#"+ways).jqGrid('setGroupHeaders', {
+		    useColSpanStyle: true, 
+		    groupHeaders:[
+			   {startColumnName: 'invalidNum', numberOfColumns:15, titleText: '三平台汇总'},
+		    ]
+		  });
 	}
 	//config grid
 	function loadConfigGrid(ways,colModel){
@@ -125,9 +129,10 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 					<li>
 						<span>商户名称：</span>
 						<select class="search_select choose_select" name="storeName" id="storeName">
-						<c:forEach var="store" items="${store}">
-							<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
-			            </c:forEach>
+							<c:if test="${isAdmin}"><option value = "">所有店铺</option></c:if>
+							<c:forEach var="store" items="${store}">
+								<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
+				            </c:forEach>
 						</select>
 					</li>
 					<li>
@@ -142,7 +147,7 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 					</li>
 					<li>
 					 	<select class="search_select" name="platformType" id="platformType">
-					 		<option value="">---请选择---</option>
+					 		<option value="">所有平台</option>
 						 	<option value="elm">饿了么</option>
 						 	<option value="meituan">美团</option>
 						 	<option value="baidu">百度</option>
@@ -151,7 +156,7 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 					 </li>
 					  <li>
 					 	<select class="search_select" name="distributionMode" id="distributionMode">
-					 		<option value="">---请选择---</option>
+					 		<option value=""></option>
 					 		<option value="">商家自配</option>
 						 	<option value="">平台专配</option>
 					 	</select>
@@ -169,12 +174,12 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
 						<c:if test="${configTitle}">
-							<li>
+							<!-- li>
 								<a title="配置表头标题" href="javascript:;" onclick="Finance.configTitle()"> 
 									<i class="back_icon permissions_icon"> </i> 
 									<span>配置表头</span>
 								</a>
-							</li>
+							</li-->
 						</c:if>
 						<c:if test="${show}">
 						<li>

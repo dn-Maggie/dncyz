@@ -26,8 +26,26 @@
 		<result column="orgin_price" property="orginPrice" jdbcType="DECIMAL" />
 		<result column="meal_fee" property="mealFee" jdbcType="VARCHAR" />
 		<result column="special_orgin" property="specialOrgin" jdbcType="DECIMAL" />
+		
 		<result column="special_offer" property="specialOffer" jdbcType="DECIMAL" />
+		<result column="elm_special_offer" property="elmSpecialOffer" jdbcType="DECIMAL" />
+		<result column="bd_special_offer" property="bdSpecialOffer" jdbcType="DECIMAL" />
+		<result column="mt_special_offer" property="mtSpecialOffer" jdbcType="DECIMAL" />
+		
 		<result column="actual_price" property="actualPrice" jdbcType="DECIMAL" />
+		<result column="elm_actual_price" property="elmActualPrice" jdbcType="DECIMAL" />
+		<result column="bd_actual_price" property="bdActualPrice" jdbcType="DECIMAL" />
+		<result column="mt_actual_price" property="mtActualPrice" jdbcType="DECIMAL" />
+
+		<result column="elm_recieve_adjust" property="elmRecieveAdjust" jdbcType="DECIMAL" />
+		<result column="bd_recieve_adjust" property="bdRecieveAdjust" jdbcType="DECIMAL" />
+		<result column="mt_recieve_adjust" property="mtRecieveAdjust" jdbcType="DECIMAL" />
+		
+		<result column="settlement" property="settlement" jdbcType="DECIMAL" />
+		<result column="elm_settlement" property="elmSettlement" jdbcType="DECIMAL" />
+		<result column="bd_settlement" property="bdSettlement" jdbcType="DECIMAL" />
+		<result column="mt_settlement" property="mtSettlement" jdbcType="DECIMAL" />
+		<result column="allother_base_price" property="allotherBasePrice" jdbcType="DECIMAL" />
 		<result column="order_sale_rate" property="orderSaleRate" jdbcType="DECIMAL" />
 		<result column="amount_payable" property="amountPayable" jdbcType="DECIMAL" />
 	</resultMap>
@@ -62,6 +80,7 @@
 				odb.special_orgin,
 				odb.special_offer,
 				odb.order_sale_rate,
+				odb.orgin_price + odb.meal_fee - odb.special_orgin as actual_price,
 				odb.amount_payable
 			FROM
 				opera_date_base_price AS odb
@@ -106,6 +125,7 @@
 					odp.special_orgin,
 					odp.special_offer,
 					odp.order_sale_rate,
+					odp.orgin_price + odp.meal_fee - odp.special_orgin as actual_price,
 					odp.amount_payable
 				FROM
 					opera_date_platform_account AS odp
@@ -150,6 +170,7 @@
 					ods.special_orgin,
 					ods.special_offer,
 					ods.order_sale_rate,
+					ods.orgin_price + ods.meal_fee - ods.special_orgin as actual_price,
 					ods.amount_payable
 				FROM
 					opera_date_sale_rate AS ods
@@ -194,6 +215,7 @@
 					odd.special_orgin,
 					odd.special_offer,
 					odd.order_sale_rate,
+					odd.orgin_price + odd.meal_fee - odd.special_orgin as actual_price,
 					odd.amount_payable
 				FROM
 					opera_date_deep_opera AS odd
@@ -240,6 +262,7 @@
 				odb.special_orgin,
 				odb.special_offer,
 				odb.order_sale_rate,
+				odb.orgin_price + odb.meal_fee - odb.special_orgin as actual_price,
 				odb.amount_payable
 			FROM
 				opera_date_base_price AS odb
@@ -284,6 +307,7 @@
 					odp.special_orgin,
 					odp.special_offer,
 					odp.order_sale_rate,
+					odp.orgin_price + odp.meal_fee - odp.special_orgin as actual_price,
 					odp.amount_payable
 				FROM
 					opera_date_platform_account AS odp
@@ -328,6 +352,7 @@
 					ods.special_orgin,
 					ods.special_offer,
 					ods.order_sale_rate,
+					ods.orgin_price + ods.meal_fee - ods.special_orgin as actual_price,
 					ods.amount_payable
 				FROM
 					opera_date_sale_rate AS ods
@@ -372,6 +397,7 @@
 					odd.special_orgin,
 					odd.special_offer,
 					odd.order_sale_rate,
+					odd.orgin_price + odd.meal_fee - odd.special_orgin as actual_price,
 					odd.amount_payable
 				FROM
 					opera_date_deep_opera AS odd
@@ -412,19 +438,28 @@
 				s.bound_type,
 				odb.store_name,
 				odb.create_date,
-				odb.invalid_num,
-				odb.valid_num,
-				odb.orgin_price,
-				odb.meal_fee,
-				odb.special_orgin,
-				odb.special_offer,
-				odb.order_sale_rate,
-				odb.amount_payable
+				sum((CASE WHEN odb.platform_type = 'elm' then odb.special_offer END)) as elm_special_offer,
+				sum((CASE WHEN odb.platform_type = 'bdwm' then odb.special_offer END)) as bd_special_offer,
+				sum((CASE WHEN odb.platform_type = 'mt' then odb.special_offer END)) as mt_special_offer,
+				sum(odb.special_offer) as special_offer,
+				0 as order_sale_rate,
+				sum(odb.orgin_price + odb.meal_fee - odb.special_orgin) as actual_price,
+				sum((CASE WHEN odb.platform_type = 'elm' then odb.orgin_price + odb.meal_fee - odb.special_orgin  END))as elm_actual_price,
+				sum((CASE WHEN odb.platform_type = 'bdwm' then odb.orgin_price + odb.meal_fee - odb.special_orgin  END))as bd_actual_price,
+				sum((CASE WHEN odb.platform_type = 'mt' then odb.orgin_price + odb.meal_fee - odb.special_orgin  END))as mt_actual_price,
+				sum(odb.orgin_price + odb.meal_fee - odb.special_orgin)*0.7 as amount_rate_payable,
+				sum((CASE WHEN odb.platform_type = 'elm' then odb.special_offer +(odb.orgin_price + odb.meal_fee - odb.special_orgin)*0.7 END))as elm_settlement,
+				sum((CASE WHEN odb.platform_type = 'bdwm' then odb.special_offer +(odb.orgin_price + odb.meal_fee - odb.special_orgin)*0.7 END))as bd_settlement,
+				sum((CASE WHEN odb.platform_type = 'mt' then odb.special_offer +(odb.orgin_price + odb.meal_fee - odb.special_orgin)*0.7 END))as mt_settlement,
+				sum(odb.special_offer +(odb.orgin_price + odb.meal_fee - odb.special_orgin)*0.7) as settlement,
+				sum((odb.orgin_price + odb.meal_fee - odb.special_orgin)*0.7 + odb.special_offer) as allother_base_price,
+				odb.other_all
 			FROM
 				opera_date_base_price AS odb
 			LEFT JOIN dn_store AS s ON s.elm_id = odb.store_id
 			OR s.meituan_id = odb.store_id
 			OR s.baidu_id = odb.store_id
+			OR s.store_name = odb.store_name
 			WHERE
 				1=1
 				<if test="platformType != null and '' != platformType">  
@@ -455,14 +490,22 @@
 					s.bound_type,
 					odp.store_name,
 					odp.create_date,
-					odp.invalid_num,
-					odp.valid_num,
-					odp.orgin_price,
-					odp.meal_fee,
-					odp.special_orgin,
-					odp.special_offer,
-					odp.order_sale_rate,
-					odp.amount_payable
+					sum((CASE WHEN odp.platform_type = 'elm' then odp.special_offer END))as elm_special_offer,
+					sum((CASE WHEN odp.platform_type = 'bdwm' then odp.special_offer END))as bd_special_offer,
+					sum((CASE WHEN odp.platform_type = 'mt' then odp.special_offer END))as mt_special_offer,
+					sum(odp.special_offer) as special_offer,
+					0 as order_sale_rate,
+					sum(odp.orgin_price + odp.meal_fee - odp.special_orgin) as actual_price,
+					sum((CASE WHEN odp.platform_type = 'elm' then odp.orgin_price + odp.meal_fee - odp.special_orgin  END))as elm_actual_price,
+					sum((CASE WHEN odp.platform_type = 'bdwm' then odp.orgin_price + odp.meal_fee - odp.special_orgin  END))as bd_actual_price,
+					sum((CASE WHEN odp.platform_type = 'mt' then odp.orgin_price + odp.meal_fee - odp.special_orgin  END))as mt_actual_price,
+					sum(odp.orgin_price + odp.meal_fee - odp.special_orgin )*0.7 as amount_rate_payable,
+					sum((CASE WHEN odp.platform_type = 'elm' then odp.special_offer +(odp.orgin_price + odp.meal_fee - odp.special_orgin)*0.7 END))as elm_settlement,
+					sum((CASE WHEN odp.platform_type = 'bdwm' then odp.special_offer +(odp.orgin_price + odp.meal_fee - odp.special_orgin)*0.7 END))as bd_settlement,
+					sum((CASE WHEN odp.platform_type = 'mt' then odp.special_offer +(odp.orgin_price + odp.meal_fee - odp.special_orgin)*0.7 END))as mt_settlement,
+					sum(odp.special_offer +(odp.orgin_price + odp.meal_fee - odp.special_orgin)*0.7) as settlement,
+					sum((odp.orgin_price + odp.meal_fee - odp.special_orgin)*0.7 + odp.special_offer) as allother_base_price,
+					odp.other_all
 				FROM
 					opera_date_platform_account AS odp
 				LEFT JOIN dn_store AS s ON s.elm_id = odp.store_id
@@ -499,14 +542,22 @@
 					s.bound_type,
 					ods.store_name,
 					ods.create_date,
-					ods.invalid_num,
-					ods.valid_num,
-					ods.orgin_price,
-					ods.meal_fee,
-					ods.special_orgin,
-					ods.special_offer,
-					ods.order_sale_rate,
-					ods.amount_payable
+					sum((CASE WHEN ods.platform_type = 'elm' then ods.special_offer END))as elm_special_offer,
+					sum((CASE WHEN ods.platform_type = 'bdwm' then ods.special_offer END))as bd_special_offer,
+					sum((CASE WHEN ods.platform_type = 'mt' then ods.special_offer END))as mt_special_offer,
+					sum(ods.special_offer) as special_offer,
+					0 as order_sale_rate,
+					sum(ods.orgin_price + ods.meal_fee - ods.special_orgin) as actual_price,
+					sum((CASE WHEN ods.platform_type = 'elm' then ods.orgin_price + ods.meal_fee - ods.special_orgin  END)) as elm_actual_price,
+					sum((CASE WHEN ods.platform_type = 'bdwm' then ods.orgin_price + ods.meal_fee - ods.special_orgin  END)) as bd_actual_price,
+					sum((CASE WHEN ods.platform_type = 'mt' then ods.orgin_price + ods.meal_fee - ods.special_orgin  END)) as mt_actual_price,
+					sum(ods.orgin_price + ods.meal_fee - ods.special_orgin )as amount_rate_payable,
+					sum((CASE WHEN ods.platform_type = 'elm' then ods.special_offer +(ods.orgin_price + ods.meal_fee - ods.special_orgin)*0.7 END)) as elm_settlement,
+					sum((CASE WHEN ods.platform_type = 'bdwm' then ods.special_offer +(ods.orgin_price + ods.meal_fee - ods.special_orgin)*0.7 END)) as bd_settlement,
+					sum((CASE WHEN ods.platform_type = 'mt' then ods.special_offer +(ods.orgin_price + ods.meal_fee - ods.special_orgin)*0.7 END)) as mt_settlement,
+					sum(ods.special_offer +(ods.orgin_price + ods.meal_fee - ods.special_orgin)*0.7 ) as settlement,
+					sum((ods.orgin_price + ods.meal_fee - ods.special_orgin)*0.7 + ods.special_offer) as allother_base_price,
+					ods.other_all
 				FROM
 					opera_date_sale_rate AS ods
 				LEFT JOIN dn_store AS s ON s.elm_id = ods.store_id
@@ -543,14 +594,22 @@
 					s.bound_type,
 					odd.store_name,
 					odd.create_date,
-					odd.invalid_num,
-					odd.valid_num,
-					odd.orgin_price,
-					odd.meal_fee,
-					odd.special_orgin,
-					odd.special_offer,
-					odd.order_sale_rate,
-					odd.amount_payable
+					sum((CASE WHEN odd.platform_type = 'elm' then odd.special_offer END)) as elm_special_offer,
+					sum((CASE WHEN odd.platform_type = 'bdwm' then odd.special_offer END)) as bd_special_offer,
+					sum((CASE WHEN odd.platform_type = 'mt' then odd.special_offer END)) as mt_special_offer,
+					sum(odd.special_offer) as special_offer,
+					0 as order_sale_rate,
+					sum(odd.orgin_price + odd.meal_fee - odd.special_orgin) as actual_price,
+					sum((CASE WHEN odd.platform_type = 'elm' then odd.orgin_price + odd.meal_fee - odd.special_orgin  END)) as elm_actual_price,
+					sum((CASE WHEN odd.platform_type = 'bdwm' then odd.orgin_price + odd.meal_fee - odd.special_orgin  END)) as bd_actual_price,
+					sum((CASE WHEN odd.platform_type = 'mt' then odd.orgin_price + odd.meal_fee - odd.special_orgin  END)) as mt_actual_price,
+					sum(odd.orgin_price + odd.meal_fee - odd.special_orgin)*0.7 as amount_rate_payable,
+					sum((CASE WHEN odd.platform_type = 'elm' then odd.special_offer +(odd.orgin_price + odd.meal_fee - odd.special_orgin)*0.7 END)) as elm_settlement,
+					sum((CASE WHEN odd.platform_type = 'bdwm' then odd.special_offer +(odd.orgin_price + odd.meal_fee - odd.special_orgin)*0.7 END)) as bd_settlement,
+					sum((CASE WHEN odd.platform_type = 'mt' then odd.special_offer +(odd.orgin_price + odd.meal_fee - odd.special_orgin)*0.7 END)) as mt_settlement,
+					sum(odd.special_offer +(odd.orgin_price + odd.meal_fee - odd.special_orgin)*0.7) as settlement,
+					sum((odd.orgin_price + odd.meal_fee - odd.special_orgin)*0.7 + odd.special_offer) as allother_base_price,
+					odd.other_all
 				FROM
 					opera_date_deep_opera AS odd
 				LEFT JOIN dn_store AS s ON s.elm_id = odd.store_id

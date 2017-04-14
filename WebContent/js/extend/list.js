@@ -59,6 +59,7 @@ List = {
 		       	footerrow:gridCompleteCount,
 		       	pager: "remote_prowed",
 		        colModel:colModel,
+		        rownumbers:false,
 				serializeGridData:function(postData){//添加查询条件值
 					var obj = List.getQueryCondition();
 					$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
