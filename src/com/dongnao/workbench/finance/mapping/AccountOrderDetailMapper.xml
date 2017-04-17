@@ -176,12 +176,6 @@
 			<![CDATA[and DATE_FORMAT(od.create_date,'%Y-%c-%d') >= DATE_FORMAT(sso.special_offer_begin_date,'%Y-%c-%d')]]>
 			<![CDATA[and DATE_FORMAT(od.create_date,'%Y-%c-%d') <= DATE_FORMAT(sso.special_offer_end_date,'%Y-%c-%d')]]>
 		where 1=1
-		<if test="id != null and '' != id">  
-			and od.id = #{id,jdbcType=VARCHAR}
-		</if>
-		<if test="storeId != null and '' != storeId">  
-			and od.store_id = #{storeId,jdbcType=CHAR}
-		</if>
 		<if test="storeName != null and '' != storeName">  
 			and od.store_name like CONCAT('%',#{storeName,jdbcType=VARCHAR},'%')
 		</if>
@@ -207,19 +201,16 @@
 				and DATE_FORMAT(od.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
 			]]>
 		</if> 
-			<if test="null != propsMap.startTime and propsMap.startTime != ''">
-				<![CDATA[
-					and DATE_FORMAT(od.order_time,'%h:%m"%s') >= DATE_FORMAT(#{propsMap.startTime,jdbcType=TIMESTAMP},'%h:%m:%s')
-				]]>
-			</if>
-			<if test="null != propsMap.endTime and propsMap.endTime != ''">
-				<![CDATA[
-					and DATE_FORMAT(od.order_time,'%h:%m:%s') <= DATE_FORMAT(#{propsMap.endTime,jdbcType=TIMESTAMP},'%h:%m:%s')
-				]]>
-			</if> 
-		<if test="overTime != null and '' != overTime">  
-			and od.over_time = #{overTime,jdbcType=TIMESTAMP}
+		<if test="null != propsMap.startTime and propsMap.startTime != ''">
+			<![CDATA[
+				and DATE_FORMAT(od.order_time,'%h:%m"%s') >= DATE_FORMAT(#{propsMap.startTime,jdbcType=TIMESTAMP},'%h:%m:%s')
+			]]>
 		</if>
+		<if test="null != propsMap.endTime and propsMap.endTime != ''">
+			<![CDATA[
+				and DATE_FORMAT(od.over_time,'%h:%m:%s') <= DATE_FORMAT(#{propsMap.endTime,jdbcType=TIMESTAMP},'%h:%m:%s')
+			]]>
+		</if> 
 		<if test="orderNo != null and '' != orderNo">  
 			and od.order_no = #{orderNo,jdbcType=VARCHAR}
 		</if>
@@ -237,9 +228,6 @@
 		</if>
 		<if test="distributionMode != null and '' != distributionMode">  
 			and od.distribution_mode = #{distributionMode,jdbcType=VARCHAR}
-		</if>
-		<if test="remark != null and '' != remark">  
-			and od.remark = #{remark,jdbcType=VARCHAR}
 		</if>
 		<if test="platformType != null and '' != platformType">  
 			and od.platform_type = #{platformType,jdbcType=DECIMAL}

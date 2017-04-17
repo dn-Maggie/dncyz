@@ -896,8 +896,8 @@
 				sum(od.merchant_activities_subsidies) - sum(od.activities_subsidy_bymerchant) as activities_subsidy_bycompany,
 				sum(od.platform_activities_subsidies) AS platform_activities_charge,
 				sum(od.service_charge) as platform_service_charge,
-				sum(od.orgin_price)- sum(od.activities_subsidy_bymerchant) as product_sale_amount,
-				sum(od.orgin_price) + sum(CASE WHEN od.order_dist_charge IS NOT NULL THEN od.order_dist_charge ELSE 0 END)- sum(od.activities_subsidy_bymerchant)
+				sum(od.orgin_price) + sum(od.meal_fee)- sum(od.activities_subsidy_bymerchant) as product_sale_amount,
+				sum(od.orgin_price) + sum(od.meal_fee) + sum(CASE WHEN od.order_dist_charge IS NOT NULL THEN od.order_dist_charge ELSE 0 END)- sum(od.activities_subsidy_bymerchant)
 				-sum(CASE WHEN od.platform_dist_charge IS NOT NULL THEN od.platform_dist_charge ELSE 0 END )+sum(od.merchant_dist_charge)-sum(od.service_charge)-
 				(sum(od.merchant_activities_subsidies) - sum(od.activities_subsidy_bymerchant)) AS amount_receivable,
 				0.7 as order_sale_rate,

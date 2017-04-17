@@ -23,13 +23,13 @@ var boundMerchantModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'
 							{name : "storeName",label:"店铺名称",index : "store_name"},
 							{name : "createDate",label:"日期",index : "create_date"},				
 							{name : "invalidNum",label:"无效单量",index : "invalid_num"},		
-							{name : "validNum",label:"有效单量",index : "valid_num"},	
-							{name : "orginPrice",label:"原价",index : "orgin_price",formatter:Finance.formatAccountting},				
-							{name : "mealFee",label:"餐盒费",index : "meal_fee",formatter:Finance.formatAccountting},				
-							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin",formatter:Finance.formatAccountting},	
-							{name : "specialOffer",label:"特价菜结算",index : "special_offer",formatter:Finance.formatAccountting},
-							{name : "actualPrice",label:"原价菜金额",index : "actual_price",formatter:Finance.formatAccountting},				
-							{name : "amountPayable",label:"结算金额",index : "amount_payable",formatter:Finance.formatAccountting}
+							{name : "validNum",label:"有效单量",index : "valid_num",isBasic:true,},	
+							{name : "orginPrice",label:"原价",index : "orgin_price",isBasic:true,formatter:Finance.formatAccountting},				
+							{name : "mealFee",label:"餐盒费",index : "meal_fee",isBasic:true,formatter:Finance.formatAccountting},				
+							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin",isBasic:true,formatter:Finance.formatAccountting},	
+							{name : "specialOffer",label:"特价菜结算",index : "special_offer",isBasic:true,formatter:Finance.formatAccountting},
+							{name : "actualPrice",label:"原价菜金额",index : "actual_price",editFlag:true,formatter:Finance.formatAccountting},				
+							{name : "amountPayable",label:"结算金额",index : "amount_payable",editFlag:true,formatter:Finance.formatAccountting}
 		           		]};
 //绑公司卡对账表表头         
 var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/>?type=boundCompany",
@@ -37,13 +37,13 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
 							{name : "storeName",label:"店铺名称",index : "store_name"},
 							{name : "createDate",label:"日期",index : "create_date"},				
 							{name : "invalidNum",label:"无效单量",index : "invalid_num"},		
-							{name : "validNum",label:"有效单量",index : "valid_num"},	
-							{name : "orginPrice",label:"原价",index : "orgin_price",formatter:Finance.formatAccountting},				
-							{name : "mealFee",label:"餐盒费",index : "meal_fee",formatter:Finance.formatAccountting},				
-							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin",formatter:Finance.formatAccountting},	
-							{name : "specialOffer",label:"特价菜结算",index : "special_offer",formatter:Finance.formatAccountting},
-							{name : "actualPrice",label:"原价菜金额",index : "actual_price",formatter:Finance.formatAccountting},				
-							{name : "amountPayable",label:"结算金额",index : "amount_payable",formatter:Finance.formatAccountting}
+							{name : "validNum",label:"有效单量",index : "valid_num",isBasic:true,},	
+							{name : "orginPrice",label:"原价",index : "orgin_price",isBasic:true,formatter:Finance.formatAccountting},				
+							{name : "mealFee",label:"餐盒费",index : "meal_fee",isBasic:true,formatter:Finance.formatAccountting},				
+							{name : "specialOrgin",label:"特价菜原价",index : "special_orgin",isBasic:true,formatter:Finance.formatAccountting},	
+							{name : "specialOffer",label:"特价菜结算",index : "special_offer",isBasic:true,formatter:Finance.formatAccountting},
+							{name : "actualPrice",label:"原价菜金额",index : "actual_price",editFlag:true,formatter:Finance.formatAccountting},				
+							{name : "amountPayable",label:"结算金额",index : "amount_payable",editFlag:true,formatter:Finance.formatAccountting}
 		           		]};
 	$(function(){
 		initGrid("boundMerchant");
@@ -133,12 +133,12 @@ var boundCompanyModel = {url: "<m:url value='/accountCheck/listAccountCheck.do'/
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
 						<c:if test="${configTitle}">
-							<!-- li>
+							<li>
 								<a title="配置表头标题" href="javascript:;" onclick="Finance.configTitle()"> 
 									<i class="back_icon permissions_icon"> </i> 
 									<span>配置表头</span>
 								</a>
-							</li-->
+							</li>
 						</c:if>
 						<c:if test="${show}">
 						<li>

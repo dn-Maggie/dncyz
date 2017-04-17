@@ -32,11 +32,11 @@ var simpleTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaT
 					/* {name : "createDate",label:"日期",index : "create_date"}, */		
                   	{name : "invalidNum",label:"无效单",isBasic:true},				
 	 				{name : "validNum",label:"有效单",isBasic:true},	 
-	 				{name : "productSaleAmount",label:"产品销售金额",isBasic:true,formatter:Finance.formatAccountting},				
-	 				{name : "amountReceivable",label:"应收平台结算金额",isBasic:true,formatter:Finance.formatAccountting},	
-	 				{name : "amountPayable",label:"应付店铺结算金额",isBasic:true,formatter:Finance.formatAccountting},				
-	 				{name : "cyzServiceCharge",label:"公司收入",isBasic:true,formatter:Finance.formatAccountting},	
-     				{name : "saleGrossProfit",label:"销售毛利",isBasic:true,formatter:Finance.formatAccountting},				
+	 				{name : "productSaleAmount",label:"产品销售金额",isBasic:true,editFlag:true,formatter:Finance.formatAccountting},				
+	 				{name : "amountReceivable",label:"应收平台结算金额",isBasic:true,editFlag:true,formatter:Finance.formatAccountting},	
+	 				{name : "amountPayable",label:"应付店铺结算金额",isBasic:true,editFlag:true,formatter:Finance.formatAccountting},				
+	 				{name : "cyzServiceCharge",label:"公司收入",isBasic:true,editFlag:true,formatter:Finance.formatAccountting},	
+     				{name : "saleGrossProfit",label:"销售毛利",isBasic:true,editFlag:true,formatter:Finance.formatAccountting},				
      				{name : "distPrice",label:"自配送金额单价",hidden:true,formatter:Finance.formatAccountting},
      				{name : "distAll",label:"自配送金额",editFlag:true,formatter : Finance.formatAccountting},
 	 				{name : "distDiff",label:"自配送补差",editFlag:true,formatter : Finance.formatAccountting},
@@ -57,10 +57,10 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 					/* {name : "createDate",label:"日期",index : "create_date"}, */		
 					{name : "invalidNum",label:"无效单",isBasic:true},				
 					{name : "validNum",label:"有效单",isBasic:true},	 
-					{name : "productSaleAmount",label:"产品销售金额",isBasic:true,formatter:Finance.formatAccountting},				
-	 				{name : "amountReceivable",label:"应收平台结算金额",isBasic:true,formatter:Finance.formatAccountting},	
-	 				{name : "amountPayable",label:"应付店铺结算金额",isBasic:true,formatter:Finance.formatAccountting},				
-	 				{name : "cyzServiceCharge",label:"公司收入",isBasic:true,formatter:Finance.formatAccountting},	
+					{name : "productSaleAmount",label:"产品销售金额",isBasic:true,editFlag:true,formatter:Finance.formatAccountting},				
+	 				{name : "amountReceivable",label:"应收平台结算金额",isBasic:true,editFlag:true,formatter:Finance.formatAccountting},	
+	 				{name : "amountPayable",label:"应付店铺结算金额",isBasic:true,editFlag:true,formatter:Finance.formatAccountting},				
+	 				{name : "cyzServiceCharge",label:"公司收入",isBasic:true,editFlag:true,formatter:Finance.formatAccountting},	
      				{name : "saleGrossProfit",label:"销售毛利",isBasic:true,formatter:Finance.formatAccountting},				
      				{name : "distPrice",label:"自配送金额单价",hidden:true,formatter:Finance.formatAccountting},
      				{name : "distAll",label:"自配送金额",editFlag:true,formatter : Finance.formatAccountting},
@@ -174,12 +174,12 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
 						<c:if test="${configTitle}">
-							<!-- li>
+							<li>
 								<a title="配置表头标题" href="javascript:;" onclick="Finance.configTitle()"> 
 									<i class="back_icon permissions_icon"> </i> 
 									<span>配置表头</span>
 								</a>
-							</li-->
+							</li>
 						</c:if>
 						<c:if test="${show}">
 						<li>

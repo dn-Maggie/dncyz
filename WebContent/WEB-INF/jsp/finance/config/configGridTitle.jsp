@@ -123,11 +123,11 @@ function orderIndex(){
 }
 function cellFormatter(value, options, rData){
 	if(rData.raw){
-		return value;
+		return accounting.formatMoney(value,"",2).replace(".00","");
 	}else if($(".calcu:eq("+options.colModel.serial+")").val().indexOf("rData")>0){
-		return eval($(".calcu:eq("+options.colModel.serial+")").val());
+		return accounting.formatMoney(eval($(".calcu:eq("+options.colModel.serial+")").val()),"",2).replace(".00","");
 	}
-	return value;
+	return accounting.formatMoney(value,"",2).replace(".00","");
 }
 //添加行
 function addTr(){
