@@ -521,7 +521,7 @@ public class AccountOrderDetail extends Model{
 		
 			
 						
-		  			/**
+  			/**
 			 * 获取 赠品补贴
 			 * @return String this.giftAllowance
 			 */

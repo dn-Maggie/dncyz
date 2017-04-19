@@ -205,24 +205,26 @@ public class AccountOrderDetailController{
 				orderDetail.setOrderNo(StringUtil.valueOf(lo.get(8)));
 				orderDetail.setOrginPrice(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(9))));
 				orderDetail.setMealFee(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(10))));
-				orderDetail.setActualPrice(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(11))));
+				//orderDetail.setActualPrice(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(11))));
 				orderDetail.setMerchantActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(12))));//商户承担活动补贴(总额)
-				orderDetail.setActivitiesSubsidyBymerchant(lo.get(23).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(23))));//商户承担活动补贴(菜品折扣部分)
-				orderDetail.setFoodDiscount(lo.get(25).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(25))));//折扣后菜价
-				orderDetail.setSpecialOffer(lo.get(26).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(26))));//特价结算
-				orderDetail.setActivitiesSubsidyBycompany(lo.get(24).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(24))));//商户承担活动补贴(公司承担线上活动费)
-				orderDetail.setMerchantSubsidyVouchers(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(13))));
-				orderDetail.setMerchantDistCharge(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(14))));
-				orderDetail.setServiceRate(StringUtil.valueOf(lo.get(15)));
-				orderDetail.setServiceCharge(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(16))));
-				orderDetail.setRefundAmount(StringUtil.valueOf(lo.get(17)));
-				orderDetail.setSettlementAmount(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(18))));
-				orderDetail.setDistributionMode(StringUtil.valueOf(lo.get(19)));
-				orderDetail.setRemark(StringUtil.valueOf(lo.get(20)));
-				orderDetail.setPlatformActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(21))));
-				orderDetail.setPlatformSubsidyVouchers(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(22))));
+				orderDetail.setActivitiesSubsidyBymerchant(new BigDecimal(0));//商户承担活动补贴(菜品折扣部分)
+				orderDetail.setFoodDiscount(new BigDecimal(0));//折扣后菜价
+				orderDetail.setSpecialOffer(new BigDecimal(0));//特价结算
+				orderDetail.setActivitiesSubsidyBycompany(new BigDecimal(0));//商户承担活动补贴(公司承担线上活动)
+				orderDetail.setMerchantSubsidyVouchers(lo.get(13).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(13))));//商户承担活动补贴(代金券)
+				orderDetail.setMerchantDistCharge(lo.get(15).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(15))));//商户收取配送费
+				orderDetail.setPlatformDistCharge(lo.get(14).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(14))));//平台收取配送费
+				orderDetail.setOrderDistCharge(lo.get(14).toString().length()==0?new BigDecimal(0):StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(14))));//用户支付配送费
+				orderDetail.setServiceRate(StringUtil.valueOf(lo.get(16)));
+				orderDetail.setServiceCharge(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(17))));
+				orderDetail.setRefundAmount(StringUtil.valueOf(lo.get(18)));
+				orderDetail.setSettlementAmount(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(19))));
+				orderDetail.setDistributionMode(StringUtil.valueOf(lo.get(20)));
+				orderDetail.setRemark(StringUtil.valueOf(lo.get(21)));
+				orderDetail.setPlatformActivitiesSubsidies(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(22))));
+				orderDetail.setPlatformSubsidyVouchers(StringUtil.stringToDecimal(StringUtil.valueOf(lo.get(23))));//饿了么承担代金券补贴
 				orderDetail.setPlatformType("elm");
-				orderDetail.setIsInvalid("0"); //是否为无效单
+				orderDetail.setIsInvalid("0"); //是否为无效单(0默认为有效)
             	orderDetailList.add(orderDetail);
             }catch(Exception e){
             	e.printStackTrace();

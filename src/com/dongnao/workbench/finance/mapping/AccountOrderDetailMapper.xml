@@ -172,7 +172,7 @@
 			od.order_sale_rate,
 			od.target_addr
 			from account_order_detail as od 
-			LEFT JOIN store_special_offer as sso on sso.store_name = od.store_name and FIND_IN_SET(sso.special_offer_food_name,od.goods_name)>0
+			LEFT JOIN store_special_offer as sso on sso.store_name = od.store_name and od.goods_name like CONCAT('%',sso.special_offer_food_name,'%')
 			<![CDATA[and DATE_FORMAT(od.create_date,'%Y-%c-%d') >= DATE_FORMAT(sso.special_offer_begin_date,'%Y-%c-%d')]]>
 			<![CDATA[and DATE_FORMAT(od.create_date,'%Y-%c-%d') <= DATE_FORMAT(sso.special_offer_end_date,'%Y-%c-%d')]]>
 		where 1=1
