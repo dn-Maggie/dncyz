@@ -304,6 +304,7 @@ public class StoreController{
     			store.setBaiduRate(StringUtil.valueOf(lo.get(25)));
     			store.setBaiduSale(StringUtil.valueOf(lo.get(26)));
     			store.setBoundType(StringUtil.valueOf(lo.get(27)));
+    			store.setOwnerUserId("00000000-0000-0000-0000-000000000000");
             	storeList.add(store);
             }catch(Exception e){
             	e.printStackTrace();
