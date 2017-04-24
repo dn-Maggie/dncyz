@@ -82,6 +82,8 @@ public class FileDownload extends HttpServlet {
     			file_name="/订单详细（美团模板）.xlsx";
     		}else if(platFormType.equals("baidu")){
     			file_name="/订单详细（百度模板）.xlsx";
+    		}else if(platFormType.equals("store")){
+    			file_name="/店铺信息表.xlsx";
     		}
 			File file = new File(file_path + file_name);  
 			// 取得文件名。          

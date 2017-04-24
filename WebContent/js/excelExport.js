@@ -154,7 +154,14 @@ ExpExcel = {
 		htmlTmp += '<form name="form" id="form" method="post"  enctype="multipart/form-data"><input type="file" id="file" name="file" style="display: none" onchange="ExpExcel.importData()"/></form>';
 		return htmlTmp;
 	},
-
+	createDownloadStoreHtml : function() {
+		var htmlTmp = '';
+		htmlTmp += '<form name="downloadform" id="downloadform" method="GET"><div style="height:100px;margin-left:44px; margin-top:16px;">';
+		htmlTmp += '<select class="search_select" id="platFormType" name="platFormType"><option value="store">店铺基本信息</option></select></div>';
+		htmlTmp += '<div style="float:left;margin-left:46px;"><input type="button" id="cancel" class="search_btn4" value="取消">';
+		htmlTmp += '<input type="button" id="download" class="add_save" value="下载" onclick="executeDownload()"></div></form>';
+		return htmlTmp;
+    },
 	createDownloadWinHtml : function() {
 		var htmlTmp = '';
 		htmlTmp += '<form name="downloadform" id="downloadform" method="GET"><div style="height:100px;margin-left:44px; margin-top:16px;">';
@@ -266,6 +273,23 @@ ExpExcel = {
 		$("#excelDownloadDialogDiv").remove();
 		var excelDownloadDialogDiv = $('<div id="excelDownloadDialogDiv">'
 				+ ExpExcel.createDownloadWinHtml() + '</div>');
+		$(document.body).append(excelDownloadDialogDiv);
+		excelDownloadDialogDiv.find('#cancel').bind("click", function() {
+			excelDownloadDialogDiv.dialog("close");
+		});
+		excelDownloadDialogDiv.dialog({
+      	height : 250,
+			width : 320,
+			autoOpen : false,
+			modal : true,
+      title : "选择下载模板"
+		});
+		excelDownloadDialogDiv.dialog("open");
+	},
+	showStoreDownloadWin : function() {
+		$("#excelDownloadDialogDiv").remove();
+		var excelDownloadDialogDiv = $('<div id="excelDownloadDialogDiv">'
+				+ ExpExcel.createDownloadStoreHtml() + '</div>');
 		$(document.body).append(excelDownloadDialogDiv);
 		excelDownloadDialogDiv.find('#cancel').bind("click", function() {
 			excelDownloadDialogDiv.dialog("close");

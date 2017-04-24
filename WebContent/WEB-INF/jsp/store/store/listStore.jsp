@@ -78,6 +78,16 @@ var Model = {
 	function importData(){
 		ExpExcel.importStore();
 	}
+	 //下载模板
+    function downloadTemplate(){
+    	ExpExcel.showStoreDownloadWin();
+    }
+ 	//下载模板
+	function executeDownload(){
+		var fid = $("#downloadform");
+		$("#downloadform").attr("action", "<%=request.getContextPath()%>/download/fileDownload");
+		fid.submit();
+	}
  	// 打开产品资源界面
     function linkStoreProduct(){
    		var key = ICSS.utils.getSelectRowData("storeId");
@@ -131,23 +141,38 @@ var Model = {
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
 						<li>
-						<a title="<m:message code="button.add"/>" href="javascript:;" onclick="add();"> <i class="icon_bg icon_add"> </i> <span><m:message
-						code="button.add" /></span>
-						</a>
-						<a title="批量增加" href="javascript:;" onclick="importData();"> <i class="icon_bg icon_add"> </i> <span>批量导入</span>
-						</a>
+							<a title="下载模板" href="javascript:" onclick="downloadTemplate();">
+								<i class="icon_bg icon_download"></i><span>下载模板</span>
+							</a>
 						</li>
-						<li><a title="<m:message code="button.edit"/>" href="javascript:;" onclick="edit();"><i class="icon_bg icon_edit"></i> <span><m:message
-							code="button.edit" /></span> </a></li>
-						<li><a title="<m:message code="button.delete"/>" href="javascript:;" onclick="batchDelete();"> <i class="icon_bg icon_del"></i> <span><m:message
-							code="button.delete" /></span>
-						</a></li>
-						<li><a title="店铺产品关联" href="javascript:;" onclick="linkStoreProduct();"> <i class="back_icon resources_icon"></i> 
-							<span>店铺产品关联</span>
-						</a></li>
-						<li><a title="<m:message code="button.view"/>" href="javascript:" onclick="show();">
-							<i class="icon_bg icon_ckxq"></i> <span><m:message code="button.view" /></span>
-						</a></li>
+						<li>
+							<a title="<m:message code="button.add"/>" href="javascript:;" onclick="add();"> <i class="icon_bg icon_add"> </i> 
+								<span><m:message code="button.add" /></span>
+							</a>
+							<a title="批量增加" href="javascript:;" onclick="importData();"> <i class="icon_bg icon_add"> </i> 
+								<span>批量导入</span>
+							</a>
+						</li>
+						<li>
+							<a title="<m:message code="button.edit"/>" href="javascript:;" onclick="edit();"><i class="icon_bg icon_edit"></i> 
+								<span><m:message code="button.edit" /></span>
+							</a>
+						</li>
+						<li>
+							<a title="<m:message code="button.delete"/>" href="javascript:;" onclick="batchDelete();"> <i class="icon_bg icon_del"></i> 
+								<span><m:message code="button.delete" /></span>
+							</a>
+						</li>
+						<li>
+							<a title="店铺产品关联" href="javascript:;" onclick="linkStoreProduct();"> <i class="back_icon resources_icon"></i> 
+								<span>店铺产品关联</span>
+							</a>
+						</li>
+						<li>
+							<a title="<m:message code="button.view"/>" href="javascript:" onclick="show();">
+								<i class="icon_bg icon_ckxq"></i> <span><m:message code="button.view" /></span>
+							</a>
+						</li>
 					</ul>
 				</div>
 	
