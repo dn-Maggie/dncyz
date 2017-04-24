@@ -18,7 +18,7 @@ var orderDetailModel = {
 					{name : "orderTime",label:"订单创建时间",index : "order_time"},				
 					{name : "overTime",label:"订单完成时间",index : "over_time"},				
 					{name : "orderNo",label:"订单号",index : "order_no"},				
-					{name : "orginPrice",label:"菜价",index : "orginPrice"},				
+					{name : "orginPrice",label:"菜价",index : "orgin_price"},				
 					{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
 					/* {name : "giftAllowance",label:"赠品补贴",index : "gift_allowance"}, */	
 					{name : "activitiesSubsidyBymerchant",label:"实际菜品折扣",index : "activities_subsidy_bymerchant",editable:true},				
@@ -109,18 +109,23 @@ var orderDetailModel = {
  	}
 	//生成运营汇总表
     function genTotal(ways){
-		showInfo("正在处理，请稍后...");
-		debugger;
-   		$ .ajax({
-   			type: "post",
-   			data:Finance.getQueryCondition(),
-			url: baseUrl+"/operaDate/addByOrderDetail.do?type="+ways,
-			cache:false,
-			dataType:"json",
-			success : function(response) {
-				showMessage(response.message,"提示", 2000);
-			}
-		});
+    	var storeName = $('#storeName').val();
+    	if(storeName==""){
+    		showMessage("请选择一个店铺", "提示", 20000000);
+    		return false;
+    	}else{
+    		showInfo("正在处理，请稍后...");
+    		$ .ajax({
+       			type: "post",
+       			data:Finance.getQueryCondition(),
+    			url: baseUrl+"/operaDate/addByOrderDetail.do?type="+ways,
+    			cache:false,
+    			dataType:"json",
+    			success : function(response) {
+    				showMessage(response.message,"提示", 2000);
+    			}
+    		});
+    	}
     }
     </script>
 </head>
@@ -132,6 +137,7 @@ var orderDetailModel = {
 				<ul>
 				<li><span>商户名称：</span>
 					<select class="search_select choose_select" name="storeName" id="storeName">
+						<c:if test="${isAdmin}"><option value = "">所有店铺</option></c:if>
 						<c:forEach var="store" items="${store}">
 							<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
 		             	</c:forEach>

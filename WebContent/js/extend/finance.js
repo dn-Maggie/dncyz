@@ -9,10 +9,10 @@ Finance = {
 		})
 		$(".tableTab").bind('removeCheck',function(){
 			$(this).removeClass('checked');
-		})
+		});
 		$(".listtable_box").bind('removeAll',function(){
 			$(this).html("");
-		})
+		});
 	},
 	//获取表头	
 	getColModel: function (){
@@ -24,7 +24,8 @@ Finance = {
     configTitle: function (tableName,tableId){
     	var tableId = $('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
     	var tableName = $('.tableTab.checked').find('span').text();
-    	Finance.configGrid(tableName,tableId);
+    	var storeName = $('#storeName').val();
+    	storeName==""?showMessage("请选择一个店铺", "提示", 2000):Finance.configGrid(tableName,tableId,storeName);
     },
     getQueryCondition:function(){
         var obj = {};
@@ -44,13 +45,13 @@ Finance = {
 	       	rownumbers:false,
 	       	footerrow:gridCompleteCount,
 	       	cellEdit:editCell,
-	       	afterEditCell: function (id,name,val,iRow,iCol){
-	        },
            	afterSaveCell : function(rowid,name,val,iRow,iCol) {
            		if(editCell){
            			var paramDatas = {};
 	           		paramDatas[name] = val;
 	           		paramDatas.id = rowid;
+	           		paramDatas.storeName = rowid.substr(19).replace(/elm$|bdwm$|mt$/,'');
+	           		debugger;
 	           		$ .ajax({
 	           			type: "post",
 	    				url: editURL,
@@ -78,11 +79,11 @@ Finance = {
 					 	var footerCell = $(this).footerData();
 					 	var footerObj = {};
 					 	for(var i in footerCell){
-					 		if(!/rn$|cb$|Time$|Date$|Name$|Type$|remark$|Mode$|No$|id$/.test(i)){
-					 			footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(2):0;
+					 		if(!/rn$|cb$|Time$|Date$|Name$|Type$|remark$|Mode$|No$|Rate$|id$/.test(i)){
+					 			footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(2):"0";
 					 		}
 					 		if(/Num$/.test(i)){
-					 			footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum"):0;
+					 			footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(2):"0";
 					 		}
 					 	}
 					 	footerObj['raw'] = true;
@@ -101,16 +102,15 @@ Finance = {
 	       	rownumbers:false,
 	       	footerrow:gridCompleteCount,
 	       	cellEdit:editCell,
-	       	afterEditCell: function (id,name,val,iRow,iCol){
-	        },
            	afterSaveCell : function(rowid,name,val,iRow,iCol) {
            		if(editCell){
            			var paramDatas = {};
 	           		paramDatas[name] = val;
 	           		paramDatas.id = rowid;
+	           		paramDatas.storeName = rowid.substr(19).replace(/elm$|bdwm$|mt$/,'');
 	           		$ .ajax({
 	           			type: "post",
-	    				url: baseUrl+editURL,
+	    				url: editURL,
 	    				data: paramDatas,
 						cache:false,
 	    				dataType:"json"
@@ -135,11 +135,11 @@ Finance = {
 				 	var footerCell = $(this).footerData();
 				 	var footerObj = {};
 				 	for(var i in footerCell){
-				 		if(!/rn$|cb$|Time$|Date$|Name$|Type$|remark$|Mode$|No$|id$/.test(i)){
-				 			footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(2):0;
+				 		if(!/rn$|cb$|Time$|Date$|Name$|Type$|remark$|Mode$|No$|Rate$|id$/.test(i)){
+				 			footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(2):"0";
 				 		}
 				 		if(/Num$/.test(i)){
-				 			footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum"):0;
+				 			footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(2):"0";
 				 		}
 				 	}
 				 	footerObj['raw'] = true;
@@ -149,10 +149,10 @@ Finance = {
 			}
       	});
     },
-    configGrid:function(tableName,tableId){
-    	var url=baseUrl+"/config/toConfigGridTitle.do";
+    configGrid:function(tableName,tableId,storeName){
+    	var url=baseUrl+"/config/toConfigGridTitle.do?storeName="+storeName;
 		config_iframe_dialog = new biz.dialog({
-			id:$('<div id="addwindow_iframe" ></div>').html('<iframe id="iframeAdd"  class="'+tableId+'" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+			id:$('<div id="addwindow_iframe" ></div>').html('<iframe id="iframeAdd"  class="'+tableId+'" data-id="'+tableId+'" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
 			width: $(window).width()*0.9,
 			height: 600,
@@ -161,6 +161,6 @@ Finance = {
 		config_iframe_dialog.open();
   	},
   	formatAccountting:function(cellValue,options,rowObject){
-  		return accounting.formatMoney(cellValue,"",2).replace(".00","");
+  		return accounting.formatMoney(cellValue,"",2).replace(".00","").replace(",","");
   	}
 }

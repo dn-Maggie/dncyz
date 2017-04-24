@@ -213,7 +213,10 @@ public class OperaDate extends Model{
 	                 * 平台类型
 	                 **/
 				   			private String platformType;
-		   		
+				   			/*餐盒费*/
+				   			private String elmMealFee;
+				   			private String bdMealFee;
+				   			private String mtMealFee;
 				   			/*折扣菜金额*/
 				   			private String elmSpecialOffer;
 				   			private String bdSpecialOffer;
@@ -1114,6 +1117,30 @@ public class OperaDate extends Model{
 
 			public void setSettlement(String settlement) {
 				this.settlement = settlement;
+			}
+
+			public String getElmMealFee() {
+				return elmMealFee;
+			}
+
+			public void setElmMealFee(String elmMealFee) {
+				this.elmMealFee = elmMealFee;
+			}
+
+			public String getBdMealFee() {
+				return bdMealFee;
+			}
+
+			public void setBdMealFee(String bdMealFee) {
+				this.bdMealFee = bdMealFee;
+			}
+
+			public String getMtMealFee() {
+				return mtMealFee;
+			}
+
+			public void setMtMealFee(String mtMealFee) {
+				this.mtMealFee = mtMealFee;
 			}
 		   		
 		

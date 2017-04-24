@@ -11,13 +11,12 @@ var Model = {
 		url:"<m:url value='/store/listStore.do'/>",
 	 	colModel:[
 			{name : "storeId",hidden : true,key : true,label:"店铺ID",index : "STORE_ID"},				
-			{name : "storeName",label:"店铺名称",index : "STORE_NAME"},				
+			{name : "storeName",label:"店铺名称",index : "STORE_NAME",align:"left"},				
 			{name : "brandName",label:"所属品牌",index : "BRAND_ID"},				
 			{name : "storeAddress",label:"店铺地址",index : "STORE_ADDRESS"},				
-			{name : "workTimeBegin",label:"营业时间起",index : "WORK_TIME_BEGIN"},				
-			{name : "workTimeEnd",label:"营业时间起",index : "WORK_TIME_END"},				
 			{name : "storeOwnerName",label:"店长姓名",index : "STORE_OWNER_NAME"},				
-			{name : "storeOwnerTel",label:"店长电话",index : "STORE_OWNER_TEL"},				
+			{name : "storeOwnerTel",label:"店长电话",index : "STORE_OWNER_TEL"},		
+			{name : "storeType",label:"店铺类型",index : "store_type"},		
 			{name : "proInvoiceFlag",label:"是否可以提供发票",index : "PRO_INVOICE_FLAG"
 				,formatter:GridColModelForMatter.yesno},				
 			{name : "remark",label:"备注",index : "REMARK"},				
@@ -75,7 +74,10 @@ var Model = {
     	var url = baseUrl+'/store/deleteStore.do';
     	List.batchDelete(id, url);
     }
-    
+    //导入excel数据
+	function importData(){
+		ExpExcel.importStore();
+	}
  	// 打开产品资源界面
     function linkStoreProduct(){
    		var key = ICSS.utils.getSelectRowData("storeId");
@@ -120,7 +122,7 @@ var Model = {
 				</li>
 				<li>
 					<input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置">
-					<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridobj);" value="查询"></li>
+					<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridObj);" value="查询"></li>
 				</ul>
 		   </div>
 	    </form>
@@ -128,9 +130,13 @@ var Model = {
 				<!--功能按钮begin-->
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
-						<li><a title="<m:message code="button.add"/>" href="javascript:;" onclick="add();"> <i class="icon_bg icon_add"> </i> <span><m:message
-							code="button.add" /></span>
-						</a></li>
+						<li>
+						<a title="<m:message code="button.add"/>" href="javascript:;" onclick="add();"> <i class="icon_bg icon_add"> </i> <span><m:message
+						code="button.add" /></span>
+						</a>
+						<a title="批量增加" href="javascript:;" onclick="importData();"> <i class="icon_bg icon_add"> </i> <span>批量导入</span>
+						</a>
+						</li>
 						<li><a title="<m:message code="button.edit"/>" href="javascript:;" onclick="edit();"><i class="icon_bg icon_edit"></i> <span><m:message
 							code="button.edit" /></span> </a></li>
 						<li><a title="<m:message code="button.delete"/>" href="javascript:;" onclick="batchDelete();"> <i class="icon_bg icon_del"></i> <span><m:message

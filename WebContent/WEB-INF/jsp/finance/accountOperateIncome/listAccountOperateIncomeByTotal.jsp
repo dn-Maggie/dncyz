@@ -16,10 +16,10 @@ var gridObj = {};
 //格式化cell
 function cellFormat(value, options, rData){
 	if(rData.raw){
-		return accounting.formatMoney(value,"",2).replace(".00","");
+		return accounting.formatMoney(value,"",2).replace(".00","").replace(",","");
 	}else if(options.colModel.calculate.indexOf("rData")>0){
-		return accounting.formatMoney(eval(options.colModel.calculate),"",2).replace(".00","");
-	}return accounting.formatMoney(value,"",2).replace(".00","");
+		return accounting.formatMoney(eval(options.colModel.calculate),"",2).replace(".00","").replace(",","");
+	}return accounting.formatMoney(value,"",2).replace(".00","").replace(",","");
 };
 //浅运营汇总表表头         
 var simpleTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTotal.do'/>?type=simpleTotal",
@@ -28,7 +28,7 @@ var simpleTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaT
 					{name : "brandName",label:"品牌"},
 					{name : "storeName",label:"商户名称",index : "store_name"},
 					{name : "storeType",label:"店铺类型",index : "store_type"}, 	
-					{name : "storeDistMode",label:"配送方式型"}, 
+					{name : "storeDistMode",label:"配送方式"}, 
 					/* {name : "createDate",label:"日期",index : "create_date"}, */		
                   	{name : "invalidNum",label:"无效单",isBasic:true},				
 	 				{name : "validNum",label:"有效单",isBasic:true},	 
@@ -53,7 +53,7 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 					{name : "brandName",label:"品牌"},
 					{name : "storeName",label:"商户名称",index : "store_name"},
 					{name : "storeType",label:"店铺类型",index : "store_type"}, 	
-					{name : "storeDistMode",label:"配送方式型"}, 	
+					{name : "storeDistMode",label:"配送方式"}, 	
 					/* {name : "createDate",label:"日期",index : "create_date"}, */		
 					{name : "invalidNum",label:"无效单",isBasic:true},				
 					{name : "validNum",label:"有效单",isBasic:true},	 

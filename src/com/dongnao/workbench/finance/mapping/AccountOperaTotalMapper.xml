@@ -185,6 +185,9 @@
 			and DATE_FORMAT(create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
 			]]>
 		</if> 
+		<if test="null != createDate and createDate != ''">
+			and DATE_FORMAT(create_date,'%Y-%c-%d') = DATE_FORMAT(#{createDate,jdbcType=DATE},'%Y-%c-%d')
+		</if> 
 		<if test="platformType != null and '' != platformType">  
 			and platform_type = #{platformType,jdbcType=VARCHAR}
 		</if>
@@ -346,9 +349,6 @@
 	<update id="updateSimpleTotal" parameterType="com.dongnao.workbench.finance.model.AccountOperaTotal">
 		update account_opera_simple_total  set
 			id= #{id,jdbcType=VARCHAR}
-			<if test="storeName != null and '' != storeName">  
-			,store_name = #{storeName,jdbcType=VARCHAR}
-			</if>
 			<if test="invalidNum != null and '' != invalidNum">  
 			,invalid_num = #{invalidNum,jdbcType=INTEGER}
 			</if>
@@ -401,14 +401,14 @@
 			,platform_type = #{platformType,jdbcType=VARCHAR}
 			</if>
 		where id = #{id,jdbcType=VARCHAR}
+		<if test="createDate != null and '' != createDate">  
+			and DATE_FORMAT(create_date,'%Y-%c-%d') = DATE_FORMAT(#{createDate,jdbcType=DATE},'%Y-%c-%d')
+		</if>
 	</update>
 	<!-- 修改深运营表 -->
 	<update id="updateDeepTotal" parameterType="com.dongnao.workbench.finance.model.AccountOperaTotal">
 		update account_opera_deep_total set
 			id= #{id,jdbcType=VARCHAR}
-			<if test="storeName != null and '' != storeName">  
-			,store_name = #{storeName,jdbcType=VARCHAR}
-			</if>
 			<if test="invalidNum != null and '' != invalidNum">  
 			,invalid_num = #{invalidNum,jdbcType=INTEGER}
 			</if>

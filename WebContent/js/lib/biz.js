@@ -10295,8 +10295,7 @@ function isIdCardNo(num) {
             
             switch( type ) {
                 case 'alert':
-                    $("#popup_message").after('<div id="popup_panel" style="text-align: right;"><input type="button" value="确定" id="popup_ok" /></div>');
-                
+                    $("#popup_message").after('<div id="popup_panel" style="text-align: right;"><button id="popup_ok"><span>' + $.alerts.okButton + '</span></button></div>');
                     $("#popup_ok").button({ label:I18N.confirm}).click( function() {
                         if($.alerts.time){
                            clearTimeout($.alerts.time);
@@ -10310,7 +10309,7 @@ function isIdCardNo(num) {
                     });
                 break;
                 case 'confirm':
-                    $("#popup_message").after('<div id="popup_panel" style="text-align: right;"><input type="button" value="确定" id="popup_ok" /><input type="button" value="取消" id="popup_ok" /></div>');
+                    $("#popup_message").after('<div id="popup_panel" style="text-align: right;"><button id="popup_ok"><span>' + $.alerts.okButton + '</span></button><button id="popup_cancel"><span>' + $.alerts.cancelButton + '</span></button></div>');
                     $("#popup_ok").button({ label:I18N.confirm}).click( function() {
                         $.alerts._hide();
                         if( callback ) callback(true);
@@ -10326,7 +10325,7 @@ function isIdCardNo(num) {
                     });
                 break;
                 case 'prompt':
-                    $("#popup_message").append('<br /><input type="text" size="30" id="popup_prompt" />').after('<div id="popup_panel"><input type="button" value="确定" id="popup_ok" /> <input type="button" value="取消" id="popup_ok" /></div>');
+                    $("#popup_message").append('<br /><input type="text" size="30" id="popup_prompt" />').after('<div id="popup_panel"><button id="popup_ok"><span>' + $.alerts.okButton + '</span></button> <button id="popup_cancel"><span>' + $.alerts.cancelButton + '</span></button></div>');
                     $("#popup_ok").button({ label:I18N.confirm}).click( function() {
                         var val = $("#popup_prompt").val();
                         $.alerts._hide();

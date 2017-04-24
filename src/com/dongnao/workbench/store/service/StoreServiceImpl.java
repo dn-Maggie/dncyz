@@ -1,5 +1,7 @@
 package com.dongnao.workbench.store.service;
 import javax.annotation.Resource;
+
+import java.util.ArrayList;
 import java.util.List;
 import com.dongnao.workbench.store.dao.StoreMapper;
 import com.dongnao.workbench.store.model.Store;
@@ -69,5 +71,12 @@ public class StoreServiceImpl implements StoreService{
 	public ResultMessage updateImg(Store store) {
 		storeMapper.updateImg(store);
 		return AjaxUtils.getSuccessMessage();
+	}
+	/**
+	 * 批量新增店铺
+	 */
+	@Override
+	public int addStores(ArrayList<Store> storeList) {
+		return storeMapper.addStores(storeList);
 	}
 }

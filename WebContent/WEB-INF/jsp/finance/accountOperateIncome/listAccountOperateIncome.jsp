@@ -11,10 +11,10 @@ var gridObj = {};
 //格式化cell
 function cellFormat(value, options, rData){
 	if(rData.raw){
-		return accounting.formatMoney(value,"",2).replace(".00","");
+		return accounting.formatMoney(value,"",2).replace(".00","").replace(",","");
 	}else if(options.colModel.calculate.indexOf("rData")>0){
-		return accounting.formatMoney(eval(options.colModel.calculate),"",2).replace(".00","");
-	}return accounting.formatMoney(value,"",2).replace(".00","");
+		return accounting.formatMoney(eval(options.colModel.calculate),"",2).replace(".00","").replace(",","");
+	}return accounting.formatMoney(value,"",2).replace(".00","").replace(",","");
 };
 //汇总运营表头
 var totalColModel = {
@@ -80,14 +80,14 @@ var basePriceModel = {url: "<m:url value='/operaDate/listOperaDate.do'/>?type=ba
 						{name : "mealFee",label:"餐盒费",index : "meal_fee",isBasic:true,formatter:Finance.formatAccountting},	
 						{name : "orderDistCharge",label:"订单上收取客户配送费",index : "order_dist_charge",isBasic:true,formatter:Finance.formatAccountting},
 						{name : "goodsQuality",label:"菜品份数",index : "goods_quality",isBasic:true,formatter:Finance.formatAccountting},//菜品数量表中的销售量总和	
-						{name : "allbasePrice",label:"底价",index : "allbase_price",isBasic:true,formatter:Finance.formatAccountting},//菜品数量表中的销售额总和				
+						{name : "allbasePrice",label:"底价",index : "allbase_price",editable:true,isBasic:true,formatter:Finance.formatAccountting},//菜品数量表中的销售额总和				
 						{name : "allotherBasePrice",label:"其他底价",index : "allother_base_price",isBasic:true,editable:true,formatter:Finance.formatAccountting},				
 						{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge",isBasic:true,formatter:Finance.formatAccountting},				
 						{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge",isBasic:true,formatter:Finance.formatAccountting},				
 						{name : "platformActivitiesCharge",label:"平台补贴线上活动费",index : "platform_activities_charge",isBasic:true,formatter:Finance.formatAccountting},				
-						{name : "activitiesSubsidyBycompany",label:"公司扣除平台补贴自营销费用",index : "activities_subsidy_bycompany",formatter:Finance.formatAccountting},				
+						{name : "activitiesSubsidyBycompany",label:"公司扣除平台补贴自营销费用",index : "activities_subsidy_bycompany",editable:true,formatter:Finance.formatAccountting},				
 						{name : "cyzDistCharge",label:"公司收取配送费",index : "cyz_dist_charge",formatter:Finance.formatAccountting},				
-						{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount",editFlag:true,formatter:Finance.formatAccountting},				
+						{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount",editFlag:true, formatter:Finance.formatAccountting},				
 						{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable",editFlag:true,formatter:Finance.formatAccountting},				
 						{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable",editFlag:true,formatter:Finance.formatAccountting},				
 						{name : "cyzServiceCharge",label:"公司收入",index : "cyz_service_charge",editFlag:true,formatter:Finance.formatAccountting},				
@@ -118,7 +118,7 @@ var saleRateModel = {url: "<m:url value='/operaDate/listOperaDate.do'/>?type=sal
 						{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge",formatter:Finance.formatAccountting},				
 						{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount",editFlag:true,formatter:Finance.formatAccountting},				
 						{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable",editFlag:true,formatter:Finance.formatAccountting},				
-						{name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",hidden:true},		
+						{name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",editFlag:true,hidden:true,editable:true,formatter:Finance.formatAccountting},		
 						{name : "amountRatePayable",label:"70%结算金额",index : "amount_rate_payable"},				
 						{name : "amountPayable",label:"应付店铺结算金额",index : "amount_payable",editFlag:true,formatter:Finance.formatAccountting},				
 						{name : "cyzServiceCharge",label:"公司收取店铺服务费",index : "cyz_service_charge",editFlag:true,formatter:Finance.formatAccountting},				
@@ -149,7 +149,7 @@ var deepOperaModel ={url: "<m:url value='/operaDate/listOperaDate.do'/>?type=dee
 							{name : "platformServiceCharge",label:"平台服务费",index : "platform_service_charge",formatter:Finance.formatAccountting},				
 							{name : "productSaleAmount",label:"产品销售金额",index : "product_sale_amount",editFlag:true,formatter:Finance.formatAccountting},				
 							{name : "amountReceivable",label:"应收平台结算金额",index : "amount_receivable",editFlag:true,formatter:Finance.formatAccountting},	
-							{name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",hidden:true,formatter:Finance.formatAccountting},	
+							/* {name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",hidden:true,formatter:Finance.formatAccountting}, */	
 							{name : "amountRatePayable",label:"品牌商家应收",index : "amount_rate_payable",editFlag:true,formatter:Finance.formatAccountting},		
 							{name : "cyzServiceChargeOperaPart",label:"运营应收",index : "cyz_service_charge_opera_part",editFlag:true,formatter:Finance.formatAccountting},	
 							{name : "distAll",label:"应付配送费",index : "dist_all",editFlag:true,formatter:Finance.formatAccountting},	
@@ -199,7 +199,7 @@ var platformAccountModel = {
 	//初始化grid
 	function initGrid(ways){
 		if(localStorage.getItem(ways+"Model")){
-			var localStorageModel= $.each(JSON.parse(localStorage.getItem(ways+"Model")), function(idx, obj) {
+			var localStorageModel = $.each(JSON.parse(localStorage.getItem(ways+"Model")), function(idx, obj) {
 				if(obj.serial){
 					obj.formatter=cellFormat;
 				}
@@ -227,6 +227,7 @@ var platformAccountModel = {
 		$(".listtable_box").html("");
 		$(".listtable_box").html('<table id="'+ways+'" ></table><div id="'+ways+'prowed"></div>');
 		gridObj = Finance.loadConfigGrid(ways,colModel,true,true,baseUrl+"/operaDate/updateOperaDate.do?type="+ways);
+		debugger;
 		$("#"+ways).setColProp('calculate');
 		$("#"+ways).setColProp('isBasic');
 		$("#"+ways).setColProp('editFlag');

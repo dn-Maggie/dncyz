@@ -88,9 +88,10 @@ public class ImportExcelUtil {
     
     public  Object getCellValue(Cell cell){  
         Object value = null;  
-        DecimalFormat df = new DecimalFormat("0.00");  //格式化number String字符  
+        DecimalFormat df = new DecimalFormat("###0.##");  //格式化number String字符  
         SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");  //日期格式化  
-        DecimalFormat df2 = new DecimalFormat("0.00");  //格式化数字  
+        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");  //日期格式化  
+        DecimalFormat df2 = new DecimalFormat("###0.##");  //格式化数字  
         if(cell != null){
         	switch (cell.getCellType()) {  
             case Cell.CELL_TYPE_STRING:  
@@ -101,9 +102,11 @@ public class ImportExcelUtil {
                     value = df.format(cell.getNumericCellValue());  
                 }else if("m/d/yy".equals(cell.getCellStyle().getDataFormatString())){  
                     value = sdf.format(cell.getDateCellValue());  
-                }else{  
+                }else if("h:mm:ss".equals(cell.getCellStyle().getDataFormatString())){  
+                    value = sdf2.format(cell.getDateCellValue());  
+                }else {  
                     value = df2.format(cell.getNumericCellValue());  
-                }  
+                } 
                 break;  
             case Cell.CELL_TYPE_BOOLEAN:  
                 value = cell.getBooleanCellValue();  

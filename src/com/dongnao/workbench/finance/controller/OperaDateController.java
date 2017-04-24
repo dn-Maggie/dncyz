@@ -17,11 +17,15 @@ import com.dongnao.workbench.common.excel.ExcelExpUtils;
 import com.dongnao.workbench.common.excel.ExpParamBean;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.Utils;
+import com.dongnao.workbench.finance.model.AccountCheck;
+import com.dongnao.workbench.finance.model.AccountOperaTotal;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.model.AccountSaleGoods;
 import com.dongnao.workbench.finance.model.AccountSpecialFood;
 import com.dongnao.workbench.finance.model.OperaDate;
+import com.dongnao.workbench.finance.service.AccountCheckService;
 import com.dongnao.workbench.finance.service.AccountOperaTotalService;
 import com.dongnao.workbench.finance.service.AccountOrderDetailService;
 import com.dongnao.workbench.finance.service.OperaDateService;
@@ -47,6 +51,8 @@ public class OperaDateController{
 	private StoreService storeService;
     @Resource
     private AccountOrderDetailService accountOrderDetailService;
+    @Resource
+    private AccountCheckService accountCheckService;
 	/**
 	 * 进入运营数据菜品分析
 	 * @return ModelAndView
@@ -189,25 +195,53 @@ public class OperaDateController{
 	}
 	
 	/**
-	 * 修改方法
+	 * 修改运营日报表方法
 	 * @param operaDate OperaDate：实体对象
 	 * @param response HttpServletResponse
 	 * @return: ajax输入json字符串
 	 */	
 	@RequestMapping("/updateOperaDate")
 	public void update(OperaDate operaDate,String type,HttpServletRequest request,HttpServletResponse response){
+		ResultMessage rs = new ResultMessage();
 		switch (type) {
 		case "basePrice":
-			AjaxUtils.sendAjaxForObjectStr(response,operaDateService.updateBasePrice(operaDate));	
+			rs= operaDateService.updateBasePrice(operaDate);
+			//根据修改的运营日报表修改运营总表（浅运营）
+			operaDate.setId(operaDate.getId().substring(19));
+			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
+			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
+			AjaxUtils.sendAjaxForObjectStr(response,rs);	
 			break;
 		case "deepOpera":
-			AjaxUtils.sendAjaxForObjectStr(response,operaDateService.updateDeepOpera(operaDate));	
+			rs= operaDateService.updateDeepOpera(operaDate);
+			//根据修改的运营日报表修改运营总表（深运营）
+			operaDate.setId(operaDate.getId().substring(19));
+			accountOperaTotalService.deleteDeepTotalByOperaDate(operaDate);
+			accountOperaTotalService.addDeepTotalByOperaDate(operaDate);
+			AjaxUtils.sendAjaxForObjectStr(response,rs);	
 			break;
 		case "saleRate":
-			AjaxUtils.sendAjaxForObjectStr(response,operaDateService.updateSaleRate(operaDate));	
+			rs = operaDateService.updateSaleRate(operaDate);
+			//根据修改的运营日报表修改运营总表（浅运营）
+			operaDate.setId(operaDate.getId().substring(19));
+			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
+			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
+			AjaxUtils.sendAjaxForObjectStr(response,rs);	
 			break;
 		case "platformAccount":
-			AjaxUtils.sendAjaxForObjectStr(response,operaDateService.updatePlatformAccount(operaDate));	
+			rs = operaDateService.updatePlatformAccount(operaDate);
+			//根据修改的运营日报表修改运营总表（浅运营）
+			operaDate.setId(operaDate.getId().substring(19));
+			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
+			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
+			AjaxUtils.sendAjaxForObjectStr(response,rs);	
+			break;
+		case "orderSaleRate":
+			rs= operaDateService.updateSaleRate(operaDate);
+			rs = operaDateService.updatePlatformAccount(operaDate);
+			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
+			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
+			AjaxUtils.sendAjaxForObjectStr(response,rs);	
 			break;
 		default:
 			break;

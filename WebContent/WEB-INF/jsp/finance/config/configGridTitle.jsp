@@ -4,6 +4,7 @@
 <head>
 <%@ include file="../../common/header.jsp"%>
 <%@ include file="../../common/ace.jsp"%>
+<script src="<%=request.getContextPath() %>/js/extend/finance.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/styles/extend/style.css" media="screen" type="text/css" />
 <style>
 .calcu.checked{
@@ -30,15 +31,12 @@
 	<td>列名</td>
 	<td class="inputTd">
 		<input  type="text" class="text colname" value="{{colNameValue}}"/>
-	</td>
-	<td>列值</td>
-	<td class="inputTd">
-		<input  type="text" class="text readname" value="{{colValueValue}}" readonly/>
+		<input  type="hidden" class="text readname" value="{{colValueValue}}" readonly/>
 		<input name="colindex" type="hidden" class="colindex" value="{{colIndex}}"/>
 		<input name="isBasic" type="hidden" class="isBasic" value="{{isBasic}}"/>
 		<input name="editValue" type="hidden" class="editable" value="{{editValue}}"/>
 	</td>
-	<td >计算公式</td>
+	<td>计算公式</td>
 	<td class="inputTd">
 		<span class="input-icon">
 			<input type="text" class="text calcu" value="{{colFormatValue}}"  {{editableFlag}}/>
@@ -58,53 +56,55 @@
 </tr>
 </script>
 <script type="text/template" id="calculateModel">
-<div id="container"><div id="the-calculator"><div id="the-display">
-<form name="calculator">
-<span id="total">0</span>
-</form>
-</div>
-<div id="the-buttons">
-<div class="button-row clearfix">
-<button id="calc_clear" value="C/E" >C/E</button>
-<button id="calc_back" value="&larr;" >&larr;</button>
-<button id="calc_neg" value="-/+" >-/+</button>
-<button class="calc_op" value="/" >&divide;</button>
-</div>
-<div class="button-row clearfix">
-<button class="calc_int" value="7" >7</button>
-<button class="calc_int" value="8" >8</button>
-<button class="calc_int" value="9" >9</button>
-<button class="calc_op" value="*" >&times;</button>
-</div>
-<div class="button-row clearfix">
-<button class="calc_int" value="4" >4</button>
-<button class="calc_int" value="5" >5</button>
-<button class="calc_int" value="6" >6</button>
-<button class="calc_op" value="-" >-</button>
-</div>
-<div class="button-row clearfix">
-<button class="calc_int" value="1" >1</button>
-<button class="calc_int" value="2" >2</button>
-<button class="calc_int" value="3" >3</button>
-<button class="calc_op" value="+" >+</button>
-</div>
-<div class="button-row clearfix">
-<button id="calc_zero" class="calc_int" value="0" >0</button>
-<button id="calc_decimal" value="." >.</button>
-<button id="calc_eval" value="=" >确定</button>
-</div>
-<div id="extra-buttons" class="button-row">
-<button id="calc_denom" value="(" >(</button>
-<button id="calc_sqrt" value=")" >)</button>
-<button id="calc_square" value="?" >?</button>
-<button id="calc_powerof" class="calc_op" value=":" >:</button>
-</div>
-</div>
-</div>
+<div id="container">
+	<div id="the-calculator">
+		<div id="the-display">
+			<form name="calculator">
+				<span id="total">0</span>
+			</form>
+		</div>
+		<div id="the-buttons">
+			<div class="button-row clearfix">
+				<button id="calc_clear" value="C/E" >C/E</button>
+				<button id="calc_back" value="&larr;" >&larr;</button>
+				<button id="calc_neg" value="-/+" >-/+</button>
+				<button class="calc_op" value="/" >&divide;</button>
+			</div>
+			<div class="button-row clearfix">
+				<button class="calc_int" value="7" >7</button>
+				<button class="calc_int" value="8" >8</button>
+				<button class="calc_int" value="9" >9</button>
+				<button class="calc_op" value="*" >&times;</button>
+			</div>
+			<div class="button-row clearfix">
+				<button class="calc_int" value="4" >4</button>
+				<button class="calc_int" value="5" >5</button>
+				<button class="calc_int" value="6" >6</button>
+				<button class="calc_op" value="-" >-</button>
+			</div>
+			<div class="button-row clearfix">
+				<button class="calc_int" value="1" >1</button>
+				<button class="calc_int" value="2" >2</button>
+				<button class="calc_int" value="3" >3</button>
+				<button class="calc_op" value="+" >+</button>
+			</div>
+			<div class="button-row clearfix">
+				<button id="calc_zero" class="calc_int" value="0" >0</button>
+				<button id="calc_decimal" value="." >.</button>
+				<button id="calc_eval" value="=" >确定</button>
+			</div>
+			<div id="extra-buttons" class="button-row">
+				<button id="calc_denom" value="(" >(</button>
+				<button id="calc_sqrt" value=")" >)</button>
+				<button id="calc_square" value="?" >?</button>
+				<button id="calc_powerof" class="calc_op" value=":" >:</button>
+			</div>
+		</div>
+	</div>
 	<div id="the-results">
-	<ul id="results_list">
-</ul>
-</div>
+		<ul id="results_list">
+		</ul>		
+	</div>
 </div>
 </script>
 
@@ -123,11 +123,10 @@ function orderIndex(){
 }
 function cellFormatter(value, options, rData){
 	if(rData.raw){
-		return accounting.formatMoney(value,"",2).replace(".00","");
+		return accounting.formatMoney(value,"",2).replace(".00","").replace(",","");
 	}else if($(".calcu:eq("+options.colModel.serial+")").val().indexOf("rData")>0){
-		return accounting.formatMoney(eval($(".calcu:eq("+options.colModel.serial+")").val()),"",2).replace(".00","");
-	}
-	return accounting.formatMoney(value,"",2).replace(".00","");
+		return accounting.formatMoney(eval($(".calcu:eq("+options.colModel.serial+")").val()),"",2).replace(".00","").replace(",","");
+	}else{return accounting.formatMoney(value,"",2).replace(".00","").replace(",","");}
 }
 //添加行
 function addTr(){
@@ -136,7 +135,7 @@ function addTr(){
 			   .replace('{{colNameValue}}', "")
 			   .replace('{{colIndex}}', "")
 			   .replace('{{isBasic}}', "")
-			   .replace('{{colValueValue}}', "")
+			   .replace('{{colValueValue}}', "") 
 			   .replace('{{colFormatValue}}',"")
 			   .replace('{{hideFlag}}',"checked")
 			   .replace('{{editValue}}',"")
@@ -201,10 +200,11 @@ function negText(){
 	}else{
 		$('#total').text($('#total').text() * -1);
 	}
-	
 };
 $(function() {
+	//画出页面模板
 	drawHtml();
+	//创建计算器
 	calculateCreate();
 	$(".calcu").bind('removeCheck',function(){
 		$(this).removeClass('checked');
@@ -253,15 +253,27 @@ $(function() {
 				 label:$(".colname:eq("+i+")").val(),
 			     name:$(".readname:eq("+i+")").val(),
 			     index:$(".colindex:eq("+i+")").val(),
-			     isBasic:$(".isBasic:eq("+i+")").val(),
+			     isBasic:$(".isBasic:eq("+i+")").val()=="true"?true:false,
 			     hidden:$(".ace-switch:eq("+i+")").is(':checked'),
-			     editable:$(".editable:eq("+i+")").val()=="true"?true:false
+			     editable:$(".editable:eq("+i+")").val()=="true"?true:false,
 		     }
 			if(!$(".calcu:eq("+i+")").prop("disabled")){
 				jsonObj.editFlag=true;
 				jsonObj.calculate=$(".calcu:eq("+i+")").val();
 				jsonObj.serial = i;
-				jsonObj.formatter=cellFormatter; 
+				jsonObj.formatter = cellFormatter; 
+			}
+			if(jsonObj.name=="orderSaleRate"){
+				var paramDatas = {};
+           		paramDatas["orderSaleRate"] = jsonObj.calculate;
+           		paramDatas.storeName ="${storeName}";
+           		$ .ajax({
+           			type: "post",
+    				url: baseUrl+"/operaDate/updateOperaDate.do?type=orderSaleRate",
+    				data: paramDatas,
+					cache:false,
+    				dataType:"json"
+    			});
 			}
 			jsonArr.push(jsonObj);
 		}
@@ -281,19 +293,18 @@ function drawHtml(){
 		if("|rn|cb|".indexOf("|"+colModel[i].name+"|")==-1){
 			htmlTemp.push(trTpl
 					   .replace(/{{index}}/g,i-1)
-					   .replace('{{colNameValue}}', colModel[i].label?colModel[i].label:"")
-					   .replace('{{colValueValue}}', colModel[i].name?colModel[i].name:"")
-					   .replace('{{colIndex}}', colModel[i].index?colModel[i].index:"")
-					   .replace('{{isBasic}}',colModel[i].isBasic?true:"")
-					   .replace('{{colFormatValue}}',typeof(colModel[i].calculate)=='undefined'?'':colModel[i].calculate)
-					   .replace('{{hideFlag}}', colModel[i].hidden?"checked":"")
+					   .replace('{{colNameValue}}', colModel[i].label?colModel[i].label:"")//列名
+					   .replace('{{colValueValue}}', colModel[i].name?colModel[i].name:"")//列名对应的javabean
+					   .replace('{{colIndex}}', colModel[i].index?colModel[i].index:"")//数据库排序字段值
+					   .replace('{{isBasic}}',colModel[i].isBasic?true:"")//是否为基数
+					   .replace('{{colFormatValue}}',typeof(colModel[i].calculate)=='undefined'?'':colModel[i].calculate)//是否有公式
+					   .replace('{{hideFlag}}', colModel[i].hidden?"checked":"")//是否隐藏
 					   .replace('{{editValue}}',colModel[i].editable?true:"")
 					   .replace('{{calcuFlag}}',colModel[i].editFlag?'<i class="icon-columns blue" onclick="calcu(this)" style="cursor:pointer"></i>':'')
 					   .replace(/{{editableFlag}}/g, colModel[i].editFlag?"":"disabled")
 					);
 		}
 	}
-	
 	$('#colModeltable').prepend(htmlTemp.join(''));
 }
 </script>

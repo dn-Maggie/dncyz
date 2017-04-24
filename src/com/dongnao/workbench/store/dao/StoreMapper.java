@@ -1,5 +1,6 @@
 package com.dongnao.workbench.store.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.dongnao.workbench.store.model.Store;
 /**
@@ -43,4 +44,10 @@ public interface StoreMapper  {
 	public void update(Store store);
 
 	public void updateImg(Store store);
+	/**
+	 * 批量新增店铺
+	 * @param storeList
+	 * @return
+	 */
+	public int addStores(ArrayList<Store> storeList);
 }

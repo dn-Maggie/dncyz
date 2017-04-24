@@ -1,5 +1,7 @@
 package com.dongnao.workbench.finance.controller;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -25,8 +27,15 @@ public class ConfigController{
 	 * 配置表头
 	 */
 	@RequestMapping("/toConfigGridTitle")
-	public ModelAndView toConfigGridTitle(){
+	public ModelAndView toConfigGridTitle(String storeName){
+		try {
+			storeName = new String(storeName.getBytes("ISO-8859-1"),"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/config/configGridTitle");
+		mv.addObject("storeName",storeName);
 		return mv;
 	}	 
 	

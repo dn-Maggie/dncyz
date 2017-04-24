@@ -10,16 +10,20 @@
 var checkModel = {url: "<m:url value='/accountCheck/listTotalAccountCheck.do'/>",
 				  colModel:[
 					{name : "storeName",label:"店铺名称",index : "store_name"},
-					{name : "createDate",label:"日期",index : "create_date"},				
+					{name : "createDate",label:"日期",index : "create_date"},	
+					{name : "elmMealFee",label:"饿了么餐盒费",formatter:Finance.formatAccountting},	//餐盒费
 					{name : "elmSpecialOffer",label:"饿了么折扣菜金额",formatter:Finance.formatAccountting},	//特价菜结算			
 					{name : "elmActualPrice",label:"饿了么结算款",formatter:Finance.formatAccountting},	//原价菜金额
+					{name : "bdMealFee",label:"百度餐盒费",formatter:Finance.formatAccountting},	//餐盒费
 					{name : "bdSpecialOffer",label:"百度折扣菜金额",formatter:Finance.formatAccountting},				
 					{name : "bdActualPrice",label:"百度结算款",formatter:Finance.formatAccountting},
+					{name : "mtMealFee",label:"美团餐盒费",formatter:Finance.formatAccountting},	//餐盒费
 					{name : "mtSpecialOffer",label:"美团折扣菜金额",formatter:Finance.formatAccountting},				
 					{name : "mtActualPrice",label:"美团结算款",formatter:Finance.formatAccountting},
 					{name : "actualPrice",label:"三平台小计",formatter:Finance.formatAccountting},	//三平台结算款合计	
 					{name : "amountRatePayable",label:"70%结算",formatter:Finance.formatAccountting},		//三平台结算款合计*70%
 					{name : "specialOffer",label:"特价菜结算",formatter:Finance.formatAccountting},	//三平台折扣菜金额合计
+					{name : "mealFee",label:"餐盒费",formatter:Finance.formatAccountting},	//餐盒费
 					{name : "orderSaleRate",label:"调整金额",formatter:Finance.formatAccountting},		//？
 					{name : "allotherBasePrice",label:"实际结算",formatter:Finance.formatAccountting},		//70%结算+特价结算
 					{name : "remark",label:"备注"},		
@@ -50,7 +54,7 @@ var gridObj = {};
 			jQuery("#check").jqGrid('setGroupHeaders', {
 		    useColSpanStyle: true, 
 		    groupHeaders:[
-			   {startColumnName: 'elmSpecialOffer', numberOfColumns:6, titleText: '对账结算表'},
+			   {startColumnName: 'elmMealFee', numberOfColumns:9, titleText: '对账结算表'},
 			   {startColumnName: 'elmRecieveAdjust', numberOfColumns:2, titleText: '调整金额'},
 			   {startColumnName: 'elmSettlement', numberOfColumns:4, titleText: '各平台商家结算金额'},
 		    ]

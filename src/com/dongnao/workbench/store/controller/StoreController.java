@@ -1,5 +1,11 @@
 package com.dongnao.workbench.store.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +17,14 @@ import com.dongnao.workbench.basic.model.Brand;
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.basic.service.BrandService;
 import com.dongnao.workbench.basic.service.UserInfoService;
+import com.dongnao.workbench.common.excel.ImportExcelUtil;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.Utils;
+import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.common.util.FormatEntity;
+import com.dongnao.workbench.common.util.StringUtil;
 import com.dongnao.workbench.store.model.Store;
 import com.dongnao.workbench.store.service.StoreService;
 import com.dongnao.workbench.system.model.DictInfo;
@@ -25,6 +35,8 @@ import com.dongnao.workbench.system.service.PersonroleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -130,7 +142,7 @@ public class StoreController{
 		 	Store store = new Store();
 		 	boolean isAdmin = true;
 	 		if(!Utils.isSuperAdmin(request)){
-	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
+	 			/*store.setOwnerUserId(Utils.getLoginUserInfoId(request));*/
 	 			isAdmin = false;
 			}
 			mv.addObject("store",storeService.listByCondition(store));
@@ -150,13 +162,13 @@ public class StoreController{
 	public void listByCondition(Store store,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		store.setPage(page);	
-		Personrole personrole = getPersonrole(Utils.getLoginUserInfoId(request));
-		if(!Utils.isSuperAdmin(request)&&personrole.getRoleId().equals("38703abe-b9ab-4dd1-aa8d-1327c9b35dee"))
+		/*Personrole personrole = getPersonrole(Utils.getLoginUserInfoId(request));*/
+		/*if(!Utils.isSuperAdmin(request)&&personrole.getRoleId().equals("38703abe-b9ab-4dd1-aa8d-1327c9b35dee"))
  		{
 			store.setUserGroup(Utils.getLoginUserInfo(request).getUserGroup());
 		}else if(!Utils.isSuperAdmin(request)&&!personrole.getRoleId().equals("38703abe-b9ab-4dd1-aa8d-1327c9b35dee")){
 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
-		}
+		}*/
 		List<Store> list = storeService.listByCondition(store);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
@@ -166,7 +178,7 @@ public class StoreController{
 	 * @param userInfoId
 	 *            用户ID
 	 * @return 角色用户关联实体
-	 */
+	 
 	private Personrole getPersonrole(String userInfoId) {
 		Personrole personrole = new Personrole();
 		personrole.setUserId(userInfoId);
@@ -178,7 +190,7 @@ public class StoreController{
 			return null;
 		}
 	}
-
+*/
 	/**
 	 * 进入修改页面方法
 	 * @param key String：实体id
@@ -237,5 +249,73 @@ public class StoreController{
 	@RequestMapping("/toListStoreProductClass")
 	public ModelAndView toListStoreProductClass(String key){
 		return new ModelAndView("WEB-INF/jsp/store/store/listStoreProduct","storeId",key );
+	}
+	
+	
+	/**
+     * 读取Excel的内容，第一维数组存储的是一行中格列的值，二维数组存储的是多少个行
+     * @param file 读取数据的源Excel
+     * @param ignoreRows 读取数据忽略的行数，比喻行头不需要读入 忽略的行数为1
+     * @return 读出的Excel中数据的内容
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+ 	@RequestMapping("/storeImport")
+	public void storeImport(HttpServletRequest request,HttpServletResponse response
+		)throws Exception {  	
+ 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+ 		InputStream in =null;  
+        List<List<Object>> listob = null;  
+        ArrayList<Store> storeList = new ArrayList<Store>();
+        MultipartFile file = multipartRequest.getFile("file");  
+        if(file.isEmpty()){  
+            throw new Exception("文件不存在！");  
+        }  
+        in = file.getInputStream();  
+        listob = new ImportExcelUtil().getBankListByExcel(in,file.getOriginalFilename());
+        for (int i = 0; i < listob.size(); i++) {  
+            List<Object> lo = listob.get(i);  
+            Store store = new Store();  
+            try{
+            	store.setStoreId(Utils.generateUniqueID());
+    			store.setStoreName(StringUtil.valueOf(lo.get(0)));
+    			store.setStoreAddress(StringUtil.valueOf(lo.get(2)));
+    			store.setStoreTel(StringUtil.valueOf(lo.get(3)));
+    			store.setStoreType(StringUtil.valueOf(lo.get(4)));
+    			store.setOperateDate(new Timestamp(DateUtil.parseStringToyyyyMMdd(StringUtil.valueOf(lo.get(5))).getTime()));
+    			store.setWorkTimeBegin(StringUtil.valueOf(lo.get(6)));
+    			store.setWorkTimeEnd(StringUtil.valueOf(lo.get(7)));
+    			store.setStoreDistMode(StringUtil.valueOf(lo.get(8)));
+    			store.setStoreOwnerName(StringUtil.valueOf(lo.get(9)));
+    			store.setStoreOwnerTel(StringUtil.valueOf(lo.get(10)));
+    			store.setProInvoiceFlag(StringUtil.valueOf(lo.get(11)));
+    			store.setSettlementMethod(StringUtil.valueOf(lo.get(12)));
+    			store.setRegistrant(StringUtil.valueOf(lo.get(13)));
+    			store.setRegistDate(new Timestamp(DateUtil.parseStringToyyyyMMdd(StringUtil.valueOf(lo.get(14))).getTime()));
+    			store.setRemark(StringUtil.valueOf(lo.get(15)));
+    			store.setAverageSales(StringUtil.valueOf(lo.get(16)));
+    			store.setElmId(StringUtil.valueOf(lo.get(18)));
+    			store.setElmRate(StringUtil.valueOf(lo.get(19)));
+    			store.setMeituanId(StringUtil.valueOf(lo.get(20)));
+    			store.setMeituanRate(StringUtil.valueOf(lo.get(21)));
+    			store.setMeituanSale(StringUtil.valueOf(lo.get(22)));
+    			store.setBaiduId(StringUtil.valueOf(lo.get(23)));
+    			store.setBaidupwd(StringUtil.valueOf(lo.get(24)));
+    			store.setBaiduRate(StringUtil.valueOf(lo.get(25)));
+    			store.setBaiduSale(StringUtil.valueOf(lo.get(26)));
+    			store.setBoundType(StringUtil.valueOf(lo.get(27)));
+            	storeList.add(store);
+            }catch(Exception e){
+            	e.printStackTrace();
+            	Map<String, String> map = new HashMap<String, String>();
+        		map.put("msg", "失败");
+        		AjaxUtils.sendAjaxForMap(response, map);
+            }
+        }  
+        response.setCharacterEncoding("utf-8");  //防止ajax接受到的中文信息乱码  
+        Map<String, String> map = new HashMap<String, String>();
+		map.put("msg", "成功");
+		map.put("dataSize", storeService.addStores(storeList)+"");//批量插入，传入orderDetail实体集合
+		AjaxUtils.sendAjaxForMap(response, map);
 	}
 }

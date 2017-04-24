@@ -1,8 +1,6 @@
 package com.dongnao.workbench.finance.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +14,6 @@ import com.dongnao.workbench.common.excel.ExcelExpUtils;
 import com.dongnao.workbench.common.excel.ExpParamBean;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
-import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.finance.model.AccountOperaTotal;
 import com.dongnao.workbench.finance.model.OperaDate;
@@ -41,37 +38,6 @@ public class AccountOperaTotalController{
 	private StoreService storeService; 
 	
 	
-	
-	/**
-	 * 批量新增方法
-	 * @param response HttpServletResponse
-	 * @param accountOperaTotal AccountOperaTotal:实体类
-	 * @return: ajax输入json字符串
-	 */
-	@RequestMapping("/addTotalByOperaDetail")
-	public void addByOperaDetail(OperaDate operaDate,String type,HttpServletRequest request,HttpServletResponse response){
-		if(operaDate.getStoreName()==null)operaDate.setStoreName("");
-		switch (type) {
-		case "basePrice":
-			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
-			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
-			break;
-		case "deepOpera":
-			accountOperaTotalService.deleteDeepTotalByOperaDate(operaDate);
-			accountOperaTotalService.addDeepTotalByOperaDate(operaDate);
-			break;
-		case "saleRate":
-			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
-			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
-			break;
-		case "platformAccount":
-			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
-			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
-			break;
-		default:
-			break;
-		}
-	}
 	
 	
 	/**
@@ -103,10 +69,12 @@ public class AccountOperaTotalController{
 	public void updateTotal(AccountOperaTotal accountOperaTotal,String type,HttpServletRequest request,HttpServletResponse response){
 		switch (type) {
 		case "simpleTotal":
+			//修改浅运营表
 			AjaxUtils.sendAjaxForObjectStr(
 					response,accountOperaTotalService.updateSimpleTotal(accountOperaTotal));	
 			break;
 		case "deepTotal":
+			//修改深运营表
 			AjaxUtils.sendAjaxForObjectStr(
 					response,accountOperaTotalService.updateDeepTotal(accountOperaTotal));	
 			break;
