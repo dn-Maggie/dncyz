@@ -143,7 +143,7 @@
 		where s.STORE_ID = #{storeId,jdbcType=CHAR}
 	</select>
 	
-	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.Store">
+	<!-- select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.Store">
 		SELECT
 			s.STORE_ID
 			,s.STORE_NAME
@@ -264,10 +264,10 @@
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
        	</if>
-	</select>
+	</select-->
 	
 	
-	<!-- select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.Store">
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.Store">
 		SELECT
 			s.STORE_ID
 			,s.STORE_NAME
@@ -303,6 +303,7 @@
 		FROM
 			dn_store as s
 		left join dn_brand as b on b.BRAND_ID = s.BRAND_ID
+		where 1=1
 		<if test="ownerUserId != null and '' != ownerUserId">  
 			and s.owner_userId = #{ownerUserId,jdbcType=VARCHAR}
 		</if>
@@ -348,7 +349,7 @@
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
        	</if>
-	</select-->
+	</select>
 	
 	
 	<delete id="deleteByKey" parameterType="java.lang.String">
