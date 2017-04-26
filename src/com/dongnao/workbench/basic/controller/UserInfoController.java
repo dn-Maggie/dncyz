@@ -27,6 +27,7 @@ import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.common.util.MD5Encryption;
 import com.dongnao.workbench.common.util.Utils;
+import com.dongnao.workbench.store.model.Store;
 import com.dongnao.workbench.system.model.Personrole;
 import com.dongnao.workbench.system.model.Role;
 import com.dongnao.workbench.system.service.DictInfoService;
@@ -100,7 +101,7 @@ public class UserInfoController extends BaseController{
 	}
 
 	/**
-	 * 新增方法
+	 * 新增普通用户方法
 	 * 
 	 * @param response
 	 *            HttpServletResponse
@@ -116,7 +117,20 @@ public class UserInfoController extends BaseController{
 		AjaxUtils.sendAjaxForObjectStr(response,
 				userInfoService.add(userInfo, roleId,Utils.getLoginUserInfo(request)));
 	}
-
+	/**
+	 * 新增店铺用户方法
+	 * 
+	 * @param response
+	 *            HttpServletResponse
+	 * @param userInfo
+	 *            UserInfo:实体类
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/addStoreUserInfo")
+	public void addStoreUserInfo(Store store,HttpServletRequest request, HttpServletResponse response) {
+		// 新增店铺用户
+		AjaxUtils.sendAjaxForObjectStr(response,userInfoService.addStoreUserInfo(store,Utils.getLoginUserInfo(request)));
+	}
 	/**
 	 * ajax验证用户名是否存在
 	 * 

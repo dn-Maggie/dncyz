@@ -347,43 +347,19 @@ ExpExcel = {
 		showInfo("请选择EXCEL文件！",3000);
 	 	} 
 	},
-	importOperaData : function(){
-		if($('input[type="file"]').val()!=""){
-		var extend=$('input[type="file"]').val().substr($('input[type="file"]').val().lastIndexOf(".")+1);
-		if("xls|xlsx".indexOf(extend)==-1){//在字符串中xls|xlsx寻找后缀xls或者xlsx，有的话返回下标，没有就返回-1
-			 showInfo("选择的文件必须是EXCEL文件,请确认！",3000);
-         }else{ 
-        	 var plat = $("#platFormType").val();
-        	 switch (plat) {
-				case 'elm':
-					 ExpExcel.ajaxFileUpload(baseUrl+"/accountOperateIncome/emlOperateIncomeImport.do");
-					break;
-				case 'meituan':
-					 ExpExcel.ajaxFileUpload(baseUrl+"/accountOperateIncome/meituanOperateIncomeImport.do");
-					break;
-				case 'baidu':
-					 ExpExcel.ajaxFileUpload(baseUrl+"/accountOperateIncome/baiduOperateIncomeImport.do");
-					break;
-				default:
-					break;
-				}
-        	 }
-	 }else{
-		showInfo("请选择EXCEL文件！",3000);
-	 	} 
-	},
 	ajaxFileUpload:function(Url){
 		var options = {
 				url : Url,
 				type : "post",
 				dataType:"text",
-				success : function(d) {
-					if(d){showMessage("导入数据成功","","",function(){
+				success : function(response) {
+					debugger;
+					if(response){showMessage("导入数据成功","","",function(){
 						gridObj.trigger('reloadGrid');
 					});}
 				},
-				error : function(d) {
-					showInfo(d.msg);},
+				error : function(response) {
+					showInfo(response.msg);},
 			};
 			$('#form').ajaxSubmit(options);
 	}

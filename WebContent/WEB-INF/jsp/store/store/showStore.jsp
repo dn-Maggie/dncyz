@@ -208,19 +208,9 @@ $(function() {
 							</td>
 						</tr>
 						<tr>
-							<td class="inputLabelTd">饿了么平台商铺ID：</td>
-							<td class="inputTd">
-								<input id="edit_elmId" name="elmId" type="text" class="text" value="${store.elmId}"/>
-							</td>
 							<td class="inputLabelTd">饿了么平台佣金率(%)：</td>
 							<td class="inputTd">
 								<input id="edit_elmRate" name="elmRate" type="number" class="text" value="${store.elmRate}"/>
-							</td>
-						</tr>
-						<tr>
-							<td class="inputLabelTd">美团平台商铺ID：</td>
-							<td class="inputTd">
-								<input id="edit_meituanId" name="meituanId" type="text" class="text" value="${store.meituanId}"/>
 							</td>
 							<td class="inputLabelTd">美团平台佣金率(%)：</td>
 							<td class="inputTd">
@@ -228,13 +218,43 @@ $(function() {
 							</td>
 						</tr>
 						<tr>
-							<td class="inputLabelTd">百度平台商铺ID：</td>
-							<td class="inputTd">
-								<input id="edit_baiduId" name="baiduId" type="text" class="text" value="${store.baiduId}"/>
-							</td>
 							<td class="inputLabelTd">百度平台佣金率(%)：</td>
 							<td class="inputTd">
 								<input id="edit_baiduRate" name="baiduRate" type="number" class="text" value="${store.baiduRate}"/>
+							</td>
+							<td class="inputLabelTd"><span class="required">*</span>饿了么平台商铺ID：</td>
+							<td class="inputTd">
+								<input id="edit_elmId" name="elmId" type="text" class="text" value="${store.elmId}"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="inputLabelTd"><span class="required">*</span>饿了么平台商铺账号：</td>
+							<td class="inputTd">
+								<input id="edit_elmUsername" name="elmUsername" type="text" class="text" value="${store.elmUsername}"/>
+							</td>
+							<td class="inputLabelTd"><span class="required">*</span>饿了么平台商铺密码：</td>
+							<td class="inputTd">
+								<input id="edit_elmPwd" name="elmPwd" type="text" class="text" value="${store.elmPwd}"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="inputLabelTd"><span class="required">*</span>美团平台商铺账号：</td>
+							<td class="inputTd">
+								<input id="edit_meituanId" name="meituanId" type="text" class="text" value="${store.meituanId}"/>
+							</td>
+							<td class="inputLabelTd"><span class="required">*</span>美团平台商铺密码：</td>
+							<td class="inputTd">
+								<input id="edit_meituanPwd" name="meituanPwd" type="text" class="text" value="${store.meituanPwd}"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="inputLabelTd"><span class="required">*</span>百度平台商铺账号：</td>
+							<td class="inputTd">
+								<input id="edit_baiduId" name="baiduId" type="text" class="text" value="${store.baiduId}"/>
+							</td>
+							<td class="inputLabelTd"><span class="required">*</span>百度平台商铺密码：</td>
+							<td class="inputTd">
+								<input id="edit_baidupwd" name="baidupwd" type="text" class="text" value="${store.baidupwd}"/>
 							</td>
 						</tr>
 					</table>

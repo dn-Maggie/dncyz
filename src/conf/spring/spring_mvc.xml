@@ -90,6 +90,7 @@
 				<value>/activity/toListActivity.do</value>
 				<value>/userInfo/toEditPassWord.do</value>
 				<value>/productClass/toProductManage.do</value>
+				<value>/store/listStoreByPlatform.do</value>
 			</list>
 		</property>
 	</bean>

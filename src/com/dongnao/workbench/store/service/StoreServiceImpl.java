@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.dongnao.workbench.store.dao.StoreMapper;
 import com.dongnao.workbench.store.model.Store;
+import com.dongnao.workbench.store.model.StoreByPlatform;
 import com.dongnao.workbench.store.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,5 +79,19 @@ public class StoreServiceImpl implements StoreService{
 	@Override
 	public int addStores(ArrayList<Store> storeList) {
 		return storeMapper.addStores(storeList);
+	}
+
+	@Override
+	public List<StoreByPlatform> listStoreByPlatform(String platformType,Store store) {
+		switch (platformType) {
+		case "elm":
+			return storeMapper.listStoreByElm(store);
+		case "mt":
+			return storeMapper.listStoreByMt(store);
+		case "bdwm":
+			return storeMapper.listStoreByBdwm(store);
+		default:
+			return null;
+		}
 	}
 }

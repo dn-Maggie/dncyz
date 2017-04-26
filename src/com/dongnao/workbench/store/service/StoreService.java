@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.store.model.Store;
+import com.dongnao.workbench.store.model.StoreByPlatform;
 
 /**
  * 描述：店铺模块service接口，提供controller操作所需方法
@@ -53,4 +54,6 @@ public interface StoreService  {
 	 * 批量插入店铺方法
 	 */
 	public int addStores(ArrayList<Store> storeList);
+
+	public List<StoreByPlatform> listStoreByPlatform(String platformType,Store store);
 }

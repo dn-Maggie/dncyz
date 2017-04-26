@@ -33,7 +33,11 @@ $(function() {
 				type : "post",
 				dataType:"json",
 				success : function(d) {
-					$('#edit_storeId').val(d.storeId)
+					if(d.status==0){
+						showError(d.message, 2000);
+					}else{
+						$('#edit_storeId').val(d.storeId);
+					}
 				},
 			};
 			$('#basicMessForm').ajaxSubmit(options);
@@ -174,13 +178,14 @@ $(function() {
 					 <input type="hidden" id="edit_storeId" name="storeId" type="text" value="${store.storeId}"/>
 					 <table class="table">
 					 	<tr>	
-					 		<td class="inputLabelTd"><span class="required">*</span>关联店铺账号：</td>
+					 		<td class="inputLabelTd"><span class="required">*</span>店铺账号：</td>
 							<td class="inputTd">
-								<select class="search_select" name="ownerUserId" id="edit_ownerUserId">
+								<!-- select class="search_select" name="ownerUserId" id="edit_ownerUserId">
 									<c:forEach items="${user}" var="user">
 										<option value="${user.id}"><c:out value="${user.userAccount}"></c:out></option>
 									</c:forEach>
-								</select>
+								</select-->
+								<input id="edit_userAccount" name="userAccount" type="text" class="text" placeholder="请用英文与数字组合" title="请用英文与数字组合"/>
 							</td>
 							<td class="inputLabelTd"><span class="required">*</span>绑卡类型：</td>
 							<td class="inputTd">
@@ -346,9 +351,25 @@ $(function() {
 							<td class="inputTd">
 								<input id="edit_elmId" name="elmId" type="text" class="text" value="${store.elmId}"/>
 							</td>
+						</tr>
+						<tr>
+							<td class="inputLabelTd"><span class="required">*</span>饿了么平台商铺账号：</td>
+							<td class="inputTd">
+								<input id="edit_elmUsername" name="elmUsername" type="text" class="text" value="${store.elmUsername}"/>
+							</td>
+							<td class="inputLabelTd"><span class="required">*</span>饿了么平台商铺密码：</td>
+							<td class="inputTd">
+								<input id="edit_elmPwd" name="elmPwd" type="text" class="text" value="${store.elmPwd}"/>
+							</td>
+						</tr>
+						<tr>
 							<td class="inputLabelTd"><span class="required">*</span>美团平台商铺账号：</td>
 							<td class="inputTd">
 								<input id="edit_meituanId" name="meituanId" type="text" class="text" value="${store.meituanId}"/>
+							</td>
+							<td class="inputLabelTd"><span class="required">*</span>美团平台商铺密码：</td>
+							<td class="inputTd">
+								<input id="edit_meituanPwd" name="meituanPwd" type="text" class="text" value="${store.meituanPwd}"/>
 							</td>
 						</tr>
 						<tr>

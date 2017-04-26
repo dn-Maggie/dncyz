@@ -23,8 +23,11 @@
 					<result column="MEITUAN_SALE" property="meituanSale" jdbcType="VARCHAR" />
 					<result column="BAIDU_SALE" property="baiduSale" jdbcType="VARCHAR" />
 					<result column="elm_id" property="elmId" jdbcType="VARCHAR" />
+					<result column="elm_username" property="elmUsername" jdbcType="VARCHAR" />
+					<result column="elm_pwd" property="elmPwd" jdbcType="VARCHAR" />
 					<result column="ELM_RATE" property="elmRate" jdbcType="VARCHAR" />
 					<result column="meituan_id" property="meituanId" jdbcType="VARCHAR" />
+					<result column="meituan_pwd" property="meituanPwd" jdbcType="VARCHAR" />
 					<result column="MEITUAN_RATE" property="meituanRate" jdbcType="VARCHAR" />
 					<result column="baidu_id" property="baiduId" jdbcType="VARCHAR" />
 					<result column="baidu_pwd" property="baidupwd" jdbcType="VARCHAR" />
@@ -45,6 +48,12 @@
 					<result column="bound_type" property="boundType" jdbcType="VARCHAR" />
 					<result column="store_type" property="storeType" jdbcType="VARCHAR" />
 					<result column="store_dist_mode" property="storeDistMode" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="ResultMapByPlatform" type="com.dongnao.workbench.store.model.StoreByPlatform">
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="shopId" property="shopId" jdbcType="VARCHAR" />
+		<result column="platformType" property="platformType" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		 	 STORE_ID
@@ -68,8 +77,11 @@
 			,MEITUAN_SALE
 			,BAIDU_SALE
 			,elm_id
+			,elm_username
+			,elm_pwd
 			,ELM_RATE
 			,meituan_id
+			,meituan_pwd
 			,MEITUAN_RATE
 			,baidu_id
 			,baidu_pwd
@@ -116,8 +128,11 @@
 			,s.MEITUAN_SALE
 			,s.BAIDU_SALE
 			,s.elm_id
+			,s.elm_username
+			,s.elm_pwd
 			,s.ELM_RATE
 			,s.meituan_id
+			,s.meituan_pwd
 			,s.MEITUAN_RATE
 			,s.baidu_id
 			,s.baidu_pwd
@@ -288,8 +303,11 @@
 			,s.MEITUAN_SALE
 			,s.BAIDU_SALE
 			,s.elm_id
+			,s.elm_username
+			,s.elm_pwd
 			,s.ELM_RATE
 			,s.meituan_id
+			,s.meituan_pwd
 			,s.MEITUAN_RATE
 			,s.baidu_id
 			,s.baidu_pwd
@@ -351,6 +369,34 @@
        	</if>
 	</select>
 	
+	<select id="listStoreByElm" resultMap="ResultMapByPlatform" parameterType="com.dongnao.workbench.store.model.Store">
+		SELECT
+			s.elm_id as shopId
+			,s.elm_username as username
+			,s.elm_pwd as password
+			,'elm' as platformType
+		FROM
+			dn_store as s
+		where 1=1
+	</select>
+	<select id="listStoreByMt" resultMap="ResultMapByPlatform" parameterType="com.dongnao.workbench.store.model.Store">
+		SELECT
+			s.meituan_id as username
+			,s.meituan_pwd as password
+			,'mt' as platformType
+		FROM
+			dn_store as s
+		where 1=1
+	</select>
+	<select id="listStoreByBdwm" resultMap="ResultMapByPlatform" parameterType="com.dongnao.workbench.store.model.Store">
+		SELECT
+			s.baidu_id as username
+			,s.baidu_pwd as password
+			,'bdwm' as platformType
+		FROM
+			dn_store as s
+		where 1=1
+	</select>
 	
 	<delete id="deleteByKey" parameterType="java.lang.String">
 		delete from dn_store
@@ -382,8 +428,11 @@
 			,#{meituanSale,jdbcType=VARCHAR}
 			,#{baiduSale,jdbcType=VARCHAR}
 			,#{elmId,jdbcType=VARCHAR}
+			,#{elmUsername,jdbcType=VARCHAR}
+			,#{elmPwd,jdbcType=VARCHAR}
 			,#{elmRate,jdbcType=VARCHAR}
 			,#{meituanId,jdbcType=VARCHAR}
+			,#{meituanPwd,jdbcType=VARCHAR}
 			,#{meituanRate,jdbcType=VARCHAR}
 			,#{baiduId,jdbcType=VARCHAR}
 			,#{baidupwd,jdbcType=VARCHAR}
@@ -461,11 +510,20 @@
 			<if test="elmId != null and '' != elmId">  
 			,elm_id = #{elmId,jdbcType=VARCHAR}
 			</if>
+			<if test="elmUsername != null and '' != elmUsername">  
+			,elm_username = #{elmUsername,jdbcType=VARCHAR}
+			</if>
+			<if test="elmPwd != null and '' != elmPwd">  
+			,elm_pwd = #{elmPwd,jdbcType=VARCHAR}
+			</if>
 			<if test="elmRate != null and '' != elmRate">  
 			,ELM_RATE = #{elmRate,jdbcType=VARCHAR}
 			</if>
 			<if test="meituanId != null and '' != meituanId">  
 			,meituan_id = #{meituanId,jdbcType=VARCHAR}
+			</if>
+			<if test="meituanPwd != null and '' != meituanPwd">  
+			,meituan_pwd = #{meituanPwd,jdbcType=VARCHAR}
 			</if>
 			<if test="meituanRate != null and '' != meituanRate">  
 			,MEITUAN_RATE = #{meituanRate,jdbcType=VARCHAR}
@@ -565,14 +623,18 @@
 			,REMARK
 			,AVERAGE_SALES
 			,elm_id
+			,elm_username
+			,elm_pwd
 			,ELM_RATE
 			,meituan_id
+			,meituan_pwd
 			,MEITUAN_RATE
 			,MEITUAN_SALE
 			,baidu_id
 			,baidu_pwd
 			,BAIDU_RATE
 			,BAIDU_SALE
+			,owner_userId
 			,bound_type
 		)values
 		<foreach collection="list" item="item" index="index" separator="," >
@@ -595,14 +657,18 @@
 			,#{item.remark,jdbcType=VARCHAR}
 			,#{item.averageSales,jdbcType=VARCHAR}
 			,#{item.elmId,jdbcType=VARCHAR}
+			,#{item.elmUsername,jdbcType=VARCHAR}
+			,#{item.elmPwd,jdbcType=VARCHAR}
 			,#{item.elmRate,jdbcType=VARCHAR}
 			,#{item.meituanId,jdbcType=VARCHAR}
+			,#{item.meituanPwd,jdbcType=VARCHAR}
 			,#{item.meituanRate,jdbcType=VARCHAR}
 			,#{item.meituanSale,jdbcType=VARCHAR}
 			,#{item.baiduId,jdbcType=VARCHAR}
 			,#{item.baidupwd,jdbcType=VARCHAR}
 			,#{item.baiduRate,jdbcType=VARCHAR}
 			,#{item.baiduSale,jdbcType=VARCHAR}
+			,#{item.ownerUserId,jdbcType=VARCHAR}
 			,#{item.boundType,jdbcType=VARCHAR}
 		)
 		</foreach>

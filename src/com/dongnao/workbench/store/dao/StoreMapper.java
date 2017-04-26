@@ -3,6 +3,7 @@ package com.dongnao.workbench.store.dao;
 import java.util.ArrayList;
 import java.util.List;
 import com.dongnao.workbench.store.model.Store;
+import com.dongnao.workbench.store.model.StoreByPlatform;
 /**
  * 描述：店铺模块dao接口，提供数据库操作方法
  *
@@ -50,4 +51,8 @@ public interface StoreMapper  {
 	 * @return
 	 */
 	public int addStores(ArrayList<Store> storeList);
+
+	public List<StoreByPlatform> listStoreByElm(Store store);
+	public List<StoreByPlatform> listStoreByBdwm(Store store);
+	public List<StoreByPlatform> listStoreByMt(Store store);
 }

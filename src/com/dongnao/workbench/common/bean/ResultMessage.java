@@ -29,9 +29,22 @@ public class ResultMessage implements Serializable {
 	 * 结果数据
 	 */
 	private Object data;
+	private Object result;
+	private String respCode;
+	private String respMsg;
 
-
-
+	public String getRespCode() {
+		return respCode;
+	}
+	public void setRespCode(String respCode) {
+		this.respCode = respCode;
+	}
+	public String getRespMsg() {
+		return respMsg;
+	}
+	public void setRespMsg(String respMsg) {
+		this.respMsg = respMsg;
+	}
 	public Integer getStatus() {
 		return status;
 	}
@@ -62,5 +75,11 @@ public class ResultMessage implements Serializable {
 
 	public void setJsessionid(String jsessionid) {
 		this.jsessionid = jsessionid;
+	}
+	public Object getResult() {
+		return result;
+	}
+	public void setResult(Object result) {
+		this.result = result;
 	}
 }

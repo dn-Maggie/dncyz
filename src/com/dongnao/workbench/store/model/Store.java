@@ -16,16 +16,20 @@ public class Store extends Model{
 				    /**
 				     * 店铺使用者ID
 				     **/
+							private String userAccount;
 							private String ownerUserId;
 							private String userGroup;
+							private String platformType;
+							private String username;
+							private String password;
+							private String shopId;
 		            /**
 	                 * 店铺ID(主键)
 	                 **/
 				   			private String storeId;
 				   			private String boundType;
-		   		
 		            /**
-	                 * 店铺名称
+	                 * 店铺名称SS
 	                 **/
 				   			private String storeName;
 				   			private String storeType;
@@ -125,12 +129,15 @@ public class Store extends Model{
 	                 * 饿了么平台佣金率
 	                 **/
 				   			private String elmId;
+				   			private String elmUsername;
+				   			private String elmPwd;
 				   			private String elmRate;
 		   		
 		            /**
 	                 * 美团平台佣金率
 	                 **/
 				   			private String meituanId;
+				   			private String meituanPwd;
 				   			private String meituanRate;
 		   		
 		            /**
@@ -233,6 +240,30 @@ public class Store extends Model{
 
 					public void setStoreType(String storeType) {
 						this.storeType = storeType;
+					}
+
+					public String getUsername() {
+						return username;
+					}
+
+					public void setUsername(String username) {
+						this.username = username;
+					}
+
+					public String getPassword() {
+						return password;
+					}
+
+					public void setPassword(String password) {
+						this.password = password;
+					}
+
+					public String getShopId() {
+						return shopId;
+					}
+
+					public void setShopId(String shopId) {
+						this.shopId = shopId;
 					}
 
 					public String getStoreDistMode() {
@@ -731,6 +762,46 @@ public class Store extends Model{
 
 			public void setBaidupwd(String baidupwd) {
 				this.baidupwd = baidupwd;
+			}
+
+			public String getElmUsername() {
+				return elmUsername;
+			}
+
+			public void setElmUsername(String elmUsername) {
+				this.elmUsername = elmUsername;
+			}
+
+			public String getElmPwd() {
+				return elmPwd;
+			}
+
+			public void setElmPwd(String elmPwd) {
+				this.elmPwd = elmPwd;
+			}
+
+			public String getMeituanPwd() {
+				return meituanPwd;
+			}
+
+			public void setMeituanPwd(String meituanPwd) {
+				this.meituanPwd = meituanPwd;
+			}
+
+			public String getPlatformType() {
+				return platformType;
+			}
+
+			public void setPlatformType(String platformType) {
+				this.platformType = platformType;
+			}
+
+			public String getUserAccount() {
+				return userAccount;
+			}
+
+			public void setUserAccount(String userAccount) {
+				this.userAccount = userAccount;
 			}
 		   		
 		

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.common.bean.ResultMessage;
+import com.dongnao.workbench.store.model.Store;
 
 
 /**
@@ -89,5 +90,7 @@ public interface UserInfoService  {
 	 * @return List<UserInfo>
 	 */
 	List<UserInfo> getByUserInfo(UserInfo userInfo);
+
+	ResultMessage addStoreUserInfo(Store store, UserInfo loginUserInfo);
 	
 }

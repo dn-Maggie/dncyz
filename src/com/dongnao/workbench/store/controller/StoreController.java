@@ -17,6 +17,7 @@ import com.dongnao.workbench.basic.model.Brand;
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.basic.service.BrandService;
 import com.dongnao.workbench.basic.service.UserInfoService;
+import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.excel.ImportExcelUtil;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
@@ -26,6 +27,7 @@ import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.common.util.StringUtil;
 import com.dongnao.workbench.store.model.Store;
+import com.dongnao.workbench.store.model.StoreByPlatform;
 import com.dongnao.workbench.store.service.StoreService;
 import com.dongnao.workbench.system.model.DictInfo;
 import com.dongnao.workbench.system.model.Personrole;
@@ -110,9 +112,15 @@ public class StoreController{
 	 */
 	@RequestMapping("/addStore")
 	public void add(Store store,HttpServletRequest request,HttpServletResponse response){
-	store.setStoreId(Utils.generateUniqueID());
-	storeService.add(store);
-	AjaxUtils.sendAjaxForObjectStr(response,storeService.getByPrimaryKey(store.getStoreId()));
+		store.setStoreId(Utils.generateUniqueID());
+		ResultMessage message = userInfoService.addStoreUserInfo(store,Utils.getLoginUserInfo(request));
+		if(message.getStatus()==1){
+			store.setOwnerUserId(message.getMessage()); 
+			storeService.add(store);
+			AjaxUtils.sendAjaxForObjectStr(response,storeService.getByPrimaryKey(store.getStoreId()));
+		}else{
+			AjaxUtils.sendAjaxForObjectStr(response,AjaxUtils.getFailureMessage("此店铺账号已经存在"));
+		}
 	}
 	
 	/**
@@ -279,44 +287,80 @@ public class StoreController{
             try{
             	store.setStoreId(Utils.generateUniqueID());
     			store.setStoreName(StringUtil.valueOf(lo.get(0)));
-    			store.setStoreAddress(StringUtil.valueOf(lo.get(2)));
-    			store.setStoreTel(StringUtil.valueOf(lo.get(3)));
-    			store.setStoreType(StringUtil.valueOf(lo.get(4)));
-    			store.setOperateDate(new Timestamp(DateUtil.parseStringToyyyyMMdd(StringUtil.valueOf(lo.get(5))).getTime()));
-    			store.setWorkTimeBegin(StringUtil.valueOf(lo.get(6)));
-    			store.setWorkTimeEnd(StringUtil.valueOf(lo.get(7)));
-    			store.setStoreDistMode(StringUtil.valueOf(lo.get(8)));
-    			store.setStoreOwnerName(StringUtil.valueOf(lo.get(9)));
-    			store.setStoreOwnerTel(StringUtil.valueOf(lo.get(10)));
-    			store.setProInvoiceFlag(StringUtil.valueOf(lo.get(11)));
-    			store.setSettlementMethod(StringUtil.valueOf(lo.get(12)));
-    			store.setRegistrant(StringUtil.valueOf(lo.get(13)));
-    			store.setRegistDate(new Timestamp(DateUtil.parseStringToyyyyMMdd(StringUtil.valueOf(lo.get(14))).getTime()));
-    			store.setRemark(StringUtil.valueOf(lo.get(15)));
-    			store.setAverageSales(StringUtil.valueOf(lo.get(16)));
-    			store.setElmId(StringUtil.valueOf(lo.get(18)));
-    			store.setElmRate(StringUtil.valueOf(lo.get(19)));
-    			store.setMeituanId(StringUtil.valueOf(lo.get(20)));
-    			store.setMeituanRate(StringUtil.valueOf(lo.get(21)));
-    			store.setMeituanSale(StringUtil.valueOf(lo.get(22)));
-    			store.setBaiduId(StringUtil.valueOf(lo.get(23)));
-    			store.setBaidupwd(StringUtil.valueOf(lo.get(24)));
-    			store.setBaiduRate(StringUtil.valueOf(lo.get(25)));
-    			store.setBaiduSale(StringUtil.valueOf(lo.get(26)));
-    			store.setBoundType(StringUtil.valueOf(lo.get(27)));
-    			store.setOwnerUserId("00000000-0000-0000-0000-000000000000");
-            	storeList.add(store);
+    			store.setUserAccount(StringUtil.valueOf(lo.get(1)));
+    			store.setStoreAddress(StringUtil.valueOf(lo.get(3)));
+    			store.setStoreTel(StringUtil.valueOf(lo.get(4)));
+    			store.setStoreType(StringUtil.valueOf(lo.get(5)));
+    			store.setOperateDate(new Timestamp(DateUtil.parseStringToyyyyMMdd(StringUtil.valueOf(lo.get(6))).getTime()));
+    			store.setWorkTimeBegin(StringUtil.valueOf(lo.get(7)));
+    			store.setWorkTimeEnd(StringUtil.valueOf(lo.get(8)));
+    			store.setStoreDistMode(StringUtil.valueOf(lo.get(9)));
+    			store.setStoreOwnerName(StringUtil.valueOf(lo.get(10)));
+    			store.setStoreOwnerTel(StringUtil.valueOf(lo.get(11)));
+    			store.setProInvoiceFlag(StringUtil.valueOf(lo.get(12)));
+    			store.setSettlementMethod(StringUtil.valueOf(lo.get(13)));
+    			store.setRegistrant(StringUtil.valueOf(lo.get(14)));
+    			store.setRegistDate(new Timestamp(DateUtil.parseStringToyyyyMMdd(StringUtil.valueOf(lo.get(15))).getTime()));
+    			store.setRemark(StringUtil.valueOf(lo.get(16)));
+    			store.setAverageSales(StringUtil.valueOf(lo.get(17)));
+    			store.setElmUsername(StringUtil.valueOf(lo.get(18)));
+    			store.setElmPwd(StringUtil.valueOf(lo.get(19)));
+    			store.setElmId(StringUtil.valueOf(lo.get(20)));
+    			store.setElmRate(StringUtil.valueOf(lo.get(21)));
+    			store.setMeituanId(StringUtil.valueOf(lo.get(22)));
+    			store.setMeituanPwd(StringUtil.valueOf(lo.get(23)));
+    			store.setMeituanRate(StringUtil.valueOf(lo.get(24)));
+    			store.setMeituanSale(StringUtil.valueOf(lo.get(25)));
+    			store.setBaiduId(StringUtil.valueOf(lo.get(26)));
+    			store.setBaidupwd(StringUtil.valueOf(lo.get(27)));
+    			store.setBaiduRate(StringUtil.valueOf(lo.get(28)));
+    			store.setBaiduSale(StringUtil.valueOf(lo.get(29)));
+    			store.setBoundType(StringUtil.valueOf(lo.get(30)));
+    			ResultMessage rm =userInfoService.addStoreUserInfo(store,Utils.getLoginUserInfo(request));
+    			int iStatus = rm.getStatus();
+    			String ownerUserId = rm.getMessage();
+    			if(iStatus!=1){
+    				continue;
+    			}else if(iStatus==1&&ownerUserId.length()>0){
+    				store.setOwnerUserId(ownerUserId);
+                	storeList.add(store);
+    			}
             }catch(Exception e){
             	e.printStackTrace();
-            	Map<String, String> map = new HashMap<String, String>();
-        		map.put("msg", "失败");
-        		AjaxUtils.sendAjaxForMap(response, map);
             }
         }  
         response.setCharacterEncoding("utf-8");  //防止ajax接受到的中文信息乱码  
-        Map<String, String> map = new HashMap<String, String>();
-		map.put("msg", "成功");
-		map.put("dataSize", storeService.addStores(storeList)+"");//批量插入，传入orderDetail实体集合
-		AjaxUtils.sendAjaxForMap(response, map);
+	        Map<String, String> map = new HashMap<String, String>();
+	        if(storeList.size()>0){
+	        	storeService.addStores(storeList);
+	        	map.put("msg", "成功");
+	        }else{
+	        	map.put("msg", "失败");
+	        }
+		AjaxUtils.sendAjaxForObject(response, map);
+		}
+ 	
+ 	/**
+	 * 进入店铺产品分类界面
+	 * @param key String：店铺ID
+	 * @return ModelAndView: 查询实体
+	 */	
+	@RequestMapping("/listStoreByPlatform")
+	public void listStoreByPlatform(String platformType, Page page,HttpServletRequest request,HttpServletResponse response){
+		Store s = new Store();
+		s.setPlatformType(platformType);
+		ResultMessage rm = new ResultMessage();
+		List<StoreByPlatform>  sp = storeService.listStoreByPlatform(platformType,s);
+		if(sp.size()>0){
+			rm.setResult(storeService.listStoreByPlatform(platformType,s));
+			rm.setRespCode("0000");
+			rm.setRespMsg("成功");
+		}else{
+			rm.setResult(null);
+			rm.setRespCode("9999");
+			rm.setRespMsg("失败");
+		}
+		AjaxUtils.sendAjaxForObjectStr(response, rm);
 	}
+ 	
 }

@@ -12,11 +12,13 @@ import com.dongnao.workbench.basic.dao.UserInfoMapper;
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.common.Constant;
 import com.dongnao.workbench.common.bean.ResultMessage;
+import com.dongnao.workbench.common.enums.UserInfoType;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.MD5Encryption;
 import com.dongnao.workbench.common.util.StringUtil;
 import com.dongnao.workbench.common.util.Utils;
+import com.dongnao.workbench.store.model.Store;
 import com.dongnao.workbench.system.dao.PersonroleMapper;
 import com.dongnao.workbench.system.model.Personrole;
 
@@ -85,6 +87,42 @@ public class UserInfoServiceImpl implements UserInfoService {
 		}
 	}
 
+	/**
+	 * 新增店铺用户方法
+	 */
+	public ResultMessage addStoreUserInfo(Store store, UserInfo loginUserInfo) {
+		UserInfo info  = userInfoMapper.getByUserAccount(store.getUserAccount());
+		UserInfo userInfo = new UserInfo();
+		if (info != null) {
+			return AjaxUtils.getFailureMessage("此店铺账号已经存在");
+		} else {
+			userInfo.setPassword(MD5Encryption.MD5(getInitialPassword()));
+			String userId = loginUserInfo.getId();
+			userInfo.setId(Utils.generateUniqueID());
+			userInfo.setCreated(DateUtil.now());
+			userInfo.setCreatedby(userId);
+			userInfo.setUserType(UserInfoType.STAFF.getValue());
+			userInfo.setUserAccount(store.getUserAccount());
+			userInfo.setStates("1");
+			userInfo.setUpdated(DateUtil.now());
+			userInfo.setUpdatedby(userId);
+			userInfo.setIsActive(Constant.ISDELETE_FALSE);
+			userInfo.setStoreId(store.getStoreId());
+			userInfo.setFullName(store.getStoreName());
+			userInfo.setMobilePhone(store.getStoreTel());
+			userInfo.setMarketingManager(store.getStoreOwnerName());
+			userInfo.setMarketingManagerTel(store.getStoreOwnerTel());
+			userInfo.setUserGroup("000000000000000000000000000000");
+			userInfoMapper.add(userInfo);
+			Personrole personrole = new Personrole();
+			personrole.setCreateTime(DateUtil.now());
+			personrole.setUserId(userInfo.getId());
+			//用户角色默认设置为平台店铺
+			personrole.setRoleId("dece69a6-9922-45df-af25-0b9762b58306");
+			personroleMapper.add(personrole);
+			return AjaxUtils.getSuccessMessage(userInfo.getId());
+		}
+	}
 	/**
 	 * 根据主键查找实体方法
 	 * 

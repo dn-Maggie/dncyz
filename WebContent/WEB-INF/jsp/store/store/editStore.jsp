@@ -333,9 +333,25 @@ $(function() {
 							<td class="inputTd">
 								<input id="edit_elmId" name="elmId" type="text" class="text" value="${store.elmId}"/>
 							</td>
+						</tr>
+						<tr>
+							<td class="inputLabelTd"><span class="required">*</span>饿了么平台商铺账号：</td>
+							<td class="inputTd">
+								<input id="edit_elmUsername" name="elmUsername" type="text" class="text" value="${store.elmUsername}"/>
+							</td>
+							<td class="inputLabelTd"><span class="required">*</span>饿了么平台商铺密码：</td>
+							<td class="inputTd">
+								<input id="edit_elmPwd" name="elmPwd" type="text" class="text" value="${store.elmPwd}"/>
+							</td>
+						</tr>
+						<tr>
 							<td class="inputLabelTd"><span class="required">*</span>美团平台商铺账号：</td>
 							<td class="inputTd">
 								<input id="edit_meituanId" name="meituanId" type="text" class="text" value="${store.meituanId}"/>
+							</td>
+							<td class="inputLabelTd"><span class="required">*</span>美团平台商铺密码：</td>
+							<td class="inputTd">
+								<input id="edit_meituanPwd" name="meituanPwd" type="text" class="text" value="${store.meituanPwd}"/>
 							</td>
 						</tr>
 						<tr>

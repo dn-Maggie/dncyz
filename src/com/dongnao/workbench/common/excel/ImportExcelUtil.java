@@ -36,25 +36,33 @@ public class ImportExcelUtil {
         Sheet sheet = null;  
         Row row = null;  
         Cell cell = null;  
-          
         list = new ArrayList<List<Object>>();  
         //遍历Excel中所有的sheet  
         for (int i = 0; i < work.getNumberOfSheets(); i++) {  
             sheet = work.getSheetAt(i);  
             if(sheet==null){continue;}  
             //遍历当前sheet中的所有行  
-            for (int j = sheet.getFirstRowNum(); j <=sheet.getLastRowNum(); j++) {  
-                row = sheet.getRow(j);  
-                if(row==null||row.getFirstCellNum()==j||row.getCell(0).toString().equals("")){continue;}//虽然cell为空，但是不是String，要toString之后才能用equals
-                //System.out.println(row.getCell(0).toString());
-                //遍历所有的列  
-                List<Object> li = new ArrayList<Object>();  
-                for (int y = row.getFirstCellNum(); y < row.getLastCellNum(); y++) {  
-                    cell = row.getCell(y);  
-                    li.add(this.getCellValue(cell));  
-                }  
-                list.add(li); 
-            }  
+           try{
+        	   for (int j = sheet.getFirstRowNum(); j <=sheet.getLastRowNum(); j++) {  
+                   row = sheet.getRow(j);  
+                   if(row==null||row.getFirstCellNum()==j||row.getCell(0).toString().equals("")){
+                   	continue;
+               	}//虽然cell为空，但是不是String，要toString之后才能用equals
+                   //遍历所有的列  
+                   List<Object> li = new ArrayList<Object>();  
+                   for (int y = row.getFirstCellNum(); y < row.getLastCellNum(); y++) {  
+                   	if(row.getCell(y) != null){
+                           cell = row.getCell(y); 
+                   	} else {
+                   		cell = row.getCell(y); 
+                   		}
+                       li.add(this.getCellValue(cell));  
+                   }  
+                   list.add(li); 
+               }  
+           }catch(Exception e){
+        	   e.printStackTrace();
+           }
         }  
        /* work.close();  */
         return list;  
