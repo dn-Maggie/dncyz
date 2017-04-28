@@ -38,7 +38,7 @@ Show = {
 				return ;
 			}
 			var url=url+"?key="+key;
-			if(!show_iframe_dialog)show_iframe_dialog = new biz.dialog({
+			show_iframe_dialog = new biz.dialog({
 			 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 				modal: true,
 				width: $(window).width()*0.6,

@@ -25,6 +25,56 @@ $(function() {
 		if(this.checked) { $("#edit_proInvoiceFlag").val("1"); }
 		else { $("#edit_proInvoiceFlag").val("0"); }
 	});
+	
+	
+	$('.pwd').on('blur', function(){
+		var platformType = $(this).attr('name');
+		switch (platformType) {
+			case "elmPwd": platformType = 'elm'; break;
+			case "meituanPwd":platformType = 'mt'; break;
+			/*case "baidupwd":platformType = 'bdwm'; break;*/
+			default:return false;
+		}
+		var url = "<m:url value='/store/checkStoreAcocunt.do'/>";
+		var password = $(this).val();
+		var username = $(this).parents('tr').find('.username').val();
+		var paramData = {
+			username:username,
+			password:password,
+			platformType:platformType
+		};
+		$.ajax({
+	 		   type: "post",
+	 		   url :url,
+	 		   data: JSON.stringify(paramData),
+	 		   cache: false,
+	 		   dataType:"json",
+	 		   contentType :"application/json; charset=utf-8",
+	           error: function(d) {
+	        	   	var pType = JSON.parse(this.data).platformType=="elm"?"elm":"meituan";
+	           		showMessage("验证账号失败");
+	           	 $("input[name="+pType+"Pwd]").parents('tr').find('i')
+				   .removeClass("icon-unchecked").removeClass("green")
+				   .addClass("red").addClass("icon-stop");
+	           },
+			   success:function(d){
+					var pType = JSON.parse(this.data).platformType=="elm"?"elm":"meituan";
+				   if(d.respCode == "0000"){
+					   $("input[name="+pType+"Pwd]").parents('tr').find('i')
+					   .removeClass("icon-unchecked").removeClass("red").removeClass("icon-stop")
+					   .addClass("icon-check-sign".addClass("green"));
+				   }else{
+					   showMessage("账号密码不正确");
+					   $("input[name="+pType+"Pwd]").parents('tr').find('i')
+					   .removeClass("icon-unchecked").removeClass("green")
+					   .addClass("red").addClass("icon-stop");
+				   }
+				  
+			   }
+ 		});
+	});
+	
+	
 	$('#fuelux-wizard').ace_wizard().on('change' , function(e, info){
 		//首次保存第一页基础资料
 		if(info.step == 1 && info.direction == "next" && $('#edit_storeId').val().length==0 &&$('#edit_storeName').val().length>0) {
@@ -187,18 +237,18 @@ $(function() {
 								</select-->
 								<input id="edit_userAccount" name="userAccount" type="text" class="text" placeholder="请用英文与数字组合" title="请用英文与数字组合"/>
 							</td>
-							<td class="inputLabelTd"><span class="required">*</span>绑卡类型：</td>
-							<td class="inputTd">
-								<select class="search_select" name="boundType" id="edit_boundType">
-									<option value="1">绑商家卡</option>
-									<option value="2">绑公司卡</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
 							<td class="inputLabelTd"><span class="required">*</span>店铺名称：</td>
 							<td class="inputTd">
 								<input id="edit_storeName" name="storeName" type="text" class="text" value="${store.storeName}"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="inputLabelTd">店铺联系电话：</td>
+							<td class="inputTd">
+								<span class="input-icon">
+									<input id="edit_storeTel" name="storeTel" type="text" class="text" value="${store.storeTel}"/>
+									<i class="icon-phone green"></i>
+								</span>
 							</td>
 							<td class="inputLabelTd">所属品牌：</td>
 							<td class="inputTd">
@@ -211,16 +261,16 @@ $(function() {
 							</td>
 						</tr>
 						<tr>
+							<td class="inputLabelTd"><span class="required">*</span>所属商圈：</td>
+							<td class="inputTd">
+								<input id="edit_businessArea" name="businessArea" type="text" class="text" value="${store.businessArea}" list="businessAreaList"/>
+								<datalist id="businessAreaList">
+									<option value="五一商圈"></option>
+								</datalist>
+							</td>
 							<td class="inputLabelTd">店铺地址：</td>
 							<td class="inputTd">
 								<input id="edit_storeAddress" name="storeAddress" type="text" class="text" value="${store.storeAddress}"/>
-							</td>
-							<td class="inputLabelTd">店铺联系电话：</td>
-							<td class="inputTd">
-								<span class="input-icon">
-									<input id="edit_storeTel" name="storeTel" type="text" class="text" value="${store.storeTel}"/>
-									<i class="icon-phone green"></i>
-								</span>
 							</td>
 						</tr>
 						<tr>
@@ -237,12 +287,11 @@ $(function() {
 							</td>
 							<td class="inputLabelTd"><span class="required">*</span>店铺类型：</td>
 							<td class="inputTd">
-								<input id="edit_storeType" name="storeType" type="text" class="text" value="${store.storeType}" list="storeTypeList"/>
-								<datalist id="storeTypeList">
-									<option value="夜宵"></option>
-									<option value="正餐"></option>
-									<option value="沙拉类"></option>
-								</datalist>
+								<select id="edit_storeType" name="storeType"  class="search_select">
+									<option value="1">夜宵</option>
+									<option value="2">正餐</option>
+									<option value="3">沙拉类</option>
+								</select>
 							</td>
 						</tr>
 						<tr>
@@ -347,39 +396,68 @@ $(function() {
 							</td>
 						</tr>
 						<tr>
+							<td class="inputLabelTd"><span class="required">*</span>绑卡类型：</td>
+							<td class="inputTd">
+								<select class="search_select" name="boundType" id="edit_boundType">
+									<option value="1">绑商家卡</option>
+									<option value="2">绑公司卡</option>
+								</select>
+							</td>
 							<td class="inputLabelTd"><span class="required">*</span>饿了么平台商铺ID：</td>
 							<td class="inputTd">
-								<input id="edit_elmId" name="elmId" type="text" class="text" value="${store.elmId}"/>
+								<span class="input-icon">
+									<input id="edit_elmId" name="elmId" type="text" class="text" value="${store.elmId}"/>
+									<i class="icon-unchecked green"></i>
+								</span>
 							</td>
 						</tr>
 						<tr>
 							<td class="inputLabelTd"><span class="required">*</span>饿了么平台商铺账号：</td>
 							<td class="inputTd">
-								<input id="edit_elmUsername" name="elmUsername" type="text" class="text" value="${store.elmUsername}"/>
+								<span class="input-icon">
+									<input id="edit_elmUsername" name="elmUsername" type="text" class="text username" value="${store.elmUsername}"/>
+									<i class="icon-unchecked green"></i>
+								</span>
 							</td>
 							<td class="inputLabelTd"><span class="required">*</span>饿了么平台商铺密码：</td>
 							<td class="inputTd">
-								<input id="edit_elmPwd" name="elmPwd" type="text" class="text" value="${store.elmPwd}"/>
+								<span class="input-icon">
+									<input id="edit_elmPwd" name="elmPwd" type="text" class="text pwd" value="${store.elmPwd}"/>
+									<i class="icon-unchecked green"></i>
+								</span>
 							</td>
 						</tr>
 						<tr>
 							<td class="inputLabelTd"><span class="required">*</span>美团平台商铺账号：</td>
 							<td class="inputTd">
-								<input id="edit_meituanId" name="meituanId" type="text" class="text" value="${store.meituanId}"/>
+								<span class="input-icon">
+									<input id="edit_meituanId" name="meituanId" type="text" class="text username" value="${store.meituanId}"/>
+									<i class="icon-unchecked green"></i>
+								</span>
+								
 							</td>
 							<td class="inputLabelTd"><span class="required">*</span>美团平台商铺密码：</td>
 							<td class="inputTd">
-								<input id="edit_meituanPwd" name="meituanPwd" type="text" class="text" value="${store.meituanPwd}"/>
+								<span class="input-icon">
+									<input id="edit_meituanPwd" name="meituanPwd" type="text" class="text pwd" value="${store.meituanPwd}"/>
+									<i class="icon-unchecked green"></i>
+								</span>
 							</td>
 						</tr>
 						<tr>
 							<td class="inputLabelTd"><span class="required">*</span>百度平台商铺账号：</td>
 							<td class="inputTd">
-								<input id="edit_baiduId" name="baiduId" type="text" class="text" value="${store.baiduId}"/>
+								<span class="input-icon">
+									<input id="edit_baiduId" name="baiduId" type="text" class="text username" value="${store.baiduId}"/>
+									<i class="icon-check-sign green" title="暂时无法验证，请确保正确"></i>
+								</span>
 							</td>
 							<td class="inputLabelTd"><span class="required">*</span>百度平台商铺密码：</td>
 							<td class="inputTd">
-								<input id="edit_baidupwd" name="baidupwd" type="text" class="text" value="${store.baidupwd}"/>
+								<span class="input-icon">
+									<input id="edit_baidupwd" name="baidupwd" type="text" class="text pwd" value="${store.baidupwd}"/>
+									<i class="icon-check-sign green" title="暂时无法验证，请确保正确"></i>
+								</span>
 							</td>
 						</tr>
 					</table>

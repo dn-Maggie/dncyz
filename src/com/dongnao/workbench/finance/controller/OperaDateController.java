@@ -239,8 +239,21 @@ public class OperaDateController{
 		case "orderSaleRate":
 			rs= operaDateService.updateSaleRate(operaDate);
 			rs = operaDateService.updatePlatformAccount(operaDate);
+			rs = operaDateService.updateDeepOpera(operaDate);
 			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
 			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
+			accountOperaTotalService.deleteDeepTotalByOperaDate(operaDate);
+			accountOperaTotalService.addDeepTotalByOperaDate(operaDate);
+			AjaxUtils.sendAjaxForObjectStr(response,rs);	
+			break;
+		case "otherSum":
+			rs= operaDateService.updateSaleRateSum(operaDate);
+			rs = operaDateService.updatePlatformAccountSum(operaDate);
+			rs = operaDateService.updateDeepOperaSum(operaDate);
+			accountOperaTotalService.deleteSimpleTotalByOperaDate(operaDate);
+			accountOperaTotalService.addSimpleTotalByOperaDate(operaDate);
+			accountOperaTotalService.deleteDeepTotalByOperaDate(operaDate);
+			accountOperaTotalService.addDeepTotalByOperaDate(operaDate);
 			AjaxUtils.sendAjaxForObjectStr(response,rs);	
 			break;
 		default:

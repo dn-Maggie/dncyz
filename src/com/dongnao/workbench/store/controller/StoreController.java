@@ -25,6 +25,7 @@ import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.common.util.FormatEntity;
+import com.dongnao.workbench.common.util.HttpRequest;
 import com.dongnao.workbench.common.util.StringUtil;
 import com.dongnao.workbench.store.model.Store;
 import com.dongnao.workbench.store.model.StoreByPlatform;
@@ -36,7 +37,9 @@ import com.dongnao.workbench.system.service.PersonroleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -288,34 +291,35 @@ public class StoreController{
             	store.setStoreId(Utils.generateUniqueID());
     			store.setStoreName(StringUtil.valueOf(lo.get(0)));
     			store.setUserAccount(StringUtil.valueOf(lo.get(1)));
-    			store.setStoreAddress(StringUtil.valueOf(lo.get(3)));
-    			store.setStoreTel(StringUtil.valueOf(lo.get(4)));
-    			store.setStoreType(StringUtil.valueOf(lo.get(5)));
-    			store.setOperateDate(new Timestamp(DateUtil.parseStringToyyyyMMdd(StringUtil.valueOf(lo.get(6))).getTime()));
-    			store.setWorkTimeBegin(StringUtil.valueOf(lo.get(7)));
-    			store.setWorkTimeEnd(StringUtil.valueOf(lo.get(8)));
-    			store.setStoreDistMode(StringUtil.valueOf(lo.get(9)));
-    			store.setStoreOwnerName(StringUtil.valueOf(lo.get(10)));
-    			store.setStoreOwnerTel(StringUtil.valueOf(lo.get(11)));
-    			store.setProInvoiceFlag(StringUtil.valueOf(lo.get(12)));
-    			store.setSettlementMethod(StringUtil.valueOf(lo.get(13)));
-    			store.setRegistrant(StringUtil.valueOf(lo.get(14)));
-    			store.setRegistDate(new Timestamp(DateUtil.parseStringToyyyyMMdd(StringUtil.valueOf(lo.get(15))).getTime()));
-    			store.setRemark(StringUtil.valueOf(lo.get(16)));
-    			store.setAverageSales(StringUtil.valueOf(lo.get(17)));
-    			store.setElmUsername(StringUtil.valueOf(lo.get(18)));
-    			store.setElmPwd(StringUtil.valueOf(lo.get(19)));
-    			store.setElmId(StringUtil.valueOf(lo.get(20)));
-    			store.setElmRate(StringUtil.valueOf(lo.get(21)));
-    			store.setMeituanId(StringUtil.valueOf(lo.get(22)));
-    			store.setMeituanPwd(StringUtil.valueOf(lo.get(23)));
-    			store.setMeituanRate(StringUtil.valueOf(lo.get(24)));
-    			store.setMeituanSale(StringUtil.valueOf(lo.get(25)));
-    			store.setBaiduId(StringUtil.valueOf(lo.get(26)));
-    			store.setBaidupwd(StringUtil.valueOf(lo.get(27)));
-    			store.setBaiduRate(StringUtil.valueOf(lo.get(28)));
-    			store.setBaiduSale(StringUtil.valueOf(lo.get(29)));
-    			store.setBoundType(StringUtil.valueOf(lo.get(30)));
+    			store.setBusinessArea(StringUtil.valueOf(lo.get(3)));
+    			store.setStoreAddress(StringUtil.valueOf(lo.get(4)));
+    			store.setStoreTel(StringUtil.valueOf(lo.get(5)));
+    			store.setStoreType(StringUtil.valueOf(lo.get(6)));
+    			store.setOperateDate(new Timestamp(DateUtil.parseStringToyyyyMMdd(StringUtil.valueOf(lo.get(7))).getTime()));
+    			store.setWorkTimeBegin(StringUtil.valueOf(lo.get(8)));
+    			store.setWorkTimeEnd(StringUtil.valueOf(lo.get(9)));
+    			store.setStoreDistMode(StringUtil.valueOf(lo.get(10)));
+    			store.setStoreOwnerName(StringUtil.valueOf(lo.get(11)));
+    			store.setStoreOwnerTel(StringUtil.valueOf(lo.get(12)));
+    			store.setProInvoiceFlag(StringUtil.valueOf(lo.get(13)));
+    			store.setSettlementMethod(StringUtil.valueOf(lo.get(14)));
+    			store.setRegistrant(StringUtil.valueOf(lo.get(15)));
+    			store.setRegistDate(new Timestamp(DateUtil.parseStringToyyyyMMdd(StringUtil.valueOf(lo.get(16))).getTime()));
+    			store.setRemark(StringUtil.valueOf(lo.get(17)));
+    			store.setAverageSales(StringUtil.valueOf(lo.get(18)));
+    			store.setElmUsername(StringUtil.valueOf(lo.get(19)));
+    			store.setElmPwd(StringUtil.valueOf(lo.get(20)));
+    			store.setElmId(StringUtil.valueOf(lo.get(21)));
+    			store.setElmRate(StringUtil.valueOf(lo.get(22)));
+    			store.setMeituanId(StringUtil.valueOf(lo.get(23)));
+    			store.setMeituanPwd(StringUtil.valueOf(lo.get(24)));
+    			store.setMeituanRate(StringUtil.valueOf(lo.get(25)));
+    			store.setMeituanSale(StringUtil.valueOf(lo.get(26)));
+    			store.setBaiduId(StringUtil.valueOf(lo.get(27)));
+    			store.setBaidupwd(StringUtil.valueOf(lo.get(28)));
+    			store.setBaiduRate(StringUtil.valueOf(lo.get(29)));
+    			store.setBaiduSale(StringUtil.valueOf(lo.get(30)));
+    			store.setBoundType(StringUtil.valueOf(lo.get(31)));
     			ResultMessage rm =userInfoService.addStoreUserInfo(store,Utils.getLoginUserInfo(request));
     			int iStatus = rm.getStatus();
     			String ownerUserId = rm.getMessage();
@@ -362,5 +366,14 @@ public class StoreController{
 		}
 		AjaxUtils.sendAjaxForObjectStr(response, rm);
 	}
- 	
+	/**
+	 * 查询账号
+	 * @param key String：店铺ID
+	 * @return ModelAndView: 查询实体
+	 */	
+	@RequestMapping("/checkStoreAcocunt")
+	public void checkStoreAcocunt(@RequestBody String param,HttpServletRequest request,HttpServletResponse response){
+		String  url = "http://180.76.134.65:8090/merchant-system/order/validateUser";
+		AjaxUtils.sendAjaxForObjectStr(response, HttpRequest.sendPost(url, param));
+	}
 }

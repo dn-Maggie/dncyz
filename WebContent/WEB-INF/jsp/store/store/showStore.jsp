@@ -62,13 +62,11 @@ $(function() {
 									</c:forEach>
 								</select>
 							</td>
-							<td class="inputLabelTd"><span class="required">*</span>绑卡类型：</td>
+							<td class="inputLabelTd"><span class="required">*</span>所属商圈：</td>
 							<td class="inputTd">
-								<select class="search_select" name="boundType" id="edit_boundType">
-									<option value="1" <c:if test="${store.boundType==1}">selected</c:if>>绑商家卡</option>
-									<option value="2" <c:if test="${store.boundType==2}">selected</c:if>>绑公司卡</option>
-								</select>
+								<input id="edit_businessArea" name="businessArea" type="text" class="text" value="${store.businessArea}" />
 							</td>
+							
 						</tr>
 						<tr>
 							<td class="inputLabelTd">店铺名称：</td>
@@ -207,7 +205,7 @@ $(function() {
 								<input id="edit_baiduSale" name="baiduSale" type="number" class="text" value="${store.baiduSale}"/>
 							</td>
 						</tr>
-						<tr>
+						<!-- tr>
 							<td class="inputLabelTd">饿了么平台佣金率(%)：</td>
 							<td class="inputTd">
 								<input id="edit_elmRate" name="elmRate" type="number" class="text" value="${store.elmRate}"/>
@@ -216,11 +214,18 @@ $(function() {
 							<td class="inputTd">
 								<input id="edit_meituanRate" name="meituanRate" type="number" class="text" value="${store.meituanRate}"/>
 							</td>
-						</tr>
+						</tr-->
 						<tr>
-							<td class="inputLabelTd">百度平台佣金率(%)：</td>
+							<!-- td class="inputLabelTd">百度平台佣金率(%)：</td>
 							<td class="inputTd">
 								<input id="edit_baiduRate" name="baiduRate" type="number" class="text" value="${store.baiduRate}"/>
+							</td-->
+							<td class="inputLabelTd"><span class="required">*</span>绑卡类型：</td>
+							<td class="inputTd">
+								<select class="search_select" name="boundType" id="edit_boundType">
+									<option value="1" <c:if test="${store.boundType==1}">selected</c:if>>绑商家卡</option>
+									<option value="2" <c:if test="${store.boundType==2}">selected</c:if>>绑公司卡</option>
+								</select>
 							</td>
 							<td class="inputLabelTd"><span class="required">*</span>饿了么平台商铺ID：</td>
 							<td class="inputTd">

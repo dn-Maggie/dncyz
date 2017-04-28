@@ -59,6 +59,9 @@ public interface OperaDateService  {
 	public ResultMessage updateDeepOpera(OperaDate operaDate);
 	public ResultMessage updateSaleRate(OperaDate operaDate);
 	public ResultMessage updatePlatformAccount(OperaDate operaDate);
+	public ResultMessage updateSaleRateSum(OperaDate operaDate);
+	public ResultMessage updateDeepOperaSum(OperaDate operaDate);
+	public ResultMessage updatePlatformAccountSum(OperaDate operaDate);
 	
 
 	

@@ -3,51 +3,52 @@
 <mapper namespace="com.dongnao.workbench.store.dao.StoreMapper">
 	<resultMap id="BaseResultMap" type="com.dongnao.workbench.store.model.Store">
 		<id column="STORE_ID" property="storeId" jdbcType="CHAR" />
-					<result column="STORE_NAME" property="storeName" jdbcType="VARCHAR" />
-					<result column="BRAND_ID" property="brandId" jdbcType="VARCHAR" />
-					<result column="STORE_ADDRESS" property="storeAddress" jdbcType="VARCHAR" />
-					<result column="WORK_TIME_BEGIN" property="workTimeBegin" jdbcType="TIME" />
-					<result column="WORK_TIME_END" property="workTimeEnd" jdbcType="TIME" />
-					<result column="STORE_OWNER_NAME" property="storeOwnerName" jdbcType="VARCHAR" />
-					<result column="STORE_OWNER_TEL" property="storeOwnerTel" jdbcType="VARCHAR" />
-					<result column="PRO_INVOICE_FLAG" property="proInvoiceFlag" jdbcType="VARCHAR" />
-					<result column="REMARK" property="remark" jdbcType="VARCHAR" />
-					<result column="OPERATE_DATE" property="operateDate" jdbcType="DATE" />
-					<result column="SETTLEMENT_METHOD" property="settlementMethod" jdbcType="VARCHAR" />
-					<result column="STORE_TEL" property="storeTel" jdbcType="VARCHAR" />
-					<result column="REAL_IMAGE_PATH_1" property="realImagePath1" jdbcType="VARCHAR" />
-					<result column="REAL_IMAGE_PATH_2" property="realImagePath2" jdbcType="VARCHAR" />
-					<result column="REAL_IMAGE_PATH_3" property="realImagePath3" jdbcType="VARCHAR" />
-					<result column="AVERAGE_SALES" property="averageSales" jdbcType="VARCHAR" />
-					<result column="ELM_SALE" property="elmSale" jdbcType="VARCHAR" />
-					<result column="MEITUAN_SALE" property="meituanSale" jdbcType="VARCHAR" />
-					<result column="BAIDU_SALE" property="baiduSale" jdbcType="VARCHAR" />
-					<result column="elm_id" property="elmId" jdbcType="VARCHAR" />
-					<result column="elm_username" property="elmUsername" jdbcType="VARCHAR" />
-					<result column="elm_pwd" property="elmPwd" jdbcType="VARCHAR" />
-					<result column="ELM_RATE" property="elmRate" jdbcType="VARCHAR" />
-					<result column="meituan_id" property="meituanId" jdbcType="VARCHAR" />
-					<result column="meituan_pwd" property="meituanPwd" jdbcType="VARCHAR" />
-					<result column="MEITUAN_RATE" property="meituanRate" jdbcType="VARCHAR" />
-					<result column="baidu_id" property="baiduId" jdbcType="VARCHAR" />
-					<result column="baidu_pwd" property="baidupwd" jdbcType="VARCHAR" />
-					<result column="BAIDU_RATE" property="baiduRate" jdbcType="VARCHAR" />
-					<result column="registrant" property="registrant" jdbcType="VARCHAR" />
-					<result column="regist_date" property="registDate" jdbcType="DATE" />
-					<result column="business_license_img" property="businessLicenseImg" jdbcType="VARCHAR" />
-					<result column="health_license_img" property="healthLicenseImg" jdbcType="VARCHAR" />
-					<result column="menu_img" property="menuImg" jdbcType="VARCHAR" />
-					<result column="corporate_idcard_front" property="corporateIdcardFront" jdbcType="VARCHAR" />
-					<result column="corporate_idcard_back" property="corporateIdcardBack" jdbcType="VARCHAR" />
-					<result column="canteen_img" property="canteenImg" jdbcType="VARCHAR" />
-					<result column="kitchen_img" property="kitchenImg" jdbcType="VARCHAR" />
-					<result column="door_img" property="doorImg" jdbcType="VARCHAR" />
-					<result column="corporate_withidcard_front" property="corporateWithidcardFront" jdbcType="VARCHAR" />
-					<result column="corporate_withidcard_back" property="corporateWithidcardBack" jdbcType="VARCHAR" />
-					<result column="owner_userId" property="ownerUserId" jdbcType="VARCHAR" />
-					<result column="bound_type" property="boundType" jdbcType="VARCHAR" />
-					<result column="store_type" property="storeType" jdbcType="VARCHAR" />
-					<result column="store_dist_mode" property="storeDistMode" jdbcType="VARCHAR" />
+		<result column="STORE_NAME" property="storeName" jdbcType="VARCHAR" />
+		<result column="business_area" property="businessArea" jdbcType="VARCHAR" />
+		<result column="BRAND_ID" property="brandId" jdbcType="VARCHAR" />
+		<result column="STORE_ADDRESS" property="storeAddress" jdbcType="VARCHAR" />
+		<result column="WORK_TIME_BEGIN" property="workTimeBegin" jdbcType="TIME" />
+		<result column="WORK_TIME_END" property="workTimeEnd" jdbcType="TIME" />
+		<result column="STORE_OWNER_NAME" property="storeOwnerName" jdbcType="VARCHAR" />
+		<result column="STORE_OWNER_TEL" property="storeOwnerTel" jdbcType="VARCHAR" />
+		<result column="PRO_INVOICE_FLAG" property="proInvoiceFlag" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="OPERATE_DATE" property="operateDate" jdbcType="DATE" />
+		<result column="SETTLEMENT_METHOD" property="settlementMethod" jdbcType="VARCHAR" />
+		<result column="STORE_TEL" property="storeTel" jdbcType="VARCHAR" />
+		<result column="REAL_IMAGE_PATH_1" property="realImagePath1" jdbcType="VARCHAR" />
+		<result column="REAL_IMAGE_PATH_2" property="realImagePath2" jdbcType="VARCHAR" />
+		<result column="REAL_IMAGE_PATH_3" property="realImagePath3" jdbcType="VARCHAR" />
+		<result column="AVERAGE_SALES" property="averageSales" jdbcType="VARCHAR" />
+		<result column="ELM_SALE" property="elmSale" jdbcType="VARCHAR" />
+		<result column="MEITUAN_SALE" property="meituanSale" jdbcType="VARCHAR" />
+		<result column="BAIDU_SALE" property="baiduSale" jdbcType="VARCHAR" />
+		<result column="elm_id" property="elmId" jdbcType="VARCHAR" />
+		<result column="elm_username" property="elmUsername" jdbcType="VARCHAR" />
+		<result column="elm_pwd" property="elmPwd" jdbcType="VARCHAR" />
+		<result column="ELM_RATE" property="elmRate" jdbcType="VARCHAR" />
+		<result column="meituan_id" property="meituanId" jdbcType="VARCHAR" />
+		<result column="meituan_pwd" property="meituanPwd" jdbcType="VARCHAR" />
+		<result column="MEITUAN_RATE" property="meituanRate" jdbcType="VARCHAR" />
+		<result column="baidu_id" property="baiduId" jdbcType="VARCHAR" />
+		<result column="baidu_pwd" property="baidupwd" jdbcType="VARCHAR" />
+		<result column="BAIDU_RATE" property="baiduRate" jdbcType="VARCHAR" />
+		<result column="registrant" property="registrant" jdbcType="VARCHAR" />
+		<result column="regist_date" property="registDate" jdbcType="DATE" />
+		<result column="business_license_img" property="businessLicenseImg" jdbcType="VARCHAR" />
+		<result column="health_license_img" property="healthLicenseImg" jdbcType="VARCHAR" />
+		<result column="menu_img" property="menuImg" jdbcType="VARCHAR" />
+		<result column="corporate_idcard_front" property="corporateIdcardFront" jdbcType="VARCHAR" />
+		<result column="corporate_idcard_back" property="corporateIdcardBack" jdbcType="VARCHAR" />
+		<result column="canteen_img" property="canteenImg" jdbcType="VARCHAR" />
+		<result column="kitchen_img" property="kitchenImg" jdbcType="VARCHAR" />
+		<result column="door_img" property="doorImg" jdbcType="VARCHAR" />
+		<result column="corporate_withidcard_front" property="corporateWithidcardFront" jdbcType="VARCHAR" />
+		<result column="corporate_withidcard_back" property="corporateWithidcardBack" jdbcType="VARCHAR" />
+		<result column="owner_userId" property="ownerUserId" jdbcType="VARCHAR" />
+		<result column="bound_type" property="boundType" jdbcType="VARCHAR" />
+		<result column="store_type" property="storeType" jdbcType="VARCHAR" />
+		<result column="store_dist_mode" property="storeDistMode" jdbcType="VARCHAR" />
 	</resultMap>
 	<resultMap id="ResultMapByPlatform" type="com.dongnao.workbench.store.model.StoreByPlatform">
 		<result column="username" property="username" jdbcType="VARCHAR" />
@@ -58,6 +59,7 @@
 	<sql id="Base_Column_List">
 		 	 STORE_ID
 			,STORE_NAME
+			,business_area
 			,BRAND_ID
 			,STORE_ADDRESS
 			,WORK_TIME_BEGIN
@@ -108,6 +110,7 @@
 		select
 		 	s.STORE_ID
 			,s.STORE_NAME
+			,s.business_area
 			,s.BRAND_ID
 			,b.BRAND_NAME as brandName
 			,s.STORE_ADDRESS
@@ -155,137 +158,14 @@
 			,s.store_dist_mode
 		from dn_store as s
 		left join dn_brand as b on b.BRAND_ID = s.BRAND_ID
-		where s.STORE_ID = #{storeId,jdbcType=CHAR}
+		where s.STORE_ID = #{storeId,jdbcType=VARCHAR}
 	</select>
-	
-	<!-- select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.Store">
-		SELECT
-			s.STORE_ID
-			,s.STORE_NAME
-			,s.BRAND_ID
-			,b.BRAND_NAME as brandName
-			,s.STORE_ADDRESS
-			,s.WORK_TIME_BEGIN
-			,s.WORK_TIME_END
-			,s.STORE_OWNER_NAME
-			,s.STORE_OWNER_TEL
-			,s.PRO_INVOICE_FLAG
-			,s.REMARK
-			,s.OPERATE_DATE
-			,s.SETTLEMENT_METHOD
-			,s.STORE_TEL
-			,s.AVERAGE_SALES
-			,s.ELM_SALE
-			,s.MEITUAN_SALE
-			,s.BAIDU_SALE
-			,s.elm_id
-			,s.ELM_RATE
-			,s.meituan_id
-			,s.MEITUAN_RATE
-			,s.baidu_id
-			,s.baidu_pwd
-			,s.BAIDU_RATE
-			,s.registrant
-			,s.regist_date
-			,s.owner_userId
-			,s.bound_type
-			,s.store_type
-			,s.store_dist_mode
-		FROM
-			(
-			SELECT
-			ds.STORE_ID
-			,STORE_NAME
-			,BRAND_ID
-			,STORE_ADDRESS
-			,WORK_TIME_BEGIN
-			,WORK_TIME_END
-			,STORE_OWNER_NAME
-			,STORE_OWNER_TEL
-			,PRO_INVOICE_FLAG
-			,REMARK
-			,OPERATE_DATE
-			,SETTLEMENT_METHOD
-			,STORE_TEL
-			,AVERAGE_SALES
-			,ELM_SALE
-			,MEITUAN_SALE
-			,BAIDU_SALE
-			,elm_id
-			,ELM_RATE
-			,meituan_id
-			,MEITUAN_RATE
-			,baidu_id
-			,baidu_pwd
-			,BAIDU_RATE
-			,registrant
-			,regist_date
-			,owner_userId
-			,bound_type
-			,store_type
-			,store_dist_mode
-		FROM
-			`basic_user_info` AS ui
-		LEFT JOIN dn_store AS ds ON ui.id = ds.owner_userId
-		WHERE 1= 1
-		<if test="userGroup != null and '' != userGroup">  
-			and ui.user_group= #{userGroup,jdbcType=VARCHAR}
-		</if>
-		) AS s
-		left join dn_brand as b on b.BRAND_ID = s.BRAND_ID
-		where s.owner_userId is not null
-		<if test="ownerUserId != null and '' != ownerUserId">  
-			and s.owner_userId = #{ownerUserId,jdbcType=VARCHAR}
-		</if>
-		<if test="storeId != null and '' != storeId">  
-			and s.STORE_ID = #{storeId,jdbcType=CHAR}
-		</if>
-		<if test="storeName != null and '' != storeName">  
-			and s.STORE_NAME like CONCAT('%',#{storeName,jdbcType=VARCHAR},'%')
-		</if>
-		<if test="brandId != null and '' != brandId">  
-			and s.BRAND_ID = #{brandId,jdbcType=CHAR}
-		</if>
-		<if test="storeAddress != null and '' != storeAddress">  
-			and s.STORE_ADDRESS like CONCAT('%',#{storeAddress,jdbcType=VARCHAR},'%')
-		</if>
-		<if test="workTimeBegin != null and '' != workTimeBegin">  
-			and s.WORK_TIME_BEGIN = #{workTimeBegin,jdbcType=TIME}
-		</if>
-		<if test="workTimeEnd != null and '' != workTimeEnd">  
-			and s.WORK_TIME_END = #{workTimeEnd,jdbcType=TIME}
-		</if>
-		<if test="storeOwnerName != null and '' != storeOwnerName">  
-			and s.STORE_OWNER_NAME like CONCAT('%',#{storeOwnerName,jdbcType=VARCHAR},'%')
-		</if>
-		<if test="storeOwnerTel != null and '' != storeOwnerTel">  
-			and s.STORE_OWNER_TEL = #{storeOwnerTel,jdbcType=VARCHAR}
-		</if>
-		<if test="proInvoiceFlag != null and '' != proInvoiceFlag">  
-			and s.PRO_INVOICE_FLAG = #{proInvoiceFlag,jdbcType=CHAR}
-		</if>
-		<if test="remark != null and '' != remark">  
-			and s.REMARK = #{remark,jdbcType=VARCHAR}
-		</if>
-		<if test="operateDate != null and '' != operateDate">  
-			and s.OPERATE_DATE = #{operateDate,jdbcType=DATE}
-		</if>
-		<if test="settlementMethod != null and '' != settlementMethod">  
-			and s.SETTLEMENT_METHOD = #{settlementMethod,jdbcType=CHAR}
-		</if>
-		<if test="storeTel != null and '' != storeTel">  
-			and s.STORE_TEL = #{storeTel,jdbcType=VARCHAR}
-		</if>
-		<if test="orderFields != null and '' != orderFields">  
-           	order by ${orderFields} ${order}
-       	</if>
-	</select-->
-	
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.Store">
 		SELECT
 			s.STORE_ID
 			,s.STORE_NAME
+			,s.business_area
 			,s.BRAND_ID
 			,b.BRAND_NAME as brandName
 			,s.STORE_ADDRESS
@@ -326,13 +206,16 @@
 			and s.owner_userId = #{ownerUserId,jdbcType=VARCHAR}
 		</if>
 		<if test="storeId != null and '' != storeId">  
-			and s.STORE_ID = #{storeId,jdbcType=CHAR}
+			and s.STORE_ID = #{storeId,jdbcType=VARCHAR}
+		</if>
+		<if test="businessArea != null and '' != businessArea">  
+			and s.business_area = #{businessArea,jdbcType=VARCHAR}
 		</if>
 		<if test="storeName != null and '' != storeName">  
 			and s.STORE_NAME like CONCAT('%',#{storeName,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="brandId != null and '' != brandId">  
-			and s.BRAND_ID = #{brandId,jdbcType=CHAR}
+			and s.BRAND_ID = #{brandId,jdbcType=VARCHAR}
 		</if>
 		<if test="storeAddress != null and '' != storeAddress">  
 			and s.STORE_ADDRESS like CONCAT('%',#{storeAddress,jdbcType=VARCHAR},'%')
@@ -359,7 +242,7 @@
 			and s.OPERATE_DATE = #{operateDate,jdbcType=DATE}
 		</if>
 		<if test="settlementMethod != null and '' != settlementMethod">  
-			and s.SETTLEMENT_METHOD = #{settlementMethod,jdbcType=CHAR}
+			and s.SETTLEMENT_METHOD = #{settlementMethod,jdbcType=VARCHAR}
 		</if>
 		<if test="storeTel != null and '' != storeTel">  
 			and s.STORE_TEL = #{storeTel,jdbcType=VARCHAR}
@@ -400,16 +283,17 @@
 	
 	<delete id="deleteByKey" parameterType="java.lang.String">
 		delete from dn_store
-		where STORE_ID = #{storeId,jdbcType=CHAR}
+		where STORE_ID = #{storeId,jdbcType=VARCHAR}
 	</delete>
 	
 	<insert id="add" parameterType="com.dongnao.workbench.store.model.Store">
 		insert into dn_store (
 		<include refid="Base_Column_List" />
 		)values (
-			#{storeId,jdbcType=CHAR}
+			#{storeId,jdbcType=VARCHAR}
 			,#{storeName,jdbcType=VARCHAR}
-			,#{brandId,jdbcType=CHAR}
+			,#{businessArea,jdbcType=VARCHAR}
+			,#{brandId,jdbcType=VARCHAR}
 			,#{storeAddress,jdbcType=VARCHAR}
 			,#{workTimeBegin,jdbcType=TIME}
 			,#{workTimeEnd,jdbcType=TIME}
@@ -418,7 +302,7 @@
 			,#{proInvoiceFlag,jdbcType=CHAR}
 			,#{remark,jdbcType=VARCHAR}
 			,#{operateDate,jdbcType=DATE}
-			,#{settlementMethod,jdbcType=CHAR}
+			,#{settlementMethod,jdbcType=VARCHAR}
 			,#{storeTel,jdbcType=VARCHAR}
 			,#{realImagePath1,jdbcType=VARCHAR}
 			,#{realImagePath2,jdbcType=VARCHAR}
@@ -458,12 +342,15 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.store.model.Store">
 		update dn_store  set
-			STORE_ID= #{storeId,jdbcType=CHAR}
+			STORE_ID= #{storeId,jdbcType=VARCHAR}
 			<if test="storeName != null and '' != storeName">  
 			,STORE_NAME = #{storeName,jdbcType=VARCHAR}
 			</if>
+			<if test="businessArea != null and '' != businessArea">  
+			,business_area = #{businessArea,jdbcType=VARCHAR}
+			</if>
 			<if test="brandId != null and '' != brandId">  
-			,BRAND_ID = #{brandId,jdbcType=CHAR}
+			,BRAND_ID = #{brandId,jdbcType=VARCHAR}
 			</if>
 			<if test="storeAddress != null and '' != storeAddress"> 
 			,STORE_ADDRESS = #{storeAddress,jdbcType=VARCHAR}
@@ -490,7 +377,7 @@
 			,OPERATE_DATE = #{operateDate,jdbcType=DATE}
 			</if>
 			<if test="settlementMethod != null and '' != settlementMethod">  
-			,SETTLEMENT_METHOD = #{settlementMethod,jdbcType=CHAR}
+			,SETTLEMENT_METHOD = #{settlementMethod,jdbcType=VARCHAR}
 			</if>
 			<if test="storeTel != null and '' != storeTel">  
 			,STORE_TEL = #{storeTel,jdbcType=VARCHAR}
@@ -555,12 +442,12 @@
 			<if test="storeDistMode != null and '' != storeDistMode">  
 			,store_dist_mode = #{storeDistMode,jdbcType=VARCHAR}
 			</if>
-		where STORE_ID = #{storeId,jdbcType=CHAR}
+		where STORE_ID = #{storeId,jdbcType=VARCHAR}
 	</update>
 	
 	<update id="updateImg" parameterType="com.dongnao.workbench.store.model.Store">
 		update dn_store  set
-			STORE_ID = #{storeId,jdbcType=CHAR}
+			STORE_ID = #{storeId,jdbcType=VARCHAR}
 			<if test="realImagePath1 != null and '' != realImagePath1">  
 			,REAL_IMAGE_PATH_1 = #{realImagePath1,jdbcType=VARCHAR}
 			</if>
@@ -600,13 +487,14 @@
 			<if test="corporateWithidcardBack != null and '' != corporateWithidcardBack"> 
 			,corporate_withidcard_back = #{corporateWithidcardBack,jdbcType=VARCHAR}
 			</if>
-		where STORE_ID = #{storeId,jdbcType=CHAR}
+		where STORE_ID = #{storeId,jdbcType=VARCHAR}
 	</update>
 	<!-- 模板导入，批量增加 -->
 	<insert id="addStores" parameterType="java.util.List">
 		insert into dn_store (
 			STORE_ID
 			,STORE_NAME
+			,business_area
 			,STORE_ADDRESS
 			,STORE_TEL
 			,store_type
@@ -641,6 +529,7 @@
 		(
 			#{item.storeId,jdbcType=VARCHAR}
 			,#{item.storeName,jdbcType=VARCHAR}
+			,#{item.businessArea,jdbcType=VARCHAR}
 			,#{item.storeAddress,jdbcType=VARCHAR}
 			,#{item.storeTel,jdbcType=VARCHAR}
 			,#{item.storeType,jdbcType=VARCHAR}

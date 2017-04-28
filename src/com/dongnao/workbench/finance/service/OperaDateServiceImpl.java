@@ -6,7 +6,6 @@ import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.model.AccountSpecialFood;
 import com.dongnao.workbench.finance.model.OperaDate;
 import com.dongnao.workbench.finance.service.OperaDateService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.util.AjaxUtils;
@@ -109,6 +108,23 @@ public class OperaDateServiceImpl implements OperaDateService{
 	}
 	public ResultMessage updatePlatformAccount(OperaDate operaDate) {
 		operaDateMapper.updatePlatformAccount(operaDate);
+		return AjaxUtils.getSuccessMessage();
+	}
+	
+	
+	/**
+	 * 修改运营明细结算方法
+	 */
+	public ResultMessage updateDeepOperaSum(OperaDate operaDate) {
+		operaDateMapper.updateDeepOperaSum(operaDate);
+		return AjaxUtils.getSuccessMessage();
+	}
+	public ResultMessage updateSaleRateSum(OperaDate operaDate) {
+		operaDateMapper.updateSaleRateSum(operaDate);
+		return AjaxUtils.getSuccessMessage();
+	}
+	public ResultMessage updatePlatformAccountSum(OperaDate operaDate) {
+		operaDateMapper.updatePlatformAccountSum(operaDate);
 		return AjaxUtils.getSuccessMessage();
 	}
 }

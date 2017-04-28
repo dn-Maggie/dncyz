@@ -60,4 +60,10 @@ public interface OperaDateMapper  {
 	int addDeepOperaByOrderDetail(AccountOrderDetail accountOrderDetail);
 	int addSaleRateByOrderDetail(AccountOrderDetail accountOrderDetail);
 	int addPlatformAccountByOrderDetail(AccountOrderDetail accountOrderDetail);
+	/**
+	 * 修改运营明细结算方法
+	 */
+	public void updatePlatformAccountSum(OperaDate operaDate);
+	public void updateSaleRateSum(OperaDate operaDate);
+	public void updateDeepOperaSum(OperaDate operaDate);
 }

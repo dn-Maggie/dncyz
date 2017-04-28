@@ -111,7 +111,7 @@
 <!-- 配置基础项目 -->
 <script type="text/template" id="calculateBasicModel">
 	<li class="result" style="display: list-item;">
-		<span class="use"><a class="calc_use" href="#" data-val="{{basicName}}">{{basicLabel}}</a></span>
+		<span class="use"><a class="calc_use" href="#" data-val="{{basicName}}" data-index="{{basicIndex}}">{{basicLabel}}</a></span>
 	</li>
 </script>
 <script type="text/javascript">
@@ -122,11 +122,11 @@ function orderIndex(){
 	}
 }
 function cellFormatter(value, options, rData){
-	if(rData.raw){
+	/*if(rData.raw){*/
 		return accounting.formatMoney(value,"",2).replace(".00","").replace(",","");
-	}else if($(".calcu:eq("+options.colModel.serial+")").val().indexOf("rData")>0){
+	/*}else if($(".calcu:eq("+options.colModel.serial+")").val().length>0){
 		return accounting.formatMoney(eval($(".calcu:eq("+options.colModel.serial+")").val()),"",2).replace(".00","").replace(",","");
-	}else{return accounting.formatMoney(value,"",2).replace(".00","").replace(",","");}
+	}else{return accounting.formatMoney(value,"",2).replace(".00","").replace(",","");}*/
 }
 //添加行
 function addTr(){
@@ -161,6 +161,7 @@ function calculateCreate(){
 		if(colModel[i].isBasic && "|rn|cb|".indexOf("|"+colModel[i].name+"|")==-1){
 			calculateBasic.push(trTpl
 					   .replace('{{basicName}}',colModel[i].name)
+					   .replace('{{basicIndex}}',colModel[i].index)
 					   .replace('{{basicLabel}}', colModel[i].label)
 					);
 		}
@@ -188,9 +189,9 @@ function appendText(val){
 //添加计算项
 function appendColname(val){
 	if($('#total').text()==0){
-		$('#total').text("rData['"+val+"']");
+		$('#total').text(val);
 	}else{
-		$('#total').text($('#total').text()+"rData['"+val+"']");
+		$('#total').text($('#total').text()+val);
 	}
 }
 //改变正负值
@@ -217,7 +218,7 @@ $(function() {
 	*/
 	//选择项
 	$('.calc_use').on('click',function() {
-		appendColname($(this).data('val'));
+		appendColname($(this).data('index'));
 	});
 	//加减乘除数字按钮
 	$('.calc_op,#calc_denom,.calc_int, #calc_decimal,#calc_sqrt,#calc_square').on('click',function() {
@@ -248,6 +249,8 @@ $(function() {
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
 		var jsonArr = [];
+		var params = {};
+		params.storeName ="${storeName}";
 		for(var i = 0;i<$(".trItem").size();i++){
 			var jsonObj ={
 				 label:$(".colname:eq("+i+")").val(),
@@ -262,6 +265,10 @@ $(function() {
 				jsonObj.calculate=$(".calcu:eq("+i+")").val();
 				jsonObj.serial = i;
 				jsonObj.formatter = cellFormatter; 
+				if(jsonObj.calculate.length>0&&jsonObj.name!="orderSaleRate"){
+					debugger;
+	       			params[jsonObj.name] = jsonObj.calculate;
+				}
 			}
 			if(jsonObj.name=="orderSaleRate"){
 				var paramDatas = {};
@@ -277,6 +284,13 @@ $(function() {
 			}
 			jsonArr.push(jsonObj);
 		}
+		$ .ajax({
+  			type: "post",
+				url: baseUrl+"/operaDate/updateOperaDate.do?type=otherSum",
+				data: params,
+				cache:false,
+				dataType:"json"
+		});
 		var $parent = window.parent;
 		var tableId = $parent.$('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
 		localStorage.setItem(tableId+"Model",JSON.stringify(jsonArr));

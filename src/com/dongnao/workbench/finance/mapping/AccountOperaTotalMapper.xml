@@ -69,13 +69,13 @@
 			sum(aos.cyz_service_charge) as cyz_service_charge,
 			sum(aos.sale_gross_profit) as sale_gross_profit,
 			sum(aos.dist_price) as dist_price,
-			sum(aos.dist_price*aos.valid_num) as dist_all,
-			sum(aos.dist_price*aos.valid_num-aos.actual_merchant_dist_charge) as dist_diff,
+			sum(aos.dist_price) as dist_all,
+			sum(aos.dist_price -aos.actual_merchant_dist_charge) as dist_diff,
 			sum(aos.actual_merchant_dist_charge) as actual_merchant_dist_charge,
 			sum(aos.platform_activities_charge) as platform_activities_charge,
 			sum(aos.platform_activities_charge*0.4) as service_all,
 			sum(aos.other_all) as other_all,
-			sum(aos.sale_gross_profit-(aos.dist_price*aos.valid_num-aos.actual_merchant_dist_charge)-aos.platform_activities_charge*0.4) as profit_all,
+			sum(aos.sale_gross_profit-(aos.dist_price-aos.actual_merchant_dist_charge)-aos.platform_activities_charge*0.4) as profit_all,
 			aos.remark,
 			aos.platform_type
 		from account_opera_simple_total as aos 
@@ -127,13 +127,13 @@
 			sum(aod.cyz_service_charge) as cyz_service_charge,
 			sum(aod.sale_gross_profit) as sale_gross_profit,
 			sum(aod.dist_price) as dist_price,
-			sum(aod.dist_price*aod.valid_num) as dist_all,
-			sum(aod.dist_price*aod.valid_num-aod.actual_merchant_dist_charge) as dist_diff,
+			sum(aod.dist_price) as dist_all,
+			sum(aod.dist_price-aod.actual_merchant_dist_charge) as dist_diff,
 			sum(aod.actual_merchant_dist_charge) as actual_merchant_dist_charge,
 			sum(aod.platform_activities_charge) as platform_activities_charge,
 			sum(aod.platform_activities_charge*0.4) as service_all,
 			sum(aod.other_all) as other_all,
-			sum(aod.sale_gross_profit-(aod.dist_price*aod.valid_num-aod.actual_merchant_dist_charge)-aod.platform_activities_charge*0.4) as profit_all,
+			sum(aod.sale_gross_profit-(aod.dist_price-aod.actual_merchant_dist_charge)-aod.platform_activities_charge*0.4) as profit_all,
 			aod.remark,
 			aod.platform_type
 		from account_opera_deep_total as aod
@@ -205,6 +205,9 @@
 			<![CDATA[
 			and DATE_FORMAT(create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
 			]]>
+		</if> 
+		<if test="null != createDate and createDate != ''">
+			and DATE_FORMAT(create_date,'%Y-%c-%d') = DATE_FORMAT(#{createDate,jdbcType=DATE},'%Y-%c-%d')
 		</if> 
 		<if test="platformType != null and '' != platformType">  
 			and platform_type = #{platformType,jdbcType=VARCHAR}

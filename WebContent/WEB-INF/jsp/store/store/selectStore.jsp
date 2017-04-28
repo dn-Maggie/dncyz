@@ -82,7 +82,6 @@ var gridObj = {};
     </script>
 </head>
 <body style="height:100%;">
-
 	<div class="main  choice_box">
 		<form id="queryForm">
 			<div class="search border-bottom">
@@ -92,10 +91,8 @@ var gridObj = {};
 						<input type="text" class="search_choose100" name="storeOwnerName"  placeholder="店长姓名" autocomplete="off">
 					</li>
 					<li>
-						<input type="reset" value="重置" id="reset"
-							onClick="resetForm('queryForm')" class="reset_btn"><!-- 重置 -->
-						<input type="button" value="查询"  id="query"
-							class="search_btn mr22 " />
+						<input type="reset" value="重置" id="reset" onClick="resetForm('queryForm')" class="reset_btn"><!-- 重置 -->
+						<input type="button" value="查询"  id="query" onClick="doSearch()" class="search_btn mr22 " />
 					</li><!-- 查询-->
 				</ul>
 		   </div><!-- 查询区 表单 -->

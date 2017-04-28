@@ -1,6 +1,5 @@
 package com.dongnao.workbench.store.model;
 
-import java.sql.Time;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,16 +12,25 @@ import com.dongnao.workbench.common.bean.Model;
  * @version 1.0 2017-02-10
  */
 public class Store extends Model{
-				    /**
-				     * 店铺使用者ID
+	
+					private static final long serialVersionUID = 1L;
+					
+					/**
+				     * 店铺使用者账号
 				     **/
 							private String userAccount;
+					 /**
+				     * 店铺使用者ID
+				     **/
 							private String ownerUserId;
+					/**
+				     * 店铺使用者组别
+				     **/
 							private String userGroup;
-							private String platformType;
-							private String username;
-							private String password;
-							private String shopId;
+					/**
+				     * 店铺所属商圈
+				     **/
+							private String businessArea;
 		            /**
 	                 * 店铺ID(主键)
 	                 **/
@@ -105,7 +113,7 @@ public class Store extends Model{
 	                 * 实景图片3
 	                 **/
 				   			private String realImagePath3;		            
-		   	      /**
+				   	/**
 	                 * 大概店铺月销售额
 	                 **/
 				   			private String averageSales;
@@ -208,13 +216,22 @@ public class Store extends Model{
 	                 * 法人手持身份证(反)
 	                 **/
 				   			private String corporateWithidcardBack;
-		   		
-	
-				
+			   		/**
+			   		 * 附加项
+			   		 */
+				   			private String platformType;
+							private String username;
+							private String password;
+							private String shopId;
+					/**
+					 * 获取 店铺使用者ID
+					 */
 		  			public String getOwnerUserId() {
 						return ownerUserId;
 					}
-
+		  			/**
+					 * 设置 店铺使用者ID
+					 */
 					public void setOwnerUserId(String ownerUserId) {
 						this.ownerUserId = ownerUserId;
 					}
@@ -234,42 +251,31 @@ public class Store extends Model{
 					public void setStoreId(String storeId){
 						this.storeId = storeId;
 					}
-			public String getStoreType() {
+					/**
+					 * 获取 店铺类型（夜宵、正餐..）
+					 * @return String this.storeId
+					 */
+					public String getStoreType() {
 						return storeType;
 					}
-
+					/**
+					 * 设置 店铺类型（夜宵、正餐..）
+					 * @return String this.storeId
+					 */
 					public void setStoreType(String storeType) {
 						this.storeType = storeType;
 					}
-
-					public String getUsername() {
-						return username;
-					}
-
-					public void setUsername(String username) {
-						this.username = username;
-					}
-
-					public String getPassword() {
-						return password;
-					}
-
-					public void setPassword(String password) {
-						this.password = password;
-					}
-
-					public String getShopId() {
-						return shopId;
-					}
-
-					public void setShopId(String shopId) {
-						this.shopId = shopId;
-					}
-
+					/**
+					 * 获取 店铺配送方式
+					 * @return String this.storeId
+					 */
 					public String getStoreDistMode() {
 						return storeDistMode;
 					}
-
+					/**
+					 * 设置 店铺配送方式
+					 * @return String this.storeId
+					 */
 					public void setStoreDistMode(String storeDistMode) {
 						this.storeDistMode = storeDistMode;
 					}
@@ -289,12 +295,7 @@ public class Store extends Model{
 			public void setStoreName(String storeName){
 				this.storeName = storeName;
 			}
-		   		
-		
-		
-			
-						
-		  			/**
+  			/**
 			 * 获取 所属品牌ID
 			 * @return String this.brandId
 			 */
@@ -309,19 +310,13 @@ public class Store extends Model{
 			public void setBrandId(String brandId){
 				this.brandId = brandId;
 			}
-		   		
-		
-		
-			
-						
-		  			/**
+  			/**
 			 * 获取 店铺地址
 			 * @return String this.storeAddress
 			 */
 			public String getStoreAddress(){
 				return this.storeAddress;
 			}
-			
 			/**
 			 * 设置 店铺地址
 			 * @param String storeAddress 
@@ -329,10 +324,6 @@ public class Store extends Model{
 			public void setStoreAddress(String storeAddress){
 				this.storeAddress = storeAddress;
 			}
-		   		
-		
-		
-			
 			/**
 			 * 获取 营业时间起
 			 * @return Date this.workTimeBegin
@@ -348,7 +339,7 @@ public class Store extends Model{
 			public void setWorkTimeBegin(String workTimeBegin){
 				this.workTimeBegin = workTimeBegin;
 			}
-								/**
+			/**
 			 * 获取 营业时间起
 			 * @return Date this.workTimeEnd
 			 */
@@ -364,7 +355,7 @@ public class Store extends Model{
 				this.workTimeEnd = workTimeEnd;
 			}
 						
-		  			/**
+  			/**
 			 * 获取 店长姓名
 			 * @return String this.storeOwnerName
 			 */
@@ -379,19 +370,13 @@ public class Store extends Model{
 			public void setStoreOwnerName(String storeOwnerName){
 				this.storeOwnerName = storeOwnerName;
 			}
-		   		
-		
-		
-			
-						
-		  			/**
+  			/**
 			 * 获取 店长电话
 			 * @return String this.storeOwnerTel
 			 */
 			public String getStoreOwnerTel(){
 				return this.storeOwnerTel;
 			}
-			
 			/**
 			 * 设置 店长电话
 			 * @param String storeOwnerTel 
@@ -399,12 +384,7 @@ public class Store extends Model{
 			public void setStoreOwnerTel(String storeOwnerTel){
 				this.storeOwnerTel = storeOwnerTel;
 			}
-		   		
-		
-		
-			
-						
-		  			/**
+  			/**
 			 * 获取 是否可以提供发票
 			 * @return String this.proInvoiceFlag
 			 */
@@ -419,12 +399,7 @@ public class Store extends Model{
 			public void setProInvoiceFlag(String proInvoiceFlag){
 				this.proInvoiceFlag = proInvoiceFlag;
 			}
-		   		
-		
-		
-			
-						
-		  			/**
+  			/**
 			 * 获取 备注
 			 * @return String this.remark
 			 */
@@ -439,18 +414,13 @@ public class Store extends Model{
 			public void setRemark(String remark){
 				this.remark = remark;
 			}
-		   		
-		
-		
-			
-								/**
+			/**
 			 * 获取 运营开始时间
 			 * @return Date this.operateDate
 			 */
 			public Date getOperateDate(){
 				return this.operateDate;
 			}
-			
 			/**
 			 * 设置 运营开始时间
 			 * @param Date operateDate 
@@ -459,7 +429,7 @@ public class Store extends Model{
 				this.operateDate = operateDate;
 			}
 						
-		  			/**
+  			/**
 			 * 获取 结算方式
 			 * @return String this.settlementMethod
 			 */
@@ -474,12 +444,7 @@ public class Store extends Model{
 			public void setSettlementMethod(String settlementMethod){
 				this.settlementMethod = settlementMethod;
 			}
-		   		
-		
-		
-			
-						
-		  			/**
+  			/**
 			 * 获取 店铺联系电话
 			 * @return String this.storeTel
 			 */
@@ -494,19 +459,13 @@ public class Store extends Model{
 			public void setStoreTel(String storeTel){
 				this.storeTel = storeTel;
 			}
-		   		
-		
-		
-			
-						
-		  			/**
+  			/**
 			 * 获取 实景图片1
 			 * @return String this.realImagePath1
 			 */
 			public String getRealImagePath1(){
 				return this.realImagePath1;
 			}
-			
 			/**
 			 * 设置 实景图片1
 			 * @param String realImagePath1 
@@ -514,12 +473,7 @@ public class Store extends Model{
 			public void setRealImagePath1(String realImagePath1){
 				this.realImagePath1 = realImagePath1;
 			}
-		   		
-		
-		
-			
-						
-		  			/**
+  			/**
 			 * 获取 实景图片2
 			 * @return String this.realImagePath2
 			 */
@@ -534,12 +488,7 @@ public class Store extends Model{
 			public void setRealImagePath2(String realImagePath2){
 				this.realImagePath2 = realImagePath2;
 			}
-		   		
-		
-		
-			
-						
-		  			/**
+  			/**
 			 * 获取 实景图片3
 			 * @return String this.realImagePath3
 			 */
@@ -787,6 +736,59 @@ public class Store extends Model{
 			public void setMeituanPwd(String meituanPwd) {
 				this.meituanPwd = meituanPwd;
 			}
+			
+			/**
+			 * 获取店铺用户账号
+			 */
+			public String getUserAccount() {
+				return userAccount;
+			}
+			/**
+			 * 设置店铺用户账号
+			 */
+			public void setUserAccount(String userAccount) {
+				this.userAccount = userAccount;
+			}
+			/**
+			 * 获取店铺所属商圈
+			 */
+			public String getBusinessArea() {
+				return businessArea;
+			}
+
+			/**
+			 * 设置店铺所属商圈
+			 */
+			public void setBusinessArea(String businessArea) {
+				this.businessArea = businessArea;
+			}
+			
+			/**
+			 * 附加项
+			 */
+			public String getUsername() {
+				return username;
+			}
+
+			public void setUsername(String username) {
+				this.username = username;
+			}
+
+			public String getPassword() {
+				return password;
+			}
+
+			public void setPassword(String password) {
+				this.password = password;
+			}
+
+			public String getShopId() {
+				return shopId;
+			}
+
+			public void setShopId(String shopId) {
+				this.shopId = shopId;
+			}
 
 			public String getPlatformType() {
 				return platformType;
@@ -795,16 +797,6 @@ public class Store extends Model{
 			public void setPlatformType(String platformType) {
 				this.platformType = platformType;
 			}
-
-			public String getUserAccount() {
-				return userAccount;
-			}
-
-			public void setUserAccount(String userAccount) {
-				this.userAccount = userAccount;
-			}
-		   		
-		
 		
 			
 			}

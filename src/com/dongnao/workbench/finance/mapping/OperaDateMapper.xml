@@ -882,7 +882,7 @@
 		as cyz_service_charge_industry_part,
 				0 
 		as cyz_service_charge_opera_part,
-				sum(DISTINCT CASE WHEN od.actual_merchant_dist_charge IS NOT NULL THEN  od.actual_merchant_dist_charge ELSE 0 END ) 
+				sum(DISTINCT CASE WHEN od.merchant_dist_charge IS NOT NULL THEN  od.merchant_dist_charge ELSE 0 END ) 
 		AS actual_merchant_dist_charge,
 				sum(DISTINCT od.orgin_price)+sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) -sum(DISTINCT od.service_charge)-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )-
 				(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))+sum(DISTINCT od.merchant_dist_charge)- (sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end) + 0) 
@@ -891,11 +891,11 @@
 				(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))+sum(DISTINCT od.merchant_dist_charge)- (sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end) + 0))*100/
 				(sum(DISTINCT od.orgin_price)+sum(DISTINCT od.meal_fee)-(sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end) + 0))
 		as sale_gross_profit_rate,
-				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5 ELSE 7.5 END ) 
+				(CASE WHEN s.store_type = '1' THEN 12.5 ELSE 7.5 END ) 
 		AS dist_price,
-				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5 ELSE 7.5 END ) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) 
+				(CASE WHEN s.store_type = '1' THEN 12.5 ELSE 7.5 END ) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) 
 		AS dist_all,
-				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5 ELSE 7.5 END) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) - sum(DISTINCT CASE WHEN od.actual_merchant_dist_charge IS NOT NULL THEN  od.actual_merchant_dist_charge ELSE 0 END ) 
+				(CASE WHEN s.store_type = '1' THEN 12.5 ELSE 7.5 END) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) - sum(DISTINCT CASE WHEN od.merchant_dist_charge IS NOT NULL THEN  od.merchant_dist_charge ELSE 0 END ) 
 		AS dist_diff,
 				sum(DISTINCT od.platform_activities_subsidies) *0.4 
 		as service_all,
@@ -990,7 +990,7 @@
 		as cyz_service_charge_industry_part,
 				0 
 		as cyz_service_charge_opera_part,
-				sum(DISTINCT CASE WHEN od.actual_merchant_dist_charge IS NOT NULL THEN  od.actual_merchant_dist_charge ELSE 0 END ) 
+				sum(DISTINCT CASE WHEN od.merchant_dist_charge IS NOT NULL THEN od.merchant_dist_charge ELSE 0 END ) 
 		AS actual_merchant_dist_charge,
 				sum(DISTINCT od.orgin_price)- sum(DISTINCT  od.activities_subsidy_bymerchant)-(sum(DISTINCT od.merchant_activities_subsidies)  + sum(DISTINCT od.merchant_subsidy_vouchers)- 
 				sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(DISTINCT od.service_charge) -
@@ -1001,11 +1001,11 @@
 				(0.7*(sum(DISTINCT od.orgin_price)-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))+ sum(DISTINCT od.meal_fee)+sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end)))*100/
 				(0.3*(sum(DISTINCT od.orgin_price)-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end)))
 		as sale_gross_profit_rate,
-				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5 ELSE 7.5 END ) 
+				(CASE WHEN s.store_type = '1' THEN 12.5 ELSE 7.5 END ) 
 		AS dist_price,
-				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5 ELSE 7.5 END ) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) 
+				(CASE WHEN s.store_type = '1' THEN 12.5 ELSE 7.5 END ) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) 
 		AS dist_all,
-				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5 ELSE 7.5 END) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) - sum(DISTINCT CASE WHEN od.actual_merchant_dist_charge IS NOT NULL THEN  od.actual_merchant_dist_charge ELSE 0 END ) 
+				(CASE WHEN s.store_type = '1' THEN 12.5 ELSE 7.5 END) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) - sum(DISTINCT CASE WHEN od.merchant_dist_charge IS NOT NULL THEN  od.merchant_dist_charge ELSE 0 END ) 
 		AS dist_diff,
 				sum(DISTINCT od.platform_activities_subsidies) *0.4 
 		as service_all,
@@ -1105,7 +1105,7 @@
 		as cyz_service_charge_industry_part,
 				0 
 		as cyz_service_charge_opera_part,
-				sum(DISTINCT CASE WHEN od.actual_merchant_dist_charge IS NOT NULL THEN  od.actual_merchant_dist_charge ELSE 0 END ) 
+				sum(DISTINCT CASE WHEN od.merchant_dist_charge IS NOT NULL THEN  od.merchant_dist_charge ELSE 0 END ) 
 		AS actual_merchant_dist_charge,
 				sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)- sum(DISTINCT  od.activities_subsidy_bymerchant)-(sum(DISTINCT od.merchant_activities_subsidies)  + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(DISTINCT od.service_charge) -
 					(0.95*(sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) - sum(DISTINCT  od.activities_subsidy_bymerchant)
@@ -1120,11 +1120,11 @@
 				-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-sum(DISTINCT od.service_charge)-
 				(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end)))
 		as sale_gross_profit_rate,
-				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5 ELSE 7.5 END ) 
+				(CASE WHEN s.store_type = '1' THEN 12.5 ELSE 7.5 END ) 
 		AS dist_price,
-				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5 ELSE 7.5 END ) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) 
+				(CASE WHEN s.store_type = '1' THEN 12.5 ELSE 7.5 END ) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) 
 		AS dist_all,
-				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5 ELSE 7.5 END) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) - sum(DISTINCT CASE WHEN od.actual_merchant_dist_charge IS NOT NULL THEN  od.actual_merchant_dist_charge ELSE 0 END ) 
+				(CASE WHEN s.store_type = '1' THEN 12.5 ELSE 7.5 END) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) - sum(DISTINCT CASE WHEN od.merchant_dist_charge IS NOT NULL THEN  od.merchant_dist_charge ELSE 0 END ) 
 		AS dist_diff,
 				sum(DISTINCT od.platform_activities_subsidies) *0.4 
 		as service_all,
@@ -1203,8 +1203,12 @@
 		as platform_service_charge,
 				sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee) 
 		as product_sale_amount,
-				sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) -sum(DISTINCT od.service_charge)-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )-
-				(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))+sum(DISTINCT od.merchant_dist_charge) 
+				sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)
+				+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) 
+				-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END)
+				+sum(DISTINCT od.merchant_dist_charge)
+				-(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant))
+				-sum(DISTINCT od.service_charge)
 		AS amount_receivable,
 				0.65 
 		as order_sale_rate,
@@ -1218,7 +1222,7 @@
 		as cyz_service_charge_industry_part,
 				(sum(DISTINCT od.orgin_price)-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))*0.25
 		as cyz_service_charge_opera_part,
-				sum(DISTINCT CASE WHEN od.actual_merchant_dist_charge IS NOT NULL THEN  od.actual_merchant_dist_charge ELSE 0 END ) 
+				sum(DISTINCT CASE WHEN od.merchant_dist_charge IS NOT NULL THEN  od.merchant_dist_charge ELSE 0 END ) 
 		AS actual_merchant_dist_charge,
 				sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)-(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant))-
 				sum(DISTINCT od.service_charge)-((sum(DISTINCT od.orgin_price)-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))*order_sale_rate +sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end)+sum(DISTINCT od.meal_fee))-
@@ -1229,11 +1233,11 @@
 				((sum(DISTINCT od.orgin_price)-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))*0.1))*100/
 				(sum(DISTINCT od.orgin_price)+sum(DISTINCT od.meal_fee)-(sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end) + 0))
 		as sale_gross_profit_rate,
-				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5 ELSE 7.5 END ) 
+				(CASE WHEN s.store_type = '1' THEN 12.5 ELSE 7.5 END ) 
 		AS dist_price,
-				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5 ELSE 7.5 END ) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) 
+				(CASE WHEN s.store_type = '1' THEN 12.5 ELSE 7.5 END ) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) 
 		AS dist_all,
-				(CASE WHEN s.WORK_TIME_BEGIN > '20:00:00' THEN 12.5 ELSE 7.5 END) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) - sum(DISTINCT CASE WHEN od.actual_merchant_dist_charge IS NOT NULL THEN  od.actual_merchant_dist_charge ELSE 0 END ) 
+				(CASE WHEN s.store_type = '1' THEN 12.5 ELSE 7.5 END) * (COUNT(DISTINCT od.order_no) - sum(DISTINCT od.is_invalid)) - sum(DISTINCT CASE WHEN od.merchant_dist_charge IS NOT NULL THEN  od.merchant_dist_charge ELSE 0 END ) 
 		AS dist_diff,
 				sum(DISTINCT od.platform_activities_subsidies) *0.4 
 		as service_all,
@@ -1734,7 +1738,7 @@
 	<!--更新一条深运营数据 -->	
 	<update id="updateDeepOpera" parameterType="com.dongnao.workbench.finance.model.OperaDate">
 		update opera_date_deep_opera  set
-		id= #{id,jdbcType=VARCHAR}
+		store_name = #{storeName,jdbcType=VARCHAR}
 		<if test="storeId != null and '' != storeId">  
 		,store_id = #{storeId,jdbcType=VARCHAR}
 		</if>
@@ -1800,6 +1804,11 @@
 		</if>
 		<if test="orderSaleRate != null and '' != orderSaleRate"> 
 		,order_sale_rate = #{orderSaleRate,jdbcType=VARCHAR}
+		,amount_rate_payable =  (orgin_price- special_orgin)*#{orderSaleRate,jdbcType=VARCHAR}+special_offer+meal_fee
+		,cyz_service_charge_opera_part = (orgin_price-special_orgin)*(1-0.1-#{orderSaleRate,jdbcType=VARCHAR})
+		,sale_gross_profit = product_sale_amount - activities_subsidy_bycompany - platform_service_charge - ((orgin_price-special_orgin)*#{orderSaleRate,jdbcType=VARCHAR} +special_offer +meal_fee)-((orgin_price-special_orgin)*0.1)
+		,cyz_service_charge_industry_part = (orgin_price-special_orgin)*0.1
+		,cyz_service_charge = (orgin_price-special_orgin)*(1-#{orderSaleRate,jdbcType=VARCHAR})
 		</if>
 		<if test="amountRatePayable != null and '' != amountRatePayable"> 
 		,amount_rate_payable = #{amountRatePayable,jdbcType=VARCHAR}
@@ -1855,7 +1864,125 @@
 		<if test="platformType != null and '' != platformType"> 
 		,platform_type = #{platformType,jdbcType=VARCHAR}
 		</if>
-	where id = #{id,jdbcType=VARCHAR}
+		where store_name = #{storeName,jdbcType=VARCHAR} 
+		<if test="id != null and '' != id"> 
+		 and id = #{id,jdbcType=VARCHAR} 
+		</if>
 	</update>
+
+
+	<!--更新销售额抽佣运营数据 -->	
+	<update id="updateSaleRateSum" parameterType="com.dongnao.workbench.finance.model.OperaDate" statementType="STATEMENT">
+		update opera_date_sale_rate  set
+		store_name = #{storeName,jdbcType=VARCHAR}
+		<if test="productSaleAmount != null and '' != productSaleAmount"> 
+		,product_sale_amount = ${productSaleAmount,jdbcType=VARCHAR}
+		</if>
+		<if test="amountReceivable != null and '' != amountReceivable"> 
+		,amount_receivable = ${amountReceivable,jdbcType=VARCHAR}
+		</if>
+		<if test="amountRatePayable != null and '' != amountRatePayable"> 
+		,amount_rate_payable = ${amountRatePayable,jdbcType=VARCHAR}
+		</if>
+		<if test="amountPayable != null and '' != amountPayable"> 
+		,amount_payable = ${amountPayable,jdbcType=VARCHAR}
+		</if>
+		<if test="cyzServiceCharge != null and '' != cyzServiceCharge"> 
+		,cyz_service_charge = ${cyzServiceCharge,jdbcType=VARCHAR}
+		</if>
+		<if test="cyzServiceChargeIndustryPart != null and '' != cyzServiceChargeIndustryPart"> 
+		,cyz_service_charge_industry_part = ${cyzServiceChargeIndustryPart,jdbcType=VARCHAR}
+		</if>
+		<if test="cyzServiceChargeOperaPart != null and '' != cyzServiceChargeOperaPart"> 
+		,cyz_service_charge_opera_part = ${cyzServiceChargeOperaPart,jdbcType=VARCHAR}
+		</if>
+		<if test="saleGrossProfit != null and '' != saleGrossProfit"> 
+		,sale_gross_profit = ${saleGrossProfit,jdbcType=VARCHAR}
+		</if>
+		<if test="saleGrossProfitRate != null and '' != saleGrossProfitRate"> 
+		,sale_gross_profit_rate = ${saleGrossProfitRate,jdbcType=VARCHAR}
+		</if>
+		where store_name = #{storeName,jdbcType=VARCHAR} 
+		<if test="id != null and '' != id"> 
+		 and id = #{id,jdbcType=VARCHAR} 
+		</if>
+	</update>
+	<!--更新平台到账抽佣运营数据 -->	
+	<update id="updatePlatformAccountSum" parameterType="com.dongnao.workbench.finance.model.OperaDate" statementType="STATEMENT">
+		update opera_date_platform_account  set
+		store_name = #{storeName,jdbcType=VARCHAR}
+		<if test="productSaleAmount != null and '' != productSaleAmount"> 
+		,product_sale_amount = ${productSaleAmount,jdbcType=VARCHAR}
+		</if>
+		<if test="amountReceivable != null and '' != amountReceivable"> 
+		,amount_receivable = ${amountReceivable,jdbcType=VARCHAR}
+		</if>
+		<if test="amountRatePayable != null and '' != amountRatePayable"> 
+		,amount_rate_payable = ${amountRatePayable,jdbcType=VARCHAR}
+		</if>
+		<if test="amountPayable != null and '' != amountPayable"> 
+		,amount_payable = ${amountPayable,jdbcType=VARCHAR}
+		</if>
+		<if test="cyzServiceCharge != null and '' != cyzServiceCharge"> 
+		,cyz_service_charge = ${cyzServiceCharge,jdbcType=VARCHAR}
+		</if>
+		<if test="cyzServiceChargeIndustryPart != null and '' != cyzServiceChargeIndustryPart"> 
+		,cyz_service_charge_industry_part = ${cyzServiceChargeIndustryPart,jdbcType=VARCHAR}
+		</if>
+		<if test="cyzServiceChargeOperaPart != null and '' != cyzServiceChargeOperaPart"> 
+		,cyz_service_charge_opera_part = ${cyzServiceChargeOperaPart,jdbcType=VARCHAR}
+		</if>
+		<if test="saleGrossProfit != null and '' != saleGrossProfit"> 
+		,sale_gross_profit = ${saleGrossProfit,jdbcType=VARCHAR}
+		</if>
+		<if test="saleGrossProfitRate != null and '' != saleGrossProfitRate"> 
+		,sale_gross_profit_rate = ${saleGrossProfitRate,jdbcType=VARCHAR}
+		</if>
+		where store_name = #{storeName,jdbcType=VARCHAR} 
+		<if test="id != null and '' != id"> 
+		 and id = #{id,jdbcType=VARCHAR} 
+		</if>
+	</update>
+	<!--更新深运营数据 -->	
+	<update id="updateDeepOperaSum" parameterType="com.dongnao.workbench.finance.model.OperaDate" statementType="STATEMENT">
+		update opera_date_deep_opera  set
+		store_name = #{storeName,jdbcType=VARCHAR}
+		<if test="productSaleAmount != null and '' != productSaleAmount"> 
+		,product_sale_amount = ${productSaleAmount}
+		</if>
+		<if test="amountReceivable != null and '' != amountReceivable"> 
+		,amount_receivable = ${amountReceivable,jdbcType=VARCHAR}
+		</if>
+		<if test="amountRatePayable != null and '' != amountRatePayable"> 
+		,amount_rate_payable = ${amountRatePayable,jdbcType=VARCHAR}
+		</if>
+		<if test="amountPayable != null and '' != amountPayable"> 
+		,amount_payable = ${amountPayable,jdbcType=VARCHAR}
+		</if>
+		<if test="cyzServiceCharge != null and '' != cyzServiceCharge"> 
+		,cyz_service_charge = ${cyzServiceCharge,jdbcType=VARCHAR}
+		</if>
+		<if test="cyzServiceChargeIndustryPart != null and '' != cyzServiceChargeIndustryPart"> 
+		,cyz_service_charge_industry_part = ${cyzServiceChargeIndustryPart,jdbcType=VARCHAR}
+		</if>
+		<if test="cyzServiceChargeOperaPart != null and '' != cyzServiceChargeOperaPart"> 
+		,cyz_service_charge_opera_part = ${cyzServiceChargeOperaPart,jdbcType=VARCHAR}
+		</if>
+		<if test="saleGrossProfit != null and '' != saleGrossProfit"> 
+		,sale_gross_profit = ${saleGrossProfit,jdbcType=VARCHAR}
+		</if>
+		<if test="saleGrossProfitRate != null and '' != saleGrossProfitRate"> 
+		,sale_gross_profit_rate = ${saleGrossProfitRate,jdbcType=VARCHAR}
+		</if>
+		where store_name = #{storeName,jdbcType=VARCHAR} 
+		<if test="id != null and '' != id"> 
+		 and id = #{id,jdbcType=VARCHAR} 
+		</if>
+	</update>
+	
+	<update id="getMaxId" parameterType="com.dongnao.workbench.common.util.SQLAdapter"  statementType="STATEMENT">  
+	    ${value} 
+	</update>  
+
 
 </mapper>
