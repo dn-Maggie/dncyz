@@ -1979,10 +1979,4 @@
 		 and id = #{id,jdbcType=VARCHAR} 
 		</if>
 	</update>
-	
-	<update id="getMaxId" parameterType="com.dongnao.workbench.common.util.SQLAdapter"  statementType="STATEMENT">  
-	    ${value} 
-	</update>  
-
-
 </mapper>
