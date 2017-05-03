@@ -859,16 +859,16 @@
 		as platform_dist_charge,
 				sum(DISTINCT od.merchant_dist_charge) 
 		as cyz_dist_charge,
-				sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant) 
+				(-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant) 
 		as activities_subsidy_bycompany,
 				sum(DISTINCT od.platform_activities_subsidies) 
 		AS platform_activities_charge,
-				sum(DISTINCT od.service_charge) 
+				(-sum(DISTINCT od.service_charge)) 
 		as platform_service_charge,
 				sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee) 
 		as product_sale_amount,
-				sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) -sum(DISTINCT od.service_charge)-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )-
-				(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))+sum(DISTINCT od.merchant_dist_charge) 
+				sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) -(-sum(DISTINCT od.service_charge))-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )-
+				((-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))+sum(DISTINCT od.merchant_dist_charge) 
 		AS amount_receivable,
 				0 
 		as order_sale_rate,
@@ -884,11 +884,11 @@
 		as cyz_service_charge_opera_part,
 				sum(DISTINCT CASE WHEN od.merchant_dist_charge IS NOT NULL THEN  od.merchant_dist_charge ELSE 0 END ) 
 		AS actual_merchant_dist_charge,
-				sum(DISTINCT od.orgin_price)+sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) -sum(DISTINCT od.service_charge)-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )-
-				(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))+sum(DISTINCT od.merchant_dist_charge)- (sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end) + 0) 
+				sum(DISTINCT od.orgin_price)+sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) -(-sum(DISTINCT od.service_charge))-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )-
+				((-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))+sum(DISTINCT od.merchant_dist_charge)- (sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end) + 0) 
 		as sale_gross_profit,
-				(sum(DISTINCT od.orgin_price)+sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) -sum(DISTINCT od.service_charge)-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )-
-				(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))+sum(DISTINCT od.merchant_dist_charge)- (sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end) + 0))*100/
+				(sum(DISTINCT od.orgin_price)+sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) -(-sum(DISTINCT od.service_charge))-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )-
+				((-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))+sum(DISTINCT od.merchant_dist_charge)- (sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end) + 0))*100/
 				(sum(DISTINCT od.orgin_price)+sum(DISTINCT od.meal_fee)-(sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end) + 0))
 		as sale_gross_profit_rate,
 				(CASE WHEN s.store_type = '1' THEN 12.5 ELSE 7.5 END ) 
@@ -966,17 +966,17 @@
 		as platform_dist_charge,
 				sum(DISTINCT od.merchant_dist_charge) 
 		as cyz_dist_charge,
-				sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant) 
+				(-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant) 
 		as activities_subsidy_bycompany,
 				sum(DISTINCT od.platform_activities_subsidies) 
 		AS platform_activities_charge,
-				sum(DISTINCT od.service_charge) 
+				(-sum(DISTINCT od.service_charge)) 
 		as platform_service_charge,
 				sum(DISTINCT od.orgin_price) + sum(DISTINCT od.meal_fee)- sum(DISTINCT  od.activities_subsidy_bymerchant) 
 		as product_sale_amount,
 				sum(DISTINCT od.orgin_price) + sum(DISTINCT od.meal_fee) + sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) - sum(DISTINCT  od.activities_subsidy_bymerchant)
-				-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-sum(DISTINCT od.service_charge)-
-				(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant)) 
+				-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-(-sum(DISTINCT od.service_charge))-
+				((-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant)) 
 		AS amount_receivable,
 				0.7 
 		as order_sale_rate,
@@ -992,12 +992,12 @@
 		as cyz_service_charge_opera_part,
 				sum(DISTINCT CASE WHEN od.merchant_dist_charge IS NOT NULL THEN od.merchant_dist_charge ELSE 0 END ) 
 		AS actual_merchant_dist_charge,
-				sum(DISTINCT od.orgin_price)- sum(DISTINCT  od.activities_subsidy_bymerchant)-(sum(DISTINCT od.merchant_activities_subsidies)  + sum(DISTINCT od.merchant_subsidy_vouchers)- 
-				sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(DISTINCT od.service_charge) -
+				sum(DISTINCT od.orgin_price)- sum(DISTINCT  od.activities_subsidy_bymerchant)-((-sum(DISTINCT od.merchant_activities_subsidies))  + sum(DISTINCT od.merchant_subsidy_vouchers)- 
+				sum(DISTINCT  od.activities_subsidy_bymerchant))-(-sum(DISTINCT od.service_charge)) -
 				(0.7*(sum(DISTINCT od.orgin_price)-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))+ sum(DISTINCT od.meal_fee)+sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end)) 
 		as sale_gross_profit,
-				(sum(DISTINCT od.orgin_price)- sum(DISTINCT  od.activities_subsidy_bymerchant)-(sum(DISTINCT od.merchant_activities_subsidies)  + sum(DISTINCT od.merchant_subsidy_vouchers) - 
-				sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(DISTINCT od.service_charge) -
+				(sum(DISTINCT od.orgin_price)- sum(DISTINCT  od.activities_subsidy_bymerchant)-((-sum(DISTINCT od.merchant_activities_subsidies))  + sum(DISTINCT od.merchant_subsidy_vouchers) - 
+				sum(DISTINCT  od.activities_subsidy_bymerchant))-(-sum(DISTINCT od.service_charge)) -
 				(0.7*(sum(DISTINCT od.orgin_price)-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))+ sum(DISTINCT od.meal_fee)+sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end)))*100/
 				(0.3*(sum(DISTINCT od.orgin_price)-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end)))
 		as sale_gross_profit_rate,
@@ -1076,30 +1076,30 @@
 		as platform_dist_charge,
 				sum(DISTINCT od.merchant_dist_charge) 
 		as cyz_dist_charge,
-				sum(DISTINCT od.merchant_activities_subsidies)  + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant) 
+				(-sum(DISTINCT od.merchant_activities_subsidies))  + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant) 
 		as activities_subsidy_bycompany,
 				sum(DISTINCT od.platform_activities_subsidies) 
 		AS platform_activities_charge,
-				sum(DISTINCT od.service_charge) as platform_service_charge,
+				(-sum(DISTINCT od.service_charge)) as platform_service_charge,
 				sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)- sum(DISTINCT  od.activities_subsidy_bymerchant) 
 		as product_sale_amount,
 				sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) - sum(DISTINCT  od.activities_subsidy_bymerchant)
-				-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-sum(DISTINCT od.service_charge)-
-				(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant)) 
+				-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-(-sum(DISTINCT od.service_charge))-
+				((-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant)) 
 		AS amount_receivable,
 				0.95 
 		as order_sale_rate,
 				0.95*(sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) - sum(DISTINCT  od.activities_subsidy_bymerchant)
-				-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-sum(DISTINCT od.service_charge)-
-				(sum(DISTINCT od.merchant_activities_subsidies)  + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end)) 
+				-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-(-sum(DISTINCT od.service_charge))-
+				((-sum(DISTINCT od.merchant_activities_subsidies))  + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end)) 
 		as amount_rate_payable,
 				0.95*(sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) - sum(DISTINCT  od.activities_subsidy_bymerchant)
-				-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-sum(DISTINCT od.service_charge)-
-				(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))+sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end) 
+				-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-(-sum(DISTINCT od.service_charge))-
+				((-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))+sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end) 
 		as amount_payable,
 				0.05*(sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) - sum(DISTINCT  od.activities_subsidy_bymerchant)
-				-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-sum(DISTINCT od.service_charge)-
-				(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end)) 
+				-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-(-sum(DISTINCT od.service_charge))-
+				((-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end)) 
 		as cyz_service_charge,
 				0 
 		as cyz_service_charge_industry_part,
@@ -1107,18 +1107,18 @@
 		as cyz_service_charge_opera_part,
 				sum(DISTINCT CASE WHEN od.merchant_dist_charge IS NOT NULL THEN  od.merchant_dist_charge ELSE 0 END ) 
 		AS actual_merchant_dist_charge,
-				sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)- sum(DISTINCT  od.activities_subsidy_bymerchant)-(sum(DISTINCT od.merchant_activities_subsidies)  + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(DISTINCT od.service_charge) -
+				sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)- sum(DISTINCT  od.activities_subsidy_bymerchant)-((-sum(DISTINCT od.merchant_activities_subsidies))  + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant))-(-sum(DISTINCT od.service_charge)) -
 					(0.95*(sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) - sum(DISTINCT  od.activities_subsidy_bymerchant)
-					-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-sum(DISTINCT od.service_charge)-
-					(sum(DISTINCT od.merchant_activities_subsidies)  + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))+sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end)) 
+					-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-(-sum(DISTINCT od.service_charge))-
+					((-sum(DISTINCT od.merchant_activities_subsidies))  + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))+sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end)) 
 		as sale_gross_profit,
-				(sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)- sum(DISTINCT  od.activities_subsidy_bymerchant)-(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(DISTINCT od.service_charge) -
+				(sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)- sum(DISTINCT  od.activities_subsidy_bymerchant)-((-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))-(-sum(DISTINCT od.service_charge)) -
 					(0.95*(sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) - sum(DISTINCT  od.activities_subsidy_bymerchant)
-					-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-sum(DISTINCT od.service_charge)-
-					(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))+sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end)))*100/
+					-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-(-sum(DISTINCT od.service_charge))-
+					((-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))+sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end)))*100/
 				(0.05*(sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) - sum(DISTINCT  od.activities_subsidy_bymerchant)
-				-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-sum(DISTINCT od.service_charge)-
-				(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end)))
+				-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END )+sum(DISTINCT od.merchant_dist_charge)-(-sum(DISTINCT od.service_charge))-
+				((-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers) - sum(DISTINCT  od.activities_subsidy_bymerchant))-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end)))
 		as sale_gross_profit_rate,
 				(CASE WHEN s.store_type = '1' THEN 12.5 ELSE 7.5 END ) 
 		AS dist_price,
@@ -1195,11 +1195,11 @@
 		as platform_dist_charge,
 				sum(DISTINCT od.merchant_dist_charge) 
 		as cyz_dist_charge,
-				sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant) 
+				(-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant) 
 		as activities_subsidy_bycompany,
 				sum(DISTINCT od.platform_activities_subsidies) 
 		AS platform_activities_charge,
-				sum(DISTINCT od.service_charge) 
+				(-sum(DISTINCT od.service_charge)) 
 		as platform_service_charge,
 				sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee) 
 		as product_sale_amount,
@@ -1207,8 +1207,8 @@
 				+ sum(DISTINCT CASE WHEN od.order_dist_charge IS NOT NULL THEN  od.order_dist_charge ELSE 0 END) 
 				-sum(DISTINCT CASE WHEN od.platform_dist_charge IS NOT NULL THEN  od.platform_dist_charge ELSE 0 END)
 				+sum(DISTINCT od.merchant_dist_charge)
-				-(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant))
-				-sum(DISTINCT od.service_charge)
+				-((-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant))
+				-(-sum(DISTINCT od.service_charge))
 		AS amount_receivable,
 				0.65 
 		as order_sale_rate,
@@ -1224,12 +1224,12 @@
 		as cyz_service_charge_opera_part,
 				sum(DISTINCT CASE WHEN od.merchant_dist_charge IS NOT NULL THEN  od.merchant_dist_charge ELSE 0 END ) 
 		AS actual_merchant_dist_charge,
-				sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)-(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant))-
-				sum(DISTINCT od.service_charge)-((sum(DISTINCT od.orgin_price)-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))*order_sale_rate +sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end)+sum(DISTINCT od.meal_fee))-
+				sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)-((-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant))-
+				(-sum(DISTINCT od.service_charge))-((sum(DISTINCT od.orgin_price)-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))*order_sale_rate +sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end)+sum(DISTINCT od.meal_fee))-
 				((sum(DISTINCT od.orgin_price)-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))*0.1)
 		as sale_gross_profit,
-				(sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)-(sum(DISTINCT od.merchant_activities_subsidies) + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant))-
-				sum(DISTINCT od.service_charge)-((sum(DISTINCT od.orgin_price)-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))*order_sale_rate +sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end)+sum(DISTINCT od.meal_fee))-
+				(sum(DISTINCT od.orgin_price)+ sum(DISTINCT od.meal_fee)-((-sum(DISTINCT od.merchant_activities_subsidies)) + sum(DISTINCT od.merchant_subsidy_vouchers)- sum(DISTINCT  od.activities_subsidy_bymerchant))-
+				(-sum(DISTINCT od.service_charge))-((sum(DISTINCT od.orgin_price)-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))*order_sale_rate +sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end)+sum(DISTINCT od.meal_fee))-
 				((sum(DISTINCT od.orgin_price)-sum(case when sso.special_offer_food_orgin_price is not null then sso.special_offer_food_orgin_price else 0 end))*0.1))*100/
 				(sum(DISTINCT od.orgin_price)+sum(DISTINCT od.meal_fee)-(sum(case when sso.special_offer_food_price is not null then sso.special_offer_food_price else 0 end) + 0))
 		as sale_gross_profit_rate,
