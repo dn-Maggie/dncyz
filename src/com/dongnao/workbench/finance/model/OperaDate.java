@@ -52,112 +52,112 @@ public class OperaDate extends Model{
 		            /**
 	                 * 菜品原价
 	                 **/
-				   			private String orginPrice;
+				   			private BigDecimal orginPrice;
 		   		
 		            /**
 	                 * 餐盒费
 	                 **/
-				   			private String mealFee;
+				   			private BigDecimal mealFee;
 		   		
 		            /**
 	                 * 特价菜原价
 	                 **/
-				   			private String specialOrgin;
+				   			private BigDecimal specialOrgin;
 		   		
 		            /**
 	                 * 特价菜结算
 	                 **/
-				   			private String specialOffer;
+				   			private BigDecimal specialOffer;
 				   			
 			   		 /**
 	                 * 原价菜金额
 	                 **/
-				   			private String actualPrice;
+				   			private BigDecimal actualPrice;
 		   		
 		            /**
 	                 * 实际菜品折扣
 	                 **/
-				   			private String activitiesSubsidyBymerchant;
+				   			private BigDecimal activitiesSubsidyBymerchant;
 		   		
 		            /**
 	                 * 订单上收取客户配送费
 	                 **/
-				   			private String orderDistCharge;
+				   			private BigDecimal orderDistCharge;
 		   		
 		            /**
 	                 * 平台收取配送费
 	                 **/
-				   			private String platformDistCharge;
+				   			private BigDecimal platformDistCharge;
 		   		
 		            /**
 	                 * 公司收取配送费
 	                 **/
-				   			private String cyzDistCharge;
+				   			private BigDecimal cyzDistCharge;
 		   		
 		            /**
 	                 * 公司承担线上活动费
 	                 **/
-				   			private String activitiesSubsidyBycompany;
+				   			private BigDecimal activitiesSubsidyBycompany;
 		   		
 		            /**
 	                 * 平台承担线上活动费
 	                 **/
-				   			private String platformActivitiesCharge;
+				   			private BigDecimal platformActivitiesCharge;
 		   		
 		            /**
 	                 * 平台服务费
 	                 **/
-				   			private String platformServiceCharge;
+				   			private BigDecimal platformServiceCharge;
 		   		
 		            /**
 	                 * 产品销售金额
 	                 **/
-				   			private String productSaleAmount;
+				   			private BigDecimal productSaleAmount;
 		   		
 		            /**
 	                 * 应收平台结算金额
 	                 **/
-				   			private String amountReceivable;
+				   			private BigDecimal amountReceivable;
 		   		
 		            /**
 	                 * 结算比例
 	                 **/
-				   			private String orderSaleRate;
+				   			private BigDecimal orderSaleRate;
 		   		
 		            /**
 	                 * (结算比例)*结算金额
 	                 **/
-				   			private String amountRatePayable;
+				   			private BigDecimal amountRatePayable;
 		   		
 		            /**
 	                 * 应付店铺结算金额
 	                 **/
-				   			private String amountPayable;
+				   			private BigDecimal amountPayable;
 		   		
 		            /**
 	                 * 公司收入(公司收取店铺服务费)
 	                 **/
-				   			private String cyzServiceCharge;
+				   			private BigDecimal cyzServiceCharge;
 		   		
 		            /**
 	                 * 公司收入(工厂应收)
 	                 **/
-				   			private String cyzServiceChargeIndustryPart;
+				   			private BigDecimal cyzServiceChargeIndustryPart;
 		   		
 		            /**
 	                 * 公司收入(运营应收)
 	                 **/
-				   			private String cyzServiceChargeOperaPart;
+				   			private BigDecimal cyzServiceChargeOperaPart;
 		   		
 		            /**
 	                 * 自配送实际支付金额
 	                 **/
-				   			private String actualMerchantDistCharge;
+				   			private BigDecimal actualMerchantDistCharge;
 		   		
 		            /**
 	                 * 销售毛利
 	                 **/
-				   			private String saleGrossProfit;
+				   			private BigDecimal saleGrossProfit;
 		   		
 		            /**
 	                 * 毛利率
@@ -167,42 +167,42 @@ public class OperaDate extends Model{
 		            /**
 	                 * 自配送金额单价
 	                 **/
-				   			private String distPrice;
+				   			private BigDecimal distPrice;
 		   		
 		            /**
 	                 * 自配送金额
 	                 **/
-				   			private String distAll;
+				   			private BigDecimal distAll;
 		   		
 		            /**
 	                 * 自配送补差
 	                 **/
-				   			private String distDiff;
+				   			private BigDecimal distDiff;
 		   		
 		            /**
 	                 * 对外支付饿了么平台补贴服务费
 	                 **/
-				   			private String serviceAll;
+				   			private BigDecimal serviceAll;
 		   		
 		            /**
 	                 * 实际运营毛利
 	                 **/
-				   			private String profitAll;
+				   			private BigDecimal profitAll;
 		   		
 		            /**
 	                 * 竞价费用+短信推广
 	                 **/
-				   			private String otherAll;
+				   			private BigDecimal otherAll;
 		   		
 		            /**
 	                 * 底价
 	                 **/
-				   			private String allbasePrice;
+				   			private BigDecimal allbasePrice;
 		   		
 		            /**
 	                 * 其他底价
 	                 **/
-				   			private String allotherBasePrice;
+				   			private BigDecimal allotherBasePrice;
 		   		
 		            /**
 	                 * 备注
@@ -214,26 +214,26 @@ public class OperaDate extends Model{
 	                 **/
 				   			private String platformType;
 				   			/*餐盒费*/
-				   			private String elmMealFee;
-				   			private String bdMealFee;
-				   			private String mtMealFee;
+				   			private BigDecimal elmMealFee;
+				   			private BigDecimal bdMealFee;
+				   			private BigDecimal mtMealFee;
 				   			/*折扣菜金额*/
-				   			private String elmSpecialOffer;
-				   			private String bdSpecialOffer;
-				   			private String mtSpecialOffer;
+				   			private BigDecimal elmSpecialOffer;
+				   			private BigDecimal bdSpecialOffer;
+				   			private BigDecimal mtSpecialOffer;
 				   			/*原价菜金额结算款*/
-				   			private String elmActualPrice;
-				   			private String bdActualPrice;
-				   			private String mtActualPrice;
+				   			private BigDecimal elmActualPrice;
+				   			private BigDecimal bdActualPrice;
+				   			private BigDecimal mtActualPrice;
 				   			/*平台到账调整额*/
-				   			private String elmRecieveAdjust;
-				   			private String bdRecieveAdjust;
-				   			private String mtRecieveAdjust;
+				   			private BigDecimal elmRecieveAdjust;
+				   			private BigDecimal bdRecieveAdjust;
+				   			private BigDecimal mtRecieveAdjust;
 				   			/*结算金额*/
-				   			private String elmSettlement;
-				   			private String bdSettlement;
-				   			private String mtSettlement;
-				   			private String settlement;
+				   			private BigDecimal elmSettlement;
+				   			private BigDecimal bdSettlement;
+				   			private BigDecimal mtSettlement;
+				   			private BigDecimal settlement;
 				   			
 				   			
 		  			/**
@@ -375,15 +375,15 @@ public class OperaDate extends Model{
 			 * 获取 菜品原价
 			 * @return String this.orginPrice
 			 */
-			public String getOrginPrice(){
+			public BigDecimal getOrginPrice(){
 				return this.orginPrice;
 			}
 			
 			/**
 			 * 设置 菜品原价
-			 * @param String orginPrice 
+			 * @param BigDecimal orginPrice 
 			 */
-			public void setOrginPrice(String orginPrice){
+			public void setOrginPrice(BigDecimal orginPrice){
 				this.orginPrice = orginPrice;
 			}
 		   		
@@ -393,17 +393,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 餐盒费
-			 * @return String this.mealFee
+			 * @return BigDecimal this.mealFee
 			 */
-			public String getMealFee(){
+			public BigDecimal getMealFee(){
 				return this.mealFee;
 			}
 			
 			/**
 			 * 设置 餐盒费
-			 * @param String mealFee 
+			 * @param BigDecimal mealFee 
 			 */
-			public void setMealFee(String mealFee){
+			public void setMealFee(BigDecimal mealFee){
 				this.mealFee = mealFee;
 			}
 		   		
@@ -413,17 +413,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 特价菜原价
-			 * @return String this.specialOrgin
+			 * @return BigDecimal this.specialOrgin
 			 */
-			public String getSpecialOrgin(){
+			public BigDecimal getSpecialOrgin(){
 				return this.specialOrgin;
 			}
 			
 			/**
 			 * 设置 特价菜原价
-			 * @param String specialOrgin 
+			 * @param BigDecimal specialOrgin 
 			 */
-			public void setSpecialOrgin(String specialOrgin){
+			public void setSpecialOrgin(BigDecimal specialOrgin){
 				this.specialOrgin = specialOrgin;
 			}
 		   		
@@ -433,17 +433,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 特价菜结算
-			 * @return String this.specialOffer
+			 * @return BigDecimal this.specialOffer
 			 */
-			public String getSpecialOffer(){
+			public BigDecimal getSpecialOffer(){
 				return this.specialOffer;
 			}
 			
 			/**
 			 * 设置 特价菜结算
-			 * @param String specialOffer 
+			 * @param BigDecimal specialOffer 
 			 */
-			public void setSpecialOffer(String specialOffer){
+			public void setSpecialOffer(BigDecimal specialOffer){
 				this.specialOffer = specialOffer;
 			}
 		   		
@@ -453,17 +453,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 实际菜品折扣
-			 * @return String this.activitiesSubsidyBymerchant
+			 * @return BigDecimal this.activitiesSubsidyBymerchant
 			 */
-			public String getActivitiesSubsidyBymerchant(){
+			public BigDecimal getActivitiesSubsidyBymerchant(){
 				return this.activitiesSubsidyBymerchant;
 			}
 			
 			/**
 			 * 设置 实际菜品折扣
-			 * @param String activitiesSubsidyBymerchant 
+			 * @param BigDecimal activitiesSubsidyBymerchant 
 			 */
-			public void setActivitiesSubsidyBymerchant(String activitiesSubsidyBymerchant){
+			public void setActivitiesSubsidyBymerchant(BigDecimal activitiesSubsidyBymerchant){
 				this.activitiesSubsidyBymerchant = activitiesSubsidyBymerchant;
 			}
 		   		
@@ -473,17 +473,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 订单上收取客户配送费
-			 * @return String this.orderDistCharge
+			 * @return BigDecimal this.orderDistCharge
 			 */
-			public String getOrderDistCharge(){
+			public BigDecimal getOrderDistCharge(){
 				return this.orderDistCharge;
 			}
 			
 			/**
 			 * 设置 订单上收取客户配送费
-			 * @param String orderDistCharge 
+			 * @param BigDecimal orderDistCharge 
 			 */
-			public void setOrderDistCharge(String orderDistCharge){
+			public void setOrderDistCharge(BigDecimal orderDistCharge){
 				this.orderDistCharge = orderDistCharge;
 			}
 		   		
@@ -493,17 +493,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 平台收取配送费
-			 * @return String this.platformDistCharge
+			 * @return BigDecimal this.platformDistCharge
 			 */
-			public String getPlatformDistCharge(){
+			public BigDecimal getPlatformDistCharge(){
 				return this.platformDistCharge;
 			}
 			
 			/**
 			 * 设置 平台收取配送费
-			 * @param String platformDistCharge 
+			 * @param BigDecimal platformDistCharge 
 			 */
-			public void setPlatformDistCharge(String platformDistCharge){
+			public void setPlatformDistCharge(BigDecimal platformDistCharge){
 				this.platformDistCharge = platformDistCharge;
 			}
 		   		
@@ -513,17 +513,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 公司收取配送费
-			 * @return String this.cyzDistCharge
+			 * @return BigDecimal this.cyzDistCharge
 			 */
-			public String getCyzDistCharge(){
+			public BigDecimal getCyzDistCharge(){
 				return this.cyzDistCharge;
 			}
 			
 			/**
 			 * 设置 公司收取配送费
-			 * @param String cyzDistCharge 
+			 * @param BigDecimal cyzDistCharge 
 			 */
-			public void setCyzDistCharge(String cyzDistCharge){
+			public void setCyzDistCharge(BigDecimal cyzDistCharge){
 				this.cyzDistCharge = cyzDistCharge;
 			}
 		   		
@@ -533,17 +533,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 公司承担线上活动费
-			 * @return String this.activitiesSubsidyBycompany
+			 * @return BigDecimal this.activitiesSubsidyBycompany
 			 */
-			public String getActivitiesSubsidyBycompany(){
+			public BigDecimal getActivitiesSubsidyBycompany(){
 				return this.activitiesSubsidyBycompany;
 			}
 			
 			/**
 			 * 设置 公司承担线上活动费
-			 * @param String activitiesSubsidyBycompany 
+			 * @param BigDecimal activitiesSubsidyBycompany 
 			 */
-			public void setActivitiesSubsidyBycompany(String activitiesSubsidyBycompany){
+			public void setActivitiesSubsidyBycompany(BigDecimal activitiesSubsidyBycompany){
 				this.activitiesSubsidyBycompany = activitiesSubsidyBycompany;
 			}
 		   		
@@ -553,17 +553,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 平台承担线上活动费
-			 * @return String this.platformActivitiesCharge
+			 * @return BigDecimal this.platformActivitiesCharge
 			 */
-			public String getPlatformActivitiesCharge(){
+			public BigDecimal getPlatformActivitiesCharge(){
 				return this.platformActivitiesCharge;
 			}
 			
 			/**
 			 * 设置 平台承担线上活动费
-			 * @param String platformActivitiesCharge 
+			 * @param BigDecimal platformActivitiesCharge 
 			 */
-			public void setPlatformActivitiesCharge(String platformActivitiesCharge){
+			public void setPlatformActivitiesCharge(BigDecimal platformActivitiesCharge){
 				this.platformActivitiesCharge = platformActivitiesCharge;
 			}
 		   		
@@ -573,17 +573,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 平台服务费
-			 * @return String this.platformServiceCharge
+			 * @return BigDecimal this.platformServiceCharge
 			 */
-			public String getPlatformServiceCharge(){
+			public BigDecimal getPlatformServiceCharge(){
 				return this.platformServiceCharge;
 			}
 			
 			/**
 			 * 设置 平台服务费
-			 * @param String platformServiceCharge 
+			 * @param BigDecimal platformServiceCharge 
 			 */
-			public void setPlatformServiceCharge(String platformServiceCharge){
+			public void setPlatformServiceCharge(BigDecimal platformServiceCharge){
 				this.platformServiceCharge = platformServiceCharge;
 			}
 		   		
@@ -593,17 +593,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 产品销售金额
-			 * @return String this.productSaleAmount
+			 * @return BigDecimal this.productSaleAmount
 			 */
-			public String getProductSaleAmount(){
+			public BigDecimal getProductSaleAmount(){
 				return this.productSaleAmount;
 			}
 			
 			/**
 			 * 设置 产品销售金额
-			 * @param String productSaleAmount 
+			 * @param BigDecimal productSaleAmount 
 			 */
-			public void setProductSaleAmount(String productSaleAmount){
+			public void setProductSaleAmount(BigDecimal productSaleAmount){
 				this.productSaleAmount = productSaleAmount;
 			}
 		   		
@@ -613,17 +613,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 应收平台结算金额
-			 * @return String this.amountReceivable
+			 * @return BigDecimal this.amountReceivable
 			 */
-			public String getAmountReceivable(){
+			public BigDecimal getAmountReceivable(){
 				return this.amountReceivable;
 			}
 			
 			/**
 			 * 设置 应收平台结算金额
-			 * @param String amountReceivable 
+			 * @param BigDecimal amountReceivable 
 			 */
-			public void setAmountReceivable(String amountReceivable){
+			public void setAmountReceivable(BigDecimal amountReceivable){
 				this.amountReceivable = amountReceivable;
 			}
 		   		
@@ -633,17 +633,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 结算比例
-			 * @return String this.orderSaleRate
+			 * @return BigDecimal this.orderSaleRate
 			 */
-			public String getOrderSaleRate(){
+			public BigDecimal getOrderSaleRate(){
 				return this.orderSaleRate;
 			}
 			
 			/**
 			 * 设置 结算比例
-			 * @param String orderSaleRate 
+			 * @param BigDecimal orderSaleRate 
 			 */
-			public void setOrderSaleRate(String orderSaleRate){
+			public void setOrderSaleRate(BigDecimal orderSaleRate){
 				this.orderSaleRate = orderSaleRate;
 			}
 		   		
@@ -653,17 +653,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 (结算比例)*结算金额
-			 * @return String this.amountRatePayable
+			 * @return BigDecimal this.amountRatePayable
 			 */
-			public String getAmountRatePayable(){
+			public BigDecimal getAmountRatePayable(){
 				return this.amountRatePayable;
 			}
 			
 			/**
 			 * 设置 (结算比例)*结算金额
-			 * @param String amountRatePayable 
+			 * @param BigDecimal amountRatePayable 
 			 */
-			public void setAmountRatePayable(String amountRatePayable){
+			public void setAmountRatePayable(BigDecimal amountRatePayable){
 				this.amountRatePayable = amountRatePayable;
 			}
 		   		
@@ -673,17 +673,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 应付店铺结算金额
-			 * @return String this.amountPayable
+			 * @return BigDecimal this.amountPayable
 			 */
-			public String getAmountPayable(){
+			public BigDecimal getAmountPayable(){
 				return this.amountPayable;
 			}
 			
 			/**
 			 * 设置 应付店铺结算金额
-			 * @param String amountPayable 
+			 * @param BigDecimal amountPayable 
 			 */
-			public void setAmountPayable(String amountPayable){
+			public void setAmountPayable(BigDecimal amountPayable){
 				this.amountPayable = amountPayable;
 			}
 		   		
@@ -693,17 +693,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 公司收入(公司收取店铺服务费)
-			 * @return String this.cyzServiceCharge
+			 * @return BigDecimal this.cyzServiceCharge
 			 */
-			public String getCyzServiceCharge(){
+			public BigDecimal getCyzServiceCharge(){
 				return this.cyzServiceCharge;
 			}
 			
 			/**
 			 * 设置 公司收入(公司收取店铺服务费)
-			 * @param String cyzServiceCharge 
+			 * @param BigDecimal cyzServiceCharge 
 			 */
-			public void setCyzServiceCharge(String cyzServiceCharge){
+			public void setCyzServiceCharge(BigDecimal cyzServiceCharge){
 				this.cyzServiceCharge = cyzServiceCharge;
 			}
 		   		
@@ -713,17 +713,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 公司收入(工厂应收)
-			 * @return String this.cyzServiceChargeIndustryPart
+			 * @return BigDecimal this.cyzServiceChargeIndustryPart
 			 */
-			public String getCyzServiceChargeIndustryPart(){
+			public BigDecimal getCyzServiceChargeIndustryPart(){
 				return this.cyzServiceChargeIndustryPart;
 			}
 			
 			/**
 			 * 设置 公司收入(工厂应收)
-			 * @param String cyzServiceChargeIndustryPart 
+			 * @param BigDecimal cyzServiceChargeIndustryPart 
 			 */
-			public void setCyzServiceChargeIndustryPart(String cyzServiceChargeIndustryPart){
+			public void setCyzServiceChargeIndustryPart(BigDecimal cyzServiceChargeIndustryPart){
 				this.cyzServiceChargeIndustryPart = cyzServiceChargeIndustryPart;
 			}
 		   		
@@ -733,17 +733,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 公司收入(运营应收)
-			 * @return String this.cyzServiceChargeOperaPart
+			 * @return BigDecimal this.cyzServiceChargeOperaPart
 			 */
-			public String getCyzServiceChargeOperaPart(){
+			public BigDecimal getCyzServiceChargeOperaPart(){
 				return this.cyzServiceChargeOperaPart;
 			}
 			
 			/**
 			 * 设置 公司收入(运营应收)
-			 * @param String cyzServiceChargeOperaPart 
+			 * @param BigDecimal cyzServiceChargeOperaPart 
 			 */
-			public void setCyzServiceChargeOperaPart(String cyzServiceChargeOperaPart){
+			public void setCyzServiceChargeOperaPart(BigDecimal cyzServiceChargeOperaPart){
 				this.cyzServiceChargeOperaPart = cyzServiceChargeOperaPart;
 			}
 		   		
@@ -753,17 +753,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 自配送实际支付金额
-			 * @return String this.actualMerchantDistCharge
+			 * @return BigDecimal this.actualMerchantDistCharge
 			 */
-			public String getActualMerchantDistCharge(){
+			public BigDecimal getActualMerchantDistCharge(){
 				return this.actualMerchantDistCharge;
 			}
 			
 			/**
 			 * 设置 自配送实际支付金额
-			 * @param String actualMerchantDistCharge 
+			 * @param BigDecimal actualMerchantDistCharge 
 			 */
-			public void setActualMerchantDistCharge(String actualMerchantDistCharge){
+			public void setActualMerchantDistCharge(BigDecimal actualMerchantDistCharge){
 				this.actualMerchantDistCharge = actualMerchantDistCharge;
 			}
 		   		
@@ -773,17 +773,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 销售毛利
-			 * @return String this.saleGrossProfit
+			 * @return BigDecimal this.saleGrossProfit
 			 */
-			public String getSaleGrossProfit(){
+			public BigDecimal getSaleGrossProfit(){
 				return this.saleGrossProfit;
 			}
 			
 			/**
 			 * 设置 销售毛利
-			 * @param String saleGrossProfit 
+			 * @param BigDecimal saleGrossProfit 
 			 */
-			public void setSaleGrossProfit(String saleGrossProfit){
+			public void setSaleGrossProfit(BigDecimal saleGrossProfit){
 				this.saleGrossProfit = saleGrossProfit;
 			}
 		   		
@@ -813,17 +813,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 自配送金额单价
-			 * @return String this.distPrice
+			 * @return BigDecimal this.distPrice
 			 */
-			public String getDistPrice(){
+			public BigDecimal getDistPrice(){
 				return this.distPrice;
 			}
 			
 			/**
 			 * 设置 自配送金额单价
-			 * @param String distPrice 
+			 * @param BigDecimal distPrice 
 			 */
-			public void setDistPrice(String distPrice){
+			public void setDistPrice(BigDecimal distPrice){
 				this.distPrice = distPrice;
 			}
 		   		
@@ -833,17 +833,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 自配送金额
-			 * @return String this.distAll
+			 * @return BigDecimal this.distAll
 			 */
-			public String getDistAll(){
+			public BigDecimal getDistAll(){
 				return this.distAll;
 			}
 			
 			/**
 			 * 设置 自配送金额
-			 * @param String distAll 
+			 * @param BigDecimal distAll 
 			 */
-			public void setDistAll(String distAll){
+			public void setDistAll(BigDecimal distAll){
 				this.distAll = distAll;
 			}
 		   		
@@ -853,17 +853,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 自配送补差
-			 * @return String this.distDiff
+			 * @return BigDecimal this.distDiff
 			 */
-			public String getDistDiff(){
+			public BigDecimal getDistDiff(){
 				return this.distDiff;
 			}
 			
 			/**
 			 * 设置 自配送补差
-			 * @param String distDiff 
+			 * @param BigDecimal distDiff 
 			 */
-			public void setDistDiff(String distDiff){
+			public void setDistDiff(BigDecimal distDiff){
 				this.distDiff = distDiff;
 			}
 		   		
@@ -873,17 +873,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 对外支付饿了么平台补贴服务费
-			 * @return String this.serviceAll
+			 * @return BigDecimal this.serviceAll
 			 */
-			public String getServiceAll(){
+			public BigDecimal getServiceAll(){
 				return this.serviceAll;
 			}
 			
 			/**
 			 * 设置 对外支付饿了么平台补贴服务费
-			 * @param String serviceAll 
+			 * @param BigDecimal serviceAll 
 			 */
-			public void setServiceAll(String serviceAll){
+			public void setServiceAll(BigDecimal serviceAll){
 				this.serviceAll = serviceAll;
 			}
 		   		
@@ -893,17 +893,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 实际运营毛利
-			 * @return String this.profitAll
+			 * @return BigDecimal this.profitAll
 			 */
-			public String getProfitAll(){
+			public BigDecimal getProfitAll(){
 				return this.profitAll;
 			}
 			
 			/**
 			 * 设置 实际运营毛利
-			 * @param String profitAll 
+			 * @param BigDecimal profitAll 
 			 */
-			public void setProfitAll(String profitAll){
+			public void setProfitAll(BigDecimal profitAll){
 				this.profitAll = profitAll;
 			}
 		   		
@@ -913,17 +913,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 竞价费用+短信推广
-			 * @return String this.otherAll
+			 * @return BigDecimal this.otherAll
 			 */
-			public String getOtherAll(){
+			public BigDecimal getOtherAll(){
 				return this.otherAll;
 			}
 			
 			/**
 			 * 设置 竞价费用+短信推广
-			 * @param String otherAll 
+			 * @param BigDecimal otherAll 
 			 */
-			public void setOtherAll(String otherAll){
+			public void setOtherAll(BigDecimal otherAll){
 				this.otherAll = otherAll;
 			}
 		   		
@@ -933,17 +933,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 底价
-			 * @return String this.allbasePrice
+			 * @return BigDecimal this.allbasePrice
 			 */
-			public String getAllbasePrice(){
+			public BigDecimal getAllbasePrice(){
 				return this.allbasePrice;
 			}
 			
 			/**
 			 * 设置 底价
-			 * @param String allbasePrice 
+			 * @param BigDecimal allbasePrice 
 			 */
-			public void setAllbasePrice(String allbasePrice){
+			public void setAllbasePrice(BigDecimal allbasePrice){
 				this.allbasePrice = allbasePrice;
 			}
 		   		
@@ -953,17 +953,17 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 其他底价
-			 * @return String this.allotherBasePrice
+			 * @return BigDecimal this.allotherBasePrice
 			 */
-			public String getAllotherBasePrice(){
+			public BigDecimal getAllotherBasePrice(){
 				return this.allotherBasePrice;
 			}
 			
 			/**
 			 * 设置 其他底价
-			 * @param String allotherBasePrice 
+			 * @param BigDecimal allotherBasePrice 
 			 */
-			public void setAllotherBasePrice(String allotherBasePrice){
+			public void setAllotherBasePrice(BigDecimal allotherBasePrice){
 				this.allotherBasePrice = allotherBasePrice;
 			}
 		   		
@@ -1007,139 +1007,139 @@ public class OperaDate extends Model{
 				this.platformType = platformType;
 			}
 
-			public String getActualPrice() {
+			public BigDecimal getActualPrice() {
 				return actualPrice;
 			}
 
-			public void setActualPrice(String actualPrice) {
+			public void setActualPrice(BigDecimal actualPrice) {
 				this.actualPrice = actualPrice;
 			}
 
-			public String getElmSpecialOffer() {
+			public BigDecimal getElmSpecialOffer() {
 				return elmSpecialOffer;
 			}
 
-			public void setElmSpecialOffer(String elmSpecialOffer) {
+			public void setElmSpecialOffer(BigDecimal elmSpecialOffer) {
 				this.elmSpecialOffer = elmSpecialOffer;
 			}
 
-			public String getBdSpecialOffer() {
+			public BigDecimal getBdSpecialOffer() {
 				return bdSpecialOffer;
 			}
 
-			public void setBdSpecialOffer(String bdSpecialOffer) {
+			public void setBdSpecialOffer(BigDecimal bdSpecialOffer) {
 				this.bdSpecialOffer = bdSpecialOffer;
 			}
 
-			public String getMtSpecialOffer() {
+			public BigDecimal getMtSpecialOffer() {
 				return mtSpecialOffer;
 			}
 
-			public void setMtSpecialOffer(String mtSpecialOffer) {
+			public void setMtSpecialOffer(BigDecimal mtSpecialOffer) {
 				this.mtSpecialOffer = mtSpecialOffer;
 			}
 
-			public String getElmActualPrice() {
+			public BigDecimal getElmActualPrice() {
 				return elmActualPrice;
 			}
 
-			public void setElmActualPrice(String elmActualPrice) {
+			public void setElmActualPrice(BigDecimal elmActualPrice) {
 				this.elmActualPrice = elmActualPrice;
 			}
 
-			public String getBdActualPrice() {
+			public BigDecimal getBdActualPrice() {
 				return bdActualPrice;
 			}
 
-			public void setBdActualPrice(String bdActualPrice) {
+			public void setBdActualPrice(BigDecimal bdActualPrice) {
 				this.bdActualPrice = bdActualPrice;
 			}
 
-			public String getMtActualPrice() {
+			public BigDecimal getMtActualPrice() {
 				return mtActualPrice;
 			}
 
-			public void setMtActualPrice(String mtActualPrice) {
+			public void setMtActualPrice(BigDecimal mtActualPrice) {
 				this.mtActualPrice = mtActualPrice;
 			}
 
-			public String getElmRecieveAdjust() {
+			public BigDecimal getElmRecieveAdjust() {
 				return elmRecieveAdjust;
 			}
 
-			public void setElmRecieveAdjust(String elmRecieveAdjust) {
+			public void setElmRecieveAdjust(BigDecimal elmRecieveAdjust) {
 				this.elmRecieveAdjust = elmRecieveAdjust;
 			}
 
-			public String getBdRecieveAdjust() {
+			public BigDecimal getBdRecieveAdjust() {
 				return bdRecieveAdjust;
 			}
 
-			public void setBdRecieveAdjust(String bdRecieveAdjust) {
+			public void setBdRecieveAdjust(BigDecimal bdRecieveAdjust) {
 				this.bdRecieveAdjust = bdRecieveAdjust;
 			}
 
-			public String getMtRecieveAdjust() {
+			public BigDecimal getMtRecieveAdjust() {
 				return mtRecieveAdjust;
 			}
 
-			public void setMtRecieveAdjust(String mtRecieveAdjust) {
+			public void setMtRecieveAdjust(BigDecimal mtRecieveAdjust) {
 				this.mtRecieveAdjust = mtRecieveAdjust;
 			}
 
-			public String getElmSettlement() {
+			public BigDecimal getElmSettlement() {
 				return elmSettlement;
 			}
 
-			public void setElmSettlement(String elmSettlement) {
+			public void setElmSettlement(BigDecimal elmSettlement) {
 				this.elmSettlement = elmSettlement;
 			}
 
-			public String getBdSettlement() {
+			public BigDecimal getBdSettlement() {
 				return bdSettlement;
 			}
 
-			public void setBdSettlement(String bdSettlement) {
+			public void setBdSettlement(BigDecimal bdSettlement) {
 				this.bdSettlement = bdSettlement;
 			}
 
-			public String getMtSettlement() {
+			public BigDecimal getMtSettlement() {
 				return mtSettlement;
 			}
 
-			public void setMtSettlement(String mtSettlement) {
+			public void setMtSettlement(BigDecimal mtSettlement) {
 				this.mtSettlement = mtSettlement;
 			}
 
-			public String getSettlement() {
+			public BigDecimal getSettlement() {
 				return settlement;
 			}
 
-			public void setSettlement(String settlement) {
+			public void setSettlement(BigDecimal settlement) {
 				this.settlement = settlement;
 			}
 
-			public String getElmMealFee() {
+			public BigDecimal getElmMealFee() {
 				return elmMealFee;
 			}
 
-			public void setElmMealFee(String elmMealFee) {
+			public void setElmMealFee(BigDecimal elmMealFee) {
 				this.elmMealFee = elmMealFee;
 			}
 
-			public String getBdMealFee() {
+			public BigDecimal getBdMealFee() {
 				return bdMealFee;
 			}
 
-			public void setBdMealFee(String bdMealFee) {
+			public void setBdMealFee(BigDecimal bdMealFee) {
 				this.bdMealFee = bdMealFee;
 			}
 
-			public String getMtMealFee() {
+			public BigDecimal getMtMealFee() {
 				return mtMealFee;
 			}
 
-			public void setMtMealFee(String mtMealFee) {
+			public void setMtMealFee(BigDecimal mtMealFee) {
 				this.mtMealFee = mtMealFee;
 			}
 		   		

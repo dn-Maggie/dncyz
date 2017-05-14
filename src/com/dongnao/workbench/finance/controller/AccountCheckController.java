@@ -48,6 +48,7 @@ public class AccountCheckController{
 	public ModelAndView toList(HttpServletRequest request){
 		ModelAndView mv =  new ModelAndView("WEB-INF/jsp/finance/accountCheck/listAccountCheck");
 		Store store = new Store();
+	 	store.setIsDelete(0);
 		boolean isAdmin = true;
  		if(!Utils.isSuperAdmin(request)){
  			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
@@ -66,6 +67,7 @@ public class AccountCheckController{
 	public ModelAndView toListTotal(HttpServletRequest request){
 		ModelAndView mv =  new ModelAndView("WEB-INF/jsp/finance/accountCheck/listAccountCheckByTotal");
 		Store store = new Store();
+	 	store.setIsDelete(0);
 		boolean isAdmin = true;
  		if(!Utils.isSuperAdmin(request)){
  			store.setOwnerUserId(Utils.getLoginUserInfoId(request));

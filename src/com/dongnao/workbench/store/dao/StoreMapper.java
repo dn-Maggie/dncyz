@@ -55,4 +55,7 @@ public interface StoreMapper  {
 	public List<StoreByPlatform> listStoreByElm(Store store);
 	public List<StoreByPlatform> listStoreByBdwm(Store store);
 	public List<StoreByPlatform> listStoreByMt(Store store);
+	/**
+	 * 统计商家数量*/
+	public List<Store> staticStoreNum(Store store);
 }

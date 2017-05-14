@@ -17,7 +17,7 @@ public class Store extends Model{
 					
 					/**
 				     * 店铺使用者账号
-				     **/
+				     **/	private Integer isDelete;//逻辑删除标识
 							private String userAccount;
 					 /**
 				     * 店铺使用者ID
@@ -796,6 +796,12 @@ public class Store extends Model{
 
 			public void setPlatformType(String platformType) {
 				this.platformType = platformType;
+			}
+			public Integer getIsDelete() {
+				return isDelete;
+			}
+			public void setIsDelete(Integer isDelete) {
+				this.isDelete = isDelete;
 			}
 		
 			

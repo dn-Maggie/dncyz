@@ -75,7 +75,7 @@ $(function() {
 </head>
   
 <body>
-	<!-- <form id="productFormEdit" > -->
+	<form id="productFormEdit" > 
     <div class="ui-table ui-widget ui-corner-all ui-border" >
 		<input type="hidden" id="edit_productId" name="productId" type="text" value="${product.productId}"/>
 		<table class="table">
@@ -127,6 +127,6 @@ $(function() {
 			</tr>
 		</table>
     </div>
-	<!-- </form> -->
+	</form>
 </body>
 </html>

@@ -12,25 +12,27 @@ var orderDetailModel = {
 		colModel:[
 					{name : "id",hidden : true,key : true,label:"账单ID",index : "id"},	
 					{name : "storeName",label:"店铺名称",index : "store_name"},
-					{name : "createDate",label:"创建日期",index : "create_date"},				
+					{name : "createDate",label:"创建日期",index : "create_date"},
+					{name : "isInvalid",label:"订单状态",index : "is_invalid"
+						,formatter:GridColModelForMatter.isInvalid},	
 					{name : "orderType",label:"订单类型",index : "order_type"
 						,formatter:GridColModelForMatter.orderType},				
 					{name : "orderTime",label:"订单创建时间",index : "order_time"},				
-					{name : "overTime",label:"订单完成时间",index : "over_time"},				
+					/* {name : "overTime",label:"订单完成时间",index : "over_time"}, */				
 					{name : "orderNo",label:"订单号",index : "order_no"},				
 					{name : "orginPrice",label:"菜价",index : "orgin_price"},				
 					{name : "mealFee",label:"餐盒费",index : "meal_fee"},				
 					/* {name : "giftAllowance",label:"赠品补贴",index : "gift_allowance"}, */	
 					{name : "activitiesSubsidyBymerchant",label:"实际菜品折扣",index : "activities_subsidy_bymerchant",editable:true},				
-					{name : "specialOffer",label:"结算菜特价",index : "special_offer",editable:true},			
-					{name : "distributionMode",label:"配送方式",index : "distribution_mode"},	
+					{name : "specialOffer",label:"特价菜结算",index : "special_offer",editable:true},			
+					{name : "distributionMode",label:"配送方式",index : "distribution_mode",formatter:GridColModelForMatter.distributionMode},	
 					{name : "orderDistCharge",label:"订单取配送费",index : "order_dist_charge",editable:true},
 					{name : "platformDistCharge",label:"平台收取配送费",index : "platform_dist_charge",editable:true},
 					{name : "merchantDistCharge",label:"公司收取配送费",index : "merchant_dist_charge",editable:true},			
 					{name : "merchantActivitiesSubsidies",label:"商户承担活动补贴",index : "merchant_activities_subsidies",editable:true},		
 					{name : "platformActivitiesSubsidies",label:"平台承担活动补贴",index : "platform_activities_subsidies",editable:true},	
-					/* {name : "merchantSubsidyVouchers",label:"商户承担代金券补贴",index : "merchant_subsidy_vouchers"},	
-					{name : "platformSubsidyVouchers",label:"平台承担代金券补贴",index : "platform_subsidy_vouchers"}, */
+					{name : "merchantSubsidyVouchers",label:"商户承担代金券补贴",index : "merchant_subsidy_vouchers"},	
+					{name : "platformSubsidyVouchers",label:"平台承担代金券补贴",index : "platform_subsidy_vouchers"}, 
 					/* {name : "serviceRate",label:"服务费费率",index : "service_rate"},	 */			
 					{name : "serviceCharge",label:"服务费",index : "service_charge"},				
 					/* {name : "refundAmount",label:"用户申请退单金额",index : "refund_amount"}, */				
@@ -65,7 +67,7 @@ var orderDetailModel = {
 		List.openDialog(add_iframe_dialog);
   	}
 	function closeAdd(){
-		List.closeDialog(add_iframe_dialog);
+		List.closeDialog(add_iframe_dialog,gridObj);
 	}
     function edit(){
 		var key = ICSS.utils.getSelectRowData("id");
@@ -76,7 +78,7 @@ var orderDetailModel = {
     }
     //关闭编辑页面，供子页面调用
     function closeEdit(){
-    	List.closeDialog(edit_iframe_dialog);
+    	List.closeDialog(edit_iframe_dialog,gridObj);
     }
     function show(){
     	var key = ICSS.utils.getSelectRowData("id");
@@ -143,13 +145,20 @@ var orderDetailModel = {
 		             	</c:forEach>
 					</select>
 				</li>
+				<li><span>订单状态：</span>
+					<select class="search_select" name="isInvalid">
+						<option value=""></option>
+						<option value="0">有效订单</option>
+						<option value="1">无效订单</option>
+					</select>
+				</li>
 				<li>
 					<div class="time_bg">
-						<input type="text" placeholder="截止日期"  class="search_time150 date-picker" name="propsMap['endDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
+						<input type="text" placeholder="订单截止"  class="search_time150 date-picker" name="propsMap['endDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
 						<i class="search_time_ico2" ></i>
 					</div>
 					<div class="time_bg">
-						<input type="text" placeholder="起始日期" class="search_time150 date-picker" name="propsMap['startDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
+						<input type="text" placeholder="订单起始" class="search_time150 date-picker" name="propsMap['startDate']" data-date-format="yyyy-mm-dd "><!-- 时间选择控件-->
 						<i class="search_time_ico2" ></i>
 					</div>
 				</li>
@@ -174,14 +183,14 @@ var orderDetailModel = {
 						</select>
 					<span>平台类型:</span>
 				 </li>
-				  <li>
+				 <!--  <li>
 				 	<select class="search_select" name="distributionMode" id="distributionMode">
 				 		<option value=""></option>
 				 		<option value="">商家自配</option>
 					 	<option value="">平台专配</option>
 				 	</select>
 					<span>配送方式:</span>
-				 </li>
+				 </li> -->
 				 <li>
 					<input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置"><!-- 重置 -->
 					<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridObj);" value="查询"></li><!-- 查询-->

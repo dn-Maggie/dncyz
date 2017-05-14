@@ -1,5 +1,6 @@
 package com.dongnao.workbench.common.controller;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,28 +13,26 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.basic.service.UserInfoService;
 import com.dongnao.workbench.common.Constant;
+import com.dongnao.workbench.common.bean.RespMess;
 import com.dongnao.workbench.common.bean.ResultMessage;
-import com.dongnao.workbench.common.bean.respMess;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.MD5Encryption;
 import com.dongnao.workbench.common.util.StringUtil;
 import com.dongnao.workbench.common.util.Utils;
+import com.dongnao.workbench.finance.model.AccountOrderDetail;
+import com.dongnao.workbench.finance.service.AccountOrderDetailService;
 import com.dongnao.workbench.store.model.Store;
 import com.dongnao.workbench.store.service.StoreService;
 import com.dongnao.workbench.system.model.Module;
 import com.dongnao.workbench.system.service.DictInfoService;
 import com.dongnao.workbench.system.service.ModuleService;
-
-import net.sf.json.JSONObject;
 
 
 /**
@@ -48,7 +47,10 @@ import net.sf.json.JSONObject;
 public class MainController {
 	@Resource
     private StoreService storeService;
+	@Resource
 	private UserInfoService userInfoService;
+	@Resource
+    private AccountOrderDetailService accountOrderDetailService;
 	/**
 	 * 设置service
 	 * 
@@ -119,7 +121,6 @@ public class MainController {
 		mv.addObject("model", model);
 		return mv;
 	}
-
 	/**
 	 * 登录处理
 	 * 
@@ -249,7 +250,7 @@ public class MainController {
 				request.getParameter("strcode"), StringUtils.EMPTY);
         
         ResultMessage rm = new ResultMessage();
-     // 如果一致则返回true
+        // 如果一致则返回true
        if(code.toLowerCase().equals(obj.toLowerCase())){
     	   	rm.setStatus(1);
 			AjaxUtils.sendAjaxForObjectStr(response, rm);
@@ -351,7 +352,7 @@ public class MainController {
 		password = MD5Encryption.MD5(password);
 		
 		boolean b = userInfo.getPassword().equals(password);
-		respMess rm = new respMess();
+		RespMess rm = new RespMess();
 		if(b){
 			Store store = new Store();
 			store.setOwnerUserId(userInfo.getId());

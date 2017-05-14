@@ -1,7 +1,27 @@
 GridColModelForMatter = {
+	//订单状态
+	isInvalid : function(cellvalue, options, cellObject) {
+		if (cellvalue == "1")
+			return "已取消";
+		else return "正常";
+	},
+	// 配送方式
+	distributionMode : function(cellvalue, options, cellObject) {
+		if (cellvalue == "0000"||cellvalue == "CROWD")
+			return "商家自配送";
+		else if(cellvalue == "1001"||cellvalue == "CONTROLLED")
+			return "平台专送";
+		else return "其他方式";
+	},
+	// 店铺类型
+	storeType : function(cellvalue, options, cellObject) {
+		if (cellvalue == "1")
+			return "夜宵";
+		else
+			return "正餐";
+	},
 	// 计划附件状态
 	fjFlag : function(cellvalue, options, cellObject) {
-		debugger;
 		if (cellvalue == "0")
 			return "无";
 		else

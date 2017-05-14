@@ -55,6 +55,7 @@ public class StoreProductController{
  		mv.addObject("productClass", productClassService.listByCondition(null));
  		mv.addObject("product", productService.listByCondition(null));
  		Store store = new Store();
+	 	store.setIsDelete(0);
  		if(!Utils.isSuperAdmin(request))
  		{store.setOwnerUserId(Utils.getLoginUserInfoId(request));}
  		mv.addObject("store",storeService.listByCondition(store));
@@ -74,7 +75,8 @@ public class StoreProductController{
 		mv.addObject("productClass", productClassService.listByCondition(null));
  		mv.addObject("product", productService.listByCondition(null));
  		mv.addObject("productStatus", dictInfoService.getDictInfoListByType("productStatus"));
-		Store store = new Store();
+ 		Store store = new Store();
+	 	store.setIsDelete(0);
 		if(!Utils.isSuperAdmin(request))
  		{store.setOwnerUserId(Utils.getLoginUserInfoId(request));}
  		mv.addObject("store",storeService.listByCondition(store));
@@ -152,7 +154,8 @@ public class StoreProductController{
 		mv.addObject("productClass", productClassService.listByCondition(null));
  		mv.addObject("product", productService.listByCondition(null));
  		mv.addObject("productStatus", dictInfoService.getDictInfoListByType("productStatus"));
-		Store store = new Store();
+ 		Store store = new Store();
+	 	store.setIsDelete(0);
 		if(!Utils.isSuperAdmin(request))
  		{store.setOwnerUserId(Utils.getLoginUserInfoId(request));}
  		mv.addObject("store",storeService.listByCondition(store));

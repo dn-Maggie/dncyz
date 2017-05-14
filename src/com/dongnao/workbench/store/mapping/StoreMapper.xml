@@ -49,6 +49,7 @@
 		<result column="bound_type" property="boundType" jdbcType="VARCHAR" />
 		<result column="store_type" property="storeType" jdbcType="VARCHAR" />
 		<result column="store_dist_mode" property="storeDistMode" jdbcType="VARCHAR" />
+		<result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
 	</resultMap>
 	<resultMap id="ResultMapByPlatform" type="com.dongnao.workbench.store.model.StoreByPlatform">
 		<result column="username" property="username" jdbcType="VARCHAR" />
@@ -104,6 +105,7 @@
 			,bound_type
 			,store_type
 			,store_dist_mode
+			,is_delete
 		</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -156,6 +158,7 @@
 			,s.bound_type
 			,s.store_type
 			,s.store_dist_mode
+			,s.is_delete
 		from dn_store as s
 		left join dn_brand as b on b.BRAND_ID = s.BRAND_ID
 		where s.STORE_ID = #{storeId,jdbcType=VARCHAR}
@@ -198,10 +201,11 @@
 			,s.bound_type
 			,s.store_type
 			,s.store_dist_mode
+			,s.is_delete
 		FROM
 			dn_store as s
 		left join dn_brand as b on b.BRAND_ID = s.BRAND_ID
-		where 1=1
+		where s.is_delete = 0
 		<if test="ownerUserId != null and '' != ownerUserId">  
 			and s.owner_userId = #{ownerUserId,jdbcType=VARCHAR}
 		</if>
@@ -212,7 +216,7 @@
 			and s.business_area = #{businessArea,jdbcType=VARCHAR}
 		</if>
 		<if test="storeName != null and '' != storeName">  
-			and s.STORE_NAME like CONCAT('%',#{storeName,jdbcType=VARCHAR},'%')
+			and s.STORE_NAME  = #{storeName,jdbcType=VARCHAR}
 		</if>
 		<if test="brandId != null and '' != brandId">  
 			and s.BRAND_ID = #{brandId,jdbcType=VARCHAR}
@@ -251,7 +255,7 @@
            	order by ${orderFields} ${order}
        	</if>
 	</select>
-	
+	<!-- 根据饿了么账号密码查询验证是否存在（提供给远程接口使用） -->
 	<select id="listStoreByElm" resultMap="ResultMapByPlatform" parameterType="com.dongnao.workbench.store.model.Store">
 		SELECT
 			s.elm_id as shopId
@@ -260,8 +264,9 @@
 			,'elm' as platformType
 		FROM
 			dn_store as s
-		where 1=1
+		where s.is_delete = 0
 	</select>
+	<!-- 根据美团账号密码查询验证是否存在（提供给远程接口使用） -->
 	<select id="listStoreByMt" resultMap="ResultMapByPlatform" parameterType="com.dongnao.workbench.store.model.Store">
 		SELECT
 			s.meituan_id as username
@@ -269,8 +274,9 @@
 			,'mt' as platformType
 		FROM
 			dn_store as s
-		where 1=1
+		where s.is_delete = 0
 	</select>
+	<!-- 根据百度外卖账号密码查询验证是否存在（提供给远程接口使用） -->
 	<select id="listStoreByBdwm" resultMap="ResultMapByPlatform" parameterType="com.dongnao.workbench.store.model.Store">
 		SELECT
 			s.baidu_id as username
@@ -278,13 +284,13 @@
 			,'bdwm' as platformType
 		FROM
 			dn_store as s
-		where 1=1
+		where s.is_delete = 0
 	</select>
-	
-	<delete id="deleteByKey" parameterType="java.lang.String">
-		delete from dn_store
+	<!-- 逻辑删除  -->
+	<update id="deleteByKey" parameterType="java.lang.String">
+		update dn_store set is_delete = 1
 		where STORE_ID = #{storeId,jdbcType=VARCHAR}
-	</delete>
+	</update>
 	
 	<insert id="add" parameterType="com.dongnao.workbench.store.model.Store">
 		insert into dn_store (
@@ -337,6 +343,7 @@
 			,#{boundType,jdbcType=VARCHAR}
 			,#{storeType,jdbcType=VARCHAR}
 			,#{storeDistMode,jdbcType=VARCHAR}
+			,0
 		)
 	</insert>
 	
@@ -442,7 +449,7 @@
 			<if test="storeDistMode != null and '' != storeDistMode">  
 			,store_dist_mode = #{storeDistMode,jdbcType=VARCHAR}
 			</if>
-		where STORE_ID = #{storeId,jdbcType=VARCHAR}
+		where STORE_ID = #{storeId,jdbcType=VARCHAR} and is_delete = 0
 	</update>
 	
 	<update id="updateImg" parameterType="com.dongnao.workbench.store.model.Store">
@@ -487,7 +494,7 @@
 			<if test="corporateWithidcardBack != null and '' != corporateWithidcardBack"> 
 			,corporate_withidcard_back = #{corporateWithidcardBack,jdbcType=VARCHAR}
 			</if>
-		where STORE_ID = #{storeId,jdbcType=VARCHAR}
+		where STORE_ID = #{storeId,jdbcType=VARCHAR} and is_delete = 0
 	</update>
 	<!-- 模板导入，批量增加 -->
 	<insert id="addStores" parameterType="java.util.List">
@@ -524,6 +531,7 @@
 			,BAIDU_SALE
 			,owner_userId
 			,bound_type
+			,is_delete
 		)values
 		<foreach collection="list" item="item" index="index" separator="," >
 		(
@@ -559,7 +567,24 @@
 			,#{item.baiduSale,jdbcType=VARCHAR}
 			,#{item.ownerUserId,jdbcType=VARCHAR}
 			,#{item.boundType,jdbcType=VARCHAR}
+			,0
 		)
 		</foreach>
 	</insert>
+	<!-- 统计今日商家数量 -->
+	<select id="staticStoreNum" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.store.model.Store">
+		SELECT
+		'商家总数' as storeName, count(*) AS averageSales
+		FROM `dn_store`
+		UNION ALL
+		SELECT 
+		'商家新增数量' as storeName,count(*) AS averageSales
+		FROM `dn_store`
+		WHERE DATE_FORMAT(regist_date, '%Y-%c-%d') = DATE_FORMAT(#{registDate,jdbcType=DATE},'%Y-%c-%d')
+		UNION ALL
+		SELECT 
+		'商家退出数量' as storeName,count(*) AS averageSales
+		FROM `dn_store`
+		WHERE is_delete = 1
+	</select>
 </mapper>

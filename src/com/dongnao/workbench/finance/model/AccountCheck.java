@@ -27,22 +27,22 @@ public class AccountCheck extends Model{
 		            /**
 	                 * 饿了吗结算款
 	                 **/
-				   			private String elmSettlement;
+				   			private BigDecimal elmSettlement;
 		   		
 		            /**
 	                 * 百度结算款
 	                 **/
-				   			private String baiduSettlement;
+				   			private BigDecimal baiduSettlement;
 		   		
 		            /**
 	                 * 美团结算款
 	                 **/
-				   			private String meituanSettlement;
+				   			private BigDecimal meituanSettlement;
 		   		
 		            /**
 	                 * 合计结算金额
 	                 **/
-				   			private String totalSettlement;
+				   			private BigDecimal totalSettlement;
 		   		
 		            /**
 	                 * 饿了么扣回金额
@@ -52,12 +52,12 @@ public class AccountCheck extends Model{
 		            /**
 	                 * 百度扣回金额
 	                 **/
-				   			private String baiduCost;
+				   			private BigDecimal baiduCost;
 		   		
 		            /**
 	                 * 美团扣回金额
 	                 **/
-				   			private String meituanCost;
+				   			private BigDecimal meituanCost;
 		   		
 		            /**
 	                 * 实际应结算金额
@@ -114,9 +114,9 @@ public class AccountCheck extends Model{
 						
 		  			/**
 			 * 获取 饿了吗结算款
-			 * @return String this.elmSettlement
+			 * @return BigDecimal this.elmSettlement
 			 */
-			public String getElmSettlement(){
+			public BigDecimal getElmSettlement(){
 				return this.elmSettlement;
 			}
 			
@@ -124,7 +124,7 @@ public class AccountCheck extends Model{
 			 * 设置 饿了吗结算款
 			 * @param String elmSettlement 
 			 */
-			public void setElmSettlement(String elmSettlement){
+			public void setElmSettlement(BigDecimal elmSettlement){
 				this.elmSettlement = elmSettlement;
 			}
 		   		
@@ -134,9 +134,9 @@ public class AccountCheck extends Model{
 						
 		  			/**
 			 * 获取 百度结算款
-			 * @return String this.baiduSettlement
+			 * @return BigDecimal this.baiduSettlement
 			 */
-			public String getBaiduSettlement(){
+			public BigDecimal getBaiduSettlement(){
 				return this.baiduSettlement;
 			}
 			
@@ -144,7 +144,7 @@ public class AccountCheck extends Model{
 			 * 设置 百度结算款
 			 * @param String baiduSettlement 
 			 */
-			public void setBaiduSettlement(String baiduSettlement){
+			public void setBaiduSettlement(BigDecimal baiduSettlement){
 				this.baiduSettlement = baiduSettlement;
 			}
 		   		
@@ -154,9 +154,9 @@ public class AccountCheck extends Model{
 						
 		  			/**
 			 * 获取 美团结算款
-			 * @return String this.meituanSettlement
+			 * @return BigDecimal this.meituanSettlement
 			 */
-			public String getMeituanSettlement(){
+			public BigDecimal getMeituanSettlement(){
 				return this.meituanSettlement;
 			}
 			
@@ -164,7 +164,7 @@ public class AccountCheck extends Model{
 			 * 设置 美团结算款
 			 * @param String meituanSettlement 
 			 */
-			public void setMeituanSettlement(String meituanSettlement){
+			public void setMeituanSettlement(BigDecimal meituanSettlement){
 				this.meituanSettlement = meituanSettlement;
 			}
 		   		
@@ -174,9 +174,9 @@ public class AccountCheck extends Model{
 						
 		  			/**
 			 * 获取 合计结算金额
-			 * @return String this.totalSettlement
+			 * @return BigDecimal this.totalSettlement
 			 */
-			public String getTotalSettlement(){
+			public BigDecimal getTotalSettlement(){
 				return this.totalSettlement;
 			}
 			
@@ -184,7 +184,7 @@ public class AccountCheck extends Model{
 			 * 设置 合计结算金额
 			 * @param String totalSettlement 
 			 */
-			public void setTotalSettlement(String totalSettlement){
+			public void setTotalSettlement(BigDecimal totalSettlement){
 				this.totalSettlement = totalSettlement;
 			}
 		   		
@@ -214,9 +214,9 @@ public class AccountCheck extends Model{
 						
 		  			/**
 			 * 获取 百度扣回金额
-			 * @return String this.baiduCost
+			 * @return BigDecimal this.baiduCost
 			 */
-			public String getBaiduCost(){
+			public BigDecimal getBaiduCost(){
 				return this.baiduCost;
 			}
 			
@@ -224,7 +224,7 @@ public class AccountCheck extends Model{
 			 * 设置 百度扣回金额
 			 * @param String baiduCost 
 			 */
-			public void setBaiduCost(String baiduCost){
+			public void setBaiduCost(BigDecimal baiduCost){
 				this.baiduCost = baiduCost;
 			}
 		   		
@@ -234,9 +234,9 @@ public class AccountCheck extends Model{
 						
 		  			/**
 			 * 获取 美团扣回金额
-			 * @return String this.meituanCost
+			 * @return BigDecimal this.meituanCost
 			 */
-			public String getMeituanCost(){
+			public BigDecimal getMeituanCost(){
 				return this.meituanCost;
 			}
 			
@@ -244,7 +244,7 @@ public class AccountCheck extends Model{
 			 * 设置 美团扣回金额
 			 * @param String meituanCost 
 			 */
-			public void setMeituanCost(String meituanCost){
+			public void setMeituanCost(BigDecimal meituanCost){
 				this.meituanCost = meituanCost;
 			}
 		   		

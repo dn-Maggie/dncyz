@@ -89,12 +89,9 @@
 				odb.amount_payable
 			FROM
 				opera_date_base_price AS odb
-			LEFT JOIN dn_store AS s ON s.elm_id = odb.store_id
-				OR s.meituan_id = odb.store_id
-				OR s.baidu_id = odb.store_id
-				OR s.store_name = odb.store_name
+			LEFT JOIN dn_store AS s ON s.store_name = odb.store_name
 			WHERE
-				s.bound_type = '1'
+				s.bound_type = '1' and s.is_delete = 0
 				<if test="platformType != null and '' != platformType">  
 					and odb.platform_type = #{platformType,jdbcType=VARCHAR}
 				</if>
@@ -134,12 +131,9 @@
 					odp.amount_payable
 				FROM
 					opera_date_platform_account AS odp
-				LEFT JOIN dn_store AS s ON s.elm_id = odp.store_id
-				OR s.meituan_id = odp.store_id
-				OR s.baidu_id = odp.store_id
-				OR s.store_name = odp.store_name
+				LEFT JOIN dn_store AS s ON s.store_name = odp.store_name
 				WHERE
-					s.bound_type = '1'
+					s.bound_type = '1' and s.is_delete = 0
 				<if test="platformType != null and '' != platformType">  
 					and odp.platform_type = #{platformType,jdbcType=VARCHAR}
 				</if>
@@ -179,12 +173,9 @@
 					ods.amount_payable
 				FROM
 					opera_date_sale_rate AS ods
-				LEFT JOIN dn_store AS s ON s.elm_id = ods.store_id
-				OR s.meituan_id = ods.store_id
-				OR s.baidu_id = ods.store_id
-				OR s.store_name = ods.store_name
+				LEFT JOIN dn_store AS s ON s.store_name = ods.store_name
 				WHERE
-					s.bound_type = '1'
+					s.bound_type = '1' and s.is_delete = 0
 				<if test="platformType != null and '' != platformType">  
 					and ods.platform_type = #{platformType,jdbcType=VARCHAR}
 				</if>
@@ -224,12 +215,9 @@
 					odd.amount_payable
 				FROM
 					opera_date_deep_opera AS odd
-				LEFT JOIN dn_store AS s ON s.elm_id = odd.store_id
-				OR s.meituan_id = odd.store_id
-				OR s.baidu_id = odd.store_id
-				OR s.store_name = odd.store_name
+				LEFT JOIN dn_store AS s ON s.store_name = odd.store_name
 				WHERE
-					s.bound_type = '1'
+					s.bound_type = '1' and s.is_delete = 0
 				<if test="platformType != null and '' != platformType">  
 					and odd.platform_type = #{platformType,jdbcType=VARCHAR}
 				</if>
@@ -271,12 +259,9 @@
 				odb.amount_payable
 			FROM
 				opera_date_base_price AS odb
-			LEFT JOIN dn_store AS s ON s.elm_id = odb.store_id
-			OR s.meituan_id = odb.store_id
-			OR s.baidu_id = odb.store_id
-			OR s.store_name = odb.store_name
+			LEFT JOIN dn_store AS s ON s.store_name = odb.store_name
 			WHERE
-				s.bound_type = '2'
+				s.bound_type = '2' and s.is_delete = 0
 				<if test="platformType != null and '' != platformType">  
 					and odb.platform_type = #{platformType,jdbcType=VARCHAR}
 				</if>
@@ -316,12 +301,9 @@
 					odp.amount_payable
 				FROM
 					opera_date_platform_account AS odp
-				LEFT JOIN dn_store AS s ON s.elm_id = odp.store_id
-				OR s.meituan_id = odp.store_id
-				OR s.baidu_id = odp.store_id
-				OR s.store_name = odp.store_name
+				LEFT JOIN dn_store AS s ON s.store_name = odp.store_name
 				WHERE
-					s.bound_type = '2'
+					s.bound_type = '2' and s.is_delete = 0
 				<if test="platformType != null and '' != platformType">  
 					and odp.platform_type = #{platformType,jdbcType=VARCHAR}
 				</if>
@@ -361,12 +343,9 @@
 					ods.amount_payable
 				FROM
 					opera_date_sale_rate AS ods
-				LEFT JOIN dn_store AS s ON s.elm_id = ods.store_id
-				OR s.meituan_id = ods.store_id
-				OR s.baidu_id = ods.store_id
-				OR s.store_name = ods.store_name
+				LEFT JOIN dn_store AS s ON s.store_name = ods.store_name
 				WHERE
-					s.bound_type = '2'
+					s.bound_type = '2' and s.is_delete = 0
 				<if test="platformType != null and '' != platformType">  
 					and ods.platform_type = #{platformType,jdbcType=VARCHAR}
 				</if>
@@ -406,12 +385,9 @@
 					odd.amount_payable
 				FROM
 					opera_date_deep_opera AS odd
-				LEFT JOIN dn_store AS s ON s.elm_id = odd.store_id
-				OR s.meituan_id = odd.store_id
-				OR s.baidu_id = odd.store_id
-				OR s.store_name = odd.store_name
+				LEFT JOIN dn_store AS s ON s.store_name = odd.store_name
 				WHERE
-					s.bound_type = '2'
+					s.bound_type = '2' and s.is_delete = 0
 				<if test="platformType != null and '' != platformType">  
 					and odd.platform_type = #{platformType,jdbcType=VARCHAR}
 				</if>
@@ -470,10 +446,9 @@
 				odb.other_all
 			FROM
 				opera_date_base_price AS odb
-			LEFT JOIN dn_store AS s ON s.elm_id = odb.store_id OR s.meituan_id = odb.store_id OR s.baidu_id = odb.store_id
-			OR s.store_name = odb.store_name
+			LEFT JOIN dn_store AS s ON s.store_name = odb.store_name
 			WHERE
-				1=1
+				s.is_delete = 0
 				<if test="platformType != null and '' != platformType">  
 					and odb.platform_type = #{platformType,jdbcType=VARCHAR}
 				</if>
@@ -526,12 +501,9 @@
 					odp.other_all
 				FROM
 					opera_date_platform_account AS odp
-				LEFT JOIN dn_store AS s ON s.elm_id = odp.store_id
-				OR s.meituan_id = odp.store_id
-				OR s.baidu_id = odp.store_id
-				OR s.store_name = odp.store_name
+				LEFT JOIN dn_store AS s ON s.store_name = odp.store_name
 				WHERE
-					1=1
+					s.is_delete = 0
 				<if test="platformType != null and '' != platformType">  
 					and odp.platform_type = #{platformType,jdbcType=VARCHAR}
 				</if>
@@ -585,12 +557,9 @@
 					ods.other_all
 				FROM
 					opera_date_sale_rate AS ods
-				LEFT JOIN dn_store AS s ON s.elm_id = ods.store_id
-				OR s.meituan_id = ods.store_id
-				OR s.baidu_id = ods.store_id
-				OR s.store_name = ods.store_name
+				LEFT JOIN dn_store AS s ON s.store_name = ods.store_name
 				WHERE
-					1=1
+					s.is_delete = 0
 				<if test="platformType != null and '' != platformType">  
 					and ods.platform_type = #{platformType,jdbcType=VARCHAR}
 				</if>
@@ -643,12 +612,9 @@
 					odd.other_all
 				FROM
 					opera_date_deep_opera AS odd
-				LEFT JOIN dn_store AS s ON s.elm_id = odd.store_id
-				OR s.meituan_id = odd.store_id
-				OR s.baidu_id = odd.store_id
-				OR s.store_name = odd.store_name
+				LEFT JOIN dn_store AS s ON s.store_name = odd.store_name
 				WHERE
-					1=1
+					s.is_delete = 0
 				<if test="platformType != null and '' != platformType">  
 					and odd.platform_type = #{platformType,jdbcType=VARCHAR}
 				</if>

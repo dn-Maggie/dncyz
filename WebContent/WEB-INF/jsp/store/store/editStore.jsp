@@ -71,14 +71,18 @@ $(function() {
 	$('.pwd').on('blur', function(){
 		var platformType = $(this).attr('name');
 		switch (platformType) {
-			case "elmPwd": platformType = 'elm'; break;
-			case "meituanPwd":platformType = 'mt'; break;
+			case "elmPwd": platformType = 'elm';showInfo("正在检测，请稍后..."); break;
+			case "meituanPwd":platformType = 'mt';showInfo("正在检测，请稍后..."); break;
 			/*case "baidupwd":platformType = 'bdwm'; break;*/
 			default:return false;
 		}
 		var url = "<m:url value='/store/checkStoreAcocunt.do'/>";
 		var password = $(this).val();
 		var username = $(this).parents('tr').find('.username').val();
+		if(username==""||password==""){
+			showMessage("请输入账号密码！",2000);
+			return false;
+		}
 		var paramData = {
 			username:username,
 			password:password,
@@ -230,6 +234,36 @@ $(function() {
 							</td>
 						</tr>
 						<tr>
+							<td class="inputLabelTd">登记人：</td>
+							<td class="inputTd">
+								<input id="edit_registrant" name="registrant" type="text" class="text" value="${store.registrant}"/>
+							</td>
+							<td class="inputLabelTd">登记日期：</td>
+							<td class="inputTd">
+								<div class="input-group">
+									<input class="date-picker text" name="registDate" id="edit_registDate" type="text" value="${store.registDate}" data-date-format="yyyy-mm-dd" />
+									<span>
+										<i class="icon-calendar bigger-110"></i>
+									</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="inputLabelTd">运营开始时间：</td>
+							<td class="inputTd">
+								<div class="input-group">
+									<input class="date-picker text" name="operateDate" id="edit_operateDate" type="text" value="${store.operateDate}" data-date-format="yyyy-mm-dd" />
+									<span>
+										<i class="icon-calendar bigger-110"></i>
+									</span>
+								</div>
+							</td>
+							<td class="inputLabelTd">备注：</td>
+							<td class="inputTd">
+								<input id="edit_remark" name="remark" type="text" class="text" value="${store.remark}"/>
+							</td>
+						</tr>
+						<tr>
 							<td class="inputLabelTd"><span class="required">*</span>所属商圈：</td>
 							<td class="inputTd">
 								<input id="edit_businessArea" name="businessArea" type="text" class="text" value="${store.businessArea}" list="businessAreaList"/>
@@ -256,12 +290,10 @@ $(function() {
 							</td>
 							<td class="inputLabelTd"><span class="required">*</span>店铺类型：</td>
 							<td class="inputTd">
-								<input id="edit_storeType" name="storeType" type="text" class="text" value="${store.storeType}" list="storeTypeList"/>
-								<datalist id="storeTypeList">
-									<option value="夜宵"></option>
-									<option value="正餐"></option>
-									<option value="沙拉类"></option>
-								</datalist>
+								<select id="edit_storeType" name="storeType"  class="search_select">
+									<option value="1"<c:if test="${store.storeType==1}">selected</c:if>>夜宵</option>
+									<option value="2"<c:if test="${store.storeType==2}">selected</c:if>>正餐</option>
+								</select>
 							</td>
 						</tr>
 						<tr>
@@ -319,36 +351,7 @@ $(function() {
 								</label>
 							</td>
 						</tr>
-						<tr>
-							<td class="inputLabelTd">登记人：</td>
-							<td class="inputTd">
-								<input id="edit_registrant" name="registrant" type="text" class="text" value="${store.registrant}"/>
-							</td>
-							<td class="inputLabelTd">登记日期：</td>
-							<td class="inputTd">
-								<div class="input-group">
-									<input class="date-picker text" name="registDate" id="edit_registDate" type="text" value="${store.registDate}" data-date-format="yyyy-mm-dd" />
-									<span>
-										<i class="icon-calendar bigger-110"></i>
-									</span>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td class="inputLabelTd">运营开始时间：</td>
-							<td class="inputTd">
-								<div class="input-group">
-									<input class="date-picker text" name="operateDate" id="edit_operateDate" type="text" value="${store.operateDate}" data-date-format="yyyy-mm-dd" />
-									<span>
-										<i class="icon-calendar bigger-110"></i>
-									</span>
-								</div>
-							</td>
-							<td class="inputLabelTd">备注：</td>
-							<td class="inputTd">
-								<input id="edit_remark" name="remark" type="text" class="text" value="${store.remark}"/>
-							</td>
-						</tr>
+						
 					</table>
 				</div>
 				<div class="step-pane" id="step2">

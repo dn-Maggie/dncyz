@@ -12,6 +12,7 @@
 <head>
 <base href="<%=basePath%>">
 <%@ include file="../../common/header.jsp"%>
+<%@ include file="../../common/ace.jsp"%>
 </head>
 <body style="height: 100%;">
 	<div class="main  choice_box container" style="height: 100%; float: left; width: 26%">

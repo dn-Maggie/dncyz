@@ -12,8 +12,8 @@ var specialModel = {
 	url: "<m:url value='/operaDate/listSpecialFood.do'/>",
 	colModel:[
 		{name : "id",hidden : true,key : true,label:"主键",index : "id"},		
-		/* {name : "storeId",label:"店铺ID",index : "store_id"},		 */
 		{name : "storeName",label:"店铺名称",index : "store_name"},		
+		{name : "orderNo",label:"订单号",index : "order_no"},		
 		{name : "specialOfferFoodName",label:"特价菜品",index : "special_offer_food_name"},		
 		{name : "createDate",label:"日期",index : "create_date"},		
 		{name : "saleNum",label:"销量",index : "sale_num"},		

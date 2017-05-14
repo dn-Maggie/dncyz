@@ -59,9 +59,20 @@
 		<result jdbcType="VARCHAR" property="orderNo" column="order_no"/>
 		<result jdbcType="VARCHAR" property="goodName" column="good_name"/>
 		<result jdbcType="DECIMAL" property="goodUnitPrice" column="good_unit_price"/>
+		<result jdbcType="DECIMAL" property="goodActualPrice" column="good_actual_price"/>
 		<result jdbcType="INTEGER" property="goodNum" column="good_num"/>
 		<result jdbcType="DECIMAL" property="goodsPrice" column="goods_price"/>
 		<result jdbcType="VARCHAR" property="platformType" column="platform_type"/>
+	</resultMap>
+	<resultMap id="orderStatic" type="com.dongnao.workbench.finance.model.OrderDetailStatic" >
+		<result jdbcType="VARCHAR" property="storeId" column="storeId"/>
+		<result jdbcType="VARCHAR" property="storeName" column="storeName"/>
+		<result jdbcType="VARCHAR" property="platformType" column="platformType"/>
+		<result jdbcType="INTEGER" property="successOrderNum" column="successOrderNum"/>
+		<result jdbcType="INTEGER" property="failOrderNum" column="failOrderNum"/>
+		<!-- <result jdbcType="TIMESTAMP" property="orderTime" column="orderTime"/> -->
+		<result jdbcType="DECIMAL" property="successOrderAmount" column="successOrderAmount"/>
+		<result jdbcType="DECIMAL" property="failOrderAmount" column="failOrderAmount"/>
 	</resultMap>
 	<sql id="Base_Column_List">
 	 	id,
@@ -113,7 +124,7 @@
 		order_sale_rate,
 		target_addr
 	</sql>
-	<sql id="Goods_List"> id ,store_id ,store_name ,create_date,order_no ,good_name ,good_unit_price ,good_num ,platform_type </sql>
+	<sql id="Goods_List"> id ,store_id ,store_name ,create_date,order_no ,good_name ,good_unit_price ,good_actual_price,good_num ,platform_type </sql>
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
@@ -173,11 +184,11 @@
 			od.target_addr
 			from account_order_detail as od 
 			LEFT JOIN store_special_offer as sso on sso.store_name = od.store_name and od.goods_name like CONCAT('%',sso.special_offer_food_name,'%')
-			<![CDATA[and DATE_FORMAT(od.create_date,'%Y-%c-%d') >= DATE_FORMAT(sso.special_offer_begin_date,'%Y-%c-%d')]]>
-			<![CDATA[and DATE_FORMAT(od.create_date,'%Y-%c-%d') <= DATE_FORMAT(sso.special_offer_end_date,'%Y-%c-%d')]]>
+			<![CDATA[and DATE_FORMAT(od.order_time,'%Y-%c-%d') >= DATE_FORMAT(sso.special_offer_begin_date,'%Y-%c-%d')]]>
+			<![CDATA[and DATE_FORMAT(od.order_time,'%Y-%c-%d') <= DATE_FORMAT(sso.special_offer_end_date,'%Y-%c-%d')]]>
 		where 1=1
 		<if test="storeName != null and '' != storeName">  
-			and od.store_name like CONCAT('%',#{storeName,jdbcType=VARCHAR},'%')
+			and od.store_name = #{storeName,jdbcType=VARCHAR}
 		</if>
 		<if test="checkNo != null and '' != checkNo">  
 			and od.check_no = #{checkNo,jdbcType=VARCHAR}
@@ -185,20 +196,17 @@
 		<if test="orderType != null and '' != orderType">  
 			and od.order_type = #{orderType,jdbcType=VARCHAR}
 		</if>
-		<if test="orderTime != null and '' != orderTime">  
-			and od.order_time = #{orderTime,jdbcType=TIMESTAMP}
-		</if>
 		<if test="isInvalid != null and '' != isInvalid">  
 			and od.is_invalid = #{isInvalid,jdbcType=TIMESTAMP}
 		</if>
 		 <if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(od.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
+				and DATE_FORMAT(od.order_time,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
 			]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(od.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
+				and DATE_FORMAT(od.order_time,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
 			]]>
 		</if> 
 		<if test="null != propsMap.startTime and propsMap.startTime != ''">
@@ -232,6 +240,7 @@
 		<if test="platformType != null and '' != platformType">  
 			and od.platform_type = #{platformType,jdbcType=DECIMAL}
 		</if>
+		GROUP BY od.order_no
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
        	</if>
@@ -239,7 +248,7 @@
 	<!-- 菜品价格表 -->
 	<select id="listGoodsFromOrderDetail" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
 		SELECT DISTINCT
-			tod.create_date,
+			tod.order_time as create_date,
 			tod.store_name,
 			tod.goods_name,
 			tod.goods_price as goods_price,
@@ -291,12 +300,12 @@
 		</if>
 		 <if test="null != propsMap.startDate and propsMap.startDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(aod.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')
+					and DATE_FORMAT(aod.order_time,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
 				]]>
 			</if>
 			<if test="null != propsMap.endDate and propsMap.endDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(aod.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')
+					and DATE_FORMAT(aod.order_time,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
 				]]>
 			</if> 
 			<if test="null != propsMap.startTime and propsMap.startTime != ''">
@@ -315,12 +324,15 @@
 		<if test="remark != null and '' != remark">  
 			and aod.remark = #{remark,jdbcType=VARCHAR}
 		</if>
+		<if test="goodsName != null and '' != goodsName">  
+			and aod.goods_name like CONCAT('%',#{goodsName,jdbcType=DECIMAL},'%') 
+		</if>
 		<if test="platformType != null and '' != platformType">  
 			and aod.platform_type = #{platformType,jdbcType=DECIMAL}
 		</if>
        	) as tod
-			GROUP BY tod.goods_name,tod.create_date
-			order by create_date
+			GROUP BY tod.goods_name,DATE_FORMAT(tod.order_time,'%Y-%c-%d')
+			order by create_date,goods_name
 	</select>
 	<!-- 菜品数量表 -->
 	<select id="listGoods" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail" resultMap="GoodsMap">
@@ -328,9 +340,11 @@
 			asg.id as id,
 			asg.store_id as store_id,
 			asg.store_name as store_name,
-			aod.create_date as create_date,
+			aod.order_time as create_date,
+			aod.order_no as order_no,
 			asg.good_name as good_name,
 			asg.good_unit_price as good_unit_price,
+			asg.good_actual_price as good_actual_price,
 			sum(asg.good_num) as good_num,
 			sum(asg.good_num * asg.good_unit_price) as goods_price,
 			asg.platform_type 
@@ -339,14 +353,14 @@
 			where 1=1 
 		<if test="id != null and '' != id"> and id = #{id,jdbcType=INTEGER} </if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
-			<![CDATA[and DATE_FORMAT(aod.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=DATE},'%Y-%c-%d')]]></if>
+			<![CDATA[and DATE_FORMAT(aod.order_time,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')]]></if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
-			<![CDATA[and DATE_FORMAT(aod.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=DATE},'%Y-%c-%d')]]></if> 
+			<![CDATA[and DATE_FORMAT(aod.order_time,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')]]></if> 
 		<if test="storeId != null and '' != storeId"> and asg.store_id = #{storeId,jdbcType=VARCHAR} </if>
 		<if test="storeName != null and '' != storeName"> and asg.store_name = #{storeName,jdbcType=VARCHAR} </if>
-		<if test="goodsName != null and '' != goodName"> and asg.good_name like CONCAT('%',#{goodName,jdbcType=VARCHAR},'%') </if>
+		<if test="goodsName != null and '' != goodsName"> and asg.good_name like CONCAT('%',#{goodsName,jdbcType=VARCHAR},'%') </if>
 		<if test="platformType != null and '' != platformType"> and asg.platform_type = #{platformType,jdbcType=VARCHAR} </if>
-		GROUP BY asg.good_name,aod.create_date,asg.store_name,asg.platform_type
+		GROUP BY create_date,asg.good_name,asg.store_name,asg.platform_type
 		<if test="orderFields != null and '' != orderFields"> order by ${orderFields} ${order} </if>
 	</select>
 	
@@ -513,8 +527,6 @@
 		)
 		</foreach>
 	</insert>
-	
-	
 	<update id="update" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
 		update account_order_detail  set
 		id= #{id,jdbcType=VARCHAR}
@@ -584,45 +596,9 @@
 		<if test="activitiesSubsidyBymerchant != null and '' != activitiesSubsidyBymerchant"> 
 			,activities_subsidy_bymerchant = #{activitiesSubsidyBymerchant,jdbcType=DECIMAL}
 		</if>
-		
-		<!-- 
-		,check_no = #{checkNo,jdbcType=VARCHAR}
-		,order_type = #{orderType,jdbcType=VARCHAR}
-		,order_time = #{orderTime,jdbcType=TIMESTAMP}
-		,over_time = #{overTime,jdbcType=TIMESTAMP}
-		,order_index = #{orderIndex,jdbcType=VARCHAR}
-		,order_no = #{orderNo,jdbcType=VARCHAR}
-		,orgin_price = #{orginPrice,jdbcType=DECIMAL}
-		,meal_fee = #{mealFee,jdbcType=DECIMAL}
-		,product_sale_amount = #{productSaleAmount,jdbcType=DECIMAL}
-		,gift_allowance = #{giftAllowance,jdbcType=DECIMAL}
-		
-		,merchant_subsidy_vouchers = #{merchantSubsidyVouchers,jdbcType=DECIMAL}
-		,actual_merchant_dist_charge = #{actualMerchantDistCharge,jdbcType=DECIMAL}
-		,service_rate = #{serviceRate,jdbcType=VARCHAR}
-		,service_charge = #{serviceCharge,jdbcType=DECIMAL}
-		,refund_amount = #{refundAmount,jdbcType=VARCHAR}
-		,settlement_amount = #{settlementAmount,jdbcType=DECIMAL}
-		,distribution_mode = #{distributionMode,jdbcType=VARCHAR}
-		,remark = #{remark,jdbcType=VARCHAR}
-		,platform_subsidy_vouchers = #{platformSubsidyVouchers,jdbcType=DECIMAL}
-		,platform_type = #{platformType,jdbcType=VARCHAR}
-		,is_invalid = #{isInvalid,jdbcType=VARCHAR}
-		,activities_subsidy_bycompany = #{activitiesSubsidyBycompany,jdbcType=DECIMAL}
-		,food_discount = #{foodDiscount,jdbcType=DECIMAL}
-		,special_offer = #{specialOffer,jdbcType=DECIMAL}
-		,booked_time = #{bookedTime,jdbcType=TIMESTAMP}
-		,consignee_name= #{consigneeName,jdbcType=VARCHAR}
-		,consignee_phones = #{consigneePhones,jdbcType=VARCHAR}
-		,active_time = #{activeTime,jdbcType=TIMESTAMP}
-		,active_total = #{activeTotal,jdbcType=DECIMAL}
-		,goods_name = #{goodsName,jdbcType=VARCHAR}
-		,goods_quality= #{goodsQuality,jdbcType=VARCHAR}
-		,goods_id = #{goodsId,jdbcType=VARCHAR}
-		,goods_price = #{goodsPrice,jdbcType=VARCHAR}
-		,order_sale_rate = #{orderSaleRate,jdbcType=DECIMAL} -->
 	where id = #{id,jdbcType=VARCHAR}
 	</update>
+	<!-- 更新订单数据实际配送费 -->
 	<update id="updateActualDistCharge" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
 		update account_order_detail  set
 				id= #{id,jdbcType=VARCHAR}
@@ -634,4 +610,71 @@
 			</if>
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
+	
+	<!-- 统计订单数据 -->
+	<select id="calcuOrderDetail" resultMap="orderStatic" parameterType="com.dongnao.workbench.finance.model.OrderDetailQuery">
+		select
+				s.STORE_ID as storeId,
+				s.STORE_NAME as storeName,
+				aod.platform_type as platformType,
+				COUNT(DISTINCT aod.order_no)-sum(aod.is_invalid) as successOrderNum,	
+				sum(case when aod.is_invalid = '0' then aod.orgin_price else 0 end)
+				+sum(case when aod.is_invalid = '0' then aod.meal_fee else 0 end)
+				+sum(case when aod.is_invalid = '0' then aod.platform_dist_charge else 0 end)
+				+sum(case when aod.is_invalid = '0' then aod.merchant_dist_charge else 0 end) as successOrderAmount,
+				sum(aod.is_invalid) as failOrderNum,
+				sum(case when aod.is_invalid = '1' then aod.orgin_price else 0 end)
+				+sum(case when aod.is_invalid = '1' then aod.meal_fee else 0 end)
+				+sum(case when aod.is_invalid = '1' then aod.platform_dist_charge else 0 end)
+				+sum(case when aod.is_invalid = '1' then aod.merchant_dist_charge else 0 end) as failOrderAmount
+			from account_order_detail as aod
+			LEFT JOIN dn_store as s ON s.STORE_NAME = aod.store_name
+			LEFT JOIN basic_user_info as bui on bui.STORE_ID = s.STORE_ID
+					where 1=1 
+				<if test="queryTime != null and '' != queryTime"> 
+					and DATE_FORMAT(aod.order_time,'%Y-%m-%d') = DATE_FORMAT(#{queryTime,jdbcType=TIMESTAMP},'%Y-%m-%d')
+				</if>
+				<if test="username != null and '' != username">  
+					and bui.user_account = #{username,jdbcType=VARCHAR}
+				</if>
+				<if test="password != null and '' != password">  
+					and bui.password = #{password,jdbcType=VARCHAR}
+				</if>
+			GROUP BY s.STORE_NAME,aod.platform_type
+	</select>
+	
+	<select id="calcuOrderDetailNull" resultMap="orderStatic" parameterType="com.dongnao.workbench.finance.model.OrderDetailQuery">
+		select
+				s.STORE_ID as storeId,
+				s.STORE_NAME as storeName,
+				aod.platform_type as platformType,
+				0 as successOrderNum,	
+				0 as successOrderAmount,
+				0 as failOrderNum,
+				0 as failOrderAmount
+			from account_order_detail as aod
+			LEFT JOIN dn_store as s ON s.STORE_NAME = aod.store_name
+			LEFT JOIN basic_user_info as bui on bui.STORE_ID = s.STORE_ID
+					where 1=1 
+				<if test="username != null and '' != username">  
+					and bui.user_account = #{username,jdbcType=VARCHAR}
+				</if>
+				<if test="password != null and '' != password">  
+					and bui.password = #{password,jdbcType=VARCHAR}
+				</if>
+			GROUP BY s.STORE_NAME,aod.platform_type
+	</select>
+	
+	<!-- 统计商家排名 -->
+	<select id="staticStoreOrder" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.finance.model.AccountOrderDetail">
+		SELECT store_name as storeName, COUNT(DISTINCT order_no)-sum(is_invalid) AS orderNo
+			FROM account_order_detail
+			WHERE 1=1
+			<if test="null != createDate and createDate != ''">
+				and DATE_FORMAT(order_time, '%Y-%m-%d') = DATE_FORMAT(#{createDate,jdbcType=DATE},'%Y-%m-%d')
+			</if>
+			GROUP BY storeName
+			ORDER BY orderNo DESC
+			LIMIT 4
+	</select>
 </mapper>

@@ -13,10 +13,10 @@ var goodsModel = {url: "<m:url value='/accountOrderDetail/listAccountSaleGoods.d
 						colModel:[
 						{name : "id",hidden : true,key : true,label:"主键",index : "id"},						
 						{name : "storeName",label:"商户名称",index : "store_name"}, 
-						{name : "createDate",label:"日期",index : "create_date"},		
 						{name : "goodName",label:"菜品名称",index : "good_name"},	
 						{name : "goodNum",label:"销售数量",index : "good_num"},		
 						{name : "goodUnitPrice",label:"结算单价",index : "good_unit_price",formatter:Finance.formatAccountting},	
+						/* {name : "goodActualPrice",label:"实际支付单价",index : "good_actual_price",formatter:Finance.formatAccountting}, */	
 						{name:"goodsPrice",label:"销售额",formatter:Finance.formatAccountting},
 						{name : "platformType",label:"平台类型",index : "platform_type",formatter:GridColModelForMatter.platformType},
 				       	]};
@@ -44,6 +44,9 @@ var goodsModel = {url: "<m:url value='/accountOrderDetail/listAccountSaleGoods.d
 						<option value="${store.storeName}"> <c:out value="${store.storeName}"></c:out> </option>
 		             </c:forEach>
 				</select>
+				</li>
+				<li><span>菜品名称：</span>
+					<input type="text" name="goodsName">
 				</li>
 				<li>
 					<div class="time_bg">

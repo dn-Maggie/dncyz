@@ -81,7 +81,7 @@
 		from account_opera_simple_total as aos 
 		LEFT JOIN dn_store as s on s.STORE_NAME = aos.store_name
 		LEFT JOIN dn_brand as b on b.BRAND_ID = s.BRAND_ID
-		where 1=1
+		where s.is_delete = 0
 		<if test="id != null and '' != id">  
 			and aos.id = #{id,jdbcType=VARCHAR}
 		</if>
@@ -139,7 +139,7 @@
 		from account_opera_deep_total as aod
 		LEFT JOIN dn_store as s on s.STORE_NAME = aod.store_name
 		LEFT JOIN dn_brand as b on b.BRAND_ID = s.BRAND_ID
-			where 1=1
+			where s.is_delete = 0
 			<if test="id != null and '' != id">  
 				and aod.id = #{id,jdbcType=VARCHAR}
 			</if>

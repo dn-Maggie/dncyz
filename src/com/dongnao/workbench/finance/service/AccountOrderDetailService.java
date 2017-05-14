@@ -5,6 +5,8 @@ import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.model.AccountSaleGoods;
+import com.dongnao.workbench.finance.model.OrderDetailQuery;
+import com.dongnao.workbench.finance.model.OrderDetailStatic;
 
 /**
  * 描述：订单明细模块service接口，提供controller操作所需方法
@@ -59,4 +61,13 @@ public interface AccountOrderDetailService  {
 	 * @param accountOrderDetail AccountOrderDetail 实体对象
 	 */	
 	public ResultMessage updateActualDistCharge(AccountOrderDetail accountOrderDetail);
+	/**
+	 * 统计订单数据*/
+	public List<OrderDetailStatic> calcuOrderDetail(OrderDetailQuery odq);
+	/**
+	 *  统计商家排名*/
+	public List<AccountOrderDetail> staticStoreOrder(AccountOrderDetail orders);
+	/**
+	 * 统计订单数据(空值情况)*/
+	public List<OrderDetailStatic> calcuOrderDetailNull(OrderDetailQuery odq);
 }

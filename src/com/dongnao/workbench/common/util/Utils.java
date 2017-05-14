@@ -131,13 +131,19 @@ public class Utils {
 	 * @return true是系统管理员false为一般用户
 	 */
 	public static boolean isSuperAdmin(HttpServletRequest request) {
-		UserInfo info = getLoginUserInfo(request);
 		boolean isWebAdmin = false;
+		try{
+		UserInfo info = getLoginUserInfo(request);
+		
 		if(info.getUserAccount().equals(Constant.SUPER_ADMIN)){//如果是超级管理员
 			isWebAdmin = true;
 		}
 		request.setAttribute("isAdmin", isWebAdmin);
+		}catch(Exception e){
+			
+		}
 		return isWebAdmin;
+		
 	}
 	/**
 	 * 判断当前登陆对象是否为系统管理员

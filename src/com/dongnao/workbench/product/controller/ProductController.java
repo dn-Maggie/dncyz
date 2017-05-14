@@ -69,8 +69,7 @@ public class ProductController{
 	@RequestMapping("/addProduct")
 	public void add(Product product,HttpServletRequest request,HttpServletResponse response){
 	product.setProductId(Utils.generateUniqueID());
-	AjaxUtils.sendAjaxForObjectStr(
-				response,productService.add(product));		
+	AjaxUtils.sendAjaxForObjectStr(response,productService.add(product));		
 	}
 	
 	/**

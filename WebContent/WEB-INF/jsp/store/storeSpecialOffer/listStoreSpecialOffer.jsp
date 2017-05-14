@@ -39,7 +39,7 @@ var Model = {
 		List.openDialog(add_iframe_dialog);
   	}
   	function closeAdd(){
-		List.closeDialog(add_iframe_dialog);
+		List.closeDialog(add_iframe_dialog,gridObj);
 	}
     function edit(){
     	var key = ICSS.utils.getSelectRowData("id");
@@ -49,7 +49,7 @@ var Model = {
 		List.openDialog(edit_iframe_dialog);
     }
     function closeEdit(){
-		List.closeDialog(edit_iframe_dialog);
+    	List.closeDialog(edit_iframe_dialog,gridObj);
 	}
     
     function show(){

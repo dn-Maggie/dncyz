@@ -119,5 +119,7 @@
 	.ui-jqgrid-sortable{
 		font-weight:normal;
 	}
+	body{
+	    padding-bottom: 20px;}
 </style>
 <script src="<%=request.getContextPath() %>/js/ace-common.js"></script>

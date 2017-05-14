@@ -94,4 +94,10 @@ public class StoreServiceImpl implements StoreService{
 			return null;
 		}
 	}
+
+	/**
+	 * 统计商家数量*/ 
+	public List<Store> staticStoreNum(Store store) {
+		return storeMapper.staticStoreNum(store);
+	}
 }

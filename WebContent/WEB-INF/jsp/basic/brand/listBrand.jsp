@@ -3,6 +3,7 @@
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
+<%@ include file="../../common/ace.jsp"%>
 <title></title>
 <style type="text/css">
 	#breadcrumbs{
@@ -44,7 +45,7 @@ var Model = {
 		List.openDialog(add_iframe_dialog);
 	}
 	function closeAdd(){
-		List.closeDialog(add_iframe_dialog);
+		List.closeDialog(add_iframe_dialog,gridObj);
 	}
 	function edit(){
 		var key = ICSS.utils.getSelectRowData('brandId');
@@ -54,7 +55,7 @@ var Model = {
 		List.openDialog(edit_iframe_dialog);
 	}
 	function closeEdit(){
-		List.closeDialog(edit_iframe_dialog);
+		List.closeDialog(edit_iframe_dialog,gridObj);
 	}
 	function batchDelete(){
 		var id = ICSS.utils.getSelectRowData('brandId');

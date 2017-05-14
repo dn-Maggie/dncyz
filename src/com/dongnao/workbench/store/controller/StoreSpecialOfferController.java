@@ -45,6 +45,7 @@ public class StoreSpecialOfferController{
 	public ModelAndView toAdd(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/storeSpecialOffer/addStoreSpecialOffer");
 		Store store = new Store();
+	 	store.setIsDelete(0);
 		boolean isAdmin = true;
  		if(!Utils.isSuperAdmin(request)){
  			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
@@ -105,6 +106,7 @@ public class StoreSpecialOfferController{
 	public ModelAndView toList(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/storeSpecialOffer/listStoreSpecialOffer");
 		 Store store = new Store();
+		 	store.setIsDelete(0);
 			boolean isAdmin = true;
 	 		if(!Utils.isSuperAdmin(request)){
 	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
@@ -143,6 +145,7 @@ public class StoreSpecialOfferController{
 		Map<String,String> storeSpecialOffer = FormatEntity.getObjectValue(entity);
 		mv.addObject("storeSpecialOffer",storeSpecialOffer);
 		Store store = new Store();
+	 	store.setIsDelete(0);
  		if(!Utils.isSuperAdmin(request)){
  			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
 		}

@@ -1,5 +1,7 @@
 package com.dongnao.workbench.common;
 
+import java.util.Map;
+
 /**
  * 描述：常量类
  * 
@@ -8,6 +10,11 @@ package com.dongnao.workbench.common;
  * @version 1.0 2016-03-21
  */
 public class Constant {
+	/**
+	 * 外卖平台账号密码验证远程请求地址
+	 */
+	//public static final String URL_STORE_USERNAME_VALIDATE = "http://180.76.134.65:8090/merchant-system/order/validateUser";
+	public static final String URL_STORE_USERNAME_VALIDATE = "http://180.76.173.250:8101/merchant-system/order/validateUser";
 	/**
 	 * ResultMessage消息统一返回状态(0是失败)
 	 */
@@ -589,5 +596,8 @@ public class Constant {
 	 * 未删除
 	 */
 	public static final Integer ISACTIVE_1 = 1;
+	//登录用户组
+	public static Map UserMap;
+	public static int USERNum;
 
 }

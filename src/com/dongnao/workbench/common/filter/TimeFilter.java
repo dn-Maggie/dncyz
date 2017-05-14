@@ -1,6 +1,7 @@
 package com.dongnao.workbench.common.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -9,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
@@ -37,7 +39,17 @@ public class TimeFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
 		throws IOException, ServletException {
 		HttpServletRequest hreq = (HttpServletRequest) request;
+		HttpServletResponse rs = (HttpServletResponse) response;
 		long t1 = System.currentTimeMillis();  
+		if(request == null){
+			response.setContentType("text/html;charset=utf-8");  
+            PrintWriter out = response.getWriter(); 
+			out.println("<script language='javascript' type='text/javascript'>");  
+            out.println("alert('Session失效!请重新登录!');");  
+            out.println("</script>"); 
+ 			rs.sendRedirect(hreq.getContextPath() +"/tologin.do");
+        	return;
+ 		}
 		chain.doFilter(request, response);  
 		long t2 = System.currentTimeMillis(); 
 		log.debug("****** request ("+hreq.getRequestURI()+") finished with time(ms):"+(t2-t1));

@@ -27,9 +27,8 @@ var simpleTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaT
 					{name : "id",hidden : true,key : true,label:"主键",index : "id"},	
 					{name : "brandName",label:"品牌"},
 					{name : "storeName",label:"商户名称",index : "store_name"},
-					{name : "storeType",label:"店铺类型",index : "store_type"}, 	
+					{name : "storeType",label:"店铺类型",index : "store_type",formatter:GridColModelForMatter.storeType}, 	
 					{name : "storeDistMode",label:"配送方式"}, 
-					/* {name : "createDate",label:"日期",index : "create_date"}, */		
                   	{name : "invalidNum",label:"无效单",isBasic:true},				
 	 				{name : "validNum",label:"有效单",isBasic:true},	 
 	 				{name : "productSaleAmount",label:"产品销售金额",isBasic:true,editFlag:true,formatter:Finance.formatAccountting},				
@@ -52,9 +51,8 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 					{name : "id",hidden : true,key : true,label:"主键",index : "id"},	
 					{name : "brandName",label:"品牌"},
 					{name : "storeName",label:"商户名称",index : "store_name"},
-					{name : "storeType",label:"店铺类型",index : "store_type"}, 	
+					{name : "storeType",label:"店铺类型",index : "store_type",formatter:GridColModelForMatter.storeType}, 	
 					{name : "storeDistMode",label:"配送方式"}, 	
-					/* {name : "createDate",label:"日期",index : "create_date"}, */		
 					{name : "invalidNum",label:"无效单",isBasic:true},				
 					{name : "validNum",label:"有效单",isBasic:true},	 
 					{name : "productSaleAmount",label:"产品销售金额",isBasic:true,editFlag:true,formatter:Finance.formatAccountting},				

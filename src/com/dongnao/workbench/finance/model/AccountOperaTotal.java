@@ -1,5 +1,6 @@
 package com.dongnao.workbench.finance.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -51,67 +52,67 @@ public class AccountOperaTotal extends Model{
     /**
      * 平台承担线上活动费
      **/
-   			private String platformActivitiesCharge;
+   			private BigDecimal platformActivitiesCharge;
 	
     /**
      * 产品销售金额
      **/
-   			private String productSaleAmount;
+   			private BigDecimal productSaleAmount;
 	
     /**
      * 应收平台结算金额
      **/
-   			private String amountReceivable;
+   			private BigDecimal amountReceivable;
 	
     /**
      * 应付店铺结算金额
      **/
-   			private String amountPayable;
+   			private BigDecimal amountPayable;
 	
     /**
      * 公司收入(公司收取店铺服务费)
      **/
-   			private String cyzServiceCharge;
+   			private BigDecimal cyzServiceCharge;
 	
     /**
      * 自配送实际支付金额
      **/
-   			private String actualMerchantDistCharge;
+   			private BigDecimal actualMerchantDistCharge;
 	
     /**
      * 销售毛利
      **/
-   			private String saleGrossProfit;
+   			private BigDecimal saleGrossProfit;
 	
     /**
      * 自配送金额单价
      **/
-   			private String distPrice;
+   			private BigDecimal distPrice;
 	
     /**
      * 自配送金额
      **/
-   			private String distAll;
+   			private BigDecimal distAll;
 	
     /**
      * 自配送补差
      **/
-   			private String distDiff;
+   			private BigDecimal distDiff;
 	
     /**
      * 对外支付饿了么平台补贴服务费
      **/
-   			private String serviceAll;
+   			private BigDecimal serviceAll;
 	
     /**
      * 实际运营毛利
      **/
-   			private String profitAll;
+   			private BigDecimal profitAll;
 	
     /**
      * 竞价费用+短信推广
      **/
-   			private String otherAll;
+   			private BigDecimal otherAll;
 	
     /**
      * 备注
@@ -238,9 +239,9 @@ public class AccountOperaTotal extends Model{
 				
 					/**
 			* 获取 平台承担线上活动费
-			* @return String this.platformActivitiesCharge
+			* @return BigDecimal this.platformActivitiesCharge
 			*/
-			public String getPlatformActivitiesCharge(){
+			public BigDecimal getPlatformActivitiesCharge(){
 			return this.platformActivitiesCharge;
 			}
 			
@@ -248,7 +249,7 @@ public class AccountOperaTotal extends Model{
 			* 设置 平台承担线上活动费
 			* @param String platformActivitiesCharge 
 			*/
-			public void setPlatformActivitiesCharge(String platformActivitiesCharge){
+			public void setPlatformActivitiesCharge(BigDecimal platformActivitiesCharge){
 			this.platformActivitiesCharge = platformActivitiesCharge;
 			}
 				
@@ -260,7 +261,7 @@ public class AccountOperaTotal extends Model{
 			* 获取 产品销售金额
 			* @return String this.productSaleAmount
 			*/
-			public String getProductSaleAmount(){
+			public BigDecimal getProductSaleAmount(){
 			return this.productSaleAmount;
 			}
 			
@@ -268,7 +269,7 @@ public class AccountOperaTotal extends Model{
 			* 设置 产品销售金额
 			* @param String productSaleAmount 
 			*/
-			public void setProductSaleAmount(String productSaleAmount){
+			public void setProductSaleAmount(BigDecimal productSaleAmount){
 			this.productSaleAmount = productSaleAmount;
 			}
 				
@@ -280,7 +281,7 @@ public class AccountOperaTotal extends Model{
 			* 获取 应收平台结算金额
 			* @return String this.amountReceivable
 			*/
-			public String getAmountReceivable(){
+			public BigDecimal getAmountReceivable(){
 			return this.amountReceivable;
 			}
 			
@@ -288,7 +289,7 @@ public class AccountOperaTotal extends Model{
 			* 设置 应收平台结算金额
 			* @param String amountReceivable 
 			*/
-			public void setAmountReceivable(String amountReceivable){
+			public void setAmountReceivable(BigDecimal amountReceivable){
 			this.amountReceivable = amountReceivable;
 			}
 				
@@ -301,15 +302,15 @@ public class AccountOperaTotal extends Model{
 		* 获取 应付店铺结算金额
 		* @return String this.amountPayable
 		*/
-		public String getAmountPayable(){
+		public BigDecimal getAmountPayable(){
 		return this.amountPayable;
 		}
 		
 		/**
 		* 设置 应付店铺结算金额
-		* @param String amountPayable 
+		* @param BigDecimal amountPayable 
 		*/
-		public void setAmountPayable(String amountPayable){
+		public void setAmountPayable(BigDecimal amountPayable){
 		this.amountPayable = amountPayable;
 		}
 			
@@ -319,17 +320,17 @@ public class AccountOperaTotal extends Model{
 					
 					/**
 			* 获取 公司收入(公司收取店铺服务费)
-			* @return String this.cyzServiceCharge
+			* @return BigDecimal this.cyzServiceCharge
 			*/
-			public String getCyzServiceCharge(){
+			public BigDecimal getCyzServiceCharge(){
 			return this.cyzServiceCharge;
 			}
 			
 			/**
 			* 设置 公司收入(公司收取店铺服务费)
-			* @param String cyzServiceCharge 
+			* @param BigDecimal cyzServiceCharge 
 			*/
-			public void setCyzServiceCharge(String cyzServiceCharge){
+			public void setCyzServiceCharge(BigDecimal cyzServiceCharge){
 			this.cyzServiceCharge = cyzServiceCharge;
 			}
 				
@@ -340,17 +341,17 @@ public class AccountOperaTotal extends Model{
 					
 					/**
 			* 获取 自配送实际支付金额
-			* @return String this.actualMerchantDistCharge
+			* @return BigDecimal this.actualMerchantDistCharge
 			*/
-			public String getActualMerchantDistCharge(){
+			public BigDecimal getActualMerchantDistCharge(){
 			return this.actualMerchantDistCharge;
 			}
 			
 			/**
 			* 设置 自配送实际支付金额
-			* @param String actualMerchantDistCharge 
+			* @param BigDecimal actualMerchantDistCharge 
 			*/
-			public void setActualMerchantDistCharge(String actualMerchantDistCharge){
+			public void setActualMerchantDistCharge(BigDecimal actualMerchantDistCharge){
 			this.actualMerchantDistCharge = actualMerchantDistCharge;
 			}
 				
@@ -360,17 +361,17 @@ public class AccountOperaTotal extends Model{
 					
 					/**
 			* 获取 销售毛利
-			* @return String this.saleGrossProfit
+			* @return BigDecimal this.saleGrossProfit
 			*/
-			public String getSaleGrossProfit(){
+			public BigDecimal getSaleGrossProfit(){
 			return this.saleGrossProfit;
 			}
 			
 			/**
 			* 设置 销售毛利
-			* @param String saleGrossProfit 
+			* @param BigDecimal saleGrossProfit 
 			*/
-			public void setSaleGrossProfit(String saleGrossProfit){
+			public void setSaleGrossProfit(BigDecimal saleGrossProfit){
 			this.saleGrossProfit = saleGrossProfit;
 			}
 				
@@ -381,17 +382,17 @@ public class AccountOperaTotal extends Model{
 					
 					/**
 			* 获取 自配送金额单价
-			* @return String this.distPrice
+			* @return BigDecimal this.distPrice
 			*/
-			public String getDistPrice(){
+			public BigDecimal getDistPrice(){
 			return this.distPrice;
 			}
 			
 			/**
 			* 设置 自配送金额单价
-			* @param String distPrice 
+			* @param BigDecimal distPrice 
 			*/
-			public void setDistPrice(String distPrice){
+			public void setDistPrice(BigDecimal distPrice){
 			this.distPrice = distPrice;
 			}
 				
@@ -401,17 +402,17 @@ public class AccountOperaTotal extends Model{
 					
 					/**
 			* 获取 自配送金额
-			* @return String this.distAll
+			* @return BigDecimal this.distAll
 			*/
-			public String getDistAll(){
+			public BigDecimal getDistAll(){
 			return this.distAll;
 			}
 			
 			/**
 			* 设置 自配送金额
-			* @param String distAll 
+			* @param BigDecimal distAll 
 			*/
-			public void setDistAll(String distAll){
+			public void setDistAll(BigDecimal distAll){
 			this.distAll = distAll;
 			}
 				
@@ -421,17 +422,17 @@ public class AccountOperaTotal extends Model{
 					
 					/**
 			* 获取 自配送补差
-			* @return String this.distDiff
+			* @return BigDecimal this.distDiff
 			*/
-			public String getDistDiff(){
+			public BigDecimal getDistDiff(){
 			return this.distDiff;
 			}
 			
 			/**
 			* 设置 自配送补差
-			* @param String distDiff 
+			* @param BigDecimal distDiff 
 			*/
-			public void setDistDiff(String distDiff){
+			public void setDistDiff(BigDecimal distDiff){
 			this.distDiff = distDiff;
 			}
 				
@@ -441,17 +442,17 @@ public class AccountOperaTotal extends Model{
 					
 					/**
 			* 获取 对外支付饿了么平台补贴服务费
-			* @return String this.serviceAll
+			* @return BigDecimal this.serviceAll
 			*/
-			public String getServiceAll(){
+			public BigDecimal getServiceAll(){
 			return this.serviceAll;
 			}
 			
 			/**
 			* 设置 对外支付饿了么平台补贴服务费
-			* @param String serviceAll 
+			* @param BigDecimal serviceAll 
 			*/
-			public void setServiceAll(String serviceAll){
+			public void setServiceAll(BigDecimal serviceAll){
 			this.serviceAll = serviceAll;
 			}
 				
@@ -461,17 +462,17 @@ public class AccountOperaTotal extends Model{
 					
 					/**
 			* 获取 实际运营毛利
-			* @return String this.profitAll
+			* @return BigDecimal this.profitAll
 			*/
-			public String getProfitAll(){
+			public BigDecimal getProfitAll(){
 			return this.profitAll;
 			}
 			
 			/**
 			* 设置 实际运营毛利
-			* @param String profitAll 
+			* @param BigDecimal profitAll 
 			*/
-			public void setProfitAll(String profitAll){
+			public void setProfitAll(BigDecimal profitAll){
 			this.profitAll = profitAll;
 			}
 				
@@ -481,17 +482,17 @@ public class AccountOperaTotal extends Model{
 		
 					/**
 			* 获取 竞价费用+短信推广
-			* @return String this.otherAll
+			* @return BigDecimal this.otherAll
 			*/
-			public String getOtherAll(){
+			public BigDecimal getOtherAll(){
 			return this.otherAll;
 			}
 			
 			/**
 			* 设置 竞价费用+短信推广
-			* @param String otherAll 
+			* @param BigDecimal otherAll 
 			*/
-			public void setOtherAll(String otherAll){
+			public void setOtherAll(BigDecimal otherAll){
 			this.otherAll = otherAll;
 			}
 				

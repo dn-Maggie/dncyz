@@ -74,7 +74,6 @@ $(function() {
 });
 </script>
 <form id="userInfoFormEdit">
-	<hi:icssToken />
 	<div class="ui-table ui-widget ui-corner-all ui-border">
 		<table class="table">
 			<tr style="display: none;">

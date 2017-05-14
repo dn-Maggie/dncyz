@@ -3,6 +3,7 @@
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
+<%@ include file="../../common/ace.jsp"%>
 <title></title>
 <script type="text/javascript">
 var gridObj = {};

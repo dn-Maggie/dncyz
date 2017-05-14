@@ -22,6 +22,7 @@ public class AccountSpecialFood extends Model{
 	                 * 
 	                 **/
 				   			private String storeId;
+				   			private String orderNo;
 		   		
 		            /**
 	                 * 
@@ -47,22 +48,22 @@ public class AccountSpecialFood extends Model{
 		            /**
 	                 * 原单价
 	                 **/
-				   			private String orginPrice;
+				   			private BigDecimal orginPrice;
 		   		
 		            /**
 	                 * 结算单价
 	                 **/
-				   			private String settlementPrice;
+				   			private BigDecimal settlementPrice;
 		   		
 		            /**
 	                 * 特价菜原价
 	                 **/
-				   			private String specialOfferOrginPrice;
+				   			private BigDecimal specialOfferOrginPrice;
 		   		
 		            /**
 	                 * 特价菜结算
 	                 **/
-				   			private String specialOfferSettlement;
+				   			private BigDecimal specialOfferSettlement;
 		   		
 		            /**
 	                 * 平台类型
@@ -141,7 +142,7 @@ public class AccountSpecialFood extends Model{
 			
 			/**
 			 * 设置 特价菜品
-			 * @param String specialOfferFoodName 
+			 * @param BigDecimal specialOfferFoodName 
 			 */
 			public void setSpecialOfferFoodName(String specialOfferFoodName){
 				this.specialOfferFoodName = specialOfferFoodName;
@@ -188,17 +189,17 @@ public class AccountSpecialFood extends Model{
 						
 		  			/**
 			 * 获取 原单价
-			 * @return String this.orginPrice
+			 * @return BigDecimal this.orginPrice
 			 */
-			public String getOrginPrice(){
+			public BigDecimal getOrginPrice(){
 				return this.orginPrice;
 			}
 			
 			/**
 			 * 设置 原单价
-			 * @param String orginPrice 
+			 * @param BigDecimal orginPrice 
 			 */
-			public void setOrginPrice(String orginPrice){
+			public void setOrginPrice(BigDecimal orginPrice){
 				this.orginPrice = orginPrice;
 			}
 		   		
@@ -208,17 +209,17 @@ public class AccountSpecialFood extends Model{
 						
 		  			/**
 			 * 获取 结算单价
-			 * @return String this.settlementPrice
+			 * @return BigDecimal this.settlementPrice
 			 */
-			public String getSettlementPrice(){
+			public BigDecimal getSettlementPrice(){
 				return this.settlementPrice;
 			}
 			
 			/**
 			 * 设置 结算单价
-			 * @param String settlementPrice 
+			 * @param BigDecimal settlementPrice 
 			 */
-			public void setSettlementPrice(String settlementPrice){
+			public void setSettlementPrice(BigDecimal settlementPrice){
 				this.settlementPrice = settlementPrice;
 			}
 		   		
@@ -228,17 +229,17 @@ public class AccountSpecialFood extends Model{
 						
 		  			/**
 			 * 获取 特价菜原价
-			 * @return String this.specialOfferOrginPrice
+			 * @return BigDecimal this.specialOfferOrginPrice
 			 */
-			public String getSpecialOfferOrginPrice(){
+			public BigDecimal getSpecialOfferOrginPrice(){
 				return this.specialOfferOrginPrice;
 			}
 			
 			/**
 			 * 设置 特价菜原价
-			 * @param String specialOfferOrginPrice 
+			 * @param BigDecimal specialOfferOrginPrice 
 			 */
-			public void setSpecialOfferOrginPrice(String specialOfferOrginPrice){
+			public void setSpecialOfferOrginPrice(BigDecimal specialOfferOrginPrice){
 				this.specialOfferOrginPrice = specialOfferOrginPrice;
 			}
 		   		
@@ -248,17 +249,17 @@ public class AccountSpecialFood extends Model{
 						
 		  			/**
 			 * 获取 特价菜结算
-			 * @return String this.specialOfferSettlement
+			 * @return BigDecimal this.specialOfferSettlement
 			 */
-			public String getSpecialOfferSettlement(){
+			public BigDecimal getSpecialOfferSettlement(){
 				return this.specialOfferSettlement;
 			}
 			
 			/**
 			 * 设置 特价菜结算
-			 * @param String specialOfferSettlement 
+			 * @param BigDecimal specialOfferSettlement 
 			 */
-			public void setSpecialOfferSettlement(String specialOfferSettlement){
+			public void setSpecialOfferSettlement(BigDecimal specialOfferSettlement){
 				this.specialOfferSettlement = specialOfferSettlement;
 			}
 		   		
@@ -280,6 +281,14 @@ public class AccountSpecialFood extends Model{
 			 */
 			public void setPlatformType(String platformType){
 				this.platformType = platformType;
+			}
+
+			public String getOrderNo() {
+				return orderNo;
+			}
+
+			public void setOrderNo(String orderNo) {
+				this.orderNo = orderNo;
 			}
 		   		
 		

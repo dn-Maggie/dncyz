@@ -45,15 +45,18 @@ public class AccountSaleGoods extends Model{
 				   			private String goodName;
 		   		
 		            /**
-	                 * 结算单价
+	                 * 原价单价
 	                 **/
-				   			private String goodUnitPrice;
-		   		
+				   			private BigDecimal goodUnitPrice;
+		   			/**
+	                 * 实际结算单价
+	                 **/
+				   			private BigDecimal goodActualPrice;
 		            /**
 	                 * 销售数量
 	                 **/
 				   			private Integer goodNum;
-				   			private String goodsPrice;
+				   			private BigDecimal goodsPrice;
 		            /**
 	                 * 平台类型
 	                 **/
@@ -165,15 +168,15 @@ public class AccountSaleGoods extends Model{
 			 * 获取 结算单价
 			 * @return String this.goodUnitPrice
 			 */
-			public String getGoodUnitPrice(){
+			public BigDecimal getGoodUnitPrice(){
 				return this.goodUnitPrice;
 			}
 			
 			/**
 			 * 设置 结算单价
-			 * @param String goodUnitPrice 
+			 * @param BigDecimal goodUnitPrice 
 			 */
-			public void setGoodUnitPrice(String goodUnitPrice){
+			public void setGoodUnitPrice(BigDecimal goodUnitPrice){
 				this.goodUnitPrice = goodUnitPrice;
 			}
 		   		
@@ -217,11 +220,11 @@ public class AccountSaleGoods extends Model{
 				this.platformType = platformType;
 			}
 
-			public String getGoodsPrice() {
+			public BigDecimal getGoodsPrice() {
 				return goodsPrice;
 			}
 
-			public void setGoodsPrice(String goodsPrice) {
+			public void setGoodsPrice(BigDecimal goodsPrice) {
 				this.goodsPrice = goodsPrice;
 			}
 
@@ -231,6 +234,14 @@ public class AccountSaleGoods extends Model{
 
 			public void setCreateDate(Date createDate) {
 				this.createDate = createDate;
+			}
+
+			public BigDecimal getGoodActualPrice() {
+				return goodActualPrice;
+			}
+
+			public void setGoodActualPrice(BigDecimal goodActualPrice) {
+				this.goodActualPrice = goodActualPrice;
 			}
 		   		
 		

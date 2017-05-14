@@ -26,7 +26,7 @@ I18N = {
 	choose: "请选择...",
 	
 	msg_del_sucess: "成功删除所选的数据!",
-	msg_del_confirm: "确认要删除数据吗?",
+	msg_del_confirm: "删除行为不可逆，确定执行？",
 	msg_no_sel_del_record: "请先选择要删除的行!",
 	msg_no_sel_edit_record: "请先选择要编辑的行!",
 	msg_no_sel_view_record: "请先选择要查看的行!",

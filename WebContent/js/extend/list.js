@@ -88,10 +88,11 @@ List = {
 	    openDialog:function(dialog){
 	    	dialog.open();
 	    },
-	    closeDialog:function(dialog){
+	    closeDialog:function(dialog,gridObj){
 	    	dialog.close();
+	    	if(gridObj){List.doSearch(gridObj);}
 	    },
-	    batchDelete:function(id,url){
+	    batchDelete:function(id,url,gridObj){
     	var ids = id;
     	if(ids==""){
     		showMessage("请至少选择一条数据！");
@@ -103,12 +104,12 @@ List = {
         				url: url+"?key="+ids,
         				cache:false,
         				success: function(data, textStatus, jqXHR){
-        					List.doSearch();
+        					List.doSearch(gridObj);
     						showInfo("删除成功",3000);
         				}
         			});
     			}
-    		}}) ;   
+    		}});   
     	}
     },
     /**获取查询条件值*/

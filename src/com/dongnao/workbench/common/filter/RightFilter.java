@@ -1,6 +1,7 @@
 package com.dongnao.workbench.common.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.Filter;
@@ -78,6 +79,15 @@ public class RightFilter implements Filter {
 		}
 		uri = uri.replace(hreq.getContextPath(), "");
 		if ("/".equals(uri) || RightFilter.uriList.contains(uri)) {
+			if(request == null){
+				response.setContentType("text/html;charset=utf-8");  
+                PrintWriter out = response.getWriter(); 
+				out.println("<script language='javascript' type='text/javascript'>");  
+                out.println("alert('Session失效!请重新登录!');");  
+                out.println("</script>"); 
+	 			rs.sendRedirect(hreq.getContextPath() +"/tologin.do");
+	        	return;
+	 		}
 			chain.doFilter(request, response);
 			return;
 		}

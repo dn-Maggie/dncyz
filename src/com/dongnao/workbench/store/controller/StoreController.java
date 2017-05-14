@@ -17,6 +17,7 @@ import com.dongnao.workbench.basic.model.Brand;
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.basic.service.BrandService;
 import com.dongnao.workbench.basic.service.UserInfoService;
+import com.dongnao.workbench.common.Constant;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.excel.ImportExcelUtil;
 import com.dongnao.workbench.common.page.Page;
@@ -146,16 +147,21 @@ public class StoreController{
 	/**
 	 * 进入列表页面
 	 * @return ModelAndView
+	 * @throws IOException 
 	 */
 	@RequestMapping("/toListStore")
-	public ModelAndView toList(HttpServletRequest request){
+	public ModelAndView toList(HttpServletRequest request,HttpServletResponse  response) throws NullPointerException, IOException{
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/store/store/listStore");
 		 	Store store = new Store();
+		 	store.setIsDelete(0);
 		 	boolean isAdmin = true;
-	 		if(!Utils.isSuperAdmin(request)){
+	 		try{if(!Utils.isSuperAdmin(request)){
 	 			/*store.setOwnerUserId(Utils.getLoginUserInfoId(request));*/
 	 			isAdmin = false;
-			}
+			}}
+	 		catch(Exception e){
+	 				response.sendRedirect(request.getContextPath() +"/tologin.do");
+	 		}
 			mv.addObject("store",storeService.listByCondition(store));
 			mv.addObject("isAdmin",isAdmin);
 		 return mv;
@@ -373,7 +379,6 @@ public class StoreController{
 	 */	
 	@RequestMapping("/checkStoreAcocunt")
 	public void checkStoreAcocunt(@RequestBody String param,HttpServletRequest request,HttpServletResponse response){
-		String  url = "http://180.76.134.65:8090/merchant-system/order/validateUser";
-		AjaxUtils.sendAjaxForObjectStr(response, HttpRequest.sendPost(url, param));
+		AjaxUtils.sendAjaxForObjectStr(response, HttpRequest.sendPost(Constant.URL_STORE_USERNAME_VALIDATE, param));
 	}
 }

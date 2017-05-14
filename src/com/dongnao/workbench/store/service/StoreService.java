@@ -56,4 +56,7 @@ public interface StoreService  {
 	public int addStores(ArrayList<Store> storeList);
 
 	public List<StoreByPlatform> listStoreByPlatform(String platformType,Store store);
+	/**
+	 * 统计商家数量*/
+	public List<Store> staticStoreNum(Store store);
 }

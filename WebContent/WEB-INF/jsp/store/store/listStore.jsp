@@ -16,7 +16,8 @@ var Model = {
 			{name : "storeAddress",label:"店铺地址",index : "STORE_ADDRESS"},				
 			{name : "storeOwnerName",label:"店长姓名",index : "STORE_OWNER_NAME"},				
 			{name : "storeOwnerTel",label:"店长电话",index : "STORE_OWNER_TEL"},		
-			{name : "storeType",label:"店铺类型",index : "store_type"},		
+			{name : "storeType",label:"店铺类型",index : "store_type"
+				,formatter:GridColModelForMatter.storeType},		
 			{name : "proInvoiceFlag",label:"是否可以提供发票",index : "PRO_INVOICE_FLAG"
 				,formatter:GridColModelForMatter.yesno},				
 			{name : "remark",label:"备注",index : "REMARK"},				
@@ -45,7 +46,7 @@ var Model = {
 		List.openDialog(add_iframe_dialog);
   	}
   	function closeAdd(){
-		List.closeDialog(add_iframe_dialog);
+		List.closeDialog(add_iframe_dialog,gridObj);
 	}
   	
     function edit(){
@@ -56,7 +57,7 @@ var Model = {
 		List.openDialog(edit_iframe_dialog);
     }
     function closeEdit(){
-		List.closeDialog(edit_iframe_dialog);
+		List.closeDialog(edit_iframe_dialog,gridObj);
 	}
     function show(){
     	var key = ICSS.utils.getSelectRowData("storeId");
@@ -70,9 +71,13 @@ var Model = {
 	}
     //删除
     function batchDelete(){
-    	var id = ICSS.utils.getSelectRowData("storeId");
-    	var url = baseUrl+'/store/deleteStore.do';
-    	List.batchDelete(id, url);
+    	new biz.alert({type:"confirm",message:"确认删除该店铺？",title:I18N.promp,callback:function(result){
+			if(result){
+				var id = ICSS.utils.getSelectRowData("storeId");
+	        	var url = baseUrl+'/store/deleteStore.do';
+	        	List.batchDelete(id, url,gridObj);
+			}
+		}}) ;   
     }
     //导入excel数据
 	function importData(){

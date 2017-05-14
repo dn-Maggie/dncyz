@@ -61,6 +61,7 @@ public class OperaDateController{
 	public ModelAndView toListByDate(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listGoods");
 		 Store store = new Store();
+		 	store.setIsDelete(0);
 			boolean isAdmin = true;
 	 		if(!Utils.isSuperAdmin(request)){
 	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
@@ -78,6 +79,7 @@ public class OperaDateController{
 	public ModelAndView toListSpecialFood(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listAccountSpecialFood");
 		 Store store = new Store();
+		 	store.setIsDelete(0);
 			boolean isAdmin = true;
 	 		if(!Utils.isSuperAdmin(request)){
 	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
@@ -105,6 +107,7 @@ public class OperaDateController{
 	public ModelAndView toList(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listAccountOperateIncome");
 		 Store store = new Store();
+		 	store.setIsDelete(0);
 			boolean isAdmin = true;
 	 		if(!Utils.isSuperAdmin(request)){
 	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
@@ -122,6 +125,7 @@ public class OperaDateController{
 	public ModelAndView toListAllFromOrderDetail(HttpServletRequest request){
 		 ModelAndView mv = new ModelAndView("WEB-INF/jsp/finance/accountOperateIncome/listAccountOperateIncomeByTotal");
 		 Store store = new Store();
+		 	store.setIsDelete(0);
 			boolean isAdmin = true;
 	 		if(!Utils.isSuperAdmin(request)){
 	 			store.setOwnerUserId(Utils.getLoginUserInfoId(request));
@@ -357,10 +361,10 @@ public class OperaDateController{
 	public void exportExcel(OperaDate operaDate, ExpParamBean epb,
 			HttpServletRequest request, HttpServletResponse response, Page page)
 			throws Exception {		
+		//获取到处选择项
 		int expType = Integer.parseInt(request.getParameter("expType"));
-		if (expType == 1) {
-			operaDate.setPage(page);
-		}
+		//导出当前页数据
+		if (expType == 1) {operaDate.setPage(page);}
 		List<OperaDate> list = null;
 		try{
 			String gridId = request.getParameter("gridId");
@@ -376,7 +380,6 @@ public class OperaDateController{
 					ExcelExpUtils.exportListToExcel(specialList, response, epb.getFieldlist(),
 							filename, title);
 					return;
-					
 				case "#goods":
 					AccountOrderDetail accountOrderDetail = new AccountOrderDetail();
 					accountOrderDetail.setStoreName(operaDate.getStoreName());
@@ -386,7 +389,6 @@ public class OperaDateController{
 					ExcelExpUtils.exportListToExcel(goodsList, response, epb.getFieldlist(),
 							filename, title);
 					return;
-					
 				case "#deepOpera":
 					list = operaDateService.listDeepOperaByCondition(operaDate);
 					filename = "深运营表";

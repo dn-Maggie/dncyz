@@ -137,7 +137,7 @@ public class AccountOperateIncome extends Model{
 		            /**
 	                 * 自配送实际支付金额
 	                 **/
-				   			private String distributionActualPayment;
+				   			private BigDecimal distributionActualPayment;
 		   		
 		            /**
 	                 * 平台承担线上活动费
@@ -152,22 +152,22 @@ public class AccountOperateIncome extends Model{
 		            /**
 	                 * 应收取自配送金额
 	                 **/
-				   			private String shouldDistributionCharge;
+				   			private BigDecimal shouldDistributionCharge;
 		   		
 		            /**
 	                 * 实际按10元/单自配送金额
 	                 **/
-				   			private String cyzDistributionChargeActual;
+				   			private BigDecimal cyzDistributionChargeActual;
 		   		
 		            /**
 	                 * 按10元/单自配送金额补差
 	                 **/
-				   			private String diffDistributionCharge;
+				   			private BigDecimal diffDistributionCharge;
 		   		
 		            /**
 	                 * 平台补贴
 	                 **/
-				   			private String platformSubsidy;
+				   			private BigDecimal platformSubsidy;
 		   		
 		            /**
 	                 * 平台类型
@@ -631,17 +631,17 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 自配送实际支付金额
-			 * @return String this.distributionActualPayment
+			 * @return BigDecimal this.distributionActualPayment
 			 */
-			public String getDistributionActualPayment(){
+			public BigDecimal getDistributionActualPayment(){
 				return this.distributionActualPayment;
 			}
 			
 			/**
 			 * 设置 自配送实际支付金额
-			 * @param String distributionActualPayment 
+			 * @param BigDecimal distributionActualPayment 
 			 */
-			public void setDistributionActualPayment(String distributionActualPayment){
+			public void setDistributionActualPayment(BigDecimal distributionActualPayment){
 				this.distributionActualPayment = distributionActualPayment;
 			}
 		   		
@@ -691,9 +691,9 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 应收取自配送金额
-			 * @return String this.shouldDistributionCharge
+			 * @return BigDecimal this.shouldDistributionCharge
 			 */
-			public String getShouldDistributionCharge(){
+			public BigDecimal getShouldDistributionCharge(){
 				return this.shouldDistributionCharge;
 			}
 			
@@ -701,7 +701,7 @@ public class AccountOperateIncome extends Model{
 			 * 设置 应收取自配送金额
 			 * @param String shouldDistributionCharge 
 			 */
-			public void setShouldDistributionCharge(String shouldDistributionCharge){
+			public void setShouldDistributionCharge(BigDecimal shouldDistributionCharge){
 				this.shouldDistributionCharge = shouldDistributionCharge;
 			}
 		   		
@@ -711,9 +711,9 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 实际按10元/单自配送金额
-			 * @return String this.cyzDistributionChargeActual
+			 * @return BigDecimal this.cyzDistributionChargeActual
 			 */
-			public String getCyzDistributionChargeActual(){
+			public BigDecimal getCyzDistributionChargeActual(){
 				return this.cyzDistributionChargeActual;
 			}
 			
@@ -721,7 +721,7 @@ public class AccountOperateIncome extends Model{
 			 * 设置 实际按10元/单自配送金额
 			 * @param String cyzDistributionChargeActual 
 			 */
-			public void setCyzDistributionChargeActual(String cyzDistributionChargeActual){
+			public void setCyzDistributionChargeActual(BigDecimal cyzDistributionChargeActual){
 				this.cyzDistributionChargeActual = cyzDistributionChargeActual;
 			}
 		   		
@@ -731,9 +731,9 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 按10元/单自配送金额补差
-			 * @return String this.diffDistributionCharge
+			 * @return BigDecimal this.diffDistributionCharge
 			 */
-			public String getDiffDistributionCharge(){
+			public BigDecimal getDiffDistributionCharge(){
 				return this.diffDistributionCharge;
 			}
 			
@@ -741,7 +741,7 @@ public class AccountOperateIncome extends Model{
 			 * 设置 按10元/单自配送金额补差
 			 * @param String diffDistributionCharge 
 			 */
-			public void setDiffDistributionCharge(String diffDistributionCharge){
+			public void setDiffDistributionCharge(BigDecimal diffDistributionCharge){
 				this.diffDistributionCharge = diffDistributionCharge;
 			}
 		   		
@@ -751,9 +751,9 @@ public class AccountOperateIncome extends Model{
 						
 		  			/**
 			 * 获取 平台补贴
-			 * @return String this.platformSubsidy
+			 * @return BigDecimal this.platformSubsidy
 			 */
-			public String getPlatformSubsidy(){
+			public BigDecimal getPlatformSubsidy(){
 				return this.platformSubsidy;
 			}
 			
@@ -761,7 +761,7 @@ public class AccountOperateIncome extends Model{
 			 * 设置 平台补贴
 			 * @param String platformSubsidy 
 			 */
-			public void setPlatformSubsidy(String platformSubsidy){
+			public void setPlatformSubsidy(BigDecimal platformSubsidy){
 				this.platformSubsidy = platformSubsidy;
 			}
 		   		

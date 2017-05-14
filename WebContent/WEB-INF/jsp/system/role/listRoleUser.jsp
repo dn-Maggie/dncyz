@@ -14,8 +14,6 @@
 					id : "#remote_rowed",/*html部分table id*/
 					url : "<m:url value='/userInfo/listUserByRid.do'/>?roleRid=${roleRid}",/*grid初始化请求数据的远程地址*/
 					datatype : "json",/*数据类型，设置为json数据，默认为json*/
-					//navtype:"top" /*导航栏类型*/,
-					//height: gridHeight,
 					multiselect : false,
 					pager : '#remote_prowed' /*分页栏id*/,
 					rowList : [ 10, 15, 50, 100 ],//每页显示记录数
@@ -136,12 +134,11 @@
 							class="search_choose" style="width: 100px;" id="userAccount"
 							name="userAccount"></li>
 						<!-- 输入框-->
-						<li style="width: 200px;"><span style="width: 80px"><m:message code="user.userName" />:</span><input type="text" class="search_choose" style="width: 100px;" id="fullName"
+						<li style="width: 200px;"><span style="width: 80px"><m:message code="user.userName" />:</span><input type="text" class="search_choose" style="width: 80px;" id="fullName"
 							name="fullName"></li>
 						<!-- 输入框-->
-						<li style="width: 180px;"><input type="button" value="查询"
+						<li style="width:96px;"><input type="button" value="查询"
 							onclick="doSearch();" class="search_btn mr22 " /></li>
-
 						<li style="width: 70px;"><input type="reset" value="重置"
 							onClick="resetForm('queryForm')" class="reset_btn"></li>
 						<!-- 重置 -->

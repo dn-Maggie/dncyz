@@ -11,6 +11,8 @@ import com.dongnao.workbench.finance.dao.AccountCheckMapper;
 import com.dongnao.workbench.finance.dao.AccountOrderDetailMapper;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.model.AccountSaleGoods;
+import com.dongnao.workbench.finance.model.OrderDetailQuery;
+import com.dongnao.workbench.finance.model.OrderDetailStatic;
  
 /**
  * 描述：订单明细模块service接口实现类，实现service接口方法
@@ -87,5 +89,23 @@ public class AccountOrderDetailServiceImpl implements AccountOrderDetailService{
 	 */
 	public List<AccountSaleGoods> listGoods(AccountOrderDetail accountOrderDetail) {
 		return accountOrderDetailMapper.listGoods(accountOrderDetail);
+	}
+
+	/**
+	 * 统计订单数据*/
+	public List<OrderDetailStatic> calcuOrderDetail(OrderDetailQuery odq) {
+		return accountOrderDetailMapper.calcuOrderDetail(odq);
+	}
+
+	/**
+	 *  统计商家排名*/
+	public List<AccountOrderDetail> staticStoreOrder(AccountOrderDetail orders) {
+		return accountOrderDetailMapper.staticStoreOrder(orders);
+	}
+
+	/**
+	 * 统计订单数据（空值情况）*/
+	public List<OrderDetailStatic> calcuOrderDetailNull(OrderDetailQuery odq) {
+		return accountOrderDetailMapper.calcuOrderDetailNull(odq);
 	}
 }

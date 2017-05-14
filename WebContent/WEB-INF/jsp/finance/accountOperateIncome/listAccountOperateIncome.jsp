@@ -152,7 +152,7 @@ var deepOperaModel ={url: "<m:url value='/operaDate/listOperaDate.do'/>?type=dee
 							{name : "orderSaleRate",label:"结算比例",index : "order_sale_rate",editFlag:true,hidden:true,editable:true,formatter:Finance.formatAccountting,calculate:"0.65"},	
 							{name : "amountRatePayable",label:"品牌商家应收",index : "amount_rate_payable",editFlag:true,formatter:Finance.formatAccountting},		
 							{name : "cyzServiceChargeOperaPart",label:"运营应收",index : "cyz_service_charge_opera_part",editFlag:true,formatter:Finance.formatAccountting},	
-							{name : "distAll",label:"应付配送费",index : "dist_all",formatter:Finance.formatAccountting},	
+							{name : "distAll",label:"应付配送费",index : "dist_all",formatter:Finance.formatAccountting,editable:true},	
 							{name : "actualMerchantDistCharge",label:"自配送实际支付金额",index : "actual_merchant_dist_charge",editable:true},			
 							{name : "distDiff",label:"自配送实际支付差额",index : "dist_diff",formatter:Finance.formatAccountting},		
 							{name : "saleGrossProfit",label:"运营实收",index : "sale_gross_profit",editFlag:true,formatter:Finance.formatAccountting},			

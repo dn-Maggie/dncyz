@@ -23,10 +23,6 @@
 		    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=status'/>",
 		    value:"${role.states}"
 		});
-		/* new biz.select({//状态下拉
-		    id:"#edit_platformType",
-		    url:"<m:url value='/dictInfo/getDictByTypeCode.do?dictTypeCode=platformType'/>",
-		}); */
 		$(".knob").knob();
 		
 		/*编辑表单数据验证*/

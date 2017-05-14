@@ -187,11 +187,10 @@ jQuery(function($) {
 					<!-- .breadcrumb -->
 					<!-- #nav-search -->
 				</div>
-				<div class="" id="contentright">
-					<iframe style="*overflow-x: hidden; *table-layout: fixed; *word-wrap: break-word; word-break: break-all;"
-						id="iframepage" name="iframepage" frameBorder=0 width="100%"
-						height="100%" src="adminHomePage.do"> </iframe>
-				</div>
+			<div class="" id="contentright">
+			<iframe style="*overflow-x: hidden; *table-layout: fixed; *word-wrap: break-word; word-break: break-all;"
+					id="iframepage" name="iframepage" frameBorder=0 width="100%" height="100%" src="adminHomePage.do"> </iframe>
+			</div>
 				<!-- /.page-content -->
 			</div>
 			<!-- /.main-content -->
@@ -337,12 +336,12 @@ jQuery(function($) {
 			}
 		}
 		function cmainFrame() {
-			$('#contentright').height(pageHeight() - 132);
+			$('#contentright').height(pageHeight() -90);
 			var hmain = document.getElementById("iframepage");
 			hmain.style.width = '100%';
-			hmain.style.height = (pageHeight() - 132) + 'px';
-			/* hmain.style.overflowX='none';
-			hmain.style.overflowY='scroll'; */
+			hmain.style.height = (pageHeight()-90) + 'px';
+			hmain.style.overflowX='none';
+			hmain.style.overflowY='scroll';
 		}
 		//保存缩放菜单状态
 		function menusf() {

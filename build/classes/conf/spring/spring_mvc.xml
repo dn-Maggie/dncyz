@@ -91,6 +91,7 @@
 				<value>/userInfo/toEditPassWord.do</value>
 				<value>/productClass/toProductManage.do</value>
 				<value>/store/listStoreByPlatform.do</value>
+				<value>/config/calcuOrderDetail.do</value>
 			</list>
 		</property>
 	</bean>

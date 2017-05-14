@@ -28,16 +28,21 @@ $(function() {
 	
 	
 	$('.pwd').on('blur', function(){
+		//验证平台账号密码
 		var platformType = $(this).attr('name');
 		switch (platformType) {
-			case "elmPwd": platformType = 'elm'; break;
-			case "meituanPwd":platformType = 'mt'; break;
+			case "elmPwd": platformType = 'elm'; showInfo("正在检测，请稍后...");break;
+			case "meituanPwd":platformType = 'mt'; showInfo("正在检测，请稍后...");break;
 			/*case "baidupwd":platformType = 'bdwm'; break;*/
 			default:return false;
 		}
 		var url = "<m:url value='/store/checkStoreAcocunt.do'/>";
 		var password = $(this).val();
 		var username = $(this).parents('tr').find('.username').val();
+		if(username==""||password==""){
+			showMessage("请输入账号密码！",2000);
+			return false;
+		}
 		var paramData = {
 			username:username,
 			password:password,
@@ -52,7 +57,7 @@ $(function() {
 	 		   contentType :"application/json; charset=utf-8",
 	           error: function(d) {
 	        	   	var pType = JSON.parse(this.data).platformType=="elm"?"elm":"meituan";
-	           		showMessage("验证账号失败");
+	           		showMessage("验证账号失败！");
 	           	 $("input[name="+pType+"Pwd]").parents('tr').find('i')
 				   .removeClass("icon-unchecked").removeClass("green")
 				   .addClass("red").addClass("icon-stop");
@@ -60,9 +65,11 @@ $(function() {
 			   success:function(d){
 					var pType = JSON.parse(this.data).platformType=="elm"?"elm":"meituan";
 				   if(d.respCode == "0000"){
+					   showMessage("账号验证成功！");
+					   debugger;
 					   $("input[name="+pType+"Pwd]").parents('tr').find('i')
 					   .removeClass("icon-unchecked").removeClass("red").removeClass("icon-stop")
-					   .addClass("icon-check-sign".addClass("green"));
+					   .addClass("icon-check-sign").addClass("green");
 				   }else{
 					   showMessage("账号密码不正确");
 					   $("input[name="+pType+"Pwd]").parents('tr').find('i')
@@ -73,8 +80,13 @@ $(function() {
 			   }
  		});
 	});
-	
-	
+	$("#edit_userAccount").on('change',function(e, info){
+		var userAccount = $("#edit_userAccount").val()
+		if (ajaxGetUserInfoByUserAccount(userAccount)) {
+			showMessage("登录账户已经存在，请重新输入.");
+			return;
+		} 
+	})
 	$('#fuelux-wizard').ace_wizard().on('change' , function(e, info){
 		//首次保存第一页基础资料
 		if(info.step == 1 && info.direction == "next" && $('#edit_storeId').val().length==0 &&$('#edit_storeName').val().length>0) {
@@ -91,6 +103,7 @@ $(function() {
 				},
 			};
 			$('#basicMessForm').ajaxSubmit(options);
+			List.doSearch(window.parent.gridObj);
 		}
 		if(info.step == 2 && info.direction == "next" && $('#edit_storeId').val().length>0) {
 			//修改店铺资料
@@ -176,7 +189,24 @@ $(function() {
 		};
 		$(this).parent('#realImageForm').ajaxSubmit(options);
 	});
-
+	function ajaxGetUserInfoByUserAccount(userAccount) {
+		var b = false;
+		if (userAccount != null && userAccount != "") {
+			$.ajax({
+			url : "<m:url value='/userInfo/ajaxGetUserInfoByUserAccount.do'/>?userAccount="
+					+ userAccount,
+			cache : false,
+			async : false,
+			success : function(data, textStatus, jqXHR) {
+				if (data == "true") {
+					showMessage("登录账户已经存在，请重新输入.");
+					b = true;
+				}
+			}
+		});
+		};
+		return b;
+	}
 	/*编辑表单数据验证*/
 	  new biz.validate({
 		id:"#basicMessForm",
@@ -230,11 +260,6 @@ $(function() {
 					 	<tr>	
 					 		<td class="inputLabelTd"><span class="required">*</span>店铺账号：</td>
 							<td class="inputTd">
-								<!-- select class="search_select" name="ownerUserId" id="edit_ownerUserId">
-									<c:forEach items="${user}" var="user">
-										<option value="${user.id}"><c:out value="${user.userAccount}"></c:out></option>
-									</c:forEach>
-								</select-->
 								<input id="edit_userAccount" name="userAccount" type="text" class="text" placeholder="请用英文与数字组合" title="请用英文与数字组合"/>
 							</td>
 							<td class="inputLabelTd"><span class="required">*</span>店铺名称：</td>
@@ -258,87 +283,6 @@ $(function() {
 										<option value="${brand.brandId}"> <c:out value="${brand.brandName}"></c:out> </option>
 						             </c:forEach>
 								</select>
-							</td>
-						</tr>
-						<tr>
-							<td class="inputLabelTd"><span class="required">*</span>所属商圈：</td>
-							<td class="inputTd">
-								<input id="edit_businessArea" name="businessArea" type="text" class="text" value="${store.businessArea}" list="businessAreaList"/>
-								<datalist id="businessAreaList">
-									<option value="五一商圈"></option>
-								</datalist>
-							</td>
-							<td class="inputLabelTd">店铺地址：</td>
-							<td class="inputTd">
-								<input id="edit_storeAddress" name="storeAddress" type="text" class="text" value="${store.storeAddress}"/>
-							</td>
-						</tr>
-						<tr>
-							<td class="inputLabelTd"><span class="required">*</span>配送方式：</td>
-							<td class="inputTd">
-								<input id="edit_storeDistMode" name="storeDistMode" type="text" class="text" value="${store.storeDistMode}" list="distModeList"/>
-								<datalist id="distModeList">
-									<option value="自配送"></option>
-									<option value="自配送（饿了么、百度）"></option>
-									<option value="自配送（饿了么、美团）"></option>
-									<option value="专送"></option>
-									<option value="专送（美团）"></option>
-								</datalist>
-							</td>
-							<td class="inputLabelTd"><span class="required">*</span>店铺类型：</td>
-							<td class="inputTd">
-								<select id="edit_storeType" name="storeType"  class="search_select">
-									<option value="1">夜宵</option>
-									<option value="2">正餐</option>
-									<option value="3">沙拉类</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td class="inputLabelTd"><span class="required">*</span>营业时间起：</td>
-							<td class="inputTd">
-								<div class="input-group bootstrap-timepicker">
-									<input class="timepicker text" name="workTimeBegin" id="edit_workTimeBegin" type="text" />
-									<span>
-										<i class="icon-time bigger-110"></i>
-									</span>
-								</div>
-							</td>
-							<td class="inputLabelTd"><span class="required">*</span>营业时间止：</td>
-							<td class="inputTd">
-								<div class="input-group bootstrap-timepicker">
-									<input class="timepicker text" name="workTimeEnd" id="edit_workTimeEnd" type="text" />
-									<span>
-										<i class="icon-time bigger-110"></i>
-									</span>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td class="inputLabelTd">店长姓名：</td>
-							<td class="inputTd">
-								<input id="edit_storeOwnerName" name="storeOwnerName" type="text" class="text" value="${store.storeOwnerName}"/>
-							</td>
-							<td class="inputLabelTd">店长电话：</td>
-							<td class="inputTd">
-								<span class="input-icon">
-									<input id="edit_storeOwnerTel" name="storeOwnerTel" type="text" class="text" value="${store.storeOwnerTel}"/>
-									<i class="icon-phone green"></i>
-								</span>
-							</td>
-						</tr>
-						<tr>
-							<td class="inputLabelTd">结算方式：</td>
-							<td class="inputTd">
-								<select class="search_select" name="settlementMethod" id="edit_settlementMethod">
-								</select>
-							</td>
-							<td class="inputLabelTd">是否可以提供发票：</td>
-							<td class="inputTd">
-								<label>
-									<input id="edit_proInvoiceFlag" name="proInvoiceFlag" class="ace ace-switch ace-switch-5" type="checkbox" />
-									<span class="lbl"></span>
-								</label>
 							</td>
 						</tr>
 						<tr>
@@ -371,6 +315,88 @@ $(function() {
 								<input id="edit_remark" name="remark" type="text" class="text" value="${store.remark}"/>
 							</td>
 						</tr>
+						<tr>
+							<td class="inputLabelTd"><span class="required">*</span>所属商圈：</td>
+							<td class="inputTd">
+								<input id="edit_businessArea" name="businessArea" type="text" class="text" value="${store.businessArea}" list="businessAreaList"/>
+								<datalist id="businessAreaList">
+									<option value="五一商圈"></option>
+								</datalist>
+							</td>
+							<td class="inputLabelTd">店铺地址：</td>
+							<td class="inputTd">
+								<input id="edit_storeAddress" name="storeAddress" type="text" class="text" value="${store.storeAddress}"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="inputLabelTd"><span class="required">*</span>配送方式：</td>
+							<td class="inputTd">
+								<input id="edit_storeDistMode" name="storeDistMode" type="text" class="text" value="${store.storeDistMode}" list="distModeList"/>
+								<datalist id="distModeList">
+									<option value="自配送"></option>
+									<option value="自配送（饿了么、百度）"></option>
+									<option value="自配送（饿了么、美团）"></option>
+									<option value="专送"></option>
+									<option value="专送（美团）"></option>
+								</datalist>
+							</td>
+							<td class="inputLabelTd"><span class="required">*</span>店铺类型：</td>
+							<td class="inputTd">
+								<select id="edit_storeType" name="storeType"  class="search_select">
+									<option value="1">夜宵</option>
+									<option value="2">正餐</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="inputLabelTd"><span class="required">*</span>营业时间起：</td>
+							<td class="inputTd">
+								<div class="input-group bootstrap-timepicker">
+									<input class="timepicker text" name="workTimeBegin" id="edit_workTimeBegin" type="text" />
+									<span>
+										<i class="icon-time bigger-110"></i>
+									</span>
+								</div>
+							</td>
+							<td class="inputLabelTd"><span class="required">*</span>营业时间止：</td>
+							<td class="inputTd">
+								<div class="input-group bootstrap-timepicker">
+									<input class="timepicker text" name="workTimeEnd" id="edit_workTimeEnd" type="text" />
+									<span>
+										<i class="icon-time bigger-110"></i>
+									</span>
+								</div>
+							</td>
+						</tr>
+						
+						<tr>
+							<td class="inputLabelTd">店长姓名：</td>
+							<td class="inputTd">
+								<input id="edit_storeOwnerName" name="storeOwnerName" type="text" class="text" value="${store.storeOwnerName}"/>
+							</td>
+							<td class="inputLabelTd">店长电话：</td>
+							<td class="inputTd">
+								<span class="input-icon">
+									<input id="edit_storeOwnerTel" name="storeOwnerTel" type="text" class="text" value="${store.storeOwnerTel}"/>
+									<i class="icon-phone green"></i>
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="inputLabelTd">结算方式：</td>
+							<td class="inputTd">
+								<select class="search_select" name="settlementMethod" id="edit_settlementMethod">
+								</select>
+							</td>
+							<td class="inputLabelTd">是否可以提供发票：</td>
+							<td class="inputTd">
+								<label>
+									<input id="edit_proInvoiceFlag" name="proInvoiceFlag" class="ace ace-switch ace-switch-5" type="checkbox" />
+									<span class="lbl"></span>
+								</label>
+							</td>
+						</tr>
+						
 					</table>
 				</div>
 				<div class="step-pane" id="step2">
@@ -407,7 +433,7 @@ $(function() {
 							<td class="inputTd">
 								<span class="input-icon">
 									<input id="edit_elmId" name="elmId" type="text" class="text" value="${store.elmId}"/>
-									<i class="icon-unchecked green"></i>
+									<i class="icon-check-sign green"></i>
 								</span>
 							</td>
 						</tr>

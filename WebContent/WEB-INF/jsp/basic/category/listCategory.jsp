@@ -3,6 +3,7 @@
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
+<%@ include file="../../common/ace.jsp"%>
 <title></title>
 <script type="text/javascript">
 var gridObj = {};
@@ -30,7 +31,7 @@ var Model = {
 		List.openDialog(add_iframe_dialog);
   	}
   	function closeAdd(){
-		List.closeDialog(add_iframe_dialog);
+  		List.closeDialog(add_iframe_dialog,gridObj);
 	}
     function edit(){
     	var key = ICSS.utils.getSelectRowData("categoryId");
@@ -40,7 +41,7 @@ var Model = {
 		List.openDialog(edit_iframe_dialog);
     }
     function closeEdit(){
-		List.closeDialog(edit_iframe_dialog);
+    	List.closeDialog(edit_iframe_dialog,gridObj);
 	}
     function show(){
     	var key = ICSS.utils.getSelectRowData("categoryId");
