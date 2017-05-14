@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dongnao.workbench.common.bean.RespMess;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.DateUtil;
-import com.dongnao.workbench.common.util.MD5Encryption;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.finance.model.AccountOrderDetail;
 import com.dongnao.workbench.finance.model.OrderDetailQuery;
@@ -89,7 +88,7 @@ public class ConfigController{
 			//否则看自己所属账号下的店铺
 			else{
 				odq.setUsername(new String(odq.getUsername().getBytes("ISO-8859-1"),"utf-8"));
-				odq.setPassword(MD5Encryption.MD5(odq.getPassword()));
+				odq.setPassword(odq.getPassword());
 			}
 			
 			List<OrderDetailStatic> osList = accountOrderDetailService.calcuOrderDetail(odq);

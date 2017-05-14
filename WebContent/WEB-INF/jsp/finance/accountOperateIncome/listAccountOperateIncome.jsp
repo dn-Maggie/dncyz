@@ -227,7 +227,6 @@ var platformAccountModel = {
 		$(".listtable_box").html("");
 		$(".listtable_box").html('<table id="'+ways+'" ></table><div id="'+ways+'prowed"></div>');
 		gridObj = Finance.loadConfigGrid(ways,colModel,true,true,baseUrl+"/operaDate/updateOperaDate.do?type="+ways);
-		debugger;
 		$("#"+ways).setColProp('calculate');
 		$("#"+ways).setColProp('isBasic');
 		$("#"+ways).setColProp('editFlag');
@@ -250,7 +249,6 @@ var platformAccountModel = {
   	}
     //导出运营明细数据
     function exportData(){
-    	debugger;
     	ExpExcel.showWin(gridObj,baseUrl+"/operaDate/exportExcel.do",'grid',gridObj.id);
     }
   	//获取表头	

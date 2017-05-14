@@ -112,12 +112,12 @@ public class OperaDate extends Model{
 		            /**
 	                 * 产品销售金额
 	                 **/
-				   			private BigDecimal productSaleAmount;
+				   			private String productSaleAmount;
 		   		
 		            /**
 	                 * 应收平台结算金额
 	                 **/
-				   			private BigDecimal amountReceivable;
+				   			private String amountReceivable;
 		   		
 		            /**
 	                 * 结算比例
@@ -127,27 +127,27 @@ public class OperaDate extends Model{
 		            /**
 	                 * (结算比例)*结算金额
 	                 **/
-				   			private BigDecimal amountRatePayable;
+				   			private String amountRatePayable;
 		   		
 		            /**
 	                 * 应付店铺结算金额
 	                 **/
-				   			private BigDecimal amountPayable;
+				   			private String amountPayable;
 		   		
 		            /**
 	                 * 公司收入(公司收取店铺服务费)
 	                 **/
-				   			private BigDecimal cyzServiceCharge;
+				   			private String cyzServiceCharge;
 		   		
 		            /**
 	                 * 公司收入(工厂应收)
 	                 **/
-				   			private BigDecimal cyzServiceChargeIndustryPart;
+				   			private String cyzServiceChargeIndustryPart;
 		   		
 		            /**
 	                 * 公司收入(运营应收)
 	                 **/
-				   			private BigDecimal cyzServiceChargeOperaPart;
+				   			private String cyzServiceChargeOperaPart;
 		   		
 		            /**
 	                 * 自配送实际支付金额
@@ -157,7 +157,7 @@ public class OperaDate extends Model{
 		            /**
 	                 * 销售毛利
 	                 **/
-				   			private BigDecimal saleGrossProfit;
+				   			private String saleGrossProfit;
 		   		
 		            /**
 	                 * 毛利率
@@ -182,12 +182,12 @@ public class OperaDate extends Model{
 		            /**
 	                 * 对外支付饿了么平台补贴服务费
 	                 **/
-				   			private BigDecimal serviceAll;
+				   			private String serviceAll;
 		   		
 		            /**
 	                 * 实际运营毛利
 	                 **/
-				   			private BigDecimal profitAll;
+				   			private String profitAll;
 		   		
 		            /**
 	                 * 竞价费用+短信推广
@@ -595,15 +595,15 @@ public class OperaDate extends Model{
 			 * 获取 产品销售金额
 			 * @return BigDecimal this.productSaleAmount
 			 */
-			public BigDecimal getProductSaleAmount(){
+			public String getProductSaleAmount(){
 				return this.productSaleAmount;
 			}
 			
 			/**
 			 * 设置 产品销售金额
-			 * @param BigDecimal productSaleAmount 
+			 * @param String productSaleAmount 
 			 */
-			public void setProductSaleAmount(BigDecimal productSaleAmount){
+			public void setProductSaleAmount(String productSaleAmount){
 				this.productSaleAmount = productSaleAmount;
 			}
 		   		
@@ -613,9 +613,9 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 应收平台结算金额
-			 * @return BigDecimal this.amountReceivable
+			 * @return String this.amountReceivable
 			 */
-			public BigDecimal getAmountReceivable(){
+			public String getAmountReceivable(){
 				return this.amountReceivable;
 			}
 			
@@ -623,7 +623,7 @@ public class OperaDate extends Model{
 			 * 设置 应收平台结算金额
 			 * @param BigDecimal amountReceivable 
 			 */
-			public void setAmountReceivable(BigDecimal amountReceivable){
+			public void setAmountReceivable(String amountReceivable){
 				this.amountReceivable = amountReceivable;
 			}
 		   		
@@ -653,9 +653,9 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 (结算比例)*结算金额
-			 * @return BigDecimal this.amountRatePayable
+			 * @return String this.amountRatePayable
 			 */
-			public BigDecimal getAmountRatePayable(){
+			public String getAmountRatePayable(){
 				return this.amountRatePayable;
 			}
 			
@@ -663,7 +663,7 @@ public class OperaDate extends Model{
 			 * 设置 (结算比例)*结算金额
 			 * @param BigDecimal amountRatePayable 
 			 */
-			public void setAmountRatePayable(BigDecimal amountRatePayable){
+			public void setAmountRatePayable(String amountRatePayable){
 				this.amountRatePayable = amountRatePayable;
 			}
 		   		
@@ -675,15 +675,15 @@ public class OperaDate extends Model{
 			 * 获取 应付店铺结算金额
 			 * @return BigDecimal this.amountPayable
 			 */
-			public BigDecimal getAmountPayable(){
+			public String getAmountPayable(){
 				return this.amountPayable;
 			}
 			
 			/**
 			 * 设置 应付店铺结算金额
-			 * @param BigDecimal amountPayable 
+			 * @param String amountPayable 
 			 */
-			public void setAmountPayable(BigDecimal amountPayable){
+			public void setAmountPayable(String amountPayable){
 				this.amountPayable = amountPayable;
 			}
 		   		
@@ -695,7 +695,7 @@ public class OperaDate extends Model{
 			 * 获取 公司收入(公司收取店铺服务费)
 			 * @return BigDecimal this.cyzServiceCharge
 			 */
-			public BigDecimal getCyzServiceCharge(){
+			public String getCyzServiceCharge(){
 				return this.cyzServiceCharge;
 			}
 			
@@ -703,7 +703,7 @@ public class OperaDate extends Model{
 			 * 设置 公司收入(公司收取店铺服务费)
 			 * @param BigDecimal cyzServiceCharge 
 			 */
-			public void setCyzServiceCharge(BigDecimal cyzServiceCharge){
+			public void setCyzServiceCharge(String cyzServiceCharge){
 				this.cyzServiceCharge = cyzServiceCharge;
 			}
 		   		
@@ -715,15 +715,15 @@ public class OperaDate extends Model{
 			 * 获取 公司收入(工厂应收)
 			 * @return BigDecimal this.cyzServiceChargeIndustryPart
 			 */
-			public BigDecimal getCyzServiceChargeIndustryPart(){
+			public String getCyzServiceChargeIndustryPart(){
 				return this.cyzServiceChargeIndustryPart;
 			}
 			
 			/**
 			 * 设置 公司收入(工厂应收)
-			 * @param BigDecimal cyzServiceChargeIndustryPart 
+			 * @param String cyzServiceChargeIndustryPart 
 			 */
-			public void setCyzServiceChargeIndustryPart(BigDecimal cyzServiceChargeIndustryPart){
+			public void setCyzServiceChargeIndustryPart(String cyzServiceChargeIndustryPart){
 				this.cyzServiceChargeIndustryPart = cyzServiceChargeIndustryPart;
 			}
 		   		
@@ -733,9 +733,9 @@ public class OperaDate extends Model{
 						
 		  			/**
 			 * 获取 公司收入(运营应收)
-			 * @return BigDecimal this.cyzServiceChargeOperaPart
+			 * @return String this.cyzServiceChargeOperaPart
 			 */
-			public BigDecimal getCyzServiceChargeOperaPart(){
+			public String getCyzServiceChargeOperaPart(){
 				return this.cyzServiceChargeOperaPart;
 			}
 			
@@ -743,7 +743,7 @@ public class OperaDate extends Model{
 			 * 设置 公司收入(运营应收)
 			 * @param BigDecimal cyzServiceChargeOperaPart 
 			 */
-			public void setCyzServiceChargeOperaPart(BigDecimal cyzServiceChargeOperaPart){
+			public void setCyzServiceChargeOperaPart(String cyzServiceChargeOperaPart){
 				this.cyzServiceChargeOperaPart = cyzServiceChargeOperaPart;
 			}
 		   		
@@ -775,7 +775,7 @@ public class OperaDate extends Model{
 			 * 获取 销售毛利
 			 * @return BigDecimal this.saleGrossProfit
 			 */
-			public BigDecimal getSaleGrossProfit(){
+			public String getSaleGrossProfit(){
 				return this.saleGrossProfit;
 			}
 			
@@ -783,7 +783,7 @@ public class OperaDate extends Model{
 			 * 设置 销售毛利
 			 * @param BigDecimal saleGrossProfit 
 			 */
-			public void setSaleGrossProfit(BigDecimal saleGrossProfit){
+			public void setSaleGrossProfit(String saleGrossProfit){
 				this.saleGrossProfit = saleGrossProfit;
 			}
 		   		
@@ -875,7 +875,7 @@ public class OperaDate extends Model{
 			 * 获取 对外支付饿了么平台补贴服务费
 			 * @return BigDecimal this.serviceAll
 			 */
-			public BigDecimal getServiceAll(){
+			public String getServiceAll(){
 				return this.serviceAll;
 			}
 			
@@ -883,7 +883,7 @@ public class OperaDate extends Model{
 			 * 设置 对外支付饿了么平台补贴服务费
 			 * @param BigDecimal serviceAll 
 			 */
-			public void setServiceAll(BigDecimal serviceAll){
+			public void setServiceAll(String serviceAll){
 				this.serviceAll = serviceAll;
 			}
 		   		
@@ -895,7 +895,7 @@ public class OperaDate extends Model{
 			 * 获取 实际运营毛利
 			 * @return BigDecimal this.profitAll
 			 */
-			public BigDecimal getProfitAll(){
+			public String getProfitAll(){
 				return this.profitAll;
 			}
 			
@@ -903,7 +903,7 @@ public class OperaDate extends Model{
 			 * 设置 实际运营毛利
 			 * @param BigDecimal profitAll 
 			 */
-			public void setProfitAll(BigDecimal profitAll){
+			public void setProfitAll(String profitAll){
 				this.profitAll = profitAll;
 			}
 		   		

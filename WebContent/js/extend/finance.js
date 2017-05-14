@@ -51,7 +51,6 @@ Finance = {
 	           		paramDatas[name] = val;
 	           		paramDatas.id = rowid;
 	           		paramDatas.storeName = rowid.substr(19).replace(/elm$|bdwm$|mt$/,'');
-	           		debugger;
 	           		$ .ajax({
 	           			type: "post",
 	    				url: editURL,

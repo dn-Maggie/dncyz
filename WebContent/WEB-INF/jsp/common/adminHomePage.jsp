@@ -1,11 +1,13 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="/WEB-INF/tld/c.tld"%>
+<%@page import="com.dongnao.workbench.common.util.Utils"%>
 <%@ taglib prefix="fmt" uri="/WEB-INF/tld/fmt.tld"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <%@ include file="header.jsp"%>
 <%@ include file="ace.jsp"%>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
@@ -108,7 +110,7 @@
 			width: 300px;
 			border: 1px solid #ccc;
 			padding: 10px;
-			box-shadow: 0px 0px 2px #F47115;
+			/* box-shadow: 0px 0px 2px #F47115; */
 		}
 		.box li {
 			line-height: 20px;
@@ -146,8 +148,8 @@
 	})
 	function queryStatic(){
 		var paramData = {
-				username:"xifanni",
-				password:"123456",
+				username:"<%=Utils.getLoginUserInfo(request).getUserAccount()%>",
+				password:"<%=Utils.getLoginUserInfo(request).getPassword()%>",
 				queryTime:$("#queryTime").val().length>0?$("#queryTime").val():new Date().format("yyyy-MM-dd")
 			};
 			$.ajax({
@@ -193,35 +195,20 @@
         	 var _pt = data.result[0][i].platformType;
         	 var store = data.result[0][i].storeName || "未登记店铺";
         	 var platformType = _pt=='mt'?"美团":_pt=='elm'?"饿了么":_pt=='bdwm'?"百度外卖":"未知";
-        	 orderNumTemp += '<li>'+ store +'（'+ platformType +'） <span>'+ data.result[0][i].successOrderAmount +'</span></li>';
-        	 orderAmontTemp += '<li>'+ store +'（'+ platformType +'） <span>'+ data.result[0][i].successOrderAmount +'</span></li>';
-                                 
+        	 var color = _pt=='mt'?"#3ECF8B":_pt=='elm'?"#359BF5":_pt=='bdwm'?"#FF2D48":"#ccc";
+        	 orderNumTemp += '<li>'+ store +'（'+ platformType +'） <span style="color:'+color+'">'+ data.result[0][i].successOrderNum +'</span></li>';
+        	 orderAmontTemp += '<li>'+ store +'（'+ platformType +'） <span style="color:'+color+'">'+ data.result[0][i].successOrderAmount +'</span></li>';
          }
          $(".ulOrderNum").html(orderNumTemp);
-         
     	 $(".ulOrderAmount").html(orderAmontTemp);
 	 }
 	$orderNum = $('.orderNum');
 	$orderAmount = $('.orderAmount');
-	$(".allNumber, .allAmount").hover(
-		function(){
-			$orderNum.show();
-			$orderAmount.show();
-		},
-		function(){
-			$orderNum.hide();
-			$orderAmount.hide();
-		}
-	)
-	$(".allNumber, .allAmount").mouseenter(function(e) {  
-		$orderNum.css({
-			top: e.pageY,
-			left: e.pageX,
-		});
-		$orderAmount.css({
-			top: e.pageY,
-			left: e.pageX,
-		})
+	$(".allNumber").hover(function(){$orderNum.show();},function(){$orderNum.hide();})
+	$(".allAmount").hover(function(){$orderAmount.show();},function(){$orderAmount.hide();})
+	$(".allNumber,.allAmount").mouseenter(function(e) {  
+		$orderNum.css({top: e.pageY,left: e.pageX,});
+		$orderAmount.css({top: e.pageY,left: e.pageX,})
 	});
 	</script>
 </body>

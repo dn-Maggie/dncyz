@@ -66,7 +66,6 @@ $(function() {
 					var pType = JSON.parse(this.data).platformType=="elm"?"elm":"meituan";
 				   if(d.respCode == "0000"){
 					   showMessage("账号验证成功！");
-					   debugger;
 					   $("input[name="+pType+"Pwd]").parents('tr').find('i')
 					   .removeClass("icon-unchecked").removeClass("red").removeClass("icon-stop")
 					   .addClass("icon-check-sign").addClass("green");

@@ -353,7 +353,6 @@ ExpExcel = {
 				type : "post",
 				dataType:"text",
 				success : function(response) {
-					debugger;
 					if(response){showMessage("导入数据成功","","",function(){
 						gridObj.trigger('reloadGrid');
 					});}

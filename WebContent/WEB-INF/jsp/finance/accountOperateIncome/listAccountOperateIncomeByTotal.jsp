@@ -172,12 +172,12 @@ var deepTotalModel = {url: "<m:url value='/accountOperaTotal/listAccountOperaTot
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
 						<c:if test="${configTitle}">
-							<li>
+							<!-- li>
 								<a title="配置表头标题" href="javascript:;" onclick="Finance.configTitle()"> 
 									<i class="back_icon permissions_icon"> </i> 
 									<span>配置表头</span>
 								</a>
-							</li>
+							</li-->
 						</c:if>
 						<c:if test="${show}">
 						<li>

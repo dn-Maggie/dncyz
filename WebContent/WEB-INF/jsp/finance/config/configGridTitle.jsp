@@ -252,45 +252,44 @@ $(function() {
 		var params = {};
 		params.storeName ="${storeName}";
 		for(var i = 0;i<$(".trItem").size();i++){
-			var jsonObj ={
-				 label:$(".colname:eq("+i+")").val(),
-			     name:$(".readname:eq("+i+")").val(),
-			     index:$(".colindex:eq("+i+")").val(),
-			     isBasic:$(".isBasic:eq("+i+")").val()=="true"?true:false,
-			     hidden:$(".ace-switch:eq("+i+")").is(':checked'),
-			     editable:$(".editable:eq("+i+")").val()=="true"?true:false,
-		     }
-			if(!$(".calcu:eq("+i+")").prop("disabled")){
-				jsonObj.editFlag=true;
-				jsonObj.calculate=$(".calcu:eq("+i+")").val();
-				jsonObj.serial = i;
-				jsonObj.formatter = cellFormatter; 
-				if(jsonObj.calculate.length>0&&jsonObj.name!="orderSaleRate"){
-					debugger;
-	       			params[jsonObj.name] = jsonObj.calculate;
+				var jsonObj ={
+					 label:$(".colname:eq("+i+")").val(),
+				     name:$(".readname:eq("+i+")").val(),
+				     index:$(".colindex:eq("+i+")").val(),
+				     isBasic:$(".isBasic:eq("+i+")").val()=="true"?true:false,
+				     hidden:$(".ace-switch:eq("+i+")").is(':checked'),
+				     editable:$(".editable:eq("+i+")").val()=="true"?true:false,
+			     }
+				if(!$(".calcu:eq("+i+")").prop("disabled")){
+					jsonObj.editFlag=true;
+					jsonObj.calculate=$(".calcu:eq("+i+")").val();
+					jsonObj.serial = i;
+					jsonObj.formatter = cellFormatter; 
+					if(jsonObj.calculate.length>0&&jsonObj.name!="orderSaleRate"){
+		       			params[jsonObj.name] = jsonObj.calculate;
+					}
 				}
-			}
-			if(jsonObj.name=="orderSaleRate"){
-				var paramDatas = {};
-           		paramDatas["orderSaleRate"] = jsonObj.calculate;
-           		paramDatas.storeName ="${storeName}";
-           		$ .ajax({
-           			type: "post",
-    				url: baseUrl+"/operaDate/updateOperaDate.do?type=orderSaleRate",
-    				data: paramDatas,
-					cache:false,
-    				dataType:"json"
-    			});
-			}
-			jsonArr.push(jsonObj);
-		}
-		$ .ajax({
-  			type: "post",
+				if(jsonObj.name=="orderSaleRate"){
+					var paramDatas = {};
+	           		paramDatas["orderSaleRate"] = jsonObj.calculate;
+	           		paramDatas.storeName ="${storeName}";
+		           		$ .ajax({
+		           			type: "post",
+		    				url: baseUrl+"/operaDate/updateOperaDate.do?type=orderSaleRate",
+		    				data: paramDatas,
+							cache:false,
+		    				dataType:"json"
+	    				});
+					}
+					jsonArr.push(jsonObj);
+				}
+			$ .ajax({
+  				type: "post",
 				url: baseUrl+"/operaDate/updateOperaDate.do?type=otherSum",
 				data: params,
 				cache:false,
 				dataType:"json"
-		});
+			});
 		var $parent = window.parent;
 		var tableId = $parent.$('.listtable_box').find('table.ui-jqgrid-btable').attr('id');
 		localStorage.setItem(tableId+"Model",JSON.stringify(jsonArr));
