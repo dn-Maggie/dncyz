@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.system.dao.OptionMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.system.model.Option">
+		<id column="OP_ID" property="opId" jdbcType="CHAR" />
+															<result column="OP_CODE" property="opCode" jdbcType="VARCHAR" />
+													<result column="OP_NAME" property="opName" jdbcType="VARCHAR" />
+													<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+									</resultMap>
+	<sql id="Base_Column_List">
+						 	OP_ID
+										,OP_CODE
+										,OP_NAME
+										,REMARK
+						</sql>
+	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from dn_op
+		where OP_ID = #{opId,jdbcType=CHAR}
+	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.system.model.Option">
+		select
+		<include refid="Base_Column_List" />
+		from dn_op
+		where 1=1
+		<if test="opId != null and '' != opId">  
+			and OP_ID = #{opId,jdbcType=CHAR}
+		</if>
+		<if test="opCode != null and '' != opCode">  
+			and OP_CODE = #{opCode,jdbcType=VARCHAR}
+		</if>
+		<if test="opName != null and '' != opName">  
+			and OP_NAME = #{opName,jdbcType=VARCHAR}
+		</if>
+		<if test="remark != null and '' != remark">  
+			and REMARK = #{remark,jdbcType=VARCHAR}
+		</if>
+				<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+         	</if>
+	</select>
+	
+	<delete id="deleteByKey" parameterType="java.lang.String">
+		delete from dn_op
+		where OP_ID = #{opId,jdbcType=CHAR}
+	</delete>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.system.model.Option">
+		insert into dn_op (
+		<include refid="Base_Column_List" />
+		)values (
+										#{opId,jdbcType=CHAR}
+														,#{opCode,jdbcType=VARCHAR}
+														,#{opName,jdbcType=VARCHAR}
+														,#{remark,jdbcType=VARCHAR}
+									)
+	</insert>
+	
+	<update id="update" parameterType="com.dongnao.workbench.system.model.Option">
+		update dn_op  set
+		ID= #{opId,jdbcType=CHAR}
+													,OP_CODE = #{opCode,jdbcType=VARCHAR}
+											,OP_NAME = #{opName,jdbcType=VARCHAR}
+											,REMARK = #{remark,jdbcType=VARCHAR}
+							where OP_ID = #{opId,jdbcType=CHAR}
+	</update>
+</mapper>
